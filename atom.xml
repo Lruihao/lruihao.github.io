@@ -1,0 +1,521 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>李四啊_&#39;s Blog</title>
+  
+  <subtitle>你如何回忆，决定你是一个怎样的人！</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://lruihao.github.io/"/>
+  <updated>2018-06-14T12:44:12.000Z</updated>
+  <id>http://lruihao.github.io/</id>
+  
+  <author>
+    <name>李瑞豪</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>简单背包</title>
+    <link href="http://lruihao.github.io/%E7%AE%80%E5%8D%95%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/"/>
+    <id>http://lruihao.github.io/简单背包问题/</id>
+    <published>2018-06-16T05:18:43.938Z</published>
+    <updated>2018-06-14T12:44:12.000Z</updated>
+    
+    <content type="html"><![CDATA[<p><code>弱鸡还是弱鸡啊最简单的背包问题——。——！</code></p><p>1）问题描述:<br>假设有一个能装入总体积为T的背包和n件体积分别为W1，W2，···，Wn的物品，能否从n件物品中挑选若干件恰好装满背包，即使W1+W2+···+Wn=T，要求找出所有满足上述条件的解。例如：当T=10，共6件物品，物品的体积为{1，2，3，4，5，8}，那么可找到下列4组解：（1，2，3，4）、（1，4，5）、（2，3，5）、（2、8）。<br><a id="more"></a><br>2）实现提示：<br>可利用回溯法的设计思想来解决背包问题。首先，将物品排成一列，然后顺序选取物品装入背包，假设已选取了前i件物品之后背包还没有装满，则继续选取第i+1件物品，若该件物品“太大”不能装入，则丢弃而继续选取下一件，直至背包装满为止。但如果在剩余的物品中找不到合适的物品以填满背包，则说明“刚刚”装入背包的那件物品“不合适”，应将它取出“丢弃一边”，继续再从“它之后”的物品中选取，如此重复，直至求得满足条件的解，或者无解。由于回溯求解的规则是“后进先出”，因此要用到栈。</p><p>使用栈作为该程序的数据结构，利用栈进行语法检查，以深度优先的搜索方式解空间，实现递归过程和函数的调用，在设计时还使用C语言的数组及其循环语言来实现程序。<br>运用回溯法解题，在搜索解空间树时，只要其左儿子节点是一个可行结点，搜索就进入左子树，在右子树中有可能包含最优解是才进入右子树搜索。否则将右子树剪去。</p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;windows.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> size 50</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">stacks</span> &#123;</span></span><br><span class="line"><span class="keyword">int</span> data[size];</span><br><span class="line"><span class="keyword">int</span> top;</span><br><span class="line">&#125; <span class="built_in">stack</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">backpack</span><span class="params">(<span class="keyword">int</span> number,<span class="keyword">int</span> V,<span class="keyword">int</span> w[])</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i,j=<span class="number">1</span>,k=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> flag=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">do</span> &#123;</span><br><span class="line"><span class="keyword">while</span> (V &gt; <span class="number">0</span> &amp;&amp; k &lt;= number) &#123;</span><br><span class="line"><span class="keyword">if</span> (V &gt;= w[k]) &#123;</span><br><span class="line"><span class="built_in">stack</span>.data[<span class="built_in">stack</span>.top] = k;<span class="comment">//第k个物品的体积下标</span></span><br><span class="line"><span class="built_in">stack</span>.top++;</span><br><span class="line">V -= w[k];</span><br><span class="line">&#125;</span><br><span class="line">k++;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (V == <span class="number">0</span>) &#123;</span><br><span class="line">flag=<span class="number">1</span>;</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"第%d个符合条件的解："</span>, j);</span><br><span class="line"><span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; <span class="built_in">stack</span>.top; i++) &#123;</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"%d "</span>, w[<span class="built_in">stack</span>.data[i]]);</span><br><span class="line">&#125;</span><br><span class="line">j++;</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"\n"</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//k满时回溯</span></span><br><span class="line">k = <span class="built_in">stack</span>.data[--<span class="built_in">stack</span>.top];</span><br><span class="line"><span class="built_in">stack</span>.data[<span class="built_in">stack</span>.top] = <span class="number">0</span>;</span><br><span class="line">V += w[k];</span><br><span class="line">k++;</span><br><span class="line">&#125; <span class="keyword">while</span> (!(<span class="built_in">stack</span>.top == <span class="number">0</span> &amp;&amp; k == number));</span><br><span class="line"><span class="keyword">if</span>(!flag)&#123;</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"背包无解！\n"</span>);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">judge</span><span class="params">(<span class="keyword">int</span> number,<span class="keyword">int</span> V,<span class="keyword">int</span> w[])</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i,s = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; number; i++)</span><br><span class="line">s = s + w[i];</span><br><span class="line"><span class="keyword">if</span>(V &gt; s)&#123;</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"背包无解！\n"</span>);</span><br><span class="line"><span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span>(V==s)&#123;</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"只有一个符合条件的解：%d\n"</span>, V);</span><br><span class="line"><span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line"><span class="keyword">int</span> w[size];</span><br><span class="line"><span class="keyword">int</span> V;</span><br><span class="line"><span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">int</span> j = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">int</span> number;</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"\t**简单背包问题**\n\n"</span>);</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"\n请输入可供选择装入物品的个数：\n"</span>);</span><br><span class="line"><span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;number);</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"\n请输入各件物品的体积：\n"</span>);</span><br><span class="line"><span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; number; i++)</span><br><span class="line"><span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;w[i]);</span><br><span class="line"></span><br><span class="line"><span class="comment">//排序</span></span><br><span class="line"><span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;number;i++)</span><br><span class="line"><span class="keyword">for</span>(j=i+<span class="number">1</span>;j&lt;number;j++)</span><br><span class="line"><span class="keyword">if</span>(w[i]&gt;w[j])&#123;</span><br><span class="line">w[i]=w[i]^w[j];</span><br><span class="line">w[j]=w[i]^w[j];</span><br><span class="line">w[i]=w[i]^w[j];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"\n请输入背包的总体积：\n"</span>);</span><br><span class="line"><span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;V);</span><br><span class="line"><span class="keyword">while</span>(V &lt; <span class="number">0</span>)&#123;</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"输入背包体积错误！重新输入！\n"</span>);</span><br><span class="line"><span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;V);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">judge(number,V,w);</span><br><span class="line"></span><br><span class="line"><span class="comment">//初始化栈</span></span><br><span class="line"><span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; number; i++)</span><br><span class="line"><span class="built_in">stack</span>.data[i] = <span class="number">0</span>;</span><br><span class="line"><span class="built_in">stack</span>.top = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">backpack(number,V,w);</span><br><span class="line"><span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p><code>--这么简单的问题我都费力，太辣鸡了</code></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;code&gt;弱鸡还是弱鸡啊最简单的背包问题——。——！&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;1）问题描述:&lt;br&gt;假设有一个能装入总体积为T的背包和n件体积分别为W1，W2，···，Wn的物品，能否从n件物品中挑选若干件恰好装满背包，即使W1+W2+···+Wn=T，要求找出所有满足上述条件的解。例如：当T=10，共6件物品，物品的体积为{1，2，3，4，5，8}，那么可找到下列4组解：（1，2，3，4）、（1，4，5）、（2，3，5）、（2、8）。&lt;br&gt;
+    
+    </summary>
+    
+      <category term="背包问题" scheme="http://lruihao.github.io/categories/%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/"/>
+    
+    
+      <category term="背包问题" scheme="http://lruihao.github.io/tags/%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>18湘潭邀请赛参赛队员代表发言</title>
+    <link href="http://lruihao.github.io/18%E6%B9%98%E6%BD%AD%E9%82%80%E8%AF%B7%E8%B5%9B%E9%98%9F%E5%91%98%E4%BB%A3%E8%A1%A8%E5%8F%91%E8%A8%80/"/>
+    <id>http://lruihao.github.io/18湘潭邀请赛队员代表发言/</id>
+    <published>2018-06-14T23:51:21.000Z</published>
+    <updated>2018-06-14T23:56:26.000Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote><p>来自一位大佬的演讲</p></blockquote><p>尊敬的领导、教练，亲爱的参赛选手们：<br>大家好，我是来自广东工业大学的tmk。今天很荣幸能够站在这里代表全体参赛选手发言，与大家分享我的经历和感受。<br>刚开始来到大学的时候，我一心向学，本着“好好学习，天天向上，为校争光，不搞对象”的信念，想在大学一展宏图。因为高中OI的挫败，我在刚上大学的时候就选择了ACM这条“不归路”。一开始是因为高中的遗憾，到后来就完全是因为信念和兴趣慢慢一直搞到现在。当时的我还不知道踏上ACM这条路的苦，而如今的我却也尝到了ACM带给我的乐。<br>在这三年里，有数不清的夜晚，我的舍友们在寝室里开黑，而我和我的队友在机房里开黑；在这三年里，有数不清的周末，我的舍友们在校园里驰骋，而我和我的队友在题库里驰骋；在这三年里，有数不清的假期，我的舍友们在召唤师峡谷里征战，而我和我的队友在中国各省市征战。三年过去了，我的舍友们成为了offer收割机，而我和我的队友成为了气球收割机。<br>为了变强是一个痛苦且漫长的过程，只有耐得住寂寞，才能守得住繁华。我的一位队友为了变强甚至牺牲了自己的头发，仅仅是因为他担心他的头发阻碍了他思维的发散。他变秃了也变强了。<br>三年的 ACM 让我成长很多，收获很多。我也从一个“好好学习天天向上为校争光不搞对象”的无知青年变成了一个写的了工程查得出异常的准程序员。我觉得三年献身于ACM的日子是值得的，和一大堆萌萌的男孩子们在屋子里面一个又一个通宵奋斗的酣畅淋漓的日子是值得的，看着谈恋爱的大家一会儿哀伤一会儿忧愁而我与代码自得其乐矢志不渝的日子是值得的。此外他还给我带来两个最好的小伙伴，是他们的一路陪伴，让我有勇气一直走下去。我和他们走过的地方，比我和女朋友去过的地方还要多。噢，对了，我好像没有女朋友。总而言之，请珍惜你们的队友，他们是你们在大学里为数不多一起奋斗的小伙伴。希望大家像我一样，也爱着ACM，为自己心爱的努力。<br>最后预祝各位参赛选手们取得理想的成绩，也预祝本次大赛圆满成功。谢谢大家。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;blockquote&gt;
+&lt;p&gt;来自一位大佬的演讲&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;尊敬的领导、教练，亲爱的参赛选手们：&lt;br&gt;大家好，我是来自广东工业大学的tmk。今天很荣幸能够站在这里代表全体参赛选手发言，与大家分享我的经历和感受。&lt;br&gt;刚开始来到大学的时候，我一
+      
+    
+    </summary>
+    
+      <category term="2018湘潭邀请赛" scheme="http://lruihao.github.io/categories/2018%E6%B9%98%E6%BD%AD%E9%82%80%E8%AF%B7%E8%B5%9B/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>18湘潭邀请赛总结</title>
+    <link href="http://lruihao.github.io/18%E6%B9%98%E6%BD%AD%E9%82%80%E8%AF%B7%E8%B5%9B%E6%80%BB%E7%BB%93/"/>
+    <id>http://lruihao.github.io/18湘潭邀请赛总结/</id>
+    <published>2018-06-14T15:32:47.000Z</published>
+    <updated>2018-06-16T05:28:54.838Z</updated>
+    
+    <content type="html"><![CDATA[<p><a href="http://acm.hdu.edu.cn/downloads/2018ccpc_hn.pdf" target="_blank" rel="noopener">题目链接</a>（hdu复赛）</p><p>2018年湘潭邀请赛，在湘大举行，当时一起打的过去的，因为没出市就方便点。第一次参加现场赛，首先反省一下自己，比赛前算法先不说(没有好好搞过)，就连普通的题，数学性质的题都很少刷，什么都不会，然后英语不说四六级的东西，很多专业英语词汇都没有好好了解过，主要的原因还是刷题刷少了，英文题刷少了。理所当然，成功拿下一铁，湘潭赛打铁告终。</p><p>比赛开始，这次是三个人没人一份纸质题目，拿到题目，看最后一题，k.2018发现可以做，(事实证明确实是一道水题)，我就在做这题，他们看了a题，好像是k题一顿操作后提交，错了，一直到比赛结束都没做出来，后来回去看别人的题解，发现自己情况没有分析全面，其实是完全可以解出来的，真的做的太少太少了。a题最后也是没过，还有一个f题，sort，我最初的想法是用stl里的那个sort排序，只要对sort的compare函数做处理应该可以完成排序，比赛之前我看过，但是不熟悉，zxm她也看了我就交给她了，最后好像因为爆long double的问题也没做出来。<br>哎，菜还是菜，很多算法都不懂，数据结构也没学好，很有一段时间我都特别头疼算法，不想学，费劲，觉得自己不适合学计算机，更不适合ACM。有时候又想，不适合好像总是loser的借口！总是在后悔和偷懒的矛盾中！<br>最后，放上，”参赛奖”羞辱自己，也是鞭策！<br><img src="https://i.loli.net/2018/06/16/5b249fed84000.jpg" alt="IMG_20180616_132759.jpg"></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;&lt;a href=&quot;http://acm.hdu.edu.cn/downloads/2018ccpc_hn.pdf&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;题目链接&lt;/a&gt;（hdu复赛）&lt;/p&gt;
+&lt;p&gt;2018年湘潭邀请赛，在湘大举行，当时一起打的过去
+      
+    
+    </summary>
+    
+      <category term="2018湘潭邀请赛" scheme="http://lruihao.github.io/categories/2018%E6%B9%98%E6%BD%AD%E9%82%80%E8%AF%B7%E8%B5%9B/"/>
+    
+    
+      <category term="2018湘潭邀请赛" scheme="http://lruihao.github.io/tags/2018%E6%B9%98%E6%BD%AD%E9%82%80%E8%AF%B7%E8%B5%9B/"/>
+    
+      <category term="ACM" scheme="http://lruihao.github.io/tags/ACM/"/>
+    
+      <category term="总结" scheme="http://lruihao.github.io/tags/%E6%80%BB%E7%BB%93/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>F.sorting</title>
+    <link href="http://lruihao.github.io/F-sorting/"/>
+    <id>http://lruihao.github.io/F-sorting/</id>
+    <published>2018-06-14T14:49:27.000Z</published>
+    <updated>2018-06-14T15:43:24.000Z</updated>
+    
+    <content type="html"><![CDATA[<p><img src="https://i.loli.net/2018/06/14/5b2286fcec6fc.png" alt="sorting.png"><br><a id="more"></a><br><strong>Sample Input</strong></p><p>2<br>1 1 1<br>1 1 2<br>2<br>1 1 2<br>1 1 1<br>3<br>1 3 1<br>2 2 1<br>3 1 1</p><p><strong>Sample Output</strong></p><p>2 1<br>1 2<br>1 2 3</p><p>题意：给定n个元组(a1,b1,c1),(a2,b2,c2),…,(an,bn,cn)，将其按(ai+bi)/(ai+bi+ci)的值从小到大排序，输出排序后的n个元组的原序号；<br>思路：编写sort里的cmp函数(形参为元组结构体元素，设为Tuple x,Tuple y)，若直接算出(x.a+x.b)<em>(y.a+y.b+y.c)和(y.a+y.b)</em>(x.a+x.b+x.c)再比较大小，这两个结果会爆unsigned long long；<br>可以把因式乘积展开成多项式的和，约去两式中相同的项，得到x.a<em>y.c+x.b</em>y.c和y.a<em>x.c+y.b</em>x.c，因此只需计算它俩再比较即可，结果不会爆unsigned long long </p><p>后AC代码<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"bits/stdc++.h"</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">node</span>&#123;</span></span><br><span class="line">    <span class="keyword">long</span> <span class="keyword">double</span> a,b,c;</span><br><span class="line">    <span class="keyword">int</span> numb;</span><br><span class="line">&#125;ss[<span class="number">1005</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">cmp</span><span class="params">(<span class="keyword">const</span> node &amp;a,<span class="keyword">const</span> node &amp;b)</span></span>&#123;</span><br><span class="line">    <span class="keyword">long</span> <span class="keyword">double</span> suma,sumb;</span><br><span class="line">    <span class="comment">//suma=a.a*b.c+a.b*b.c;</span></span><br><span class="line">    <span class="comment">//sumb=b.a*a.c+b.b*a.c;</span></span><br><span class="line">    suma=(a.a+a.b)/(a.a+a.b+a.c);</span><br><span class="line">    sumb=(b.a+b.b)/(b.a+b.b+b.c);</span><br><span class="line">    <span class="keyword">if</span>(suma!=sumb)<span class="keyword">return</span> suma&lt;sumb;</span><br><span class="line">    <span class="keyword">return</span> a.numb&lt;b.numb;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n;</span><br><span class="line">    <span class="keyword">while</span>(<span class="built_in">cin</span>&gt;&gt;n)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)&#123;</span><br><span class="line">            <span class="built_in">cin</span>&gt;&gt;ss[i].a&gt;&gt;ss[i].b&gt;&gt;ss[i].c;</span><br><span class="line">            ss[i].numb=i+<span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        stable_sort(ss,ss+n,cmp);</span><br><span class="line">        <span class="keyword">int</span> i;</span><br><span class="line">        <span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;n<span class="number">-1</span>;i++)</span><br><span class="line">            <span class="built_in">cout</span>&lt;&lt;ss[i].numb&lt;&lt;<span class="string">" "</span>;</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;ss[i].numb&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;https://i.loli.net/2018/06/14/5b2286fcec6fc.png&quot; alt=&quot;sorting.png&quot;&gt;&lt;br&gt;
+    
+    </summary>
+    
+      <category term="2018湘潭邀请赛" scheme="http://lruihao.github.io/categories/2018%E6%B9%98%E6%BD%AD%E9%82%80%E8%AF%B7%E8%B5%9B/"/>
+    
+    
+      <category term="2018湘潭邀请赛" scheme="http://lruihao.github.io/tags/2018%E6%B9%98%E6%BD%AD%E9%82%80%E8%AF%B7%E8%B5%9B/"/>
+    
+      <category term="ACM" scheme="http://lruihao.github.io/tags/ACM/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>K.2018</title>
+    <link href="http://lruihao.github.io/K-2018/"/>
+    <id>http://lruihao.github.io/K-2018/</id>
+    <published>2018-06-14T14:48:16.000Z</published>
+    <updated>2018-06-14T15:40:52.000Z</updated>
+    
+    <content type="html"><![CDATA[<p><strong>K. 2018</strong></p><p>Given a,b,c,d, ﬁnd out the number of pairs of integers (x,y) where a ≤ x ≤ b,c ≤ y ≤ d and x·y is a<br>multiple of 2018.</p><a id="more"></a><p><strong>Input</strong></p><p>The input consists of several test cases and is terminated by end-of-ﬁle.<br>Each test case contains four integers a,b,c,d.</p><p><strong>Output</strong></p><p>For each test case, print an integer which denotes the result.</p><p><strong>Constraint</strong></p><p>  • 1≤ a ≤ b ≤109,1≤ c ≤ d ≤109<br>  • The number of tests cases does not exceed 104.</p><p><strong>Sample Input</strong></p><p>1 2 1 2018<br>1 2018 1 2018<br>1 1000000000 1 1000000000</p><p><strong>Sample Output</strong></p><p>3<br>6051<br>1485883320325200</p><p>题意：给定区间[a,b]、[c,d]，问有多少对有序数组(x,y)(x∈[a,b],y∈[c,d])使得x<em>y是2018的倍数<br>思路：2018=2</em>1009(分解质因数)，则对x分类讨论:1)仅为2的倍数；2）仅为1009的倍数；3）即为2又为1009的倍数；4）既不为2又不为1009的倍数<br>等价于如下分类讨论：<br>1.若x是偶数：1）若x是1009的倍数，则y可为[c,d]中任意数； 2）若x不是1009的倍数，则y必定为[c,d]中1009的倍数<br>2.若x是奇数：1）若x是1009的倍数，则y必定为[c,d]中2的倍数； 2）若x不是1009的倍数，则y必定为[c,d]中2018的倍数</p><p>后AC代码<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">unsigned</span> <span class="keyword">long</span> <span class="keyword">long</span> ll;</span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">   ll a,b,c,d;</span><br><span class="line">   <span class="keyword">while</span>(<span class="built_in">cin</span>&gt;&gt;a&gt;&gt;b&gt;&gt;c&gt;&gt;d)&#123;</span><br><span class="line">     ll num1_all_1009=b/<span class="number">1009</span>-(a<span class="number">-1</span>)/<span class="number">1009</span>;</span><br><span class="line">     ll num1_even=b/<span class="number">2</span>-(a<span class="number">-1</span>)/<span class="number">2</span>;</span><br><span class="line">     ll num1_1009_in_even=b/<span class="number">2018</span>-(a<span class="number">-1</span>)/<span class="number">2018</span>;</span><br><span class="line">     ll num1_rest_in_even=num1_even-num1_1009_in_even;</span><br><span class="line">     ll num1_odd=(b-a+<span class="number">1</span>)-num1_even;</span><br><span class="line">     ll num1_1009_in_odd=num1_all_1009-num1_1009_in_even;</span><br><span class="line">     ll num1_rest_in_odd=num1_odd-num1_1009_in_odd;</span><br><span class="line">     ll ans=<span class="number">0</span>;</span><br><span class="line">     ans+=num1_1009_in_even*(d-c+<span class="number">1</span>);</span><br><span class="line">     ll num2_all_1009=d/<span class="number">1009</span>-(c<span class="number">-1</span>)/<span class="number">1009</span>; </span><br><span class="line">     ans+=num1_rest_in_even*num2_all_1009;</span><br><span class="line">     ll num2_even=d/<span class="number">2</span>-(c<span class="number">-1</span>)/<span class="number">2</span>;</span><br><span class="line">     ans+=num1_1009_in_odd*num2_even;</span><br><span class="line">     ll num2_all_2018=d/<span class="number">2018</span>-(c<span class="number">-1</span>)/<span class="number">2018</span>; ans+=num1_rest_in_odd*num2_all_2018;</span><br><span class="line">     <span class="built_in">cout</span>&lt;&lt;ans&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;strong&gt;K. 2018&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Given a,b,c,d, ﬁnd out the number of pairs of integers (x,y) where a ≤ x ≤ b,c ≤ y ≤ d and x·y is a&lt;br&gt;multiple of 2018.&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="2018湘潭邀请赛" scheme="http://lruihao.github.io/categories/2018%E6%B9%98%E6%BD%AD%E9%82%80%E8%AF%B7%E8%B5%9B/"/>
+    
+    
+      <category term="2018湘潭邀请赛" scheme="http://lruihao.github.io/tags/2018%E6%B9%98%E6%BD%AD%E9%82%80%E8%AF%B7%E8%B5%9B/"/>
+    
+      <category term="ACM" scheme="http://lruihao.github.io/tags/ACM/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>B.Higher h-index</title>
+    <link href="http://lruihao.github.io/B-Higher-h-index/"/>
+    <id>http://lruihao.github.io/B-Higher-h-index/</id>
+    <published>2018-06-14T14:47:28.000Z</published>
+    <updated>2018-06-14T15:31:02.000Z</updated>
+    
+    <content type="html"><![CDATA[<p><strong>B. Higher h-index</strong></p><p>The h-index of an author is the largest h where he has at least h papers with citations not less than h.<br>Bobo has no papers and he is going to publish some subsequently. If he works on a paper for x hours, the<br>paper will get (a·x) citations, where a is a known constant. It’s clear that x should be a positive integer.<br>There is also a trick – one can cite his own papers published earlier. </p><p>Given Bobo has n working hours, ﬁnd the maximum h-index of him.</p><a id="more"></a><p><strong>Input</strong></p><p>The input consists of several test cases and is terminated by end-of-ﬁle.<br>Each test case contains two integers n and a.</p><p><strong>Output</strong></p><p>For each test case, print an integer which denotes the maximum h-index.</p><p><strong>Constraint</strong></p><p>  • 1≤ n ≤109<br>  • 0≤ a ≤ n<br>  • The number of test cases does not exceed 104.</p><p><strong>Sample Input</strong></p><p>3 0<br>3 1<br>1000000000 1000000000</p><p><strong>Sample Output</strong></p><p>1<br>2<br>1000000000</p><p><strong>Note</strong> </p><p>For the ﬁrst sample, Bobo can work 3 papers for 1 hour each. With the trick mentioned,<br>he will get papers with citations 2,1,0. Thus, his h-index is 1.<br>For the second sample, Bobo can work 2 papers for 1 and 2 hours respectively.<br>He will get papers with citations 1+1,2+0. Thus, his h-index is 2.</p><p>题意：给定n个小时，可以用其中x(1&lt;=x&lt;=n)个小时写一篇论文，那么这篇论文的”既定”引用数将会是<code>x*a</code>(a为给定正整数)；此外，已经写好的论文将会被其后写成的论文所引用，也就是说，这篇论文的总引用数将会是”既定”引用数+其后论文篇数；问在所有的写论文方案中(例如一种方案就是用n个小时写n篇论文，每篇论文各花1小时(可以得到这n篇论文的引用数))，h最大为多少(h的含义同上题)(每一种方案都对应着一个h，求这些h中的最大者)<br>思路：最优方案(即对应h值最大的方案)是平摊n小时写成n篇论文(证明未知)；此时n篇论文的引用数为a,a+1,a+2,…,a+n-1，引用数为a+i时，引用数大于等于它的论文有n-i篇，令a+i=n-i得i=(n-a)/2,所以h=a+(n-a)/2;</p><p>后AC代码<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">   <span class="keyword">int</span> n,a;</span><br><span class="line">   <span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>,&amp;n,&amp;a)!=EOF)&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d\n"</span>,a+(n-a)/<span class="number">2</span>);</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;strong&gt;B. Higher h-index&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;The h-index of an author is the largest h where he has at least h papers with citations not less than h.&lt;br&gt;Bobo has no papers and he is going to publish some subsequently. If he works on a paper for x hours, the&lt;br&gt;paper will get (a·x) citations, where a is a known constant. It’s clear that x should be a positive integer.&lt;br&gt;There is also a trick – one can cite his own papers published earlier. &lt;/p&gt;
+&lt;p&gt;Given Bobo has n working hours, ﬁnd the maximum h-index of him.&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="2018湘潭邀请赛" scheme="http://lruihao.github.io/categories/2018%E6%B9%98%E6%BD%AD%E9%82%80%E8%AF%B7%E8%B5%9B/"/>
+    
+    
+      <category term="2018湘潭邀请赛" scheme="http://lruihao.github.io/tags/2018%E6%B9%98%E6%BD%AD%E9%82%80%E8%AF%B7%E8%B5%9B/"/>
+    
+      <category term="ACM" scheme="http://lruihao.github.io/tags/ACM/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>A.Easy h-index</title>
+    <link href="http://lruihao.github.io/A-Easy-h-index/"/>
+    <id>http://lruihao.github.io/A-Easy-h-index/</id>
+    <published>2018-06-14T14:36:58.000Z</published>
+    <updated>2018-06-14T15:40:12.000Z</updated>
+    
+    <content type="html"><![CDATA[<p><strong>A. Easy h-index</strong></p><p>The h-index of an author is the largest h where he has at least h papers with citations not less than h.<br>Bobo has published many papers. Given a0,a1,a2,…,an which means Bobo has published ai papers with<br>itations exactly i, ﬁnd the h-index of Bobo.</p><a id="more"></a><p><strong>Input</strong> </p><p>The input consists of several test cases and is terminated by end-of-ﬁle.<br>The ﬁrst line of each test case contains an integer n. The second line contains (n+1) integers a0,a1,…,an.</p><p><strong>Output</strong><br>For each test case, print an integer which denotes the result.</p><p><strong>Constraint</strong></p><p>  • 1≤ n ≤2·105<br>  • 0≤ ai ≤109<br>  • The sum of n does not exceed 250,000.</p><p><strong>Sample Input</strong></p><p>1<br>1 2<br>2<br>1 2 3<br>3<br>0 0 0 0</p><p><strong>Sample Output</strong></p><p>1<br>2<br>0</p><p>题意：给定被引用次数为0~n的论文分别有几张，找到最大的h，满足被引用次数大于等于h的论文至少有h张<br>思路：在区间[0,n]内二分答案；或直接从n~0遍历找到第一个满足条件的h</p><p>后AC代码<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"bits/stdc++.h"</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> a[<span class="number">200005</span>];</span><br><span class="line">    <span class="keyword">int</span> n;</span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line">    <span class="keyword">while</span>(<span class="built_in">cin</span>&gt;&gt;n)&#123;</span><br><span class="line">        <span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;=n;i++)</span><br><span class="line">            <span class="built_in">cin</span>&gt;&gt;a[i];</span><br><span class="line">        <span class="keyword">int</span> sum=a[n];</span><br><span class="line">        <span class="keyword">for</span>(i=n;i&gt;=<span class="number">0</span>;)&#123;</span><br><span class="line">            <span class="keyword">if</span>(sum&gt;=i)&#123;</span><br><span class="line">                <span class="built_in">cout</span>&lt;&lt;i&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> sum+=a[--i];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(i&lt;<span class="number">0</span>)</span><br><span class="line">            <span class="built_in">cout</span>&lt;&lt;<span class="string">"0"</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;strong&gt;A. Easy h-index&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;The h-index of an author is the largest h where he has at least h papers with citations not less than h.&lt;br&gt;Bobo has published many papers. Given a0,a1,a2,…,an which means Bobo has published ai papers with&lt;br&gt;itations exactly i, ﬁnd the h-index of Bobo.&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="2018湘潭邀请赛" scheme="http://lruihao.github.io/categories/2018%E6%B9%98%E6%BD%AD%E9%82%80%E8%AF%B7%E8%B5%9B/"/>
+    
+    
+      <category term="2018湘潭邀请赛" scheme="http://lruihao.github.io/tags/2018%E6%B9%98%E6%BD%AD%E9%82%80%E8%AF%B7%E8%B5%9B/"/>
+    
+      <category term="ACM" scheme="http://lruihao.github.io/tags/ACM/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>C++中sort函数</title>
+    <link href="http://lruihao.github.io/C++%E4%B8%ADsort%E5%87%BD%E6%95%B0/"/>
+    <id>http://lruihao.github.io/C++中sort函数/</id>
+    <published>2018-06-14T12:23:03.000Z</published>
+    <updated>2018-06-14T12:28:52.000Z</updated>
+    
+    <content type="html"><![CDATA[<p><a href="https://weibo.com/ttarticle/p/show?id=2309404238259097064884&amp;mod=zwenzhang" target="_blank" rel="noopener">传送门</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;&lt;a href=&quot;https://weibo.com/ttarticle/p/show?id=2309404238259097064884&amp;amp;mod=zwenzhang&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;传送门&lt;/a&gt;&lt;/p&gt;
+
+      
+    
+    </summary>
+    
+      <category term="排序" scheme="http://lruihao.github.io/categories/%E6%8E%92%E5%BA%8F/"/>
+    
+    
+      <category term="C++" scheme="http://lruihao.github.io/tags/C/"/>
+    
+      <category term="排序" scheme="http://lruihao.github.io/tags/%E6%8E%92%E5%BA%8F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>位运算</title>
+    <link href="http://lruihao.github.io/%E4%BD%8D%E8%BF%90%E7%AE%97/"/>
+    <id>http://lruihao.github.io/位运算/</id>
+    <published>2018-06-14T12:22:21.000Z</published>
+    <updated>2018-06-14T23:47:54.000Z</updated>
+    
+    <content type="html"><![CDATA[<p><a href="https://weibo.com/ttarticle/p/show?id=2309404238259097064884&amp;mod=zwenzhang" target="_blank" rel="noopener">传送门</a></p><p><a href="http://www.matrix67.com/blog/archives/263" target="_blank" rel="noopener">原文</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;&lt;a href=&quot;https://weibo.com/ttarticle/p/show?id=2309404238259097064884&amp;amp;mod=zwenzhang&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;传送门&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a
+      
+    
+    </summary>
+    
+      <category term="通用" scheme="http://lruihao.github.io/categories/%E9%80%9A%E7%94%A8/"/>
+    
+    
+      <category term="通用" scheme="http://lruihao.github.io/tags/%E9%80%9A%E7%94%A8/"/>
+    
+      <category term="位运算" scheme="http://lruihao.github.io/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>C++ with STL</title>
+    <link href="http://lruihao.github.io/C++%20with%20STL/"/>
+    <id>http://lruihao.github.io/C++ with STL/</id>
+    <published>2018-06-14T12:22:06.000Z</published>
+    <updated>2018-06-14T12:48:28.000Z</updated>
+    
+    <content type="html"><![CDATA[<p><a href="https://weibo.com/ttarticle/p/show?id=2309404241150725776250&amp;mod=zwenzhang" target="_blank" rel="noopener">传送门</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;&lt;a href=&quot;https://weibo.com/ttarticle/p/show?id=2309404241150725776250&amp;amp;mod=zwenzhang&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;传送门&lt;/a&gt;&lt;/p&gt;
+
+      
+    
+    </summary>
+    
+      <category term="STL" scheme="http://lruihao.github.io/categories/STL/"/>
+    
+    
+      <category term="STL" scheme="http://lruihao.github.io/tags/STL/"/>
+    
+      <category term="C++" scheme="http://lruihao.github.io/tags/C/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Markdown基础教程</title>
+    <link href="http://lruihao.github.io/Markdown%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/"/>
+    <id>http://lruihao.github.io/Markdown基础教程/</id>
+    <published>2018-06-09T16:05:10.000Z</published>
+    <updated>2018-06-10T04:27:10.000Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote><p>本文来自kio对Markdown的基础教程</p></blockquote><a id="more"></a><p>Markdown主张使用最简单的符号来控制格式，兼顾易读易写特性，让你可以专注在文本创作上。</p><p>这篇文章旨在让你通过大约三分钟来快速掌握Markdown的基本用法。</p><h2 id="在开始之前，需要特别注意的点"><a href="#在开始之前，需要特别注意的点" class="headerlink" title="在开始之前，需要特别注意的点"></a>在开始之前，需要特别注意的点</h2><ol><li>通常，格式控制符号与文本内容需要<strong>保留一个空格</strong></li><li>段落之间需要<strong>空格一行</strong></li></ol><h2 id="标题"><a href="#标题" class="headerlink" title="标题"></a>标题</h2><p>在书写中，标题是最常用的格式，Markdown中，通过在文本前加上 # 即可，同时，根据#的数量可以可以划分为二级标题、三级标题、四级标题…一共六级。</p><h1 id="一级标题"><a href="#一级标题" class="headerlink" title="一级标题"></a>一级标题</h1><h2 id="二级标题"><a href="#二级标题" class="headerlink" title="二级标题"></a>二级标题</h2><h3 id="三级标题"><a href="#三级标题" class="headerlink" title="三级标题"></a>三级标题</h3><h4 id="四级标题"><a href="#四级标题" class="headerlink" title="四级标题"></a>四级标题</h4><h5 id="五级标题"><a href="#五级标题" class="headerlink" title="五级标题"></a>五级标题</h5><h6 id="六级标题"><a href="#六级标题" class="headerlink" title="六级标题"></a>六级标题</h6><h2 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h2><p>列表分为无序列表和有序列表，无序列表在文本前面加上 - 即可：</p><ul><li>无序列表一</li><li>无序列表二</li><li>无序列表三</li></ul><p>而有序列表仅需要在文本前面加上 1. 即可：</p><ol><li>有序列表一</li><li>有序列表二</li><li>有序列表三</li></ol><h2 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h2><p>文本经常需要引入一些内容，包括他人的话等等。仅需要在文本前面加上 &gt; 即可：</p><blockquote><p>Kio•纯粹写字</p></blockquote><h2 id="文字修饰"><a href="#文字修饰" class="headerlink" title="文字修饰"></a>文字修饰</h2><p>为了表达的抑扬顿挫，需要使用到粗体、斜体、删减体等来表明重点，其中用一个 * 号包围起来的文字为斜体，用 ** 包围起来的文字为粗体，而使用 ~~ 包围起来的文字为删减体：</p><p><em>斜体</em> <strong>粗体</strong> <del>删减体</del></p><h2 id="段落分隔符"><a href="#段落分隔符" class="headerlink" title="段落分隔符"></a>段落分隔符</h2><p>通过 — 即可以添加段落分割线：</p><hr><h2 id="链接及图片"><a href="#链接及图片" class="headerlink" title="链接及图片"></a>链接及图片</h2><p><a href="https://lruihao.github.io/2018/05/31/hexo-添加图片%EF%BC%8C音乐%EF%BC%8C链接%EF%BC%8C视频/#more">另外一篇博文</a><br>链接和图片可以为文章润色不少，通过 [描述]（地址） 既可以添加链接，而在其前面添加一个 ! 号即为添加图片， 具体为:</p><p><a href="https://www.baidu.com" target="_blank" rel="noopener">百度</a></p><p><img src="http://oss.blurme.idik.net/artemis/image/logo.png" alt="Kio Logo"></p><h2 id="表格"><a href="#表格" class="headerlink" title="表格"></a>表格</h2><table><thead><tr><th style="text-align:center">英文</th><th style="text-align:left">解释</th><th style="text-align:right">备注</th></tr></thead><tbody><tr><td style="text-align:center">Book</td><td style="text-align:left">书</td><td style="text-align:right"></td></tr><tr><td style="text-align:center">Hello</td><td style="text-align:left">你好</td><td style="text-align:right"></td></tr><tr><td style="text-align:center">World</td><td style="text-align:left">世界</td><td style="text-align:right">world</td></tr></tbody></table><p>这样即可自动生成表格，第二行为内容对准格式，第一格表示内容居中，第二格表示居左，第三格表示居右。</p><h2 id="插入高亮代码"><a href="#插入高亮代码" class="headerlink" title="插入高亮代码"></a>插入高亮代码</h2><p>如果你需要插入一些代码，Markdown也可以帮你自动高亮，包括行内高亮和代码块高亮，行内高亮仅需要使用 <code>内容</code> 包围起来即可。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">代码块高亮</span><br></pre></td></tr></table></figure><hr><p>至此，写作中需要用到的控制符已经介绍完毕了，Kio提供的所见即所得Markdown支持和便捷的输入辅助能帮助你快速掌握这一密术 :]</p><h2 id="移动端写作工具"><a href="#移动端写作工具" class="headerlink" title="移动端写作工具"></a>移动端写作工具</h2><p><a href="https://pan.baidu.com/s/15a7yXCamGZzYlrfRhy_j6w" target="_blank" rel="noopener">Kio：密码99o4</a>可以导出PDF，md文件<br><a href="https://pan.baidu.com/s/1-ImjJfOURod2nUpXAc_Ejw" target="_blank" rel="noopener">markdownx：密码a5n4</a><br><a href="https://pan.baidu.com/s/1-zAl54zLNekq4hLaDC-8Qg" target="_blank" rel="noopener">SM.MS图床：密码ch0v</a></p><p>若链接失效还可以去酷安上下载。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;本文来自kio对Markdown的基础教程&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="Markdown" scheme="http://lruihao.github.io/categories/Markdown/"/>
+    
+    
+      <category term="hexo博客" scheme="http://lruihao.github.io/tags/hexo%E5%8D%9A%E5%AE%A2/"/>
+    
+      <category term="Markdown" scheme="http://lruihao.github.io/tags/Markdown/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Links说明</title>
+    <link href="http://lruihao.github.io/Links%E8%AF%B4%E6%98%8E/"/>
+    <id>http://lruihao.github.io/Links说明/</id>
+    <published>2018-06-06T16:06:05.000Z</published>
+    <updated>2018-06-07T14:32:54.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>待编辑。。。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;待编辑。。。&lt;/p&gt;
+
+      
+    
+    </summary>
+    
+      <category term="通用" scheme="http://lruihao.github.io/categories/%E9%80%9A%E7%94%A8/"/>
+    
+    
+      <category term="通用" scheme="http://lruihao.github.io/tags/%E9%80%9A%E7%94%A8/"/>
+    
+      <category term="链接集合" scheme="http://lruihao.github.io/tags/%E9%93%BE%E6%8E%A5%E9%9B%86%E5%90%88/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>戏子春秋</title>
+    <link href="http://lruihao.github.io/%E6%88%8F%E5%AD%90%E6%98%A5%E7%A7%8B/"/>
+    <id>http://lruihao.github.io/戏子春秋/</id>
+    <published>2018-06-03T11:41:32.000Z</published>
+    <updated>2018-06-09T04:19:18.000Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote class="blockquote-center"><p><strong>从此故乡只有冬夏，再无春秋。</strong></p><p><strong><em>Write By:  <a href="mailto:1845280636@qq.com" target="_blank" rel="noopener">湖南文理学院 杨灿</a></em></strong></p></blockquote><p>　　时间急促得仿佛还在昨天，还没有清楚地认识到这句话的其中含义时，我早已离开它，远去。</p><p>　　自此，一江绿水东去，桃花竞开，春洒满园；瑟瑟秋风里，稻谷黄时，落木萧萧；故乡的春秋成为回忆尘封在我的脑海深处。</p><p>　　三月，这里和故乡一样雨下得缠绵，却尽带着他乡的味道。在不是滋润自己的那方水土上，哪怕是喜雨之人，亦只有料峭的寒意。雨下到这里才懂得，为何古来才子佳人逢阴雨连绵天总是带着一股莫名的惆怅。原是这般由头！我与他们，并无二般，想起故乡来。</p><p>　　故乡的春是在牛耕上的。太爷说，老牛伏在岸边饮水时节就是春耕了。到那时，耕牛头角披红挂彩，鼻挂铜色大铃，以祈愿今年平安，田地丰收；当耕牛喘着鼻息，缓缓地哞哞叫着走下田，是其在田地里大展身手的机会。故而，二月春耕总是会见到红布条装扮的水牛在田间劳作，彩带飘逸，好生招摇，尤其是农夫哼起那极具故乡气息的耕牛民歌，如高山流水般，伴着清脆的铜铃声隐隐飘去……在春末，三月桃花尽开，漫山望去，粉红红一片，甚是好看。小时看到总以为身处仙山，而后来，陶渊明一篇《桃花源记》就以为自己是那秦时避乱而住在桃花源中的后人。每每与外人谈起家乡的桃花山时，必然是一副神气十足的傲气样子。我想，这也是自己不知不觉中受家人影响，又倾心桃花的缘故吧。</p><p>　　印象中，家里人都爱这漫山遍野的桃花。太爷爱赏花，山上桃花开得极好的时候，便移栽了数株桃花留在了院子里，天好天坏，都能观赏上好一会儿。太婆还在的时候，桃花次第开，她就会拾掇许多桃花下来做成桃花糕，那桃花糕香香糯糯的味道飘散四周，总能把我馋来。后来，太婆故去，奶奶学着太婆开始做起了桃花糕，却总是没有太婆做的如意。但奶奶的桃花酒，受到父辈们的一致好评。每当酒坛从土里挖出，揭开红布，酒气便带着桃花的香甜扑鼻而来。父辈们在太爷种的桃花树下把酒话桑麻，颇有一副桃花坞里桃花庵，桃花庵里桃花仙的样子。现如今记忆远去，酒香却长留下来，记起时，那酒酣甜得喜人。</p><p>　　故乡的秋从九月农收渐起，那时候一家老小在浓浓的秋意里忙忙碌碌，直至十月方才得些许闲暇日子。</p><p>　　稻谷黄时，是秋最盛的时候。父辈们清晨便出发去地里收稻谷。晌午，我兴起与祖母前去送饭。正午的太阳烈得很，父辈们大颗大颗的汗直往下掉，稻谷机嘈杂得很。这才想起太爷教我的诗，“妇姑荷箪食，童稚携壶浆”，就是这样的情景无差。那时候不懂得父辈的辛苦，只知奔入山间，捕捉蚱蜢，蛐蛐等趣物。等傍晚将近，坐在板车谷袋上，兴尽而回，一天就算结束。渐渐长大，再也不敢胡闹，不知是童趣少了还是知了人事愈发迷惘了？</p><p>　　窗外又下起雨，心里竟也惆怅起来。并非是洗过的衣服久晾未干，而是伴着那股湿意而来，藏在雨里的那点点乡愁。这边的桃花也开得好，往窗外，密密一片，不免想起了太爷书房里的书画：花是春时花，却非故乡花。人是故乡人，却是他乡客。所见时，不过是从戏子变成看客了罢。 </p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;blockquote class=&quot;blockquote-center&quot;&gt;&lt;p&gt;&lt;strong&gt;从此故乡只有冬夏，再无春秋。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;Write By:  &lt;a href=&quot;mailto:1845280636@qq.com&quot; ta
+      
+    
+    </summary>
+    
+      <category term="友人作品" scheme="http://lruihao.github.io/categories/%E5%8F%8B%E4%BA%BA%E4%BD%9C%E5%93%81/"/>
+    
+    
+      <category term="生活随笔" scheme="http://lruihao.github.io/tags/%E7%94%9F%E6%B4%BB%E9%9A%8F%E7%AC%94/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>光</title>
+    <link href="http://lruihao.github.io/%E5%85%89/"/>
+    <id>http://lruihao.github.io/光/</id>
+    <published>2018-06-03T04:54:47.000Z</published>
+    <updated>2018-06-12T13:58:16.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>循着光 随着阳</p><p>有人在冷暖人世间逃窜</p><p>也有人在清朗秋空中仰目长盼</p><p>只愿你我</p><p>不管时光如何逝去</p><p>真挚不渝 不忘初心</p><p><img src="https://i.loli.net/2018/06/12/5b1fcbeba2cbe.jpg" alt="I"><br><img src="https://i.loli.net/2018/06/12/5b1fcbe9dabdf.jpg" alt="love"><br><img src="https://i.loli.net/2018/06/12/5b1fcbd349f1f.jpg" alt="you"><br><img src="https://i.loli.net/2018/06/12/5b1fcbdec243a.jpg" alt="zxm"></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;循着光 随着阳&lt;/p&gt;
+&lt;p&gt;有人在冷暖人世间逃窜&lt;/p&gt;
+&lt;p&gt;也有人在清朗秋空中仰目长盼&lt;/p&gt;
+&lt;p&gt;只愿你我&lt;/p&gt;
+&lt;p&gt;不管时光如何逝去&lt;/p&gt;
+&lt;p&gt;真挚不渝 不忘初心&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://i.loli.net/2018/06/1
+      
+    
+    </summary>
+    
+      <category term="生活随笔" scheme="http://lruihao.github.io/categories/%E7%94%9F%E6%B4%BB%E9%9A%8F%E7%AC%94/"/>
+    
+    
+      <category term="生活随笔" scheme="http://lruihao.github.io/tags/%E7%94%9F%E6%B4%BB%E9%9A%8F%E7%AC%94/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>换主题next</title>
+    <link href="http://lruihao.github.io/%E6%8D%A2%E4%B8%BB%E9%A2%98next/"/>
+    <id>http://lruihao.github.io/换主题next/</id>
+    <published>2018-06-01T17:07:57.000Z</published>
+    <updated>2018-06-10T16:10:26.000Z</updated>
+    
+    <content type="html"><![CDATA[<p><a href="http://theme-next.iissnan.com/" target="_blank" rel="noopener">next使用手册</a></p><p>用了几天aloha主题，最开始看中的是他的简约，主页就是归档，看起来很清爽，可是没想到功能也简约，用了几天很不爽了，换回了next，最近要考试了，<del>有时间再配置。。。</del></p><p>next功能果然很强大，配置很快，<a href="http://theme-next.iissnan.com/" target="_blank" rel="noopener">next使用手册</a>也很详细，如果不想入坑，建议第一次直接使用next主题<br><img src="https://upload-images.jianshu.io/upload_images/12444331-90d68767c9e07f11.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="QQ截图20180602132159.png"></p><p><img src="https://upload-images.jianshu.io/upload_images/12444331-10a42ec26a81c49a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="QQ截图20180602132214.png"></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;&lt;a href=&quot;http://theme-next.iissnan.com/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;next使用手册&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;用了几天aloha主题，最开始看中的是他的简约，主页就是归档，看起来很清爽，可是没想到功能
+      
+    
+    </summary>
+    
+      <category term="hexo博客" scheme="http://lruihao.github.io/categories/hexo%E5%8D%9A%E5%AE%A2/"/>
+    
+    
+      <category term="hexo博客" scheme="http://lruihao.github.io/tags/hexo%E5%8D%9A%E5%AE%A2/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>hexo + github 搭建个人博客</title>
+    <link href="http://lruihao.github.io/hexo%20+%20github%20%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/"/>
+    <id>http://lruihao.github.io/hexo + github 搭建个人博客/</id>
+    <published>2018-06-01T06:34:23.000Z</published>
+    <updated>2018-06-07T14:32:22.000Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="首先"><a href="#首先" class="headerlink" title="首先"></a>首先</h1><p><a href="https://hexo.io/zh-cn/docs/index.html" target="_blank" rel="noopener">官方文档</a>是我们的第一手资料，也是最好的。<br>安装 Hexo 相当简单。然而在安装前，您必须检查电脑中是否已安装下列应用程序：<br>· <a href="https://nodejs.org/en/" target="_blank" rel="noopener">Node.js</a><br>· <a href="https://git-scm.com/" target="_blank" rel="noopener">Git</a></p><h1 id="hexo安装"><a href="#hexo安装" class="headerlink" title="hexo安装"></a>hexo安装</h1><p>如果您的电脑中已经安装上述必备程序，那么恭喜您！接下来只需要使用 npm 即可完成 Hexo 的安装。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install -g hexo-cli</span><br></pre></td></tr></table></figure></p><h1 id="建站"><a href="#建站" class="headerlink" title="建站"></a>建站</h1><p>安装 Hexo 完成后，请执行下列命令，Hexo 将会在指定文件夹中新建所需要的文件。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ hexo init &lt;folder&gt;</span><br><span class="line">$ <span class="built_in">cd</span> &lt;folder&gt;</span><br><span class="line">$ npm install</span><br></pre></td></tr></table></figure></p><p>新建完成后，指定文件夹的目录如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">.</span><br><span class="line">├── _config.yml</span><br><span class="line">├── package.json</span><br><span class="line">├── scaffolds</span><br><span class="line">├── source</span><br><span class="line">|   ├── _drafts</span><br><span class="line">|   └── _posts</span><br><span class="line">└── themes</span><br></pre></td></tr></table></figure></p><h1 id="安装hexo插件"><a href="#安装hexo插件" class="headerlink" title="安装hexo插件"></a>安装hexo插件</h1><p>全装上吧，没事。。。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">$ npm install hexo-generator-index --save</span><br><span class="line">$ npm install hexo-generator-archive --save</span><br><span class="line">$ npm install hexo-generator-category --save</span><br><span class="line">$ npm install hexo-generator-tag --save</span><br><span class="line">$ npm install hexo-server --save</span><br><span class="line">$ npm install hexo-deployer-git --save</span><br><span class="line">$ npm install hexo-deployer-heroku --save</span><br><span class="line">$ npm install hexo-deployer-rsync --save</span><br><span class="line">$ npm install hexo-deployer-openshift --save</span><br><span class="line">$ npm install hexo-renderer-marked@0.2 --save</span><br><span class="line">$ npm install hexo-renderer-stylus@0.2 --save</span><br><span class="line">$ npm install hexo-generator-feed@1 --save</span><br><span class="line">$ npm install hexo-generator-sitemap@1 --save</span><br></pre></td></tr></table></figure></p><h1 id="本地查看效果"><a href="#本地查看效果" class="headerlink" title="本地查看效果"></a>本地查看效果</h1><p>执行下面语句，执行完再登录localhost:4000查看效果（执行完不要按Ctrl+C，不然就停止了）<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ hexo g</span><br><span class="line">$ hexo s</span><br></pre></td></tr></table></figure></p><p>其他步骤在这里不赘述，参见<a href="https://my.oschina.net/ryaneLee/blog/638440" target="_blank" rel="noopener">超详细教程</a><br><a href="http://hjxandhmr.github.io/2016/04/15/hello-hexo/?utm_source=qq&amp;utm_medium=social&amp;utm_oi=755527439601373184" target="_blank" rel="noopener">传送门</a></p><h1 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo g -d</span><br></pre></td></tr></table></figure><p>部署后我们可以浏览器搜 username.github.io 查看自己的博客效果，，比如我的<a href="https://lruihao.github.io/">lruihao.github.io</a></p><h1 id="美化"><a href="#美化" class="headerlink" title="美化"></a>美化</h1><p><a href="https://asdfv1929.github.io/tags/Hexo/" target="_blank" rel="noopener">美化很好的一个博主asdfv1929</a><br><a href="https://hexo.io/themes/" target="_blank" rel="noopener">hexo官方主题集合</a>，我用的是aloha主题，该主题<a href="https://github.com/henryhuang/hexo-theme-aloha/wiki/zh_CN" target="_blank" rel="noopener">官方文档</a><br><a href="https://blog.csdn.net/qq_33699981/article/details/72716951" target="_blank" rel="noopener">hexo个性化教程</a><br>说说我的主题遇到的一些问题，由于这个主题用的人少，所以作者优化的不是很好（next使用最多），当然也可以反过来说，所以自己美化了一点</p><h2 id="about页面"><a href="#about页面" class="headerlink" title="about页面"></a>about页面</h2><p>about页面可以用HTML写，你想怎么写都行，我用的最简单的方法，直接hexo n page “about”后，会生成一个md文件，也就是后面说的文章，直接写文章就行了。</p><h2 id="添加搜索，评论，分享"><a href="#添加搜索，评论，分享" class="headerlink" title="添加搜索，评论，分享"></a>添加搜索，评论，分享</h2><p><a href="https://blog.csdn.net/jiaqiangbandongg/article/details/77151699" target="_blank" rel="noopener">参考</a><br><a href="https://blog.naaln.com/2016/07/hexo-with-algolia/" target="_blank" rel="noopener">algolia参考文件</a><br><a href="http://qiuchengjia.cn/2016/06/06/SEO/hexo做SEO%EF%BC%88添加sitemap和baidusitemap%EF%BC%89/" target="_blank" rel="noopener">邱承佳学长博文</a><br>让搜索引擎找到你的博客，还是看到邱承佳学长博文有写到<a href="https://blog.csdn.net/qq_26891045/article/details/51280470" target="_blank" rel="noopener">传送门</a></p><h2 id="添加访客数，阅读量等"><a href="#添加访客数，阅读量等" class="headerlink" title="添加访客数，阅读量等"></a>添加访客数，阅读量等</h2><p>评论有多说（多说好像挂了），计数有不蒜，我用的不蒜子，还有其他的。。。</p><h3 id="文章阅读量"><a href="#文章阅读量" class="headerlink" title="文章阅读量"></a>文章阅读量</h3><p>打开以下路径在你喜欢的地方添加代码，\blog\hexo\themes\主题名字\layout_partial，找到article.ejs文件<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;div align=<span class="string">"left"</span>&gt;&lt;span id=<span class="string">"busuanzi_container_page_pv"</span>&gt;</span><br><span class="line">      本文总阅读量&lt;span id=<span class="string">"busuanzi_value_page_pv"</span>&gt;&lt;/span&gt;次</span><br><span class="line">    &lt;/span&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure></p><h3 id="站点访问量，访客数"><a href="#站点访问量，访客数" class="headerlink" title="站点访问量，访客数"></a>站点访问量，访客数</h3><p>打开以下路径在你喜欢的地方添加代码，\blog\hexo\themes\主题名字\layout_partial，找到footer.ejs文件<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;script async src=<span class="string">"//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"</span>&gt;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;span id=<span class="string">"busuanzi_container_page_pv"</span>&gt;</span><br><span class="line">    本站总访问量&lt;span id=<span class="string">"busuanzi_value_site_pv"</span>&gt;&lt;/span&gt;次  |  </span><br><span class="line">&lt;/span&gt;</span><br><span class="line">&lt;span id=<span class="string">"busuanzi_container_site_uv"</span>&gt;</span><br><span class="line">本站访客数&lt;span id=<span class="string">"busuanzi_value_site_uv"</span>&gt;&lt;/span&gt;人次</span><br><span class="line">&lt;/span&gt;</span><br></pre></td></tr></table></figure></p><h1 id="写文章"><a href="#写文章" class="headerlink" title="写文章"></a>写文章</h1><p>hexo文章用轻量型标签语言Markdown编写<br>·<a href="https://sspai.com/post/25137" target="_blank" rel="noopener">markdown入门</a><br>·<a href="https://markdown.tw/" target="_blank" rel="noopener">繁体原始文件</a><br>·<a href="https://github.com/othree/markdown-syntax-zhtw/blob/master/syntax.md" target="_blank" rel="noopener">繁体原始文件github</a><br>·<a href="http://wowubuntu.com/markdown/#editor" target="_blank" rel="noopener">简体中文文件</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;首先&quot;&gt;&lt;a href=&quot;#首先&quot; class=&quot;headerlink&quot; title=&quot;首先&quot;&gt;&lt;/a&gt;首先&lt;/h1&gt;&lt;p&gt;&lt;a href=&quot;https://hexo.io/zh-cn/docs/index.html&quot; target=&quot;_blank&quot; rel=&quot;n
+      
+    
+    </summary>
+    
+      <category term="hexo博客" scheme="http://lruihao.github.io/categories/hexo%E5%8D%9A%E5%AE%A2/"/>
+    
+    
+      <category term="hexo博客" scheme="http://lruihao.github.io/tags/hexo%E5%8D%9A%E5%AE%A2/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>hexo 添加图片，音乐，链接，视频</title>
+    <link href="http://lruihao.github.io/hexo-%E6%B7%BB%E5%8A%A0%E5%9B%BE%E7%89%87%EF%BC%8C%E9%9F%B3%E4%B9%90%EF%BC%8C%E9%93%BE%E6%8E%A5%EF%BC%8C%E8%A7%86%E9%A2%91/"/>
+    <id>http://lruihao.github.io/hexo-添加图片，音乐，链接，视频/</id>
+    <published>2018-05-31T15:19:22.000Z</published>
+    <updated>2018-06-06T00:32:10.000Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote class="blockquote-center"><p><strong>如果实在搞得头晕直接去<a href="https://www.jianshu.com/" target="_blank" rel="noopener">简书</a>写文章，再把简书生成的md文章复制过来就好了（简书是个不错的Markdown在线编辑器），还可以去<a href="https://maxiang.io/" target="_blank" rel="noopener">马克飞象，专为印象笔记打造的 Markdown 编辑器</a>，<a href="https://www.typora.io/#" target="_blank" rel="noopener">typora 也是不错的</a>，突然发现<a href="https://www.csdn.net/" target="_blank" rel="noopener">csdn</a>也支持Markdown编译器了</strong></p></blockquote><h1 id="1-首先"><a href="#1-首先" class="headerlink" title="1.首先"></a>1.首先</h1><p>刚刚搭博客，很多都不懂，就连插入图片的路径问题都把我整的要命。。。（我用的Sublime Text 3编译器）<br>下面讲讲：</p><h2 id="1-1-设置站点配置-config-yml"><a href="#1-1-设置站点配置-config-yml" class="headerlink" title="1.1 设置站点配置_config.yml"></a>1.1 设置站点配置_config.yml</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">post_asset_folder: true</span><br></pre></td></tr></table></figure><h2 id="1-2-安装插件"><a href="#1-2-安装插件" class="headerlink" title="1.2 安装插件"></a>1.2 安装插件</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install https://github.com/CodeFalling/hexo-asset-image -- save</span><br></pre></td></tr></table></figure><h2 id="1-3-下次再运行hexo-n-“xxxx”来生成md博文时，下路径"><a href="#1-3-下次再运行hexo-n-“xxxx”来生成md博文时，下路径" class="headerlink" title="1.3 下次再运行hexo n “xxxx”来生成md博文时，下路径"></a>1.3 下次再运行hexo n “xxxx”来生成md博文时，下路径</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/source/_posts</span><br></pre></td></tr></table></figure><p>文件夹内除了xxxx.md文件还有一个同名的文件夹，在xxxx.md中想引入图片时，先把图片复制到xxxx这个文件夹中，然后只需要在xxxx.md中按照markdown的格式引入图片。</p><h1 id="2-添加图片"><a href="#2-添加图片" class="headerlink" title="2.添加图片"></a>2.添加图片</h1><p>首先大家可以查看hexo官方文档<a href="https://hexo.io/zh-cn/docs/asset-folders.html" target="_blank" rel="noopener">资源文件夹章节</a></p><h2 id="2-1-markdown添加"><a href="#2-1-markdown添加" class="headerlink" title="2.1 markdown添加"></a>2.1 markdown添加</h2><p>相对路径添加（我被这个相对路径搞得要死，前面各种出错，大家可以对照我的来插入图片…）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#直接写图片名就好了，图片实例见下</span><br><span class="line">![kyrie irving](294136.jpg)</span><br></pre></td></tr></table></figure></p><p><img src="294136.jpg" alt="kyrie irving"></p><h2 id="2-2-插件添加"><a href="#2-2-插件添加" class="headerlink" title="2.2 插件添加"></a>2.2 插件添加</h2><p><a href="https://mr-houzi.github.io/2017/10/24/Hexo-asset-img/" target="_blank" rel="noopener">传送门</a><br>这种方式被很多人诟病，但有时候也不失一种好方式，简单快捷。<br>图片好大一个。。。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#为了排版好看，以下图片插入未使用该方法</span><br><span class="line">&#123;% asset_img 297787.jpg kyrie irving %&#125;</span><br></pre></td></tr></table></figure></p><p><img src="297787.jpg" alt="kyrie irving"></p><h1 id="3-音乐"><a href="#3-音乐" class="headerlink" title="3.音乐"></a>3.音乐</h1><p>大家可以看<a href="http://music.163.com/" target="_blank" rel="noopener">网易云音乐</a>的官网，播放音乐可以生成外链，直接拿来用就行了。iframe插件可以在代码中设置宽高等参数，auto为自动播放。flash不可以自己设置参数。看喜好，随便你。<br>其他音乐，把插件中的链接替换成要播放的链接就可以了<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#iframe插件</span><br><span class="line"></span><br><span class="line">&lt;iframe frameborder=&quot;no&quot; border=&quot;0&quot; marginwidth=&quot;0&quot; marginheight=&quot;0&quot; width=330 height=86 src=&quot;//music.163.com/outchain/player?type=2&amp;id=505820138&amp;auto=0&amp;height=66&quot;&gt;</span><br><span class="line">&lt;/iframe&gt;</span><br></pre></td></tr></table></figure></p><iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=505820138&auto=0&height=66"><br></iframe><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#flash插件</span><br><span class="line"></span><br><span class="line">&lt;embed src=&quot;//music.163.com/style/swf/widget.swf?sid=40249713&amp;type=2&amp;auto=0&amp;width=320&amp;height=66&quot; width=&quot;340&quot; height=&quot;86&quot;  allowNetworking=&quot;all&quot;&gt;</span><br><span class="line">&lt;/embed&gt;</span><br></pre></td></tr></table></figure><embed src="//music.163.com/style/swf/widget.swf?sid=40249713&type=2&auto=0&width=320&height=66" width="340" height="86" allownetworking="all"><br><h1 id="4-添加链接"><a href="#4-添加链接" class="headerlink" title="4.添加链接"></a>4.添加链接</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[我的微博](http://weibo.com/u/5967841127)</span><br></pre></td></tr></table></figure><p><a href="http://weibo.com/u/5967841127" target="_blank" rel="noopener">我的微博</a></p><h1 id="5-添加视频"><a href="#5-添加视频" class="headerlink" title="5.添加视频"></a>5.添加视频</h1><p>视频链接最好是打开就是视频的链接（支持youku，YouTube）<br>可以把视频上传到优酷，腾讯视频，生成外链再拿来用。（上传需要注册和实名认证）<br><a href="https://www.jianshu.com/p/26a7fc7cc185" target="_blank" rel="noopener">参考资料</a></p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#我自己拍的一个视频，微博上也有</span></span><br><span class="line">&lt;iframe </span><br><span class="line">height=498 width=510 </span><br><span class="line">src=<span class="string">"http://player.youku.com/embed/XMzY0MzgxNDMyOA=="</span> </span><br><span class="line">frameborder=0 allowfullscreen&gt;</span><br><span class="line">&lt;/iframe&gt;</span><br></pre></td></tr></table></figure><p>自拍手写视频，一开始上传到微博上，再链接过来发现不行，视频打开的是那篇微博，还有点一下才可以播放，后来上传到优酷上了，如下。</p><iframe height="498" width="510" src="http://player.youku.com/embed/XMzY0MzgxNDMyOA==" frameborder="0" allowfullscreen><br></iframe><h1 id="工具集合"><a href="#工具集合" class="headerlink" title="工具集合"></a>工具集合</h1><p><a href="https://maxiang.io/" target="_blank" rel="noopener">马克飞象</a><br><a href="https://www.jianshu.com/" target="_blank" rel="noopener">简书</a><br><strong>图床</strong><br><a href="http://mpic.lzhaofu.cn/" target="_blank" rel="noopener">图床神器</a><br><a href="https://www.getcloudapp.com/" target="_blank" rel="noopener">cloudapp是英文的</a><br><a href="http://jiantuku.com/#/" target="_blank" rel="noopener">极简图床不错</a><br><a href="https://pic.xiaojianjian.net/" target="_blank" rel="noopener">小贱贱图床</a><br><a href="https://sm.ms/" target="_blank" rel="noopener">SM.SMb不错</a><br><a href="https://sspai.com/post/40499" target="_blank" rel="noopener">嗯，图片就交给他了</a>（该文写的很清楚）</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;blockquote class=&quot;blockquote-center&quot;&gt;&lt;p&gt;&lt;strong&gt;如果实在搞得头晕直接去&lt;a href=&quot;https://www.jianshu.com/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;简书&lt;/a&gt;写文章，再把简书
+      
+    
+    </summary>
+    
+      <category term="hexo博客" scheme="http://lruihao.github.io/categories/hexo%E5%8D%9A%E5%AE%A2/"/>
+    
+    
+      <category term="hexo博客" scheme="http://lruihao.github.io/tags/hexo%E5%8D%9A%E5%AE%A2/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>猴子与哪吒</title>
+    <link href="http://lruihao.github.io/%E7%8C%B4%E5%AD%90%E4%B8%8E%E5%93%AA%E5%90%92/"/>
+    <id>http://lruihao.github.io/猴子与哪吒/</id>
+    <published>2018-05-31T02:09:15.000Z</published>
+    <updated>2018-06-08T04:58:12.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>一直觉得中国古代神话</p><p>能称得上传奇的只有两个人物：</p><p>一是猴子 </p><p>一是哪吒</p><p>百世蕴灵育出只石猴 大闹天宫腾云驾雾</p><p>三年怀胎生了个哪吒 东海屠龙翻江倒海</p><p>可以说 除了这两人 没人再能当得起离经放纵四个字的</p><p>但称得上悲剧的 约摸也只有这两个</p><p>一个五行山下压五百年 揭了封印 戴上金箍无悲无喜 拜佛西天 唤孙悟空</p><p>一个削肉还母剔骨还父 塑了莲身 站上火轮无怨无恨 封神南门 号三太子</p><p>这尘世最擅长的事 大抵就是抹杀疏狂者的落拓 磨平豪纵者的傲骨 斩灭叛世者的孤妄</p><p><img src="hznz.jpg" alt="猴子与哪吒"></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;一直觉得中国古代神话&lt;/p&gt;
+&lt;p&gt;能称得上传奇的只有两个人物：&lt;/p&gt;
+&lt;p&gt;一是猴子 &lt;/p&gt;
+&lt;p&gt;一是哪吒&lt;/p&gt;
+&lt;p&gt;百世蕴灵育出只石猴 大闹天宫腾云驾雾&lt;/p&gt;
+&lt;p&gt;三年怀胎生了个哪吒 东海屠龙翻江倒海&lt;/p&gt;
+&lt;p&gt;可以说 除了这两人 没人再能当得起离经放
+      
+    
+    </summary>
+    
+      <category term="生活随笔" scheme="http://lruihao.github.io/categories/%E7%94%9F%E6%B4%BB%E9%9A%8F%E7%AC%94/"/>
+    
+    
+      <category term="生活随笔" scheme="http://lruihao.github.io/tags/%E7%94%9F%E6%B4%BB%E9%9A%8F%E7%AC%94/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Hello World</title>
+    <link href="http://lruihao.github.io/hello-world/"/>
+    <id>http://lruihao.github.io/hello-world/</id>
+    <published>2018-05-28T12:01:01.000Z</published>
+    <updated>2018-06-16T05:30:49.920Z</updated>
+    
+    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+</feed>
