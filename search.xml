@@ -2,7 +2,7 @@
 <search>
   <entry>
     <title><![CDATA[四六级考试]]></title>
-    <url>%2F%E5%9B%9B%E5%85%AD%E7%BA%A7%E8%80%83%E8%AF%95%2F</url>
+    <url>%2F%E5%9B%9B%E5%85%AD%E7%BA%A7%E8%80%83%E8%AF%95.html</url>
     <content type="text"><![CDATA[呃呃呃呃呃，今天四六级考试我昨天才知道，而就在昨天做计算机组成原理的课设接线的时候，我买了一个域名lruihao.cn做完后实验后开开心心回到宿舍解析域名，实名认证什么，coding和github双部署什么的，在一切都完成后本打算享受地躺在床上欣赏一下自己的“杰作”的，可是最后部署失败，作为小白的我，当然看不懂，然后又各种百度谷歌，翻博客，还是没有解决，于是乎我刚刚搞好的www.lruihao.cn 强势的显示出404错误，额，因为我不知道原因的情况下一激动把coding托管的代码删除了，还好github上还有个备份，被自己的操作蠢哭。搞到晚上11多还是没有解决，介于第二天四级考试，不舍地睡着了，当然也睡得很快hhhhh，确实有点累，中午没午休。。。今天7:30醒来准备好考试相关工具后，又搞了一下，还是无果，考试完，和女朋友吃了个饭，送到亲民后，我很快回到寝室继续研究，实在不懂，我做出一个大胆的决定，我打算重新搭hexo，然后我git，node，hexo 所有的东西都删了，简单暴力，重新来了一遍。。。 最后，写这篇流水账不是想说我有多牛逼，多无聊（不过好像是有点。。。），我只是想试试重装后能不能部署，这篇博客能不能发出去。。。。唉ε=(´ο｀* )))]]></content>
       <categories>
         <category>生活随笔</category>
@@ -13,7 +13,7 @@
   </entry>
   <entry>
     <title><![CDATA[简单背包]]></title>
-    <url>%2F%E7%AE%80%E5%8D%95%E8%83%8C%E5%8C%85%2F</url>
+    <url>%2F%E7%AE%80%E5%8D%95%E8%83%8C%E5%8C%85.html</url>
     <content type="text"><![CDATA[弱鸡还是弱鸡啊最简单的背包问题——。——！ 1）问题描述:假设有一个能装入总体积为T的背包和n件体积分别为W1，W2，···，Wn的物品，能否从n件物品中挑选若干件恰好装满背包，即使W1+W2+···+Wn=T，要求找出所有满足上述条件的解。例如：当T=10，共6件物品，物品的体积为{1，2，3，4，5，8}，那么可找到下列4组解：（1，2，3，4）、（1，4，5）、（2，3，5）、（2、8）。2）实现提示：可利用回溯法的设计思想来解决背包问题。首先，将物品排成一列，然后顺序选取物品装入背包，假设已选取了前i件物品之后背包还没有装满，则继续选取第i+1件物品，若该件物品“太大”不能装入，则丢弃而继续选取下一件，直至背包装满为止。但如果在剩余的物品中找不到合适的物品以填满背包，则说明“刚刚”装入背包的那件物品“不合适”，应将它取出“丢弃一边”，继续再从“它之后”的物品中选取，如此重复，直至求得满足条件的解，或者无解。由于回溯求解的规则是“后进先出”，因此要用到栈。 使用栈作为该程序的数据结构，利用栈进行语法检查，以深度优先的搜索方式解空间，实现递归过程和函数的调用，在设计时还使用C语言的数组及其循环语言来实现程序。运用回溯法解题，在搜索解空间树时，只要其左儿子节点是一个可行结点，搜索就进入左子树，在右子树中有可能包含最优解是才进入右子树搜索。否则将右子树剪去。 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374757677787980818283848586878889909192939495#include &lt;stdio.h&gt;#include &lt;windows.h&gt;#define size 50struct stacks &#123; int data[size]; int top;&#125; stack;void backpack(int number,int V,int w[])&#123; int i,j=1,k=0; int flag=0; do &#123; while (V &gt; 0 &amp;&amp; k &lt;= number) &#123; if (V &gt;= w[k]) &#123; stack.data[stack.top] = k;//第k个物品的体积下标 stack.top++; V -= w[k]; &#125; k++; &#125; if (V == 0) &#123; flag=1; printf("第%d个符合条件的解：", j); for (i = 0; i &lt; stack.top; i++) &#123; printf("%d ", w[stack.data[i]]); &#125; j++; printf("\n"); &#125; //k满时回溯 k = stack.data[--stack.top]; stack.data[stack.top] = 0; V += w[k]; k++; &#125; while (!(stack.top == 0 &amp;&amp; k == number)); if(!flag)&#123; printf("背包无解！\n"); &#125;&#125;void judge(int number,int V,int w[])&#123; int i,s = 0; for (i = 0; i &lt; number; i++) s = s + w[i]; if(V &gt; s)&#123; printf("背包无解！\n"); exit(0); &#125; if(V==s)&#123; printf("只有一个符合条件的解：%d\n", V); exit(0); &#125;&#125;int main() &#123; int w[size]; int V; int i = 0; int j = 0; int number; printf("\t**简单背包问题**\n\n"); printf("\n请输入可供选择装入物品的个数：\n"); scanf("%d", &amp;number); printf("\n请输入各件物品的体积：\n"); for (i = 0; i &lt; number; i++) scanf("%d", &amp;w[i]); //排序 for(i=0;i&lt;number;i++) for(j=i+1;j&lt;number;j++) if(w[i]&gt;w[j])&#123; w[i]=w[i]^w[j]; w[j]=w[i]^w[j]; w[i]=w[i]^w[j]; &#125; printf("\n请输入背包的总体积：\n"); scanf("%d", &amp;V); while(V &lt; 0)&#123; printf("输入背包体积错误！重新输入！\n"); scanf("%d",&amp;V); &#125; judge(number,V,w); //初始化栈 for (i = 0; i &lt; number; i++) stack.data[i] = 0; stack.top = 0; backpack(number,V,w); return 0;&#125; --这么简单的问题我都费力，太辣鸡了]]></content>
       <categories>
         <category>背包问题</category>
@@ -24,7 +24,7 @@
   </entry>
   <entry>
     <title><![CDATA[18湘潭邀请赛参赛队员代表发言]]></title>
-    <url>%2F18%E6%B9%98%E6%BD%AD%E9%82%80%E8%AF%B7%E8%B5%9B%E9%98%9F%E5%91%98%E4%BB%A3%E8%A1%A8%E5%8F%91%E8%A8%80%2F</url>
+    <url>%2F18%E6%B9%98%E6%BD%AD%E9%82%80%E8%AF%B7%E8%B5%9B%E9%98%9F%E5%91%98%E4%BB%A3%E8%A1%A8%E5%8F%91%E8%A8%80.html</url>
     <content type="text"><![CDATA[来自一位大佬的演讲 尊敬的领导、教练，亲爱的参赛选手们：大家好，我是来自广东工业大学的tmk。今天很荣幸能够站在这里代表全体参赛选手发言，与大家分享我的经历和感受。刚开始来到大学的时候，我一心向学，本着“好好学习，天天向上，为校争光，不搞对象”的信念，想在大学一展宏图。因为高中OI的挫败，我在刚上大学的时候就选择了ACM这条“不归路”。一开始是因为高中的遗憾，到后来就完全是因为信念和兴趣慢慢一直搞到现在。当时的我还不知道踏上ACM这条路的苦，而如今的我却也尝到了ACM带给我的乐。在这三年里，有数不清的夜晚，我的舍友们在寝室里开黑，而我和我的队友在机房里开黑；在这三年里，有数不清的周末，我的舍友们在校园里驰骋，而我和我的队友在题库里驰骋；在这三年里，有数不清的假期，我的舍友们在召唤师峡谷里征战，而我和我的队友在中国各省市征战。三年过去了，我的舍友们成为了offer收割机，而我和我的队友成为了气球收割机。为了变强是一个痛苦且漫长的过程，只有耐得住寂寞，才能守得住繁华。我的一位队友为了变强甚至牺牲了自己的头发，仅仅是因为他担心他的头发阻碍了他思维的发散。他变秃了也变强了。三年的 ACM 让我成长很多，收获很多。我也从一个“好好学习天天向上为校争光不搞对象”的无知青年变成了一个写的了工程查得出异常的准程序员。我觉得三年献身于ACM的日子是值得的，和一大堆萌萌的男孩子们在屋子里面一个又一个通宵奋斗的酣畅淋漓的日子是值得的，看着谈恋爱的大家一会儿哀伤一会儿忧愁而我与代码自得其乐矢志不渝的日子是值得的。此外他还给我带来两个最好的小伙伴，是他们的一路陪伴，让我有勇气一直走下去。我和他们走过的地方，比我和女朋友去过的地方还要多。噢，对了，我好像没有女朋友。总而言之，请珍惜你们的队友，他们是你们在大学里为数不多一起奋斗的小伙伴。希望大家像我一样，也爱着ACM，为自己心爱的努力。最后预祝各位参赛选手们取得理想的成绩，也预祝本次大赛圆满成功。谢谢大家。]]></content>
       <categories>
         <category>2018湘潭邀请赛</category>
@@ -32,7 +32,7 @@
   </entry>
   <entry>
     <title><![CDATA[18湘潭邀请赛总结]]></title>
-    <url>%2F18%E6%B9%98%E6%BD%AD%E9%82%80%E8%AF%B7%E8%B5%9B%E6%80%BB%E7%BB%93%2F</url>
+    <url>%2F18%E6%B9%98%E6%BD%AD%E9%82%80%E8%AF%B7%E8%B5%9B%E6%80%BB%E7%BB%93.html</url>
     <content type="text"><![CDATA[题目链接（hdu复赛） 2018年湘潭邀请赛，在湘大举行，当时一起打的过去的，因为没出市就方便点。第一次参加现场赛，首先反省一下自己，比赛前算法先不说(没有好好搞过)，就连普通的题，数学性质的题都很少刷，什么都不会，然后英语不说四六级的东西，很多专业英语词汇都没有好好了解过，主要的原因还是刷题刷少了，英文题刷少了。理所当然，成功拿下一铁，湘潭赛打铁告终。 比赛开始，这次是三个人没人一份纸质题目，拿到题目，看最后一题，k.2018发现可以做，(事实证明确实是一道水题)，我就在做这题，他们看了a题，好像是k题一顿操作后提交，错了，一直到比赛结束都没做出来，后来回去看别人的题解，发现自己情况没有分析全面，其实是完全可以解出来的，真的做的太少太少了。a题最后也是没过，还有一个f题，sort，我最初的想法是用stl里的那个sort排序，只要对sort的compare函数做处理应该可以完成排序，比赛之前我看过，但是不熟悉，zxm她也看了我就交给她了，最后好像因为爆long double的问题也没做出来。哎，菜还是菜，很多算法都不懂，数据结构也没学好，很有一段时间我都特别头疼算法，不想学，费劲，觉得自己不适合学计算机，更不适合ACM。有时候又想，不适合好像总是loser的借口！总是在后悔和偷懒的矛盾中！最后，放上，”参赛奖”羞辱自己，也是鞭策！]]></content>
       <categories>
         <category>2018湘潭邀请赛</category>
@@ -45,7 +45,7 @@
   </entry>
   <entry>
     <title><![CDATA[F.sorting]]></title>
-    <url>%2FF-sorting%2F</url>
+    <url>%2FF-sorting.html</url>
     <content type="text"><![CDATA[Sample Input 21 1 11 1 221 1 21 1 131 3 12 2 13 1 1 Sample Output 2 11 21 2 3 题意：给定n个元组(a1,b1,c1),(a2,b2,c2),…,(an,bn,cn)，将其按(ai+bi)/(ai+bi+ci)的值从小到大排序，输出排序后的n个元组的原序号；思路：编写sort里的cmp函数(形参为元组结构体元素，设为Tuple x,Tuple y)，若直接算出(x.a+x.b)(y.a+y.b+y.c)和(y.a+y.b)(x.a+x.b+x.c)再比较大小，这两个结果会爆unsigned long long；可以把因式乘积展开成多项式的和，约去两式中相同的项，得到x.ay.c+x.by.c和y.ax.c+y.bx.c，因此只需计算它俩再比较即可，结果不会爆unsigned long long 后AC代码1234567891011121314151617181920212223242526272829303132#include "bits/stdc++.h"using namespace std;struct node&#123; long double a,b,c; int numb;&#125;ss[1005];bool cmp(const node &amp;a,const node &amp;b)&#123; long double suma,sumb; //suma=a.a*b.c+a.b*b.c; //sumb=b.a*a.c+b.b*a.c; suma=(a.a+a.b)/(a.a+a.b+a.c); sumb=(b.a+b.b)/(b.a+b.b+b.c); if(suma!=sumb)return suma&lt;sumb; return a.numb&lt;b.numb;&#125;int main()&#123; int n; while(cin&gt;&gt;n)&#123; for(int i=0;i&lt;n;i++)&#123; cin&gt;&gt;ss[i].a&gt;&gt;ss[i].b&gt;&gt;ss[i].c; ss[i].numb=i+1; &#125; stable_sort(ss,ss+n,cmp); int i; for(i=0;i&lt;n-1;i++) cout&lt;&lt;ss[i].numb&lt;&lt;" "; cout&lt;&lt;ss[i].numb&lt;&lt;endl; &#125; return 0;&#125;]]></content>
       <categories>
         <category>2018湘潭邀请赛</category>
@@ -57,7 +57,7 @@
   </entry>
   <entry>
     <title><![CDATA[K.2018]]></title>
-    <url>%2FK-2018%2F</url>
+    <url>%2FK-2018.html</url>
     <content type="text"><![CDATA[K. 2018 Given a,b,c,d, ﬁnd out the number of pairs of integers (x,y) where a ≤ x ≤ b,c ≤ y ≤ d and x·y is amultiple of 2018. Input The input consists of several test cases and is terminated by end-of-ﬁle.Each test case contains four integers a,b,c,d. Output For each test case, print an integer which denotes the result. Constraint • 1≤ a ≤ b ≤109,1≤ c ≤ d ≤109 • The number of tests cases does not exceed 104. Sample Input 1 2 1 20181 2018 1 20181 1000000000 1 1000000000 Sample Output 360511485883320325200 题意：给定区间[a,b]、[c,d]，问有多少对有序数组(x,y)(x∈[a,b],y∈[c,d])使得xy是2018的倍数思路：2018=21009(分解质因数)，则对x分类讨论:1)仅为2的倍数；2）仅为1009的倍数；3）即为2又为1009的倍数；4）既不为2又不为1009的倍数等价于如下分类讨论：1.若x是偶数：1）若x是1009的倍数，则y可为[c,d]中任意数； 2）若x不是1009的倍数，则y必定为[c,d]中1009的倍数2.若x是奇数：1）若x是1009的倍数，则y必定为[c,d]中2的倍数； 2）若x不是1009的倍数，则y必定为[c,d]中2018的倍数 后AC代码1234567891011121314151617181920212223242526#include&lt;cstdio&gt;#include&lt;iostream&gt;typedef unsigned long long ll;using namespace std;int main()&#123; ll a,b,c,d; while(cin&gt;&gt;a&gt;&gt;b&gt;&gt;c&gt;&gt;d)&#123; ll num1_all_1009=b/1009-(a-1)/1009; ll num1_even=b/2-(a-1)/2; ll num1_1009_in_even=b/2018-(a-1)/2018; ll num1_rest_in_even=num1_even-num1_1009_in_even; ll num1_odd=(b-a+1)-num1_even; ll num1_1009_in_odd=num1_all_1009-num1_1009_in_even; ll num1_rest_in_odd=num1_odd-num1_1009_in_odd; ll ans=0; ans+=num1_1009_in_even*(d-c+1); ll num2_all_1009=d/1009-(c-1)/1009; ans+=num1_rest_in_even*num2_all_1009; ll num2_even=d/2-(c-1)/2; ans+=num1_1009_in_odd*num2_even; ll num2_all_2018=d/2018-(c-1)/2018; ans+=num1_rest_in_odd*num2_all_2018; cout&lt;&lt;ans&lt;&lt;endl; &#125; return 0;&#125;]]></content>
       <categories>
         <category>2018湘潭邀请赛</category>
@@ -69,7 +69,7 @@
   </entry>
   <entry>
     <title><![CDATA[B.Higher h-index]]></title>
-    <url>%2FB-Higher-h-index%2F</url>
+    <url>%2FB-Higher-h-index.html</url>
     <content type="text"><![CDATA[B. Higher h-index The h-index of an author is the largest h where he has at least h papers with citations not less than h.Bobo has no papers and he is going to publish some subsequently. If he works on a paper for x hours, thepaper will get (a·x) citations, where a is a known constant. It’s clear that x should be a positive integer.There is also a trick – one can cite his own papers published earlier. Given Bobo has n working hours, ﬁnd the maximum h-index of him. Input The input consists of several test cases and is terminated by end-of-ﬁle.Each test case contains two integers n and a. Output For each test case, print an integer which denotes the maximum h-index. Constraint • 1≤ n ≤109 • 0≤ a ≤ n • The number of test cases does not exceed 104. Sample Input 3 03 11000000000 1000000000 Sample Output 121000000000 Note For the ﬁrst sample, Bobo can work 3 papers for 1 hour each. With the trick mentioned,he will get papers with citations 2,1,0. Thus, his h-index is 1.For the second sample, Bobo can work 2 papers for 1 and 2 hours respectively.He will get papers with citations 1+1,2+0. Thus, his h-index is 2. 题意：给定n个小时，可以用其中x(1&lt;=x&lt;=n)个小时写一篇论文，那么这篇论文的”既定”引用数将会是x*a(a为给定正整数)；此外，已经写好的论文将会被其后写成的论文所引用，也就是说，这篇论文的总引用数将会是”既定”引用数+其后论文篇数；问在所有的写论文方案中(例如一种方案就是用n个小时写n篇论文，每篇论文各花1小时(可以得到这n篇论文的引用数))，h最大为多少(h的含义同上题)(每一种方案都对应着一个h，求这些h中的最大者)思路：最优方案(即对应h值最大的方案)是平摊n小时写成n篇论文(证明未知)；此时n篇论文的引用数为a,a+1,a+2,…,a+n-1，引用数为a+i时，引用数大于等于它的论文有n-i篇，令a+i=n-i得i=(n-a)/2,所以h=a+(n-a)/2; 后AC代码123456789#include&lt;cstdio&gt;int main()&#123; int n,a; while(scanf("%d%d",&amp;n,&amp;a)!=EOF)&#123; printf("%d\n",a+(n-a)/2); &#125; return 0;&#125;]]></content>
       <categories>
         <category>2018湘潭邀请赛</category>
@@ -81,7 +81,7 @@
   </entry>
   <entry>
     <title><![CDATA[A.Easy h-index]]></title>
-    <url>%2FA-Easy-h-index%2F</url>
+    <url>%2FA-Easy-h-index.html</url>
     <content type="text"><![CDATA[A. Easy h-index The h-index of an author is the largest h where he has at least h papers with citations not less than h.Bobo has published many papers. Given a0,a1,a2,…,an which means Bobo has published ai papers withitations exactly i, ﬁnd the h-index of Bobo. Input The input consists of several test cases and is terminated by end-of-ﬁle.The ﬁrst line of each test case contains an integer n. The second line contains (n+1) integers a0,a1,…,an. OutputFor each test case, print an integer which denotes the result. Constraint • 1≤ n ≤2·105 • 0≤ ai ≤109 • The sum of n does not exceed 250,000. Sample Input 11 221 2 330 0 0 0 Sample Output 120 题意：给定被引用次数为0~n的论文分别有几张，找到最大的h，满足被引用次数大于等于h的论文至少有h张思路：在区间[0,n]内二分答案；或直接从n~0遍历找到第一个满足条件的h 后AC代码12345678910111213141516171819202122#include "bits/stdc++.h"using namespace std;int main()&#123; int a[200005]; int n; int i; while(cin&gt;&gt;n)&#123; for(i=0;i&lt;=n;i++) cin&gt;&gt;a[i]; int sum=a[n]; for(i=n;i&gt;=0;)&#123; if(sum&gt;=i)&#123; cout&lt;&lt;i&lt;&lt;endl; break; &#125; else sum+=a[--i]; &#125; if(i&lt;0) cout&lt;&lt;"0"&lt;&lt;endl; &#125; return 0;&#125;]]></content>
       <categories>
         <category>2018湘潭邀请赛</category>
@@ -93,7 +93,7 @@
   </entry>
   <entry>
     <title><![CDATA[C++中sort函数]]></title>
-    <url>%2FC%2B%2B%E4%B8%ADsort%E5%87%BD%E6%95%B0%2F</url>
+    <url>%2FC%2B%2B%E4%B8%ADsort%E5%87%BD%E6%95%B0.html</url>
     <content type="text"><![CDATA[传送门]]></content>
       <categories>
         <category>排序</category>
@@ -105,7 +105,7 @@
   </entry>
   <entry>
     <title><![CDATA[位运算]]></title>
-    <url>%2F%E4%BD%8D%E8%BF%90%E7%AE%97%2F</url>
+    <url>%2F%E4%BD%8D%E8%BF%90%E7%AE%97.html</url>
     <content type="text"><![CDATA[传送门 原文]]></content>
       <categories>
         <category>通用</category>
@@ -117,7 +117,7 @@
   </entry>
   <entry>
     <title><![CDATA[C++ with STL]]></title>
-    <url>%2FC%2B%2B%20with%20STL%2F</url>
+    <url>%2FC%2B%2B%20with%20STL.html</url>
     <content type="text"><![CDATA[传送门]]></content>
       <categories>
         <category>STL</category>
@@ -129,7 +129,7 @@
   </entry>
   <entry>
     <title><![CDATA[Markdown基础教程]]></title>
-    <url>%2FMarkdown%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B%2F</url>
+    <url>%2FMarkdown%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B.html</url>
     <content type="text"><![CDATA[本文来自kio对Markdown的基础教程 Markdown主张使用最简单的符号来控制格式，兼顾易读易写特性，让你可以专注在文本创作上。 这篇文章旨在让你通过大约三分钟来快速掌握Markdown的基本用法。 在开始之前，需要特别注意的点 通常，格式控制符号与文本内容需要保留一个空格 段落之间需要空格一行 标题在书写中，标题是最常用的格式，Markdown中，通过在文本前加上 # 即可，同时，根据#的数量可以可以划分为二级标题、三级标题、四级标题…一共六级。 一级标题二级标题三级标题四级标题五级标题六级标题列表列表分为无序列表和有序列表，无序列表在文本前面加上 - 即可： 无序列表一 无序列表二 无序列表三 而有序列表仅需要在文本前面加上 1. 即可： 有序列表一 有序列表二 有序列表三 引用文本经常需要引入一些内容，包括他人的话等等。仅需要在文本前面加上 &gt; 即可： Kio•纯粹写字 文字修饰为了表达的抑扬顿挫，需要使用到粗体、斜体、删减体等来表明重点，其中用一个 * 号包围起来的文字为斜体，用 ** 包围起来的文字为粗体，而使用 ~~ 包围起来的文字为删减体： 斜体 粗体 删减体 段落分隔符通过 — 即可以添加段落分割线： 链接及图片另外一篇博文链接和图片可以为文章润色不少，通过 [描述]（地址） 既可以添加链接，而在其前面添加一个 ! 号即为添加图片， 具体为: 百度 表格 英文 解释 备注 Book 书 Hello 你好 World 世界 world 这样即可自动生成表格，第二行为内容对准格式，第一格表示内容居中，第二格表示居左，第三格表示居右。 插入高亮代码如果你需要插入一些代码，Markdown也可以帮你自动高亮，包括行内高亮和代码块高亮，行内高亮仅需要使用 内容 包围起来即可。 1代码块高亮 至此，写作中需要用到的控制符已经介绍完毕了，Kio提供的所见即所得Markdown支持和便捷的输入辅助能帮助你快速掌握这一密术 :] 移动端写作工具Kio：密码99o4可以导出PDF，md文件markdownx：密码a5n4SM.MS图床：密码ch0v 若链接失效还可以去酷安上下载。]]></content>
       <categories>
         <category>Markdown</category>
@@ -141,7 +141,7 @@
   </entry>
   <entry>
     <title><![CDATA[Links说明]]></title>
-    <url>%2FLinks%E8%AF%B4%E6%98%8E%2F</url>
+    <url>%2FLinks%E8%AF%B4%E6%98%8E.html</url>
     <content type="text"><![CDATA[待编辑。。。]]></content>
       <categories>
         <category>通用</category>
@@ -153,7 +153,7 @@
   </entry>
   <entry>
     <title><![CDATA[戏子春秋]]></title>
-    <url>%2F%E6%88%8F%E5%AD%90%E6%98%A5%E7%A7%8B%2F</url>
+    <url>%2F%E6%88%8F%E5%AD%90%E6%98%A5%E7%A7%8B.html</url>
     <content type="text"><![CDATA[从此故乡只有冬夏，再无春秋。 Write By: 湖南文理学院 杨灿 时间急促得仿佛还在昨天，还没有清楚地认识到这句话的其中含义时，我早已离开它，远去。 自此，一江绿水东去，桃花竞开，春洒满园；瑟瑟秋风里，稻谷黄时，落木萧萧；故乡的春秋成为回忆尘封在我的脑海深处。 三月，这里和故乡一样雨下得缠绵，却尽带着他乡的味道。在不是滋润自己的那方水土上，哪怕是喜雨之人，亦只有料峭的寒意。雨下到这里才懂得，为何古来才子佳人逢阴雨连绵天总是带着一股莫名的惆怅。原是这般由头！我与他们，并无二般，想起故乡来。 故乡的春是在牛耕上的。太爷说，老牛伏在岸边饮水时节就是春耕了。到那时，耕牛头角披红挂彩，鼻挂铜色大铃，以祈愿今年平安，田地丰收；当耕牛喘着鼻息，缓缓地哞哞叫着走下田，是其在田地里大展身手的机会。故而，二月春耕总是会见到红布条装扮的水牛在田间劳作，彩带飘逸，好生招摇，尤其是农夫哼起那极具故乡气息的耕牛民歌，如高山流水般，伴着清脆的铜铃声隐隐飘去……在春末，三月桃花尽开，漫山望去，粉红红一片，甚是好看。小时看到总以为身处仙山，而后来，陶渊明一篇《桃花源记》就以为自己是那秦时避乱而住在桃花源中的后人。每每与外人谈起家乡的桃花山时，必然是一副神气十足的傲气样子。我想，这也是自己不知不觉中受家人影响，又倾心桃花的缘故吧。 印象中，家里人都爱这漫山遍野的桃花。太爷爱赏花，山上桃花开得极好的时候，便移栽了数株桃花留在了院子里，天好天坏，都能观赏上好一会儿。太婆还在的时候，桃花次第开，她就会拾掇许多桃花下来做成桃花糕，那桃花糕香香糯糯的味道飘散四周，总能把我馋来。后来，太婆故去，奶奶学着太婆开始做起了桃花糕，却总是没有太婆做的如意。但奶奶的桃花酒，受到父辈们的一致好评。每当酒坛从土里挖出，揭开红布，酒气便带着桃花的香甜扑鼻而来。父辈们在太爷种的桃花树下把酒话桑麻，颇有一副桃花坞里桃花庵，桃花庵里桃花仙的样子。现如今记忆远去，酒香却长留下来，记起时，那酒酣甜得喜人。 故乡的秋从九月农收渐起，那时候一家老小在浓浓的秋意里忙忙碌碌，直至十月方才得些许闲暇日子。 稻谷黄时，是秋最盛的时候。父辈们清晨便出发去地里收稻谷。晌午，我兴起与祖母前去送饭。正午的太阳烈得很，父辈们大颗大颗的汗直往下掉，稻谷机嘈杂得很。这才想起太爷教我的诗，“妇姑荷箪食，童稚携壶浆”，就是这样的情景无差。那时候不懂得父辈的辛苦，只知奔入山间，捕捉蚱蜢，蛐蛐等趣物。等傍晚将近，坐在板车谷袋上，兴尽而回，一天就算结束。渐渐长大，再也不敢胡闹，不知是童趣少了还是知了人事愈发迷惘了？ 窗外又下起雨，心里竟也惆怅起来。并非是洗过的衣服久晾未干，而是伴着那股湿意而来，藏在雨里的那点点乡愁。这边的桃花也开得好，往窗外，密密一片，不免想起了太爷书房里的书画：花是春时花，却非故乡花。人是故乡人，却是他乡客。所见时，不过是从戏子变成看客了罢。]]></content>
       <categories>
         <category>友人作品</category>
@@ -164,8 +164,8 @@
   </entry>
   <entry>
     <title><![CDATA[光]]></title>
-    <url>%2F%E5%85%89%2F</url>
-    <content type="text"><![CDATA[Enter password to read. Incorrect Password! No content to display! U2FsdGVkX19qXCShzGuO8qkS9u1QiezbsYi3JQzpi4oloRIb0RAZuBEFFuKab1ppS3DLTkgcekJnuzch8tbk1R2YpT3JOd+sv1ffmGg8CTa59GxMe/9qbHWGS7/DYTk0pfH5dMIua0aKMOIsEU1J0xmMq1U95xVyzzNKe+xXMWTDC2IzQSopgFOd78RA0T+HPcrpn+ckXkIcxNEGFwPXVUrViB4kFhSMDFKw9rfyIvjMatZepPFVQdYhPKK8C+jaosXVeMowYc5iAORXSlE0nCU67IXWlqs1q5nUlImmlPKB7L/DcDB/0YURCveMbrPqNnJqeYBEYBxr+Fiij5EDmYC5O0/DF7GaBdwc+5KCmja9WYn7MjwyMspdqI2498/Cg6nasnlUvYUY4Y7bRjLHKnJ+SgGpolOjRCvsuRcAEgjqjGmiDpBqM5AL/7l38ClWZX4R6XVJ3sjv73zLJOaJ883NA7A39JHuFtRKJZvGrZN0waZP1UaV7ejSTZbpp7lb2yssV5r4HJ+GPOaUOp7CmtAAnwjbR9SRPieUR8hjM2Zbi5NrUb9dY2dHfCZfrM1MqFOOlDs6W6iHg4Mo+FWmzSHJ4w2Jo5FgC1Zct4gNkDqFiuz5aW3EUJ318ow4S0pWYmD4Bv4PpJs+qQAYTon0bB6KndaCfD9TzBL+p3aS0YAV4Qwvww6qzOjvhNbNsH541nIkXKiOu2gtMTKZK/dbGl0gVcDHjcAx+pgxdMXPyO8rlOnCY1ObOMVL6qsZBqF2QHhIFFLTROFzWfFfGhb+TZn6oaQ9Nx2ygiJscYAezJvMD6gs0ZE/sWRw3MpxuLIBLIdOdgMa+Y0CV2XYwV8KWU4EtGmCvO5/boY4Vple92OM5xSCvojfUl5HyuU2mJFHO0qqns3tKvCXiTUuocldsVUf0QT2HgVoZqlnwDSFllotixxk2bUDWNHokr/VGy/ltz4pwYWHo6Jnhx89u8AMVSDIoo78dEpPWj0X9WZ7AuA3YrA5eH2sbc4L2c5g+Nh2XTIdXPiqYYO4bsycl4tMAB8snWDV5bQCzvgqj1ZWpyG41UaS8frvV5b2X3HBBJvgGlomA5cwnzqjEJndLg1BQy7hXopd7+J7aohqM9yEOYH5vPRGPeulu4dcbmPVJGzdqKKJTmhG991DlzsTD+kQ236XninytUp5D513ONZPN6oq8RMyphN3TMidWy7stEkuKVjgUxh1NtIhLpqGfFvCJa6w8JCALBraAXbFR5myAn05/hieA/AP6MQw0PRXoLCvT2hCZTMjYWGdjhAr74DUnA5WU9BKijD4zElYvvULaw05qQ5PKVyoJ62BtDjoW+0f7sogKeMegUL7nGQtVVprrX2bmsP/zx3EBCKyULooRfUEm4uk7EBBUgxSwhwDT+E+3+lhr1mNV0oOuZ5f2ziKSUjQUsATlwst/Zr3MuvV2BLHSP9SgMv23ws9fQkYNC0c]]></content>
+    <url>%2F%E5%85%89.html</url>
+    <content type="text"><![CDATA[Enter password to read. Incorrect Password! No content to display! U2FsdGVkX18tfSlds6yy64J+KRMEk5eyoMq7ApaEuK7UDoVZN7gGwcsdIwYYemcMzCvIBDm2Kquwune8CorM3xJ9jNaYdcq5AQ/fzb57u0XPaYSKF/quQ62yTNUHOdskNO+m9T0oMoFB1nOlnzpM8BedWz3ViO9fmvAOMxQRGJHN/q5LutUodvNpz3BH8k24ixwLSnkDmi9M8UEYmtD0Apd3UF/VWS5wJPUpv47RR1KMBu8e3spGOz5dnGOQgXSGEHpV/hetLGvgFHZ47Slf7iKmTWw2k6vRnaz984h66KDbfoY3+8ltVlkHtCTPmb23R+XHb54/G7gcYA/Rb0zk+nmBtjqf8D1sYxlwxGbGdixLPFYB8c3jy5EsjIaEpCUsuL30uwOVc2kugZMVdjOKaqARdscvj1GXBaxQG0xDeG7nr1SjovNyYqcQyeDBBXmN3tZxDvoc5cP0RbbMhoXus76BN/gBvZt47YNgoUjCe6debFQUQ+mUpHYfA372neVGAo+5JUtWynegEsZn46dIjuxujR7XP4R0KAepgLk4+pdK+at1v10nrs+uYlsRYrUTm+JExpEjuP/pibQdWkovAxeLeWYFYFA3hTPBRTMRnappNs/9TiUlAFT8qyG5I2ZLKs1YUxROZpfr54cZx+Yg4P2j7EcbZ62p3S75Gq7nlJp7OYFjZ5QH5wdmaYpj7LMRGa2KYD9/BSx5SsIdEFdNz+FMssD33uICtmxlRW/i+EGcbBXDPCPh5eJfxAZuxgqjEapo8ojhEfRfdCKJSCIIytkPSbZbRerOXRa+eTlWneNUPBsVSc6VTsFg3HAz5sKhdEOlWoEGLKq8KEg0L0I3vGo9SlW5qK341zvTn3BiPZmKUDX8kt3/PlsBjfjXu60r+tZPj7QZSKNAJ1Kp9EJ2VpR77l4mmtzKpprvRDfduEu/gQyNYPRbw+d9Clky+nU0/Ylj6vCFgzwTFgnZ46nx7gFKbcvz6AcRHiMYnZrVMYJMdAeAQN+A+ccWogYlkU6ho8wWwk3Bg464uDex5D99JSu0Wv9+XsYGFV6I9LFpSeGIzyNxivetTmsbKnk/U6VcSYNAjByTw3fTcLJPHO+nsqbGW6/Oql6pF43qY2x4X+SbFx071rlomAxankKbmUwnAZ+fy/q340jxH756/2BCmkDA0meEDf69ooJzhW5pf1kR4ouqqlxJMOUAaytF99dpl1664BH/fwxZHdUBwmurq4dNFPa4pl85b05Fgb0DIK6x9bSfsALmUcuN4gcaAvcikY8H82W6OKoXUsV8Dz0w7xzgUKWFJVdxP4meaKhck0amFbCDACjaNDc4Pc/djhLBmuWRzUuDTIewLJKwLbmPI8rvmc3c9d/huNFhTeWD9XrBK4iGiRCdelJNJLdc96kbZq1Cs9qMgfeINC9HHQHGXTgA2zyRqT+IOQm1kFltYL9Yn2fu15Xr1NBi9H8QhnHn]]></content>
       <categories>
         <category>生活随笔</category>
       </categories>
@@ -175,7 +175,7 @@
   </entry>
   <entry>
     <title><![CDATA[换主题next]]></title>
-    <url>%2F%E6%8D%A2%E4%B8%BB%E9%A2%98next%2F</url>
+    <url>%2F%E6%8D%A2%E4%B8%BB%E9%A2%98next.html</url>
     <content type="text"><![CDATA[next使用手册 用了几天aloha主题，最开始看中的是他的简约，主页就是归档，看起来很清爽，可是没想到功能也简约，用了几天很不爽了，换回了next，最近要考试了，有时间再配置。。。 next功能果然很强大，配置很快，next使用手册也很详细，如果不想入坑，建议第一次直接使用next主题]]></content>
       <categories>
         <category>hexo博客</category>
@@ -186,7 +186,7 @@
   </entry>
   <entry>
     <title><![CDATA[hexo + github 搭建个人博客]]></title>
-    <url>%2Fhexo%20%2B%20github%20%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%2F</url>
+    <url>%2Fhexo%20%2B%20github%20%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2.html</url>
     <content type="text"><![CDATA[首先官方文档是我们的第一手资料，也是最好的。安装 Hexo 相当简单。然而在安装前，您必须检查电脑中是否已安装下列应用程序：· Node.js· Git hexo安装如果您的电脑中已经安装上述必备程序，那么恭喜您！接下来只需要使用 npm 即可完成 Hexo 的安装。1$ npm install -g hexo-cli 建站安装 Hexo 完成后，请执行下列命令，Hexo 将会在指定文件夹中新建所需要的文件。123$ hexo init &lt;folder&gt;$ cd &lt;folder&gt;$ npm install 新建完成后，指定文件夹的目录如下：12345678.├── _config.yml├── package.json├── scaffolds├── source| ├── _drafts| └── _posts└── themes 安装hexo插件全装上吧，没事。。。12345678910111213$ npm install hexo-generator-index --save$ npm install hexo-generator-archive --save$ npm install hexo-generator-category --save$ npm install hexo-generator-tag --save$ npm install hexo-server --save$ npm install hexo-deployer-git --save$ npm install hexo-deployer-heroku --save$ npm install hexo-deployer-rsync --save$ npm install hexo-deployer-openshift --save$ npm install hexo-renderer-marked@0.2 --save$ npm install hexo-renderer-stylus@0.2 --save$ npm install hexo-generator-feed@1 --save$ npm install hexo-generator-sitemap@1 --save 本地查看效果执行下面语句，执行完再登录localhost:4000查看效果（执行完不要按Ctrl+C，不然就停止了）12$ hexo g$ hexo s 其他步骤在这里不赘述，参见超详细教程传送门 部署1$ hexo g -d 部署后我们可以浏览器搜 username.github.io 查看自己的博客效果，，比如我的lruihao.github.io 美化美化很好的一个博主asdfv1929hexo官方主题集合，我用的是aloha主题，该主题官方文档hexo个性化教程说说我的主题遇到的一些问题，由于这个主题用的人少，所以作者优化的不是很好（next使用最多），当然也可以反过来说，所以自己美化了一点 about页面about页面可以用HTML写，你想怎么写都行，我用的最简单的方法，直接hexo n page &quot;about&quot;后，会生成一个md文件，也就是后面说的文章，直接写文章就行了。 添加搜索，评论，分享参考algolia参考文件邱承佳学长博文让搜索引擎找到你的博客，还是看到邱承佳学长博文有写到传送门 添加访客数，阅读量等评论有多说（多说好像挂了），计数有不蒜，我用的不蒜子，还有其他的。。。 文章阅读量打开以下路径在你喜欢的地方添加代码，\blog\hexo\themes\主题名字\layout_partial，找到article.ejs文件1234&lt;div align="left"&gt;&lt;span id="busuanzi_container_page_pv"&gt; 本文总阅读量&lt;span id="busuanzi_value_page_pv"&gt;&lt;/span&gt;次 &lt;/span&gt;&lt;/div&gt; 站点访问量，访客数打开以下路径在你喜欢的地方添加代码，\blog\hexo\themes\主题名字\layout_partial，找到footer.ejs文件123456789&lt;script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"&gt;&lt;/script&gt;&lt;span id="busuanzi_container_page_pv"&gt; 本站总访问量&lt;span id="busuanzi_value_site_pv"&gt;&lt;/span&gt;次 | &lt;/span&gt;&lt;span id="busuanzi_container_site_uv"&gt; 本站访客数&lt;span id="busuanzi_value_site_uv"&gt;&lt;/span&gt;人次&lt;/span&gt; 写文章hexo文章用轻量型标签语言Markdown编写·markdown入门·繁体原始文件·繁体原始文件github·简体中文文件]]></content>
       <categories>
         <category>hexo博客</category>
@@ -197,7 +197,7 @@
   </entry>
   <entry>
     <title><![CDATA[hexo 添加图片，音乐，链接，视频]]></title>
-    <url>%2Fhexo-%E6%B7%BB%E5%8A%A0%E5%9B%BE%E7%89%87%EF%BC%8C%E9%9F%B3%E4%B9%90%EF%BC%8C%E9%93%BE%E6%8E%A5%EF%BC%8C%E8%A7%86%E9%A2%91%2F</url>
+    <url>%2Fhexo-%E6%B7%BB%E5%8A%A0%E5%9B%BE%E7%89%87%EF%BC%8C%E9%9F%B3%E4%B9%90%EF%BC%8C%E9%93%BE%E6%8E%A5%EF%BC%8C%E8%A7%86%E9%A2%91.html</url>
     <content type="text"><![CDATA[如果实在搞得头晕直接去简书写文章，再把简书生成的md文章复制过来就好了（简书是个不错的Markdown在线编辑器），还可以去马克飞象，专为印象笔记打造的 Markdown 编辑器，typora 也是不错的，突然发现csdn也支持Markdown编译器了 1.首先刚刚搭博客，很多都不懂，就连插入图片的路径问题都把我整的要命。。。（我用的Sublime Text 3编译器）下面讲讲： 1.1 设置站点配置_config.yml1post_asset_folder: true 1.2 安装插件1npm install https://github.com/CodeFalling/hexo-asset-image -- save 1.3 下次再运行hexo n “xxxx”来生成md博文时，下路径1/source/_posts 文件夹内除了xxxx.md文件还有一个同名的文件夹，在xxxx.md中想引入图片时，先把图片复制到xxxx这个文件夹中，然后只需要在xxxx.md中按照markdown的格式引入图片。 2.添加图片首先大家可以查看hexo官方文档资源文件夹章节 2.1 markdown添加相对路径添加（我被这个相对路径搞得要死，前面各种出错，大家可以对照我的来插入图片…）12#直接写图片名就好了，图片实例见下![kyrie irving](294136.jpg) 2.2 插件添加传送门这种方式被很多人诟病，但有时候也不失一种好方式，简单快捷。图片好大一个。。。12#为了排版好看，以下图片插入未使用该方法&#123;% asset_img 297787.jpg kyrie irving %&#125; 3.音乐大家可以看网易云音乐的官网，播放音乐可以生成外链，直接拿来用就行了。iframe插件可以在代码中设置宽高等参数，auto为自动播放。flash不可以自己设置参数。看喜好，随便你。其他音乐，把插件中的链接替换成要播放的链接就可以了1234#iframe插件&lt;iframe frameborder=&quot;no&quot; border=&quot;0&quot; marginwidth=&quot;0&quot; marginheight=&quot;0&quot; width=330 height=86 src=&quot;//music.163.com/outchain/player?type=2&amp;id=505820138&amp;auto=0&amp;height=66&quot;&gt;&lt;/iframe&gt; 1234#flash插件&lt;embed src=&quot;//music.163.com/style/swf/widget.swf?sid=40249713&amp;type=2&amp;auto=0&amp;width=320&amp;height=66&quot; width=&quot;340&quot; height=&quot;86&quot; allowNetworking=&quot;all&quot;&gt;&lt;/embed&gt; 4.添加链接1[我的微博](http://weibo.com/u/5967841127) 我的微博 5.添加视频视频链接最好是打开就是视频的链接（支持youku，YouTube）可以把视频上传到优酷，腾讯视频，生成外链再拿来用。（上传需要注册和实名认证）参考资料 123456#我自己拍的一个视频，微博上也有&lt;iframe height=498 width=510 src="http://player.youku.com/embed/XMzY0MzgxNDMyOA==" frameborder=0 allowfullscreen&gt;&lt;/iframe&gt; 自拍手写视频，一开始上传到微博上，再链接过来发现不行，视频打开的是那篇微博，还有点一下才可以播放，后来上传到优酷上了，如下。 工具集合马克飞象简书图床图床神器cloudapp是英文的极简图床不错小贱贱图床SM.SMb不错嗯，图片就交给他了（该文写的很清楚）]]></content>
       <categories>
         <category>hexo博客</category>
@@ -208,7 +208,7 @@
   </entry>
   <entry>
     <title><![CDATA[猴子与哪吒]]></title>
-    <url>%2F%E7%8C%B4%E5%AD%90%E4%B8%8E%E5%93%AA%E5%90%92%2F</url>
+    <url>%2F%E7%8C%B4%E5%AD%90%E4%B8%8E%E5%93%AA%E5%90%92.html</url>
     <content type="text"><![CDATA[一直觉得中国古代神话 能称得上传奇的只有两个人物： 一是猴子 一是哪吒 百世蕴灵育出只石猴 大闹天宫腾云驾雾 三年怀胎生了个哪吒 东海屠龙翻江倒海 可以说 除了这两人 没人再能当得起离经放纵四个字的 但称得上悲剧的 约摸也只有这两个 一个五行山下压五百年 揭了封印 戴上金箍无悲无喜 拜佛西天 唤孙悟空 一个削肉还母剔骨还父 塑了莲身 站上火轮无怨无恨 封神南门 号三太子 这尘世最擅长的事 大抵就是抹杀疏狂者的落拓 磨平豪纵者的傲骨 斩灭叛世者的孤妄]]></content>
       <categories>
         <category>生活随笔</category>
@@ -219,7 +219,7 @@
   </entry>
   <entry>
     <title><![CDATA[Hello World]]></title>
-    <url>%2Fhello-world%2F</url>
+    <url>%2Fhello-world.html</url>
     <content type="text"><![CDATA[Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick StartCreate a new post1$ hexo new "My New Post" More info: Writing Run server1$ hexo server More info: Server Generate static files1$ hexo generate More info: Generating Deploy to remote sites1$ hexo deploy More info: Deployment]]></content>
   </entry>
 </search>
