@@ -9,7 +9,7 @@
      }
      else {
          $('[rel="icon"]').attr('href', "/favicon.ico");
-         document.title = '又回来了 (ฅ>ω<*ฅ)' + OriginTitle;
+         document.title = '这才对嘛 (ฅ>ω<*ฅ)' + OriginTitle;
          titleTime = setTimeout(function () {
              document.title = OriginTitle;
          }, 2000);
