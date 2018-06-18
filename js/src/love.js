@@ -1,4 +1,4 @@
-&lt;script type="text/javascript"&gt; 
+<script type="text/javascript">
 /* 萨墨温德-鼠标特效 */ 
 var a_idx = 0; 
 jQuery(document).ready(function($) { 
@@ -27,4 +27,4 @@ jQuery(document).ready(function($) {
         }); 
     }); 
 });
-&lt;/script&gt;
+</script>
