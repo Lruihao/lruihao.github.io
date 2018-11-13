@@ -245,10 +245,13 @@
             {% if theme.post_meta.item_text %} {{__('post.views') + __('symbol.colon') }} {% endif %}
             <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
             </span>
-            <span class="post-meta-divider">|</span>
-            <span title="{{ __('post.wordcount') }}"><span class="post-meta-item-icon"><i class="fa fa-file-word-o"></i></span>字数： {{ wordcount(post.content) }}</span>
           {% endif %}
 
+          {% if true %}
+          <span class="post-meta-divider">|</span>
+          <span title="{{ __('本文字数') }}"><span class="post-meta-item-icon"><i class="fa fa-file-word-o"></i></span>字数：&thinsp;{{ wordcount(post.content) }}</span>
+          {% endif %}
+          
           {% if config.symbols_count_time.symbols or config.symbols_count_time.time %}
             <div class="post-symbolscount">
               {% if not theme.symbols_count_time.separated_meta %}
@@ -375,9 +378,11 @@
       </div>
     {% endif %}
 
-    {% if (theme.alipay or theme.wechatpay or theme.bitcoin) and not is_index %}
-      <div>
-        {% include 'reward.swig' %}
+    {% if post.tags and post.tags.length and not is_index %}
+      <div class="post-tags">
+        {% for tag in post.tags %}
+          <a href="{{ url_for(tag.path) }}" rel="tag"><i class="fa fa-tag"></i> {{ tag.name }}</a>
+        {% endfor %}
       </div>
     {% endif %}
 
@@ -387,15 +392,13 @@
       </div>
     {% endif %}
 
+    {% if (theme.alipay or theme.wechatpay or theme.bitcoin) and not is_index and !post.noreward %}
+      <div>
+        {% include 'reward.swig' %}
+      </div>
+    {% endif %}
+    
     <footer class="post-footer">
-      {% if post.tags and post.tags.length and not is_index %}
-        <div class="post-tags">
-          {% for tag in post.tags %}
-            <a href="{{ url_for(tag.path) }}" rel="tag"><i class="fa fa-tag"></i> {{ tag.name }}</a>
-          {% endfor %}
-        </div>
-      {% endif %}
-
       {% if not is_index %}
       {% if theme.rating.enable or (theme.vkontakte_api.enable and theme.vkontakte_api.like) or (theme.facebook_sdk.enable and theme.facebook_sdk.like_button) or (theme.needmoreshare2.enable and theme.needmoreshare2.postbottom.enable) %}
         <div class="post-widgets">

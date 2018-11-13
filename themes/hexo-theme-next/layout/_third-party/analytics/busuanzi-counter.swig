@@ -5,9 +5,12 @@
   {% if theme.busuanzi_count.total_visitors %}
     <font color=DarkSlateGray face=STLiti><span class="site-uv" title="{{ __('footer.total_visitors') }}">
       <i class="fa fa-{{ theme.busuanzi_count.total_visitors_icon }}"></i>
-      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>人次<span class="post-meta-divider">|</span><i class="fa fa-edit" title="总字数"></i>&ensp;<span class="post-count">{{ totalcount(site) }}</span>字,
-      <span id="timeDate" title="网站运行时间">载入天数...</span><span id="times" title="网站运行时间">载入时分秒...</span><span class="post-meta-divider">|</span>
-    </span></font>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>人次
+    </span><span class="post-meta-divider">|</span></font>
+    <font color=DarkSlateGray face=STLiti>
+    <span title="总字数"><i class="fa fa-edit"></i>&ensp;<span class="post-count">{{ totalcount(site) }}</span>字,</span>
+    <span id="timeDate" title="网站运行时间">载入天数...</span><span id="times" title="网站运行时间">载入时分秒...</span><span class="post-meta-divider">|</span>
+    </font>
   {% endif %}
 
   {% if theme.busuanzi_count.total_views %}

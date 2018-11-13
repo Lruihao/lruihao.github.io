@@ -1,12 +1,12 @@
 
 <div class="copyright">{#
 #}{% set current = date(Date.now(), "YYYY") %}{#
-#}<font color=black face=STLiti>All Copyright Reserved&nbsp;</font><font color=black>&copy;</font> {% if theme.footer.since and theme.footer.since != current %}<font color=black face=STLiti>{{ theme.footer.since }} -</font> {% endif %}{#
+#}<font color=black face=STLiti>Copyright &nbsp;</font><font color=black>&copy;</font> {% if theme.footer.since and theme.footer.since != current %}<font color=black face=STLiti>{{ theme.footer.since }} -</font> {% endif %}{#
 #}<font color=black face=STLiti><span itemprop="copyrightYear">{{ current }}</span></font>
   <span class="with-love" id="animate">
     <i class="fa fa-{{ theme.footer.icon.name }}"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder" style="font-family:MMT;font-size:120%;font-weight:bold;color:#444;">李瑞豪</span>
+  <span class="author" itemprop="copyrightHolder" style="font-family:STLiti;color:black;">{{ theme.footer.copyright | default(author) }} . All Rights Reserved.</span>
 
   {% if config.symbols_count_time.total_symbols %}
     <span class="post-meta-divider">|</span>
