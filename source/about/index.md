@@ -31,14 +31,13 @@ comments: false
 <center><input type="text" onfocus="&quot;李瑞豪的博客&quot;==value&amp;&amp;(value=&quot;&quot;)" onblur="&quot;&quot;==value&amp;&amp;(value=&quot;李瑞豪的博客&quot;)" name="word" size="35" value="李瑞豪的博客"><input type="submit" value="百度一下" class="btn self-btn bg s_btn"></center>
 </form>至于我为什么写博客，最主要的影响是ACM实验室一个学长的对我的影响，或者直接说是[他的博客](http://qiuchengjia.cn)对我的影响,还有这篇[我为什么写博客](https://www.cnblogs.com/jhzhu/p/3893297.html)在没有人更了解你之前，自己是最了解自己的人了，写博客的目的在于你可以在现在写下一年后自己还能看懂的论文和知识点，而不至于让知识很快就遗忘，好记性也不如烂笔头啊！
 
-<img src="https://i.loli.net/2018/06/15/5b23baf794e4a.png" width="400" height="200" align="left">代码托管在coding 和github上，
+<img src="https://i.loli.net/2018/06/15/5b23baf794e4a.png" width="400" height="200" align="left">代码托管在coding 和github上，访问地址如下：
 实现国内走coding，国外走github路线。
-你可以通过以下方式访问：
 * ~~https://www.lruihao.cn~~ （导航页）
 * https://lruihao.cn
 * https://lruihao.github.io
 * https://liruihao.coding.me
-<br>
+<br><br>
 
 如果你在浏览博客的时候觉得颜色太亮，可以尝试调节网站亮度
 
