@@ -46,9 +46,9 @@ comments: false
 |:-:|:-:|
 |<li>Alt+Z: 打开夜间模式</li><li>Alt+X: 关闭夜间模式</li>|<li>Alt+↑: 增加亮度</li><li>Alt+↓: 降低亮度</li>|
 
-#### [关于菜单的导航页](https://www.lruihao.cn)
+#### [关于菜单的小栈](https://www.lruihao.cn)
 
-为了区别于博客，我重新在coding上面新开了仓库用来放一些实验性尝试，里面放了一些小游戏，自己搭的平时用来上机用的网盘，还有自己写的字体等等。通过301重定向`liruihao.coding.me/home`到`www.lruihao.cn`
+为了区别于博客，我重新在coding上面新开了仓库用来放一些实验性尝试，里面放了一些小游戏，自己搭的平时用来上机用的网盘，还有自己写的字体等等。通过301重定向`lruihao.cn/rui-site`到`www.lruihao.cn`
 这样另类的www是不是和平常的www有些不一样，这就是我这些稀奇古怪的想法之一...哈哈哈哈哈
 * [博採眾長app](/fas-app.html)
 * [caddy网盘](https://pan.lruihao.cn)
