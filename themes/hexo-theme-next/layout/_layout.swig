@@ -126,8 +126,8 @@
   <script type="text/javascript" src="/js/src/night.js"></script>
   <div class="cover"></div>
   
-  <!--崩溃欺骗--><!-- 页面点击小红心love.js或者文字word.js -->
-  <script type="text/javascript" src="/js/src/crash_cheat.js"></script>
+  <!--崩溃欺骗-->
+  <!--<script type="text/javascript" src="/js/src/crash_cheat.js"></script>-->
 
   <!--input特效-->
   <script src="/js/src/activate-power-mode.js"></script>
