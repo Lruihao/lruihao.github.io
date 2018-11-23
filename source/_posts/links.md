@@ -116,3 +116,5 @@ sticky: false
 |[PEXELS](https://www.pexels.com)|无版权美图网，避免配图侵权|
 |[改图宝](http://www.gaitubao.com)|在线改图压缩，加水印，生成二维码，印章制作等|
 |[soogif](https://www.soogif.com)|gif图及工具|
+|[站长工具](http://tool.chinaz.com)|网站信息查询，权重，seo，网站速度查询，ping等|
+|[mdtr2pdf](http://www.mdtr2pdf.com/index.html)|markdown转pdf|

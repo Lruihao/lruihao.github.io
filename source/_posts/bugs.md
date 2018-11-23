@@ -1,9 +1,10 @@
 ---
-title: BUG那些事
+title: 博客这些事
 date: 2018-07-27 17:15:34
 tags:
 - BUG
 - 通用
+- 博客日志
 categories:
 - 通用
 password:
@@ -13,22 +14,32 @@ description:
 top:
 ---
 
-> 日常BUG记录，欢迎大家找出其他bug!
-
+## 博客日志
+<li>2018.10.29 \-\- 网站ICP和公安备案完成</li>
+<li>2018.08.28 \-\- 第一次收到[france](https://postgres.fun)支持 [赞助记录](/donators.html)</li>
+<li>2018.09.05 \-\- 博客一百天，访问过万</li>
+<img src="https://lruihao.cn/day-100/100.png" align="left" />
+<br><br><br><br><br>
+<li>2018.06 ~ 2018.09 \-\- 接入百度站长，seo优化，加入评论、客服、访客统计等 创建[RUI豪小栈](https://www.lruihao.cn)</li>
+<li>2018.05.28 20:01:01 \-\- 博客诞生</li>
 <!--more-->
 
-## CPU占用过高
+---
+## BUGs
+> 日常BUG记录，欢迎大家找出其他bug!
+
+### CPU占用过高
 前两天收到网友的反馈，说我的网站打开CPU占用80%多，我以前都没想过这些性能问题，突然出现就慌了，一开始怀疑是js的原因，后来又有人反馈截图说他的电脑上正常，不过在win10的电脑上就很高，后来在浏览器中吧js加载关掉就正常了，说明就是js造成的，虽然不懂js，不过为了解决这个致命的问题还是硬着头皮，在翻next源码中，自己用过的js,翻了一整天没找出结果，期间还麻烦晓剑帮我找了。知道今天又找了一上午才找到，罪魁祸首，是next提供的动态壁纸，后来测试了一下，那些动态壁纸都会让CPU飚起来，不知道是我改了什么源码的原因，还是静态壁纸和动态壁纸不能一起用的原因。不过总之这个问题吧已经解决，开心。
 ![浏览器web工具性能分析](https://i.loli.net/2018/08/28/5b850620bd736.png)
 ![解决](https://i.loli.net/2018/08/28/5b850620c4b2c.png)
 
-## 杂七杂八
+### 杂七杂八
 * 使用hexo-all-minifier压缩博文，导致打赏button失效；原因：压缩倒是button那块div，有一个叫`'QR'`的id,压缩后变成小写`' qr'`
 解决方法：
 	1. 取消html或js压缩；或者取消压缩打赏文件reward.swig（未测试）；
 	2. 打开reward.swig把第三行中的`document.getElementById('QR');`改为`document.getElementById(&quot;QR&quot;);`；
 
-## 评论
+### 评论
 
 * gitalk评论插件，由于我没有对文章标题id进行md5等转码，所以在较长标题博客下可能造成github登录失败等原因以至于无法评论，所以评论不太友好，大佬略过，~~这个bug目前我不打算修复~~(我换了gitment评论)，懒！然后如果实在有啥问题可以在右边栏的在线客服那里在线联系我，也可以加上面的联系方式联系我！（我也是小白哈哈哈哈哈！）
 
@@ -38,7 +49,7 @@ top:
 
 * gitment在我双线部署后，被我抛弃了，其实我挺喜欢gitment的Markdown语法功能的，但是比较适合github.io这种域名的，主要是登陆问题，我觉得是返回值啥的，gitment的仓库在github上。就这样吧，用来必力评论吧，虽然是韩国的，加载会慢点，不过没关系，反正没人评论，都是我自己记录，足够了！！！
 
-## 彩蛋 
+### 彩蛋 
 
 * ~~[www.lruihao.cn](https://www.lruihao.cn)和[lruihao.cn](https://lruihao.cn)的评论是不一样的~~
 * ~~在留言页面地址后面加/index.html  ,这个的隐藏评论区hhhh，同样有第一种的区别~~
