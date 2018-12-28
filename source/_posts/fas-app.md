@@ -32,8 +32,7 @@ permalink:
 ### 下载
 > app内也可以更新，不过就我自己用，懒得更新。
 
-* [直链](http://ss.uixsj.cn/bczc_2.2.5_beta.apk)
-* [百度云，密码:29p5](https://pan.baidu.com/s/19iyxHQ6kQjj3eJ0fS3ZDXw) 
+* [百度云，密码:479l](https://pan.baidu.com/s/19jOvnNhssF302Mi1GRa2Sw) 
 * [github下载](https://github.com/Lruihao/Blog_fas_apk)
 
 ### 部分源码

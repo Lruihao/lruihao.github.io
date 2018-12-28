@@ -1,5 +1,5 @@
 ---
-title: 设置单篇文章不打赏
+title: 设置单篇文章不打赏、首页不显示文章
 date: 2018-11-06 13:06:29
 tags:
 - hexo博客
@@ -14,6 +14,7 @@ permalink:
 noreward: true
 ---
 
+## 不打赏
 > 出于一些特殊的原因，可能会希望hexo博客某篇单独的文章不打赏，其他文章还是可以打赏的。我是这样做的。
 {% note %}
 原理：
@@ -40,6 +41,7 @@ tags:
 - hexo博客
 categories: hexo博客
 noreward: true
+notshow: false
 ---
 ```
 
@@ -49,3 +51,17 @@ ps: 小声bb,如果有打赏的冲动换一篇文章就是了，嘘！
 
 #### 其他
 顺手改了一下tags的位置，知道tags那一块移到喜欢的位置就好了。
+
+## 首页不显示文章
+同理可得找到主题布局文件layout/index.swig
+
+找到一个for循环，在for循环里面加一个判断就行了。
+```
+    {% for post in page.posts %}
+    	{% if !post.notshow %}
+    		{{ post_template.render(post, true) }}
+    	{% endif %}
+    {% endfor %}
+```
+使用同理，`notshow: true`
+在归档可以看到文章。

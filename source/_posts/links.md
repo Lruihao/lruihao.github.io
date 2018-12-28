@@ -9,7 +9,7 @@ top:
 sticky: false
 ---
 
-{% note success %} 我们在平时学习生活总会遇到很多很多有用的网站，也许我们收藏在了浏览器书签里，可过久了，不做说明，这些链接的价值就被时间淹没了，我们自己都记不起来了，所以这篇文章因此而生。对自己收藏的链接做些简单的说明(用了我一个下午)。
+{% note success no-icon %} 我们在平时学习生活总会遇到很多很多有用的网站，也许我们收藏在了浏览器书签里，可过久了，不做说明，这些链接的价值就被时间淹没了，我们自己都记不起来了，所以这篇文章因此而生。对自己收藏的链接做些简单的说明(用了我一个下午)。
 {% endnote %}
 <br>
 
@@ -73,7 +73,7 @@ sticky: false
 |[HTML字符实体](https://blog.csdn.net/u013778905/article/details/53177042)|网页特殊符号大全|
 |[leancloud](https://leancloud.cn)|一站式后端云服务|
 |[daocloud](https://dashboard.daovoice.io)|网站在线客服|
-|[宅音乐播放器](https://player.ilt.me)|依赖jQuery|
+|[宅音乐播放器](https://pplayer.ilt.me)|依赖jQuery|
 |[Button样例](https://www.bestcssbuttongenerator.com)|20多种button样式，可获取源码|
 |[encycolorpedia](https://encycolorpedia.cn)|encycolorpedia取色器|
 |[特效字转换工具集](http://www.sioe.cn/yingyong)|各种特效字转换工具,彩虹字生成器,RGB转16进制颜色等|
@@ -118,3 +118,4 @@ sticky: false
 |[soogif](https://www.soogif.com)|gif图及工具|
 |[站长工具](http://tool.chinaz.com)|网站信息查询，权重，seo，网站速度查询，ping等|
 |[mdtr2pdf](http://www.mdtr2pdf.com/index.html)|markdown转pdf|
+|[AD's API](https://api.imjad.cn)|包括动态签名，网易音乐等|

@@ -6,8 +6,7 @@ tags:
 - fun sth for acm
 - 他山之石
 categories:
-- ACM
-- fun sth for acm
+- 生活随笔
 password:
 abstract:
 message:

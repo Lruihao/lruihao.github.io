@@ -14,16 +14,10 @@ sticky: false
 author:
 permalink:
 ---
-{% note info %} 互换友链请在评论留言，最好加上你网站的描述，以便区分。 
-引用一句话，**那些不尊重他人劳动成果，转载不加出处的，或恶意行为的站点，还请您不要来进行交换了。**
-{% endnote %}
-<br>
-  
-<!--more-->
 
-|链接|描述|
+|<center>链接</center>|<center>描述</center>|
 |:--|:--|
-|[戎码人生](http://qiuchengjia.cn)|邱承佳学长ACM,java,安卓等搭这个博客的启发|
+|[戎码人生](http://qiuchengjia.cn)|邱承佳学长ACM,java,安卓等，还有搭这个博客的启发|
 |[愛如潮水](https://recell.github.io)|蒙镛、老铁,一句两句说不清|
 |[鲸落oh](https://hexiongbiao.cn)|又一个被我带入坑的小伙子！|
 |[francs's blog](https://postgres.fun)|PostgreSQL中文网。数据库。francs.top|
@@ -35,4 +29,11 @@ permalink:
 |[小情书](https://lancelik.github.io)|坐标上海，前后端工程师|
 |[dx](https://dengdengdeng123.github.io)|ACM|
 |[wxl666](https://wxlabc.github.io)|ACM|
+|[Domon](https://www.domon.cn)|主要涉及Android端技术，前沿其他技术和生活吐槽。|
+|[mythsman](http://blog.mythsman.com)|hexo-douban插件开发者，坐标上海拼多多//博客看起来是个很有生活感与学习感的地方|
 
+<!--more-->
+<br>
+{% note info no-icon %} 互换友链请在评论留言，最好加上你网站的描述，以便区分。 （排名不分先后）
+引用一句话，**那些不尊重他人劳动成果，转载不加出处的，或恶意行为的站点，还请您不要来进行交换了。**
+{% endnote %}
