@@ -15,7 +15,7 @@ author:
 permalink:
 ---
 
-{% note %}
+{% note success no-icon %}
 本文适合我这种纯小白。
 目前为止，全网也就只有一个博主写到过这样动态显示subtitle的文章。[传送门](https://www.jianshu.com/p/df2c844eeabf)（关键词：js,后加载）
 但是嘞，该博写的不怎么详细，17年底写的。当然更大的可能是next更新了一些文件结构，所以不适合现在使用了。以前我按原博的流程配置了一下没成功就搁在那里了，今天突然心血来潮。翻了翻原博主博客的源码，再与自己的对比了一下，发现了一些端倪。稍作调整后如下：
@@ -91,3 +91,22 @@ ps: `title`和`subtitle`的`字体`还有`颜色`也可以在这个文件修改�
 之后部署后每次刷新就可以看到不同的subtitle了，开心😀
 
 效果详见：<https://lruihao.cn>
+
+## api调用（11.29更）
+直接js调用api简单快速
+```html
+<div>
+  <script type="text/javascript" src="https://api.imjad.cn/hitokoto/?cat=&charset=utf-8&length=&encode=js&fun=sync&source="></script>
+  <div id="hitokoto">
+    <script>hitokoto()</script>
+  </div>
+</div>
+```
+[参数详见](https://api.imjad.cn/hitokoto.md)
+
+**效果区（刷新可见）**
+
+---
+<script type="text/javascript" src="https://api.imjad.cn/hitokoto/?cat=&charset=utf-8&length=&encode=js&fun=sync&source="></script><div id="hitokoto"><script>hitokoto()</script></div>
+
+---

@@ -3,6 +3,7 @@ title: termux基本使用教程
 date: 2018-10-23 22:16:02
 tags:
 - termux
+- linux
 categories:
 - termux
 password:
@@ -183,3 +184,49 @@ nyancat
 ```
 
 > 还有更多姿势这里就不写了，只写一下日常用到的，就这样OK睡觉！
+
+### termux更多常用有趣命令（适用于linux）
+
+```
+vim $PREFIX/etc/motd
+chcolor
+chfont
+~/.termux/colors.sh
+~/.termux/fonts.sh
+
+echo "https://www.lruihao.cn" |curl -F-=\<- qrenco.de
+
+pkg install nyancat
+nyancat
+pkg install sl
+sl
+pkg install figlet
+figlet hello
+pkg install toilet
+toilet hello
+toilet -f mono12 -F gay "hello"
+pkg cowsay
+cowsay "hello"
+pkg install cmatrix
+cmatrix
+pkg install w3m
+w3m www.lruihao.cn
+```
+cmatrix常用命令如下:
+cmatrix-a :异步滚动（默认）
+cmatrix-b :随机粗体
+cmatrix-B :全部粗体
+cmatrix-o :使用旧风格滚动
+cmatrix-x :X window 模式
+cmatrix-V :显示版本信息
+cmatrix-u :刷新频率，0-9，也就是滚动的快慢
+cmatrix-C :显示的颜色，支持green(默认),red,blue,white,yellow,cyan,
+        magenta and black
+例如:使用红色
+cmatrix -b -C red
+使用蓝色
+cmatrix -b -C blue
+等等........
+主义:在运行状态下,使用0-9数字,可以改变运行速度快慢.
+
+开启你的装逼之路把,骚年!
