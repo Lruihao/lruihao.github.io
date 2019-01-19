@@ -112,11 +112,7 @@
                   <span class="post-meta-item-text">{{ __('post.edited') }}</span>
                 {% endif %}
                 <time title="{{ __('post.modified') + __('symbol.colon') + full_date(post.updated) }}" itemprop="dateModified" datetime="{{ moment(post.updated).format() }}">{#
-                #}{% if date_diff -%}
-                    {{- date(post.updated) -}}
-                  {%- else -%}
-                    {{- time(post.updated) -}}
-                  {%- endif -%}
+                #}{{ date(post.updated) -}}
                 </time>
               {% endif %}
             {% endif %}
@@ -173,18 +169,6 @@
                         data-disqus-identifier="{{ post.path }}" itemprop="commentCount"></span>
                 </a>
               </span>
-            {% elseif theme.hypercomments_id %}
-            <!--noindex-->
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="{{ url_for(post.path) }}#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">{{ __('post.comments_count') + __('symbol.colon') }}</span> <span class="post-comments-count hc-comment-count" data-xid="{{ post.path }}" itemprop="commentsCount"></span>
-                </a>
-              </span>
-              <!--/noindex-->
             {% elseif theme.changyan.enable and theme.changyan.appid and theme.changyan.appkey %}
               <span class="post-comments-count">
               <span class="post-meta-divider">|</span>
@@ -216,15 +200,18 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
+                {% if theme.post_meta.item_text %}
+                <span class="post-meta-item-text"> {{ __('post.comments_count') + __('symbol.colon') }} </span>
+                {% endif %}
                 <a href="{{ url_for(post.path) }}#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">{{ __('post.comments_count') + __('symbol.colon') }}</span> <span class="post-comments-count valine-comment-count" data-xid="{{ url_for(post.path) }}" itemprop="commentCount"></span>
+                  <span class="post-comments-count valine-comment-count" data-xid="{{ url_for(post.path) }}" itemprop="commentCount"></span>
                 </a>
               </span>
             {% endif %}
           {% endif %}
 
           {# LeanCould PageView #}
-          {% if theme.leancloud_visitors.enable %}
+          {% if theme.leancloud_visitors.enable or (theme.valine.enable and theme.valine.appid and theme.valine.appkey and theme.valine.visitor) %}
              <span id="{{ url_for(post.path) }}" class="leancloud_visitors" data-flag-title="{{ post.title }}">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
@@ -247,9 +234,9 @@
             </span>
           {% endif %}
 
-          {% if true %}
+          {% if not is_index %}
           <span class="post-meta-divider">|</span>
-          <span title="{{ __('本文字数') }}"><span class="post-meta-item-icon"><i class="fa fa-file-word-o"></i></span>字数：&thinsp;{{ wordcount(post.content) }}</span>
+          <span title="{{ __('本文字数') }}"><span class="post-meta-item-icon"><i class="fa fa-file-word-o"></i></span>{% if theme.post_meta.item_text %} {{__('post.words') + __('symbol.colon') }} {% endif %}{{ wordcount(post.content) }}</span>
           {% endif %}
           
           {% if config.symbols_count_time.symbols or config.symbols_count_time.time %}
@@ -378,11 +365,9 @@
       </div>
     {% endif %}
 
-    {% if post.tags and post.tags.length and not is_index %}
-      <div class="post-tags">
-        {% for tag in post.tags %}
-          <a href="{{ url_for(tag.path) }}" rel="tag"><i class="fa fa-tag"></i> {{ tag.name }}</a>
-        {% endfor %}
+    {% if (theme.alipay or theme.wechatpay or theme.bitcoin) and not is_index and !post.noreward %}
+      <div>
+        {% include 'reward.swig' %}
       </div>
     {% endif %}
 
@@ -392,15 +377,32 @@
       </div>
     {% endif %}
 
-    {% if (theme.alipay or theme.wechatpay or theme.bitcoin) and not is_index and !post.noreward %}
-      <div>
-        {% include 'reward.swig' %}
+    {% if post.tags and post.tags.length and not is_index %}
+      <div class="post-tags">
+        {% for tag in post.tags %}
+          <a href="{{ url_for(tag.path) }}" rel="tag"><i class="fa fa-tag"></i> {{ tag.name }}</a>
+        {% endfor %}
       </div>
     {% endif %}
     
+    {% if theme.recent_posts and not is_index %}
+      <div class="links-of-blogroll motion-element {{ "links-of-blogroll-" + theme.recent_posts_layout  }}">
+       <div class="links-of-blogroll-title">
+         <i class="fa fa-{{ theme.recent_posts_icon }}" aria-hidden="true"></i>
+         {{ theme.recent_posts_title }}
+       </div>
+       <ul class="links-of-blogroll-list">
+         {% set posts = site.posts.sort('-date') %}
+         {% for post in posts.slice('0', '10') %}
+             <a href="{{ url_for(post.path) }}" title="{{ post.title }}" target="_blank">{{ post.title }}</a>&emsp;
+         {% endfor %}
+       </ul>
+      </div>
+    {% endif %}
+
     <footer class="post-footer">
       {% if not is_index %}
-      {% if theme.rating.enable or (theme.vkontakte_api.enable and theme.vkontakte_api.like) or (theme.facebook_sdk.enable and theme.facebook_sdk.like_button) or (theme.needmoreshare2.enable and theme.needmoreshare2.postbottom.enable) %}
+      {% if theme.rating.enable or (theme.vkontakte_api.enable and theme.vkontakte_api.like) or (theme.facebook_sdk.enable and theme.facebook_sdk.like_button) or (theme.needmoreshare2.enable and theme.needmoreshare2.postbottom.enable) or (theme.baidushare and theme.baidushare.type === "button" )%}
         <div class="post-widgets">
         {% if theme.rating.enable %}
           <div class="wp_rating">
@@ -424,14 +426,23 @@
           </div>
         {% endif %}
 
-        {% if theme.needmoreshare2.enable and theme.needmoreshare2.postbottom.enable %}
-          {% if (theme.vkontakte_api.enable and theme.vkontakte_api.like) or (theme.facebook_sdk.enable and theme.facebook_sdk.like_button) %}
+        {% if (theme.needmoreshare2.enable and theme.needmoreshare2.postbottom.enable) or (theme.baidushare.type === "button") %}
+          {% if theme.rating.enable or (theme.vkontakte_api.enable and theme.vkontakte_api.like) or (theme.facebook_sdk.enable and theme.facebook_sdk.like_button) %}
             <span class="post-meta-divider">|</span>
           {% endif %}
-          <div id="needsharebutton-postbottom">
-            <span class="btn">
-              <i class="fa fa-share-alt" aria-hidden="true"></i>
-            </span>
+          <div class="social_share">
+            {% if theme.baidushare.type === "button" %}
+               <div>
+                 {% include '../_partials/share/baidushare.swig' %}
+               </div>
+            {% endif %}
+            {% if theme.needmoreshare2.enable and theme.needmoreshare2.postbottom.enable %}
+               <div id="needsharebutton-postbottom">
+                 <span class="btn">
+                    <i class="fa fa-share-alt" aria-hidden="true"></i>
+                 </span>
+               </div>
+            {% endif %}
           </div>
         {% endif %}
         </div>

@@ -102,6 +102,18 @@
       </div>
     {% endif %}
 
+    {% if theme.baidushare and theme.baidushare.type === "slide" %}
+      <div>
+        {% include '_partials/share/baidushare.swig' %}
+      </div>
+    {% endif %}
+
+    {% if theme.add_this_id %}
+      <div>
+        {% include '_partials/share/add-this.swig' %}
+      </div>
+    {% endif %}
+    
   </div>
 
   <!--此处为建站时间 -->

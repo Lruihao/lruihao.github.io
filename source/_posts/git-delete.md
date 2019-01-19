@@ -1,8 +1,8 @@
 ---
 title: git删除文件方法及常用指令
 date: 2018-10-30 18:59:56
-tags:
-categories:
+tags: git
+categories: git
 password:
 abstract:
 message:

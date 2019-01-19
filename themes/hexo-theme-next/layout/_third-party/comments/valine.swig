@@ -13,7 +13,6 @@
       return GUEST.indexOf(item)>-1;
     });
     new Valine({
-        av: AV,
         el: '#comments' ,
         verify: {{ theme.valine.verify }},
         notify: {{ theme.valine.notify }},
@@ -21,8 +20,9 @@
         appKey: '{{ theme.valine.appkey }}',
         placeholder: '{{ theme.valine.placeholder }}',
         avatar:'{{ theme.valine.avatar }}',
-        guest_info:guest,
+        meta:guest,
         pageSize:'{{ theme.valine.pageSize }}' || 10,
+        visitor: {{ theme.valine.visitor }}
     });
   </script>
 {% endif %}
