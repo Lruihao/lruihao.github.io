@@ -214,29 +214,42 @@
           {% if theme.leancloud_visitors.enable or (theme.valine.enable and theme.valine.appid and theme.valine.appkey and theme.valine.visitor) %}
              <span id="{{ url_for(post.path) }}" class="leancloud_visitors" data-flag-title="{{ post.title }}">
                <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
+               <span title="{{ __('post.views') }}">
+                 <span class="post-meta-item-icon">
+                   <i class="fa fa-eye"></i>
+                 </span>
+                 {% if theme.post_meta.item_text %}
+                   <span class="post-meta-item-text">{{__('post.views') + __('symbol.colon') }}</span>
+                 {% endif %}
+                   <span class="leancloud-visitors-count"></span>
                </span>
-               {% if theme.post_meta.item_text %}
-                 <span class="post-meta-item-text">{{__('post.views') + __('symbol.colon') }}</span>
-               {% endif %}
-                 <span class="leancloud-visitors-count"></span>
              </span>
           {% endif %}
 
           {% if not is_index and theme.busuanzi_count.enable and theme.busuanzi_count.post_views %}
             <span class="post-meta-divider">|</span>
-            <span class="post-meta-item-icon"
-            {% if not theme.post_meta.item_text %} title="{{ __('post.views') }}" {% endif %}>
-            <i class="fa fa-{{ theme.busuanzi_count.post_views_icon }}"></i>
-            {% if theme.post_meta.item_text %} {{__('post.views') + __('symbol.colon') }} {% endif %}
-            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            <span title="{{ __('post.views') }}">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-{{ theme.busuanzi_count.post_views_icon }}"></i>
+           	  </span>
+           	  {% if theme.post_meta.item_text %}
+           	    <span class="post-meta-item-text">{{__('post.views') + __('symbol.colon') }}</span>
+           	  {% endif %}
+           	    <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
             </span>
           {% endif %}
 
-          {% if not is_index %}
-          <span class="post-meta-divider">|</span>
-          <span title="{{ __('本文字数') }}"><span class="post-meta-item-icon"><i class="fa fa-file-word-o"></i></span>{% if theme.post_meta.item_text %} {{__('post.words') + __('symbol.colon') }} {% endif %}{{ wordcount(post.content) }}</span>
+          {% if not is_index and theme.post_wordcount.enable %}
+            <span class="post-meta-divider">|</span>
+            <span title="{{ __('post.words') }}">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-{{ theme.post_wordcount.icon }}"></i>
+              </span>
+              {% if theme.post_meta.item_text %}
+           	    <span class="post-meta-item-text">{{__('post.words') + __('symbol.colon') }}</span>
+           	  {% endif %}
+           	    {{ wordcount(post.content) }}
+            </span>
           {% endif %}
           
           {% if config.symbols_count_time.symbols or config.symbols_count_time.time %}
