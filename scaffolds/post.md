@@ -10,4 +10,6 @@ description:
 top:
 author:
 permalink:
+noreward:
+notshow:
 ---

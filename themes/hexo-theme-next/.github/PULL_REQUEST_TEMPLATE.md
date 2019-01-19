@@ -14,10 +14,10 @@
 **Please check if your PR fulfills the following requirements:**
 
 - [ ] The commit message follows [our guidelines](https://github.com/theme-next/hexo-theme-next/blob/master/.github/CONTRIBUTING.md).
-- [ ] Tests for the changes have been added (for bug fixes / features).
+- [ ] Tests for the changes was maked (for bug fixes / features).
    - [ ] Muse | Mist have been tested.
    - [ ] Pisces | Gemini have been tested.
-- [ ] Docs have been added / updated (for bug fixes / features).
+- [ ] Docs in [NexT website](https://theme-next.org/docs/) have been added / updated (for new features).
 
 ## PR Type
 **What kind of change does this PR introduce?**  <!-- (Check one with "x") -->
@@ -34,7 +34,7 @@
 ## What is the current behavior?
 <!-- Please describe the current behavior that you are modifying, or link to a relevant issue. -->
 
-Issue Number(s): N/A
+Issue resolved N/A
 
 ## What is the new behavior?
 Description about this pull, in several words...
@@ -66,9 +66,9 @@ Short description in several words here.
 Issue Number(s): #xxxx.
 
 ### Files modified:
-1.	Short description of modified file [1].			xxxxxxx
-2.	Short description of modified file [2].			xxxxxxx
-3.	Short description of modified file [3].			xxxxxxx
+1. Short description of modified file [1].  xxxxxxx
+2. Short description of modified file [2].  xxxxxxx
+3. Short description of modified file [3].  xxxxxxx
 
 ### Global code changes:
 * ADD: `newFunction` in `utils.js`.

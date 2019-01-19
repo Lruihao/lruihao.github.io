@@ -18,9 +18,9 @@
     </div>
     {% if subtitle %}
       {% if theme.seo %}
-        <p><p style="color:#555;font-family:STXK" class="site-subtitle" id="helloTitle" itemprop="description"></p></p>
+        <p><p style="font-family:STXK" class="site-subtitle" id="helloTitle" itemprop="description"></p></p>
       {% else %}
-        <p><p style="color:#555;font-family:STXK" id="helloTitle" class="site-subtitle"></p></p>
+        <p><p style="font-family:STXK" id="helloTitle" class="site-subtitle"></p></p>
       {% endif %}
     {% endif %}
   </div>

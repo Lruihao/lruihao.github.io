@@ -13,7 +13,7 @@ function setSidebarMarginTop (headerOffset) {
   }
   window.onload=function(){
     var subtitle = "{{config.subtitle}}";
-     var mytitle = subtitle.split("W");
+     var mytitle = subtitle.split("。");
      var max = mytitle.length-1;
      var index = GetRandomNum(0,max);
      var text = mytitle[index];

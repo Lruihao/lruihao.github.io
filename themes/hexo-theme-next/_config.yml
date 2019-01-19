@@ -238,6 +238,12 @@ sidebar:
   position: left
   #position: right
 
+  # Manual define the sidebar width.
+  # If commented, will be default for:
+  # Muse | Mist: 320
+  # Pisces | Gemini: 240
+  #width: 240
+
   # Sidebar Display, available value (only for Muse | Mist):
   #  - post    expand on posts automatically. Default.
   #  - always  expand for all pages automatically
@@ -268,7 +274,7 @@ sidebar:
 scroll_to_more: false
 
 # Automatically saving scroll position on each post/page in cookies.
-save_scroll: false
+save_scroll: true
 
 # Automatically excerpt description in homepage as preamble text.
 excerpt_description: true
@@ -294,22 +300,23 @@ post_meta:
 # Post wordcount display settings
 # Dependencies: https://github.com/theme-next/hexo-symbols-count-time
 # Dependencies: https://github.com/willin/hexo-wordcount
-post_wordcount:
-  item_text: true
-  wordcount: true
-  min2read: false
+#已自定义，以下为无效选项
+#post_wordcount:
+  #item_text: false
+  #wordcount: false
+  #min2read: false
 
-symbols_count_time:
-  separated_meta: false
-  item_text_post: false
-  item_text_total: false
-  awl: 4
-  wpm: 275
+#symbols_count_time:
+  #separated_meta: false
+  #item_text_post: false
+  #item_text_total: false
+  #awl: 4
+  #wpm: 275
 
 codeblock:
   # Manual define the border radius in codeblock
   # Leave it empty for the default 1
-  border_radius:
+  border_radius: 
   # Add copy button on codeblock
   copy_button:
     enable: true
@@ -350,8 +357,8 @@ post_copyright:
 # Dependencies: https://github.com/hexojs/hexo-deployer-git
 post_edit:
   enable: false
-  url: https://github.com/theme-next/theme-next.org/_posts/tree/master/ # Link for view source.
-#  url: https://github.com/theme-next/theme-next.org/_posts/edit/master/ # Link for fork & edit.
+#  url: https://github.com/theme-next/theme-next.org/_posts/tree/master/ # Link for view source.
+  url: https://github.com/theme-next/theme-next.org/_posts/edit/master/ # Link for fork & edit.
 
 
 # ---------------------------------------------------------------
@@ -381,15 +388,6 @@ highlight_theme: night eighties
 # Enable "cheers" for archive page.
 cheers_enabled: true
 
-# Manual define the max content width
-# !!Only available for Gemini Scheme currently
-# Leave it empty for the default 75% (suggest not less than 1000px)
-#max_content_width: 1000px
-
-# Manual define the sidebar width
-# !!Only available for Gemini Scheme currently
-# Leave it empty for the default 240
-sidebar_width:
 
 # ---------------------------------------------------------------
 # Font Settings
@@ -506,9 +504,6 @@ disqus:
   count: true
   lazyload: false
 
-# Hypercomments
-#hypercomments_id:
-
 # changyan
 changyan:
   enable: false
@@ -546,16 +541,13 @@ valine:
   avatar: monsterid # gravatar style 404,mp,identicon,monsterid,wavatar,retro,robohash,blank
   guest_info: nick,mail,link # custom comment header
   pageSize: 15 # pagination size
-
-
-# Support for youyan comments system.
-# You can get your uid from http://www.uyan.cc
-#youyan_uid: 
+  visitor: true # leancloud-counter-security is not supported for now. When visitor is set to be true, appid and appkey are recommended to be the same as leancloud_visitors' for counter compatibility. Article reading statistic https://valine.js.org/visitor.html 
+  #comment_count: false # if false, comment count will only be displayed in post page, not in home page
 
 # Support for LiveRe comments system.
 # You can get your uid from https://livere.com/insight/myCode (General web site)
 livere:
-  enable: false
+  enable: true
   livere_uid: MTAyMC8zNzIxNC8xMzc0OA==
 
 # Gitment
@@ -582,14 +574,7 @@ gitment:
   #type: slide
   #baidushare: true
 
-# Share
-# This plugin is more useful in China, make sure you known how to use it.
-# And you can find the use guide at official webiste: http://www.jiathis.com/.
-# Warning: JiaThis does not support https.
-# JiaThis 分享服务
-#jiathis: true
-  ##uid: Get this uid from http://www.jiathis.com/
-
+# addthis Share, see: https://www.addthis.com/
 #add_this_id:
 
 # NeedMoreShare2
@@ -634,6 +619,11 @@ needmoreshare2:
 # Yandex Webmaster tools verification setting
 # See: https://webmaster.yandex.ru/
 #yandex_site_verification:
+
+# Baidu Webmaster tools verification setting
+# See: https://ziyuan.baidu.com/site/
+#baidu_site_verification:
+
 
 # CNZZ count
 #cnzz_siteid:
@@ -683,8 +673,8 @@ rating:
 # You can visit https://leancloud.cn get AppID and AppKey.
 leancloud_visitors:
   enable: false
-  app_id: oYI8sJIyV1TRXsxqiIOGoqOb-gzGzoHsz
-  app_key: 1cVkfjH1HknSxmm7nQmX7Y8h
+  app_id:
+  app_key:
   # Dependencies: https://github.com/theme-next/hexo-leancloud-counter-security
   # If you don't care about security in lc counter and just want to use it directly
   # (without hexo-leancloud-counter-security plugin), set the `security` to `false`.
@@ -709,7 +699,7 @@ busuanzi_count:
   total_visitors_icon: user
   total_views: true
   total_views_icon: eye
-  post_views: true
+  post_views: false
   post_views_icon: eye
 
 
@@ -764,6 +754,11 @@ local_search:
   # unescape html strings to the readable one
   unescape: false
 
+recent_posts_icon: history
+recent_posts_title: 近期文章
+recent_posts_layout: block
+recent_posts: true
+
 # Bookmark Support
 # Dependencies: https://github.com/theme-next/theme-next-bookmark
 bookmark:
@@ -812,7 +807,7 @@ tabs:
 # Reading progress bar
 # Dependencies: https://github.com/theme-next/theme-next-reading-progress
 reading_progress:
-  enable: false
+  enable: true
   color: "#37c6c0"
   height: 2px
 
@@ -849,7 +844,7 @@ fancybox: true
 
 # Added switch option for separated repo in 6.0.0.
 # Dependencies: https://github.com/theme-next/theme-next-fastclick
-fastclick: false
+fastclick: true
 
 # Added switch option for separated repo in 6.0.0.
 # Dependencies: https://github.com/theme-next/theme-next-jquery-lazyload
@@ -857,7 +852,7 @@ lazyload: true
 
 # Progress bar in the top during page loading.
 # Dependencies: https://github.com/theme-next/theme-next-pace
-pace: false
+pace: true
 # Themes list:
 #pace-theme-big-counter
 #pace-theme-bounce
@@ -874,11 +869,12 @@ pace: false
 #pace-theme-minimal
 # For example
 # pace_theme: pace-theme-center-simple
-pace_theme: pace-theme-loading-bar
+pace_theme: pace-theme-bounce
 
 # Canvas-nest
 # Dependencies: https://github.com/theme-next/theme-next-canvas-nest
 canvas_nest: false
+
 
 # JavaScript 3D library.
 # Dependencies: https://github.com/theme-next/theme-next-three
@@ -962,6 +958,12 @@ vendors:
   canvas_nest:
 
   # three
+  # Internal version: 1.0.0
+  # See: https://github.com/theme-next/theme-next-three
+  # three: //cdn.jsdelivr.net/gh/theme-next/theme-next-three@1.0.0/three.min.js
+  # three_waves: //cdn.jsdelivr.net/gh/theme-next/theme-next-three@1.0.0/three-waves.min.js
+  # canvas_lines: //cdn.jsdelivr.net/gh/theme-next/theme-next-three@1.0.0/canvas_lines.min.js
+  # canvas_sphere: //cdn.jsdelivr.net/gh/theme-next/theme-next-three@1.0.0/canvas_sphere.min.js
   three:
 
   # three_waves

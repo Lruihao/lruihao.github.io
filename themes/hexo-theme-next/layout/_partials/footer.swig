@@ -1,7 +1,6 @@
-
 <div class="copyright">{#
 #}{% set current = date(Date.now(), "YYYY") %}{#
-#}<font color=black face=STLiti>Copyright &nbsp;</font><font color=black>&copy;</font> {% if theme.footer.since and theme.footer.since != current %}<font color=black face=STLiti>{{ theme.footer.since }} -</font> {% endif %}{#
+#}<font color=black face=STLiti>Copyright &nbsp;</font><font color=black>&copy;</font> {% if theme.footer.since and theme.footer.since != current %}<font color=black face=STLiti>{{ theme.footer.since }} - </font>{% endif %}{#
 #}<font color=black face=STLiti><span itemprop="copyrightYear">{{ current }}</span></font>
   <span class="with-love" id="animate">
     <i class="fa fa-{{ theme.footer.icon.name }}"></i>
@@ -51,8 +50,8 @@
 
 {% if theme.footer.theme.enable %}
   <div class="theme-info">{#
-  #}{{ __('footer.theme') }} &mdash; {#
-  #}<a class="theme-link" target="_blank"{{ nofollow }} href="https://github.com/theme-next/hexo-theme-next">{#
+  #}{{ __('footer.theme') }} - {#
+  #}<a class="theme-link" target="_blank"{{ nofollow }} href="https://theme-next.org">{#
     #}NexT.{{ theme.scheme }}{#
   #}</a>{% if theme.footer.theme.version %} v{{ version }}{% endif %}{#
 #}</div>
