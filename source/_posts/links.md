@@ -79,10 +79,10 @@ sticky: false
 |[特效字转换工具集](http://www.sioe.cn/yingyong)|各种特效字转换工具,彩虹字生成器,RGB转16进制颜色等|
 |[jquery之家](http://www.htmleaf.com)||
 |[web前端网](http://www.i7758.com)|css,js插件源代码分享|
-|懒人之家](http://www.lanrenzhijia.com)|js特效，flash素材|
+|[懒人之家](http://www.lanrenzhijia.com)|js特效，flash素材|
 |[前端库](https://www.awesomes.cn)|前端很多学习交流分享网站|
 |[gradient渐变色调色](http://gradient.awesomes.cn)|渐变色调色，获取代码|
-
+|[cloud studio](https://studio.dev.tencent.com/)|这是腾讯云和coding合作后的一个东西，简单来说就是云端开发环境。试了一下完全可以把hexo博客源码挂上面编辑。这也就不用只局限于一台电脑发布博客了。|
 
 # 其他
 |链接|描述|

@@ -1,8 +1,8 @@
 ---
 title: 换主题next
 date: 2018-06-02 01:07:57
-tags: hexo博客
-categories: hexo博客
+tags: hexo
+categories: hexo
 top:
 ---
 [next使用手册](https://theme-next.iissnan.com/)

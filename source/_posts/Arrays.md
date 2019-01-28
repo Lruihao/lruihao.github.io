@@ -27,6 +27,7 @@ notshow:
 - static void fill(type[] a,int fromindex,int toindex,type val)
 - static void sort(type[] a)
 
+<!--more-->
 ### 实例代码
 
 ```java

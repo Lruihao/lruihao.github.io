@@ -6,6 +6,7 @@ tags:
 - fusion app
 - app
 - 网页封装
+- 通用
 categories: 通用
 password:
 abstract:
@@ -15,6 +16,10 @@ top:
 author:
 permalink:
 ---
+
+<a href="https://ziyuan.lruihao.cn/app/i%20am_2.5.9_beta.apk" target="_blank" class="LinkCard">博客app下载</a>
+
+<!--more-->
 
 ### 介绍
 使用fusion app对网页进行的封装。

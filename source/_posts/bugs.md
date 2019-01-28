@@ -15,6 +15,8 @@ top:
 ---
 
 ## 博客日志
+<li>2019.01.22 \-\- 更换腾讯云对象存储</li>
+可能存储方式的不同，每个目录的访问必须以`/`结尾。比如`lruihao.cn/about`是无法访问的，得访问`lruihao.cn/about/`
 <li>2019.01.12 \-\- 博客UV过万</li>
 <img src="/bugs/uv10k.png" align="left" />
 <br><br><br><br>
@@ -56,7 +58,7 @@ top:
 
 * ~~[www.lruihao.cn](https://www.lruihao.cn)和[lruihao.cn](https://lruihao.cn)的评论是不一样的~~
 * ~~在留言页面地址后面加/index.html  ,这个的隐藏评论区hhhh，同样有第一种的区别~~
-* 无论哪个域名，在主页后加“ /love ”,可以看到我和女票的一些小故事当然有密码的hhhh
+* 无论哪个域名，在主页后加“ /love/ ”,可以看到我和女票的一些小故事当然有密码的hhhh
 * 由于入口隐藏，所以比较隐蔽，算彩蛋也算bug吧，有时候利用这些bug写写东西也不错，就这样吧！
 * 按下F12打开浏览器调试工具，在console可以看到一些“有趣”的东西- _ -!
 * 网站背景亮度调节

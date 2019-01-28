@@ -6,7 +6,7 @@ tags:
 - ACM
 - 数学
 categories:
-- 数学
+- ACM
 password:
 abstract:
 message:

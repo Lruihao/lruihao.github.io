@@ -2,9 +2,9 @@
 title: next添加支持pdf
 date: 2018-11-09 12:51:48
 tags:
-- hexo博客
+- hexo
 - pdf
-categories: hexo博客
+categories: hexo
 password:
 abstract:
 message:

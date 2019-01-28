@@ -1,7 +1,9 @@
 ---
 title: 一款自己写的字体-沐目体
 date: 2018-10-12 19:39:19
-tags: 手写体
+tags:
+- 手写体
+- 通用
 categories: 通用
 password:
 abstract:

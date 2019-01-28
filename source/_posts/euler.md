@@ -6,7 +6,7 @@ tags:
 - 数论
 - euler
 categories:
-- 数学
+- ACM
 - 数论
 password:
 abstract:

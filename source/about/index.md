@@ -37,10 +37,8 @@ comments: false
 </iframe>
 至于我为什么写博客，最主要的影响是ACM实验室一个学长的对我的影响，或者直接说是[他的博客](http://qiuchengjia.cn)对我的影响,还有这篇[我为什么写博客](https://www.cnblogs.com/jhzhu/p/3893297.html)在没有人更了解你之前，自己是最了解自己的人了，写博客的目的在于你可以在现在写下一年后自己还能看懂的论文和知识点，而不至于让知识很快就遗忘，好记性也不如烂笔头啊！
 
-<img src="https://i.loli.net/2018/06/15/5b23baf794e4a.png" width="400" height="200" align="left">代码托管在coding 和github上，
-实现国内走coding，国外走github路线。
-你可以通过以下方式访问：
-* ~~https://www.lruihao.cn~~ （导航页）
+<img src="https://i.loli.net/2018/06/15/5b23baf794e4a.png" width="400" height="200" align="left">代码托管在coding 和github上，实现国内走coding(**后托管于腾讯云cos桶**)，国外走github路线。你可以通过以下方式访问：
+* https://www.lruihao.cn
 * https://lruihao.cn
 * https://lruihao.github.io
 * https://liruihao.coding.me
@@ -52,14 +50,13 @@ comments: false
 |:-:|:-:|
 |<li>Alt+Z: 打开夜间模式</li><li>Alt+X: 关闭夜间模式</li>|<li>Alt+↑: 增加亮度</li><li>Alt+↓: 降低亮度</li>|
 ---
-**[关于菜单的小栈](https://www.lruihao.cn)**
+**[RUI豪小栈](https://me.lruihao.cn)**
 
-为了区别于博客，我重新在coding上面新开了仓库用来放一些实验性尝试，里面放了一些小游戏，自己搭的平时用来上机用的网盘，还有自己写的字体等等。通过301重定向`lruihao.cn/rui-site`到`www.lruihao.cn`
-这样另类的www是不是和平常的www有些不一样，这就是我这些稀奇古怪的想法之一...哈哈哈哈哈
+为了区别于博客，我重新在coding上面新开了仓库用来放一些实验性尝试，里面放了一些小游戏，自己搭的平时用来上机用的网盘，还有自己写的字体等等。通过301重定向`lruihao.cn/me`到`www.lruihao.cn`，是不是想说通常www指向主域，那就对了，通常来说！
 * [博採眾長app](/fas-app.html)
 * [caddy网盘](https://pan.lruihao.cn)
-* [游戏馆](https://www.lruihao.cn/games)
-* 留影册
+* [游戏馆](https://me.lruihao.cn/games)
+* 留影册    
 ...
 
 <!-- endtab -->

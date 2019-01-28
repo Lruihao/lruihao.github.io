@@ -8,7 +8,7 @@ tags:
 - 欧几里得
 - 他山之石
 categories:
-- 数学
+- ACM
 - 数论
 password:
 abstract:

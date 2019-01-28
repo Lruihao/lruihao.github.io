@@ -2,7 +2,7 @@
 title: 使用js准确获取当前页面url网址信息及301重定向实战
 date: 2018-10-28 14:22:00
 tags:
-- js
+- javascript
 - 前端
 - 301重定向
 categories:
