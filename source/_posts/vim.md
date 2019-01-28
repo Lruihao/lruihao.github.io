@@ -6,7 +6,7 @@ tags:
 - termux
 - vim
 categories:
-- 通用
+- linux
 password:
 abstract:
 message:

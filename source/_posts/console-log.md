@@ -2,10 +2,10 @@
 title: hexo博客自定义console log
 date: 2018-08-04 16:19:06
 tags:
-- hexo博客
+- hexo
 - 前端
 categories:
-- hexo博客
+- hexo
 password:
 abstract:
 message:

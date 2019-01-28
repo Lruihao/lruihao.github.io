@@ -2,10 +2,10 @@
 title: hexo个性化-next主题动态显示subtitle
 date: 2018-08-20 16:16:40
 tags:
-- hexo博客
+- hexo
 - 前端
 categories:
-- hexo博客
+- hexo
 password:
 abstract:
 message:

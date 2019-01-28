@@ -13,6 +13,7 @@
   {% if theme.reading_progress.enable && not is_index %}
     <div class="reading-progress-bar"></div>
   {% endif %}
+  
 
   <article class="{{ post_class }}" itemscope itemtype="http://schema.org/Article">
   {##################}
@@ -494,5 +495,7 @@
   {### END POST BLOCK ###}
   {######################}
   </article>
-
+  <!--知乎卡片链接-->
+  <script type="text/javascript" src="/js/src/linkcard.js"></script>
+  
 {% endmacro %}

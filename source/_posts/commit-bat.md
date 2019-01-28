@@ -5,6 +5,7 @@ tags:
 - 批处理
 - 脚本
 - bat
+- 通用
 categories: 通用
 password:
 abstract:

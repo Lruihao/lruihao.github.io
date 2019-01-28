@@ -2,10 +2,10 @@
 title: hexo 博客源码备份
 date: 2018-11-03 12:49:28
 tags:
-- hexo博客
+- hexo
 - 源码备份
 - git
-categories: hexo博客
+categories: hexo
 password:
 abstract:
 message:

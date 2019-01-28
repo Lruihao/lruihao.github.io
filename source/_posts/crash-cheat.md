@@ -2,11 +2,11 @@
 title: 动态title-网站标题崩溃欺骗
 date: 2018-09-26 16:36:08
 tags:
-- hexo博客
+- hexo
 - 前端
-- js
+- javascript
 categories:
-- hexo博客
+- hexo
 password:
 abstract:
 message:

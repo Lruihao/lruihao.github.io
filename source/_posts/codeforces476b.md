@@ -7,7 +7,7 @@ tags:
 - ACM
 - 数学
 categories:
-- 数学
+- ACM
 - 组合数学
 password:
 abstract:

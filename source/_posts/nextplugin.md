@@ -2,9 +2,9 @@
 title: next插件样式
 date: 2018-11-24 16:54:09
 tags:
-- hexo博客
+- hexo
 - 前端
-categories: hexo博客
+categories: hexo
 password:
 abstract:
 message:
@@ -262,3 +262,17 @@ next已经引用了，可以直接用，比如：
 ### [其他](http://www.mykernel.cn/my-hexo-next-1.html)
 > 包括小色块、左侧色条、右侧色条、上方色条、数字色块（需要自定义样式）
 
+### 知乎卡片链接
+
+<a href="https://github.com/Lruihao/lruihao.github.io" target="_blank" class="LinkCard">Lruihao博客</a>
+
+也是一种后加载，创建`linkcard.js`放到`source/js/src/`，然后在`next\layout\_macro\post.swig`中引用(我这里加载最后一行前面)
+
+```java
+  <!--知乎卡片链接-->
+  <script type="text/javascript" src="/js/src/linkcard.js"></script>
+```
+链接写法,加上`class="LinkCard"`
+```
+<a href="https://github.com/Lruihao/lruihao.github.io" target="_blank" class="LinkCard">Lruihao博客</a>
+```

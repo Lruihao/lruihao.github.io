@@ -2,7 +2,7 @@
 title: js判断用户设备类型及平台（转）
 date: 2018-11-03 23:35:44
 tags:
-- js
+- javascript
 - 前端
 - 他山之石
 categories: 前端

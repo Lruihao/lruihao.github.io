@@ -2,10 +2,10 @@
 title: hexo d 出错
 date: 2018-08-21 22:15:01
 tags:
-- hexo博客
+- hexo
 - 前端
 categories:
-- hexo博客
+- hexo
 password:
 abstract:
 message:

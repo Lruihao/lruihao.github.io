@@ -4,8 +4,9 @@ date: 2018-10-09 16:21:04
 tags:
 - 流水线
 - 计算机组成与体系结构
+- 通用
 categories:
-- 计算机组成与体系结构
+- 通用
 password:
 abstract:
 message:

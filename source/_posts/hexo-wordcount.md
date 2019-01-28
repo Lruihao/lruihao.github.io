@@ -2,10 +2,10 @@
 title: hexo next主题添加字数统计（2018）
 date: 2018-08-30 13:15:50
 tags:
-- hexo博客
+- hexo
 - 网页字数统计
 categories:
-- hexo博客
+- hexo
 password:
 abstract:
 message:

@@ -1,8 +1,8 @@
 ---
 title: hexo+github搭建个人博客及美化
 date: 2018-06-01 14:34:23
-tags: hexo博客
-categories: hexo博客
+tags: hexo
+categories: hexo
 top: 8
 sticky: false
 ---

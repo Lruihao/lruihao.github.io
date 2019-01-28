@@ -7,7 +7,7 @@ tags:
 - 快速幂
 - ACM
 categories:
-- 数学
+- ACM
 - 数论
 password:
 abstract:

@@ -2,8 +2,8 @@
 title: 设置单篇文章不打赏、首页不显示文章
 date: 2018-11-06 13:06:29
 tags:
-- hexo博客
-categories: hexo博客
+- hexo
+categories: hexo
 password:
 abstract:
 message:

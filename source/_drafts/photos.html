@@ -1,0 +1,191 @@
+<style type="text/css">
+	.box li{
+	float: left;
+    width: 50%;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+    list-style: none;
+    padding: 0;
+    height: auto;
+	}
+	.box li span{
+	display: block;
+    padding: 0% 10% 1% 10%;
+    min-height: 10px;
+    color: #555;
+    font-size: 15px;
+    background: none;
+    font-weight: 600;
+    line-height: 20px;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+	}
+	.box p{
+	display: block;
+    background: none;
+    color: #555;
+    font-size: 12px;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    text-align: center;
+	}
+	.box span strong{
+	background: rgba(0,0,0,0.4);
+	padding: 20px;
+	}
+	.posts-expand .post-title {
+	display: none;
+	}
+	.title{
+    display: inline-block;
+    vertical-align: middle;
+    background: none;
+    font: 85px/250px 'ChaletComprimeMilanSixty';
+    background-position: left top !important;
+    color: #fff;
+    background-size: 100% auto !important; 
+	-webkit-background-size: cover; 
+	-moz-background-size: cover;
+	-o-background-size: cover;
+    width: 100%;
+    text-align: center;
+    border: unset;
+    height: 400px;
+    cursor: unset !important;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+	}
+	.btn-more-posts{
+	display: inline-block;
+    vertical-align: middle;
+    font: 85px/250px 'ChaletComprimeMilanSixty';
+    color: #333;
+    width: 100%;
+    text-align: center;
+    border: unset;
+    height: auto;
+    background: none;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+	}
+</style>
+
+<div id="box" class="box"></div>
+<img src="https://picture-1256932288.cos.ap-chengdu.myqcloud.com/test/%E5%B0%81%E9%9D%A2.jpg" style="width: 100%;height: auto;">
+<script type="text/javascript">
+document.getElementsByTagName('img')[0].src="https://picture-1256932288.cos.ap-chengdu.myqcloud.com/test/5822c01e0a740.jpg";
+
+function loadXMLDoc(xmlUrl) 
+{
+	try //Internet Explorer
+	{
+		xmlDoc=new ActiveXObject("Microsoft.XMLDOM");
+	}
+	catch(e)
+	{
+	  try //Firefox, Mozilla, Opera, etc.
+	    {
+		  xmlDoc=document.implementation.createDocument("","",null);
+	    }
+	  catch(e) {alert(e.message)}
+	}
+	
+	try 
+	{
+		  xmlDoc.async=false;
+		  xmlDoc.load(xmlUrl);
+	}
+	catch(e) {
+		try //Google Chrome  
+		  {  
+			var chromeXml = new XMLHttpRequest();
+			chromeXml.open("GET", xmlUrl, false);
+			chromeXml.send(null);
+			xmlDoc = chromeXml.responseXML.documentElement; 				
+			//alert(xmlDoc.childNodes[0].nodeName);
+			//return xmlDoc;    
+		  }  
+		  catch(e)  
+		  {  
+			  alert(e.message)  
+		  }  		  	
+	}
+	return xmlDoc; 
+}
+
+xmlDoc=loadXMLDoc("https://picture-1256932288.cos.ap-chengdu.myqcloud.com");
+
+var urls=xmlDoc.getElementsByTagName('Key');
+var date=xmlDoc.getElementsByTagName('LastModified');
+var wid=250;
+var showNum=4; //每个相册一次展示多少照片
+if ((window.innerWidth)>1200) {wid=(window.innerWidth*3)/18;}
+var box=document.getElementById('box');
+var i=0;
+
+var content=new Array();
+var tmp=0;
+var kkk=-1;
+for (var t = 0; t < urls.length ; t++) {
+	var bucket=urls[t].innerHTML;
+	var length=bucket.indexOf('/');
+	if(length===bucket.length-1){
+		kkk++;
+		content[kkk]=new Array();
+		content[kkk][0]={'url':bucket,'date':date[t].innerHTML.substring(0,10)};
+		tmp=1;
+	}
+	else {
+		content[kkk][tmp++]={'url':bucket.substring(length+1),'date':date[t].innerHTML.substring(0,10)};
+	}
+}
+
+for (var i = 0; i < content.length; i++) {
+	var conBox=document.createElement("div");
+	conBox.id='conBox'+i;
+	box.appendChild(conBox);
+	var item=document.createElement("div");
+	var title=content[i][0].url;
+	item.innerHTML="<button class=title style=background:url(https://picture-1256932288.cos.ap-chengdu.myqcloud.com/"+title+"封面.jpg"+");><span style=display:inline;><strong style=color:#f0f3f6; >"+title.substring(0,title.length-1)+"</strong></span></button>";
+	conBox.appendChild(item);
+
+	for (var j = 1; j < content[i].length && j < showNum+1; j++) {
+		var con=content[i][j].url;
+		var item=document.createElement("li");
+		item.innerHTML="<div class=imgbox id=imgbox style=height:"+wid+"px;><img class=imgitem src=https://picture-1256932288.cos.ap-chengdu.myqcloud.com/"+title+con+" alt="+con+"></div><span>"+con.substring(0,con.length-4)+"</span><p>上传于"+content[i][j].date+"</p>";
+		conBox.appendChild(item);
+	}
+	if(content[i].length > showNum){
+		var moreItem=document.createElement("button");
+		moreItem.className="btn-more-posts";
+		moreItem.id="more"+i;
+		moreItem.value=showNum+1;
+		let cur=i;
+		moreItem.onclick= function (){
+			moreClick(this,cur,content[cur],content[cur][0].url);
+		}
+		moreItem.innerHTML="<span style=display:inline;><strong style=color:#f0f3f6;>加载更多</strong></span>";
+		conBox.appendChild(moreItem);
+	}
+}
+
+function moreClick(obj,cur,cont,title){
+	var parent=obj.parentNode;
+	parent.removeChild(obj);
+	var j=obj.value;
+	var begin=j;
+	for ( ; j < cont.length && j < Number(showNum) + Number(begin); j++) {
+		console.log( Number(showNum) + Number(begin));
+		var con=cont[j].url;
+		var item=document.createElement("li");
+		item.innerHTML="<div class=imgbox id=imgbox style=height:"+wid+"px;><img class=imgitem src=https://picture-1256932288.cos.ap-chengdu.myqcloud.com/"+title+con+" alt="+con+"></div><span>"+con.substring(0,con.length-4)+"</span><p>上传于"+cont[j].date+"</p>";
+		parent.appendChild(item);
+	}
+	if(cont.length > j){
+		obj.value=j;
+		parent.appendChild(obj);
+	}
+}
+
+</script>

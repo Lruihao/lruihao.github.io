@@ -2,9 +2,9 @@
 title: Markdown基础教程
 date: 2018-06-10 00:05:10
 tags:
-- hexo博客
+- hexo
 - Markdown
-categories: 通用
+categories: hexo
 description:
 top:
 ---
