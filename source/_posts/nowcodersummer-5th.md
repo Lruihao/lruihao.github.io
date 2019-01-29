@@ -12,7 +12,7 @@ message:
 description:
 top:
 author:
-permalink: /nowcodersummer-5th
+permalink:
 ---
 
 [题目链接 密码：l9sn](链接：https://pan.baidu.com/s/1VP9Wn0OF4SVaqEVwpNralA)

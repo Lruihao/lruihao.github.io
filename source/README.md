@@ -41,12 +41,12 @@
 |:-:|:-:|
 |<li>Alt+Z: 打开夜间模式</li><li>Alt+X: 关闭夜间模式</li>|<li>Alt+↑: 增加亮度</li><li>Alt+↓: 降低亮度</li>|
 ---
-**[RUI豪小栈](https://me.lruihao.cn)**
+**[RUI豪小栈](https://www.lruihao.cn)**
 
 为了区别于博客，我重新在coding上面新开了仓库用来放一些实验性尝试，里面放了一些小游戏，自己搭的平时用来上机用的网盘，还有自己写的字体等等。通过301重定向`lruihao.cn/lab`到`www.lruihao.cn`，是不是想说通常www指向主域，那就对了，通常来说！
-* [博採眾長app](/fas-app.html)
+* [博採眾長app](https://lruihao.cn/%E9%80%9A%E7%94%A8/fas-app.html)
 * [caddy网盘](https://pan.lruihao.cn)
-* [游戏馆](https://me.lruihao.cn/games)
+* [游戏馆](https://www.lruihao.cn/games)
 * 留影册    
 ...
 
@@ -58,4 +58,9 @@
 * QQ`1074627678`
 * [在线客服](https://chat.daovoice.io/?id=8a6701dd)
 * [在线邮我](https://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=admin@lruihao.cn)
-* [博客留言](/guestbook)
+* [博客留言](https://lruihao.cn/guestbook/)
+
+
+### LICENSE
+
+MIT

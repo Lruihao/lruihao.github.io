@@ -41,7 +41,7 @@ npm install https://github.com/CodeFalling/hexo-asset-image -- save
 ![kyrie irving](/hexo-添加图片，音乐，链接，视频/294136.jpg)
 
 ```
-![kyrie irving](/hexo-添加图片，音乐，链接，视频/294136.jpg)
+![kyrie irving](:category/hexo-添加图片，音乐，链接，视频/294136.jpg)
 
 ## 2.2 插件添加
 [传送门](https://mr-houzi.github.io/2017/10/24/Hexo-asset-img/
