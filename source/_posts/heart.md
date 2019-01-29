@@ -74,4 +74,4 @@ int main() {
     }
 }
 ```
-[exe文件下载](/heart/heart.zip)
+[exe文件下载](https://ziyuan.lruihao.cn/public/heart.exe)

@@ -18,12 +18,12 @@ top:
 <li>2019.01.22 \-\- 更换腾讯云对象存储</li>
 可能存储方式的不同，每个目录的访问必须以`/`结尾。比如`lruihao.cn/about`是无法访问的，得访问`lruihao.cn/about/`
 <li>2019.01.12 \-\- 博客UV过万</li>
-<img src="/bugs/uv10k.png" align="left" />
+<img src=":category/bugs/uv10k.png" align="left" />
 <br><br><br><br>
 <li>2018.10.29 \-\- 网站ICP和公安备案完成</li>
 <li>2018.08.28 \-\- 第一次收到[france](https://postgres.fun)支持 [赞助记录](/donators.html)</li>
 <li>2018.09.05 \-\- 博客一百天，PV过万</li>
-<img src="/day-100/100.png" align="left" />
+<img src="/生活随笔/day-100/100.png" align="left" />
 <br><br><br><br><br>
 <li>2018.06 ~ 2018.09 \-\- 接入百度站长，seo优化，加入评论、客服、访客统计等 创建[RUI豪小栈](https://www.lruihao.cn)</li>
 <li>2018.05.28 20:01:01 \-\- 博客诞生</li>

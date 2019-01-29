@@ -7,7 +7,7 @@ top: 8
 sticky: false
 ---
 
-**[更多关于hexo](/categories/hexo博客/)**
+**[更多关于hexo](/categories/hexo/)**
 
 # 首先
 [官方文档](https://hexo.io/zh-cn/docs/index.html)是我们的第一手资料，也是最好的。

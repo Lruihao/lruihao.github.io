@@ -28,7 +28,7 @@ H:\hexo\themes\hexo-theme-next\layout\_macro\post.swig
 ```
 查找reward关键词，大概在378行，并添加内容。
 
-![](/noreward/1.png)
+![图片](:category/noreward/1.png)
 
 ### 文章内使用
 在头部加上关键词`noreward: true`，比如本文头部。
