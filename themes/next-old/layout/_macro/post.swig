@@ -399,15 +399,15 @@
       </div>
     {% endif %}
     
-    {% if theme.recent_posts and not is_index %}
-      <div class="links-of-blogroll motion-element {{ "links-of-blogroll-" + theme.recent_posts_layout  }}">
+    {% if not is_index and theme.recent_posts.enable and theme.recent_posts.post %}
+      <div class="links-of-blogroll motion-element {{ "links-of-blogroll-" + theme.recent_posts.layout  }}">
        <div class="links-of-blogroll-title">
-         <i class="fa fa-{{ theme.recent_posts_icon }}" aria-hidden="true"></i>
-         {{ theme.recent_posts_title }}
+         <i class="fa fa-{{ theme.recent_posts.icon }}" aria-hidden="true"></i>
+         {{ theme.recent_posts.title }}
        </div>
        <ul class="links-of-blogroll-list">
          {% set posts = site.posts.sort('-date') %}
-         {% for post in posts.slice('0', '10') %}
+         {% for post in posts.slice('0', '5') %}
              <a href="{{ url_for(post.path) }}" title="{{ post.title }}" target="_blank">{{ post.title }}</a>&emsp;
          {% endfor %}
        </ul>
