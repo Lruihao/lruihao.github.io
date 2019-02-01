@@ -24,7 +24,7 @@ $ vim
 ### 编辑文件
 
 打开文件编辑器之后编辑文件
-![](:category/linux-hello-c/ubuntu.png)
+![](linux-hello-c/ubuntu.png)
 
 首先按`Esc`再`:`进入末行命令
 再保存为hello.c文件后退出
@@ -43,6 +43,6 @@ $ ls
 $ gcc hello.c -o hello
 $ ./hello
 ```
-![](:category/linux-hello-c/hello.png)
+![](linux-hello-c/hello.png)
 
 若权限不够则加可执行权限`chmod +x hello`

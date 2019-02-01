@@ -41,17 +41,17 @@ permalink:
 
 ### 手机及电脑word效果截图  
 
-<img src=":category/font-mmt/cell.jpg" height="auto" width="500">
-<img src=":category/font-mmt/word1.png" height="auto" width="auto">
+<img src="font-mmt/cell.jpg" height="auto" width="500">
+<img src="font-mmt/word1.png" height="auto" width="auto">
 
 ### 微信，QQ效果截图  
 
-<img src=":category/font-mmt/wechat.png" height="auto" width="450">
-<img src=":category/font-mmt/qq.png" height="auto" width="450">
+<img src="font-mmt/wechat.png" height="auto" width="450">
+<img src="font-mmt/qq.png" height="auto" width="450">
 
 ### 手机设置截图  
 
-<img src=":category/font-mmt/setting.png" height="auto" width="450">
-<img src=":category/font-mmt/setting1.png" height="auto" width="450">
+<img src="font-mmt/setting.png" height="auto" width="450">
+<img src="font-mmt/setting1.png" height="auto" width="450">
 
 [沐目体下载](https://github.com/Lruihao/Grocery)
