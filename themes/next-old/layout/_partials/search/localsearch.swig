@@ -13,11 +13,11 @@
     </div>
   </div>
   <div id="local-search-result">
-    {% if theme.recent_posts %}
-      <div class="links-of-blogroll motion-element {{ "links-of-blogroll-" + theme.recent_posts_layout  }}">
+    {% if theme.recent_posts.enable and theme.recent_posts.search %}
+      <div class="links-of-blogroll motion-element {{ "links-of-blogroll-" + theme.recent_posts.layout  }}">
        <div class="links-of-blogroll-title">
-         <i class="fa fa-{{ theme.recent_posts_icon }}" aria-hidden="true"></i>
-         {{ theme.recent_posts_title }}
+         <i class="fa fa-{{ theme.recent_posts.icon }}" aria-hidden="true"></i>
+         {{ theme.recent_posts.title }}
        </div>
        <ul class="links-of-blogroll-list">
          {% set posts = site.posts.sort('-date') %}

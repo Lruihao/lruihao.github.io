@@ -147,6 +147,23 @@
             </div>
           {% endif %}
 
+          {% if theme.recent_posts.enable and theme.recent_posts.sidebar %}
+            <div class="links-of-blogroll motion-element {{ "links-of-blogroll-" + theme.recent_posts.layout  }}">
+             <div class="links-of-blogroll-title">
+               <i class="fa fa-history fa-{{ theme.recent_posts.icon | lower }}" aria-hidden="true"></i>
+               {{ theme.recent_posts.title }}
+             </div>
+             <ul class="links-of-blogroll-list">
+               {% set posts = site.posts.sort('-date') %}
+               {% for post in posts.slice('0', '3') %}
+                 <li>
+                   <a href="{{ url_for(post.path) }}" title="{{ post.title }}" target="_blank">{{ post.title }}</a>
+                 </li>
+               {% endfor %}
+             </ul>
+           </div>
+          {% endif %}
+
           {% if theme.custom_file_path.sidebar %}
             {% set custom_sidebar = '../../../../' + theme.custom_file_path.sidebar %}
           {% else %}
