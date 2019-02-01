@@ -25,19 +25,19 @@ notshow:
 ### 创建存储桶
 
 打开腾讯云控制台--云产品--存储--对象存储，然后创建存储桶。
-![](:category/cos-hexo/1.png)
+![](cos-hexo/1.png)
 
 ### 开启静态网站设置
 
 在基础配置打开静态网站(关掉强制https)
-![](:category/cos-hexo/2.png)
+![](cos-hexo/2.png)
 
 ### 绑定域名
 
-![](:category/cos-hexo/3.png)
+![](cos-hexo/3.png)
 
 SSL设置
-![](:category/cos-hexo/4.png)
+![](cos-hexo/4.png)
 
 ### 域名解析，添加记录
 
@@ -65,7 +65,7 @@ hexo clean
 hexo g -d
 ```
 结果类似于
-![](:category/cos-hexo/5.png)
+![](cos-hexo/5.png)
 
 ### CDN刷新
 

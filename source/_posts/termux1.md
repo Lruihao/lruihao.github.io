@@ -15,7 +15,7 @@ author:
 permalink:
 ---
 
-前面有一篇文章写到一些[传送门](https://lruihao.cn/termux.html)
+前面有一篇文章写到一些[传送门](https://lruihao.cn/termux/termux.html)
 
 ### 初始化
 下载并初始化termux

@@ -79,9 +79,9 @@ clear
 ./menu.sh
 
 ```
-![](:category/shell/1.png)
-![](:category/shell/2.png)
-![](:category/shell/3.png)
-![](:category/shell/4.1.png)
-![](:category/shell/4.2.png)
-![](:category/shell/5.png)
+![1](shell/1.png)
+![2](shell/2.png)
+![3](shell/3.png)
+![4.1](shell/4.1.png)
+![4.2](shell/4.2.png)
+![5](shell/5.png)

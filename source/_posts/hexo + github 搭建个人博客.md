@@ -63,7 +63,7 @@ hexo g
 hexo s
 ```
 **其他步骤在这里不赘述，参见[超详细教程](https://my.oschina.net/ryaneLee/blog/638440)**
-**[安卓上搭建hexo博客](https://lruihao.cn/termux.html)**
+**[安卓上搭建hexo博客](https://lruihao.cn/termux/termux.html)**
 
 # 部署
 ```bash

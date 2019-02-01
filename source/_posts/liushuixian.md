@@ -22,12 +22,12 @@ permalink:
 
 |未使用流水线|使用流水线|
 |:-:|:-:|
-|![](:category/liushuixian/未使用.png)|![](:category/liushuixian/使用.png)|
+|![](liushuixian/未使用.png)|![](liushuixian/使用.png)|
 
 流水线周期为执行时间最长的一段。
 
 ### 流水线计算公式
-![](:category/liushuixian/公式.png)
+![](liushuixian/公式.png)
 
 首先使用理论公式，没有答案用实践公式。
 
@@ -36,7 +36,7 @@ permalink:
 
 |基本公式|最大吞吐率|
 |:-:|:-:|
-|![](:category/liushuixian/1.png)|![](:category/liushuixian/max.png)|
+|![](liushuixian/1.png)|![](liushuixian/max.png)|
 
 ### 流水线加速比
 完成一批任务,不使用流水线所用的时间与使用流水线所用的时间之比称为流水线的加速比。
@@ -47,14 +47,14 @@ permalink:
 
 ### 流水线的效率
 
-![](:category/liushuixian/效率.png)
+![](liushuixian/效率.png)
 
 ### 例题
-![](:category/liushuixian/例题.png)
+![](liushuixian/例题.png)
 
 ### 其他
 #### 主机
-![](:category/liushuixian/主机.png)
+![](liushuixian/主机.png)
 #### CISC和RISC
 
 |类型|指令|寻址方式|实现方式|其他|

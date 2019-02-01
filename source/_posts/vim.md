@@ -69,6 +69,6 @@ vim $PREFIX/etc/motd
 如果报错，好像是要安装Python `pkg install python`
 
 进入后先使用`dd`把以前的问候语一行一行删掉，再输入`i`，进入插入操作，修改你自定义的问候语。之后`ESC`,再`:WQ`退出保存，重启termux就可以看到修改后的效果了。如图。
-![](:category/vim/img.jpg)
+![](vim/img.jpg)
 
 termux美化[termux-ohmyzsh](https://github.com/Cabbagec/termux-ohmyzsh)

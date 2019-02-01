@@ -73,7 +73,7 @@ Markdown主张使用最简单的符号来控制格式，兼顾易读易写特性
 
 ## 链接及图片
 
-[另外一篇博文](https://lruihao.github.io/hexo-添加图片%EF%BC%8C音乐%EF%BC%8C链接%EF%BC%8C视频.html)
+[另外一篇博文](https://lruihao.github.io/hexo/hexo-添加图片%EF%BC%8C音乐%EF%BC%8C链接%EF%BC%8C视频.html)
 链接和图片可以为文章润色不少，通过 `[描述](地址)`既可以添加链接，而在其前面添加一个 `!` 号即为添加图片， 具体为:
 
 ```

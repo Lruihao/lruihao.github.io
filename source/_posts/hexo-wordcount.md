@@ -62,6 +62,3 @@ npm install hexo-wordcount@2 --save
   <span class="post-count">全站共 {{ totalcount(site) }} 字</span>
 </div>
 ```
-
-
-> **教程结束，觉得不错的话可以在右上角进入github上点个star**

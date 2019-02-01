@@ -240,6 +240,19 @@
             </span>
           {% endif %}
           
+          {% if not is_index and theme.post_wordcount.enable %}
+            <span class="post-meta-divider">|</span>
+            <span title="{{ __('post.words') }}">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-{{ theme.post_wordcount.icon }}"></i>
+              </span>
+              {% if theme.post_meta.item_text %}
+                <span class="post-meta-item-text">{{__('post.words') + __('symbol.colon') }}</span>
+              {% endif %}
+                <span>{{ wordcount(post.content) }}</span>
+            </span>
+          {% endif %}
+
           {% if not is_index and (config.symbols_count_time.symbols or config.symbols_count_time.time) %}
             <div class="post-symbolscount">
               {% if not theme.symbols_count_time.separated_meta %}
@@ -254,8 +267,8 @@
                   <span class="post-meta-item-text">{{ __('symbols_count_time.count') + __('symbol.colon') }}</span>
                 {% endif %}
                 <span title="{{ __('symbols_count_time.count') }}">{#
-                #}{{ symbolsCount(post.content) }}{#
-              #}</span>
+                #}{{ wordcount(post.content) }}{#
+              #}</span><!--{{ symbolsCount(post.content) }}-->
               {% endif %}
 
               {% if config.symbols_count_time.symbols and config.symbols_count_time.time %}
