@@ -27,7 +27,7 @@ permalink:
 
 ### 在线效果演示
 
-<p style="font-family: MMT;font-size: 30px;font-weight:bold;" align="center">
+<p style="font-family: MMT;font-size: 30px;" align="center">
 前尘硬化像石头
 随缘地抛下便逃走
 我绝不罕有
