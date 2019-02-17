@@ -27,10 +27,9 @@ permalink:
 |[hojun](https://www.hojun.cn)|一个好奇的博客。前端开发|
 |[酱油哥](https://enfangzhong.github.io)|研究生|
 |[小情书](https://lancelik.github.io)|坐标上海，前后端工程师|
-|[dx](https://dengdengdeng123.github.io)|ACM|
-|[wxl666](https://wxlabc.github.io)|ACM|
 |[Domon](https://www.domon.cn)|主要涉及Android端技术，前沿其他技术和生活吐槽。|
 |[mythsman](http://blog.mythsman.com)|hexo-douban插件开发者，坐标上海拼多多//博客看起来是个很有生活感与学习感的地方|
+|[孤舟leng](https://blleng.top)|记录一些有趣的技术，分享算法和一些想法。|
 
 <!--more-->
 <br>

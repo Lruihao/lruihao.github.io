@@ -58,11 +58,12 @@ npm install https://github.com/CodeFalling/hexo-asset-image -- save
 ```
 #iframe插件
 
-<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=505820138&auto=0&height=66">
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=66651&auto=0&height=66">
 </iframe>
 ```
-<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=505820138&auto=0&height=66">
-</iframe>
+
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=66651&auto=0&height=66"></iframe>
+
 
 ```
 #flash插件
@@ -70,6 +71,7 @@ npm install https://github.com/CodeFalling/hexo-asset-image -- save
 <embed src="//music.163.com/style/swf/widget.swf?sid=40249713&type=2&auto=0&width=320&height=66" width="340" height="86"  allowNetworking="all">
 </embed>
 ```
+
 <embed src="//music.163.com/style/swf/widget.swf?sid=40249713&type=2&auto=0&width=320&height=66" width="340" height="86"  allowNetworking="all">
 </embed>
 
@@ -81,31 +83,29 @@ npm install https://github.com/CodeFalling/hexo-asset-image -- save
 [我的微博](https://weibo.com/liahao)
 
 # 5.添加视频
-视频链接最好是打开就是视频的链接（支持youku，YouTube）
-可以把视频上传到优酷，腾讯视频，生成外链再拿来用。（上传需要注册和实名认证）
+{% note %}
+视频链接最好是打开就是视频的链接（youku，YouTube，抖音等）
+可以把视频上传到优酷，抖音等生成外链再拿来用。（优酷上传需要注册和实名认证）
 [参考资料](https://www.jianshu.com/p/26a7fc7cc185)
+{% endnote %}
 
-```bash
-#我自己拍的一个视频，微博上也有
+自拍手写视频（优酷）
+> 实验室无聊拍的
+
+```
 <iframe 
-	height=498 width=510 
+	height=500 width=100% 
 	src="https://player.youku.com/embed/XMzY0MzgxNDMyOA==" 
 	frameborder=0 allowfullscreen>
 </iframe>
 ```
-自拍手写视频，一开始上传到微博上，再链接过来发现不行，视频打开的是那篇微博，还有点一下才可以播放，后来上传到优酷上了，如下。
 <iframe 
-	height=498 width=510 
+	height=500 width=100% 
 	src="https://player.youku.com/embed/XMzY0MzgxNDMyOA==" 
 	frameborder=0 allowfullscreen>
 </iframe>
 
+
 # 工具集合
-[马克飞象](https://maxiang.io/)
-[简书](https://www.jianshu.com/)
-**图床**
-[图床神器](http://mpic.lzhaofu.cn)
-[cloudapp是英文的](https://www.getcloudapp.com/)
-[极简图床](http://jiantuku.com/#/)
-[SM.MS很不错](https://sm.ms/)
-[嗯，图片就交给他了](https://sspai.com/post/40499)（该文写的很清楚）
+[马克飞象](https://maxiang.io/)、CSDN、简书
+[SM.MS图床](https://sm.ms/)
