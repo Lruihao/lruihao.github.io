@@ -14,7 +14,7 @@ top:
 author:
 permalink:
 ---
-![](blog-backup/1.png)
+![](/hexo/blog-backup/1.png)
 <!--more-->
 ### 备份hexo博客
 ```
