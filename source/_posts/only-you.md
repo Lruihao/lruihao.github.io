@@ -15,7 +15,7 @@ permalink:
 notshow: true
 ---
 
-![only-you](only-you/0.jpg)
+{% asset_img 0.jpg %}
 
 <!--more-->
 {% note danger %}
