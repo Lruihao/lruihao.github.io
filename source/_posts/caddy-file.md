@@ -55,7 +55,7 @@ gzip
 caddy
 ```
 账号密码默认`admin`
-![](caddy-file/1.png)
+{% asset_img 1.png %}
 
 ### 设置定时器启动caddy（好像没用,我不会）
 为了断开xshell后caddy还在运行。

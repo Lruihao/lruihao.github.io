@@ -79,9 +79,9 @@ clear
 ./menu.sh
 
 ```
-![1](shell/1.png)
-![2](shell/2.png)
-![3](shell/3.png)
-![4.1](shell/4.1.png)
-![4.2](shell/4.2.png)
-![5](shell/5.png)
+{% asset_img 1.png %}
+{% asset_img 2.png %}
+{% asset_img 3.png %}
+{% asset_img 4.1.png %}
+{% asset_img 4.2.png %}
+{% asset_img 5.png %}

@@ -22,7 +22,7 @@ npm install font-spider -g
 ```
 ### 运行
 安装成功之后就开始压缩了
-![](web-font/menu.png)
+{% asset_img menu.png 文件结构 %}
 
 我的css
 ```
@@ -37,6 +37,6 @@ npm install font-spider -g
 ```
 font-spider C:\Users\李瑞豪\Desktop\love\index.html
 ```
-![](web-font/jieguo.png)
+{% asset_img jieguo.png 执行结果 %}
 
-[链接](http://font-spider.org)
+[官网](http://font-spider.org)
