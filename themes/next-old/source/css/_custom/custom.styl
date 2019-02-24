@@ -1,41 +1,62 @@
-// Custom styles.
+// Custom styles. //mobile style keep default mostly.
 
 //“> ”书签颜色
 blockquote {
-    padding: 0 15px;
-    color: #666;
-    border-left: 4px solid #ccc;
+  padding: 0 15px;
+  color: #666;
+  border-left: 4px solid #ccc;
 }
 
 //顶部条
 .headband {
-  height: 0;
+  height: 0px;
+  //+mobile(){
+    //background: #fff;
+  //}
+
 }
 
 //背景图
 body { 
-    background-image: url(/images/bg.jpg);
-    background-attachment: fixed; // 不随屏幕滚动而滚动fixed,scroll,inherit
-    background-repeat: no-repeat; // 如果背景图不够屏幕大小则重复铺，改为no-repeat则表示不重复铺
-    background-size: cover; // contain等比例铺满屏幕 //cover拉伸铺满
-    background-position: bottom;//x,y轴调整
-    +mobile(){
-      //background-position: 0% -20%;
-      //https://ziyuan.lruihao.cn/images/bg_cell.png
-      background: #f5f7f9;
-      //background-size: cover;
-    }
+  //padding: 20px 0;
+  background-image: url(/images/bg.jpg);
+  background-attachment: fixed; // 不随屏幕滚动而滚动fixed,scroll,inherit
+  background-repeat: no-repeat; // 如果背景图不够屏幕大小则重复铺，改为no-repeat则表示不重复铺
+  background-size: cover; // contain等比例铺满屏幕 //cover拉伸铺满
+  background-position: bottom;//x,y轴调整
+  +mobile(){
+    //background-position: 0% -20%;
+    //https://ziyuan.lruihao.cn/images/bg_cell.png
+    background: #f5f7f9;
+    //background-size: cover;
+  }
 }
 
 
 //首部背景https://i.loli.net/2018/07/22/5b54763f0896c.jpg https://i.loli.net/2018/12/29/5c26f949e54ac.jpg
 //彩色linear-gradient(90deg, #F79533 0%, #F37055 15%, #EF4E7B 30%, #A166AB 44%, #5073B8 58%, #1098AD 72%, #07B39B 86%, #6DBA82 100%)
 .site-meta {
-    height: 100px;
-    background-image: url(https://ziyuan.lruihao.cn/images/site-meta.jpg);
-    background-size: cover;
+  height: 100px;
+  background-image: url(https://ziyuan.lruihao.cn/images/site-meta.jpg);
+  background-size: cover;
+  +mobile(){
+    height: 80px;
+    background: #222;
+  }
 }
 
+//菜单栏
+.header-inner {
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 10px;
+  +mobile(){
+    background: white;
+    border-radius: 0px;
+    -webkit-box-shadow: 0 0 14px #cacbcb;
+    -moz-box-shadow: 0 0 14px #cacbcb;
+    box-shadow: 0 0 14px #cacbcb;
+  }
+}
 
 //侧边栏信息样式修改
 /*.links-of-blogroll-item {
@@ -67,19 +88,24 @@ body {
 .footer {
   font-size: 15px;
   //bottom: -28px;
-  border-radius: 10px;
-  background: rgba(255, 255, 255, 0);
+  //border-radius: 10px;
+  //background: rgba(255, 255, 255, 0);
 
   +mobile() {
     font-size: 12px;
-    border-radius: 0px;
+    //border-radius: 0px;
     bottom: -30px;
-    background: rgba(255, 255, 255, 0.1);
+    //background: rgba(255, 255, 255, 0.1);
   }
 }
 
+//选中文字的颜色
+::selection {
+    background: #d25462;
+    color: #fff;
+}
 
-
+//小代码块
 code {
     color: #7B68EE;
     background: rgba(255,255,255,0.4); //#fbf7f8
@@ -89,10 +115,19 @@ code {
 .highlight, pre {
     margin: 5px;
     padding: 5px;
-    //border-radius: 0px;
+}
+pre .deletion {
+    background: rgba(255,0,0,0.2);
+}
+pre .addition {
+    background: rgba(0,255,255,0.2);
 }
 .highlight, code, pre {
     border: 1px solid #bdc3c7;
+}
+.highlight figcaption {
+    background: #2d2d2d;
+    border-bottom: 1px solid #111;
 }
 
 //鼠标样式
@@ -133,6 +168,10 @@ code {
  src: url("/media/STXINGKA.TTF");
 }
 
+@font-face {
+ font-family: Title;
+ src: url("/media/Title.ttf");
+}
 
 //输入框美化
 input {
@@ -243,6 +282,10 @@ input:focus {
     background: #34495e;
     text-decoration: none !important;
   }
+
+  +mobile(){
+    background-color: #bdc3c7;
+  }
 }
 
 
@@ -266,8 +309,11 @@ input:focus {
 //文章样式修改
 .content-wrap {
   border-radius: 10px;
+  background: rgba(255, 255, 255, 0.5);//none透明
   +mobile(){
+    padding: 0px 0;
     border-radius: 0px;
+    background: white;//rgba(255, 255, 255, 0.1)
   }
 }
 // 文章内链接文本样式
@@ -291,12 +337,6 @@ input:focus {
   background: rgba(255,255,255,0.3)
   border-radius: 10px;
   +mobile(){
-    margin-bottom: 0px;
-    padding: 0px 0px 0px;
-    -webkit-box-shadow: 0 0 0px rgba(255,255,255,0);
-    -moz-box-shadow: 0 0 0px rgba(255,255,255,0);
-    box-shadow: 0 0 0px rgba(255,255,255,0);
-    background: rgba(255,255,255,0)
     border-radius: 0px;
   }
 }

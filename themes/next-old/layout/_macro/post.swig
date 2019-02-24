@@ -365,7 +365,7 @@
       {% endif  %}
     </div>
 
-    {% if theme.related_posts.enable and (theme.related_posts.display_in_home or not is_index) %}
+    {% if theme.related_posts.enable and (theme.related_posts.display_in_home or not is_index) and !post.norelate %}
       {% include 'post-related.swig' with { post: post } %}
     {% endif %}
 
@@ -495,7 +495,5 @@
   {### END POST BLOCK ###}
   {######################}
   </article>
-  <!--知乎卡片链接-->
-  <script type="text/javascript" src="/js/src/linkcard.js"></script>
-  
+
 {% endmacro %}
