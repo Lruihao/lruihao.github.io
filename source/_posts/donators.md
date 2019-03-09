@@ -15,6 +15,7 @@ author:
 permalink:
 sticky: true
 noreward: true
+norelate: true
 ---
 
 |赞助者|<center>时间</center>|支持方式|赞助❤️|<center>记录</center>|

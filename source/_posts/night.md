@@ -5,7 +5,7 @@ tags:
 - 前端
 - javascript
 categories:
-- 前端
+- javascript
 password:
 abstract:
 message:

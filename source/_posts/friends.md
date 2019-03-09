@@ -13,6 +13,7 @@ top: 9
 sticky: false
 author:
 permalink:
+norelate: true
 ---
 
 |<center>链接</center>|<center>描述</center>|

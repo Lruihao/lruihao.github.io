@@ -17,10 +17,6 @@ author:
 permalink:
 ---
 
-<a href="https://ziyuan.lruihao.cn/app/i%20am_2.5.9_beta.apk" target="_blank" class="LinkCard">博客app下载</a>
-
-<!--more-->
-
 ### 介绍
 使用fusion app对网页进行的封装。
 功能：
@@ -32,9 +28,12 @@ permalink:
 * 留言，打赏，博主日志等
 * 分享功能，分享到QQ，微信，浏览器打开等
 * app内添加书签，自动记录历史记录，刷新等
-
+<!--more-->
 
 ### 下载
+
+<a href="https://ziyuan.lruihao.cn/app/i%20am_2.5.9_beta.apk" target="_blank" class="LinkCard">博客app下载</a>
+
 > app内也可以更新，不过就我自己用，懒得更新。
 
 * [百度云，密码:479l](https://pan.baidu.com/s/19jOvnNhssF302Mi1GRa2Sw) 
