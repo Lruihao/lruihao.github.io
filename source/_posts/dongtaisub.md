@@ -105,8 +105,9 @@ ps: `title`和`subtitle`的`字体`还有`颜色`也可以在这个文件修改�
 [参数详见](https://api.imjad.cn/hitokoto.md)
 
 **效果区（刷新可见）**
+<script type="text/javascript" src="https://api.imjad.cn/hitokoto/?cat=&charset=utf-8&length=&encode=js&fun=sync&source="></script>
 
 ---
-<script type="text/javascript" src="https://api.imjad.cn/hitokoto/?cat=&charset=utf-8&length=&encode=js&fun=sync&source="></script><div id="hitokoto"><script>hitokoto()</script></div>
+<div id="hitokoto" style="text-align:center;"><script>hitokoto()</script></div>
 
 ---

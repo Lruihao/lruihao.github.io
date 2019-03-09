@@ -6,7 +6,7 @@ tags:
 - 前端
 - 301重定向
 categories:
-- 前端
+- javascript
 password:
 abstract:
 message:

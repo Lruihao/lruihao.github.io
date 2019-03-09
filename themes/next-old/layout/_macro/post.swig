@@ -400,12 +400,12 @@
     {% endif %}
     
     {% if not is_index and theme.recent_posts.enable and theme.recent_posts.post %}
-      <div class="links-of-blogroll motion-element {{ "links-of-blogroll-" + theme.recent_posts.layout  }}">
-       <div class="links-of-blogroll-title">
+      <div style="text-align: center;padding: 10px 0 0;">
+       <div style="margin: 60px 0px 10px;font-size: 18px;border-bottom: 1px solid #eee;">
          <i class="fa fa-{{ theme.recent_posts.icon }}" aria-hidden="true"></i>
          {{ theme.recent_posts.title }}
        </div>
-       <ul class="links-of-blogroll-list">
+       <ul style="margin: 0;padding: 0;list-style: none;font-size: 11px;">
          {% set posts = site.posts.sort('-date') %}
          {% for post in posts.slice('0', '5') %}
              <a href="{{ url_for(post.path) }}" title="{{ post.title }}" target="_blank">{{ post.title }}</a>&emsp;

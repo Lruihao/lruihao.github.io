@@ -259,16 +259,34 @@ next已经引用了，可以直接用，比如：
 ```
 <i class="fa fa-spinner fa-spin"></i> <i class="fa fa-circle-o-notch fa-spin"></i> <i class="fa fa-refresh fa-spin"></i> <i class="fa fa-cog fa-spin"></i> <i class="fa fa-spinner fa-pulse"></i>
 
-### [其他](http://www.mykernel.cn/my-hexo-next-1.html)
-> 包括小色块、左侧色条、右侧色条、上方色条、数字色块（需要自定义样式）
+### 代码块等
+
+```cpp 三个点后面的参数 https://lruihao.cn lruihao.cn
+[language] [title] [url] [link text]
+
+code snippet
+
+```
+
+```diff diff
+-  printf("Hello World!");
++  printf("Hello_World!");
+```
+**iframe**
+在文章中插入 iframe。
+```default iframe
+{% iframe url [width] [height] %}
+```
+{% iframe https://weibo.com/liahao 100% 400 %}
 
 ### 知乎卡片链接
 
+<script type="text/javascript" src="/js/src/linkcard.js"></script>
 <a href="https://github.com/Lruihao/lruihao.github.io" target="_blank" class="LinkCard">Lruihao博客</a>
 
-也是一种后加载，创建`linkcard.js`放到`source/js/src/`，然后在`next\layout\_macro\post.swig`中引用(我这里加载最后一行前面)
+也是一种后加载，创建`linkcard.js`放到`source/js/src/`，然后在`next\layout\_macro\post.swig`中引用
 
-```java
+```java 知乎卡片链接
   <!--知乎卡片链接-->
   <script type="text/javascript" src="/js/src/linkcard.js"></script>
 ```
@@ -276,3 +294,37 @@ next已经引用了，可以直接用，比如：
 ```
 <a href="https://github.com/Lruihao/lruihao.github.io" target="_blank" class="LinkCard">Lruihao博客</a>
 ```
+
+### Todo list
+- <i class="fa fa-check-square"></i> 已完成
+- <i class="fa fa-square"></i> 未完成
+
+```http Todo list
+<ul>
+<li><i class="fa fa-check-square"></i> 已完成</li>
+<li><i class="fa fa-square"></i> 未完成</li>
+</ul>
+
+<!--或者-->
+
+- <i class="fa fa-check-square"></i> 已完成
+- <i class="fa fa-square"></i> 未完成
+```
+
+### Label
+主题配置文件中打开
+```
+# Label tag.
+label: true
+```
+`@`前面的是label的名字，后面的是要显示的文字
+{% label default@default %} {% label primary@primary %} {% label success@success %} {% label info@info %} {% label warning@warning %} {% label danger@danger %}
+```
+{% label default@default %}
+
+primary success info warning danger
+```
+
+
+### [其他](http://www.mykernel.cn/my-hexo-next-1.html)
+> 包括小色块、左侧色条、右侧色条、上方色条、数字色块（需要自定义样式）

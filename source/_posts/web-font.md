@@ -3,8 +3,9 @@ title: ttf字体压缩
 date: 2018-10-17 21:38:06
 tags:
 - 字体压缩
-categories:
 - 前端
+categories:
+- 通用
 password:
 abstract:
 message:

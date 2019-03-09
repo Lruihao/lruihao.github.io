@@ -5,7 +5,7 @@ tags:
 - javascript
 - 前端
 - 他山之石
-categories: 前端
+categories: javascript
 password:
 abstract:
 message:
