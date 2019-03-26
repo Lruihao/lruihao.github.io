@@ -74,11 +74,11 @@ hexo g -d
 # 美化
 
 **这些美化都写的很详细，我建议你们自己好好看看吧，我也是在这里看到的，如果问我和这里说的是一样的。**
+[hexo个性化教程](/categories/hexo/)
 [valine特别鸣谢赵俊👍](http://www.zhaojun.im)
 [asdfv1929](https://asdfv1929.github.io/tags/Hexo/)
-[hexo官方主题集合](https://hexo.io/themes/)，~~我用的是aloha主题~~，该主题[官方文档](https://github.com/henryhuang/hexo-theme-aloha/wiki/zh_CN)，**后改用next主题**
+[hexo官方主题集合](https://hexo.io/themes/)，~~我用的是aloha主题~~，该主题[官方文档](https://github.com/henryhuang/hexo-theme-aloha/wiki/zh_CN)，**后改用next主题[next主题](https://theme-next.iissnan.com/)**
 [hexo官方插件](https://hexo.io/plugins)
-[hexo个性化教程](https://blog.csdn.net/qq_33699981/article/details/72716951)
 ~~说说我的主题遇到的一些问题，由于这个主题用的人少，所以作者优化的不是很好（next使用最多），当然也可以反过来说，所以自己美化了一点~~
 ## 博文置顶
 修改 `hero-generator-index` 插件，把文件：`node_modules/hexo-generator-index/lib/generator.js` 内的代码替换为：

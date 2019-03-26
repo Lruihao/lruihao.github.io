@@ -17,6 +17,8 @@ author:
 permalink:
 noreward:
 notshow:
+photos:
+- /hexo/hexo-theme-next/next.png
 ---
 
 {% note success %}
@@ -49,6 +51,104 @@ git clone https://github.com/Lruihao/hexo-theme-next themes/next
 ```
 # DIY更新
 
+## 热度页面
+
+> 打开`hexo\themes\next\layout`新建`top.swig`文件，写下如下内容保存：
+其中第36行改成你自己的leancloud的appid和appkey,比如我的是在主题配置文件里面的valine配置下，所以我就写成`theme.valine.appid`。和我一样就不需要修改，其他自行配置。
+
+```XML top.swig
+{% extends '_layout.swig' %}
+{% import '_macro/sidebar.swig' as sidebar_template %}
+
+  {% block title %}{#
+  #}{% set page_title_suffix = ' | ' + title %}{#
+
+  #}{% if page.type === "categories" and not page.title %}{#
+    #}{{ __('title.category') + page_title_suffix }}{#
+  #}{% elif page.type === "tags" and not page.title %}{#
+    #}{{ __('title.tag') + page_title_suffix }}{#
+
+  #}{% elif page.type === "photos" and not page.title %}{#
+  #}{{ __('title.photos') + page_title_suffix }}{#
+
+  #}{% else %}{#
+    #}{{ page.title + page_title_suffix }}{#
+  #}{% endif %}{#
+#}{% endblock %}
+
+{% block page_class %}page-post-detail{% endblock %}
+
+{% block content %}
+
+  <div id="posts" class="posts-expand">
+    {##################}
+    {### PAGE BLOCK ###}
+    {##################}
+    <div class="post-block page">
+      {% include '_partials/page-header.swig' %}
+      {#################}
+      {### PAGE BODY ###}
+      {#################}
+
+      <div id="top"></div>
+      <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+      <script>AV.initialize("{{ theme.valine.appid }}", "{{ theme.valine.appkey }}");</script>
+      <script type="text/javascript">
+        setTimeout(function(){
+          var time=0
+          var title=""
+          var url=""
+          var query = new AV.Query('Counter');
+          query.notEqualTo('id',0);
+          query.descending('time');
+          query.limit({{ page.limit }}); //设置篇数
+          query.find().then(function (todo) {
+            for (var i=0;i<{{ page.limit }};i++){
+              var result=todo[i].attributes;
+              time=result.time;
+              title=result.title;
+              category=result.categories
+              url=result.url;
+              var content="<p>"+"【文章热度:"+time+"℃】"+"<a href='"+"{{ config.url }}"+""+url+"'>"+title+"</a>"+"</p>";
+              document.getElementById("top").innerHTML+=content
+            }
+          }, function (error) {
+            console.log("error");
+          });
+        },1000)
+      </script>
+
+      <div class="post-body{% if theme.han %} han-init-context{% endif %}{% if page.direction && page.direction.toLowerCase() === 'rtl' %} rtl{% endif %}"></div>
+      
+      {#####################}
+      {### END PAGE BODY ###}
+      {#####################}
+    </div>
+    {% include '_partials/breadcrumb.swig' %}
+    {######################}
+    {### END PAGE BLOCK ###}
+    {######################}
+  </div>
+
+{% endblock %}
+
+{% block sidebar %}
+  {{ sidebar_template.render(false) }}
+{% endblock %}
+
+{% block script_extra %}
+  {% include '_scripts/pages/post-details.swig' %}
+{% endblock %}
+```
+
+然后`hexo n page top`新建一个页面文章配置写下如下内容，limit表示显示篇数：
+```XMl top.md
+---
+title: 热度
+layout: top
+limit: 20
+---
+```
 ## 复制按钮样式 2019.03.21
 
 <img src="/hexo/hexo-theme-next/lightbtn.png" style="float: left;width:25%;height: 130px;" /><img src="/hexo/hexo-theme-next/nightbtn.png" style="float: left;width:25%;height: 130px;" /><img src="/hexo/hexo-theme-next/flatbtn.png" style="float: left;width:25%;height: 130px;" /><img src="/hexo/hexo-theme-next/3dbtn.png" style="float: left;width:25%;height: 130px;" />
