@@ -93,8 +93,8 @@ ps: `title`和`subtitle`的`字体`还有`颜色`也可以在这个文件修改�
 效果详见：<https://lruihao.cn>
 
 ## api调用（11.29更）
-直接js调用api简单快速
-```html
+直接js调用api简单快速 [参数详见](https://api.imjad.cn/hitokoto.md)
+```XML 一言api
 <div>
   <script type="text/javascript" src="https://api.imjad.cn/hitokoto/?cat=&charset=utf-8&length=&encode=js&fun=sync&source="></script>
   <div id="hitokoto">
@@ -102,12 +102,23 @@ ps: `title`和`subtitle`的`字体`还有`颜色`也可以在这个文件修改�
   </div>
 </div>
 ```
-[参数详见](https://api.imjad.cn/hitokoto.md)
 
-**效果区（刷新可见）**
 <script type="text/javascript" src="https://api.imjad.cn/hitokoto/?cat=&charset=utf-8&length=&encode=js&fun=sync&source="></script>
 
 ---
 <div id="hitokoto" style="text-align:center;"><script>hitokoto()</script></div>
+
+---
+
+## 今日诗词
+[今日诗词](https://www.jinrishici.com/)
+```XML 今日诗词
+<span id="jinrishici-sentence">正在加载今日诗词....</span>
+<script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+```
+
+---
+<div id="jinrishici-sentence" style="text-align:center;">正在加载今日诗词....</div>
+<script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
 
 ---

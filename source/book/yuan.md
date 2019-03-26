@@ -2,7 +2,7 @@
 title: 鸳鸯刀
 layout: post
 author: 金庸
-description: 金庸/三联出版社/1980版
+description: <img src="images/yuan.jpg" />金庸/三联出版社/1980版
 ---
 
 <p>四个劲装结束的汉子并肩而立，拦在当路！</p>

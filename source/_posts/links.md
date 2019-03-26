@@ -14,6 +14,15 @@ sticky: false
 <br>
 
 <!--more-->
+# lruihao.cn
+|链接|描述|
+|:--|:--|
+|[RUI豪小栈](https://www.lruihao.cn)|一个测试静态站点`www.lruihao.cn`|
+|[caddy私人网盘](https://pan.lruiaho.cn)|和同学们日常上机使用6个月，服务器已于2019年4月过期`pan.lruihao.cn`|
+|[h5音乐播放器插件](https://player.lruihao.cn)|使用`IT技术宅`的github开源代码`player.lruihao.cn`|
+|[游戏馆](https://www.lruihao.cn/games/)|一些小游戏，多数js来源互联网，还有一些是书上看到的实例|
+|[QQxml强制获取](https://www.lruihao.cn/qqxml/)|用来生成qq聊天中的卡片式链接|
+|[效率壁纸](https://www.lruihao.cn/bg/)|生成效率壁纸|
 
 # ACM相关
 |链接|描述|
@@ -57,13 +66,10 @@ sticky: false
 |[Font Awesome图标库](https://fontawesome.com/icons?d=gallery)|hexo指定图标库|
 |[iconfont](http://www.iconfont.cn)|阿里巴巴矢量图标库|
 |[emoji在线复制](https://www.emojicopy.com)|Simple emoji copy and paste|
-|[hexo seo优化](https://blog.csdn.net/sunshine940326/article/details/70936988)|百度收录等|
-|[极简图床](https://jiantuku.com/#/)|使用微博，七牛云，阿里云OSS|
 |[sm.ms](https://sm.ms)|非常好用的图床|
 |[小贱贱图床](https://pic.xiaojianjian.net)|快速，上传即得外链，每个ip每日限制20张|
 |[优酷视频上传](https://sc.youku.com/)|获取视频外链，其他：腾讯视频|
 |[百度网站收录](https://ziyuan.baidu.com/linksubmit/url)|网站seo|
-|[必应网站收录](https://www.bing.com/toolbox/submit-site-url)|网站seo|
 |[Bing 站长](https://www.bing.com/toolbox/webmaster)|Bing 网站管理员工具|
 |[图片-七牛云](https://blog.csdn.net/Android_MSK/article/details/75394818)|图片存储到七牛云|
 |[站长工具大全](http://tool.lusongsong.com)|各种seo优化，工具等|
@@ -73,12 +79,10 @@ sticky: false
 |[HTML字符实体](https://blog.csdn.net/u013778905/article/details/53177042)|网页特殊符号大全|
 |[leancloud](https://leancloud.cn)|一站式后端云服务|
 |[daocloud](https://dashboard.daovoice.io)|网站在线客服|
-|[宅音乐播放器](https://pplayer.ilt.me)|依赖jQuery|
 |[Button样例](https://www.bestcssbuttongenerator.com)|20多种button样式，可获取源码|
 |[encycolorpedia](https://encycolorpedia.cn)|encycolorpedia取色器|
 |[特效字转换工具集](http://www.sioe.cn/yingyong)|各种特效字转换工具,彩虹字生成器,RGB转16进制颜色等|
 |[jquery之家](http://www.htmleaf.com)||
-|[web前端网](http://www.i7758.com)|css,js插件源代码分享|
 |[懒人之家](http://www.lanrenzhijia.com)|js特效，flash素材|
 |[前端库](https://www.awesomes.cn)|前端很多学习交流分享网站|
 |[gradient渐变色调色](http://gradient.awesomes.cn)|渐变色调色，获取代码|
@@ -87,15 +91,20 @@ sticky: false
 # 其他
 |链接|描述|
 |:--|:--|
-|[GitHub](https://github.com)|国外代码托管，分享，开源网站|
-|[coding](https://coding.net)|国内代码托管，软件在线开发，定位似乎和github不同，[博客仓库](https://coding.net/u/liruihao/p/liruihao/git)|
-|[gitee](https://gitee.com)|国内代码托管网站，又叫码云，定位和github很像,page服务存在收费|
+|[ubuntu pastebin](https://paste.ubuntu.com)|代码展示托管，生成分享网址，防止代码直接分享缩进消失|
+|[everyfont](http://everyfont.enjoyfe.com)|中文字库在线压缩|
+|[字蛛](http://font-spider.org)|font-spider中文字库压缩|
+|[PEXELS](https://www.pexels.com)|无版权美图网，避免配图侵权|
+|[改图宝](http://www.gaitubao.com)|在线改图压缩，加水印，生成二维码，印章制作等|
+|[soogif](https://www.soogif.com)|gif图及工具|
+|[站长工具](http://tool.chinaz.com)|网站信息查询，权重，seo，网站速度查询，ping等|
+|[mdtr2pdf](http://www.mdtr2pdf.com/index.html)|markdown转pdf|
+|[AD's API](https://api.imjad.cn)|包括动态签名，网易音乐等|
 |[在线工具](https://123.w3cschool.cn/webtools)|w3cschool的在线工具集合|
 |[在线工具](https://tool.oschina.net)|开源中国社区|
 |[菜鸟工具](https://c.runoob.com)|[菜鸟教程](https://www.runoob.com)在线工具，编译，加密，压缩代码等|
 |[图标工厂](https://icon.wuruihong.com)|移动应用图标生成工具，一键生成所有尺寸的应用图标|
 |[大象代理](http://www.daxiangdaili.com)|收费，口碑不错|
-|[表白网](https://loveyue1.sinaapp.com/loves)|表白网页源码下载、demo|
 |[表白驿站](https://www.bbai520.com)|傻瓜式制作表白网页|
 |[图片转字符工具](https://picascii.com)||
 |[二维码解码器](https://jiema.wwei.cn)||
@@ -108,14 +117,8 @@ sticky: false
 |[手写体制作](http://59.108.48.27)|北京大学计算机科学技术研究所的一个项目 ~~（我的字体至今还未完成）~~|
 |[湖南工程学院缴费查询系统](http://cwcx.hnie.edu.cn/cwcx/sf40)||
 |[湖工教务管理系统](http://jwmis.hnie.edu.cn/jwweb)||
-|[ubuntu pastebin](https://paste.ubuntu.com)|代码展示托管，生成分享网址，防止代码直接分享缩进消失|
 |[现实君外链](http://wl.uixsj.cn/index.php)|支持多种文件外链，唯一不好的是http|
 |[蒲公英](https://www.pgyer.com)|应用内测发布平台|
-|[everyfont](http://everyfont.enjoyfe.com)|中文字库在线压缩|
-|[字蛛](http://font-spider.org)|font-spider中文字库压缩|
-|[PEXELS](https://www.pexels.com)|无版权美图网，避免配图侵权|
-|[改图宝](http://www.gaitubao.com)|在线改图压缩，加水印，生成二维码，印章制作等|
-|[soogif](https://www.soogif.com)|gif图及工具|
-|[站长工具](http://tool.chinaz.com)|网站信息查询，权重，seo，网站速度查询，ping等|
-|[mdtr2pdf](http://www.mdtr2pdf.com/index.html)|markdown转pdf|
-|[AD's API](https://api.imjad.cn)|包括动态签名，网易音乐等|
+|[老殁科技](https://www.laomoit.com/)|各种绿色破解软件|
+|[宝塔面板](https://www.bt.cn/?invite_code=MV9sYXJnZHI=)|宝塔面板是一款使用方便、功能强大且终身免费的服务器管理软件，支持Linux与Windows系统。一键配置：LAMP/LNMP、网站、数据库、FTP、SSL，通过Web端轻松管理服务器。|
+|[百度接口](https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=)|百度搜索关键词接口|

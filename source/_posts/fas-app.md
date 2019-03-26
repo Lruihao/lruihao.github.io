@@ -12,11 +12,13 @@ password:
 abstract:
 message:
 description:
-top:
+top: 10
+sticky: true
 author:
 permalink:
 ---
 
+<a href="https://ziyuan.lruihao.cn/app/i_am_2.6.0.apk" target="_blank" class="LinkCard">博客app下载</a>
 ### 介绍
 使用fusion app对网页进行的封装。
 功能：
@@ -31,8 +33,6 @@ permalink:
 <!--more-->
 
 ### 下载
-
-<a href="https://ziyuan.lruihao.cn/app/i%20am_2.5.9_beta.apk" target="_blank" class="LinkCard">博客app下载</a>
 
 > app内也可以更新，不过就我自己用，懒得更新。
 
