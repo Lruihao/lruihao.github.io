@@ -9,7 +9,7 @@ password:
 abstract:
 message:
 description:
-top: 9
+top:
 sticky: false
 author:
 permalink:

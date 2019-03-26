@@ -2,7 +2,7 @@
 title: 越女剑
 layout: post
 author: 金庸
-description: 金庸/三联出版社/1980版
+description: <img src="images/yue.jpg" alt="越女剑" />金庸/三联出版社/1980版
 ---
 
 <p>“请！”“请！”</p>

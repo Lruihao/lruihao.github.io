@@ -3,7 +3,7 @@ title: 在Android上搭建hexo博客
 date: 2018-08-11 16:59:05
 tags:
 - termux
-- hexo博客
+- hexo
 categories:
 - termux
 password:

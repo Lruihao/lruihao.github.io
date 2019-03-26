@@ -15,6 +15,7 @@ top:
 ---
 
 ## 博客日志
+<li>2019.03.21 \-\- `pan.lruihao.cn`已退役，根据github开源宅音乐搭建了[宅音乐](https://player.lruihao.cn)播放器插件</li>
 <li>2019.01.22 \-\- 更换腾讯云对象存储</li>
 可能存储方式的不同，每个目录的访问必须以`/`结尾。比如`lruihao.cn/about`是无法访问的，得访问`lruihao.cn/about/`
 <li>2019.01.12 \-\- 博客UV过万</li>

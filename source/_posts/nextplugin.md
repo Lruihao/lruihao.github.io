@@ -32,12 +32,12 @@ npm install --save hexo-filter-flowchart
 ````
 ```%flow #去掉%号
 st=>start: Start|past:>https://lruihao.cn[blank]
-e=>end: End:>https://www.lruihao.cn
+e=>end: End:>https://www.lruihao.cn[blank]
 op1=>operation: My Operation|past
 op2=>operation: Stuff|current
 sub1=>subroutine: My Subroutine|invalid
 cond=>condition: Yes
-or No?|approved:>/nextplugin.html
+or No?|approved:>/hexo/nextplugin.html
 c2=>condition: Good idea|rejected
 io=>inputoutput: catch something...|request
 
@@ -51,12 +51,12 @@ c2(no)->op2->e
 
 ```flow
 st=>start: Start|past:>https://lruihao.cn[blank]
-e=>end: End:>https://www.lruihao.cn
+e=>end: End:>https://www.lruihao.cn[blank]
 op1=>operation: My Operation|past
 op2=>operation: Stuff|current
 sub1=>subroutine: My Subroutine|invalid
 cond=>condition: Yes
-or No?|approved:>/nextplugin.html
+or No?|approved:>/hexo/nextplugin.html
 c2=>condition: Good idea|rejected
 io=>inputoutput: catch something...|request
 
@@ -278,22 +278,6 @@ code snippet
 {% iframe url [width] [height] %}
 ```
 {% iframe https://weibo.com/liahao 100% 400 %}
-
-### 知乎卡片链接
-
-<script type="text/javascript" src="/js/src/linkcard.js"></script>
-<a href="https://github.com/Lruihao/lruihao.github.io" target="_blank" class="LinkCard">Lruihao博客</a>
-
-也是一种后加载，创建`linkcard.js`放到`source/js/src/`，然后在`next\layout\_macro\post.swig`中引用
-
-```java 知乎卡片链接
-  <!--知乎卡片链接-->
-  <script type="text/javascript" src="/js/src/linkcard.js"></script>
-```
-链接写法,加上`class="LinkCard"`
-```
-<a href="https://github.com/Lruihao/lruihao.github.io" target="_blank" class="LinkCard">Lruihao博客</a>
-```
 
 ### Todo list
 - <i class="fa fa-check-square"></i> 已完成
