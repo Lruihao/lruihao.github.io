@@ -5,6 +5,8 @@ tags:
 - BFS
 - ACM
 - POJ
+- C++
+- C
 categories:
 - ACM
 - 搜索

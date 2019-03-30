@@ -12,8 +12,8 @@ password:
 abstract:
 message:
 description:
-top: 10
-sticky: true
+top:
+sticky:
 author:
 permalink:
 ---

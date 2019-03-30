@@ -3,6 +3,8 @@ title: 高逼格c语言画心
 date: 2018-08-15 16:33:12
 tags:
 - 生活随笔
+- C
+- C++
 categories:
 - 生活随笔
 password:

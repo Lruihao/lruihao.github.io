@@ -6,6 +6,8 @@ tags:
 - Codeforces
 - ACM
 - 数学
+- C++
+- C
 categories:
 - ACM
 - 组合数学

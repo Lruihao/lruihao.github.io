@@ -5,6 +5,7 @@ tags:
 - ACM
 - 并查集
 - HDU
+- C++
 categories:
 - ACM
 - 并查集

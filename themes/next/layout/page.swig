@@ -1,3 +1,4 @@
+
 {% extends '_layout.swig' %}
 {% import '_macro/sidebar.swig' as sidebar_template %}
 
@@ -66,7 +67,6 @@
               {{ list_categories() }}
             </div>
           </div>
-
         {% elif page.type === 'schedule' %}
           {% include 'schedule.swig' %}
 

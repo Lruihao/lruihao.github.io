@@ -4,6 +4,7 @@ date: 2018-08-04 16:19:06
 tags:
 - hexo
 - 前端
+- javascript
 categories:
 - hexo
 password:

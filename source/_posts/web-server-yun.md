@@ -1,5 +1,5 @@
 ---
-title: 云服务器CentOS系统搭建web服务（转）
+title: 云服务器CentOS系统搭建web服务
 date: 2018-10-29 09:15:58
 tags:
 - 他山之石
@@ -14,6 +14,7 @@ description:
 top:
 author:
 permalink:
+repost: true
 ---
 
 ### 搭建Apache web服务

@@ -6,6 +6,7 @@ tags:
 - 数学
 - 快速幂
 - ACM
+- C
 categories:
 - ACM
 - 数论

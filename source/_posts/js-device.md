@@ -1,5 +1,5 @@
 ---
-title: js判断用户设备类型及平台（转）
+title: js判断用户设备类型及平台
 date: 2018-11-03 23:35:44
 tags:
 - javascript
@@ -13,6 +13,7 @@ description:
 top:
 author:
 permalink:
+repost: true
 ---
 > 转自 https://www.cnblogs.com/coober/p/6594379.html
 

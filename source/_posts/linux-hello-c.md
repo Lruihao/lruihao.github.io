@@ -4,6 +4,7 @@ date: 2018-10-15 21:19:27
 tags:
 - HelloWorld
 - linux
+- C
 categories: linux
 password:
 abstract:

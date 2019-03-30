@@ -5,6 +5,7 @@ tags:
 - 数学
 - 数论
 - euler
+- C
 categories:
 - ACM
 - 数论
@@ -36,7 +37,7 @@ permalink:
 ### 模板
 
 //直接法
-```c
+```cpp
 int Euler(int n){
 	int res = n,i;
  

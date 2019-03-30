@@ -1,5 +1,5 @@
 ---
-title: 菜鸟，大牛和教主，三者的区别(转)
+title: 菜鸟，大牛和教主，三者的区别
 date: 2018-08-03 11:39:57
 tags:
 - 生活随笔
@@ -14,6 +14,7 @@ description:
 top:
 author:
 permalink:
+repost: true
 ---
 
 对菜鸟来说题目有三种：会算法且能AC的，会算法但不能AC的，不会做的

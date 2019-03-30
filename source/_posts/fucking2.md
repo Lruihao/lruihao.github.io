@@ -1,5 +1,5 @@
 ---
-title: 搞ACM最悲催的事。。。(转)
+title: 搞ACM最悲催的事。。。
 date: 2018-08-03 11:38:25
 tags:
 - 生活随笔
@@ -14,6 +14,7 @@ description:
 top:
 author:
 permalink:
+repost: true
 ---
 
 搞ACM最悲催的事

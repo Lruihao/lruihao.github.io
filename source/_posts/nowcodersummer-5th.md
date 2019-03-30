@@ -4,6 +4,8 @@ date: 2018-08-02 21:27:02
 tags:
 - Nowcoder
 - ACM
+- C
+- C++
 categories:
 - ACM
 password:

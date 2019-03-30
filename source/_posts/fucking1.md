@@ -1,5 +1,5 @@
 ---
-title: 搞ACM的你伤不起（转）
+title: 搞ACM的你伤不起
 date: 2018-08-03 11:29:10
 tags:
 - 生活随笔
@@ -13,6 +13,7 @@ description:
 top:
 author:
 permalink:
+repost: true
 ---
 
 劳资六年前开始搞ACM啊！！！！！！！！！！ 
