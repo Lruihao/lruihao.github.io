@@ -6,6 +6,8 @@ tags:
 - 组合数学
 - ACM
 - Nowcoder
+- C
+- C++
 categories:
 - ACM
 - 组合数学

@@ -5,6 +5,8 @@ tags:
 - Codeforces
 - ACM
 - 数学
+- C++
+- C
 categories:
 - ACM
 password:
@@ -44,7 +46,7 @@ For the second sample, there are only three valid sequence of steps {2, 1}, {1, 
 有一个n级台阶，每次可以走一级或两级，问最少的步数是多少，且步数必须是m的倍数。
 找一下数学公式就好了。
 具体看代码。
-```c
+```cpp
 #include<bits/stdc++.h>
 using namespace std;
 

@@ -1,5 +1,5 @@
 ---
-title:  The equation-SGU106(扩展欧几里得)(转)
+title:  The equation-SGU106(扩展欧几里得)
 date: 2018-08-10 10:32:39
 tags:
 - 数学
@@ -7,6 +7,8 @@ tags:
 - ACM
 - 欧几里得
 - 他山之石
+- C++
+- C
 categories:
 - ACM
 - 数论
@@ -17,6 +19,7 @@ description:
 top:
 author:
 permalink:
+repost: true
 ---
 
 **[转载注明，侵删](https://www.cnblogs.com/Rinyo/archive/2012/11/25/2787419.html)**
@@ -194,7 +197,7 @@ a*(x0+3*b)+b*(y0-3*a)=c
 
 这样，本题就可以完美解决了。
 
-```c
+```cpp
 // BY Rinyo
 
 #include<cstdio>

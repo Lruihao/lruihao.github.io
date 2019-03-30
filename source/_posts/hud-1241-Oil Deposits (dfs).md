@@ -6,6 +6,7 @@ tags:
 - 搜索
 - HDU
 - ACM
+- C++
 categories:
 - ACM
 - 搜索

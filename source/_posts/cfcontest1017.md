@@ -5,6 +5,7 @@ tags:
 - ACM
 - Codeforces
 - 组合数学
+- C++
 categories:
 - ACM
 password:

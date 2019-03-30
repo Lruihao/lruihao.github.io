@@ -4,6 +4,8 @@ date: 2018-07-31 19:22:36
 tags:
 - Codeforces
 - ACM
+- C++
+- C
 categories:
 - ACM
 password:

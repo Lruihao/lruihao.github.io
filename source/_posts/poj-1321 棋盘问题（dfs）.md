@@ -6,6 +6,7 @@ tags:
 - ACM
 - 搜索
 - POJ
+- C++
 categories:
 - ACM
 - 搜索

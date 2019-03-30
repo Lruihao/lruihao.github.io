@@ -58,9 +58,15 @@
                   </span>
                 {% endif %}
                 <a class="post-title-link" href="{{ url_for(post.path) }}" itemprop="url">
+                  {% if post.repost %}
+                    <span class="repost">转</span>
+                  {% endif %}
                   {{ post.title | default(__('post.untitled'))}}
                 </a>
               {% else -%}
+                {% if post.repost %}
+                    <span class="repost">转</span>
+                {% endif %}
                 {{- post.title -}}
                 {% if theme.post_edit.enable -%}
                   <a href="{{ theme.post_edit.url }}{{ post.source.slice(7) }}" class="post-edit-link" title="{{ __('post.edit') }}" target="_blank">

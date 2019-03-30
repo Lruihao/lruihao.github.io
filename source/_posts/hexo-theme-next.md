@@ -22,7 +22,7 @@ photos:
 ---
 
 {% note success %}
-基于[hexo-theme-next 6.0+](https://github.com/theme-next/hexo-theme-next)的Pisces模板做的DIY扩展性设计。主要是一些custom stlye还有一些第三方的js。修改的地方太多也有点小乱就不提PR了。&emsp;[modified](https://github.com/Lruihao/hexo-theme-next)&emsp;官方Demo => <https://theme-next.org>
+基于[hexo-theme-next 6.0+](https://github.com/theme-next/hexo-theme-next)的Pisces模板做的DIY扩展性设计。主要是一些custom style还有一些第三方的js。修改的地方太多也有点小乱就不提PR了。&emsp;[modified](https://github.com/Lruihao/hexo-theme-next)&emsp;官方Demo => <https://theme-next.org>
 记录一下折腾过程，以后备份恢复博客也好方便自己。本文之前的美化修改请见[hexo分类](/categories/hexo/)。
 {% endnote %}
 
@@ -50,6 +50,41 @@ cd hexo
 git clone https://github.com/Lruihao/hexo-theme-next themes/next
 ```
 # DIY更新
+
+## 转发样式
+```diff post.swig主要修改
+...
+   <a class="post-title-link" href="{{ url_for(post.path) }}" itemprop="url">
++    {% if post.repost %}
++      <span class="repost">转</span>
++    {% endif %}
+     {{ post.title | default(__('post.untitled'))}}
+   </a>
+ {% else -%}
++  {% if post.repost %}
++    <span class="repost">转</span>
++  {% endif %}
+   {{- post.title -}}
+...
+```
+
+```css css样式
+.repost {
+  color: #5acc79;
+  border: 1px solid #e7f4df;
+  border-radius: 20px;
+  padding: 4px 7px;
+  font-size: 15px;
+}
+```
+
+```xml post使用
+---
+repost: true
+---
+```
+[预览](/tags/他山之石/)
+
 
 ## 热度页面
 

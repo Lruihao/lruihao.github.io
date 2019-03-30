@@ -21,28 +21,28 @@ permalink:
 [传送门](https://www.cnblogs.com/zhabayi/p/6419938.html)
 在WEB开发中，时常会用到javascript来获取当前页面的url网址信息，在这里是我的一些获取url信息的小总结。
 
-下面我们举例一个URL，然后获得它的各个组成部分：http://i.cnblogs.com/EditPosts.aspx?opt=1
+下面我们举例一个URL，然后获得它的各个组成部分：`http://i.cnblogs.com/EditPosts.aspx?opt=1`
 
 #### window.location.href(设置或获取整个 URL 为字符串)
 ```
 var test = window.location.href;
 alert(test);
 ```
-返回：http://i.cnblogs.com/EditPosts.aspx?opt=1
+返回：`http://i.cnblogs.com/EditPosts.aspx?opt=1`
 
 #### window.location.protocol(设置或获取 URL 的协议部分)
 ```
 var test = window.location.protocol;
 alert(test);
 ```
-返回：http:
+返回：`http:`
 
 #### window.location.host(设置或获取 URL 的主机部分)
 ```
 var test = window.location.host;
 alert(test);
 ```
-返回：i.cnblogs.com
+返回：`i.cnblogs.com`
 
 #### window.location.port(设置或获取与 URL 关联的端口号码)
 ```
@@ -56,14 +56,14 @@ alert(test);
 var test = window.location.pathname;
 alert(test);
 ```
-返回：/EditPosts.aspx
+返回：`/EditPosts.aspx`
 
 #### window.location.search(设置或获取 href 属性中跟在问号后面的部分)
 ```
 var test = window.location.search;
 alert(test);
 ```
-返回：?opt=1
+返回：`?opt=1`
 
 PS：获得查询（参数）部分，除了给动态语言赋值以外，我们同样可以给静态页面，并使用javascript来获得相信应的参数值。
 
@@ -118,7 +118,7 @@ Request = GetRequest();<br>// var id=Request["id"];
 ```
 
 ##### 指定取
-比如说一个url：http://i.cnblogs.com/?j=js,我们想得到参数j的值，可以通过以下函数调用。
+比如说一个url：`http://i.cnblogs.com/?j=js`,我们想得到参数j的值，可以通过以下函数调用。
 
 ```java
 function GetQueryString(name) { 
@@ -136,7 +136,7 @@ alert(GetQueryString("j"));
 
 ### 301重定向（实战）
 由于之前把blog和网站主页分开在两个仓库所以要想在blog中menu里跳转到站外链接就要做一些处理。以前一直百度不到。
-其实想法早就有了，只要在blog首页或者网站首页检测到<https://lruihao.cn/home>这个链接，或者检测到home字段就自动跳转。想法很简单。可是对js真的一点都不了解，以前百度也找不到实际的效果案例。所以还是自己写吧！附上蹩脚代码。
+其实想法早就有了，只要在blog首页或者网站首页检测到`https://lruihao.cn/home`这个链接，或者检测到home字段就自动跳转。想法很简单。可是对js真的一点都不了解，以前百度也找不到实际的效果案例。所以还是自己写吧！附上蹩脚代码。
 
 ```java
 var path = window.location.href;
@@ -154,4 +154,15 @@ var path = window.location.pathname;
     }
 ```
 
-`demo见菜单`
+http强制重定向https
+
+```java
+<script>
+  var targetProtocol = "https:";
+  var host = "lruihao.cn"; //域名判断，因为localhost仅支持http
+  if (window.location.host == host && window.location.protocol != targetProtocol){
+    window.location.href = targetProtocol +
+      window.location.href.substring(window.location.protocol.length);
+    }
+</script>
+```

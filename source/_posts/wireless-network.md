@@ -5,6 +5,8 @@ tags:
 - 并查集
 - ACM
 - POJ
+- C++
+- C
 categories:
 - ACM
 - 并查集

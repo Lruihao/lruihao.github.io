@@ -14,6 +14,7 @@ author:
 permalink:
 noreward:
 notshow:
+repost:
 ---
 
 <!--

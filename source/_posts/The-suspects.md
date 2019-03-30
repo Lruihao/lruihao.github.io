@@ -5,6 +5,8 @@ tags:
 - 并查集
 - ACM
 - POJ
+- C++
+- C
 categories:
 - ACM
 - 并查集
@@ -43,7 +45,7 @@ n = 0且m = 0时输入结束。
 1
 
 这题也很好理解，AC代码如下：
-```c
+```cpp
 
 #include<cstdio>
 

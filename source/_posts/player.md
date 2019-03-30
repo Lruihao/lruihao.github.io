@@ -3,28 +3,27 @@ title: 宅音乐播放器
 date: 2019-03-19 23:32:56
 tags:
 - 前端
-- html5
 - html/css
 - php
-categories: html/css
+categories: Web
 password:
 abstract:
 message:
 description:
 keywords:
-top: 8
-sticky:
+top: 10
+sticky: true
 author:
 permalink:
 noreward:
 notshow:
 photos:
-- /html-css/player/index.png
-- /html-css/player/login.png
-- /html-css/player/admin_index.png
-- /html-css/player/admin_player.png
-- /html-css/player/admin_song_sheet.png
-- /html-css/player/player.png
+- /Web/player/index.png
+- /Web/player/login.png
+- /Web/player/admin_index.png
+- /Web/player/admin_player.png
+- /Web/player/admin_song_sheet.png
+- /Web/player/player.png
 ---
 
 {% note info %}
