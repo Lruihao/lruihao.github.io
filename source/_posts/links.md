@@ -19,7 +19,7 @@ sticky: false
 |:--|:--|
 |[RUI豪小栈](https://www.lruihao.cn)|一个测试静态站点`www.lruihao.cn`|
 |[私人网盘](https://pan.lruihao.cn)|和同学们日常上机使用,前6个月使用caddy搭建，后使用可道云搭建`pan.lruihao.cn`|
-|[h5音乐播放器插件](https://player.lruihao.cn)|使用`IT技术宅`的github开源代码`player.lruihao.cn`|
+|[宅音乐播放器](https://player.lruihao.cn)|h5音乐播放器插件，使用`IT技术宅`的github开源代码`player.lruihao.cn`|
 |[游戏馆](https://www.lruihao.cn/games/)|一些小游戏，多数js来源互联网，还有一些是书上看到的实例|
 |[QQxml强制获取](https://www.lruihao.cn/qqxml/)|用来生成qq聊天中的卡片式链接|
 |[效率壁纸](https://www.lruihao.cn/bg/)|生成效率壁纸|
