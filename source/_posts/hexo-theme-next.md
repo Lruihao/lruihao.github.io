@@ -51,7 +51,7 @@ git clone https://github.com/Lruihao/hexo-theme-next themes/next
 ```
 # DIY更新
 
-## 转发样式
+## 模仿csdn转发样式
 ```diff post.swig主要修改
 ...
    <a class="post-title-link" href="{{ url_for(post.path) }}" itemprop="url">
@@ -73,8 +73,9 @@ git clone https://github.com/Lruihao/hexo-theme-next themes/next
   color: #5acc79;
   border: 1px solid #e7f4df;
   border-radius: 20px;
-  padding: 4px 7px;
+  padding: 2px 5px;
   font-size: 15px;
+  font-weight: 500;
 }
 ```
 
