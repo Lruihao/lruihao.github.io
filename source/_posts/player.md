@@ -5,6 +5,7 @@ tags:
 - 前端
 - html/css
 - php
+- 宝塔面板
 categories: Web
 password:
 abstract:

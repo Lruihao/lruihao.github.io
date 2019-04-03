@@ -29,7 +29,7 @@ photos:
 <!--more-->
 # 初步安装
 主要的几个自定义文件
-```
+```xml 主要修改路径及文件
 config.swig					#主题配置文件 相关账户信息自己注册替换
 \layout\custom\head.swig			#在头部自定义加入标签
 \layout\custom\google_adsense.swig		#谷歌广告模块，内有注释暂时弃用
@@ -40,16 +40,63 @@ config.swig					#主题配置文件 相关账户信息自己注册替换
 \layout\_third-party\copy-code.swig		#复制按钮
 \layout\_partials\comments.swig			#评论主模板
 \layout\_partials\footer.swig			#底部模板
-\layout\_scripts\custom.swig			#该模块在layout.swig引入用于在body自定义标签
+\layout\_third-party\custom.swig			#该模块在layout.swig引入用于在body自定义标签
 \source\css\_custom\customs.styl		#主要用户自定义样式表
 \source\fonts\					#引入了一些我的手写体及外部字体
 ```
 
-```bash 安装整个改过的主题
+```bash 安装整个改过的主题,然后下载相应的lib资源
 cd hexo
 git clone https://github.com/Lruihao/hexo-theme-next themes/next
 ```
-# DIY更新
+{% asset_img lib.png lib资源 %}
+
+# 更新内容
+
+## Chat Services
+> 共chatra,tidio,daovoice三个选项，三选一
+
+```swig config.swig
+# Chatra Support
+# See: https://chatra.io
+# Dashboard: https://app.chatra.io/settings/general
+chatra:
+  enable: false
+  async: true
+  id: # visit Dashboard to get your ChatraID
+  #embed: # unfinished experimental feature for developers, See: https://chatra.io/help/api/#injectto
+
+# Tidio Support
+# See: https://www.tidiochat.com
+# Dashboard: https://www.tidiochat.com/panel/dashboard
+tidio:
+  enable: false
+  key: # Public Key, get it from Dashboard, See: https://www.tidiochat.com/panel/settings/developer
+
+#在线客服
+daovoice: true
+daovoice_app_id: xxxx   # http://www.daovoice.io/
+```
+
+## pdf和Mermaid解析模块
+[pdf传送门](https://lruihao.cn/hexo/next-pdf.html)
+```swig config.swig
+pdf:
+  enable: false
+  # Default height
+  height: 500px
+  pdfobject:
+    cdn: //cdn.jsdelivr.net/npm/pdfobject@2/pdfobject.min.js
+    #cdn: //cdnjs.cloudflare.com/ajax/libs/pdfobject/2.1.1/pdfobject.min.js
+
+# Mermaid tag
+mermaid:
+  enable: false
+  # Available themes: default | dark | forest | neutral
+  theme: forest
+  cdn: //cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js
+  #cdn: //cdnjs.cloudflare.com/ajax/libs/mermaid/8.0.0/mermaid.min.js
+```
 
 ## 模仿csdn转发样式
 ```diff post.swig主要修改
@@ -81,10 +128,11 @@ git clone https://github.com/Lruihao/hexo-theme-next themes/next
 
 ```xml post使用
 ---
+title: xxxx
 repost: true
 ---
 ```
-[预览](/tags/他山之石/)
+[预览](https://lruihao.cn/tags/他山之石/)
 
 
 ## 热度页面
@@ -185,7 +233,7 @@ layout: top
 limit: 20
 ---
 ```
-## 复制按钮样式 2019.03.21
+## 复制按钮样式
 
 <img src="/hexo/hexo-theme-next/lightbtn.png" style="float: left;width:25%;height: 130px;" /><img src="/hexo/hexo-theme-next/nightbtn.png" style="float: left;width:25%;height: 130px;" /><img src="/hexo/hexo-theme-next/flatbtn.png" style="float: left;width:25%;height: 130px;" /><img src="/hexo/hexo-theme-next/3dbtn.png" style="float: left;width:25%;height: 130px;" />
 <div style="clear: both;"></div>
