@@ -86,7 +86,7 @@ npm install https://github.com/CodeFalling/hexo-asset-image -- save
 {% note %}
 视频链接最好是打开就是视频的链接（youku，YouTube，抖音等）
 可以把视频上传到优酷，抖音等生成外链再拿来用。（优酷上传需要注册和实名认证）
-[参考资料](https://www.jianshu.com/p/26a7fc7cc185)
+[插件参考资料](https://lruihao.cn/hexo/nextplugin.html)
 {% endnote %}
 
 自拍手写视频（优酷）

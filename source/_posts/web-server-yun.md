@@ -3,7 +3,7 @@ title: 云服务器CentOS系统搭建web服务
 date: 2018-10-29 09:15:58
 tags:
 - 他山之石
-- web server
+- server
 - 云服务器
 - 通用
 categories: 通用

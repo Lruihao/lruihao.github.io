@@ -2,7 +2,7 @@
 title: windows上搭建web服务器
 date: 2018-10-26 21:56:18
 tags:
-- web server
+- server
 - windows
 - 通用
 categories: 通用

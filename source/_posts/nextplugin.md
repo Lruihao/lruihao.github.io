@@ -1,9 +1,10 @@
 ---
-title: next插件样式
+title: hexo插件及next内置样式集
 date: 2018-11-24 16:54:09
 tags:
 - hexo
 - 前端
+- pdf
 categories: hexo
 password:
 abstract:
@@ -20,14 +21,79 @@ permalink:
 
 <!--more-->
 ### hexo插件
+
+#### hexo-tag-dplayer
+[more](https://github.com/MoePlayer/hexo-tag-dplayer)
+##### npm install
+```
+npm install hexo-tag-dplayer --save
+```
+##### Usage
+```
+{% dplayer key=value ... %}
+```
+key can be 
+```
+dplayer options:
+    'autoplay', 'loop', 'screenshot', 'hotkey', 'mutex', 'dmunlimited' : bool options, use "yes" "y" "true" "1" "on" or just without value to enable
+    'preload', 'theme', 'lang', 'logo', 'url', 'pic', 'thumbnails', 'vidtype', 'suburl', 'subtype', 'subbottom', 'subcolor', 'subcolor', 'id', 'api', 'token', 'addition', 'dmuser' : string arguments
+    'volume', 'maximum' : number arguments
+container options:
+    'width', 'height' : string, used in container element style
+other:
+    'code' : value of this key will be append to script tag
+```
+
+##### example
+```
+{% dplayer "url=https://moeplayer.b0.upaiyun.com/dplayer/hikarunara.mp4" "addition=https://dplayer.daoapp.io/bilibili?aid=4157142" "api=https://api.prprpr.me/dplayer/" "pic=https://moeplayer.b0.upaiyun.com/dplayer/hikarunara.jpg" "id=9E2E3368B56CDBB4" "loop=yes" "theme=#FADFA3" "autoplay=false" "token=tokendemo" %}
+```
+{% dplayer "url=https://player.youku.com/embed/XMzY0MzgxNDMyOA==" "addition=https://dplayer.daoapp.io/bilibili?aid=4157142" "api=https://api.prprpr.me/dplayer/" "pic=https://moeplayer.b0.upaiyun.com/dplayer/hikarunara.jpg" "id=9E2E3368B56CDBB4" "loop=yes" "theme=#FADFA3" "autoplay=false" "token=tokendemo" %}
+
+#### hexo-tag-aplayer
+[more](https://github.com/MoePlayer/hexo-tag-aplayer)
+##### 安装
+```
+npm install --save hexo-tag-aplayer
+```
+##### 使用
+
+```
+{% aplayer title author url [picture_url, narrow, autoplay, width:xxx, lrc:xxx] %}
+```
+
+##### 标签参数
+
+- `title` : 曲目标题
+- `author`: 曲目作者
+- `url`: 音乐文件 URL 地址
+- `picture_url`: (可选) 音乐对应的图片地址
+- `narrow`: （可选）播放器袖珍风格
+- `autoplay`:  (可选) 自动播放，移动端浏览器暂时不支持此功能
+- `width:xxx`: (可选) 播放器宽度 (默认: 100%)
+- `lrc:xxx`: （可选）歌词文件 URL 地址
+
+当开启 Hexo 的 [文章资源文件夹](https://hexo.io/zh-cn/docs/asset-folders.html#%E6%96%87%E7%AB%A0%E8%B5%84%E6%BA%90%E6%96%87%E4%BB%B6%E5%A4%B9) 功能时，可以将图片、音乐文件、歌词文件放入与文章对应的资源文件夹中，然后直接引用：
+
+```
+{% aplayer "Caffeine" "Jeff Williams" "caffeine.mp3" "picture.jpg" "lrc:caffeine.txt" %}
+
+{% aplayer 你离开了南京，从此没人和我说话 李志 https://m10.music.126.net/20190403173541/13770c7659f7e4db4f199753d61e1663/ymusic/534d/12e3/11d8/eb843de06316340562b81988e66f7fb8.mp3 https://p2.music.126.net/UuSe-Vc6rS7JtRJSQgDU2g==/2323268069553116.jpg?param=300x300 %}
+```
+
+{% aplayer 你离开了南京，从此没人和我说话 李志 https://m10.music.126.net/20190403173541/13770c7659f7e4db4f199753d61e1663/ymusic/534d/12e3/11d8/eb843de06316340562b81988e66f7fb8.mp3 https://p2.music.126.net/UuSe-Vc6rS7JtRJSQgDU2g==/2323268069553116.jpg?param=300x300 %}
+
+#### hexo-pdf
+[pdf传送门](https://lruihao.cn/hexo/next-pdf.html)
+
 #### hexo-filter-flowchart(流程图)
 [语法](https://flowchart.js.org)
-**install**
+##### install
 ```bash
 npm install --save hexo-filter-flowchart
 ```
 
-**Usage**
+##### Usage
 
 ````
 ```%flow #去掉%号
@@ -68,7 +134,7 @@ c2(no)->op2->e
 ```
 
 #### hexo-spoiler
-**Install**
+##### Install
 ```bash
 npm install hexo-spoiler --save
 ```
@@ -79,14 +145,14 @@ plugins:
  - hexo-spoiler
 ```
 
-**Syntax**
+##### Syntax
 ```plain
 {% spoiler [text] %}
 ```
 >It will pixelate your text, and click to reveal. Click again to hide your text again.
 >But you need to add `<br>` manually if you want line breaks after/before it.
 
-**Preview**
+##### Preview
 When you writes:
 ```plain
 {% spoiler text %}
@@ -100,6 +166,63 @@ When you writes:
 {% spoiler *text* %}
 {% spoiler **text** %}<br>
 {% spoiler **hello welcome to 博採眾長！** %}
+
+### 宅音乐侧栏播放器插件
+[体验](https://player.lruihao.cn)
+> 目前在next中可能引起部分css冲突，建议在next中使用在单个页面中。
+依赖于jQuery，一行js可以引入播放器插件。
+
+### Mermaid
+[more info](https://theme-next.org/docs/tag-plugins/mermaid.html)
+
+example
+```
+{% mermaid gitGraph: %}
+options
+{
+    "nodeSpacing": 150,
+    "nodeRadius": 10
+}
+end
+commit
+branch newbranch
+checkout newbranch
+commit
+commit
+checkout master
+commit
+commit
+merge newbranch
+{% endmermaid %}
+```
+{% mermaid gitGraph: %}
+options
+{
+    "nodeSpacing": 150,
+    "nodeRadius": 10
+}
+end
+commit
+branch newbranch
+checkout newbranch
+commit
+commit
+checkout master
+commit
+commit
+merge newbranch
+{% endmermaid %}
+
+### video
+#### Usage
+```xml video.js
+{% video url %}
+```
+#### Examples
+```
+{% video https://example.com/sample.mp4 %}
+{% video /path/to/your/video.mp4 %}
+```
 
 ### 选项卡
 
@@ -224,12 +347,12 @@ note:
 > Font Awesome 字体为您提供可缩放矢量图标,它可以被定制大小、颜色、阴影以及任何可以用CSS的样式。
 > 要使用Font Awesome图标，请在HTML页面的 部分中添加以下行：
 
-**1、国内推荐 CDN：**
+#### 1、国内推荐 CDN
 
 ```
 <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css">
 ```
-**2、海外推荐 CDN**
+#### 2、海外推荐 CDN
 
 ```
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
