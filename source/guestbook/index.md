@@ -17,3 +17,6 @@ description: 江湖路漫漫，有缘再相见！
 {% cq %}
 **[LiveRe](https://livere.com/insight/communite) 评论管理 [Valine](https://lruihao.leanapp.cn/)**
 {% endcq %}
+
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=450 src="//music.163.com/outchain/player?type=0&id=2280569152&auto=1&height=430">
+</iframe>

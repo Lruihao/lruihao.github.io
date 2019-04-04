@@ -5,10 +5,6 @@ comments: false
 description: <span id="busuanzi_container_page_pv" title="访问量"><i class="fa fa-lightbulb-o"></i> <span id="busuanzi_value_page_pv"></span></span>
 ---
 
-<form onsubmit="return baiduWithHttps(this)" action="https://www.baidu.com/baidu" target="_blank">
-<center><input type="text" onfocus="&quot;李瑞豪的博客&quot;==value&amp;&amp;(value=&quot;&quot;)" onblur="&quot;&quot;==value&amp;&amp;(value=&quot;李瑞豪的博客&quot;)" name="word" size="35" value="李瑞豪的博客"><input type="submit" value="百度一下" class="btn self-btn bg s_btn"></center>
-</form>
-
 {% tabs 关于,2 %}
 <!-- tab 关于博主 -->
 我是一个喜欢折腾新事物，感性但不性感的人吧！和大多数男孩子一样我也喜欢玩游戏（但是我只会玩王者农药！），平时也喜欢打篮球看NBA，大学打了三年的后卫，很可惜只带领班队拿下了一场比赛—\_—！
@@ -50,10 +46,11 @@ description: <span id="busuanzi_container_page_pv" title="访问量"><i class="f
 ...
 
 <!-- endtab -->
-{% endtabs %}
 
-<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=450 src="//music.163.com/outchain/player?type=0&id=2280569152&auto=1&height=430">
-</iframe>
+{% endtabs %}
+<form onsubmit="return baiduWithHttps(this)" action="https://www.baidu.com/baidu" target="_blank">
+<center><input type="text" onfocus="&quot;李瑞豪的博客&quot;==value&amp;&amp;(value=&quot;&quot;)" onblur="&quot;&quot;==value&amp;&amp;(value=&quot;李瑞豪&quot;)" name="word" size="35" value="李瑞豪"><input type="submit" value="百度一下" class="btn self-btn bg s_btn"></center>
+</form>
 
 ---
 
