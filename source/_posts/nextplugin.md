@@ -48,7 +48,7 @@ other:
 ```
 {% dplayer "url=https://moeplayer.b0.upaiyun.com/dplayer/hikarunara.mp4" "addition=https://dplayer.daoapp.io/bilibili?aid=4157142" "api=https://api.prprpr.me/dplayer/" "pic=https://moeplayer.b0.upaiyun.com/dplayer/hikarunara.jpg" "id=9E2E3368B56CDBB4" "loop=yes" "theme=#FADFA3" "autoplay=false" "token=tokendemo" %}
 ```
-{% dplayer "url=https://player.youku.com/embed/XMzY0MzgxNDMyOA==" "addition=https://dplayer.daoapp.io/bilibili?aid=4157142" "api=https://api.prprpr.me/dplayer/" "pic=https://moeplayer.b0.upaiyun.com/dplayer/hikarunara.jpg" "id=9E2E3368B56CDBB4" "loop=yes" "theme=#FADFA3" "autoplay=false" "token=tokendemo" %}
+{% dplayer "url=https://player.youku.com/embed/XMzY0MzgxNDMyOA==" "addition=https://dplayer.daoapp.io/bilibili?aid=4157142" "api=https://api.prprpr.me/dplayer/" "pic=https://ziyuan.lruihao.cn/images/site-meta.jpg" "id=9E2E3368B56CDBB4" "loop=yes" "theme=#FADFA3" "autoplay=false" "token=tokendemo" %}
 
 #### hexo-tag-aplayer
 [more](https://github.com/MoePlayer/hexo-tag-aplayer)
@@ -78,10 +78,10 @@ npm install --save hexo-tag-aplayer
 ```
 {% aplayer "Caffeine" "Jeff Williams" "caffeine.mp3" "picture.jpg" "lrc:caffeine.txt" %}
 
-{% aplayer 你离开了南京，从此没人和我说话 李志 https://m10.music.126.net/20190403173541/13770c7659f7e4db4f199753d61e1663/ymusic/534d/12e3/11d8/eb843de06316340562b81988e66f7fb8.mp3 https://p2.music.126.net/UuSe-Vc6rS7JtRJSQgDU2g==/2323268069553116.jpg?param=300x300 %}
+{% aplayer "你离开了南京，从此没人和我说话" "李志" "https://ziyuan.lruihao.cn/public/nanjing.mp3" "https://p2.music.126.net/UuSe-Vc6rS7JtRJSQgDU2g==/2323268069553116.jpg?param=300x300" %}
 ```
 
-{% aplayer 你离开了南京，从此没人和我说话 李志 https://m10.music.126.net/20190403173541/13770c7659f7e4db4f199753d61e1663/ymusic/534d/12e3/11d8/eb843de06316340562b81988e66f7fb8.mp3 https://p2.music.126.net/UuSe-Vc6rS7JtRJSQgDU2g==/2323268069553116.jpg?param=300x300 %}
+{% aplayer "你离开了南京，从此没人和我说话" "李志" "https://ziyuan.lruihao.cn/public/nanjing.mp3" "https://p2.music.126.net/UuSe-Vc6rS7JtRJSQgDU2g==/2323268069553116.jpg?param=300x300" %}
 
 #### hexo-pdf
 [pdf传送门](https://lruihao.cn/hexo/next-pdf.html)
