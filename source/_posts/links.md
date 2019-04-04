@@ -34,7 +34,6 @@ sticky: false
 |[vjudge](https://vjudge.net)|这个不用说了吧|
 |[hihocoder](https://hihocoder.com)|打得少，感觉好多数据结构的题|
 |[百练](http://bailian.openjudge.cn)|OpenJudge的一个小组，很多题目来自POJ；也是我ACM启蒙地|
-|[HNIEOJ](http://58.45.191.83:8002)|湖南工程学院OJ  |
 |[HDUOJ](http://acm.hdu.edu.cn)|杭州电子科技大学OJ|
 |[POJ](http://poj.org)|北京大学OJ|
 |[洛谷](https://www.luogu.org)||
@@ -78,13 +77,8 @@ sticky: false
 |[cloudflare解析](https://www.cloudflare.com)|域名解析，https解析，[介绍](https://oliverqueen.cn/2018/01/25/可能是最全的使用HEXO搭建个人博客教程)|
 |[HTML字符实体](https://blog.csdn.net/u013778905/article/details/53177042)|网页特殊符号大全|
 |[leancloud](https://leancloud.cn)|一站式后端云服务|
-|[daocloud](https://dashboard.daovoice.io)|网站在线客服|
-|[Button样例](https://www.bestcssbuttongenerator.com)|20多种button样式，可获取源码|
 |[encycolorpedia](https://encycolorpedia.cn)|encycolorpedia取色器|
 |[特效字转换工具集](http://www.sioe.cn/yingyong)|各种特效字转换工具,彩虹字生成器,RGB转16进制颜色等|
-|[jquery之家](http://www.htmleaf.com)||
-|[懒人之家](http://www.lanrenzhijia.com)|js特效，flash素材|
-|[前端库](https://www.awesomes.cn)|前端很多学习交流分享网站|
 |[gradient渐变色调色](http://gradient.awesomes.cn)|渐变色调色，获取代码|
 |[cloud studio](https://studio.dev.tencent.com/)|这是腾讯云和coding合作后的一个东西，简单来说就是云端开发环境。试了一下完全可以把hexo博客源码挂上面编辑。这也就不用只局限于一台电脑发布博客了。|
 
@@ -105,13 +99,7 @@ sticky: false
 |[菜鸟工具](https://c.runoob.com)|[菜鸟教程](https://www.runoob.com)在线工具，编译，加密，压缩代码等|
 |[图标工厂](https://icon.wuruihong.com)|移动应用图标生成工具，一键生成所有尺寸的应用图标|
 |[大象代理](http://www.daxiangdaili.com)|收费，口碑不错|
-|[表白驿站](https://www.bbai520.com)|傻瓜式制作表白网页|
 |[图片转字符工具](https://picascii.com)||
-|[二维码解码器](https://jiema.wwei.cn)||
-|[草料二维码](https://mh.cli.im)|<https://cli.im>|
-|[联图二维码](http://www.liantu.com/meihua)||
-|[第九工厂](https://www.9thws.com)|死磕艺术二维码|
-|[模板码](https://www.mobanma.com)|动态二维码等|
 |[网址迷宫nazo_game](http://nazo.one-story.cn)|一个程序员的网页游戏，我只玩到12关。。。|
 |[无损音乐下载](http://www.51ape.com)||
 |[手写体制作](http://59.108.48.27)|北京大学计算机科学技术研究所的一个项目 ~~（我的字体至今还未完成）~~|
@@ -122,3 +110,16 @@ sticky: false
 |[老殁科技](https://www.laomoit.com/)|各种绿色破解软件|
 |[宝塔面板](https://www.bt.cn/?invite_code=MV9sYXJnZHI=)|宝塔面板是一款使用方便、功能强大且终身免费的服务器管理软件，支持Linux与Windows系统。一键配置：LAMP/LNMP、网站、数据库、FTP、SSL，通过Web端轻松管理服务器。|
 |[百度接口](https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=)|百度搜索关键词接口|
+
+<!--
+|[Button样例](https://www.bestcssbuttongenerator.com)|20多种button样式，可获取源码|
+|[jquery之家](http://www.htmleaf.com)||
+|[懒人之家](http://www.lanrenzhijia.com)|js特效，flash素材|
+|[前端库](https://www.awesomes.cn)|前端很多学习交流分享网站|
+|[二维码解码器](https://jiema.wwei.cn)||
+|[草料二维码](https://mh.cli.im)|<https://cli.im>|
+|[联图二维码](http://www.liantu.com/meihua)||
+|[第九工厂](https://www.9thws.com)|死磕艺术二维码|
+|[模板码](https://www.mobanma.com)|动态二维码等|
+|[表白驿站](https://www.bbai520.com)|傻瓜式制作表白网页|
+-->

@@ -1,4 +1,7 @@
 {% import '../../_macro/menu/menu-item.swig' as menu_item %}
+{% import '../../_macro/menu/menu-badge-1.swig' as menu_badge_1 %}
+{% import '../../_macro/menu/menu-badge-2.swig' as menu_badge_2 %}
+
 
 <nav class="site-nav">
   {% if theme.menu %}
