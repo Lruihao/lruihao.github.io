@@ -19,12 +19,12 @@ permalink:
 noreward:
 notshow:
 photos:
-- /Web/player/index.png
-- /Web/player/login.png
-- /Web/player/admin_index.png
-- /Web/player/admin_player.png
-- /Web/player/admin_song_sheet.png
-- /Web/player/player.png
+- /posts/player/index.png
+- /posts/player/login.png
+- /posts/player/admin_index.png
+- /posts/player/admin_player.png
+- /posts/player/admin_song_sheet.png
+- /posts/player/player.png
 ---
 
 {% note info %}

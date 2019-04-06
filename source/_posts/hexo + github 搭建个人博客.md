@@ -1,7 +1,10 @@
 ---
 title: hexo+github搭建个人博客及美化
 date: 2018-06-01 14:34:23
-tags: hexo
+tags:
+- hexo
+- nodejs
+- 前端
 categories: hexo
 top:
 sticky: false
@@ -63,7 +66,7 @@ hexo g
 hexo s
 ```
 **其他步骤在这里不赘述，参见[超详细教程](https://my.oschina.net/ryaneLee/blog/638440)**
-**[安卓上搭建hexo博客](https://lruihao.cn/termux/termux.html)**
+**[安卓上搭建hexo博客](https://lruihao.cn/posts/termux.html)**
 
 # 部署
 ```bash

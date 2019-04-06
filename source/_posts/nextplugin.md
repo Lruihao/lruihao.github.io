@@ -84,7 +84,7 @@ npm install --save hexo-tag-aplayer
 {% aplayer "你离开了南京，从此没人和我说话" "李志" "https://ziyuan.lruihao.cn/public/nanjing.mp3" "https://p2.music.126.net/UuSe-Vc6rS7JtRJSQgDU2g==/2323268069553116.jpg?param=300x300" %}
 
 #### hexo-pdf
-[pdf传送门](https://lruihao.cn/hexo/next-pdf.html)
+[pdf传送门](https://lruihao.cn/posts/next-pdf.html)
 
 #### hexo-filter-flowchart(流程图)
 [语法](https://flowchart.js.org)

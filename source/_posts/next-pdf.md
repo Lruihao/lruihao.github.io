@@ -46,6 +46,6 @@ npm install --save hexo-pdf
 ```
 比如本文
 ```
-{% pdf /hexo/next-pdf/1.pdf %}
+{% pdf /posts/next-pdf/1.pdf %}
 ```
-{% pdf /hexo/next-pdf/1.pdf %}
+{% pdf /posts/next-pdf/1.pdf %}

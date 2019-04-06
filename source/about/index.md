@@ -19,33 +19,6 @@ description: <span id="busuanzi_container_page_pv" title="访问量"><i class="f
 至于我为什么写博客，最初是ACM实验室一个学长的[博客](http://qiuchengjia.cn)对我的影响,还有就是为了装逼，相信很多人最初写博客都抱有这一心态。不过搭建完后过去这份新鲜感，写博客的过程中会发现，写博客真是一个很不错的习惯，就好像我们从小以来上课做笔记一样。在现在这个互联网时代，快速的学习过程，甚至没有时间打开笔墨，博客确实是个不错的选择。既能写一年后还能看得懂的博客，又能把经验变成不可替代性可见的东西。在提高自己总结性能力的同时也让博客成为了自己一份独特的名片。
 最后引用互联网上看到的一句话：“屌丝程序员的逆袭一般分两步: 让自己变得牛逼, 让别人知道你牛逼。”
 <!-- endtab -->
-<!-- tab 更多 -->
-<a class="gh-btn" id="gh-btn" href="https://github.com/Lruihao/Lruihao.github.io/" target="_blank" aria-label="Star on GitHub"><span class="gh-ico" aria-hidden="true"></span><span class="gh-text" id="gh-text"></span></a>
-<iframe align="right" style="margin-left: 2px; margin-bottom:-5px;" frameborder="0" scrolling="0" width="100px" height="30px" src="https://ghbtns.com/github-btn.html?user=Lruihao&amp;repo=Lruihao.github.io&amp;type=star&amp;count=true">
-</iframe>
-<img src="https://i.loli.net/2018/06/15/5b23baf794e4a.png" width="400" height="200" align="left">代码托管在coding 和github上，实现国内走coding(**后托管于腾讯云cos桶**)，国外走github路线。你可以通过以下方式访问：
-* https://www.lruihao.cn
-* https://lruihao.cn
-* https://lruihao.github.io
-* https://liruihao.coding.me
-<br>
----
-如果你在浏览博客的时候觉得颜色太亮，可以尝试调节网站亮度
-
-|开关|调节|
-|:-:|:-:|
-|<li>Alt+Z: 打开夜间模式</li><li>Alt+X: 关闭夜间模式</li>|<li>Alt+↑: 增加亮度</li><li>Alt+↓: 降低亮度</li>|
----
-**[RUI豪小栈](https://www.lruihao.cn)**
-
-为了区别于博客，我重新在搭了一个静态站点用来放一些实验性尝试，里面放了一些小游戏，自己搭的平时用来上机用的网盘，还有自己写的字体等等。
-* [博採眾長app](/通用/fas-app.html)
-* [个人网盘](https://pan.lruihao.cn)
-* [游戏馆](https://www.lruihao.cn/games)
-* 留影册    
-...
-
-<!-- endtab -->
 
 {% endtabs %}
 <form onsubmit="return baiduWithHttps(this)" action="https://www.baidu.com/baidu" target="_blank">

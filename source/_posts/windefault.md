@@ -20,9 +20,9 @@ permalink:
 noreward:
 notshow:
 photos:
-- /linux/windefault/1.png
-- /linux/windefault/2.png
-- /linux/windefault/3.png
+- /posts/windefault/1.png
+- /posts/windefault/2.png
+- /posts/windefault/3.png
 ---
 
 {% note primary %}
