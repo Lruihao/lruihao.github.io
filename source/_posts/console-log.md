@@ -28,17 +28,17 @@ permalink:
 {% asset_img console.png %}
 ## 图案
 我用的我自己的一张照片(电脑上照片就那么几张。。。)，然后用 在线图片转文字工具 转字符，
-选择文件，设置大小，然后生成，![](/hexo/console-log/QQ截图1.png) 
-![](/hexo/console-log/QQ图片2.png)生成后，复制TXT文件（下面那个框，上面的是HTML代码）
-![](/hexo/console-log/QQ截图3.png)
+选择文件，设置大小，然后生成，![](/posts/console-log/QQ截图1.png) 
+![](/posts/console-log/QQ图片2.png)生成后，复制TXT文件（下面那个框，上面的是HTML代码）
+![](/posts/console-log/QQ截图3.png)
 粘贴到Notepad++里面，然后按图操作；
-![](/hexo/console-log/QQ截图4.png)
+![](/posts/console-log/QQ截图4.png)
 Ctrl+H 替换
-![](/hexo/console-log/QQ截图5.png)
-![](/hexo/console-log/QQ截图6.png)
+![](/posts/console-log/QQ截图5.png)
+![](/posts/console-log/QQ截图6.png)
 最后就变成一个字符串了。
 ## 效果图
-![](/hexo/console-log/QQ截图7.png)
+![](/posts/console-log/QQ截图7.png)
 [线上demo](https://lruihao.cn),按F12找到console
 
 ## 我的txt

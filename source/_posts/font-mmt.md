@@ -13,11 +13,11 @@ top:
 author:
 permalink:
 photos:
-- /通用/font-mmt/cell.jpg
-- /通用/font-mmt/wechat.png
-- /通用/font-mmt/setting.png
+- /posts/font-mmt/cell.jpg
+- /posts/font-mmt/wechat.png
+- /posts/font-mmt/setting.png
 ---
-![](/通用/font-mmt/word1.png)
+{% asset_img word1.png %}
 
 ---
 ## 介绍

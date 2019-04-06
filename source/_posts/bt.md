@@ -46,3 +46,7 @@ wget -O install.sh http://download.bt.cn/install/install-ubuntu_6.0.sh && bash i
 wget -O install.sh http://download.bt.cn/install/install_6.0.sh && bash install.sh
 ```
 {% asset_img 2.png 宝塔软件管理页面 %}
+
+# 搭建ftp和云盘服务器
+
+可以很傻瓜式的搭建自己的云盘，和平时用的比较多的ftp服务器。搭建静态网站也可以用ftp来上传文件。
