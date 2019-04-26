@@ -5,12 +5,14 @@ tags:
 - C++
 - 排序
 - STL
+- ACM
 categories:
 - ACM
 - STL
 description:
 ---
-sort使用#include<algorithm>头文件，
+
+sort使用`#include<algorithm>`头文件，
 
 sort(开始地址，结束地址，排序方式)，其中第三参数可以没有，则默认为升序排序。
 
