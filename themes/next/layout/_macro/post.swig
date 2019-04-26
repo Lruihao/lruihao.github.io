@@ -371,14 +371,14 @@
       {% endif  %}
     </div>
 
-    {% if theme.related_posts.enable and (theme.related_posts.display_in_home or not is_index) and !post.norelate %}
-      {% include 'post-related.swig' with { post: post } %}
-    {% endif %}
-
     {#####################}
     {### END POST BODY ###}
     {#####################}
 
+    {% if theme.related_posts.enable and (theme.related_posts.display_in_home or not is_index) and !post.norelate %}
+      {% include 'post-related.swig' with { post: post } %}
+    {% endif %}
+    
     {% if theme.wechat_subscriber.enabled and not is_index %}
       <div>
         {% include 'wechat-subscriber.swig' %}

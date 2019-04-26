@@ -9,7 +9,7 @@ top:
 sticky: false
 ---
 
-{% note success no-icon %} 我们在平时学习生活总会遇到很多很多有用的网站，也许我们收藏在了浏览器书签里，可过久了，不做说明，这些链接的价值就被时间淹没了，我们自己都记不起来了，所以这篇文章因此而生。对自己收藏的链接做些简单的说明(用了我一个下午)。
+{% note success no-icon %} 我们在平时学习生活总会遇到很多很多有用的网站，也许我们收藏在了浏览器书签里，可过久了，不做说明，这些链接的价值就被时间淹没了，我们自己都记不起来了，所以这篇文章因此而生。对自己收藏的链接做些简单的说明(第一次编写用了我一个下午)；也相当于我的链接收藏夹，分享一些有趣的网站，该页面持续更新ing...
 {% endnote %}
 <br>
 
@@ -55,7 +55,7 @@ sticky: false
 |[廖雪峰](https://www.liaoxuefeng.com)|git,python,javascript学习|
 |[新晴网](http://www.sioe.cn)|PS学习，摄影教程等|
 |[实验楼](https://www.shiyanlou.com)|在线做实验,高效学编程|
-
+|[慕课网](https://www.imooc.com)|在线学习，免费，付费视频|
 
 # web前端、在线工具等
 |链接|描述|
@@ -67,6 +67,11 @@ sticky: false
 |[emoji在线复制](https://www.emojicopy.com)|Simple emoji copy and paste|
 |[sm.ms](https://sm.ms)|非常好用的图床|
 |[小贱贱图床](https://pic.xiaojianjian.net)|快速，上传即得外链，每个ip每日限制20张|
+|[二维码解码器](https://jiema.wwei.cn)||
+|[草料二维码](https://mh.cli.im)|<https://cli.im>|
+|[联图二维码](http://www.liantu.com/meihua)||
+|[第九工厂](https://www.9thws.com)|死磕艺术二维码|
+|[模板码](https://www.mobanma.com)|动态二维码等|
 |[优酷视频上传](https://sc.youku.com/)|获取视频外链，其他：腾讯视频|
 |[百度网站收录](https://ziyuan.baidu.com/linksubmit/url)|网站seo|
 |[Bing 站长](https://www.bing.com/toolbox/webmaster)|Bing 网站管理员工具|
@@ -103,23 +108,9 @@ sticky: false
 |[网址迷宫nazo_game](http://nazo.one-story.cn)|一个程序员的网页游戏，我只玩到12关。。。|
 |[无损音乐下载](http://www.51ape.com)||
 |[手写体制作](http://59.108.48.27)|北京大学计算机科学技术研究所的一个项目 ~~（我的字体至今还未完成）~~|
-|[湖南工程学院缴费查询系统](http://cwcx.hnie.edu.cn/cwcx/sf40)||
-|[湖工教务管理系统](http://jwmis.hnie.edu.cn/jwweb)||
 |[现实君外链](http://wl.uixsj.cn/index.php)|支持多种文件外链，唯一不好的是http|
 |[蒲公英](https://www.pgyer.com)|应用内测发布平台|
 |[老殁科技](https://www.laomoit.com/)|各种绿色破解软件|
 |[宝塔面板](https://www.bt.cn/?invite_code=MV9sYXJnZHI=)|宝塔面板是一款使用方便、功能强大且终身免费的服务器管理软件，支持Linux与Windows系统。一键配置：LAMP/LNMP、网站、数据库、FTP、SSL，通过Web端轻松管理服务器。|
 |[百度接口](https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=)|百度搜索关键词接口|
-
-<!--
-|[Button样例](https://www.bestcssbuttongenerator.com)|20多种button样式，可获取源码|
-|[jquery之家](http://www.htmleaf.com)||
-|[懒人之家](http://www.lanrenzhijia.com)|js特效，flash素材|
-|[前端库](https://www.awesomes.cn)|前端很多学习交流分享网站|
-|[二维码解码器](https://jiema.wwei.cn)||
-|[草料二维码](https://mh.cli.im)|<https://cli.im>|
-|[联图二维码](http://www.liantu.com/meihua)||
-|[第九工厂](https://www.9thws.com)|死磕艺术二维码|
-|[模板码](https://www.mobanma.com)|动态二维码等|
-|[表白驿站](https://www.bbai520.com)|傻瓜式制作表白网页|
--->
+|[在线短信](https://www.pdflibr.com/)|不想泄露个人的电话号码，注册一些一次性网站可以用到|

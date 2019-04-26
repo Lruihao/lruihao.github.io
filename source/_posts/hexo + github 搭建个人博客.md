@@ -136,7 +136,7 @@ search:
   field: post
   format: html
   limit: 10000
- ```
+```
 配置主题配置文件
 ```
 # Local search

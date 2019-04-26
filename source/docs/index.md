@@ -5,36 +5,18 @@ comments: false
 description: <span id="busuanzi_container_page_pv" title="访问量"><i class="fa fa-fw fa-rocket"></i> <span id="busuanzi_value_page_pv"></span></span>
 ---
 
+<!--<script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+<script id="ilt" src="https://player.lruihao.cn/player/js/player.js" key="2926f5bf57f7479f9309a644f8ce98bd"></script>-->
+
 <a class="gh-btn" id="gh-btn" href="https://github.com/Lruihao/Lruihao.github.io/" target="_blank" aria-label="Star on GitHub"><span class="gh-ico" aria-hidden="true"></span><span class="gh-text" id="gh-text"></span></a>
 <iframe align="right" style="margin-left: 2px; margin-bottom:-5px;" frameborder="0" scrolling="0" width="100px" height="30px" src="https://ghbtns.com/github-btn.html?user=Lruihao&amp;repo=Lruihao.github.io&amp;type=star&amp;count=true">
 </iframe>
 
-## 简介
 
-<img src="https://i.loli.net/2018/06/15/5b23baf794e4a.png" width="400" height="200" align="left">代码托管在coding 和github上，实现国内走coding(**后托管于腾讯云cos桶**)，国外走github路线。你可以通过以下方式访问：
-* https://www.lruihao.cn
-* https://lruihao.cn
-* https://lruihao.github.io
-* https://liruihao.coding.me
-<div style="clear: both;"></div>
----
-如果你在浏览博客的时候觉得颜色太亮，可以尝试调节网站亮度
-
-|开关|调节|
-|:-:|:-:|
-|<li>Alt+Z: 打开夜间模式</li><li>Alt+X: 关闭夜间模式</li>|<li>Alt+↑: 增加亮度</li><li>Alt+↓: 降低亮度</li>|
----
-**[RUI豪小栈](https://www.lruihao.cn)**
-
-为了区别于博客，我重新在搭了一个静态站点用来放一些实验性尝试，里面放了一些小游戏，自己搭的平时用来上机用的网盘，还有自己写的字体等等。
-* [博採眾長app](/通用/fas-app.html)
-* [个人网盘](https://pan.lruihao.cn)
-* [游戏馆](https://www.lruihao.cn/games)
-* 留影册    
-...
 
 ## 博客日志
-<li>2019.03.21 \-\- `pan.lruihao.cn`已退役，根据github开源宅音乐搭建了[宅音乐](https://player.lruihao.cn)播放器插件</li>
+<li>2019.04.07 \-\- 更改博客文章路径，所有博文都放在`/posts/`目录里。</li>
+<li>2019.03.21 \-\- caddy云盘已退役，根据github开源宅音乐搭建了[宅音乐播放器插件](https://player.lruihao.cn)</li>
 <li>2019.01.22 \-\- 更换腾讯云对象存储</li>
 可能存储方式的不同，每个目录的访问必须以`/`结尾。比如`lruihao.cn/about`是无法访问的，得访问`lruihao.cn/about/`
 <li>2019.01.12 \-\- 博客UV过万</li>
@@ -49,6 +31,33 @@ description: <span id="busuanzi_container_page_pv" title="访问量"><i class="f
 <li>2018.05.28 20:01:01 \-\- 博客诞生 [博客搭建及美化教程](/categories/hexo/)</li>
 
 ---
+
+## 简介
+
+<img src="https://i.loli.net/2018/06/15/5b23baf794e4a.png" width="400" height="200" align="left">代码托管在coding 和github上，实现国内走coding(**后托管于腾讯云cos桶**)，国外走github路线。你可以通过以下方式访问：
+* https://www.lruihao.cn
+* https://lruihao.cn
+* https://lruihao.github.io
+* https://liruihao.coding.me
+<div style="clear: both;"></div>
+
+如果你在浏览博客的时候觉得颜色太亮，可以尝试调节网站亮度
+
+|开关|调节|
+|:-:|:-:|
+|<li>Alt+Z: 打开夜间模式</li><li>Alt+X: 关闭夜间模式</li>|<li>Alt+↑: 增加亮度</li><li>Alt+↓: 降低亮度</li>|
+
+**[RUI豪小栈](https://www.lruihao.cn)**
+
+为了区别于博客，我重新在搭了一个静态站点用来放一些实验性尝试，里面放了一些小游戏，自己搭的平时用来上机用的网盘，还有自己写的字体等等。
+* [博採眾長app](/通用/fas-app.html)
+* [个人网盘](https://pan.lruihao.cn)
+* [游戏馆](https://www.lruihao.cn/games)
+* 留影册    
+...
+
+---
+
 ## BUGs
 > 日常BUG记录，欢迎大家找出其他bug!
 

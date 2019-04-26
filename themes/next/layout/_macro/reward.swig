@@ -4,6 +4,12 @@
     <span>{{ __('reward.donate') }}</span>
   </button>
   <div id="QR" style="display: none;">
+    {% if theme.wechat_subscriber.reward %}
+      <div id="wechat_subscriber" style="text-align: center">
+        <img id="wechat_subscriber_qcode" src="{{ url_for(theme.wechat_subscriber.qcode) }}" alt="{{ author }} wechat" style="width: 150px; max-width: 100%;"/>
+        <div>{{ theme.wechat_subscriber.description }}</div>
+      </div>
+    {% endif %}
 
     {% if theme.wechatpay %}
       <div id="wechat" style="display: inline-block">

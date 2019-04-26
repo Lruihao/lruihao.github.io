@@ -13,11 +13,12 @@ message:
 description:
 keywords:
 top: 10
-sticky: true
+sticky: false
 author:
 permalink:
 noreward:
 notshow:
+norelate: false
 photos:
 - /posts/player/index.png
 - /posts/player/login.png

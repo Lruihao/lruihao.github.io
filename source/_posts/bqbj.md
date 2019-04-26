@@ -3,10 +3,8 @@ title: 百钱百鸡（枚举法）
 date: 2019-03-30 10:13:33
 tags:
 - ACM
-- 算法
 categories:
 - ACM
-- 算法
 password:
 abstract:
 message:
