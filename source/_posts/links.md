@@ -57,60 +57,67 @@ sticky: false
 |[实验楼](https://www.shiyanlou.com)|在线做实验,高效学编程|
 |[慕课网](https://www.imooc.com)|在线学习，免费，付费视频|
 
-# web前端、在线工具等
+# 云服务及站长工具
+|链接|描述|
+|:--|:--|
+|[腾讯云](https://console.cloud.tencent.com)|dnspod解析新版入口，腾讯云控制台|
+|[dnspod解析](https://www.dnspod.cn)|域名解析，其他：阿里云等|
+|[cloudflare解析](https://www.cloudflare.com)|域名解析，https解析，[介绍](https://oliverqueen.cn/2018/01/25/可能是最全的使用HEXO搭建个人博客教程)|
+|[cloud studio](https://studio.dev.tencent.com/)|这是腾讯云和coding合作后的一个东西，简单来说就是云端开发环境。试了一下完全可以把hexo博客源码挂上面编辑。这也就不用只局限于一台电脑发布博客了。|
+|[宝塔面板](https://www.bt.cn/?invite_code=MV9sYXJnZHI=)|宝塔面板是一款使用方便、功能强大且终身免费的服务器管理软件，支持Linux与Windows系统。一键配置：LAMP/LNMP、网站、数据库、FTP、SSL，通过Web端轻松管理服务器。|
+|[leancloud](https://leancloud.cn)|一站式后端云服务|
+|[daovoice](http://www.daovoice.io)|网站在线客服|
+|[百度网站收录](https://ziyuan.baidu.com/linksubmit/url)|网站seo|
+|[Bing 站长](https://www.bing.com/toolbox/webmaster)|Bing 网站管理员工具|
+|[站长工具](http://tool.chinaz.com)|网站信息查询，权重，seo，网站速度查询，ping等|
+|[站长工具大全](http://tool.lusongsong.com)|各种seo优化，工具等|
+
+# 前端工具
 |链接|描述|
 |:--|:--|
 |[easyicon图标库](https://www.easyicon.net)|图标下载，格式转换，可外链|
 |[semantic-ui.com图标库](https://semantic-ui.com/elements/icon.html)|semantic-ui.com还有很多前端样式对应代码|
 |[Font Awesome图标库](https://fontawesome.com/icons?d=gallery)|hexo指定图标库|
 |[iconfont](http://www.iconfont.cn)|阿里巴巴矢量图标库|
+|[图标工厂](https://icon.wuruihong.com)|移动应用图标生成工具，一键生成所有尺寸的应用图标|
 |[emoji在线复制](https://www.emojicopy.com)|Simple emoji copy and paste|
+|[HTML字符实体](https://blog.csdn.net/u013778905/article/details/53177042)|网页特殊符号大全|
+|[encycolorpedia](https://encycolorpedia.cn)|encycolorpedia取色器|
+|[特效字转换工具集](http://www.sioe.cn/yingyong)|各种特效字转换工具,彩虹字生成器,RGB转16进制颜色等|
+|[gradient渐变色调色](http://gradient.awesomes.cn)|渐变色调色，获取代码|
+|[优酷视频上传](https://sc.youku.com/)|获取视频外链，其他：腾讯视频|
 |[sm.ms](https://sm.ms)|非常好用的图床|
-|[小贱贱图床](https://pic.xiaojianjian.net)|快速，上传即得外链，每个ip每日限制20张|
+|[现实君外链](http://wl.uixsj.cn/index.php)|支持多种文件外链，唯一不好的是http|
+|[PEXELS](https://www.pexels.com)|文章配图，无版权美图网，避免配图侵权|
+|[GIF之家](https://tool.gifhome.com/)|一个压缩效果很好且免费的gif压缩工具|
+|[改图宝](http://www.gaitubao.com)|在线改图压缩，加水印，生成二维码，印章制作等|
 |[二维码解码器](https://jiema.wwei.cn)||
 |[草料二维码](https://mh.cli.im)|<https://cli.im>|
 |[联图二维码](http://www.liantu.com/meihua)||
 |[第九工厂](https://www.9thws.com)|死磕艺术二维码|
 |[模板码](https://www.mobanma.com)|动态二维码等|
-|[优酷视频上传](https://sc.youku.com/)|获取视频外链，其他：腾讯视频|
-|[百度网站收录](https://ziyuan.baidu.com/linksubmit/url)|网站seo|
-|[Bing 站长](https://www.bing.com/toolbox/webmaster)|Bing 网站管理员工具|
-|[图片-七牛云](https://blog.csdn.net/Android_MSK/article/details/75394818)|图片存储到七牛云|
-|[站长工具大全](http://tool.lusongsong.com)|各种seo优化，工具等|
-|[腾讯云](https://console.cloud.tencent.com)|dnspod解析新版入口，腾讯云控制台|
-|[dnspod解析](https://www.dnspod.cn)|域名解析，其他：阿里云等|
-|[cloudflare解析](https://www.cloudflare.com)|域名解析，https解析，[介绍](https://oliverqueen.cn/2018/01/25/可能是最全的使用HEXO搭建个人博客教程)|
-|[HTML字符实体](https://blog.csdn.net/u013778905/article/details/53177042)|网页特殊符号大全|
-|[leancloud](https://leancloud.cn)|一站式后端云服务|
-|[encycolorpedia](https://encycolorpedia.cn)|encycolorpedia取色器|
-|[特效字转换工具集](http://www.sioe.cn/yingyong)|各种特效字转换工具,彩虹字生成器,RGB转16进制颜色等|
-|[gradient渐变色调色](http://gradient.awesomes.cn)|渐变色调色，获取代码|
-|[cloud studio](https://studio.dev.tencent.com/)|这是腾讯云和coding合作后的一个东西，简单来说就是云端开发环境。试了一下完全可以把hexo博客源码挂上面编辑。这也就不用只局限于一台电脑发布博客了。|
 
-# 其他
+# 实用工具
 |链接|描述|
 |:--|:--|
 |[ubuntu pastebin](https://paste.ubuntu.com)|代码展示托管，生成分享网址，防止代码直接分享缩进消失|
+|[图片转字符工具](https://picascii.com)|Img-->String|
 |[everyfont](http://everyfont.enjoyfe.com)|中文字库在线压缩|
 |[字蛛](http://font-spider.org)|font-spider中文字库压缩|
-|[PEXELS](https://www.pexels.com)|无版权美图网，避免配图侵权|
-|[改图宝](http://www.gaitubao.com)|在线改图压缩，加水印，生成二维码，印章制作等|
-|[soogif](https://www.soogif.com)|gif图及工具|
-|[站长工具](http://tool.chinaz.com)|网站信息查询，权重，seo，网站速度查询，ping等|
 |[mdtr2pdf](http://www.mdtr2pdf.com/index.html)|markdown转pdf|
 |[AD's API](https://api.imjad.cn)|包括动态签名，网易音乐等|
 |[在线工具](https://123.w3cschool.cn/webtools)|w3cschool的在线工具集合|
 |[在线工具](https://tool.oschina.net)|开源中国社区|
 |[菜鸟工具](https://c.runoob.com)|[菜鸟教程](https://www.runoob.com)在线工具，编译，加密，压缩代码等|
-|[图标工厂](https://icon.wuruihong.com)|移动应用图标生成工具，一键生成所有尺寸的应用图标|
-|[大象代理](http://www.daxiangdaili.com)|收费，口碑不错|
-|[图片转字符工具](https://picascii.com)||
+|[老殁科技](https://www.laomoit.com/)|Adobe等各种绿色破解软件|
+|[百度接口](https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=)|百度搜索关键词接口|
+|[在线短信](https://www.pdflibr.com/)|不想泄露个人的电话号码，注册一些一次性网站可以用到|
+
+# 其他
+|链接|描述|
+|:--|:--|
 |[网址迷宫nazo_game](http://nazo.one-story.cn)|一个程序员的网页游戏，我只玩到12关。。。|
 |[无损音乐下载](http://www.51ape.com)||
 |[手写体制作](http://59.108.48.27)|北京大学计算机科学技术研究所的一个项目 ~~（我的字体至今还未完成）~~|
-|[现实君外链](http://wl.uixsj.cn/index.php)|支持多种文件外链，唯一不好的是http|
+|[大象代理](http://www.daxiangdaili.com)|收费，口碑不错|
 |[蒲公英](https://www.pgyer.com)|应用内测发布平台|
-|[老殁科技](https://www.laomoit.com/)|各种绿色破解软件|
-|[宝塔面板](https://www.bt.cn/?invite_code=MV9sYXJnZHI=)|宝塔面板是一款使用方便、功能强大且终身免费的服务器管理软件，支持Linux与Windows系统。一键配置：LAMP/LNMP、网站、数据库、FTP、SSL，通过Web端轻松管理服务器。|
-|[百度接口](https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=)|百度搜索关键词接口|
-|[在线短信](https://www.pdflibr.com/)|不想泄露个人的电话号码，注册一些一次性网站可以用到|
