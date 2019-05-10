@@ -61,9 +61,16 @@
         {{ partial('_partials/footer.swig', {}, {cache: theme.cache.enable}) }}
         {% include '_third-party/analytics/analytics-with-widget.swig' %}
 
+        <div class="weixin-box">
+          <div class="weixin-menu">
+            <div class="weixin-hover">
+              <div class="weixin-description">微信扫一扫，订阅本博客</div>
+            </div>
+          </div>
+        </div>
         <div style="font-family:STLiti;display:inline-block;height:20px;line-height:20px;">
-        <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=43030402000254" ><img src="/images/gov.png" style="float:left;"/>湘公网安备 43030402000254号</a>
-        <span class="post-meta-divider" style="color: #555;">|</span><span><a href="http://www.miitbeian.gov.cn" target="_blank">湘ICP备18020535号</a></sapn>
+          <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=43030402000254" ><img src="/images/gov.png" style="float:left;"/>湘公网安备 43030402000254号</a>
+          <span class="post-meta-divider" style="color: #555;">|</span><span><a href="http://www.miitbeian.gov.cn" target="_blank">湘ICP备18020535号</a></sapn>
         </div>
         
         {% block footer %}{% endblock %}

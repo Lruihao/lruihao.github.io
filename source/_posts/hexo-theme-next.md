@@ -53,6 +53,9 @@ git clone https://github.com/Lruihao/hexo-theme-next themes/next
 
 # 更新内容
 
+## 相关文章收纳
+加入H5标签，实现可收纳功能，点击查看详情。
+
 ## Chat Services
 > 共chatra,tidio,daovoice三个选项，三选一
 

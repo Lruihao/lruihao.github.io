@@ -18,7 +18,7 @@ author:
 permalink:
 ---
 
-<a href="https://ziyuan.lruihao.cn/app/LRH%20Blog_2.6.1.apk" target="_blank" class="LinkCard">博客app下载</a>
+<a href="https://ziyuan.lruihao.cn/app/bczc_2.6.2.apk" target="_blank" class="LinkCard">博客app下载</a>
 ### 介绍
 使用fusion app对网页进行的封装。
 功能：

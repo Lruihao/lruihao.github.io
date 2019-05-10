@@ -1,6 +1,10 @@
 {% set popular_posts = popular_posts_json(theme.related_posts.params, post) %}
 {% if popular_posts.json and popular_posts.json.length > 0 %}
   <div class="popular-posts-header">{{ theme.related_posts.title | default(__('post.related_posts')) }}</div>
+  <!--[if !IE]><!--> 
+  <details>
+    <summary style="cursor: pointer;">点击查看</summary>
+  <!--<![endif]-->
   <ul class="popular-posts">
   {% for popular_post in popular_posts.json %}
     <li class="popular-posts-item">
@@ -17,4 +21,7 @@
     </li>
   {% endfor %}
   </ul>
+  <!--[if IE]><!--> 
+  </details>
+  <!--<![endif]-->
 {% endif %}

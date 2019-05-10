@@ -18,7 +18,9 @@ notshow:
 repost:
 ---
 
-{% pdf /posts/me/lrh.pdf %}
-
+{% note info %}
+请用电脑浏览!
+{% endnote %}
 <!--more-->
+{% pdf /posts/me/lrh.pdf %}
 

@@ -30,7 +30,7 @@ repost:
 
 <!--more-->
 
-{% asset_img 2.jpg %}
+{% asset_img 2.png %}
 
 # 编写java
 用记事本编辑java文件，并且把后缀改成`.java`，文件名和类名要一样。
