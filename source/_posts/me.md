@@ -22,5 +22,5 @@ repost:
 请用电脑浏览!
 {% endnote %}
 <!--more-->
-{% pdf /posts/me/lrh.pdf %}
+{% pdf /posts/me/李瑞豪.pdf %}
 
