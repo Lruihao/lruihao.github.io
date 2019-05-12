@@ -25,7 +25,7 @@ norelate: true
 |[赵俊的博客](http://www.zhaojun.im)| java 干货, VPS 知识, 软件推荐等。valine-admin👍|
 |[Nice's Blog](https://luotaocheng.github.io)|湖工大通信工程|
 |[hojun](https://www.hojun.cn)|一个好奇的博客。前端开发|
-|[酱油哥](https://enfangzhong.github.io)|研究生|
+|[酱油哥](https://enfangzhong.github.io)|机器学习，SQL|
 |[小情书](https://lancelik.github.io)|坐标上海，前后端工程师|
 |[Domon](https://www.domon.cn)|主要涉及Android端技术，前沿其他技术和生活吐槽。|
 |[mythsman](http://blog.mythsman.com)|hexo-douban插件开发者，坐标上海拼多多//博客看起来是个很有生活感与学习感的地方|

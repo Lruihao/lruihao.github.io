@@ -127,10 +127,7 @@ def start_do(allfinds):
                 time.sleep(3)  # 出现错误，停几秒先
                 time.sleep(0.5)  # 正常停顿，以免服务器拒绝访问
 
-def main():
-    name = input("输入你的csdn用户名：") 
-    if name=="":
-        name = "qq_39520417" # cheung99857 
+def main(name):
     for page in range(1,5):
         print("************第"+str(page)+"页*************")
         endurl = get_article_url(page,name)
@@ -139,8 +136,11 @@ def main():
     time.sleep(40)
 
 if __name__ == '__main__':
-    while 1:
-        main()
+	name = input("输入你的csdn用户名：")
+	if name=="":
+		name = "qq_39520417" #cheung99857
+	while 1:
+		main(name)
 ```
 
 在cmd进入桌面路径，输入如下命令
