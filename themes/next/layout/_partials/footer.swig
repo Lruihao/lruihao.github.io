@@ -1,12 +1,12 @@
 <div class="copyright">{#
 #}{% set current = date(Date.now(), "YYYY") %}{#
-#}<font color="black" face="STLiti">Copyright &nbsp;</font><font color=black>&copy;</font> {% if theme.footer.since and theme.footer.since != current %}<font color=black face=STLiti>{{ theme.footer.since }} - </font>{% endif %}{#
-#}<font color=black face=STLiti><span itemprop="copyrightYear">{{ current }}</span></font>
+#}Copyright &copy; {% if theme.footer.since and theme.footer.since != current %}{{ theme.footer.since }} – {% endif %}{#
+#}<span itemprop="copyrightYear">{{ current }}</span>
   <span class="with-love" id="animate">
     <i class="fa fa-{{ theme.footer.icon.name }}"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder" style="font-family:STLiti;color:black;">{{ theme.footer.copyright | default(author) }}.&ensp;</span>
-  <span title="博客总字数" style="font-family:STLiti;color:black;"><i class="fa fa-edit"></i>&ensp;<span class="post-count">{{ totalcount(site) }}</span>字</span>
+  <span class="author" itemprop="copyrightHolder">{{ theme.footer.copyright || author }}.&ensp;</span>
+  <span title="博客总字数"><i class="fa fa-edit"></i>&ensp;<span class="post-count">{{ totalcount(site) }}</span>字</span>
 
   {% if config.symbols_count_time.total_symbols %}
     <span class="post-meta-divider">|</span>
