@@ -148,5 +148,6 @@ if __name__ == '__main__':
 pyinstaller --onefile --nowindowed csdn.py
 ```
 {% asset_img 5.png csdn.exe生成成功 %}
+{% asset_img 6.png csdn.exe生成成功 %}
 
 另外推广一下自己的微信公众号，欢迎关注公众号👇👇👇，后台回复关键词`csdn_visiter`获取源码及exe可执行文件。

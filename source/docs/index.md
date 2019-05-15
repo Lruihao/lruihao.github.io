@@ -14,7 +14,7 @@ description: <span id="busuanzi_container_page_pv" title="访问量"><i class="f
 
 ## 简介
 
-<img src="index/cname.png" width="400" height="200" align="left">代码托管在coding 和github上，实现国内走coding(**后托管于腾讯云cos桶**)，国外走github路线。你可以通过以下方式访问：
+<img src="dos/images/cname.png" width="400" height="200" align="left">代码托管在coding 和github上，实现国内走coding(**后托管于腾讯云cos桶**)，国外走github路线。你可以通过以下方式访问：
 * https://www.lruihao.cn （已变更）
 * https://lruihao.cn
 * https://lruihao.github.io
@@ -29,7 +29,7 @@ description: <span id="busuanzi_container_page_pv" title="访问量"><i class="f
 <li>2019.01.22 \-\- 更换腾讯云对象存储</li>
 可能存储方式的不同，每个目录的访问必须以`/`结尾。比如`lruihao.cn/about`是无法访问的，得访问`lruihao.cn/about/`
 <li>2019.01.12 \-\- 博客UV过万</li>
-<img src="index/uv10k.png" align="left" />
+<img src="dos/images/uv10k.png" align="left" />
 <div style="clear: both;"></div>
 <li>2018.10.29 \-\- 网站ICP和公安备案完成</li>
 <li>2018.08.28 \-\- 第一次收到[france](https://postgres.fun)支持 [赞助记录](/donators.html)</li>
@@ -45,6 +45,16 @@ description: <span id="busuanzi_container_page_pv" title="访问量"><i class="f
 > 日常BUG记录，欢迎大家找出其他bug!
 > 还有好多好多bug，越改越多...
 
+### leancloud cdn资源证书失效
+**问题描述：**
+leancloud cdn资源证书失效，导致valine的评论及访客数统计显示失败。
+<img src="dos/images/leancloudcdn.png" />
+**解决办法：**
+下载js放在本地，或者等待leancloud更新证书（一到两天）。
+
+另外在leancloud博客看到相关[开发版线程策略](https://blog.leancloud.cn/6738/)的调整，感觉leancloud的免费服务是越来越难用了。反馈了一波valine作者更换云后端，作者也表示已挖坑！最近将做开发~
+
+
 ### leancloud api 429错误
 
 
@@ -52,7 +62,7 @@ description: <span id="busuanzi_container_page_pv" title="访问量"><i class="f
 - {% label danger@含义 %} - 超过应用的流控限制，即超过每个应用同一时刻最多可使用的工作线程数，或者说同一时刻最多可以同时处理的数据请求。通过 `控制台 > 存储 > API 统计 > API 性能 > 总览` 可以查看应用产生的请求统计数据，如平均工作线程、平均响应时间等。
 
 最近几天打开博客总是看到首页的访问数统计为0，刷新一下又好了，感觉是和前一段时间加的那个[热度](https://lruihao.cn/docs/top/)页面一样的，热度页面采用增加延迟的方法解决了统计失败的问题。当时不知道为什么，这次这个问题的出现，我打开浏览器控制台，发现好几个`429`的错误，而且多数情况下是4个一起出现。于是不管三七二十一，先查一下429是什么，在leancloud官网找到了上面的描述，还看了一下自己的统计信息，如下图。
-![统计信息](index/429.png)
+![统计信息](dos/images/429.png)
 所以**解决方案**大致三种:
 1. 充钱升级商业版 <i class="fa fa-square"></i>
 2. 降低api使用的线程数 <i class="fa fa-check-square"></i>
@@ -71,8 +81,8 @@ archive_generator:
 
 ### CPU占用过高
 前两天收到网友的反馈，说我的网站打开CPU占用80%多，我以前都没想过这些性能问题，突然出现就慌了，一开始怀疑是js的原因，后来又有人反馈截图说他的电脑上正常，不过在win10的电脑上就很高，后来在浏览器中吧js加载关掉就正常了，说明就是js造成的，虽然不懂js，不过为了解决这个致命的问题还是硬着头皮，在翻next源码中，自己用过的js,翻了一整天没找出结果，期间还麻烦晓剑帮我找了。知道今天又找了一上午才找到，罪魁祸首，是next提供的动态壁纸，后来测试了一下，那些动态壁纸都会让CPU飚起来，不知道是我改了什么源码的原因，还是静态壁纸和动态壁纸不能一起用的原因。不过总之这个问题吧已经解决，开心。
-![浏览器web工具性能分析](index/cpu2.png)
-![解决](index/cpu1.png)
+![浏览器web工具性能分析](dos/images/cpu2.png)
+![解决](dos/images/cpu1.png)
 
 ### 杂七杂八
 * 使用hexo-all-minifier压缩博文，导致打赏button失效；原因：压缩倒是button那块div，有一个叫`'QR'`的id,压缩后变成小写`' qr'`
