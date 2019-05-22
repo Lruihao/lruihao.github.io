@@ -26,10 +26,10 @@
 -->
 
 <ul class="category-list">
-   <li class="category-list-item"><a class="category-list-link" href="https://lruihao.cn/categories/ACM/">ACM</a><span class="category-list-count">54 </span>
+   <li class="category-list-item"><a class="category-list-link" href="https://lruihao.cn/categories/ACM/">ACM</a><span class="category-list-count"> 54 </span>
     <ul class="category-list-child">
      <li class="category-list-item"><a class="category-list-link" href="https://lruihao.cn/categories/ACM/2018湘潭邀请赛/">2018 湘潭邀请赛</a><span class="category-list-count"> 6 </span></li>
-     <li class="category-list-item"><a class="category-list-link" href="https://lruihao.cn/categories/ACM/STL/">STL</a><span class="category-list-count">2  </span></li>
+     <li class="category-list-item"><a class="category-list-link" href="https://lruihao.cn/categories/ACM/STL/">STL</a><span class="category-list-count"> 2  </span></li>
      <li class="category-list-item"><a class="category-list-link" href="https://lruihao.cn/categories/ACM/并查集/">并查集</a><span class="category-list-count"> 8  </span></li>
      <li class="category-list-item"><a class="category-list-link" href="https://lruihao.cn/categories/ACM/搜索/">搜索</a><span class="category-list-count"> 10  </span></li>
      <li class="category-list-item"><a class="category-list-link" href="https://lruihao.cn/categories/ACM/数论/">数论</a><span class="category-list-count"> 3  </span></li>
