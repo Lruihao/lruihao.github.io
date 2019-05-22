@@ -16,6 +16,18 @@ abstract:
 message:
 description:
 keywords:
+- python
+- wxpy
+- pyinstaller
+- post
+- json
+- requests
+- python定时任务
+- python定时器
+- python定时执行
+- python定时发送请求脚本
+- python定时获取数据
+- python定时任务每天执行一次
 top:
 sticky:
 author:

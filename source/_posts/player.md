@@ -12,7 +12,7 @@ abstract:
 message:
 description:
 keywords:
-top: 10
+top:
 sticky: false
 author:
 permalink:

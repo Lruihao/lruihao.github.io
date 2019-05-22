@@ -19,7 +19,7 @@ repost:
 ---
 
 <!--
-{% note %}default primary success info warning danger
+{% note info no-icon %}default primary success warning danger
 {% endnote %}
 -->
 

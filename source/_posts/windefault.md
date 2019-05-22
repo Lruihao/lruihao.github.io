@@ -3,7 +3,8 @@ title: ubuntu + windows双系统默认启动项设置
 date: 2019-03-21 12:48:30
 tags:
 - linux
-- Windows
+- windows
+- ubuntu
 categories: linux
 password:
 abstract:
@@ -11,7 +12,7 @@ message:
 description:
 keywords:
 - Ubuntu
-- Windows
+- windows
 - 双系统默认启动项设置
 top:
 sticky:

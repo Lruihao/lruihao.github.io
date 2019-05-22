@@ -7,6 +7,7 @@ tags:
 - 总结
 - 宝塔面板
 - server
+- ubuntu
 categories: linux
 password:
 abstract:

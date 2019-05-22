@@ -11,7 +11,16 @@ abstract:
 message:
 description:
 keywords:
-top: 9
+- hexo
+- 前端
+- 博客日志
+- hexo 主题
+- hexo theme
+- hexo github
+- hexo next
+- hexo 博客
+- hexo next主题美化
+top:
 sticky:
 author:
 permalink:
