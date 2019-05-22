@@ -23,6 +23,17 @@ notshow:
 {% endnote %}
 
 <!--more-->
+> - [HTML+CSS](https://lruihao.cn/posts/ms-html-css.html)
+
+# 图床方案
+
+> - 自行搭建
+比如使用开源图床ImgURL搭建的`img.lruihao.cn`（**需要服务器**）
+使用上传工具加第三方免费空间，比如`PicGo + 腾讯云COS`（**无需服务器**）
+- 使用各大图床
+诸如sm.ms，腾讯云COS，阿里云OSS，七牛云，又拍云，Github，微博图床，ImgURL图床等等
+
+
 # 图标使用
 ```java font-waesome
 <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css">
@@ -35,6 +46,27 @@ notshow:
 ```
 ```java 不引入js
 <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=0">
+```
+
+```css css3写法@media (宽度具体调整)
+/* 手机等小屏幕手持设备 */
+@media screen and (min-width: 320px) and (max-width: 480px) {
+
+	/*手机端css样式表*/
+
+}
+/* 平板之类的宽度 1024 以下设备 */
+@media only screen and (min-width: 321px) and (max-width: 1024px) {
+
+	/*电脑端css样式表*/
+
+}
+```
+```xml link引入不同css
+<!--手机端-->
+<link rel="stylesheet" type="text/css" href="style_phone.css" media="screen and (max-width: 960px)"/>
+<!--电脑端-->
+<link rel="stylesheet" type="text/css" href="style_PC.css" media="screen and (min-width: 960px)"/>
 ```
 
 # jquery源
@@ -53,3 +85,13 @@ notshow:
 <a target="_blank" href="https://wpa.qq.com/msgrd?v=3&uin=1074627678&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:1074627678:51" alt="点击这里给我发消息" title="点击这里给我发消息"/></a>
 ```
 <a target="_blank" href="https://wpa.qq.com/msgrd?v=3&uin=1074627678&site=qq&menu=yes"><img border="0" src="https://wpa.qq.com/pa?p=2:1074627678:51" alt="点击这里给我发消息" title="点击这里给我发消息"/></a>
+
+# Google fonts
+```diff
+https://fonts.google.com/
+一般选用国内源镜像替代（待补充...）
++ https://fonts.loli.net
++ //fonts.lug.ustc.edu.cn
+```
+
+

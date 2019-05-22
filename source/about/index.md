@@ -5,16 +5,28 @@ comments: false
 description: <span id="busuanzi_container_page_pv" title="访问量"><i class="fa fa-lightbulb-o"></i> <span id="busuanzi_value_page_pv"></span></span>
 ---
 
+{% cq %}
+
+**“每天早晨叫醒你的不是闹钟,而是你的梦想。”
+那些日子，我也是靠着这种信念撑下来的，一心为了高考，
+然而当那一场战役结束之后，是真的刀枪入库，马放南山，
+现在的自己真的是配不上当初努力的自己。望披荆斩棘，不忘初心。**
+
+{% endcq %}    
+<img src="/images/about.jpg" width="400" height="200">
+<p style="font-family: MMT;font-size: 350%;line-height:45px;" align="right">李瑞豪</p>
+
+---
+
 {% tabs 关于,2 %}
 <!-- tab 关于博主 -->
-我是一个喜欢折腾新事物，感性但不性感的人吧！和大多数男孩子一样我也喜欢玩游戏（但是我只会玩王者农药！），平时也喜欢打篮球看NBA，大学打了三年的后卫，很可惜只带领班队拿下了一场比赛—\_—！
-大学前两年还打过两年ACM，天赋不够最后负憾退役也没有拿到奖项。曾在CSDN上看一位博主说到：
-**时间并不会因为你的迷茫和迟疑而停留，就在你看这篇文章的同时，不知道有多少人在冥思苦想，在为算法废寝忘食，不知道有多少人在狂热地拍着代码，不知道又有多少提交一遍又一遍地刷新着OJ的status页面…… 
-没有谁生来就是神牛，而千里之行，始于足下！**
-生活中，我也自认为是一个热爱生活的人，喜欢闲暇自在的生活情调，也曾有一个江湖梦，向往江湖闯荡过后退隐山野田园的安逸之感！却如今毕业将至，即步入江湖！
-
 > 常用ID： `Cell`、`李四啊_`、`lruihao`、`LRH`
 
+我是一个喜欢折腾新事物，感性但不性感的人吧！和大多数男孩子一样我也喜欢玩游戏（但是我只会玩王者农药！），平时也喜欢打篮球看NBA，大学打了三年的后卫，很可惜只带领班队拿下了一场比赛—\_—！
+大学前两年一直在打**ACM**，可能是天赋不够吧最后负憾退役也没有拿到奖项。曾在CSDN上看一位博主说到：
+**时间并不会因为你的迷茫和迟疑而停留，就在你看这篇文章的同时，不知道有多少人在冥思苦想，在为算法废寝忘食，不知道有多少人在狂热地拍着代码，不知道又有多少提交一遍又一遍地刷新着OJ的status页面…… 
+没有谁生来就是神牛，而千里之行，始于足下！**
+生活中，我也自认为是一个热爱生活的人，喜欢闲暇自在的生活情调，也曾有一个江湖梦，向往江湖闯荡过后退隐山野田园的安逸之感！
 <!-- endtab -->
 <!-- tab 关于博客 -->
 博採眾長——取“兼收并蓄，博采众长。”之意。
@@ -27,15 +39,3 @@ description: <span id="busuanzi_container_page_pv" title="访问量"><i class="f
 <center><input type="text" onfocus="&quot;李瑞豪的博客&quot;==value&amp;&amp;(value=&quot;&quot;)" onblur="&quot;&quot;==value&amp;&amp;(value=&quot;李瑞豪&quot;)" name="word" size="35" value="李瑞豪"><input type="submit" value="百度一下" class="btn self-btn bg s_btn"></center>
 </form>
 
----
-
-{% cq %}
-
-**“每天早晨叫醒你的不是闹钟,而是你的梦想。”
-那些日子，我也是靠着这种信念撑下来的，一心为了高考，
-然而当那一场战役结束之后，是真的刀枪入库，马放南山，
-现在的自己真的是配不上当初努力的自己。望披荆斩棘，不忘初心。**
-
-{% endcq %}    
-<img src="/images/about.jpg" width="400" height="200">
-<p style="font-family: MMT;font-size: 350%;line-height:45px;" align="right">李瑞豪</p>

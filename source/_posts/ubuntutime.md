@@ -4,6 +4,7 @@ date: 2019-03-15 14:28:10
 tags:
 - windows
 - linux
+- ubuntu
 categories: linux
 password:
 abstract:

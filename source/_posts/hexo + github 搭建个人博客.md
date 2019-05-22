@@ -6,6 +6,14 @@ tags:
 - nodejs
 - 前端
 categories: hexo
+keywords:
+- hexo 主题
+- hexo theme
+- hexo github
+- hexo next
+- hexo 博客
+- hexo next主题美化
+- hexo github搭建个人博客
 top:
 sticky: false
 ---

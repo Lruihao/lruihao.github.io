@@ -3,6 +3,12 @@ title: hexo 添加图片，音乐，链接，视频
 date: 2018-05-31 23:19:22
 tags: hexo
 top:
+keywords:
+- hexo 添加图片，音乐，链接，视频
+- hexo
+- hexo 写作
+- hexo 博客
+- hexo next
 categories: hexo
 ---
 {% cq %}**如果实在搞得头晕直接去[简书](https://www.jianshu.com/)写文章，再把简书生成的md文章复制过来就好了（简书是个不错的Markdown在线编辑器），还可以去[马克飞象，专为印象笔记打造的 Markdown 编辑器](https://maxiang.io/)，[typora 也是不错的](https://www.typora.io/#)，突然发现[csdn](https://www.csdn.net/)也支持Markdown编译器了**
@@ -107,5 +113,6 @@ npm install https://github.com/CodeFalling/hexo-asset-image -- save
 
 
 # 工具集合
+[Picgo](https://picgo.github.io/PicGo-Doc/zh/)
 [马克飞象](https://maxiang.io/)、CSDN、简书
 [SM.MS图床](https://sm.ms/)

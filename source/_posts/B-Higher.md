@@ -1,5 +1,5 @@
 ---
-title: 'B.Higher h-index'
+title: B.Higher h-index
 date: 2018-06-14 22:47:28
 tags: 
 - 2018湘潭邀请赛
