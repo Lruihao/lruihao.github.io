@@ -38,15 +38,15 @@
      <li class="category-list-item"><a class="category-list-link" href="https://lruihao.cn/categories/ACM/背包问题/">背包问题</a><span class="category-list-count"> 2  </span></li>
      <li class="category-list-item"><a class="category-list-link" href="https://lruihao.cn/categories/ACM/贪心/">贪心</a><span class="category-list-count"> 1 </span></li>
     </ul></li>
-   <li class="category-list-item"><a class="category-list-link" href="https://lruihao.cn/categories/English/">English</a><span class="category-list-count">4 </span></li>
-   <li class="category-list-item"><a class="category-list-link" href="https://lruihao.cn/categories/Web/">Web</a><span class="category-list-count">8 </span></li>
-   <li class="category-list-item"><a class="category-list-link" href="https://lruihao.cn/categories/git/">git</a><span class="category-list-count">4 </span></li>
-   <li class="category-list-item"><a class="category-list-link" href="https://lruihao.cn/categories/hexo/">hexo</a><span class="category-list-count">15 </span></li>
-   <li class="category-list-item"><a class="category-list-link" href="https://lruihao.cn/categories/java/">java</a><span class="category-list-count">18 </span></li>
-   <li class="category-list-item"><a class="category-list-link" href="https://lruihao.cn/categories/javascript/">javascript</a><span class="category-list-count">6 </span></li>
-   <li class="category-list-item"><a class="category-list-link" href="https://lruihao.cn/categories/linux/">linux</a><span class="category-list-count">8 </span></li>
-   <li class="category-list-item"><a class="category-list-link" href="https://lruihao.cn/categories/python/">python</a><span class="category-list-count">9 </span></li>
-   <li class="category-list-item"><a class="category-list-link" href="https://lruihao.cn/categories/termux/">termux</a><span class="category-list-count">2  </span></li>
+   <li class="category-list-item"><a class="category-list-link" href="https://lruihao.cn/categories/English/">English</a><span class="category-list-count"> 4 </span></li>
+   <li class="category-list-item"><a class="category-list-link" href="https://lruihao.cn/categories/Web/">Web</a><span class="category-list-count"> 8 </span></li>
+   <li class="category-list-item"><a class="category-list-link" href="https://lruihao.cn/categories/git/">git</a><span class="category-list-count"> 4 </span></li>
+   <li class="category-list-item"><a class="category-list-link" href="https://lruihao.cn/categories/hexo/">hexo</a><span class="category-list-count"> 15 </span></li>
+   <li class="category-list-item"><a class="category-list-link" href="https://lruihao.cn/categories/java/">java</a><span class="category-list-count"> 18 </span></li>
+   <li class="category-list-item"><a class="category-list-link" href="https://lruihao.cn/categories/javascript/">javascript</a><span class="category-list-count"> 6 </span></li>
+   <li class="category-list-item"><a class="category-list-link" href="https://lruihao.cn/categories/linux/">linux</a><span class="category-list-count"> 8 </span></li>
+   <li class="category-list-item"><a class="category-list-link" href="https://lruihao.cn/categories/python/">python</a><span class="category-list-count"> 9 </span></li>
+   <li class="category-list-item"><a class="category-list-link" href="https://lruihao.cn/categories/termux/">termux</a><span class="category-list-count"> 2  </span></li>
    <li class="category-list-item"><a class="category-list-link" href="https://lruihao.cn/categories/生活随笔/">生活随笔</a><span class="category-list-count"> 13  </span></li>
    <li class="category-list-item"><a class="category-list-link" href="https://lruihao.cn/categories/通用/">通用</a><span class="category-list-count"> 15 </span></li>
   </ul>
