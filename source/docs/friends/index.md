@@ -1,24 +1,7 @@
 ---
 title: 友情链接
 date: 2018-09-28 18:29:20
-tags:
-- 通用
-- 友情链接
-categories: 通用
-password:
-abstract:
-message:
-description:
-top:
-sticky: false
-author:
-permalink:
-norelate: true
 ---
-
-{% note danger %}
-已转移至**[博客档案](/docs/friends/)**
-{% endnote %}
 
 |<center>链接</center>|<center>描述</center>|
 |:--|:--|
@@ -37,7 +20,6 @@ norelate: true
 |[在线分享网](https://www.52share.online)|技术分享与学习交流|
 <!--|[猴子笔记](https://monkeyip.github.io)|数据开发，数据分析，数据挖掘等|-->
 
-<!--more-->
 <br>
 {% note info no-icon %}
 本站信息如侧栏所示。

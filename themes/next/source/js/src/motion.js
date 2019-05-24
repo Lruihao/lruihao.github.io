@@ -220,7 +220,7 @@ $(document).ready(function() {
       $brand.length > 0 && sequence.push({
         e: $brand,
         p: {opacity: 1},
-        o: {duration: 200}
+        o: {duration: 100}//default: 200
       });
 
       /**
@@ -240,7 +240,7 @@ $(document).ready(function() {
           e: $(element),
           p: {translateX: translateX},
           o: {
-            duration     : 500,
+            duration     : 200,//default: 500
             sequenceQueue: false
           }
         };
@@ -250,7 +250,7 @@ $(document).ready(function() {
         sequence.push({
           e: $image,
           p: {opacity: 1, top: 0},
-          o: {duration: 200}
+          o: {duration: 100}//default: 200
         });
       }
 
@@ -265,13 +265,13 @@ $(document).ready(function() {
       hasElement($title) && sequence.push({
         e: $title,
         p: {opacity: 1, top: 0},
-        o: {duration: 200}
+        o: {duration: 100}//default: 200
       });
 
       hasElement($subtitle) && sequence.push({
         e: $subtitle,
         p: {opacity: 1, top: 0},
-        o: {duration: 200}
+        o: {duration: 100}//default: 200
       });
 
       (NexT.utils.isPisces() || NexT.utils.isGemini()) && hasElement($image) && pushImageToSequence();
@@ -300,7 +300,7 @@ $(document).ready(function() {
 
       $('.menu-item').velocity('transition.slideDownIn', {
         display : null,
-        duration: 200,
+        duration: 100,//default: 200
         complete: function() {
           integrator.next();
         }

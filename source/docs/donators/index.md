@@ -1,25 +1,8 @@
 ---
 title: 赞助记录
 date: 2018-09-28 18:34:53
-tags:
-- 赞助
-- 通用
-categories:
-- 通用
-password:
-abstract:
-message:
-description:
-top:
-author:
-permalink:
-sticky: false
-noreward: true
-norelate: true
+comments: false
 ---
-{% note danger %}
-已转移至**[博客档案](/docs/donators/)**
-{% endnote %}
 
 |赞助者|<center>时间</center>|支持方式|赞助❤️|<center>记录</center>|
 |:-:|:--|:-:|:-:|:--|
@@ -27,8 +10,7 @@ norelate: true
 |* 昌升|2018.12.04|支付宝|￥10<br>￥18|上课的时候听到了支付宝清脆的支付宝到账10元的声音！感谢评论区一楼层里匿名打赏的兄dei!<br>晚上加了一个qq好友，聊天之中又收到支付宝的提示，才知道是谁打赏的，真的很感谢每笔打赏！|
 |A*r|2019.03.19|微信|￥2|2019收到的第一笔打赏！真的不想少什么的，每一份打赏支持我都心存感激！谢谢各位兄弟！`231****047#qq.com`|
 
-<!--more-->
-{% note success %}
+{% note success no-icon %}
 首先非常感谢朋友们资助，打赏我，这不仅是对我的肯定，也让我获得了意外的零花钱，再次感谢打赏的老铁，大哥们！也希望以后看到我博客觉得还不错的的小伙伴们不嫌麻烦，小小打赏一下！😄😄😄如果打赏还希望留言一下我好写下记录！谢谢大家！
 {% endnote %}
 
@@ -37,3 +19,4 @@ norelate: true
 |微信|支付宝红包|支付宝|
 |:-:|:-:|:-:|
 |![](/images/wechatpay.gif)|![](/images/bao.png)|![](/images/alipay.gif)|
+

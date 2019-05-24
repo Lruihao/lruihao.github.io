@@ -31,6 +31,8 @@
       {### PAGE BODY ###}
       {#################}
 
+      <a href="https://tongji.baidu.com/web/welcome/ico?s=d25f1e053205bf07562f33365fef04d7" target="_blank" class="LinkCard">博採眾長百度统计数据预览</a>
+      
       <div id="top"></div>
       <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
       <script>AV.initialize("{{ theme.valine.appid }}", "{{ theme.valine.appkey }}");</script>
