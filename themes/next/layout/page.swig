@@ -9,10 +9,6 @@
     #}{{ __('title.category') + page_title_suffix }}{#
   #}{% elif page.type === "tags" and not page.title %}{#
     #}{{ __('title.tag') + page_title_suffix }}{#
-
-  #}{% elif page.type === "photos" and not page.title %}{#
-  #}{{ __('title.photos') + page_title_suffix }}{#
-
   #}{% else %}{#
     #}{{ page.title + page_title_suffix }}{#
   #}{% endif %}{#
@@ -69,7 +65,6 @@
           </div>
         {% elif page.type === 'schedule' %}
           {% include 'schedule.swig' %}
-
         {% else %}
           {{ page.content }}
         {% endif %}
