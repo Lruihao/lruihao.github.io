@@ -4,3 +4,4 @@ git add .
 set /p m=Message:
 git commit -m "%m%"
 git push
+hexo clean&&hexo g -d
