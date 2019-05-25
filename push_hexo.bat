@@ -1,6 +1,5 @@
 @echo off
 title Commit
 git add .
-set /p m=Message:
-git commit -m "%m%"
+git commit -m "《博採眾長》源码更新:{{ now('YYYY-MM-DD HH:mm:ss') }}"
 git push
