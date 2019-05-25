@@ -1,7 +1,6 @@
 @echo off
-title Commit
+title 备份与部署
 git add .
-set /p m=Message:
-git commit -m "%m%"
+git commit -m "《博採眾長》源码更新：%time%"
 git push
 hexo clean&&hexo g -d
