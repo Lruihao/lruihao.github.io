@@ -24,7 +24,7 @@ repost:
 ---
 
 {% note info no-icon %}
-test
+test2
 目前 HustOj 在 GitHUb 地址是：<https://github.com/zhblue/hustoj>
 **安装时注意ubuntu版本**，没条件的可以在自己ubuntu上尝试，或者虚拟机上（关注公众号回复`ubuntu16.04`获取iso镜像文件），也可以在云实验室的云服务器上做做实验。
 更多说明及ACM/NOIP题库下载见官网博客[代码的那些事|程序员回忆录](http://www.hustoj.com/)
