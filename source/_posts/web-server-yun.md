@@ -5,8 +5,7 @@ tags:
 - 他山之石
 - server
 - 云服务器
-- 通用
-categories: 通用
+categories: others
 password:
 abstract:
 message:

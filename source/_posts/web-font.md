@@ -6,7 +6,7 @@ tags:
 - 前端
 - nodejs
 categories:
-- 通用
+- others
 password:
 abstract:
 message:

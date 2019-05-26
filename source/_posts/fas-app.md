@@ -6,8 +6,7 @@ tags:
 - fusion app
 - app
 - 网页封装
-- 通用
-categories: 通用
+categories: others
 password:
 abstract:
 message:
