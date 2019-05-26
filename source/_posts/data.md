@@ -4,8 +4,7 @@ date: 2018-10-08 23:01:10
 tags:
 - 计算机数据
 - 计算机组成与体系结构
-- 通用
-categories: 通用
+categories: others
 password:
 abstract:
 message:

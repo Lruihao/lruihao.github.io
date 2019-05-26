@@ -5,8 +5,7 @@ tags:
 - 个人云盘
 - server
 - caddy
-- 通用
-categories: 通用
+categories: others
 password:
 abstract:
 message:

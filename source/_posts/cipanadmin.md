@@ -4,7 +4,7 @@ date: 2019-03-04 23:08:32
 tags: 
 - 操作系统
 - 磁盘
-categories: 通用
+categories: others
 password:
 abstract:
 message:

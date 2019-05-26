@@ -4,8 +4,7 @@ date: 2018-10-26 21:56:18
 tags:
 - server
 - windows
-- 通用
-categories: 通用
+categories: others
 password:
 abstract:
 message:
