@@ -27,6 +27,7 @@ repost:
 # 实现代码
 
 > 这里的异常主要是`InputMismatchException`,可以直接捕获该异常，我直接捕获了父类异常。。。
+
 ```java ExceptionDemo.java
 package cn.lruihao.Exception;
 

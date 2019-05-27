@@ -25,6 +25,7 @@ keywords: [李瑞豪,博採眾長,李瑞豪的博客,hexo,博客日志,博客档
 ---
 
 ## 博客日志
+<li>2019.05.27 \-\- 加入`PWA`功能（`Manifest`、`Service workers`），使之前的博客APP(fas-app)可离线使用，提升体验。</li>
 <li>2019.05.16 \-\- 基于开源图床`ImgURL`在阿里云学生服务器上搭建自己的图床，[ImgURL图床\-\-lruihao.cn](https://img.lruihao.cn)</li>
 <li>2019.04.07 \-\- 更改博客文章路径，所有博文都放在`/posts/`目录里。</li>
 <li>2019.03.21 \-\- caddy云盘已退役，根据github开源宅音乐搭建了[宅音乐播放器插件](https://player.lruihao.cn)</li>
