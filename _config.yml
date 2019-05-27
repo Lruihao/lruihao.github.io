@@ -165,3 +165,47 @@ image_minifier:
   optimizationLevel: 2
   pngquant: false
   progressive: false
+
+#hexo-pwa
+pwa:
+  manifest:
+    path: /manifest.json
+    body:
+      name: 博採眾長 — LRH's blog
+      short_name: 博採眾長
+      icons:
+        - src: /images/favicon-32x32-next.png
+          sizes: 32x32
+          type: image/png
+        - src: /images/icons/72x72.png
+          sizes: 72x72
+          type: image/png
+        - src: /images/icons/128x128.png
+          sizes: 128x128
+          type: image/png
+        - src: /images/icons/144x144.png
+          sizes: 144x144
+          type: image/png
+        - src: /images/icons/192x192.png
+          sizes: 192x192
+          type: image/png
+      start_url: /index.html
+      theme_color: '#ffffff'
+      background_color: '#ffffff'
+      display: standalone
+  serviceWorker:
+    path: /sw.js
+    preload:
+      urls:
+        - /
+      posts: 5
+    opts:
+      networkTimeoutSeconds: 5
+    routes:
+      - pattern: !!js/regexp /hm.baidu.com/
+        strategy: networkOnly
+      - pattern: !!js/regexp /.*\.(js|css|jpg|jpeg|png|gif)$/
+        strategy: cacheFirst
+      - pattern: !!js/regexp /\//
+        strategy: networkFirst
+  priority: 5

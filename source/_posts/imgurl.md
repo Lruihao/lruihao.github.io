@@ -29,7 +29,7 @@ notshow:
 norelate:
 repost: true
 ---
-{% asset_img 1.png %}
+{% asset_img 1.png 预览 %}
 {% note success no-icon %}
 ImgURL是一个开源、免费的图床程序，ImgURL 2.x之后对环境要求更高，尤其是ImageMagick组件的支持，很多朋友不清楚怎样安装这个组件，这篇文章分享宝塔面板安装ImgURL 2.x图床的过程（包括ImgURL 2.x需要的各种组件）
 [图床预览](https://img.lruihao.cn)  [阅读原文](https://www.xiaoz.me/archives/12081)
