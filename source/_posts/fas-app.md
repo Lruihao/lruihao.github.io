@@ -34,10 +34,17 @@ permalink:
 
 ### 下载
 
-> app内也可以更新，不过就我自己用，懒得更新。
+> ~app内也可以更新，不过就我自己用，懒得更新。~
 
 * [百度云，密码:479l](https://pan.baidu.com/s/19jOvnNhssF302Mi1GRa2Sw) 
 * [github下载](https://github.com/Lruihao/Blog_fas_apk)
+
+**PWA应用**
+1. 地址栏输入: Chrome://flags
+2. 搜索并启用以下项目: Desktop PWAs(桌面PWAs)、App Banners(应用横幅)、Experimental App Banners(实验性应用横幅)
+3. 重启浏览器使修改的设置生效
+4. 点击地址栏最右边按钮
+5. 安装“博採眾長”
 
 ### 部分源码
 {% note %}
