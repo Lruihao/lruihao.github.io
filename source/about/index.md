@@ -37,4 +37,4 @@ description: <span id="busuanzi_container_page_pv" title="访问量"><i class="f
 {% endtabs %}
 
 <center>Lruihao's Github chart</center>
-<img src="http://ghchart.rshah.org/Lruihao" alt="Lruihao's Github chart" />
+<img src="https://ghchart.rshah.org/Lruihao.svg" alt="Lruihao's Github chart" />
