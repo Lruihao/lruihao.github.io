@@ -512,20 +512,32 @@ han: false
 pangu: true
 
 # Quicklink Support
-# Dependencies: https://cdn.jsdelivr.net/npm/quicklink/dist/
+# Dependencies: https://github.com/theme-next/theme-next-quicklink
 # Visit https://github.com/GoogleChromeLabs/quicklink for details
 quicklink:
   enable: true
+
+  # Quicklink (quicklink.umd.js script) is loaded on demand
+  # Add `quicklink: true` in Front-matter of the page or post you need
+  # Home page and archive page can be controlled through home and archive options below
   home: true
   archive: true
-  delay: false
-  timeout: 3000  # Custom a timeout (milliseconds) for prefetching resources
-  priority: true # Set true to enable fetch() or falls back to XHR
+
+  # Default (true) will initialize quicklink after the load event fires
+  delay: true
+  # Custom a time in milliseconds by which the browser must execute prefetching
+  timeout: 3000
+  # Default (true) will enable fetch() or falls back to XHR
+  priority: true
+  
+  # For more flexibility you can add some patterns (RegExp, Function, or Array) to ignores
   # See: https://github.com/GoogleChromeLabs/quicklink#custom-ignore-patterns
   # Leave ignores as empty if you don't understand what it means
   # Example:
-  # ignores: uri => uri.includes('.xml'), (uri, elem) => elem.hasAttribute('noprefetch')
-  # ignores: [/\/api\/?/, uri => uri.includes('123.html')]
+  # ignores:
+  #   - /\/api\/?/
+  #   - uri => uri.includes('.xml')
+  #   - (uri, el) => el.hasAttribute('noopener')
   ignores:
 
 # Swiftype Search API Key
