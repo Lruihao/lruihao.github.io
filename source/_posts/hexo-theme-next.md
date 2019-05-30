@@ -66,7 +66,7 @@ git clone https://github.com/Lruihao/hexo-theme-next themes/next
 {% asset_img lib.png lib资源 %}
 
 # 更新内容
-> 等多自定义详见源码
+> 更多自定义详见源码
 
 ## 备案信息自定义
 ```xml _config.yml
