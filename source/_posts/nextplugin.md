@@ -22,8 +22,50 @@ permalink:
 <!--more-->
 ### hexo插件
 
+#### [hexo-pwa](https://github.com/lavas-project/hexo-pwa)
+##### 安装
+```ball
+npm install --save hexo-pwa
+```
+##### 配置
+You can configure this plugin in `_config.yml`.(配置完即可使用不许单独设置`manifest.json`文件及配置，插件生成)
+```
+pwa:
+  manifest:
+    path: /manifest.json
+    body:
+      name: hexo
+      short_name: hexo
+      icons:
+        - src: /images/android-chrome-192x192.png
+          sizes: 192x192
+          type: image/png
+        - src: /images/android-chrome-512x512.png
+          sizes: 512x512
+          type: image/png
+      start_url: /index.html
+      theme_color: '#ffffff'
+      background_color: '#ffffff'
+      display: standalone
+  serviceWorker:
+    path: /sw.js
+    preload:
+      urls:
+        - /
+      posts: 5
+    opts:
+      networkTimeoutSeconds: 5
+    routes:
+      - pattern: !!js/regexp /hm.baidu.com/
+        strategy: networkOnly
+      - pattern: !!js/regexp /.*\.(js|css|jpg|jpeg|png|gif)$/
+        strategy: cacheFirst
+      - pattern: !!js/regexp /\//
+        strategy: networkFirst
+  priority: 5
+```
 #### hexo-tag-dplayer
-[more](https://github.com/MoePlayer/hexo-tag-dplayer)
+[hexo-tag-dplayer](https://github.com/MoePlayer/hexo-tag-dplayer)
 ##### npm install
 ```
 npm install hexo-tag-dplayer --save
