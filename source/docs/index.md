@@ -140,7 +140,7 @@ archive_generator:
 ## 彩蛋 
 
 * ~~[www.lruihao.cn](https://www.lruihao.cn)和[lruihao.cn](https://lruihao.cn)的评论是不一样的~~
-* ~~在留言页面地址后面加/index.html  ,这个的隐藏评论区hhhh，同样有第一种的区别(gitalk,gitment~~
+* ~~在留言页面地址后面加/index.html  ,这个的隐藏评论区hhhh，同样有第一种的区别（gitalk,gitment）~~
 * 加“ /love/ ”,可以看到我和女票的一些小故事当然有密码的hhhh
 * ~~加“ /book/ ”,可以看到几本金庸先生的小说~~
 * 按下F12打开浏览器调试工具，在console可以看到一些“有趣”的东西- _ -!
