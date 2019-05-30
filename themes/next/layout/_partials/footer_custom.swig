@@ -13,5 +13,5 @@
 
 <!--使用Lruihao修改后的主题建议保留lruihao.cn-->
 {% if !(config.author == '李瑞豪' and theme.footer.copyright == 'LRH') %}
-	<div>BASE ON Next.Pisces and MODIFIED BY <a href="https://lruihao.cn" target="_blank">Lruihao</a> .</div>
+	<div>BASE on Next.Pisces and <a href="https://github.com/Lruihao/hexo-theme-next" target="_blank">MODIFIED</a> BY <a href="https://lruihao.cn" target="_blank">Lruihao</a> .</div>
 {% endif %}
