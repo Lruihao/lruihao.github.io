@@ -31,15 +31,16 @@ photos:
 ---
 
 {% note success %}
-基于[hexo-theme-next 6.0+](https://github.com/theme-next/hexo-theme-next)的Pisces模板做的DIY扩展性设计。主要是一些custom style还有一些第三方的js。修改的地方太多也有点小乱就不提PR了。&emsp;[modified](https://github.com/Lruihao/hexo-theme-next)&emsp;官方Demo => <https://theme-next.org>
+基于[hexo-theme-next 6.0+](https://github.com/theme-next/hexo-theme-next)的Pisces模板做的DIY扩展性设计（部分兼容next其他几种模板）。主要是一些custom style还有一些第三方的js。修改的地方太多也有点小乱就不提PR了。
+[modified](https://github.com/Lruihao/hexo-theme-next)&emsp;官方Demo => <https://theme-next.org>
 记录一下折腾过程，以后备份恢复博客也好方便自己。本文之前的美化修改请见[hexo分类](/categories/posts/)。
+**主题中若有遗漏第三方插件或应用的key及id值等请修改为自己对应的值**
 {% endnote %}
 
 <!--more-->
-# 初步安装
 主要的几个自定义文件
 ```xml 主要修改路径及文件
-config.swig					#主题配置文件 相关账户信息自己注册替换
+_config.swig					#主题配置文件 相关账户信息自己注册替换
 \layout\custom\head.swig			#在头部自定义加入标签
 \layout\custom\google_adsense.swig		#谷歌广告模块，内有注释暂时弃用
 \layout\_layout.swig				#主布局
@@ -48,12 +49,16 @@ config.swig					#主题配置文件 相关账户信息自己注册替换
 \layout\_macro\siderbar.swig			#侧栏模板
 \layout\_third-party\copy-code.swig		#复制按钮
 \layout\_partials\comments.swig			#评论主模板
-\layout\_partials\footer.swig			#底部模板
-\layout\_third-party\custom.swig			#该模块在layout.swig引入用于在body自定义标签
+\layout\_partials\footer.swig			#底部模板#该模块在layout.swig引入用于在body自定义标签
+\layout\_third-party\custom.swig		#该模块在layout.swig引入用于在body自定义标签
 \source\css\_custom\customs.styl		#主要用户自定义样式表
 \source\fonts\					#引入了一些我的手写体及外部字体
+\scripts\qcloudcdn.js				#腾讯云cos桶刷新缓存的脚本，不需要可删掉[^1]
+\layout\_partials\footer_custom.swig		#footer自定义文件
 ```
+[^1](https://lruihao.cn/posts/cos-hexo.html#CDN%E5%88%B7%E6%96%B0)
 
+# 初步安装
 ```bash 安装整个改过的主题,然后下载相应的lib资源
 cd hexo
 git clone https://github.com/Lruihao/hexo-theme-next themes/next
@@ -61,6 +66,30 @@ git clone https://github.com/Lruihao/hexo-theme-next themes/next
 {% asset_img lib.png lib资源 %}
 
 # 更新内容
+> 等多自定义详见源码
+
+## 备案信息自定义
+```xml _config.yml
+# -------------------------------------------------------------
+# footer_custom Settings
+# ---------------------------------------------------------------
+beian:
+  enable: true
+  gov: 湘公网安备 43030402000254号
+  recordcode: 43030402000254
+  icp: 湘ICP备18020535号
+```
+## 文字抖动特效
+<div class="shaky">(づ●'◡'●)づ ❥内容区</div>
+
+```xml 使用方法
+<div class="shaky">(づ●'◡'●)づ ❥内容区</div>
+```
+
+## 左下角微信公众号
+```xml 替换为自己的二维码
+\source\css\_custom\customs.styl  
+```
 
 ## 相关文章收纳
 加入H5标签，实现可收纳功能，点击查看详情。
@@ -68,7 +97,7 @@ git clone https://github.com/Lruihao/hexo-theme-next themes/next
 ## Chat Services
 > 共chatra,tidio,daovoice三个选项，三选一
 
-```swig config.swig
+```swig _config.swig
 # Chatra Support
 # See: https://chatra.io
 # Dashboard: https://app.chatra.io/settings/general

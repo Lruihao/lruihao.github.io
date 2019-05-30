@@ -68,11 +68,7 @@
                     <span class="repost">转</span>
                 {% endif %}
                 {{- post.title -}}
-                {% if theme.post_edit.enable -%}
-                  <a href="{{ theme.post_edit.url }}{{ post.source.slice(7) }}" class="post-edit-link" title="{{ __('post.edit') }}" target="_blank">
-                    <i class="fa fa-pencil"></i>
-                  </a>
-                {%- endif %}
+                {% include '../_partials/post-edit.swig' %}
               {% endif %}
             {% endif %}
           </{% if theme.seo %}h2{% else %}h1{% endif %}>
