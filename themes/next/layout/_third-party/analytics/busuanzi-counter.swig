@@ -11,7 +11,7 @@
     </span>
   {% endif %}
 
-  {% if theme.busuanzi_count.run_time %}
+  {% if theme.run_time.enable %}
     <span class="post-meta-divider">|</span>
     <span id="timeDate" title="网站运行时间">载入天数...</span><span id="times" title="网站运行时间">载入时分秒...</span>
   {% endif %}
