@@ -22,14 +22,30 @@ permalink:
 <!--more-->
 ### hexo插件
 
+#### hexo-ruby-marks
+> 不支持`ruby`新标签的浏览器将显示`rp`中的内容。
+
+```xml HTML5写法
+<ruby>博採眾長<rp>（</rp> <rt>lruihao.cn</rt><rp>）</rp></ruby>
+```
+<ruby>博採眾長<rp>（</rp> <rt>lruihao.cn</rt><rp>）</rp></ruby>
+
+**插件使用**
+```bash 安装
+npm i hexo-ruby-marks
+```
+```xml 使用
+{% ruby _**base**_|_**top text**_ %}
+```
+{% ruby 博採眾長|lruihao.cn %}
+
 #### [hexo-pwa](https://github.com/lavas-project/hexo-pwa)
-##### 安装
-```ball
+```ball 安装
 npm install --save hexo-pwa
 ```
-##### 配置
-You can configure this plugin in `_config.yml`.(配置完即可使用不许单独设置`manifest.json`文件及配置，插件生成)
-```
+
+> You can configure this plugin in `_config.yml`.(配置完即可使用不许单独设置`manifest.json`文件及配置，插件生成)
+``` 配置
 pwa:
   manifest:
     path: /manifest.json
@@ -66,12 +82,11 @@ pwa:
 ```
 #### hexo-tag-dplayer
 [hexo-tag-dplayer](https://github.com/MoePlayer/hexo-tag-dplayer)
-##### npm install
-```
+
+```bash install
 npm install hexo-tag-dplayer --save
 ```
-##### Usage
-```
+```xml Usage
 {% dplayer key=value ... %}
 ```
 key can be 
@@ -86,25 +101,21 @@ other:
     'code' : value of this key will be append to script tag
 ```
 
-##### example
-```
+```xml example
 {% dplayer "url=https://moeplayer.b0.upaiyun.com/dplayer/hikarunara.mp4" "addition=https://dplayer.daoapp.io/bilibili?aid=4157142" "api=https://api.prprpr.me/dplayer/" "pic=https://moeplayer.b0.upaiyun.com/dplayer/hikarunara.jpg" "id=9E2E3368B56CDBB4" "loop=yes" "theme=#FADFA3" "autoplay=false" "token=tokendemo" %}
 ```
-{% dplayer "url=https://player.youku.com/embed/XMzY0MzgxNDMyOA==" "addition=https://dplayer.daoapp.io/bilibili?aid=4157142" "api=https://api.prprpr.me/dplayer/" "pic=https://ziyuan.lruihao.cn/images/site-meta.jpg" "id=9E2E3368B56CDBB4" "loop=yes" "theme=#FADFA3" "autoplay=false" "token=tokendemo" %}
+{% dplayer url="https://ziyuan.lruihao.cn/public/hey.mp4" width="100%" height="400px" %}
 
 #### hexo-tag-aplayer
 [more](https://github.com/MoePlayer/hexo-tag-aplayer)
-##### 安装
-```
+```bash 安装
 npm install --save hexo-tag-aplayer
 ```
-##### 使用
-
-```
+```xml 使用
 {% aplayer title author url [picture_url, narrow, autoplay, width:xxx, lrc:xxx] %}
 ```
 
-##### 标签参数
+**标签参数**
 
 - `title` : 曲目标题
 - `author`: 曲目作者
@@ -130,14 +141,11 @@ npm install --save hexo-tag-aplayer
 
 #### hexo-filter-flowchart(流程图)
 [语法](https://flowchart.js.org)
-##### install
-```bash
+```bash install
 npm install --save hexo-filter-flowchart
 ```
 
-##### Usage
-
-````
+````xml Usage
 ```%flow #去掉%号
 st=>start: Start|past:>https://lruihao.cn[blank]
 e=>end: End:>https://www.lruihao.cn[blank]
@@ -176,8 +184,8 @@ c2(no)->op2->e
 ```
 
 #### hexo-spoiler
-##### Install
-```bash
+
+```bash Install
 npm install hexo-spoiler --save
 ```
 > If hexo can't detect this plugin automatically, you need to modify the `plugins` section of `[path_to_your_site]/_config.yml` manually, like:
@@ -187,16 +195,14 @@ plugins:
  - hexo-spoiler
 ```
 
-##### Syntax
-```plain
+```plain Syntax
 {% spoiler [text] %}
 ```
 >It will pixelate your text, and click to reveal. Click again to hide your text again.
 >But you need to add `<br>` manually if you want line breaks after/before it.
 
-##### Preview
 When you writes:
-```plain
+```plain Preview
 {% spoiler text %}
 {% spoiler ~~text~~ %}
 {% spoiler *text* %}
@@ -208,6 +214,7 @@ When you writes:
 {% spoiler *text* %}
 {% spoiler **text** %}<br>
 {% spoiler **hello welcome to 博採眾長！** %}
+
 
 ### 宅音乐侧栏播放器插件
 [体验](https://player.lruihao.cn)

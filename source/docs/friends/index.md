@@ -10,7 +10,7 @@ date: 2018-09-28 18:29:20
 |[鲸落oh](https://hexiongbiao.cn)|又一个被我带入坑的小伙子！|
 |[francs's blog](https://postgres.fun)|PostgreSQL中文网。数据库。francs.top|
 |[赵俊的博客](http://www.zhaojun.im)| java 干货, VPS 知识, 软件推荐等。valine-admin👍|
-|[Nice's Blog](https://luotaocheng.github.io)|湖工大通信工程|
+|[Higher's blog](https://luotaocheng.github.io)|罗陶成，湖南工业大学通信工程|
 |[hojun](https://www.hojun.cn)|一个好奇的博客。前端开发|
 |[酱油哥](https://enfangzhong.github.io)|机器学习，SQL|
 |[小情书](https://lancelik.github.io)|坐标上海，前后端工程师|
