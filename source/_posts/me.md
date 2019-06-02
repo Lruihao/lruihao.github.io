@@ -9,8 +9,8 @@ abstract:
 message:
 description:
 keywords:
-top: 11
-sticky: true
+top:
+sticky: false
 author:
 permalink:
 noreward: true
