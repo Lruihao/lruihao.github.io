@@ -16,7 +16,11 @@ author:
 permalink:
 ---
 
-前面有一篇文章写到一些[传送门](https://lruihao.cn/termux/termux.html)
+{% note danger no-icon %}
+前面有一篇文章写到一些,[在 Android 上搭建 hexo 博客](https://lruihao.cn/posts/termux.html)
+**本文当初摘要自[国光个人博客](https://www.sqlsec.com/2018/05/termux.html?yyue=a21bo.50862.201879)**
+如若作者博客IP被墙，可前往国光第三方博客诸如csdn等。[备用](https://www.freebuf.com/geek/170510.html)
+{% endnote %}
 
 ### 初始化
 下载并初始化termux

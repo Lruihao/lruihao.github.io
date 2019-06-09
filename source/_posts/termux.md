@@ -48,8 +48,8 @@ cd blog
 [超详细教程](https://my.oschina.net/ryaneLee/blog/638440)
 
 ## 效果图(未连接github，coding等)
-![](https://wx1.sinaimg.cn/mw690/006vSs63gy1ft2a0jo3hmj30u01hcguh.jpg)
-![](https://wx4.sinaimg.cn/mw690/006vSs63gy1ft2a0kmm5xj30u01hcn2a.jpg)
-![](https://wx3.sinaimg.cn/mw690/006vSs63gy1ft2a0lqt61j30u01hctla.jpg)
-![](https://wx2.sinaimg.cn/mw690/006vSs63gy1ft2a0mgkm6j30u01hc78l.jpg)
+[效果图1](https://wx1.sinaimg.cn/mw690/006vSs63gy1ft2a0jo3hmj30u01hcguh.jpg)
+[效果图2](https://wx4.sinaimg.cn/mw690/006vSs63gy1ft2a0kmm5xj30u01hcn2a.jpg)
+[效果图3](https://wx3.sinaimg.cn/mw690/006vSs63gy1ft2a0lqt61j30u01hctla.jpg)
+[效果图4](https://wx2.sinaimg.cn/mw690/006vSs63gy1ft2a0mgkm6j30u01hc78l.jpg)
 
