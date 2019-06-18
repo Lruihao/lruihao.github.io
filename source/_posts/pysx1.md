@@ -25,7 +25,7 @@ repost:
 {% note info no-icon %}
 以前和前一段时间自己也学习了一下python，也写了几个小爬虫；
 这次正好又课程安排了为期两周的综合实训，主要是**“用python做量化交易”**
-进行了两天，讲的都是一些基本的东西，以前也接触过，所以不是很容易理解。还讲了一些软件，pycharm，anaconda,sublime等大都也都用过。anaconda倒是第一次接触。
+进行了两天，讲的都是一些基本的东西，以前也接触过，所以很容易理解。还讲了一些软件，pycharm，anaconda,sublime等大都也都用过。anaconda倒是第一次接触。
 {% endnote %}
 
 <!--more-->
