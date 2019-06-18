@@ -31,12 +31,11 @@ repost:
 <!--more-->
 
 ## 第一天
-> 讲了一下变量和python的特色什么的。
-还讲了模块定义`def`和类定义
-
 ```py
 print("Hello World!")
 ```
+> 讲了一下变量和python的特色什么的。
+还讲了模块定义`def`和类定义
 
 ```py
 class zxm():
