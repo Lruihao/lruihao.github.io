@@ -81,7 +81,7 @@ print('{0} 的平方根为 {1:0.3f}+{2:0.3f}j'.format(num ,num_sqrt.real,num_sqr
 - 字符串： `""` `''`
 - 元组tuple(2,3) 
 - 列表list[2,3]
-- 字典{Key:Value}
+- 字典dict{Key:Value}
 - 集合{}
 
 ```py
