@@ -60,6 +60,16 @@ keywords: [李瑞豪,博採眾長,李瑞豪的博客,hexo,博客档案,bugs,维�
 > 日常BUG记录，欢迎大家找出其他bug!
 > 还有好多好多bug，越改越多...
 
+## leancloud.cn 解析失败
+**问题描述：**
+通过原leancloud发了通知邮件得知，阿里得到一个行政命令，使得一批域名设置为`ClientHold`状态，`leancloud.cn`和`*.lncld.net`就在其中。感觉这次对leancloud是一次不小的影响了。
+
+这导致了leancloud的sdk,及一些api接口都失效。自然valine就用不了，官方还在协商解决，目前给的一个新的域名[avoscloud.com](https://avoscloud.com)。
+
+**解决办法：**
+对于博客的评论和计数，可以暂时先改回`livere`+不蒜子的组合。或者将`av-min.js`下载到本地替换原来的js地址。
+valine官方已经做了修正，目前可以正常使用。
+
 ## leancloud Cron定时解析错误
 **问题描述：**
 比如定时唤醒任务`0 0/20 7-23 * * ?`，表示每天7到23点，每个小时每20分钟启动一次任务。

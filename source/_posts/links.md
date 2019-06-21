@@ -66,7 +66,7 @@ sticky: false
 |[w3cschool](https://www.w3cschool.cn)|和上面不同哦，是不是和上面的很像哈哈哈！我估计是上一个网站的新版，功能更强大，内容更丰富，还有微信小程序教程等|
 |[菜鸟教程](https://www.runoob.com)|和上面两个差不多，还有一些数据库、安卓的东西，git学习|
 |[python学习](http://www.pythontip.com)|Python库安装包下载,python,Django,HTML,ACM学习|
-|[python123](https://python123.io)|Python123 是专注于为中国高等院校教学 Python 语言的而开发的一款学习工具网站|
+|[python123](https://python123.io)|Python123 是专注于为中国高等院校教学 Python 语言的而开发的一款学习工具网站[python学习](https://python123.io/index/notebooks/python_programming_basic_v2/%E6%BA%90%E4%BB%A3%E7%A0%81/2-1%20%E5%9F%BA%E6%9C%AC%E7%9A%84%E6%B8%A9%E5%BA%A6%E8%BD%AC%E6%8D%A2%E7%A8%8B%E5%BA%8F?from=Python%E8%AF%AD%E8%A8%80%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E5%9F%BA%E7%A1%80%28%E7%AC%AC2%E7%89%88%29)|
 |[优矿](https://uqer.io)|python在线测试，笔记|
 |[廖雪峰](https://www.liaoxuefeng.com)|git,python,javascript学习|
 |[新晴网](http://www.sioe.cn)|PS学习，摄影教程等|
