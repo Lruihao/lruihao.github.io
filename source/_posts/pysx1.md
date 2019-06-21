@@ -30,7 +30,7 @@ repost:
 
 <!--more-->
 
-## 第一天
+## 6.17
 ```py
 print("Hello World!")
 ```
@@ -54,7 +54,7 @@ print(my_zxm)
 <__main__.zxm object at 0x000001D99CFEF668>
 ```
 
-## 第二天
+## 6.18
 ### 输入输出
 > `print` 输出  
 `input` 输入  
