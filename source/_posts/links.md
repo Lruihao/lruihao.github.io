@@ -67,6 +67,7 @@ sticky: false
 |[菜鸟教程](https://www.runoob.com)|和上面两个差不多，还有一些数据库、安卓的东西，git学习|
 |[python学习](http://www.pythontip.com)|Python库安装包下载,python,Django,HTML,ACM学习|
 |[python123](https://python123.io)|Python123 是专注于为中国高等院校教学 Python 语言的而开发的一款学习工具网站[python学习](https://python123.io/index/notebooks/python_programming_basic_v2/%E6%BA%90%E4%BB%A3%E7%A0%81/2-1%20%E5%9F%BA%E6%9C%AC%E7%9A%84%E6%B8%A9%E5%BA%A6%E8%BD%AC%E6%8D%A2%E7%A8%8B%E5%BA%8F?from=Python%E8%AF%AD%E8%A8%80%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E5%9F%BA%E7%A1%80%28%E7%AC%AC2%E7%89%88%29)|
+|[pypi](https://pypi.org/)|Find, install and publish Python packages with the Python Package Index|
 |[优矿](https://uqer.io)|python在线测试，笔记|
 |[廖雪峰](https://www.liaoxuefeng.com)|git,python,javascript学习|
 |[新晴网](http://www.sioe.cn)|PS学习，摄影教程等|
@@ -135,6 +136,7 @@ sticky: false
 |[百度接口](https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=)|百度搜索关键词接口|
 |[在线短信](https://www.pdflibr.com/)|不想泄露个人的电话号码，注册一些一次性网站可以用到|
 |[配音阁](http://www.peiyinge.com/)|文字转换语音/语音合成广告_叫卖录音_在线配音网络软件_促销宣传片配音-配音阁-配音阁,国内专业的广告配音平台|
+|[hacknical](https://hacknical.com)|在线个性简历，个人Github总结分析|
 
 # 其他
 |链接|描述|

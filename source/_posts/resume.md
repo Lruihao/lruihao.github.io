@@ -20,7 +20,7 @@ repost:
 
 
 {% note info %}
-请用电脑浏览!
+请用电脑浏览! [在线简历](https://hacknical.com/Lruihao/resume)
 {% endnote %}
 <!--more-->
 {% pdf /posts/me/李瑞豪.pdf %}
