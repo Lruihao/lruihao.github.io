@@ -69,7 +69,8 @@ keywords: [李瑞豪,博採眾長,李瑞豪的博客,hexo,博客档案,bugs,维�
 **解决办法：**
 1. 对于博客的评论和计数，可以暂时先改回`livere`+不蒜子的组合。
 或者将leancloud的`av-min.js`下载到本地替换原来的js地址。
-2. 另外valine官方也以此方法做了修正，在`v1.37`版本中引入了leancloud的api，需要使用valine最新的cdn，并把原来的leancloud的av-min.js引入删除即可正常使用。
+2. 另外valine官方也以此方法做了修正，在`v1.3.7`版本中引入了leancloud的api，需要使用valine最新的cdn，并把原来的leancloud的av-min.js引入删除即可正常使用。
+（**6.25 leancloud域名已恢复**）
 
 ## leancloud Cron定时解析错误
 **问题描述：**
