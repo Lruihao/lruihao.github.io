@@ -43,8 +43,8 @@ npm i hexo-ruby-marks
 ```ball 安装
 npm install --save hexo-pwa
 ```
-
 > You can configure this plugin in `_config.yml`.(配置完即可使用不许单独设置`manifest.json`文件及配置，插件生成)
+
 ``` 配置
 pwa:
   manifest:
