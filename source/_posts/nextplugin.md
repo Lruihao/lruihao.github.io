@@ -16,7 +16,7 @@ permalink:
 ---
 
 {% note info %}
-让文章写的好看又简洁又好用的插件！
+让文章写的好看又简洁又好用的插件！[hexo完整的标签列表](https://hexo.io/zh-cn/docs/tag-plugins.html)，[next插件列表](https://theme-next.org/docs/tag-plugins/)
 {% endnote %}
 
 <!--more-->
