@@ -4,7 +4,7 @@
 {% if theme.vendors.leancloud %}
   {% set leancloud_uri = theme.vendors.leancloud %}
 {% endif %}
-<!--<script src="{{ leancloud_uri }}"></script>-->
+<script src="{{ leancloud_uri }}"></script>
 
 {% set valine_uri = '//unpkg.com/valine/dist/Valine.min.js' %}
 {% if theme.vendors.valine %}
