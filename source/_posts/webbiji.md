@@ -70,7 +70,9 @@ notshow:
 ```
 
 # jquery源
-```java jquery
+```xml jquery
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
 <script src="https://lib.sinaapp.com/js/jquery/2.0.2/jquery-2.0.2.min.js"></script>
 
 <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
@@ -92,6 +94,13 @@ https://fonts.google.com/
 一般选用国内源镜像替代（待补充...）
 + https://fonts.loli.net
 + //fonts.lug.ustc.edu.cn
+```
+
+# fancybox
+[github介绍](https://github.com/fancyapps/fancybox)&emsp;[fancybox源](https://www.bootcdn.cn/fancybox/)
+```xml fancybox源
+<link href="https://cdn.bootcss.com/fancybox/3.5.7/jquery.fancybox.min.css" rel="stylesheet">
+<script src="https://cdn.bootcss.com/fancybox/3.5.7/jquery.fancybox.min.js"></script>
 ```
 
 
