@@ -95,6 +95,8 @@ sticky: false
 # 前端工具
 |链接|描述|
 |:--|:--|
+|[BootCDN](https://www.bootcdn.cn/)|稳定、快速、免费的前端开源项目CDN加速服务，共收录了 3441 个前端开源项目。比如`vue`,`fancybox`等|
+|[bootstrap中文网](https://www.bootcss.com)|简洁、直观、强悍的前端开发框架，让web开发更迅速、简单。还有一些基于bootstrap开发或扩充的项目的cdn，`BootCDN`也是在该网站旗下|
 |[easyicon图标库](https://www.easyicon.net)|图标下载，格式转换，可外链|
 |[semantic-ui.com图标库](https://semantic-ui.com/elements/icon.html)|semantic-ui.com还有很多前端样式对应代码|
 |[Font Awesome图标库](https://fontawesome.com/icons?d=gallery)|hexo指定图标库|
