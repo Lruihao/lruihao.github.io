@@ -18,6 +18,7 @@ date: 2018-09-28 18:29:20
 |[mythsman](http://blog.mythsman.com)|hexo-douban插件开发者，坐标上海拼多多//博客看起来是个很有生活感与学习感的地方|
 |[孤舟leng](https://blleng.cn)|记录一些有趣的技术，分享算法和一些想法|
 |[在线分享网](https://www.52share.online)|技术分享与学习交流|
+|[wizzie blog](https://wizzie.top/)|“Brave, Confident, Come on!”|
 <!--|[猴子笔记](https://monkeyip.github.io)|数据开发，数据分析，数据挖掘等|-->
 
 <br>
