@@ -221,8 +221,28 @@ When you writes:
 > 目前在next中可能引起部分css冲突，建议在next中使用在单个页面中。
 依赖于jQuery，一行js可以引入播放器插件。
 
+### button
+[more info](https://theme-next.org/docs/tag-plugins/button)
+```
+{% button url, text, icon [class], [title] %}
+<!-- Tag Alias -->
+{% btn url, text, icon [class], [title] %}
+
+url     : Absolute or relative path to URL.
+text    : Button text. Required if no icon specified.
+icon    : FontAwesome icon name (without 'fa-' at the begining). Required if no text specified.
+[class] : FontAwesome class(es): fa-fw | fa-lg | fa-2x | fa-3x | fa-4x | fa-5x
+          Optional parameter.
+[title] : Tooltip at mouseover.
+          Optional parameter.
+```
+```
+<div class="text-center">{% btn #, Text & Large Icon & Title, home fa-fw fa-lg, Title %}</div>
+```
+<div class="text-center">{% btn #, Text & Large Icon & Title, home fa-fw fa-lg, Title %}</div>
+
 ### Mermaid
-[more info](https://theme-next.org/docs/tag-plugins/mermaid.html)
+[more info](https://theme-next.org/docs/tag-plugins/mermaid)
 
 example
 ```
@@ -273,11 +293,34 @@ merge newbranch
 {% video /path/to/your/video.mp4 %}
 ```
 
-### 选项卡
+### tab选项卡
 
 > "tab"为选项卡的名称，可以自定义，数字是几表示从第几个选项卡开始。非必须，若数值为-1则隐藏选项卡内容。
-> [查看更多](https://almostover.ru/2016-01/hexo-theme-next-test)
+> [查看更多](https://theme-next.org/docs/tag-plugins/tabs)
 
+```
+{% tabs Unique name, [index] %}
+<!-- tab [Tab caption] [@icon] -->
+Any content (support inline tags too).
+<!-- endtab -->
+{% endtabs %}
+
+Unique name   : Unique name of tabs block tag without comma.
+                Will be used in #id's as prefix for each tab with their index numbers.
+                If there are whitespaces in name, for generate #id all whitespaces will replaced by dashes.
+                Only for current url of post/page must be unique!
+[index]       : Index number of active tab.
+                If not specified, first tab (1) will be selected.
+                If index is -1, no tab will be selected. It's will be something like spoiler.
+                Optional parameter.
+[Tab caption] : Caption of current tab.
+                If not caption specified, unique name with tab index suffix will be used as caption of tab.
+                If not caption specified, but specified icon, caption will empty.
+                Optional parameter.
+[@icon]       : FontAwesome icon name (without 'fa-' at the begining).
+                Can be specified with or without space; e.g. 'Tab caption @icon' similar to 'Tab caption@icon'.
+                Optional parameter.
+```
 ```
 {% tabs tab,2 %}
 <!-- tab -->
