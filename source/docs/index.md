@@ -31,30 +31,44 @@ keywords: [李瑞豪,博採眾長,李瑞豪的博客,hexo,博客档案,bugs,维�
 # 维护记录
 {% tabs 维护日志,1 %}
 <!-- tab 博客日志 -->
-<li>**2019.05.28** \-\- 博客搭建一周年</li>&emsp;一年的时间，博客累积访客数`19k+`、访问量`52k+`、文字`92.2k`。
 
-<li>**2019.05.27** \-\- 加入`PWA`功能（`Manifest`、`Service workers`）</li>&emsp;pwa的离线功能加上`quicklink`使之前使用fas封装的博客APP体验更佳！
-
-<li>**2019.05.16** \-\- `ImgURL图床--lruihao.cn`</li>&emsp;基于开源图床`ImgURL`在阿里云学生服务器上搭建自己的图床。[ImgURL图床\-\-lruihao.cn](https://img.lruihao.cn)
-
-<li>**2019.04.07** \-\- 更改博客文章路径</li>&emsp;所有博文都放在了`/posts/`目录里。
-
-<li>**2019.03.21** \-\- caddy云盘退役</li>&emsp;原腾讯云服务器过期，在其搭建的caddy云盘失效；后购买了阿里云的学生服务器：
-&emsp;1. 云盘换做了可道云
-&emsp;2. 根据github开源宅音乐搭建了[宅音乐播放器插件](https://player.lruihao.cn)
-
-<li>**2019.01.22** \-\- 更换腾讯云对象存储</li>&emsp;可能存储方式的不同，每个目录的访问必须以`/`结尾。比如`lruihao.cn/about`是无法访问的，得访问`lruihao.cn/about/`
-
-<li>**2019.01.12** \-\- 博客UV过万</li>
-<img src="/docs/images/uv10k.png" width="45%" align="left" alt="uv10k" />
+<ul>
+<li>**2019.08.15** \-\- 博客累积文字达到`103.8k`,首次突破十万字。</li>
+<li>**2019.05.28** \-\- 博客搭建一周年
+  一年的时间，博客累积访客数`19k+`、访问量`52k+`、文字`92.2k`。
+</li>
+<li>**2019.05.27** \-\- 加入`PWA`功能（`Manifest`、`Service workers`）
+  pwa的离线功能加上`quicklink`使之前使用fas封装的博客APP体验更佳！
+</li>
+<li>**2019.05.16** \-\- `ImgURL图床--lruihao.cn`
+  基于开源图床`ImgURL`在阿里云学生服务器上搭建自己的图床。[ImgURL图床\-\-lruihao.cn](https://img.lruihao.cn)
+</li>
+<li>**2019.04.07** \-\- 更改博客文章路径
+  所有博文都放在了`/posts/`目录里。
+</li>
+<li>**2019.03.21** \-\- caddy云盘退役
+  原腾讯云服务器过期，在其搭建的caddy云盘失效；后购买了阿里云的学生服务器：
+  1. 云盘换做了可道云
+  2. 根据github开源宅音乐搭建了[宅音乐播放器插件](https://player.lruihao.cn)
+</li>
+<li>**2019.01.22** \-\- 更换腾讯云对象存储
+  可能存储方式的不同，每个目录的访问必须以`/`结尾。比如`lruihao.cn/about`是无法访问的，得访问`lruihao.cn/about/`
+</li>
+<li>**2019.01.12** \-\- 博客UV过万
+<img src="/docs/images/uv10k.png" style="width: 45%;float:left;" alt="uv10k" />
+</li>
 <div style="clear: both;"></div>
 <li>**2018.10.29** \-\- 网站ICP和公安备案完成</li>
 <li>**2018.08.28** \-\- 第一次收到[france](https://postgres.fun)支持 [赞助记录](/docs/donators/)</li>
-<li>**2018.09.05** \-\- 博客一百天，PV过万</li>
-<img src="/posts/day-100/100.png" width="45%" align="left" alt="day-100" />
+<li>**2018.09.05** \-\- 博客一百天，PV过万
+<img src="/posts/day-100/100.png" style="width: 45%;float:left;" alt="day-100" />
+</li>
 <div style="clear: both;"></div>
-<li>**2018.06 ~ 2018.09** \-\- 接入百度站长，seo优化，加入评论、客服、访客统计等。创建[RUI豪小栈](https://www.lruihao.cn)</li>
+<li>**2018.06 ~ 2018.09** \-\- 接入百度站长，seo优化，加入评论、客服、访客统计等。创建[RUI豪小栈](https://www.lruihao.cn)
+</li>
 <li>**2018.05.28 20:01:01** \-\- 博客诞生 [博客搭建及美化教程](/categories/hexo/)</li>
+</ul>
+
 <!-- endtab -->
 <!-- tab 维护记录 -->
 > 日常BUG记录，欢迎大家找出其他bug!
