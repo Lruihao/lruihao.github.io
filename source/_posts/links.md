@@ -19,7 +19,7 @@ sticky: false
 |文章|概括|
 |:--|:--|
 |[博客日志与档案](/docs/)|博客日志与档案记录，包括分类，标签，热门，访问量等|
-|[个人简历](/posts/me.html)|个人简历网页PDF版本|
+|[个人简历](/posts/resume.html)|个人简历网页PDF版本|
 |[hexo-theme-next @modified LRH](/posts/hexo-theme-next.html)|对next主题的DIY设计记录日志|
 |[Web笔记](/posts/webbiji.html)|记录一下自己web相关学习的笔记|
 |[hexo 插件及 next 内置样式集](/posts/nextplugin.html)|让文章写的好看又简洁又好用的插件！[hexo更多请看分类](https://lruihao.cn/categories/hexo/)|
