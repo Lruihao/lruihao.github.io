@@ -5,7 +5,6 @@ date: 2018-09-28 18:29:20
 
 |<center>链接</center>|<center>描述</center>|
 |:--|:--|
-|[戎码人生](http://qiuchengjia.cn)|邱承佳学长ACM,java,安卓等，还有搭这个博客的启发|
 |[愛如潮水](https://recell.github.io)|蒙镛、老铁,一句两句说不清|
 |[鲸落oh](https://hexiongbiao.cn)|又一个被我带入坑的小伙子！|
 |[francs's blog](https://postgres.fun)|PostgreSQL中文网。数据库。francs.top|
@@ -20,7 +19,7 @@ date: 2018-09-28 18:29:20
 |[在线分享网](https://www.52share.online)|技术分享与学习交流|
 |[wizzie blog](https://wizzie.top/)|“Brave, Confident, Come on!”|
 |[木槿博客](https://www.xiaomujin.club/)|记录生活，记录故事。\-\-囊中羞涩，不知市井繁华。|
-<!--|[猴子笔记](https://monkeyip.github.io)|数据开发，数据分析，数据挖掘等|-->
+<!-- |[戎码人生](http://qiuchengjia.cn)|邱承佳学长ACM,java,安卓等，还有搭这个博客的启发| -->
 
 <br>
 {% note info no-icon %}
