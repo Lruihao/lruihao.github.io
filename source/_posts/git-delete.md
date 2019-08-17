@@ -96,3 +96,5 @@ git mv <old_path> <new_path>
 #### 其他
 - 版本退回是从本地仓库到暂存区，如果已经提交远程库，此时的版本是低于最新的版本的会拒绝提交，需要用`git push -f origin master`强制提交。
 - 分支合并也是在本地完成，新的分支只有在合并后才允许被删除。
+
+* [Gearn Git Branching](https://learngitbranching.js.org/)
