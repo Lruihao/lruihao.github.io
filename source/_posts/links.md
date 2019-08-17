@@ -95,6 +95,8 @@ sticky: false
 # 前端工具
 |链接|描述|
 |:--|:--|
+|[全栈开发者](http://www.jser.com/)|顾名思义，有很多web开发的教程，也可以在线执行代码|
+|[JSFuck](http://www.jsfuck.com)|JSFuck是一种基于JavaScript原子部分的深奥教育编程风格。它只使用六个不同的字符来编写和执行代码。(代码极丑化)|
 |[BootCDN](https://www.bootcdn.cn/)|稳定、快速、免费的前端开源项目CDN加速服务，共收录了 3441 个前端开源项目。比如`vue`,`fancybox`等|
 |[bootstrap中文网](https://www.bootcss.com)|简洁、直观、强悍的前端开发框架，让web开发更迅速、简单。还有一些基于bootstrap开发或扩充的项目的cdn，`BootCDN`也是在该网站旗下|
 |[easyicon图标库](https://www.easyicon.net)|图标下载，格式转换，可外链|
@@ -106,6 +108,7 @@ sticky: false
 |[HTML字符实体](https://blog.csdn.net/u013778905/article/details/53177042)|网页特殊符号大全|
 |[encycolorpedia](https://encycolorpedia.cn)|encycolorpedia取色器|
 |[特效字转换工具集](http://www.sioe.cn/yingyong)|各种特效字转换工具,彩虹字生成器,RGB转16进制颜色等|
+|[colorhunt](https://colorhunt.co/)|配色方案推荐，调试|
 |[gradient渐变色调色](http://gradient.awesomes.cn)|渐变色调色，获取代码|
 |[优酷视频上传](https://sc.youku.com/)|获取视频外链，其他：腾讯视频|
 |[sm.ms](https://sm.ms)|非常好用的图床|
@@ -123,8 +126,10 @@ sticky: false
 # 实用工具
 |链接|描述|
 |:--|:--|
+|[Gearn Git Branching](https://learngitbranching.js.org/)|通过游戏闯关的方式学习git！|
 |[PicGo](https://picgo.github.io/PicGo-Doc/zh/)|一个很好的开源的图床管理桌面程序，图床神器支持微博图床、七牛图床、腾讯云COS、又拍云、GitHub图床、阿里云OSS、Imgur图床等等|
 |[Proxyee Down](https://github.com/proxyee-down-org/proxyee-down)|百度云下载解决方案，满速下载，但不限于百度云的下载，感觉比迅雷还好用！|
+|[PanDownload](https://www.baiduwp.com/)|这是pandownload网页版，把需要下载的百度网盘链接`baidu`改成`baiduwp`即可加速，也有桌面版。|
 |[ubuntu pastebin](https://paste.ubuntu.com)|代码展示托管，生成分享网址，防止代码直接分享缩进消失|
 |[图片转字符工具](https://picascii.com)|Img-->String|
 |[everyfont](http://everyfont.enjoyfe.com)|中文字库在线压缩|
@@ -134,6 +139,7 @@ sticky: false
 |[在线工具](https://123.w3cschool.cn/webtools)|w3cschool的在线工具集合|
 |[在线工具](https://tool.oschina.net)|开源中国社区|
 |[菜鸟工具](https://c.runoob.com)|[菜鸟教程](https://www.runoob.com)在线工具，编译，加密，压缩代码等|
+|[msdn](http://msdn.itellyou.cn/)|windows系统上office等软件下载(备用)|
 |[老殁科技](https://www.laomoit.com/)|Adobe等各种绿色破解软件|
 |[百度接口](https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=)|百度搜索关键词接口|
 |[在线短信](https://www.pdflibr.com/)|不想泄露个人的电话号码，注册一些一次性网站可以用到|
