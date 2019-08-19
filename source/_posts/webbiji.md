@@ -10,6 +10,9 @@ abstract:
 message:
 description:
 keywords:
+- html/css
+- 前端
+- 后端
 top:
 sticky:
 author:
@@ -23,9 +26,11 @@ notshow:
 {% endnote %}
 
 <!--more-->
+
+# front-end
 > - [HTML+CSS](https://lruihao.cn/posts/ms-html-css.html)
 
-# 图床方案
+## 图床方案
 
 > - 自行搭建
 比如使用开源图床ImgURL搭建的`img.lruihao.cn`（**需要服务器**）
@@ -34,19 +39,25 @@ notshow:
 诸如sm.ms，腾讯云COS，阿里云OSS，七牛云，又拍云，Github，微博图床，ImgURL图床等等
 
 
-# 图标使用
-```java font-waesome
+## font-awesome
+```xml font-awesome
 <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css">
  ```
 
-# 响应式（自适应）
-```java bootstrap
+## 响应式（自适应）
+
+```xml bootstrap
 <link rel="stylesheet" href="https://apps.bdimg.com/libs/bootstrap/3.3.4/css/bootstrap.min.css">
 <script src="https://apps.bdimg.com/libs/bootstrap/3.3.4/js/bootstrap.min.js">
 ```
-```java 不引入js
+```xml 不引入js
 <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=0">
 ```
+
+> - .col-xs- 超小屏幕 手机 <768px
+- .col-sm- 小屏幕 平板  >=768px
+- .col-md- 中等屏幕  >=992px
+- .col-lg- 大屏幕  >1200px
 
 ```css css3写法@media (宽度具体调整)
 /* 手机等小屏幕手持设备 */
@@ -69,7 +80,7 @@ notshow:
 <link rel="stylesheet" type="text/css" href="style_PC.css" media="screen and (min-width: 960px)"/>
 ```
 
-# jquery源
+## jquery源
 ```xml jquery
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 
@@ -80,7 +91,8 @@ notshow:
 <script src="http://cdn.bootcss.com/jquery/1.11.0/jquery.min.js"></script>
 //还有其他的源...
 ```
-# QQ推广链接
+
+## QQ推广链接
 > [QQ推广](https://shang.qq.com/v3/widget.html) [QQ群](https://qun.qq.com/join.html)
 
 ```
@@ -88,7 +100,7 @@ notshow:
 ```
 <a target="_blank" href="https://wpa.qq.com/msgrd?v=3&uin=1074627678&site=qq&menu=yes"><img border="0" src="https://wpa.qq.com/pa?p=2:1074627678:51" alt="点击这里给我发消息" title="点击这里给我发消息"/></a>
 
-# Google fonts
+## Google fonts
 ```diff
 https://fonts.google.com/
 一般选用国内源镜像替代（待补充...）
@@ -96,11 +108,11 @@ https://fonts.google.com/
 + //fonts.lug.ustc.edu.cn
 ```
 
-# fancybox
+## fancybox
 [github介绍](https://github.com/fancyapps/fancybox)&emsp;[fancybox源](https://www.bootcdn.cn/fancybox/)
 ```xml fancybox源
 <link href="https://cdn.bootcss.com/fancybox/3.5.7/jquery.fancybox.min.css" rel="stylesheet">
 <script src="https://cdn.bootcss.com/fancybox/3.5.7/jquery.fancybox.min.js"></script>
 ```
 
-
+# back-end
