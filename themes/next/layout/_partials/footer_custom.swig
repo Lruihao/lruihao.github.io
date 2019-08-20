@@ -1,5 +1,3 @@
-
-
 <!--左下角公众号二维码-->
 <div class="weixin-box">
   <div class="weixin-menu">
