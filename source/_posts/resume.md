@@ -23,5 +23,5 @@ repost:
 请用电脑浏览! [在线简历](https://hacknical.com/Lruihao/resume)
 {% endnote %}
 <!--more-->
-{% pdf /posts/resume/李瑞豪.pdf %}
+<iframe src="/posts/resume/李瑞豪.pdf" width="100%" height="800px"></iframe>
 

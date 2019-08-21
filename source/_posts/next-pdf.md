@@ -16,6 +16,10 @@ permalink:
 
 > 最新的next主题已经更新了支持PDF功能，~写法也和链接写法一样~，可是我没有更新，我按github上那个readme试了一下好像不可以，所以用了另外一种插件的方法。
 
+## iframe(推荐)
+```xml
+<iframe src="/posts/resume/李瑞豪.pdf" width="100%" height="800px"></iframe>
+```
 
 ## 模板自带
 > 今天（2019.4.3）又看了一下，改了写法，写法和插件一样，我在我的模板里也更新了。（插件模板二选一即可,个人更喜欢插件）
@@ -33,7 +37,7 @@ hexo.extend.tag.register('pdf', pdf, {ends: false});
 */
 ```
 
-## pdf插件
+## pdf插件(推荐)
 
 ### 安装
 ```bash
