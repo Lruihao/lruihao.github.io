@@ -8,6 +8,8 @@ comments: false
 <center><input type="text" onfocus="&quot;李瑞豪&quot;==value&amp;&amp;(value=&quot;&quot;)" onblur="&quot;&quot;==value&amp;&amp;(value=&quot;李瑞豪&quot;)" name="word" size="35" value="李瑞豪"><input type="submit" value="百度一下" class="btn self-btn bg s_btn"></center>
 </form>
 
+<iframe scrolling="no" src="https://tianqiapi.com/api.php?style=tw&skin=grape&align=center" frameborder="0" width="100%" height="500" allowtransparency="true"></iframe>
+
 <img src="/docs/images/other.jpeg"/>
 <br/>
 <br/>
