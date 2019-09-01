@@ -17,9 +17,10 @@ date: 2018-09-28 18:29:20
 |[mythsman](http://blog.mythsman.com)|hexo-douban插件开发者，坐标上海拼多多//博客看起来是个很有生活感与学习感的地方|
 |[孤舟leng](https://blleng.cn)|记录一些有趣的技术，分享算法和一些想法|
 |[在线分享网](https://www.52share.online)|技术分享与学习交流|
-|[wizzie blog](https://wizzie.top/)|“Brave, Confident, Come on!”|
+|[wizzie's blog](https://wizzie.top/)|“Brave, Confident, Come on!”|
 |[木槿博客](https://www.xiaomujin.club/)|记录生活，记录故事。\-\-囊中羞涩，不知市井繁华。|
 |[星空无限](https://liyangzone.com)|前端开发，骑行爱好者，分享技术、分享生活。|
+|[北宸博客](https://leafjame.github.io)|“Java狮 北漂男 摄影 旅行 赚钱”|
 <!-- |[戎码人生](http://qiuchengjia.cn)|邱承佳学长ACM,java,安卓等，还有搭这个博客的启发| -->
 
 <br>
