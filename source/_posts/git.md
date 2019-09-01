@@ -1,5 +1,5 @@
 ---
-title: git常用指令汇总
+title: Git常用指令汇总
 date: 2018-10-30 18:59:56
 tags: git
 categories: git
@@ -152,7 +152,7 @@ M  README.md
 
 ## diff
 ```
-git diff XX         # 查看XX文件修改了那些内容
+git diff XX         # 查看XX文件修改了哪些内容
 
 git diff            # 工作目录和暂存区
 git diff --cached   # 暂存区和本地仓库
@@ -186,8 +186,7 @@ git submodule update      # 子模组更新
 ```
 {% note primary %}
 当一个远程库有子模组时，直接clone子模组只是一个空文件夹，需要进入子模组的空文件夹`init`和`update`才行。
-或者使用递归克隆`git clone --recursive 远程库`
-
+或者使用递归克隆`git clone --recursive 远程库`  
 子模组更新后，父模组必须更新，因为需要更新commit id。
 {% endnote %}
 
