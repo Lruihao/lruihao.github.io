@@ -10,17 +10,25 @@ description:
 top:
 author:
 permalink:
+photos:
+- /posts/git/relation(2).jpg
+- /posts/git/relation(1).jpg
+- /posts/git/github.jpg
 ---
+
+先通过几张图片来大致了解一下Git的工作原理吧！
+{% asset_img relation(3).jpg 关系图3 %}
 
 # 介绍
 - **工作区**：就是你在电脑里能看到的目录。
 - **暂存区**：英文叫stage, 或index。一般存放在 ".git目录下" 下的index文件（.git/index）中，所以我们把暂存区有时也叫作索引（index）。
 - **版本库**：工作区有一个隐藏目录.git，这个不算工作区，而是Git的版本库。
-
+<!--more-->
 下面这个图展示了工作区、版本库中的暂存区和版本库之间的关系：
 {% asset_img work.jpg 工作区、暂存区和版本库 %}
 
 图中左侧为工作区，右侧为版本库。在版本库中标记为 `"index"` 的区域是暂存区（stage, index），标记为 "master" 的是 master分支所代表的目录树。
+**HEAD指针: 每个git仓库有且仅有一个HEAD指针，它通常指向當前某个活動的本地分支指针(最初本地仓库master)。也可以是某个提交记录、某个tag，但这会让其处于 detached HEAD（游离头）状态，此状态下的所有提交都无效。**
 图中我们可以看出此时 `"HEAD"` 实际是指向 master 分支的一个"游标"。所以图示的命令中出现 HEAD 的地方可以用 master 来替换。
 图中的`objects`标识的区域为 Git 的对象库，实际位于 `".git/objects"` 目录下，里面包含了创建的各种对象及内容。
 当对工作区修改（或新增）的文件执行 `"git add"` 命令时，暂存区的目录树被更新，同时工作区修改（或新增）的文件内容被写入到对象库中的一个新的对象中，而该对象的ID被记录在暂存区的文件索引中。
@@ -43,13 +51,16 @@ git config --list                           # 查看当前用户信息
 ```
 git init                    # 把当前的目录变成可以用git进行版本控制的git仓库，生成隐藏.git文件。
 git add XX                  # 把xx文件添加到暂存区去。
-git add –A                  # git add --all的缩写，提交全部
-git add –a                  # 只提交删除和修改的内容（不包括新增）
+git add –A                  # git add --all的缩写，添加全部到暂存区
+git add –u                  # 把文件的删除和修改添加到暂存区（不包括新增）
 git add .                   # 监控工作区的状态树，使用它会把工作时的所有变化提交到暂存区
-git commit -m "提交信息"     # 从暂存区提交到本地仓库
+git commit -m "message"     # 从暂存区提交到本地仓库
+git commit -a -m "message"  # 相当于省略git add，但是无法提交新增的文件
 git push origin master      # Git会把master分支推送到远程库对应的远程分支上
 ```
-> commit内容规范
+> "commit message"内容尽量规范！
+当某一次提交后，突然想起漏提交了文件，或不小心提交了不满意的代码时，可以使用`git commit --amend -m "message"`指令。它可以在不增加一个新的commit-id的情况下将新修改的代码追加到前一次的commit-id中。提交之后message也将被本次的message覆盖，所以还需要再次添加上次的message。
+
 
 ## push 
 ```
@@ -91,6 +102,7 @@ git fetch               # 从远程库抓下最新版本，但是不合并
 git merge dev           # 在当前的分支上合并dev分支
 ```
 > 分支合并也是在本地完成，新的分支只有在合并后才允许被删除。
+如果分支合并是出现冲突需要解决了冲突才能合并，使用`git status`查看冲突文件。
 
 ## branch,checkout
 ```
@@ -222,7 +234,8 @@ git stash list          # 查看所有被隐藏的文件列表
 
 ## gitk
 ```
-gitk      # git自带GUI
+gitk                    # git自带GUI
+gitk --all
 ```
 
 # 其他
