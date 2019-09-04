@@ -115,8 +115,9 @@ sticky: false
 |[imgURL](https://imgurl.org/)|一个开源的图床，很不错，有兴趣的可以自己尝试搭建,比如[img.lruihao.cn](https://img.lruihao.cn)|
 |[现实君外链](http://wl.uixsj.cn/index.php)|支持多种文件外链，唯一不好的是http|
 |[PEXELS](https://www.pexels.com)|文章配图，无版权美图网，避免配图侵权|
-|[GIF之家](https://tool.gifhome.com/)|一个压缩效果很好且免费的gif压缩工具|
+|[压缩图](https://www.yasuotu.com/)|在线ps，图片去底，证件照换底等操作很方便的web图片处理工具|
 |[改图宝](http://www.gaitubao.com)|在线改图压缩，加水印，生成二维码，印章制作等|
+|[GIF之家](https://tool.gifhome.com/)|一个压缩效果很好且免费的gif压缩工具|
 |[二维码解码器](https://jiema.wwei.cn)||
 |[草料二维码](https://mh.cli.im)|<https://cli.im>|
 |[联图二维码](http://www.liantu.com/meihua)||
