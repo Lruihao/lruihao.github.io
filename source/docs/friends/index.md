@@ -21,6 +21,7 @@ date: 2018-09-28 18:29:20
 |[木槿博客](https://www.xiaomujin.club/)|记录生活，记录故事。\-\-囊中羞涩，不知市井繁华。|
 |[星空无限](https://liyangzone.com)|前端开发，骑行爱好者，分享技术、分享生活。|
 |[北宸博客](https://leafjame.github.io)|“Java狮 北漂男 摄影 旅行 赚钱”|
+|[小丁的个人博客](https://tding.top)|“世间所有的相遇，都是久别重逢”|
 <!-- |[戎码人生](http://qiuchengjia.cn)|邱承佳学长ACM,java,安卓等，还有搭这个博客的启发| -->
 
 <br>
