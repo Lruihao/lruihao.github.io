@@ -30,10 +30,22 @@
       {#################}
       {### PAGE BODY ###}
       {#################}
-
-      <a href="https://tongji.baidu.com/web/welcome/ico?s=d25f1e053205bf07562f33365fef04d7" target="_blank" class="LinkCard">博採眾長百度统计数据预览</a>
       
-      <div id="top"></div>
+      <div class="post-body{% if theme.han %} han-init-context{% endif %}{% if page.direction && page.direction.toLowerCase() === 'rtl' %} rtl{% endif %}">
+        <div id="top">
+          {{ page.content }}
+        </div>
+      </div>
+
+      <style>
+        #top a{
+          color: #555;
+          text-decoration: none;
+          outline: 0;
+          border-bottom: 1px solid #999;
+          word-wrap: break-word;
+        }
+      </style>
       <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
       <script>AV.initialize("{{ theme.valine.appid }}", "{{ theme.valine.appkey }}");</script>
       <script type="text/javascript">
@@ -60,8 +72,6 @@
           });
         },1000)
       </script>
-
-      <div class="post-body{% if theme.han %} han-init-context{% endif %}{% if page.direction && page.direction.toLowerCase() === 'rtl' %} rtl{% endif %}"></div>
       
       {#####################}
       {### END PAGE BODY ###}

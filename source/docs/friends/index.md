@@ -1,6 +1,7 @@
 ---
 title: 友情链接
 date: 2018-09-28 18:29:20
+layout: friends
 ---
 
 |<center>链接</center>|<center>描述</center>|
