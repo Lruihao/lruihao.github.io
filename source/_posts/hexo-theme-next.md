@@ -40,21 +40,21 @@ photos:
 <!--more-->
 主要的几个自定义文件
 ```xml 主要修改路径及文件
-_config.swig					#主题配置文件 相关账户信息自己注册替换
-\layout\custom\head.swig			#在头部自定义加入标签
-\layout\custom\google_adsense.swig		#谷歌广告模块，内有注释暂时弃用
-\layout\_layout.swig				#主布局
-\layout\_macro\post.swig			#文章布局
-\layout\_macro\post-copyright.swig		#文章版权
-\layout\_macro\siderbar.swig			#侧栏模板
-\layout\_third-party\copy-code.swig		#复制按钮
-\layout\_partials\comments.swig			#评论主模板
-\layout\_partials\footer.swig			#底部模板#该模块在layout.swig引入用于在body自定义标签
-\layout\_third-party\custom.swig		#该模块在layout.swig引入用于在body自定义标签
-\source\css\_custom\customs.styl		#主要用户自定义样式表
-\source\fonts\					#引入了一些我的手写体及外部字体
-\scripts\qcloudcdn.js				#腾讯云cos桶刷新缓存的脚本，不需要可删掉[^1]
-\layout\_partials\footer_custom.swig		#footer自定义文件
+_config.swig					                       #主题配置文件 相关账户信息自己注册替换
+\layout\custom\head.swig			               #在头部自定义加入标签
+\layout\custom\google_adsense.swig		       #谷歌广告模块，内有注释暂时弃用
+\layout\_layout.swig				                 #主布局
+\layout\_macro\post.swig			               #文章布局
+\layout\_macro\post-copyright.swig		       #文章版权
+\layout\_macro\siderbar.swig			           #侧栏模板
+\layout\_third-party\copy-code.swig		       #复制按钮
+\layout\_partials\comments.swig			         #评论主模板
+\layout\_partials\footer.swig			           #底部模板#该模块在layout.swig引入，用于在body自定义标签
+\layout\_partials\footer_custom.swig         #footer自定义文件
+\layout\_third-party\custom.swig		         #该模块在layout.swig引入用于在body自定义标签
+\source\css\_custom\customs.styl		         #主要用户自定义样式表
+\source\fonts\					                     #引入了一些我的手写体及外部字体
+\scripts\qcloudcdn.js				                 #腾讯云cos桶刷新缓存的脚本，不需要可删掉[^1]     
 ```
 [^1](https://lruihao.cn/posts/cos-hexo.html#CDN%E5%88%B7%E6%96%B0)
 
@@ -68,11 +68,34 @@ git clone https://github.com/Lruihao/hexo-theme-next themes/next
 # 更新内容
 > 更多自定义详见源码
 
+## links模板
+> 自定义友链模板，打开`hexo\themes\next\layout\`新建`links.swig`文件，写下如下内容后保存。
+- [top.swig](https://github.com/Lruihao/hexo-theme-next/blob/master/layout/top.swig)
+
+然后`hexo n page links`新建一个页面文章配置写下如下内容：
+```XMl top.md
+---
+title: 友情链接
+layout: links
+---
+```
+然后在`links`页面文件夹下面新建文件夹`_data`，再在里面新建`links.yml`，内容如下
+```xml links.yml
+- nickname: 博採眾長      
+  avatar: http://lruihao.cn/images/avatar.png
+  site: http://lruihao.cn 
+  info: 一个菜鸟的博客
+- nickname:                 #友链名称
+  avatar:                   #友链头像
+  site:                     #友链地址
+  info:                     #友链说明
+```
+
 ## 备案信息自定义
 ```xml _config.yml
 # -------------------------------------------------------------
 # footer_custom Settings
-# ---------------------------------------------------------------
+# -------------------------------------------------------------
 beian:
   enable: true
   gov: 湘公网安备 43030402000254号
@@ -178,93 +201,8 @@ repost: true
 
 ## 热度页面
 
-> 打开`hexo\themes\next\layout`新建`top.swig`文件，写下如下内容保存：
+> 打开`hexo\themes\next\layout`新建[top.swig](https://github.com/Lruihao/hexo-theme-next/blob/master/layout/top.swig)文件，写下如下内容保存：
 其中第36行改成你自己的leancloud的appid和appkey,比如我的是在主题配置文件里面的valine配置下，所以我就写成`theme.valine.appid`。和我一样就不需要修改，其他自行配置。
-
-```XML top.swig
-{% extends '_layout.swig' %}
-{% import '_macro/sidebar.swig' as sidebar_template %}
-
-  {% block title %}{#
-  #}{% set page_title_suffix = ' | ' + title %}{#
-
-  #}{% if page.type === "categories" and not page.title %}{#
-    #}{{ __('title.category') + page_title_suffix }}{#
-  #}{% elif page.type === "tags" and not page.title %}{#
-    #}{{ __('title.tag') + page_title_suffix }}{#
-
-  #}{% elif page.type === "photos" and not page.title %}{#
-  #}{{ __('title.photos') + page_title_suffix }}{#
-
-  #}{% else %}{#
-    #}{{ page.title + page_title_suffix }}{#
-  #}{% endif %}{#
-#}{% endblock %}
-
-{% block page_class %}page-post-detail{% endblock %}
-
-{% block content %}
-
-  <div id="posts" class="posts-expand">
-    {##################}
-    {### PAGE BLOCK ###}
-    {##################}
-    <div class="post-block page">
-      {% include '_partials/page-header.swig' %}
-      {#################}
-      {### PAGE BODY ###}
-      {#################}
-
-      <div id="top"></div>
-      <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
-      <script>AV.initialize("{{ theme.valine.appid }}", "{{ theme.valine.appkey }}");</script>
-      <script type="text/javascript">
-        setTimeout(function(){
-          var time=0
-          var title=""
-          var url=""
-          var query = new AV.Query('Counter');
-          query.notEqualTo('id',0);
-          query.descending('time');
-          query.limit({{ page.limit }}); //设置篇数
-          query.find().then(function (todo) {
-            for (var i=0;i<{{ page.limit }};i++){
-              var result=todo[i].attributes;
-              time=result.time;
-              title=result.title;
-              category=result.categories
-              url=result.url;
-              var content="<p>"+"【文章热度:"+time+"℃】"+"<a href='"+"{{ config.url }}"+""+url+"'>"+title+"</a>"+"</p>";
-              document.getElementById("top").innerHTML+=content
-            }
-          }, function (error) {
-            console.log("error");
-          });
-        },1000)
-      </script>
-
-      <div class="post-body{% if theme.han %} han-init-context{% endif %}{% if page.direction && page.direction.toLowerCase() === 'rtl' %} rtl{% endif %}"></div>
-      
-      {#####################}
-      {### END PAGE BODY ###}
-      {#####################}
-    </div>
-    {% include '_partials/breadcrumb.swig' %}
-    {######################}
-    {### END PAGE BLOCK ###}
-    {######################}
-  </div>
-
-{% endblock %}
-
-{% block sidebar %}
-  {{ sidebar_template.render(false) }}
-{% endblock %}
-
-{% block script_extra %}
-  {% include '_scripts/pages/post-details.swig' %}
-{% endblock %}
-```
 
 然后`hexo n page top`新建一个页面文章配置写下如下内容，limit表示显示篇数：
 ```XMl top.md
@@ -274,6 +212,7 @@ layout: top
 limit: 20
 ---
 ```
+
 ## 复制按钮样式
 
 <img src="/posts/hexo-theme-next/lightbtn.png" style="float: left;width:25%;height: 130px;" /><img src="/posts/hexo-theme-next/nightbtn.png" style="float: left;width:25%;height: 130px;" /><img src="/posts/hexo-theme-next/flatbtn.png" style="float: left;width:25%;height: 130px;" /><img src="/posts/hexo-theme-next/3dbtn.png" style="float: left;width:25%;height: 130px;" />
