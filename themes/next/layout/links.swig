@@ -37,7 +37,7 @@
             <div class="card-box" title="{{ link.info }}">
               <a href="{{ link.site }}" target="_blank">
                 <img class="card-avatar" src="{{ link.avatar }}"/>
-                <span>@{{ link.nickname }}</span>
+                <span title="{{ link.nickname }}">@{{ link.nickname }}</span>
               </a>
             </div>
           {% endfor %}
