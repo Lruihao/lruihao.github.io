@@ -69,10 +69,14 @@ git clone https://github.com/Lruihao/hexo-theme-next themes/next
 > 更多自定义详见源码
 
 ## links模板
-> 自定义友链模板，打开`hexo\themes\next\layout\`新建`links.swig`文件，写下如下内容后保存。
-- [top.swig](https://github.com/Lruihao/hexo-theme-next/blob/master/layout/top.swig)
-**若未使用懒加载请将模板中的`data-original`属性改为`src`**
+> 自定义友链模板，打开`hexo\themes\next\layout\`新建`links.swig`文件，写下[links.swig](https://github.com/Lruihao/hexo-theme-next/blob/master/layout/links.swig)内容后保存。
+- **若未使用懒加载请将模板中的`data-original`属性改为`src`**  
+- **若懒加载无法加载预览图请手动添加`src="/images/loading.gif"`**
+- **若fancybox显示alt内容请更换fancybox2或者将alt属值删除**
 
+```
+<img class="card-avatar" data-original="{{ link.avatar }}" alt="{{ link.nickname }}"/>
+```
 然后`hexo n page links`新建一个页面文章配置写下如下内容：
 ```XMl top.md
 ---
