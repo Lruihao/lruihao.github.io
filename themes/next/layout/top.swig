@@ -42,12 +42,13 @@
           flex-direction: row;
           justify-content: space-between;
           flex-wrap: wrap;
-          clear: both;
+          width: 100%;
+          min-height: calc({{ page.limit }} * 20px);
         }
         #top div{
-          width: 45%;
-          height: 35px;
-          max-width: 45%;
+          width: 400px;
+          height: 40px;
+          max-width: 400px;
           overflow: hidden;
           white-space: nowrap;
           text-overflow: ellipsis;
