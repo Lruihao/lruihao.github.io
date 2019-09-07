@@ -31,12 +31,19 @@
       {### PAGE BODY ###}
       {#################}
 
+      <script src="//at.alicdn.com/t/font_578712_g26jo2kbzd5qm2t9.js"></script>
       <div class="post-body{% if theme.han %} han-init-context{% endif %}{% if page.direction && page.direction.toLowerCase() === 'rtl' %} rtl{% endif %}">
         <div class="links-list">
-          {% for link in site.data.links %}
+          {% for svg,link in site.data.links %}
             <div class="card-box" title="{{ link.info }}">
               <a href="{{ link.site }}" target="_blank">
-                <img class="card-avatar" src="{{ link.avatar }}"/>
+                {% if link.avatar %}
+                  <img class="card-avatar" data-original="{{ link.avatar }}" alt="{{ link.nickname }}"/>
+                {% else %}
+                  <svg class="card-avatar" aria-hidden="true">
+                    <use xlink:href="#icon-{{svg+1}}"></use>
+                  </svg>
+                {% endif %}
                 <span title="{{ link.nickname }}">@{{ link.nickname }}</span>
               </a>
             </div>
@@ -77,7 +84,7 @@
           border:none; 
         }
         .card-avatar {
-          width: 100%;
+          width: 100%!important;
           height: 150px!important;
           border-radius: 5px;
           margin: 0;

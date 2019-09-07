@@ -71,7 +71,7 @@ git clone https://github.com/Lruihao/hexo-theme-next themes/next
 ## links模板
 > 自定义友链模板，打开`hexo\themes\next\layout\`新建`links.swig`文件，写下如下内容后保存。
 - [top.swig](https://github.com/Lruihao/hexo-theme-next/blob/master/layout/top.swig)
-
+**若未使用懒加载请将模板中的`data-original`属性改为`src`**
 然后`hexo n page links`新建一个页面文章配置写下如下内容：
 ```XMl top.md
 ---

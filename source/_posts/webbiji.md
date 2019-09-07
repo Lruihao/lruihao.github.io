@@ -43,6 +43,13 @@ notshow:
 ```xml font-awesome
 <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css">
  ```
+其他的图标js
+```
+<script src="//at.alicdn.com/t/font_578712_g26jo2kbzd5qm2t9.js"></script>
+<svg class="card-avatar" aria-hidden="true">
+  <use xlink:href="#icon-{{n+1}}"></use>                <!--n为一个数字-->
+</svg>
+```
 
 ## 响应式（自适应）
 
