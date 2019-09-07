@@ -22,6 +22,17 @@ permalink:
 <!--more-->
 ### hexo插件
 
+#### [hexo-lazyload-image](https://github.com/Troy-Yang/hexo-lazyload-image)
+```bash 安装
+npm install hexo-lazyload-image --save
+```
+First add configuration in `_config.yml` from your hexo project.
+```xml 使用
+lazyload:
+  enable: true 
+  onlypost: false
+  loadingImg: # eg ./images/loading.gif
+```
 #### hexo-ruby-marks
 > 不支持`ruby`新标签的浏览器将显示`rp`中的内容。
 

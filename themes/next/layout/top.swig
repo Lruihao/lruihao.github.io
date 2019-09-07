@@ -32,12 +32,26 @@
       {#################}
       
       <div class="post-body{% if theme.han %} han-init-context{% endif %}{% if page.direction && page.direction.toLowerCase() === 'rtl' %} rtl{% endif %}">
-        <div id="top">
-          {{ page.content }}
-        </div>
+        {{ page.content }}
+        <div id="top"></div>
       </div>
 
       <style>
+        #top{
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          flex-wrap: wrap;
+          clear: both;
+        }
+        #top div{
+          width: 45%;
+          height: 35px;
+          max-width: 45%;
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+        }
         #top a{
           color: #555;
           text-decoration: none;
@@ -64,8 +78,8 @@
               title=result.title;
               category=result.categories
               url=result.url;
-              var content="<p>"+"【文章热度:"+time+"℃】"+"<a href='"+"{{ config.url }}"+""+url+"'>"+title+"</a>"+"</p>";
-              document.getElementById("top").innerHTML+=content
+              var content="<div>"+"【文章热度:"+time+"℃】"+"<a href='"+"{{ config.url }}"+""+url+"'>"+title+"</a>"+"</div>";
+              document.getElementById("top").innerHTML+=content;
             }
           }, function (error) {
             console.log("error");
