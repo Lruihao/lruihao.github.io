@@ -8,7 +8,7 @@ tags:
 - C
 categories:
 - ACM
-- 2018湘潭邀请赛
+- 2018湘潭
 description:
 ---
 **B. Higher h-index**
