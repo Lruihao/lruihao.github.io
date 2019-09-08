@@ -6,7 +6,7 @@ tags:
 - ACM
 categories:
 - ACM
-- 2018湘潭邀请赛
+- 2018湘潭
 description:
 ---
 ![sorting.png](https://i.loli.net/2018/06/14/5b2286fcec6fc.png)

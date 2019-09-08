@@ -15,6 +15,9 @@ sticky: false
 <br>
 
 <!--more-->
+
+{% tabs links-nav,1 %}
+<!-- tab 博客长期更新 -->
 # 博客长期更新
 |文章|概括|
 |:--|:--|
@@ -24,8 +27,10 @@ sticky: false
 |[Web笔记](/posts/webbiji.html)|记录一下自己web相关学习的笔记|
 |[hexo 插件及 next 内置样式集](/posts/nextplugin.html)|让文章写的好看又简洁又好用的插件！[hexo更多请看分类](https://lruihao.cn/categories/hexo/)|
 |[一款自己写的字体 - 沐目体](/posts/font-mmt.html)|沐目体--release|
-|[git 删除文件方法及常用指令](/posts/git-delete.html)|可能用到按需自查|
+|[Git常用指令汇总](/posts/git-delete.html)|可能用到按需自查|
+<!-- endtab -->
 
+<!-- tab lruihao.cn分享 -->
 # lruihao.cn分享
 |链接|描述|
 |:--|:--|
@@ -36,7 +41,9 @@ sticky: false
 |[QQxml强制获取](https://www.lruihao.cn/qqxml/)|用来生成qq聊天中的卡片式链接|
 |[效率壁纸](https://www.lruihao.cn/bg/)|生成效率壁纸|
 |[ImgURL图床--lruihao.cn](https://img.lruihao.cn)|基于开源图床`ImgURL`搭建部署，`img.lruihao.cn`|
+<!-- endtab -->
 
+<!-- tab ACM相关 -->
 # ACM相关
 |链接|描述|
 |:--|:--|
@@ -54,8 +61,9 @@ sticky: false
 |[leedcode](https://leetcode-cn.com/problemset/all/)|力扣|
 |[codewar](https://www.codewars.com/kata/)|国外|
 |[更多OJ，在线刷题网站...](https://blog.csdn.net/tigerisland45/article/details/52134189)||
+<!-- endtab -->
 
-
+<!-- tab 编程,学习 -->
 # 编程,学习
 |链接|描述|
 |:--|:--|
@@ -75,7 +83,9 @@ sticky: false
 |[慕课网](https://www.imooc.com)|在线学习，免费，付费视频|
 |[wxpy](https://wxpy.readthedocs.io)|一个python关于微信的库|
 |[So1n](http://so1n.me/links/)|python学习|
+<!-- endtab -->
 
+<!-- tab 云服务及站长工具享 -->
 # 云服务及站长工具
 |链接|描述|
 |:--|:--|
@@ -91,7 +101,9 @@ sticky: false
 |[Bing 站长](https://www.bing.com/toolbox/webmaster)|Bing 网站管理员工具|
 |[站长工具](http://tool.chinaz.com)|网站信息查询，权重，seo，网站速度查询，ping等|
 |[站长工具大全](http://tool.lusongsong.com)|各种seo优化，工具等|
+<!-- endtab -->
 
+<!-- tab 前端工具 -->
 # 前端工具
 |链接|描述|
 |:--|:--|
@@ -123,7 +135,9 @@ sticky: false
 |[联图二维码](http://www.liantu.com/meihua)||
 |[第九工厂](https://www.9thws.com)|死磕艺术二维码|
 |[模板码](https://www.mobanma.com)|动态二维码等|
+<!-- endtab -->
 
+<!-- tab 实用工具 -->
 # 实用工具
 |链接|描述|
 |:--|:--|
@@ -146,7 +160,9 @@ sticky: false
 |[在线短信](https://www.pdflibr.com/)|不想泄露个人的电话号码，注册一些一次性网站可以用到|
 |[配音阁](http://www.peiyinge.com/)|文字转换语音/语音合成广告_叫卖录音_在线配音网络软件_促销宣传片配音-配音阁-配音阁,国内专业的广告配音平台|
 |[hacknical](https://hacknical.com)|在线个性简历，个人Github总结分析|
+<!-- endtab -->
 
+<!-- tab 其他 -->
 # 其他
 |链接|描述|
 |:--|:--|
@@ -156,3 +172,6 @@ sticky: false
 |[手写体制作](http://59.108.48.27)|北京大学计算机科学技术研究所的一个项目 ~~（我的字体至今还未完成）~~|
 |[大象代理](http://www.daxiangdaili.com)|收费，口碑不错|
 |[蒲公英](https://www.pgyer.com)|应用内测发布平台|
+<!-- endtab -->
+
+{% endtabs %}
