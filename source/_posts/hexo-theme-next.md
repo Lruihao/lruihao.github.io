@@ -20,8 +20,8 @@ keywords:
 - hexo next
 - hexo 博客
 - hexo next主题美化
-top:
-sticky: false
+top: 9
+sticky: true
 author:
 permalink:
 noreward:

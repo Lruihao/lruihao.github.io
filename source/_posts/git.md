@@ -7,7 +7,8 @@ password:
 abstract:
 message:
 description:
-top:
+top: 10
+sticky: true
 author:
 permalink:
 photos:
