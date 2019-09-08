@@ -4,8 +4,8 @@
   #}{{ post.author | default(author) }}{#
 #}</li>
   <li>
-  <strong>{{ __('post.modified') + __('symbol.colon') }} </strong>{#
-  #}{{ full_date(post.updated) }}{#
+  <strong>{{ __('post.created') + __('symbol.colon') }} </strong>{#
+  #}{{ full_date(post.date) }}{#
 #}</li>
   <li class="post-copyright-link">
     <strong>{{ __('post.copyright.link') + __('symbol.colon') }}</strong>
