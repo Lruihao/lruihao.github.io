@@ -227,6 +227,21 @@ When you writes:
 {% spoiler **hello welcome to 博採眾長！** %}
 
 
+### Include Raw
+This tag include any raw content into your posts. Path is relative to your site source directory.
+```
+{% include_raw '_data/path/to/file.html' %}
+```
+Let's create include-raw.html file in `_data` directory under site root directory with following content:
+```
+Any <strong>raw content</strong> may be included with this tag.
+```
+Then in any post we can use this content with include_raw tag:
+```
+{% include_raw '_data/path/to/include-raw.html' %}
+```
+Any **raw content** may be included with this tag.
+
 ### 宅音乐侧栏播放器插件
 [体验](https://player.lruihao.cn)
 > 目前在next中可能引起部分css冲突，建议在next中使用在单个页面中。

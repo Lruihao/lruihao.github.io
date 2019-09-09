@@ -238,6 +238,17 @@ git stash list          # 查看所有被隐藏的文件列表
 gitk                    # git自带GUI
 gitk --all
 ```
+# github,gitea等平台issue的常用标签
+- {% label danger@bug %} 描述的问题是一个bug
+- {% label warning@enhancement %} 功能增强，没有feature也可以指 New feature or request
+- {% label success@feature %} 新功能
+- {% label default@duplicate %} 问题重复
+- {% label @invalid %} 可用的，不是bug
+- {% label primary@question %} 疑问，需要进一步的信息
+- {% label info@wontfix %} 不会修复此问题
+- {% label success@help-wanted %} 需要帮助
+- {% label primary@good first issue %} Good for newcomers
+- [更多标签](https://www.jianshu.com/p/48b935e36000)
 
 # 其他
 * [Gearn Git Branching](https://learngitbranching.js.org/)
