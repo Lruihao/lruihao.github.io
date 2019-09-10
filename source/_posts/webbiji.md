@@ -30,6 +30,12 @@ notshow:
 # front-end
 > - [HTML+CSS](https://lruihao.cn/posts/ms-html-css.html)
 
+## title显示换行
+<a href="#" title="第一行&#10;第二行&#10;第三行">使用`&#10;`</a>或<a href="#" title="第一排&#13;第二排&#13;第三排">使用`&#13;`</a>
+```
+<a href="#" title="第一行&#10;第二行&#10;第三行">使用`&#10;`</a>
+<a href="#" title="第一排&#13;第二排&#13;第三排">使用`&#13;`</a>
+```
 ## 图床方案
 
 > - 自行搭建

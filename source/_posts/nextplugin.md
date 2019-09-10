@@ -435,17 +435,43 @@ note:
 ```
 写法
 ```
-{% note default %}default是类型还有以下几种{% endnote %}
+{% note default %}
+#### default
+是类型还有以下几种
+{% endnote %}
 ```
-{% note default %}default是类型还有以下几种{% endnote %}
-{% note default %}default{% endnote %}
-{% note primary %}primary{% endnote %}
-{% note success %}success{% endnote %}
-{% note info %}info{% endnote %}
-{% note warning %}warning{% endnote %}
-{% note danger %}danger{% endnote %}
-{% note %}不填{% endnote %}
-{% note danger no-icon %}danger no-icon{% endnote %}
+{% note default %}
+#### default
+类型还有以下几种
+{% endnote %}
+{% note primary %}
+#### primary
+内容
+{% endnote %}
+{% note success %}
+#### success
+内容
+{% endnote %}
+{% note info %}
+#### info
+内容
+{% endnote %}
+{% note warning %}
+#### warning
+内容
+{% endnote %}
+{% note danger %}
+#### danger
+内容
+{% endnote %}
+{% note %}
+#### 不填
+内容
+{% endnote %}
+{% note danger no-icon %}
+#### danger no-icon
+内容
+{% endnote %}
 
 
 ### 引用(文本居中)
