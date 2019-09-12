@@ -132,9 +132,9 @@ if __name__=="__main__":
 
 <img src="./mx2wx/1.jpg" width="400px" alt="发送测试" title="发送测试" />
 
-{% fi ./mx2wx/2.png,多数据发送,多数据发送 %}
+{% asset_img 2.png 多数据发送 %}
 
-{% fi ./mx2wx/3.png,多群定时,多群定时 %}
+{% asset_img 3.png 多群定时 %}
 
 
 # 程序打包
