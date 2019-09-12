@@ -49,4 +49,4 @@ function createTable($rows,$cols,$bgcolor='pink',$content='x'){
 echo createTable(5,5,'pink','hello lruihao');
 ?>
 ```
-{% fi ./phpfunc/table.png,php创建表格,php创建表格 %}
+{% asset_img table.png php创建表格 %}

@@ -20,8 +20,6 @@ keywords:
 - hexo next
 - hexo 博客
 - hexo next主题美化
-top: 9
-sticky: true
 author:
 permalink:
 noreward:
@@ -30,6 +28,13 @@ photos:
 - /posts/hexo-theme-next/next.png
 ---
 
+{% note danger %}
+<span style="color: #d9534f;font-size: 1.2em;">**如无必要，不再更新！**</span>
+今晚我做出了一个慎重的决定，由于博主时间精力有限，需要更多的时间来工作和学习。所以我将**放弃对next的主题的自定义修改**，next主题官方已经更新到了7.0+的版本，喜欢next主题风格的朋友可以在github更新。  
+我这也算是上古版本了，版本差距实在过大，所以我也将放弃博客使用主题的更新。  
+以下仍为当前博客使用主题，lib资源已打包github。
+{% endnote %}
+<!--more-->
 {% note success %}
 基于[hexo-theme-next 6.0+](https://github.com/theme-next/hexo-theme-next)的Pisces模板做的DIY扩展性设计（部分兼容next其他几种模板）。主要是一些custom style还有一些第三方的js。修改的地方太多也有点小乱就不提PR了。
 [modified](https://github.com/Lruihao/hexo-theme-next)&emsp;官方Demo => <https://theme-next.org>
@@ -37,33 +42,40 @@ photos:
 **主题中若有遗漏第三方插件或应用的key及id值等请修改为自己对应的值**
 {% endnote %}
 
-<!--more-->
 主要的几个自定义文件
 ```xml 主要修改路径及文件
-_config.swig					                       #主题配置文件 相关账户信息自己注册替换
-\layout\custom\head.swig			               #在头部自定义加入标签
-\layout\custom\google_adsense.swig		       #谷歌广告模块，内有注释暂时弃用
-\layout\_layout.swig				                 #主布局
-\layout\_macro\post.swig			               #文章布局
-\layout\_macro\post-copyright.swig		       #文章版权
-\layout\_macro\siderbar.swig			           #侧栏模板
-\layout\_third-party\copy-code.swig		       #复制按钮
-\layout\_partials\comments.swig			         #评论主模板
-\layout\_partials\footer.swig			           #底部模板#该模块在layout.swig引入，用于在body自定义标签
+_config.swig                                 #主题配置文件 相关账户信息自己注册替换
+\layout\custom\head.swig                     #在头部自定义加入标签
+\layout\custom\google_adsense.swig           #谷歌广告模块，内有注释暂时弃用
+\layout\_layout.swig                         #主布局
+\layout\_macro\post.swig                     #文章布局
+\layout\_macro\post-copyright.swig           #文章版权
+\layout\_macro\siderbar.swig                 #侧栏模板
+\layout\_third-party\copy-code.swig          #复制按钮
+\layout\_partials\comments.swig              #评论主模板
+\layout\_partials\footer.swig                #底部模板#该模块在layout.swig引入，用于在body自定义标签
 \layout\_partials\footer_custom.swig         #footer自定义文件
-\layout\_third-party\custom.swig		         #该模块在layout.swig引入用于在body自定义标签
-\source\css\_custom\customs.styl		         #主要用户自定义样式表
-\source\fonts\					                     #引入了一些我的手写体及外部字体
-\scripts\qcloudcdn.js				                 #腾讯云cos桶刷新缓存的脚本，不需要可删掉[^1]     
+\layout\_third-party\custom.swig             #该模块在layout.swig引入用于在body自定义标签
+\source\css\_custom\customs.styl             #主要用户自定义样式表
+\source\fonts\                               #引入了一些我的手写体及外部字体
+\scripts\qcloudcdn.js                        #腾讯云cos桶刷新缓存的脚本，不需要可删掉[^1]     
 ```
 [^1](https://lruihao.cn/posts/cos-hexo.html#CDN%E5%88%B7%E6%96%B0)
 
 # 初步安装
-```bash 安装整个改过的主题,然后下载相应的lib资源
+> 安装整个改过的主题,然后下载相应的lib资源解压放入source文件夹
+
+```bash 
 cd hexo
 git clone https://github.com/Lruihao/hexo-theme-next themes/next
 ```
+主题配置文件`_config.yml`,选择主题
+```
+theme: next
+```
+<a class="LinkCard" href="https://github.com/Lruihao/hexo-theme-next/releases/tag/v6.9.1">lib下载</a>
 {% asset_img lib.png lib资源 %}
+
 
 # 更新内容
 > 更多自定义详见源码
