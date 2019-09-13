@@ -9,19 +9,7 @@ tags:
 - 总结
 categories:
 - Web
-password:
-abstract:
-message:
-description:
-keywords:
-top:
-sticky:
-author:
-permalink:
-noreward:
-notshow:
-norelate:
-repost:
+delicate: true
 ---
 
 # 精神

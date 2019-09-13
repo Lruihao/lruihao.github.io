@@ -16,9 +16,7 @@ keywords:
 top:
 sticky:
 author:
-permalink:
-noreward:
-notshow:
+delicate: true
 ---
 
 {% note info %}

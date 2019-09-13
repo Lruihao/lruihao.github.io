@@ -12,14 +12,8 @@ tags:
 categories:
 - ACM
 - 数论
-password:
-abstract:
-message:
-description:
-top:
-author:
-permalink:
 repost: true
+link: https://www.cnblogs.com/Rinyo/archive/2012/11/25/2787419.html
 ---
 
 **[转载注明，侵删](https://www.cnblogs.com/Rinyo/archive/2012/11/25/2787419.html)**

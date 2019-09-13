@@ -11,10 +11,6 @@ tags:
 - requests
 categories:
 - python
-password:
-abstract:
-message:
-description:
 keywords:
 - python
 - wxpy
@@ -28,14 +24,7 @@ keywords:
 - python定时发送请求脚本
 - python定时获取数据
 - python定时任务每天执行一次
-top:
-sticky:
-author:
-permalink:
-noreward:
-notshow:
-norelate:
-repost:
+delicate: true
 ---
 
 {% note primary no-icon %}

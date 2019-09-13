@@ -7,19 +7,8 @@ tags:
 - 他山之石
 categories:
 - others
-password:
-abstract:
-message:
-description:
-keywords:
-top:
-sticky:
-author:
-permalink:
-noreward:
-notshow:
-norelate:
 repost: true
+link: https://www.cnblogs.com/Rinyo/archive/2012/11/25/2787419.html
 ---
 
 

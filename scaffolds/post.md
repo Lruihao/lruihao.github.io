@@ -3,19 +3,20 @@ title: {{ title }}
 date: {{ date }}
 tags:
 categories:
+delicate:
+repost:
+links:
+top:
 password:
 abstract:
 message:
 description:
 keywords:
-top:
-sticky:
 author:
 permalink:
 noreward:
 notshow:
 norelate:
-repost:
 ---
 
 <!--

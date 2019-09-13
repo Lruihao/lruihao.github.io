@@ -6,13 +6,7 @@ tags:
 - 前端
 - pdf
 categories: hexo
-password:
-abstract:
-message:
-description:
-top:
-author:
-permalink:
+delicate: true
 ---
 
 {% note info %}

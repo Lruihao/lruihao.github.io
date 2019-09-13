@@ -16,6 +16,7 @@ keywords:
 - hexo github搭建个人博客
 top:
 sticky: false
+delicate: true
 ---
 
 **[更多关于hexo](/categories/hexo/)**
