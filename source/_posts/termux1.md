@@ -7,13 +7,7 @@ tags:
 - nodejs
 categories:
 - termux
-password:
-abstract:
-message:
-description:
-top:
-author:
-permalink:
+delicate: true
 ---
 
 {% note danger no-icon %}

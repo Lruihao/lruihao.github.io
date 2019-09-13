@@ -13,6 +13,7 @@ description:
 top:
 author:
 permalink:
+delicate: true
 ---
 {% asset_img 1.png 博客备份 %}
 

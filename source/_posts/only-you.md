@@ -1,18 +1,13 @@
 ---
-title: 　
+title: 
 date: 2018-08-31 22:17:04
 tags:
 - 生活随笔
 categories:
 - 生活随笔
-password:
-abstract:
-message:
-description:
-top:
-author:
-permalink:
-notshow: true
+noreward: true
+norelate: true
+type: quote
 ---
 
 {% asset_img 0.jpg %}

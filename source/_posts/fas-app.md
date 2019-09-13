@@ -7,14 +7,7 @@ tags:
 - app
 - 网页封装
 categories: others
-password:
-abstract:
-message:
-description:
-top:
-sticky:
-author:
-permalink:
+delicate: true
 ---
 
 <a href="https://ziyuan.lruihao.cn/app/bczc_2.6.2.apk" target="_blank" class="LinkCard">博客app下载</a>

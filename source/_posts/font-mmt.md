@@ -4,13 +4,7 @@ date: 2018-10-12 19:39:19
 tags:
 - 手写体
 categories: others
-password:
-abstract:
-message:
-description:
-top:
-author:
-permalink:
+delicate: true
 photos:
 - /posts/font-mmt/cell.jpg
 - /posts/font-mmt/wechat.png

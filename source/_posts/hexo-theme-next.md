@@ -6,10 +6,7 @@ tags:
 - 前端
 - 博客日志
 categories: hexo
-password:
-abstract:
-message:
-description:
+description: 基于hexo-theme-next 6.0+的Pisces模板做的DIY扩展性设计。
 keywords:
 - hexo
 - 前端
@@ -20,10 +17,7 @@ keywords:
 - hexo next
 - hexo 博客
 - hexo next主题美化
-author:
-permalink:
-noreward:
-notshow:
+delicate: true
 photos:
 - /posts/hexo-theme-next/next.png
 ---

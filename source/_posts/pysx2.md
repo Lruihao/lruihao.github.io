@@ -5,19 +5,7 @@ tags:
 - python
 categories:
 - python
-password:
-abstract:
-message:
-description:
-keywords:
-top:
-sticky:
-author:
-permalink:
-noreward:
-notshow:
-norelate:
-repost:
+delicate: true
 ---
 
 {% note info no-icon %}

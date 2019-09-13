@@ -6,7 +6,7 @@
   {% if post_extra_class > 0 %}
     {% set post_class = post_class + ' ' + post_extra_class | default('') %}
   {% endif %}
-  {% if post.sticky > 0 %}
+  {% if post.top > 0 %}
     {% set post_class = post_class + ' ' + 'post-sticky' %}
   {% endif %}
 
@@ -37,40 +37,48 @@
 
         {# Not to show title for quote posts that do not have a title #}
         {% if not (is_index and post.type === 'quote' and not post.title) %}
-          <{% if theme.seo %}h2{% else %}h1{% endif %} class="post-title{% if post.direction && post.direction.toLowerCase() === 'rtl' %} rtl{% endif %}" itemprop="name headline">{#
-          #}{# Link posts #}{#
-          #}{% if post.link %}
-              {% if post.sticky > 0 %}
-                {{ post.sticky }}
-                <span class="post-sticky-flag" title="{{ __('post.sticky') }}">
-                  <i class="fa fa-thumb-tack"></i>&ensp;
-                </span>
-              {% endif %}
-              <a class="post-title-link post-title-link-external" target="_blank" href="{{ url_for(post.link) }}" itemprop="url">
-                {{ post.title or post.link }}
+          <{% if theme.seo %}h2{% else %}h1{% endif %} class="post-title{% if post.direction && post.direction.toLowerCase() === 'rtl' %} rtl{% endif %}" itemprop="name headline">
+          {### Top posts ###}
+          {%- if post.top > 0 %}
+            <span class="post-sticky-flag" title="{{ __('post.sticky') }}">
+              <i class="fa fa-thumb-tack">&ensp;</i>
+            </span>
+          {%- endif %}
+
+          {### Index posts ###}
+          {%- if is_index %}
+            <a class="post-title-link" href="{{ url_for(post.path) }}" itemprop="url">
+              {{ post.title | default(__('post.untitled')) }}
+            </a> 
+          {% else -%}
+            {{- post.title -}}
+            {% include '../_partials/post-edit.swig' %}
+          {%- endif %}
+
+          {### delicate posts ###}
+          {%- if post.delicate %}
+            <span class="post-delicate-flag" title="{{ __('post.delicate') }}">
+              <i class="fa fa-newspaper-o"></i>
+            </span>
+          {%- endif %}
+
+          {### repost posts ###}
+          {%- if post.repost %}
+            {%- if post.link && not is_index %}
+              <a class="post-repost-flag" target="_blank" href="{{ url_for(post.link) }}" itemprop="url" title="{{ __('post.repost') }} → {{ url_for(post.link) }}">
                 <i class="fa fa-external-link"></i>
               </a>
-            {% else %}{#
-            #}{% if is_index %}
-                {% if post.sticky > 0 %}
-                  <span class="post-sticky-flag" title="{{ __('post.sticky') }}">
-                    <i class="fa fa-thumb-tack"></i>&ensp;
-                  </span>
-                {% endif %}
-                <a class="post-title-link" href="{{ url_for(post.path) }}" itemprop="url">
-                  {% if post.repost %}
-                    <span class="repost">转</span>
-                  {% endif %}
-                  {{ post.title | default(__('post.untitled'))}}
-                </a>
-              {% else -%}
-                {% if post.repost %}
-                    <span class="repost">转</span>
-                {% endif %}
-                {{- post.title -}}
-                {% include '../_partials/post-edit.swig' %}
-              {% endif %}
-            {% endif %}
+            {% elif post.link && is_index %}
+              <span class="post-repost-flag" title="{{ __('post.repost') }} → {{ url_for(post.link) }}">
+                <i class="fa fa-external-link"></i>
+              </span>
+            {% else -%}
+              <span class="post-repost-flag" title="{{ __('post.repost') }}">
+                <i class="fa fa-external-link"></i>
+              </span>
+            {%- endif %}
+          {%- endif %}
+
           </{% if theme.seo %}h2{% else %}h1{% endif %}>
         {% endif %}
 

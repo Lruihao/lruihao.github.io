@@ -8,9 +8,7 @@ abstract:
 message:
 description:
 top: 10
-sticky: true
-author:
-permalink:
+delicate: true
 photos:
 - /posts/git/relation(2).jpg
 - /posts/git/relation(1).jpg
