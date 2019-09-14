@@ -79,9 +79,6 @@ npm install https://github.com/CodeFalling/hexo-asset-image -- save
 </embed>
 ```
 
-<embed src="//music.163.com/style/swf/widget.swf?sid=40249713&type=2&auto=0&width=320&height=66" width="340" height="86" allowNetworking="all">
-</embed>
-
 # 4.添加链接
 
 ```
@@ -106,11 +103,12 @@ npm install https://github.com/CodeFalling/hexo-asset-image -- save
 	frameborder=0 allowfullscreen>
 </iframe>
 ```
-<iframe 
+{% dplayer url="https://ziyuan.lruihao.cn/public/hey.mp4" width="100%" height="400px" %}
+<!-- <iframe 
 	height=500 width=100% 
 	src="https://player.youku.com/embed/XMzY0MzgxNDMyOA==" 
 	frameborder=0 allowfullscreen>
-</iframe>
+</iframe> -->
 
 
 # 工具集合

@@ -220,6 +220,43 @@ When you writes:
 {% spoiler **text** %}<br>
 {% spoiler **hello welcome to 博採眾長！** %}
 
+### 宅音乐侧栏播放器插件
+[体验](https://player.lruihao.cn)
+> 目前在next中可能引起部分css冲突，建议在next中使用在单个页面中。
+依赖于jQuery，一行js可以引入播放器插件。
+
+### caniuse
+#### 使用
+```
+{% caniuse feature @ periods %}
+<!-- Tag Alias -->
+{% can feature @ periods %}
+
+feature : Search for the feature you want on https://caniuse.com, then click on the hash sign to the left of the search result heading and you will get the unique name of this feature.
+periods : Select the browser versions to display. Supported values: past_1, past_2, past_3, past_4, past_5, current, future_3, future_2, future_1. If this value is empty, the default value 'current' will be used.
+
+```
+#### 栗子
+**Caniuse without periods**
+```
+{% caniuse fetch %}
+```
+{% caniuse fetch %}
+**Caniuse with current period**
+```
+{% caniuse sharedarraybuffer @ current %}
+```
+{% caniuse sharedarraybuffer @ current %}
+**Caniuse with future periods**
+```
+{% caniuse loading-lazy-attr @ future_3,future_2,future_1 %}
+```
+{% caniuse loading-lazy-attr @ future_3,future_2,future_1 %}
+**Caniuse with past periods**
+```
+{% caniuse link-rel-modulepreload @ past_1,past_2,past_3,past_4,past_5 %}
+```
+{% caniuse link-rel-modulepreload @ past_1,past_2,past_3,past_4,past_5 %}
 
 ### Include Raw
 This tag include any raw content into your posts. Path is relative to your site source directory.
@@ -235,11 +272,6 @@ Then in any post we can use this content with include_raw tag:
 {% include_raw '_data/path/to/include-raw.html' %}
 ```
 Any **raw content** may be included with this tag.
-
-### 宅音乐侧栏播放器插件
-[体验](https://player.lruihao.cn)
-> 目前在next中可能引起部分css冲突，建议在next中使用在单个页面中。
-依赖于jQuery，一行js可以引入播放器插件。
 
 ### button
 [more info](https://theme-next.org/docs/tag-plugins/button)
