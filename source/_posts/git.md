@@ -103,6 +103,8 @@ git merge dev           # 在当前的分支上合并dev分支
 > 分支合并也是在本地完成，新的分支只有在合并后才允许被删除。
 如果分支合并是出现冲突需要解决了冲突才能合并，使用`git status`查看冲突文件。
 
+{% asset_img delete-merge.png 分支合并后删除 %}
+
 ## branch,checkout
 ```
 git branch            # 查看当前所有的分支
@@ -257,6 +259,9 @@ gitk --all
 - {% label success@help-wanted %} 需要帮助
 - {% label primary@good first issue %} Good for newcomers
 - [更多标签](https://www.jianshu.com/p/48b935e36000)
+
+# license
+{% asset_img lisence.jpg lisence %}
 
 # 其他
 * [Gearn Git Branching](https://learngitbranching.js.org/)

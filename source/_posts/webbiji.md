@@ -26,14 +26,32 @@ delicate: true
 <!--more-->
 
 # front-end
+## html
 > - [HTML+CSS](https://lruihao.cn/posts/ms-html-css.html)
 
-## title显示换行
+### oblique和intalic的区别
+这两个都是`font-style`属性的值，这两个值都能实现倾斜的效果，但是有区别的。
+- `intalic`: 这个是字体的倾斜，相当于**斜体**，字体必须有倾斜属性。
+- `oblique`: 这个准确地说是让文字倾斜。相当于**斜字**，字体不一定要有倾斜属性。
+
+### title显示换行
 <a href="#" title="第一行&#10;第二行&#10;第三行">使用`&#10;`</a>或<a href="#" title="第一排&#13;第二排&#13;第三排">使用`&#13;`</a>
 ```
 <a href="#" title="第一行&#10;第二行&#10;第三行">使用`&#10;`</a>
 <a href="#" title="第一排&#13;第二排&#13;第三排">使用`&#13;`</a>
 ```
+### 图片类型选择
+{% asset_img imgType.jpg 图片类型选择 %}
+
+## javascript
+### keydown和keypress
+- `keydown`：按下键盘键
+- `keypress`：紧接着`keydown`事件触发（只有按下字符键时触发）
+- 如果用户按下了一个**字符键**不放，就会重复触发`keydown`和`keypress`事件，直到用户松开该键为止。
+- 如果用户按下了一个**非字符键**不放，就会重复触发`keydown`事件，直到用户松开该键为止。
+
+[详解键盘事件(keydown，keypress，keyup)](https://www.jianshu.com/p/8f839f558319)
+
 ## 图床方案
 
 > - 自行搭建

@@ -45,14 +45,21 @@
             </span>
           {%- endif %}
 
-          {### Index posts ###}
-          {%- if is_index %}
-            <a class="post-title-link" href="{{ url_for(post.path) }}" itemprop="url">
-              {{ post.title | default(__('post.untitled')) }}
-            </a> 
-          {% else -%}
-            {{- post.title -}}
-            {% include '../_partials/post-edit.swig' %}
+          {### repost posts ###}
+          {%- if post.repost %}
+            {%- if post.link && not is_index %}
+              <a class="post-repost-flag" target="_blank" href="{{ url_for(post.link) }}" itemprop="url" title="{{ __('post.repost') }} → {{ url_for(post.link) }}">
+                <i class="fa fa-share-square-o"></i>
+              </a>
+            {% elif post.link && is_index %}
+              <span class="post-repost-flag" title="{{ __('post.repost') }} → {{ url_for(post.link) }}">
+                <i class="fa fa-share-square-o"></i>
+              </span>
+            {% else -%}
+              <span class="post-repost-flag" title="{{ __('post.repost') }}">
+                <i class="fa fa-share-square-o"></i>
+              </span>
+            {%- endif %}
           {%- endif %}
 
           {### delicate posts ###}
@@ -62,23 +69,15 @@
             </span>
           {%- endif %}
 
-          {### repost posts ###}
-          {%- if post.repost %}
-            {%- if post.link && not is_index %}
-              <a class="post-repost-flag" target="_blank" href="{{ url_for(post.link) }}" itemprop="url" title="{{ __('post.repost') }} → {{ url_for(post.link) }}">
-                <i class="fa fa-external-link"></i>
-              </a>
-            {% elif post.link && is_index %}
-              <span class="post-repost-flag" title="{{ __('post.repost') }} → {{ url_for(post.link) }}">
-                <i class="fa fa-external-link"></i>
-              </span>
-            {% else -%}
-              <span class="post-repost-flag" title="{{ __('post.repost') }}">
-                <i class="fa fa-external-link"></i>
-              </span>
-            {%- endif %}
+          {### Index posts ###}
+          {%- if is_index %}
+            <a class="post-title-link" href="{{ url_for(post.path) }}" itemprop="url">
+              {{ post.title | default(__('post.untitled')) }}
+            </a> 
+          {% else -%}
+            {{- post.title -}}
+            {% include '../_partials/post-edit.swig' %}
           {%- endif %}
-
           </{% if theme.seo %}h2{% else %}h1{% endif %}>
         {% endif %}
 
