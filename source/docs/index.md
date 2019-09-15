@@ -6,19 +6,17 @@ description: <span id="busuanzi_container_page_pv" title="访问量"><i class="f
 keywords: [李瑞豪,博採眾長,李瑞豪的博客,hexo,博客档案,bugs,维护日志,hexo github,hexo coding,hexo 腾讯云cos,分类,标签,热度,百度统计,leancloud cdn,valine,gitalk,gitment,PWA,Manifest,Service workers]
 ---
 
-<!--<script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
-<script id="ilt" src="https://player.lruihao.cn/player/js/player.js" key="2926f5bf57f7479f9309a644f8ce98bd"></script>-->
-
 # 简介
-
-<img src="/docs/images/cname.png" width="400" height="200" align="left">代码托管在coding 和github上，实现国内走coding(**后托管于腾讯云cos桶**)，国外走github路线。你可以通过以下方式访问：
+<img alt="GitHub last commit hexo" src="https://img.shields.io/github/last-commit/lruihao/lruihao.github.io/hexo" style="float:left;"><img alt="GitHub commit activity" src="https://img.shields.io/github/commit-activity/m/lruihao/lruihao.github.io" style="float:left;"><img alt="site-uv" src="https://badgen.net/badge/visitor/3.1w+/orange" style="float:left;"><img alt="site-uv" src="https://badgen.net/badge/write/10.7w+/purple" style="float:left;">
+<div style="clear: both;"></div>
+* 你可以通过以下方式访问：
 * https://www.lruihao.cn （已变更）
 * https://lruihao.cn
 * https://lruihao.github.io
-* <del>liruihao.coding.me</del>（已停止）
-<div style="clear: both;"></div>
+* ~~liruihao.coding.me~~（已停止）
 
-> 喜欢本博客的可以给个小小的star吗！！🏀🏀
+> 代码托管在~~coding~~(**腾讯云cos桶**)和github上，实现国内，国外双路线访问。
+喜欢本博客的可以给个小小的star吗！！🏀🏀
 
 <a class="gh-btn" id="gh-btn" href="https://github.com/Lruihao/Lruihao.github.io/" target="_blank" aria-label="Star on GitHub"><span class="gh-ico" aria-hidden="true"></span><span class="gh-text" id="gh-text"></span></a>
 <iframe align="right" style="margin-left: 2px; margin-bottom:-5px;" frameborder="0" scrolling="0" width="100px" height="30px" src="https://ghbtns.com/github-btn.html?user=Lruihao&amp;repo=Lruihao.github.io&amp;type=star&amp;count=true">
