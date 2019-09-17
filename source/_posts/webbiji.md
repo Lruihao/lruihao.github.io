@@ -3,6 +3,7 @@ title: web笔记
 date: 2019-03-18 20:40:55
 tags:
 - html/css
+- javascript
 - 前端
 categories: Web
 password:
@@ -13,14 +14,13 @@ keywords:
 - html/css
 - 前端
 - 后端
-top:
-sticky:
+top: 9
 author:
 delicate: true
 ---
 
 {% note info %}
-下面一些web设计等常用到的代码，脚本等！
+下面一些web开发的一些总结，还有一些常用到的代码，脚本等！
 {% endnote %}
 
 <!--more-->
@@ -51,6 +51,31 @@ delicate: true
 - 如果用户按下了一个**非字符键**不放，就会重复触发`keydown`事件，直到用户松开该键为止。
 
 [详解键盘事件(keydown，keypress，keyup)](https://www.jianshu.com/p/8f839f558319)
+
+### textContent、innerText和innerHTML的区别
+> 1. 设置标签中的文本内容,应该使用`textContent`或`innerText`（更老）属性,区别在于浏览器支援程度
+2. `innerHTML`能够获得元素内的所有标签内容，也可以设置标签使之生效。（**注意防止XSS注入**）
+
+**textContent**
+{% can textcontent @ current %}
+**innerText**
+{% can innertext @ current %}
+
+如果某个属性在浏览器中不支持,那么这个属性的类型是`undefined`，判断这个属性的类型是不是`undefined`，就知道浏览器是否支持。
+
+```js 兼容代码 设置任意的标签中间的任意文本内容
+<script>
+  // 设置任意的标签中间的任意文本内容
+  function setInnerText(element, text) {
+      //判断浏览器是否支持这个属性
+      if (typeof element.textContent == "undefined") {//不支持
+          element.innerText = text;
+      } else {//支持这个属性
+          element.textContent = text;
+      }
+  };
+</script>
+```
 
 ## 图床方案
 

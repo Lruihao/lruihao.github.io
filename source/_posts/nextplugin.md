@@ -244,9 +244,9 @@ periods : Select the browser versions to display. Supported values: past_1, past
 {% caniuse fetch %}
 **Caniuse with current period**
 ```
-{% caniuse sharedarraybuffer @ current %}
+{% can sharedarraybuffer @ current %}
 ```
-{% caniuse sharedarraybuffer @ current %}
+{% can sharedarraybuffer @ current %}
 **Caniuse with future periods**
 ```
 {% caniuse loading-lazy-attr @ future_3,future_2,future_1 %}
