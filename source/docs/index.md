@@ -13,6 +13,7 @@ keywords: [李瑞豪,博採眾長,李瑞豪的博客,hexo,博客档案,bugs,维�
 * https://www.lruihao.cn （已变更）
 * https://lruihao.cn
 * https://lruihao.github.io
+* https://lruihao.gitee.io
 * ~~liruihao.coding.me~~（已停止）
 
 > 代码托管在~~coding~~(**腾讯云cos桶**)和github上，实现国内，国外双路线访问。
@@ -32,6 +33,7 @@ keywords: [李瑞豪,博採眾長,李瑞豪的博客,hexo,博客档案,bugs,维�
 
 <ul>
   <li style="list-style: none;"><h2>2019年</h2></li>
+  <li>**2019.09.19** \-\- 博客仓库镜像导入`gitee.com`并开启page服务。</li>
   <li>**2019.08.15** \-\- 博客累积文字达到`103.8k`,首次突破十万字。</li>
   <li>**2019.05.28** \-\- 博客搭建一周年
     一年的时间，博客累积访客数`19k+`、访问量`52k+`、文字`92.2k`。

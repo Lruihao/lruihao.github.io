@@ -13,7 +13,7 @@
 
   {% if theme.run_time.enable %}
     <span class="post-meta-divider">|</span>
-    <span id="timeDate" title="网站运行时间">载入天数...</span><span id="times" title="网站运行时间">载入时分秒...</span>
+    <span class="run-times" title="网站运行时间">载入天数时分秒...</span>
   {% endif %}
 
   {% if theme.busuanzi_count.total_visitors and theme.busuanzi_count.total_views %}
