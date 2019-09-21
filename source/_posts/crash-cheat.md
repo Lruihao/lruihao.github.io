@@ -28,11 +28,11 @@ document.addEventListener('visibilitychange', function () {
     clearTimeout(titleTime);
   }
   else {
-    $('[rel="icon"]').attr('href', "https://i.loli.net/2018/09/25/5baa4f21661e7.png");
+    $("[rel='icon']").attr('href', "https://i.loli.net/2018/09/25/5baa4f21661e7.png");
     document.title = '小老弟(ฅ>ω<*ฅ)';
     titleTime = setTimeout(function () {
       document.title = OriginTitle;
-      $('[rel="icon"]').attr('href', "/images/favicon-32x32-next.png");
+      $("[rel='icon']").attr('href', "/images/favicon-32x32-next.png");
    }, 2000);
   }
 });
@@ -42,12 +42,12 @@ var oldTitle = document.title;
 var titleTime; //標題恢復計時器
 document.addEventListener("visibilitychange", function () {
   if (document.hidden) {
-    document.querySelector('[rel="icon"]').setAttribute("href", "/images/crash.png");
+    document.querySelector("[rel='icon']").setAttribute("href", "/images/icons/favicon-32.png");
     document.title = "網站崩潰了！";
     clearTimeout(titleTime);
   } else {
     document.title = "其實並沒有！";
-    document.querySelector('[rel="icon"]').setAttribute("href", "/images/favicon-32x32-next.png");
+    document.querySelector("[rel='icon']").setAttribute("href", "/images/icons/crash.png");
     titleTime = setTimeout(function () {
       document.title = oldTitle;
     }, 1000);
