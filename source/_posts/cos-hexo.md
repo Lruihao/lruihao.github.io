@@ -46,10 +46,12 @@ SSL设置
 ### hexo设置
 
 - 安装插件
+
 ```
 npm install hexo-deployer-cos --save
 ```
 - 站点配置文件
+
 ```
 deploy:
   type: cos
@@ -60,6 +62,7 @@ deploy:
   region: yourRegion #所属地域
 ```
 - 发布还是一样的
+
 ```
 hexo clean
 hexo g -d
@@ -74,6 +77,7 @@ hexo g -d
 用脚本在每次更新后刷新
 
 - 安装
+
 ```
 npm install qcloud-cdn-node-sdk --save
 ```

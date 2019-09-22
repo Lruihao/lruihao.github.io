@@ -53,7 +53,6 @@ keywords: [李瑞豪,博採眾長,李瑞豪的博客,hexo,博客档案,bugs,维�
     2. 根据github开源宅音乐搭建了[宅音乐播放器插件](https://player.lruihao.cn)
   </li>
   <li>**2019.01.22** \-\- 更换腾讯云对象存储
-    可能存储方式的不同，每个目录的访问必须以`/`结尾。比如`lruihao.cn/about`是无法访问的，得访问`lruihao.cn/about/`
   </li>
   <li>**2019.01.12** \-\- 博客UV过万<img src="/docs/images/uv10k.png" alt="博客UV过万" align="center" /></li>
   <li style="list-style: none;"><h2>2018年</h2></li>

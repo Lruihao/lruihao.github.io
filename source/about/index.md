@@ -14,7 +14,7 @@ description: <span id="busuanzi_container_page_pv" title="访问量"><i class="f
 
 {% endcq %}    
 <img src="/images/about.jpg" width="400" height="200">
-<p style="font-family: MMT;font-size: 350%;line-height:45px;text-align: right;">李瑞豪</p>
+<p style="font-family: mmt-eg;font-size: 350%;line-height:45px;text-align: right;">李瑞豪</p>
 
 ---
 

@@ -1,0 +1,92 @@
+﻿---
+title: 恋爱叙事体
+comments: true
+password: 161117
+message: 💕在一起的第一天！
+description: 大一那年，李瑞豪和<ruby>张湘敏<rp>（</rp><rt><span id="busuanzi_container_page_pv" title="回忆次数"><i class="fa fa-heartbeat"></i> <span id="busuanzi_value_page_pv"></span></span></rt><rp>）</rp></ruby>在避风塘第一次相遇。
+---
+<meta http-equiv="refresh" content="5201314;url=/">
+<link rel="stylesheet" type="text/css" href="love.css">
+
+{% cq %}
+  <iframe frameborder="0" scrolling="no" src="./heart.html" height="300px"></iframe>
+  <span class="love-path">李瑞豪和张湘敏一起走过了<span>
+  <span class="love-times">Loveing...</span>
+{% endcq %}
+
+---
+<img src="https://ziyuan.lruihao.cn/images/zxm.jpg" width="350" hegiht="350"> 
+<p class="tomato">番茄和西红柿<br/>土豆和马铃薯<br/>我喜欢的人和你</p>
+
+---
+<div class="shaky">(づ●'◡'●)づ <span style="color: #f00;">❥&nbsp;❤<span></div>
+<details><summary class="love-summary"><span class="shaky">💕</span>查看更多LRH和ZXM的故事</summary><div class="love-journal">2018年8月15日AM 记录美好  
+在e313的实验室把这个页面好好整理了一下，以后我们经历过的每个特殊的日子都会记录在下面。“爱您”😘。
+
+2018年8月17日 七夕  
+在一起后一起过的第一个七夕节，七夕快乐！
+
+2018年9月24日 中秋  
+今天中秋节，直到下午5点多你才从西安一路舟车劳顿赶到学校，天公不作美，湘潭下着小雨。我来校门接的你。你说你饿坏了，然后我们一起在学校半边街17CC那吃的晚餐，虽然没有去商场大鱼大肉的吃了，但是有你就好，中秋快乐！  
+
+2018年10月14日 周日  
+今天在这个页面的字体族中加入了我的手写字体，写了1年半的字体，也是为你而写的字体。沐目体。字体笔画比较细如果看不清可以全选文字这样可能会好点！（当本地没有华文行楷时就会备选沐目体，比如手机上显示，当然也有可能因为浏览器的原因不支持ttf格式字体所以无法显示）  
+
+2018年10月18日 15:55  
+今天是我和你在一起的第700天，准确的说还有8个小时5分钟。就在前两天我俩还在吵架，原因是我打球迟到了。可是我知道我错了，就是因为迟到。可是尴尬的是我打字打成了‘吃饭’，So,你多生气了好几天，既然是个误会，那还是不要生气了喔。官宣就不官宣了，就这样吧，爱你！  
+
+2018年11月17日  
+不知不觉在一起我们已经在一起两周年了，你还记得两年前的今天星期几嘛，还记得自己笑的多开心吗？我都记得！永远爱你！
+
+2018年12月31日  
+2018最后一天了，有个傻子还在担心喝不到18年最后一杯奶茶而担心呢，还好有我啊，半圆的益禾堂关门了，还好我在北苑的益禾堂给你买了你最喜欢的禾风奶绿。然后在麦乐季买了店里最后三个蛋挞。今天的雪还是没有融化，一路走得很快，怕冷掉，见到你的那一刻，真的很暖和！就酱紫。
+
+2019年1月1日  
+猪，新年快乐鸭，在一起的第三个年头开始了！  
+
+2019年1月17日 <span style="color: #f00;">❤</span>  
+猪仔仔，谁说我不记得你的生日啊，我日历提前三天就提醒我了！生日快乐呀！木马  
+
+2019年2月4日 除夕  
+明天就是猪年了，那你真的成了猪仔仔了！在一起三年每年过年都会给你压岁钱，现在没工作也没钱，都是我平时省的，现在只能给你99块！你还每次推我52.0，相信以,99会变成999甚至更多。  
+
+2019年2月14日 情人节  
+今天是2月14，传说中的情人节。相隔半个湖南。没能在一起过，只希望我心，你知！  
+
+2019年2月17-19日  
+这几天在吵架，隔三两个月总会有次小吵闹。其实我真的不想和你吵架。有的时候却被你气的不知道说什么，你也是吧，没少被我气！我希望以后都能和你一起享受开心快乐的时光！  
+
+2019年3月22日  
+player.lruihao.cn ： 20161117 20161117  
+老婆我没有不理你也没有不见了喔！我在做左边那个播放器，以后想听的歌我都给你添加过来，有没有很喜欢，有没有一点少女心爆棚的感觉！！！么么哒  
+
+2019年7月7日  
+今天是我大三在学校的最后一天，明天我也回家了。要去实习了，大学三年也没有什么舍不得的，唯独放不下的就是你，今日一别，再见就是国庆了。我想你，爱你。  
+
+2019年7月25日  
+今天打开便签看到一张截图，是你送给我的，我希望你也是，要一直开心，你笑起来真好看，很可爱！上面的文字是：  
+{% cq %}
+愿你出走半生，归来仍是少年。  
+可少年，是很难在成人的世界里如鱼得水的。  
+愿你出走半生，归来已然成年。  
+用的了手段，玩的转规则，看的透世事，过的顺风顺水，  
+却保留一点小小的真性情，坚强骄傲，宽容慈悲，仅此而已，已是大幸。  
+没有人可以一直天真如少年，除非付出巨大的代价。  
+{% endcq %}
+等我实习发了工资我可以给zxm买裙子，买软软的可以抱着睡觉的娃娃，还可以给崽崽买眉笔，鞋子等等，等以后呢存够了钱可以和zxm去旅游，北京、上海、海南、秦皇岛等等...  
+哦对了，上次一起去韩大地吃烧烤知道了张湘敏不喜欢吃芒果！  
+</div></details>
+
+---
+<div class="loveTyping">2019年9月22 周日
+今天我花了一个星期天重写了一下这个页面，更方便以后记录美好；
+顺便表达一下来深圳一个多月对你的思念。马上就到国庆了，我的票也买好了，马上又可以见到你了，要和你一起学习一起约会！
+</div>
+<!--<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=280 height=52 src="//music.163.com/outchain/player?type=2&id=563282238&auto=1&height=32" style="display: none;"></iframe>-->
+
+<script type="text/javascript" src="/js/love/love-typing.js"></script>
+<script async type="text/javascript" src="/js/love/love-time.js"></script>
+<script async type="text/javascript" src="/js/love/love-word.js"></script>
+<script async id="ilt" src="https://player.lruihao.cn/player/js/player.js" key="155b80a8f94e4c62bad4eba38f8a6369"></script>
+<script type="text/javascript" src="/js/love/snowfall.jquery.js"></script>
+<script type="text/javascript" src="/js/love/sakura.js"></script>
