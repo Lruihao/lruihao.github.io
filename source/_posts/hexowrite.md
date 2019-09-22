@@ -83,8 +83,10 @@ npm install https://github.com/CodeFalling/hexo-asset-image -- save
 
 ```
 [我的微博](https://weibo.com/liahao)
+{% link text url title %}
 ```
 [我的微博](https://weibo.com/liahao)
+{% link 我的微博 https://weibo.com/liahao 我的微博 %}
 
 # 5.添加视频
 {% note %}

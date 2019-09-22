@@ -14,7 +14,6 @@ photos:
 - /posts/git/relation(1).jpg
 - /posts/git/github.jpg
 ---
-
 先通过几张图片来大致了解一下Git的工作原理吧！
 {% asset_img relation(3).jpg 关系图3 %}
 

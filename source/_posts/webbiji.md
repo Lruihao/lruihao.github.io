@@ -18,13 +18,11 @@ top: 9
 author:
 delicate: true
 ---
-
 {% note info %}
 下面一些web开发的一些总结，还有一些常用到的代码，脚本等！
 {% endnote %}
 
 <!--more-->
-
 # front-end
 ## html
 > - [HTML+CSS](https://lruihao.cn/posts/ms-html-css.html)
