@@ -7,7 +7,7 @@ keywords: [李瑞豪,博採眾長,李瑞豪的博客,hexo,博客档案,bugs,维�
 ---
 
 # 简介
-<img alt="GitHub last commit hexo" src="https://img.shields.io/github/last-commit/lruihao/lruihao.github.io/hexo" style="float:left;"><img alt="GitHub commit activity" src="https://img.shields.io/github/commit-activity/m/lruihao/lruihao.github.io" style="float:left;"><img alt="site-uv" src="https://badgen.net/badge/visitor/3.1w+/orange" style="float:left;"><img alt="site-uv" src="https://badgen.net/badge/write/10.7w+/purple" style="float:left;">
+<img alt="GitHub last commit hexo" src="https://img.shields.io/github/last-commit/lruihao/lruihao.github.io/hexo" style="float:left;"><img alt="GitHub commit activity" src="https://img.shields.io/github/commit-activity/m/lruihao/lruihao.github.io" style="float:left;"><img alt="site-uv" src="https://badgen.net/badge/visitor/3.1w+/orange" style="float:left;"><img alt="write" src="https://badgen.net/badge/write/10.7w+/purple" style="float:left;">
 <div style="clear: both;"></div>
 * 你可以通过以下方式访问：
 * https://www.lruihao.cn （已变更）
