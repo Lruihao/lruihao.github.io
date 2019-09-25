@@ -6,7 +6,7 @@ qcloudSDK.config({
 })
 
 qcloudSDK.request('RefreshCdnDir', {
-	'dirs.1': 'https://blog.lruihao.cn' 
+	'dirs.1': 'https://lruihao.cn' 
 }, (res) => {
     console.log(res)
 })
