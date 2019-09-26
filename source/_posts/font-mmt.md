@@ -25,7 +25,7 @@ photos:
 
 * 屏写方式
 
-* [最新版下载](https://github.com/Lruihao/Grocery/raw/master/fonts/MMT_last.ttf) · [沐目体下载](https://github.com/Lruihao/Grocery/tree/master/fonts)
+* [最新版下载](https://github.com/Lruihao/MMT/raw/master/mmt@last.ttf) · [沐目体下载](https://github.com/Lruihao/MMT/releases)
   使用手机造字app手写制作，写了大概1年半吧，终于写完了，写完看效果发现粗细细了点，字型也小了点，只好以后有时间再改罗。基本上还是挺满意的，下面是效果图。
 
 ***注：仅用于个人非商用！***
