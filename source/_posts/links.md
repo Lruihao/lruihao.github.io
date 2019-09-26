@@ -18,32 +18,6 @@ delicate: true
 <!--more-->
 
 {% tabs links-nav,1 %}
-<!-- tab 博客长期更新 -->
-# 博客长期更新
-|文章|概括|
-|:--|:--|
-|[博客日志与档案](/docs/)|博客日志与档案记录，包括分类，标签，热门，访问量等|
-|[个人简历](/posts/resume.html)|个人简历网页PDF版本|
-|[hexo-theme-next @modified LRH](/posts/hexo-theme-next.html)|对next主题的DIY设计记录日志|
-|[Web笔记](/posts/webbiji.html)|记录一下自己web相关学习的笔记|
-|[hexo 插件及 next 内置样式集](/posts/nextplugin.html)|让文章写的好看又简洁又好用的插件！[hexo更多请看分类](https://lruihao.cn/categories/hexo/)|
-|[一款自己写的字体 - 沐目体](/posts/font-mmt.html)|沐目体--release|
-|[Git常用指令汇总](/posts/git-delete.html)|可能用到按需自查|
-<!-- endtab -->
-
-<!-- tab lruihao.cn分享 -->
-# lruihao.cn分享
-|链接|描述|
-|:--|:--|
-|[RUI豪小栈](https://www.lruihao.cn)|一个测试静态站点`www.lruihao.cn`|
-|[私人网盘](https://pan.lruihao.cn)|和同学们日常上机使用,前6个月使用caddy搭建，后使用可道云搭建`pan.lruihao.cn`|
-|[宅音乐播放器](https://player.lruihao.cn)|h5音乐播放器插件，使用`IT技术宅`的github开源代码`player.lruihao.cn` [接入](/posts/player.html)|
-|[游戏馆](https://www.lruihao.cn/games/)|一些小游戏，多数js来源互联网，还有一些是书上看到的实例|
-|[QQxml强制获取](https://www.lruihao.cn/qqxml/)|用来生成qq聊天中的卡片式链接|
-|[效率壁纸](https://www.lruihao.cn/bg/)|生成效率壁纸|
-|[ImgURL图床--lruihao.cn](https://img.lruihao.cn)|基于开源图床`ImgURL`搭建部署，`img.lruihao.cn`|
-<!-- endtab -->
-
 <!-- tab ACM相关 -->
 # ACM相关
 |链接|描述|
@@ -172,9 +146,18 @@ delicate: true
 |[俄罗斯方块](https://chvin.github.io/react-tetris/)|这是一个开源的游戏，小白的我看来简直牛逼爆了，好逼真，刷新都不会打断游戏进度！！|
 |[网址迷宫nazo_game](http://nazo.one-story.cn)|一个程序员的网页游戏，我只玩到12关。。。|
 |[无损音乐下载](http://www.51ape.com)||
-|[手写体制作](http://59.108.48.27)|北京大学计算机科学技术研究所的一个项目 ~~（我的字体至今还未完成）~~|
+|[手写体制作](http://www.flexifont.com/flexifont-chn/login/)|北京大学计算机科学技术研究所的一个项目`59.108.48.27` ~~（我的字体至今还未完成）~~|
 |[大象代理](http://www.daxiangdaili.com)|收费，口碑不错|
 |[蒲公英](https://www.pgyer.com)|应用内测发布平台|
 <!-- endtab -->
-
 {% endtabs %}
+
+# 博客文章
+|文章|概括|
+|:--|:--|
+|[Web笔记](/posts/webbiji.html)|记录一下自己web相关学习的笔记|
+|[Git常用指令汇总](/posts/git-delete.html)|可能用到按需自查|
+|[hexo 插件及 next 内置样式集](/posts/nextplugin.html)|让文章写的好看又简洁又好用的插件！[hexo更多请看分类](https://lruihao.cn/categories/hexo/)|
+|[hexo-theme-next @modified LRH](/posts/hexo-theme-next.html)|对next主题的DIY设计记录日志|
+|[一款自己写的字体 - 沐目体](/posts/font-mmt.html)|沐目体--release|
+|[个人简历](/posts/resume.html)|个人简历网页PDF版本|

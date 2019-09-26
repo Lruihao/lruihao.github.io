@@ -10,7 +10,7 @@ keywords: [李瑞豪,博採眾長,李瑞豪的博客,hexo,博客档案,bugs,维�
 <img alt="GitHub last commit hexo" src="https://img.shields.io/github/last-commit/lruihao/lruihao.github.io/hexo" style="float:left;"><img alt="GitHub commit activity" src="https://img.shields.io/github/commit-activity/m/lruihao/lruihao.github.io" style="float:left;"><img alt="site-uv" src="https://badgen.net/badge/visitor/3.1w+/orange" style="float:left;"><img alt="write" src="https://badgen.net/badge/write/10.7w+/purple" style="float:left;">
 <div style="clear: both;"></div>
 * 你可以通过以下方式访问：
-* https://www.lruihao.cn （已变更）
+* http://www.lruihao.cn
 * https://lruihao.cn
 * https://lruihao.github.io
 * https://lruihao.gitee.io
@@ -30,9 +30,12 @@ keywords: [李瑞豪,博採眾長,李瑞豪的博客,hexo,博客档案,bugs,维�
 # 维护记录
 {% tabs 维护日志,1 %}
 <!-- tab 博客日志 -->
-
 <ul>
   <li style="list-style: none;"><h2>2019年</h2></li>
+  <li>**2019.09.26** \-\- 由于上班学习等精力有限，决定停止服务器上现有所有站点维护。包括以下:
+  `www.lruihao.cn`(*原主页*) `player.lruihao.cn`(*宅音乐*)  
+  `img.lruihao.cn`(*ImgURL图床*) `pan.lruihao.cn`(*网盘*)
+  </li>
   <li>**2019.09.19** \-\- 博客仓库镜像导入`gitee.com`并开启page服务。</li>
   <li>**2019.08.15** \-\- 博客累积文字达到`103.8k`,首次突破十万字。</li>
   <li>**2019.05.28** \-\- 博客搭建一周年
@@ -42,7 +45,7 @@ keywords: [李瑞豪,博採眾長,李瑞豪的博客,hexo,博客档案,bugs,维�
     pwa的离线功能加上`quicklink`使之前使用fas封装的博客APP体验更佳！
   </li>
   <li>**2019.05.16** \-\- `ImgURL图床--lruihao.cn`
-    基于开源图床`ImgURL`在阿里云学生服务器上搭建自己的图床。[ImgURL图床\-\-lruihao.cn](https://img.lruihao.cn)
+    基于开源图床`ImgURL`在阿里云学生服务器上搭建自己的图床。ImgURL图床`img.lruihao.cn`
   </li>
   <li>**2019.04.07** \-\- 更改博客文章路径
     所有博文都放在了`/posts/`目录里。
@@ -50,7 +53,7 @@ keywords: [李瑞豪,博採眾長,李瑞豪的博客,hexo,博客档案,bugs,维�
   <li>**2019.03.21** \-\- caddy云盘退役
     原腾讯云服务器过期，在其搭建的caddy云盘失效；后购买了阿里云的学生服务器：
     1. 云盘换做了可道云
-    2. 根据github开源宅音乐搭建了[宅音乐播放器插件](https://player.lruihao.cn)
+    2. 根据github开源宅音乐搭建了宅音乐播放器插件`player.lruihao.cn`
   </li>
   <li>**2019.01.22** \-\- 更换腾讯云对象存储
   </li>
@@ -59,7 +62,7 @@ keywords: [李瑞豪,博採眾長,李瑞豪的博客,hexo,博客档案,bugs,维�
   <li>**2018.10.29** \-\- 网站ICP和公安备案完成</li>
   <li>**2018.08.28** \-\- 第一次收到[france](https://postgres.fun)支持 [赞助记录](/docs/donators/)</li>
   <li>**2018.09.05** \-\- 博客一百天，PV过万<img src="/docs/images/day-100.png" alt="博客一百天" align="center" /></li>
-  <li>**2018.06 ~ 2018.09** \-\- 接入百度站长，seo优化，加入评论、客服、访客统计等。创建[RUI豪小栈](https://www.lruihao.cn)
+  <li>**2018.06 ~ 2018.09** \-\- 接入百度站长，seo优化，加入评论、客服、访客统计等。创建RUI豪小栈`www.lruihao.cn`
   </li>
   <li>**2018.05.28 20:01:01** \-\- 博客诞生 [博客搭建及美化教程](/categories/hexo/)</li>
 </ul>
