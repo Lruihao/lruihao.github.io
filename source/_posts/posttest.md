@@ -2,11 +2,12 @@
 title: python发送post请求进行简单的接口测试
 date: 2019-05-07 18:17:05
 tags:
-- python
-- post请求
+- Python
+- POST
 - 接口测试
 categories:
-- python
+- Backend
+- Python
 password:
 abstract:
 message:

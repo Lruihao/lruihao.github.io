@@ -2,11 +2,12 @@
 title: 安装pyinstaller出错的解决办法及csdn工具实例打包
 date: 2019-05-09 19:05:01
 tags:
-- python
+- Python
 - pyinstaller
 - 脚本
 categories:
-- python
+- Backend
+- Python
 password:
 abstract:
 message:

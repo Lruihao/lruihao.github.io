@@ -3,10 +3,11 @@ title: hexo个性化-next主题动态显示subtitle
 date: 2018-08-20 16:16:40
 tags:
 - hexo
-- 前端
-- javascript
+- Frontend
+- JavaScript
 categories:
-- hexo
+- Frontend
+- JavaScript
 ---
 
 {% note success no-icon %}

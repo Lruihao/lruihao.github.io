@@ -2,11 +2,13 @@
 title: java通过URL和URLConnection访问网页资源
 date: 2019-05-06 17:41:35
 tags:
-- java
+- Backend
+- JAVA
 - URLConnection
 - URL
 categories:
-- java
+- Backend
+- JAVA
 password:
 abstract:
 message:

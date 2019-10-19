@@ -4,22 +4,11 @@ date: 2019-09-08 11:47:50
 tags:
 - async
 - defer
-- javascript
+- Frontend
+- JavaScript
 categories:
-- javascript
-password:
-abstract:
-message:
-description:
-keywords:
-top:
-sticky:
-author:
-permalink:
-noreward:
-notshow:
-norelate:
-repost:
+- Frontend
+- JavaScript
 ---
 
 {% note info no-icon %}

@@ -2,11 +2,10 @@
 title: netBeans IDE开发设置
 date: 2019-08-15 18:36:15
 tags:
-- php
 - netBeans
-- 前端
+- PHP
 categories:
-- php
+- Fullstack
 ---
 
 # 安裝

@@ -3,8 +3,8 @@ title: hexo+github搭建个人博客及美化
 date: 2018-06-01 14:34:23
 tags:
 - hexo
-- nodejs
-- 前端
+- Nodejs
+- Frontend
 categories: hexo
 keywords:
 - hexo 主题

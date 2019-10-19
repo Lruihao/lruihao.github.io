@@ -3,23 +3,11 @@ title: WAMPServer自定义网站根目录等设置
 date: 2019-07-12 18:44:36
 tags:
 - WAMPServer
-- php
+- PHP
 - windows
 - server
-categories: php
-password:
-abstract:
-message:
-description:
-keywords:
-top:
-sticky:
-author:
-permalink:
-noreward:
-notshow:
-norelate:
-repost:
+categories:
+- Fullstack
 ---
 
 

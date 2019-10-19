@@ -3,8 +3,9 @@ title: eclipse的基本使用
 date: 2019-03-15 23:47:24
 tags:
 - eclipse
-- java
-categories: java
+- JAVA
+categories:
+- Fullstack
 password:
 abstract:
 message:

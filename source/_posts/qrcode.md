@@ -2,12 +2,13 @@
 title: 用MyQR制作专属动态二维码(py和exe版本)
 date: 2019-04-27 14:16:54
 tags:
-- python
+- Python
 - pillow
 - numpy
 - imageio
 categories:
-- python
+- Backend
+- Python
 password:
 abstract:
 message:

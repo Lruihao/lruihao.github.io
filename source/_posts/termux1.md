@@ -4,7 +4,7 @@ date: 2018-10-23 22:16:02
 tags:
 - termux
 - linux
-- nodejs
+- Nodejs
 categories:
 - termux
 delicate: true

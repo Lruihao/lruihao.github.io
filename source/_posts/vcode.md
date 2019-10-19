@@ -2,18 +2,11 @@
 title: js验证码
 date: 2019-03-04 20:53:09
 tags: 
-- javascript
-- 前端
-categories: javascript
-password:
-abstract:
-message:
-description:
-top:
-author:
-permalink:
-noreward:
-notshow:
+- Frontend
+- JavaScript
+categories:
+- Frontend
+- JavaScript
 ---
 
 <style type="text/css">

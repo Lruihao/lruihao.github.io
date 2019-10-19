@@ -2,10 +2,12 @@
 title: 匿名类在可视化界面中的应用
 date: 2019-03-15 22:31:28
 tags:
-- java
-- 匿名类
+- Backend
+- JAVA
 - GUI
-categories: java
+categories:
+- Backend
+- JAVA
 password:
 abstract:
 message:

@@ -2,13 +2,13 @@
 title: web开发规则，代码规范
 date: 2019-08-15 18:30:31
 tags:
-- php
-- html/css
-- javascript
-- git
+- PHP
+- Frontend
+- JavaScript
+- Git
 - 总结
 categories:
-- Web
+- Fullstack
 delicate: true
 ---
 

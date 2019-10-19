@@ -2,15 +2,16 @@
 title: python实战：模拟post请求定时获取后台数据并打包发送至微信
 date: 2019-05-11 17:02:31
 tags:
-- python
+- Python
 - wxpy
 - pyinstaller
-- post
-- json
+- POST
+- JSON
 - 定时任务
 - requests
 categories:
-- python
+- Backend
+- Python
 keywords:
 - python
 - wxpy

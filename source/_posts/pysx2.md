@@ -2,9 +2,10 @@
 title: python实训总结Ⅱ
 date: 2019-06-21 18:46:41
 tags:
-- python
+- Python
 categories:
-- python
+- Backend
+- Python
 delicate: true
 ---
 

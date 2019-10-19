@@ -2,23 +2,11 @@
 title: 文件加密解密（字节流）
 date: 2019-05-02 23:04:32
 tags:
-- java
-- java字节流
+- Backend
+- JAVA
 categories:
-- java
-password:
-abstract:
-message:
-description:
-keywords:
-top:
-sticky:
-author:
-permalink:
-noreward:
-notshow:
-norelate:
-repost:
+- Backend
+- JAVA
 ---
 
 

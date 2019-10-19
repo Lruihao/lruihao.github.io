@@ -3,8 +3,8 @@ title: hexo 博客源码备份
 date: 2018-11-03 12:49:28
 tags:
 - hexo
-- git
-- nodejs
+- Git
+- Nodejs
 categories: hexo
 password:
 abstract:

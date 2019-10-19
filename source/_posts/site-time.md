@@ -2,10 +2,11 @@
 title: 设置网站运行时间
 date: 2019-09-19 22:03:29
 tags:
-- javascript
-- 前端
+- Frontend
+- JavaScript
 categories:
-- javascript
+- Frontend
+- JavaScript
 ---
 
 {% note %}

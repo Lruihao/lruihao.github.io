@@ -2,17 +2,10 @@
 title: linux/centos 下的安装git
 date: 2018-09-22 22:28:45
 tags:
-- git
+- Git
 - linux
 categories:
-- git
-password:
-abstract:
-message:
-description:
-top:
-author:
-permalink:
+- Git
 ---
 
 ### 下载git

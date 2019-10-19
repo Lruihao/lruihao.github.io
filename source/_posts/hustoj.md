@@ -8,19 +8,6 @@ tags:
 - linux
 categories:
 - linux
-password:
-abstract:
-message:
-description:
-keywords:
-top:
-sticky:
-author:
-permalink:
-noreward:
-notshow:
-norelate:
-repost:
 ---
 
 {% note info no-icon %}

@@ -2,10 +2,11 @@
 title: python设置程序每天8点定时执行任务
 date: 2019-05-09 23:26:54
 tags:
-- python
+- Python
 - 定时任务
 categories:
-- python
+- Backend
+- Python
 password:
 abstract:
 message:

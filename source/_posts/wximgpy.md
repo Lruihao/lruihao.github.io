@@ -2,11 +2,12 @@
 title: 基本python实现的爬取微信好友头像，并拼接成大图
 date: 2019-04-20 13:32:58
 tags:
-- python
+- Python
 - wxpy
 - pillow
 categories:
-- python
+- Backend
+- Python
 password:
 abstract:
 message:

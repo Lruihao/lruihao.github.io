@@ -2,11 +2,12 @@
 title: QQ强制生成卡片式链接
 date: 2019-03-08 16:52:13
 tags:
-- javascript
-- 前端
+- Frontend
+- JavaScript
 - 脚本
 categories:
-- javascript
+- Frontend
+- JavaScript
 password:
 abstract:
 message:

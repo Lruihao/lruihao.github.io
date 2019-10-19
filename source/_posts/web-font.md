@@ -3,8 +3,8 @@ title: ttf字体压缩
 date: 2018-10-17 21:38:06
 tags:
 - 字体压缩
-- 前端
-- nodejs
+- Frontend
+- Nodejs
 categories:
 - others
 password:

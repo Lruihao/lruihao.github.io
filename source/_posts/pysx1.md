@@ -2,23 +2,11 @@
 title: python实训总结Ⅰ
 date: 2019-06-18 18:41:00
 tags:
-- python
+- Python
 - turtle
 categories:
-- python
-password:
-abstract:
-message:
-description:
-keywords:
-top:
-sticky:
-author:
-permalink:
-noreward:
-notshow:
-norelate:
-repost:
+- Backend
+- Python
 ---
 
 

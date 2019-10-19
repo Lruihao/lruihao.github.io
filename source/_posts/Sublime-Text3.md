@@ -6,7 +6,7 @@ tags:
 - 总结
 - 他山之石
 categories:
-- others
+- Fullstack
 repost: true
 link: https://www.cnblogs.com/rudong/p/7889114.html
 ---

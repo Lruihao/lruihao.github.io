@@ -2,25 +2,14 @@
 title: java实现一个单线程的资源下载器
 date: 2019-05-08 20:55:02
 tags:
-- java
+- Backend
+- JAVA
 - URL
 - URLConnection
 - GUI
 categories:
-- java
-password:
-abstract:
-message:
-description:
-keywords:
-top:
-sticky:
-author:
-permalink:
-noreward:
-notshow:
-norelate:
-repost:
+- Backend
+- JAVA
 photos:
 - /posts/SingleThreadDown/1.png
 ---

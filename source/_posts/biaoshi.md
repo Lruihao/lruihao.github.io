@@ -2,17 +2,13 @@
 title: java标识符
 date: 2019-01-14 15:07:57
 tags: 
-- java标识符
-- java
-categories: java
-password:
-abstract:
-message:
-description:
-top:
-author:
-permalink:
+- Backend
+- JAVA
+categories:
+- Backend
+- JAVA
 ---
+
 ### 标识符：
 给类，接口，方法或者变量起名字的符号
 ### 组成规则：

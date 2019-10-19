@@ -1,8 +1,8 @@
 ---
 title: 使用Git上传代码到github,coding等仓库
 date: 2018-10-26 21:11:02
-tags: git
-categories: git
+tags: Git
+categories: Git
 password:
 abstract:
 message:

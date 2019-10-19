@@ -3,19 +3,10 @@ title: java泛型test
 date: 2019-03-16 13:56:01
 tags:
 - 泛型
-- java
-categories: java
-password:
-abstract:
-message:
-description:
-keywords:
-top:
-sticky:
-author:
-permalink:
-noreward:
-notshow:
+- JAVA
+categories:
+- Backend
+- JAVA
 ---
 
 {% note warning %}

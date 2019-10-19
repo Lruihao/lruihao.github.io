@@ -3,10 +3,10 @@ title: WeX5在win8或者win10操作系统studio中新建.w向导或其他的编�
 date: 2019-04-13 11:15:20
 tags:
 - Wex5
-- 前端
+- Frontend
 - app
 categories:
-- Web
+- Frontend
 password:
 abstract:
 message:

@@ -2,10 +2,12 @@
 title: 用记事本编写第一个java程序
 date: 2019-04-19 19:49:54
 tags:
-- java
+- Backend
+- JAVA
 - HelloWorld
 categories:
-- java
+- Backend
+- JAVA
 password:
 abstract:
 message:

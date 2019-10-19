@@ -2,10 +2,12 @@
 title: js判断用户设备类型及平台
 date: 2018-11-03 23:35:44
 tags:
-- javascript
-- 前端
+- Frontend
+- JavaScript
 - 他山之石
-categories: javascript
+categories:
+- Frontend
+- JavaScript
 password:
 abstract:
 message:

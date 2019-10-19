@@ -3,8 +3,7 @@ title: hexo插件及next内置样式集
 date: 2018-11-24 16:54:09
 tags:
 - hexo
-- 前端
-- pdf
+- Frontend
 categories: hexo
 delicate: true
 ---

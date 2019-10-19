@@ -2,9 +2,12 @@
 title: java继承test
 date: 2019-01-24 15:07:50
 tags:
-- java
-- 继承
-categories: java
+- Backend
+- JAVA
+- extends
+categories:
+- Backend
+- JAVA
 password:
 abstract:
 message:

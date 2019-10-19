@@ -2,20 +2,9 @@
 title: 前端面试题-HTML+CSS
 date: 2019-03-30 22:58:39
 tags:
-- 前端
-- html/css
-categories: Web
-password:
-abstract:
-message:
-description:
-keywords:
-top:
-sticky:
-author:
-permalink:
-noreward:
-notshow:
+- Frontend
+categories:
+- Frontend
 repost: true
 ---
 

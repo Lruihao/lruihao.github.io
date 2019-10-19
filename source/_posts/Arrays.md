@@ -2,11 +2,13 @@
 title: Arrays类及基本使用
 date: 2019-01-18 13:13:10
 tags: 
-- Arrays类
-- java
+- Backend
+- JAVA
 - Collator
 - Comparator
-categories: java
+categories:
+- Backend
+- JAVA
 password:
 abstract:
 message:

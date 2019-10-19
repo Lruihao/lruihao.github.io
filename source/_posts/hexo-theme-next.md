@@ -3,7 +3,7 @@ title: hexo-theme-next @modified LRH
 date: 2019-03-21 16:43:19
 tags:
 - hexo
-- 前端
+- Frontend
 - 博客日志
 categories: hexo
 description: 基于hexo-theme-next 6.0+的Pisces模板做的DIY扩展性设计。

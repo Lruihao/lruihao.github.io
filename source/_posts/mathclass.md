@@ -2,9 +2,11 @@
 title: java猜数字小游戏（Math类）
 date: 2019-01-15 17:33:28
 tags:
-- Math类
-- java
-categories: java
+- Backend
+- JAVA
+categories:
+- Backend
+- JAVA
 password:
 abstract:
 message:

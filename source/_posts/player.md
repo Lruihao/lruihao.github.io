@@ -2,11 +2,12 @@
 title: 宅音乐播放器
 date: 2019-03-19 23:32:56
 tags:
-- 前端
-- html/css
-- php
+- Backend
+- PHP
 - 宝塔面板
-categories: Web
+categories:
+- Backend
+- PHP
 password:
 abstract:
 message:

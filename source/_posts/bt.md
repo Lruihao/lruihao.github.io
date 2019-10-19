@@ -3,7 +3,6 @@ title: 宝塔面板安装
 date: 2019-03-18 21:31:43
 tags:
 - linux
-- html/css
 - server
 - 宝塔面板
 categories: linux

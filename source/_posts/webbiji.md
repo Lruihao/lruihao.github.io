@@ -2,18 +2,21 @@
 title: web笔记
 date: 2019-03-18 20:40:55
 tags:
-- html/css
-- javascript
-- 前端
-categories: Web
+- Fullstack
+- Frontend
+- JavaScript
+- Backend
+categories:
+- Fullstack
 password:
 abstract:
 message:
 description:
 keywords:
-- html/css
-- 前端
-- 后端
+- Fullstack
+- Frontend
+- JavaScript
+- Backend
 top: 9
 author:
 delicate: true

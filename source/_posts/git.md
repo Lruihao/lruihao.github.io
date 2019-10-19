@@ -1,8 +1,8 @@
 ---
 title: Git常用指令汇总
 date: 2018-10-30 18:59:56
-tags: git
-categories: git
+tags: Git
+categories: Git
 password:
 abstract:
 message:
@@ -85,9 +85,14 @@ git clone -b branchName reposityUrl     # 克隆指定分支
 ```
 git pull
 ```
-
 > 从远程仓库拉下来到本地库然后合并相当于`git fetch`+`git merge`。
 一般push前先拉去最新版本，避免代码冲突，如果有冲突需要解决了冲突才能提交。
+
+**import repositories同步更新**
+```
+git pull 原链接
+git push origin master
+```
 
 ## fetch
 ```
@@ -99,7 +104,7 @@ git fetch               # 从远程库抓下最新版本，但是不合并
 ```
 git merge dev           # 在当前的分支上合并dev分支
 ```
-> 分支合并也是在本地完成，新的分支只有在合并后才允许被删除。
+> 分支合并也是在本地完成(**从本地库到工作区**)，新的分支只有在合并后才允许被删除。
 如果分支合并是出现冲突需要解决了冲突才能合并，使用`git status`查看冲突文件。
 
 {% asset_img delete-merge.png 分支合并后删除 %}
@@ -263,4 +268,5 @@ gitk --all
 {% asset_img lisence.jpg lisence %}
 
 # 其他
+* [github上fork了别人的项目后，再同步更新别人的提交](https://blog.csdn.net/qq1332479771/article/details/56087333)
 * [Gearn Git Branching](https://learngitbranching.js.org/)

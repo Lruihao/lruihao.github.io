@@ -5,9 +5,11 @@ tags:
 - 开源图床
 - imgurl
 - 宝塔面板
-- html/css
+- Backend
 - 他山之石
-categories: Web
+categories:
+- Backend
+- PHP
 password:
 abstract:
 message:
@@ -18,7 +20,6 @@ keywords:
 - 图床
 - imgurl
 - 宝塔面板
-- html/css
 - img.lruihao.cn
 top:
 sticky:

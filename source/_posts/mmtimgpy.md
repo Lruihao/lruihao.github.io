@@ -2,10 +2,11 @@
 title: python爬取网站图片（图片链接相似）
 date: 2019-04-22 12:46:34
 tags:
-- python
+- Python
 - 脚本
 categories:
-- python
+- Backend
+- Python
 password:
 abstract:
 message:

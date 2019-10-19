@@ -2,9 +2,11 @@
 title: php同时主动推送链接到百度，神马等站长平台
 date: 2019-09-28 18:32:42
 tags:
-- php
+- Backend
+- PHP
 categories:
-- php
+- Backend
+- PHP
 delicate:
 ---
 

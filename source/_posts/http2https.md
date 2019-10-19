@@ -5,20 +5,12 @@ tags:
 - VPS
 - SSL
 - 301重定向
-- javascript
+- Frontend
+- JavaScript
 - CDN
-categories: Web
-password:
-abstract:
-message:
-description:
-keywords:
-top:
-sticky:
-author:
-permalink:
-noreward:
-notshow:
+categories:
+- Frontend
+- JavaScript
 ---
 
 {% note default %}

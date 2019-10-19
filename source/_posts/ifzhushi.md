@@ -2,22 +2,10 @@
 title: 条件注释判断浏览器版本&lt;!--[if lt IE 9]&gt;
 date: 2019-05-10 13:08:27
 tags:
-- html/css
+- Frontend
 - 他山之石
 categories:
-- Web
-password:
-abstract:
-message:
-description:
-keywords:
-top:
-sticky:
-author:
-permalink:
-noreward:
-notshow:
-norelate:
+- Frontend
 repost: true
 ---
 

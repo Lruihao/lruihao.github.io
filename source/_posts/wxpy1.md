@@ -2,13 +2,14 @@
 title: python玩微信：初探wxpy
 date: 2019-04-20 15:44:57
 tags:
-- python
+- Python
 - wxpy
 - pyecharts
 - jieba
 - 他山之石
 categories:
-- python
+- Backend
+- Python
 password:
 abstract:
 message:

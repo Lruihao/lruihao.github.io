@@ -4,8 +4,11 @@ date: 2019-01-14 17:30:24
 tags:
 - 水仙花数
 - 循环语句
-- java
-categories: java
+- Backend
+- JAVA
+categories:
+- Backend
+- JAVA
 password:
 abstract:
 message:

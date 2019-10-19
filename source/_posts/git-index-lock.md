@@ -2,10 +2,9 @@
 title: git index.lock
 date: 2018-08-14 19:21:23
 tags:
-- git
-- 前端
+- Git
 categories:
-- git
+- Git
 password:
 abstract:
 message:
