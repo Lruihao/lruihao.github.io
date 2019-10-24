@@ -4,18 +4,11 @@ date: 2019-04-24 13:21:49
 tags:
 - 简历
 categories:
-password:
-abstract:
-message:
-description:
-keywords:
+password: liruihao
+abstract: 个人简历PDF
+message: 暂时不公开简历
 top:
-sticky: false
-author:
-permalink:
 noreward: true
-notshow:
-repost:
 ---
 
 
