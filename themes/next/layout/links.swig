@@ -101,6 +101,7 @@
           overflow: hidden;
           white-space: nowrap;
           text-overflow: ellipsis;
+          margin-top: 15px;
         }
         .card-box span:hover {
           color: #d480aa;
