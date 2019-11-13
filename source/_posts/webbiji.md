@@ -1,5 +1,5 @@
 ---
-title: web笔记
+title: web汇总
 date: 2019-03-18 20:40:55
 tags:
 - Fullstack
@@ -43,6 +43,15 @@ delicate: true
 ```
 ### 图片类型选择
 {% asset_img imgType.jpg 图片类型选择 %}
+
+## css
+### flexbox
+Flex布局将成为未来布局的首选方案，比如说常见的bootstrap4的版本就用flex替代了float来进行排版。
+我在网上看到几个很好的教程,图文并茂，一目了然。
+> - [A Complete Guide to Flexbox](https://css-tricks.com/snippets/css/a-guide-to-flexbox/)
+- [Flex 布局教程：语法篇](http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html)
+
+实在懒癌发作，笔记本上手抄了笔记我就不写学习总结了，还有网友[Demo](http://static.vgee.cn/static/index.html)也写了。
 
 ## javascript
 ### keydown和keypress
@@ -88,6 +97,7 @@ delicate: true
 
 
 ## font-awesome
+现在使用5的版本，可以使用`webfont+css`或`svg+js`
 ```xml font-awesome
 <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css">
  ```
@@ -105,7 +115,7 @@ delicate: true
 <link rel="stylesheet" href="https://apps.bdimg.com/libs/bootstrap/3.3.4/css/bootstrap.min.css">
 <script src="https://apps.bdimg.com/libs/bootstrap/3.3.4/js/bootstrap.min.js">
 ```
-```xml 不引入js
+```xml
 <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=0">
 ```
 
@@ -135,7 +145,7 @@ delicate: true
 <link rel="stylesheet" type="text/css" href="style_PC.css" media="screen and (min-width: 960px)"/>
 ```
 
-## jquery源
+## jquery
 ```xml jquery
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 
@@ -171,3 +181,5 @@ https://fonts.google.com/
 ```
 
 # back-end
+> 更多学习内容见[学习课件](https://github.com/Lruihao/web-dev-data)  
+练习作业[源码](https://github.com/Lruihao/hw)+[Demo](http://hw.lruihao.cn/)
