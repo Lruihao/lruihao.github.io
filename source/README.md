@@ -1,7 +1,7 @@
 <h1 align="center" >博採眾長</h1>
 <div align="center">
-  <img alt="vivew" src="https://badgen.net/badge/vivew/7.6w+/orange">
-  <img alt="write" src="https://badgen.net/badge/write/10.7w+/purple">
+  <img alt="vivew" src="https://badgen.net/badge/vivew/8.7w+/orange">
+  <img alt="write" src="https://badgen.net/badge/write/11.1w+/purple">
 </div>
 
 **[目录](https://github.com/Lruihao/lruihao.github.io/blob/hexo/README.md) [主题](https://github.com/Lruihao/hexo-theme-next)**

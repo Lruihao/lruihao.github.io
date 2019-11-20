@@ -1,4 +1,5 @@
-<!--加在head-->
+{# 使用方法 #}
+{# 在head中引入该文件 #}
 <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 <script>
   (adsbygoogle = window.adsbygoogle || []).push({
