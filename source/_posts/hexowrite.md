@@ -105,7 +105,7 @@ npm install https://github.com/CodeFalling/hexo-asset-image -- save
 	frameborder=0 allowfullscreen>
 </iframe>
 ```
-{% dplayer url="https://ziyuan.lruihao.cn/public/hey.mp4" width="100%" height="400px" %}
+{% dplayer url="https://cdn.lruihao.cn/files/hey.mp4" width="100%" height="400px" %}
 <!-- <iframe 
 	height=500 width=100% 
 	src="https://player.youku.com/embed/XMzY0MzgxNDMyOA==" 

@@ -108,7 +108,7 @@ other:
 ```xml example
 {% dplayer "url=https://moeplayer.b0.upaiyun.com/dplayer/hikarunara.mp4" "addition=https://dplayer.daoapp.io/bilibili?aid=4157142" "api=https://api.prprpr.me/dplayer/" "pic=https://moeplayer.b0.upaiyun.com/dplayer/hikarunara.jpg" "id=9E2E3368B56CDBB4" "loop=yes" "theme=#FADFA3" "autoplay=false" "token=tokendemo" %}
 ```
-{% dplayer url="https://ziyuan.lruihao.cn/public/hey.mp4" width="100%" height="400px" %}
+{% dplayer url="https://cdn.lruihao.cn/files/hey.mp4" width="100%" height="400px" %}
 
 #### hexo-tag-aplayer
 [more](https://github.com/MoePlayer/hexo-tag-aplayer)
@@ -138,7 +138,7 @@ npm install --save hexo-tag-aplayer
 {% aplayer "你离开了南京，从此没人和我说话" "李志" "https://ziyuan.lruihao.cn/public/nanjing.mp3" "https://p2.music.126.net/UuSe-Vc6rS7JtRJSQgDU2g==/2323268069553116.jpg?param=300x300" %}
 ```
 
-{% aplayer "你离开了南京，从此没人和我说话" "李志" "https://ziyuan.lruihao.cn/public/nanjing.mp3" "https://p2.music.126.net/UuSe-Vc6rS7JtRJSQgDU2g==/2323268069553116.jpg?param=300x300" %}
+{% aplayer "你离开了南京，从此没人和我说话" "李志" "https://cdn.lruihao.cn/files/nanjing.mp3" "https://p2.music.126.net/UuSe-Vc6rS7JtRJSQgDU2g==/2323268069553116.jpg?param=300x300" %}
 
 #### hexo-pdf
 [pdf传送门](https://lruihao.cn/posts/next-pdf.html)

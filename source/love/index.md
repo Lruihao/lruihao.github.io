@@ -15,7 +15,7 @@ description: 大一那年，李瑞豪和<ruby>张湘敏<rp>（</rp><rt><span id=
 {% endcq %}
 
 ---
-<img src="https://ziyuan.lruihao.cn/images/zxm.jpg" width="350px" hegiht="350px"> 
+<img src="images/zxm.jpg" width="350px" hegiht="350px"> 
 <p class="tomato">番茄和西红柿<br/>土豆和马铃薯<br/>我喜欢的人和你</p>
 
 ---
@@ -79,10 +79,8 @@ player.lruihao.cn ： 20161117 20161117
 2019年9月22日 周日  
 今天我花了一个星期天重写了一下这个页面，更方便以后记录美好；  
 顺便表达一下来深圳一个多月对你的思念。马上就到国庆了，我的票也买好了，马上又可以见到你了，要和你一起学习一起约会！  
-</div></details>
 
----
-<div class="loveTyping">2019年9月30日~10月6日 国庆
+2019年9月30日-10月6日 国庆
 30号清晨，我非常激动地踏上了深圳发往湘潭的火车，去火车站的路上，期间坐公交车坐反了，竟然阴差阳错到了清湖地铁站。反正，总之我就是顺利的到了湘潭，带着一颗激动地心，因为马上就要见到你了。
 想起一句话，“所爱隔山海，山海皆可平”，我想大概如此。又想起一句诗，“玲珑骰子安红豆,入骨相思知不知”，我知你知。
 第一眼见到你，感觉很熟悉很亲切，在明德到亲民一起走过三年的路上，还记得，大一的时候你问我，愿意陪你走完这三年的路吗。岂只三年，我还想和你再走很多年。
@@ -90,12 +88,16 @@ player.lruihao.cn ： 20161117 20161117
 又想起了上次和你在凤凰的逛街，过去的一切都让我满意和回味无穷，我相信未来定是如此，岁月静好，爱你如初。（土味情话说来就来！）
 6号晚上我一个人踏上了返程的火车，没叫任何人送我包括你，离别总是不舍的，这次特别特别的强烈。气氛不要太伤感，我们大家都在成长的路上，我们一直都在对方的心里。考研加油！
 晚安。
+</div></details>
+
+---
+<div class="loveTyping">2019年11月17日 三周年
+承蒙时光不弃，1095天，你一直在，我一直爱，三周年快乐。
 </div>
 <!--<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=280 height=52 src="//music.163.com/outchain/player?type=2&id=563282238&auto=1&height=32" style="display: none;"></iframe>-->
-
 <script type="text/javascript" src="/js/love/love-typing.js"></script>
 <script async type="text/javascript" src="/js/love/love-time.js"></script>
 <script async type="text/javascript" src="/js/love/love-word.js"></script>
-<script async id="ilt" src="https://player.lruihao.cn/player/js/player.js" key="155b80a8f94e4c62bad4eba38f8a6369"></script>
+<!-- <script async id="ilt" src="https://player.lruihao.cn/player/js/player.js" key="155b80a8f94e4c62bad4eba38f8a6369"></script> -->
 <script type="text/javascript" src="/js/love/snowfall.jquery.js"></script>
 <script type="text/javascript" src="/js/love/sakura.js"></script>
