@@ -60,6 +60,7 @@ hexo中使用时css和js都需要做适当调整，配合加密功能使用等�
   </body>
 </html>
 ```
+<a href="https://img.lruihao.cn" target="_blank" class="LinkCard">cos-album demo</a>
 {% asset_img view.png 大屏显示 %}
 {% asset_img mobile.png 手机显示 %}
 
