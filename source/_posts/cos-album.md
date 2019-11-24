@@ -27,15 +27,13 @@ cos桶相册，终于！！终于来了！！，思路参考自[给hexo静态博
 首先我这个cos相册，相册分类就是文件夹分类，所以cos桶里面先新建不同的文件夹，**文件夹名称就是相册名称**，
 每个相册里面需要放置一张名称为**“封面.jpg”**的图片作为该相册的封面。
 ## 上传工具
-- cosBrowser GUI工具,桌面/移动版 (推荐)
-- coscmd 命令行工具
-- PicGo 图床上传工具
-
-*注：代码中设置了不加载根目录的图片，所以COS可以配合PicGo来搭建个人图床，当然也可以上传至指定目录，实现日常的相册上传功能。*
+- **COSBrowser** GUI工具,桌面/移动版 【官方、推荐】
+- **COSCMD** 命令行工具 【官方】
+- **PicGo** 图床上传工具 【第三方、推荐】
 
 # 食用方式
 <a href="https://github.com/Lruihao/cos-album" target="_blank" class="LinkCard">下载地址，别忘点赞哈</a>
-下载源码，修改`cos-album.js`中前面的配置信息，xmlLink后不需要添加`/`。
+首先，下载源码，修改`cos-album.js`中前面的配置信息，xmlLink后不需要添加`/`。
 ```js config
 //需要解析的騰訊云COS桶XML鏈接
 let xmlLink = "https://img-xxxxx.cos.ap-chengdu.myqcloud.com";
@@ -44,8 +42,9 @@ let appendTo = "";
 //顯示數目,整數
 let showNum = 8; 
 ```
-在你的html里面引入`cos-album.css`,`cos-album.js`,`viewport`视个人爱好添加。
-hexo中使用css和js都需要做适当调整，配合加密功能使用等等，这里不再展开。
+然后，在你的html里面引入`cos-album.css`,`cos-album.js`,`viewport`视个人爱好添加。
+hexo中使用时css和js都需要做适当调整，配合加密功能使用等等，这里不再展开。
+***注：代码设定不加载根目录文件，所以可以利用静态服务把源码部署在根目录，配合PicGo、COSBrowser上传来搭建个人图床。***
 ```xml demo
 <!DOCTYPE html>
 <html>

@@ -7,7 +7,7 @@ password:
 abstract:
 message:
 description:
-top: 10
+top:
 delicate: true
 photos:
 - /posts/git/relation(2).jpg
