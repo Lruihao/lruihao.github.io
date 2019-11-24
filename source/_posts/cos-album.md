@@ -39,8 +39,10 @@ cos桶相册，终于！！终于来了！！，思路参考自[给hexo静态博
 ```js config
 //需要解析的騰訊云COS桶XML鏈接
 let xmlLink = "https://img-xxxxx.cos.ap-chengdu.myqcloud.com";
+//添加相册到指定节点下，如: ".myalbum","#myalbum"，默认"body"
+let appendTo = "";
 //顯示數目,整數
-let showNum = 8;
+let showNum = 8; 
 ```
 在你的html里面引入`cos-album.css`,`cos-album.js`,`viewport`视个人爱好添加。
 hexo中使用css和js都需要做适当调整，配合加密功能使用等等，这里不再展开。
@@ -52,10 +54,10 @@ hexo中使用css和js都需要做适当调整，配合加密功能使用等等�
     <title>cos-album</title>
     <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
     <link rel="stylesheet" type="text/css" href="cos-album.css">
-    <script type="text/javascript" src="cos-album.js"></script>
+    <script type="text/javascript" src="cos-album.js" defer></script>
   </head>
   <body>
-    <!-- 你的内容，如评论等 -->
+    <!-- 你的其他内容，如评论等 -->
   </body>
 </html>
 ```
