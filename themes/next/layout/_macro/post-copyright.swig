@@ -16,4 +16,3 @@
   #}{{ __('post.copyright.license_content', theme.post_copyright.license) }}{#
 #}</li>
 </ul>
-

@@ -395,7 +395,7 @@
     {% endif %}
 
     {% if theme.post_copyright.enable and not is_index %}
-      <div>
+      <div class="copyright-box">
         {% include 'post-copyright.swig' with { post: post } %}
       </div>
     {% endif %}
