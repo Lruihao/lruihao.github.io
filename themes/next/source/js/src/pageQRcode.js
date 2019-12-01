@@ -20,5 +20,8 @@ if(flag){
   qrBox.appendChild(qrImg);
   qrBox.appendChild(span);
   qrBox.className = "qr-box";
-  document.querySelector(".copyright-box").appendChild(qrBox);
+  copyrightBox = document.querySelector(".copyright-box");
+  if(copyrightBox){
+    copyrightBox.appendChild(qrBox);
+  }
 }

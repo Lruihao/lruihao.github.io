@@ -1,7 +1,7 @@
 {# Custom javascript for lruihao.cn #}
 
 {# 页面二维码 #}
-<script defer type="text/javascript" src="/js/src/pageQRcode.js"></script>
+<script type="text/javascript" src="/js/src/pageQRcode.js" defer></script>
 
 {# 建站时间 #}
 {% include 'site-time.swig'%}
