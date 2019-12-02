@@ -54,6 +54,7 @@ delicate: true
 |[python123](https://python123.io)|Python123 是专注于为中国高等院校教学 Python 语言的而开发的一款学习工具网站[python学习](https://python123.io/index/notebooks/python_programming_basic_v2/%E6%BA%90%E4%BB%A3%E7%A0%81/2-1%20%E5%9F%BA%E6%9C%AC%E7%9A%84%E6%B8%A9%E5%BA%A6%E8%BD%AC%E6%8D%A2%E7%A8%8B%E5%BA%8F?from=Python%E8%AF%AD%E8%A8%80%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E5%9F%BA%E7%A1%80%28%E7%AC%AC2%E7%89%88%29)|
 |[pypi](https://pypi.org/)|Find, install and publish Python packages with the Python Package Index|
 |[优矿](https://uqer.io)|python在线测试，笔记|
+|[阮一峰的网络日志](http://www.ruanyifeng.com/blog/)|开发者手册，JavaScript等等|
 |[廖雪峰](https://www.liaoxuefeng.com)|git,python,javascript学习|
 |[新晴网](http://www.sioe.cn)|PS学习，摄影教程等|
 |[实验楼](https://www.shiyanlou.com)|在线做实验,高效学编程|

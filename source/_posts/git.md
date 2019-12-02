@@ -15,7 +15,7 @@ photos:
 - /posts/git/github.jpg
 ---
 先通过几张图片来大致了解一下Git的工作原理吧！
-{% asset_img relation(3).jpg 关系图3 %}
+{% asset_img relation(3).png 关系图3 %}
 
 # 介绍
 - **工作区**：就是你在电脑里能看到的目录。
@@ -62,9 +62,9 @@ git push origin master      # Git会把master分支推送到远程库对应的�
 
 ## push 
 ```
-git push origin name
+git push origin branch-name
 git push –u origin master
-git push origin --delete name     # 删除远程分支
+git push origin --delete branch-name     # 删除远程分支
 ```
 > 把当前master分支推送到远程库; `-u`表示记住分支和地址，下次使用`git push`即可。
 
@@ -219,9 +219,14 @@ git submodule update      # 子模组更新
 
 ## tag
 ```
+git tag v1.0
 git tag -a v1.0                   # 给最新一次提交打标签
 git tag -a <tagname> -m "标签"    # 指定标签信息命令
 git tag                           # 查看版本打的Tag
+git tag -d v1.0                   # 删除本地标签
+git push origin :refs/tags/v1.0   # 删除远程标签
+$ git push [remote] [tag]         # 提交指定tag
+$ git push [remote] --tags        # 提交所有tag
 ```
 {% note success %}
 当你执行`git tag -a`命令时，Git会打开你的编辑器，让你写一句标签注解，就像你给提交写注解一样。
@@ -269,4 +274,5 @@ gitk --all
 
 # 其他
 * [github上fork了别人的项目后，再同步更新别人的提交](https://blog.csdn.net/qq1332479771/article/details/56087333)
+* [常用Git命令清单](http://www.ruanyifeng.com/blog/2015/12/git-cheat-sheet.html)
 * [Gearn Git Branching](https://learngitbranching.js.org/)
