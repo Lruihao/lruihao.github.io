@@ -1,4 +1,4 @@
-<h1 align="center" >博採眾長</h1>
+<h1 align="center" >菠菜眾長</h1>
 <div align="center">
   <img alt="vivew" src="https://badgen.net/badge/vivew/8.7w+/orange">
   <img alt="write" src="https://badgen.net/badge/write/11.1w+/purple">

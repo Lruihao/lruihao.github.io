@@ -1,16 +1,10 @@
 {# Custom javascript for lruihao.cn #}
 
-{# 页面二维码 #}
-<script type="text/javascript" src="/js/src/pageQRcode.js" defer></script>
-
 {# 建站时间 #}
 {% include 'site-time.swig'%}
 
 {# console.log #}
 <script type="text/javascript" src="/js/src/console.js"></script>
-
-{# 知乎卡片链接 #}
-<script async type="text/javascript" src="/js/src/link-card.js"></script>
 
 {# 夜间模式 #}
 <script async type="text/javascript" src="/js/src/night.js"></script>
@@ -48,3 +42,9 @@
   daovoice('update');
   </script>
 {% endif %}
+
+{# 知乎卡片链接 #}
+<script type="text/javascript" src="/js/src/link-card.js" defer></script>
+
+{# 页面二维码 #}
+<script type="text/javascript" src="/js/src/pageQRcode.js" defer></script>
