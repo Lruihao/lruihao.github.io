@@ -222,6 +222,7 @@ git submodule update      # 子模组更新
 git tag v1.0
 git tag -a v1.0                   # 给最新一次提交打标签
 git tag -a <tagname> -m "标签"    # 指定标签信息命令
+git show <tagname>                # 显示标签信息
 git tag                           # 查看版本打的Tag
 git tag -d v1.0                   # 删除本地标签
 git push origin :refs/tags/v1.0   # 删除远程标签
