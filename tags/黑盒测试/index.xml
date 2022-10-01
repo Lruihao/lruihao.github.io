@@ -1,0 +1,156 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>黑盒测试 - 标签 - 菠菜眾長</title><link>https://lruihao.cn/tags/%E9%BB%91%E7%9B%92%E6%B5%8B%E8%AF%95/</link><description>黑盒测试 - 标签 - 菠菜眾長</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><lastBuildDate>Sun, 26 May 2019 18:50:53 +0000</lastBuildDate><atom:link href="https://lruihao.cn/tags/%E9%BB%91%E7%9B%92%E6%B5%8B%E8%AF%95/" rel="self" type="application/rss+xml"/><item><title>判断三角形的黑盒测试</title><link>https://lruihao.cn/posts/judgetriangle/</link><pubDate>Sun, 26 May 2019 18:50:53 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/judgetriangle/</guid><description><![CDATA[<blockquote>
+<p>黑盒测试着重测试软件功能，它并不涉及程序的内部结构和内容特性，主要根据规格说明，只依靠被测试程序的输入和输出之间关系或程序的功能来设计测试用例。<br>
+白盒测试则清楚程序内部的结构以及是如何运作的，因此白盒测试需要对系统内部的结构和工作原理有一个清楚的了解。</p>
+</blockquote>
+<h2 id="程序">程序</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span><span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span><span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#define N 2&lt;&lt;25
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">a</span><span class="o">=</span><span class="n">N</span><span class="p">,</span><span class="n">b</span><span class="o">=</span><span class="n">N</span><span class="p">,</span><span class="n">c</span><span class="o">=</span><span class="n">N</span><span class="p">,</span><span class="n">d</span><span class="o">=</span><span class="n">N</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">shuru</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">panduan</span><span class="p">(</span><span class="kt">int</span> <span class="n">a1</span><span class="p">,</span><span class="kt">int</span> <span class="n">b1</span><span class="p">,</span><span class="kt">int</span> <span class="n">c1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">char</span> <span class="n">se</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">shuru</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="n">panduan</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">c</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">printf</span><span class="p">(</span><span class="s">&#34;是否要继续 y or n :&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">scanf</span><span class="p">(</span><span class="s">&#34;%c&#34;</span><span class="p">,</span><span class="o">&amp;</span><span class="n">se</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="p">(</span><span class="n">se</span><span class="o">==</span><span class="sc">&#39;\n&#39;</span><span class="p">)</span> <span class="n">scanf</span><span class="p">(</span><span class="s">&#34;%c&#34;</span><span class="p">,</span><span class="o">&amp;</span><span class="n">se</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">switch</span><span class="p">(</span><span class="n">se</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">case</span> <span class="sc">&#39;y&#39;</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">shuru</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    	  <span class="n">panduan</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">c</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">case</span> <span class="sc">&#39;n&#39;</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">shuru</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;Please enter 三角形三边 (a,b,c)</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">while</span><span class="p">(</span><span class="o">!</span><span class="n">scanf</span><span class="p">(</span><span class="s">&#34;%d,%d,%d,%d&#34;</span><span class="p">,</span><span class="o">&amp;</span><span class="n">a</span><span class="p">,</span><span class="o">&amp;</span><span class="n">b</span><span class="p">,</span><span class="o">&amp;</span><span class="n">c</span><span class="p">,</span><span class="o">&amp;</span><span class="n">d</span><span class="p">)){</span><span class="c1">//判断非数字字符
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">fflush</span><span class="p">(</span><span class="n">stdin</span><span class="p">);</span><span class="c1">//清理缓存
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">a</span><span class="o">=</span><span class="n">N</span><span class="p">;</span><span class="n">b</span><span class="o">=</span><span class="n">N</span><span class="p">;</span><span class="n">c</span><span class="o">=</span><span class="n">N</span><span class="p">;</span><span class="n">d</span><span class="o">=</span><span class="n">N</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    	 <span class="n">printf</span><span class="p">(</span><span class="s">&#34;输入错误、n&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">fflush</span><span class="p">(</span><span class="n">stdin</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">while</span><span class="p">((</span><span class="n">a</span><span class="o">&lt;</span><span class="mi">1</span><span class="o">||</span><span class="n">a</span><span class="o">&gt;</span><span class="mi">100</span><span class="p">)</span><span class="o">||</span><span class="p">(</span><span class="n">b</span><span class="o">&lt;</span><span class="mi">1</span><span class="o">||</span><span class="n">b</span><span class="o">&gt;</span><span class="mi">100</span><span class="p">)</span><span class="o">||</span><span class="p">(</span><span class="n">c</span><span class="o">&lt;</span><span class="mi">1</span><span class="o">||</span><span class="n">c</span><span class="o">&gt;</span><span class="mi">100</span><span class="p">)</span><span class="o">||</span><span class="n">d</span><span class="o">!=</span><span class="n">N</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="p">(</span><span class="n">b</span><span class="o">==</span><span class="n">N</span><span class="o">||</span><span class="n">c</span><span class="o">==</span><span class="n">N</span><span class="o">||</span><span class="n">d</span><span class="o">!=</span><span class="n">N</span><span class="p">)</span> <span class="n">printf</span><span class="p">(</span><span class="s">&#34;输入错误、n&#34;</span><span class="p">);</span><span class="c1">//边数为 1、2、4 条
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">a</span><span class="o">==</span><span class="mi">0</span><span class="o">||</span><span class="n">b</span><span class="o">==</span><span class="mi">0</span><span class="o">||</span><span class="n">c</span><span class="o">==</span><span class="mi">0</span><span class="p">)</span> <span class="n">printf</span><span class="p">(</span><span class="s">&#34;边长不能为 0</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">a</span><span class="o">&lt;</span><span class="mi">0</span><span class="o">||</span><span class="n">b</span><span class="o">&lt;</span><span class="mi">0</span><span class="o">||</span><span class="n">c</span><span class="o">&lt;</span><span class="mi">0</span><span class="p">)</span> <span class="n">printf</span><span class="p">(</span><span class="s">&#34;边长不能为负、n&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">else</span> <span class="n">printf</span><span class="p">(</span><span class="s">&#34;Please enter 1-100 之间的整数、n&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">a</span><span class="o">=</span><span class="n">N</span><span class="p">;</span><span class="n">b</span><span class="o">=</span><span class="n">N</span><span class="p">;</span><span class="n">c</span><span class="o">=</span><span class="n">N</span><span class="p">;</span><span class="n">d</span><span class="o">=</span><span class="n">N</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">while</span><span class="p">(</span><span class="o">!</span><span class="n">scanf</span><span class="p">(</span><span class="s">&#34;%d,%d,%d,%d&#34;</span><span class="p">,</span><span class="o">&amp;</span><span class="n">a</span><span class="p">,</span><span class="o">&amp;</span><span class="n">b</span><span class="p">,</span><span class="o">&amp;</span><span class="n">c</span><span class="p">,</span><span class="o">&amp;</span><span class="n">d</span><span class="p">)){</span><span class="c1">//判断非数字字符
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="n">fflush</span><span class="p">(</span><span class="n">stdin</span><span class="p">);</span><span class="c1">//清理缓存
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="n">a</span><span class="o">=</span><span class="n">N</span><span class="p">;</span><span class="n">b</span><span class="o">=</span><span class="n">N</span><span class="p">;</span><span class="n">c</span><span class="o">=</span><span class="n">N</span><span class="p">;</span><span class="n">d</span><span class="o">=</span><span class="n">N</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="n">printf</span><span class="p">(</span><span class="s">&#34;输入错误、n&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="n">fflush</span><span class="p">(</span><span class="n">stdin</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">panduan</span><span class="p">(</span><span class="kt">int</span> <span class="n">a1</span><span class="p">,</span><span class="kt">int</span> <span class="n">b1</span><span class="p">,</span><span class="kt">int</span> <span class="n">c1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">a1</span><span class="o">+</span><span class="n">b1</span><span class="o">&gt;</span><span class="n">c1</span><span class="o">&amp;&amp;</span><span class="n">b1</span><span class="o">+</span><span class="n">c1</span><span class="o">&gt;</span><span class="n">a1</span><span class="o">&amp;&amp;</span><span class="n">a1</span><span class="o">+</span><span class="n">c1</span><span class="o">&gt;</span><span class="n">b1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="p">(</span><span class="n">a1</span><span class="o">==</span><span class="n">b1</span><span class="o">&amp;&amp;</span><span class="n">a1</span><span class="o">==</span><span class="n">c1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">printf</span><span class="p">(</span><span class="s">&#34;等边三角形、n&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">a1</span><span class="o">==</span><span class="n">b1</span><span class="o">||</span><span class="n">a1</span><span class="o">==</span><span class="n">c1</span><span class="o">||</span><span class="n">b1</span><span class="o">==</span><span class="n">c1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">printf</span><span class="p">(</span><span class="s">&#34;等腰三角形、n&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">else</span>
+</span></span><span class="line"><span class="cl">            <span class="n">printf</span><span class="p">(</span><span class="s">&#34;一般三角形、n&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span>
+</span></span><span class="line"><span class="cl">        <span class="n">printf</span><span class="p">(</span><span class="s">&#34;非三角形、n&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="测试">测试</h2>
+<p><figure><a class="lightgallery" href="/posts/judgetriangle/images/1.png" data-thumbnail="/posts/judgetriangle/images/1.png" data-sub-html="<h2>测试 1</h2><p>测试 1</p>">
+    
+  </a><figcaption class="image-caption">测试 1</figcaption>
+  </figure><br>
+<figure><a class="lightgallery" href="/posts/judgetriangle/images/2.png" data-thumbnail="/posts/judgetriangle/images/2.png" data-sub-html="<h2>测试 2</h2><p>测试 2</p>">
+    
+  </a><figcaption class="image-caption">测试 2</figcaption>
+  </figure><br>
+<figure><a class="lightgallery" href="/posts/judgetriangle/images/3.png" data-thumbnail="/posts/judgetriangle/images/3.png" data-sub-html="<h2>测试 3</h2><p>测试 3</p>">
+    
+  </a><figcaption class="image-caption">测试 3</figcaption>
+  </figure></p>]]></description></item></channel></rss>

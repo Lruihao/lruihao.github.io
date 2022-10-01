@@ -1,0 +1,311 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>URLConnection - 标签 - 菠菜眾長</title><link>https://lruihao.cn/tags/urlconnection/</link><description>URLConnection - 标签 - 菠菜眾長</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><lastBuildDate>Wed, 08 May 2019 20:55:02 +0000</lastBuildDate><atom:link href="https://lruihao.cn/tags/urlconnection/" rel="self" type="application/rss+xml"/><item><title>java 实现一个单线程的资源下载器</title><link>https://lruihao.cn/posts/singlethreaddown/</link><pubDate>Wed, 08 May 2019 20:55:02 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/singlethreaddown/</guid><description><![CDATA[<div class="featured-image">
+        <img src="/posts/singlethreaddown/images/1.png" referrerpolicy="no-referrer">
+      </div><blockquote>
+<p>实现一个简单的基于单线程的资源下载器，如图所示，用户可以任意指定下载资源的链接地址，系统根据该地址判断资源是否存在，如果存在，则将该资源下载到本地。</p>
+</blockquote>
+<h2 id="gui-设计基本流程">GUI 设计基本流程</h2>
+<p>先记录一下 GUI 设计的基本流程：</p>
+<ol>
+<li>根据需要从相应的顶层容器继承（如果创建窗体就继承 JFrame，对话框就继承 JDialog），新建一个子类。</li>
+<li>然后设置顶层容器的属性，包括大小、位置、标题和关闭事件等。</li>
+<li>设置界面上 GUI 组件的事件响应。 <code>public void actionPerformed(ActionEvent e) {}</code></li>
+<li>向顶层容器上添加 GUI 组件，并设置布局。（通常利用 JPanel 组件先作为微型容器）</li>
+<li>创建新建子类的实例，调用 setVisible(true) 方法显示页面。（也可以直接在子类中设置 setVisible(true)）</li>
+</ol>
+<h2 id="实现代码">实现代码</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span><span class="lnt">79
+</span><span class="lnt">80
+</span><span class="lnt">81
+</span><span class="lnt">82
+</span><span class="lnt">83
+</span><span class="lnt">84
+</span><span class="lnt">85
+</span><span class="lnt">86
+</span><span class="lnt">87
+</span><span class="lnt">88
+</span><span class="lnt">89
+</span><span class="lnt">90
+</span><span class="lnt">91
+</span><span class="lnt">92
+</span><span class="lnt">93
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nn">cn.lruihao.base</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">java.awt.FlowLayout</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">java.awt.Font</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">java.awt.HeadlessException</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">java.awt.event.ActionEvent</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">java.awt.event.ActionListener</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">java.io.FileOutputStream</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">java.io.InputStream</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">java.net.URL</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">java.net.URLConnection</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">javax.swing.JButton</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">javax.swing.JFrame</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">javax.swing.JLabel</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">javax.swing.JOptionPane</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">javax.swing.JPanel</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">javax.swing.JTextField</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">SingleThreadDown</span> <span class="kd">extends</span> <span class="n">JFrame</span> <span class="kd">implements</span> <span class="n">ActionListener</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">private</span> <span class="kd">final</span> <span class="n">JPanel</span> <span class="n">panel</span><span class="o">=</span><span class="k">new</span> <span class="n">JPanel</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">private</span> <span class="kd">final</span> <span class="n">JLabel</span> <span class="n">label1</span><span class="o">=</span><span class="k">new</span> <span class="n">JLabel</span><span class="o">(</span><span class="s">&#34;网络资源的单线程下载：&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">private</span> <span class="kd">final</span> <span class="n">JLabel</span> <span class="n">label2</span><span class="o">=</span><span class="k">new</span> <span class="n">JLabel</span><span class="o">(</span><span class="s">&#34;网络资源的网址：&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">	<span class="n">JButton</span> <span class="n">StartButton</span> <span class="o">=</span> <span class="k">new</span> <span class="n">JButton</span><span class="o">(</span><span class="s">&#34;单击开始下载&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">	<span class="n">JButton</span> <span class="n">resetButton</span> <span class="o">=</span> <span class="k">new</span> <span class="n">JButton</span><span class="o">(</span><span class="s">&#34;清空&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">	<span class="n">JButton</span> <span class="n">exitButton</span> <span class="o">=</span> <span class="k">new</span> <span class="n">JButton</span><span class="o">(</span><span class="s">&#34;退出&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">	<span class="n">JTextField</span> <span class="n">urlField</span>  <span class="o">=</span> <span class="k">new</span> <span class="n">JTextField</span><span class="o">(</span><span class="n">20</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="nf">SingleThreadDown</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">panel</span><span class="o">.</span><span class="na">setLayout</span><span class="o">(</span><span class="k">new</span> <span class="n">FlowLayout</span><span class="o">());</span> <span class="c1">//布局管理器
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="n">label1</span><span class="o">.</span><span class="na">setFont</span><span class="o">(</span><span class="k">new</span> <span class="n">Font</span><span class="o">(</span><span class="s">&#34;雅黑&#34;</span><span class="o">,</span><span class="n">Font</span><span class="o">.</span><span class="na">BOLD</span><span class="o">,</span><span class="n">15</span><span class="o">));</span>
+</span></span><span class="line"><span class="cl">		<span class="n">panel</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">label1</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">		<span class="n">panel</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">label2</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">		<span class="n">panel</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">urlField</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">		<span class="n">panel</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">StartButton</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">		<span class="n">panel</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">resetButton</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">		<span class="n">panel</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">exitButton</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">		<span class="n">setContentPane</span><span class="o">(</span><span class="n">panel</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">		<span class="n">setSize</span><span class="o">(</span><span class="n">400</span><span class="o">,</span><span class="n">200</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">		<span class="n">setLocation</span><span class="o">(</span><span class="n">400</span><span class="o">,</span><span class="n">400</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">		<span class="n">setVisible</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span> <span class="c1">//面板可视化，也可以在 main 中通过 JFrame 子类对象调用方法设置
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="n">setDefaultCloseOperation</span><span class="o">(</span><span class="n">JFrame</span><span class="o">.</span><span class="na">EXIT_ON_CLOSE</span><span class="o">);</span> <span class="c1">//默认关闭事件
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="n">StartButton</span><span class="o">.</span><span class="na">addActionListener</span><span class="o">(</span><span class="k">this</span><span class="o">);</span><span class="c1">//添加点击事件，传入 ActionListener 对象，由于子类继承了 ActionListener 接口，所以 this
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="n">resetButton</span><span class="o">.</span><span class="na">addActionListener</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">		<span class="n">exitButton</span><span class="o">.</span><span class="na">addActionListener</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">download</span><span class="o">(</span><span class="n">String</span> <span class="n">address</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">URL</span> <span class="n">url</span> <span class="o">=</span> <span class="k">new</span> <span class="n">URL</span><span class="o">(</span><span class="n">address</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">		<span class="n">URLConnection</span> <span class="n">urlcon</span> <span class="o">=</span> <span class="n">url</span><span class="o">.</span><span class="na">openConnection</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">		<span class="n">urlcon</span><span class="o">.</span><span class="na">connect</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">		<span class="n">InputStream</span> <span class="n">in</span><span class="o">=</span><span class="n">urlcon</span><span class="o">.</span><span class="na">getInputStream</span><span class="o">();</span><span class="c1">//获取的字节流对象
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="n">String</span> <span class="n">filePath</span> <span class="o">=</span> <span class="n">url</span><span class="o">.</span><span class="na">getFile</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">		<span class="kt">int</span> <span class="n">pos</span><span class="o">=</span><span class="n">filePath</span><span class="o">.</span><span class="na">lastIndexOf</span><span class="o">(</span><span class="s">&#34;/&#34;</span><span class="o">);</span> <span class="c1">//&#34;/&#34;分割的最后一个串的下标
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="n">String</span> <span class="n">fileName</span> <span class="o">=</span> <span class="n">filePath</span><span class="o">.</span><span class="na">substring</span><span class="o">(</span><span class="n">pos</span><span class="o">+</span><span class="n">1</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">		<span class="n">FileOutputStream</span> <span class="n">out</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FileOutputStream</span><span class="o">(</span><span class="s">&#34;C:\\Users\\李瑞豪、\Desktop\\&#34;</span><span class="o">+</span><span class="n">fileName</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">		<span class="kt">byte</span><span class="o">[]</span> <span class="n">b</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">byte</span><span class="o">[</span><span class="n">1024</span><span class="o">];</span>
+</span></span><span class="line"><span class="cl">		<span class="kt">int</span> <span class="n">len</span><span class="o">=</span><span class="n">0</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">		<span class="k">while</span><span class="o">((</span><span class="n">len</span><span class="o">=</span><span class="n">in</span><span class="o">.</span><span class="na">read</span><span class="o">(</span><span class="n">b</span><span class="o">,</span><span class="n">0</span><span class="o">,</span><span class="n">1024</span><span class="o">))!=-</span><span class="n">1</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">			<span class="n">out</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="n">b</span><span class="o">,</span><span class="n">0</span><span class="o">,</span><span class="n">len</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">		<span class="o">}</span>
+</span></span><span class="line"><span class="cl">		<span class="n">out</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">		<span class="n">in</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">		<span class="n">JOptionPane</span><span class="o">.</span><span class="na">showMessageDialog</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="s">&#34;下载完毕&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">actionPerformed</span><span class="o">(</span><span class="n">ActionEvent</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">if</span><span class="o">(</span><span class="n">e</span><span class="o">.</span><span class="na">getSource</span><span class="o">()==</span><span class="n">StartButton</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">			<span class="k">if</span><span class="o">(</span><span class="s">&#34;&#34;</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">urlField</span><span class="o">.</span><span class="na">getText</span><span class="o">())){</span>
+</span></span><span class="line"><span class="cl">				<span class="n">JOptionPane</span><span class="o">.</span><span class="na">showMessageDialog</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="s">&#34;请输入资源地址&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">			<span class="o">}</span>
+</span></span><span class="line"><span class="cl">			<span class="n">String</span> <span class="n">url</span> <span class="o">=</span> <span class="n">urlField</span><span class="o">.</span><span class="na">getText</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">			<span class="k">try</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">				<span class="n">download</span><span class="o">(</span><span class="n">url</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">			<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e1</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">				<span class="n">JOptionPane</span><span class="o">.</span><span class="na">showMessageDialog</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="s">&#34;资源地址有误，请检查~&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">				<span class="n">e1</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">			<span class="o">}</span>
+</span></span><span class="line"><span class="cl">		<span class="o">}</span><span class="k">else</span> <span class="k">if</span><span class="o">(</span><span class="n">e</span><span class="o">.</span><span class="na">getSource</span><span class="o">()==</span><span class="n">resetButton</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">			<span class="n">urlField</span><span class="o">.</span><span class="na">setText</span><span class="o">(</span><span class="s">&#34;&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">		<span class="o">}</span><span class="k">else</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">			<span class="n">System</span><span class="o">.</span><span class="na">exit</span><span class="o">(</span><span class="n">0</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">		<span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">new</span> <span class="n">SingleThreadDown</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="运行结果测试">运行结果测试</h2>
+<p>通过<code>https://github.com/Lruihao/Grocery/raw/master/fonts/MMT_last.ttf</code>下载沐目体 ttf 字体文件，稍微等待一下弹出对话框“下载完毕”，经检查下载内容正常。</p>
+<p></p>]]></description></item><item><title>java 通过 URL 和 URLConnection 访问网页资源</title><link>https://lruihao.cn/posts/urlreader/</link><pubDate>Mon, 06 May 2019 17:41:35 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/urlreader/</guid><description><![CDATA[<blockquote>
+<p>该例中首先生成一个 URL 对象 lrh，指向 RUI 豪小栈，然后再调用 lrh.openStream() 方法生成该 URL 的一个输入流，这是一个字节流，在此基础上进一步通过 InputStreamReader 和 BufferedReader 构造一个带缓冲功能的字符流，并通过这个字符流对象读取该 URL 的 html 内容，进而输出到桌面文件和控制台屏幕。URLConnection 类也可以用来对由 URL 引用的资源进行读写操作，前提是先通过 connect() 方法建立连接，然后再去获取响应头信息或响应内容。</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nn">cn.lruihao.base</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">java.io.BufferedReader</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">java.io.File</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">java.io.FileWriter</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">java.io.InputStreamReader</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">java.net.URL</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">java.net.URLConnection</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">URLReader</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span><span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">try</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">			<span class="n">URL</span> <span class="n">lrh</span><span class="o">=</span><span class="k">new</span> <span class="n">URL</span><span class="o">(</span><span class="s">&#34;https://www.lruihao.cn&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">			<span class="n">File</span> <span class="n">file</span><span class="o">=</span><span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="s">&#34;C:\\Users\\李瑞豪、\Desktop\\lrh.html&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">			<span class="n">FileWriter</span> <span class="n">fout</span><span class="o">=</span><span class="k">new</span> <span class="n">FileWriter</span><span class="o">(</span><span class="n">file</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">			<span class="n">BufferedReader</span> <span class="n">in</span> <span class="o">=</span><span class="k">new</span> <span class="n">BufferedReader</span><span class="o">(</span><span class="k">new</span> <span class="n">InputStreamReader</span><span class="o">(</span><span class="n">lrh</span><span class="o">.</span><span class="na">openStream</span><span class="o">()));</span><span class="c1">//字节流转化成字符流，再构建缓冲字符流
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>			<span class="n">String</span> <span class="n">inputLine</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">			<span class="k">while</span><span class="o">((</span><span class="n">inputLine</span><span class="o">=</span><span class="n">in</span><span class="o">.</span><span class="na">readLine</span><span class="o">())!=</span><span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">				<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">inputLine</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">				<span class="n">fout</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="n">inputLine</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">			<span class="o">}</span>
+</span></span><span class="line"><span class="cl">			<span class="n">in</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">			<span class="n">fout</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">			
+</span></span><span class="line"><span class="cl">			<span class="c1">//获取响应 header 信息
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>			<span class="n">URLConnection</span> <span class="n">conn</span><span class="o">=</span><span class="n">lrh</span><span class="o">.</span><span class="na">openConnection</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">			<span class="n">conn</span><span class="o">.</span><span class="na">connect</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">			<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;获取到的响应长度：&#34;</span><span class="o">+</span><span class="n">conn</span><span class="o">.</span><span class="na">getContentLength</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">			<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;响应类型：&#34;</span><span class="o">+</span><span class="n">conn</span><span class="o">.</span><span class="na">getContentType</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">			<span class="c1">//用 BufferedReader 读取 URL 的响应
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>			<span class="n">in</span> <span class="o">=</span><span class="k">new</span> <span class="n">BufferedReader</span><span class="o">(</span><span class="k">new</span> <span class="n">InputStreamReader</span><span class="o">(</span><span class="n">conn</span><span class="o">.</span><span class="na">getInputStream</span><span class="o">()));</span>
+</span></span><span class="line"><span class="cl">			<span class="n">String</span> <span class="n">line</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">			<span class="n">String</span> <span class="n">result</span><span class="o">=</span><span class="kc">null</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">			<span class="k">while</span><span class="o">((</span><span class="n">line</span><span class="o">=</span><span class="n">in</span><span class="o">.</span><span class="na">readLine</span><span class="o">())!=</span><span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">				<span class="n">result</span><span class="o">+=</span><span class="n">line</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">			<span class="o">}</span>
+</span></span><span class="line"><span class="cl">			<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">result</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">		<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">			<span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">		<span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div>]]></description></item></channel></rss>

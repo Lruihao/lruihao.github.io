@@ -1,0 +1,556 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>PHP - 分类 - 菠菜眾長</title><link>https://lruihao.cn/categories/php/</link><description>PHP - 分类 - 菠菜眾長</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><lastBuildDate>Sat, 28 Sep 2019 18:32:42 +0000</lastBuildDate><atom:link href="https://lruihao.cn/categories/php/" rel="self" type="application/rss+xml"/><item><title>php 同时主动推送链接到百度，神马等站长平台</title><link>https://lruihao.cn/posts/phppushurl/</link><pubDate>Sat, 28 Sep 2019 18:32:42 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/phppushurl/</guid><description><![CDATA[<blockquote>
+<p>php 主动推送站点链接到百度站长，神马站长进行 SEO。</p>
+</blockquote>
+<h2 id="代码">代码</h2>
+<p>把需要提交的链接和各站长 api 分别放在两个 txt 文件里面，然后运行 php 文件进行提交，不同站长提交成功一般返回的都是 <code>200</code> 状态码。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="c1">//链接存放路径和站长 api 文件存放路径
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nv">$urls_path</span> <span class="o">=</span> <span class="s2">&#34;H:</span><span class="se">\\</span><span class="s2">lruihao.cn</span><span class="se">\\</span><span class="s2">public</span><span class="se">\\</span><span class="s2">baidu_urls.txt&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nv">$apis_path</span> <span class="o">=</span> <span class="s2">&#34;G:</span><span class="se">\\</span><span class="s2">Demo</span><span class="se">\\</span><span class="s2">lrh01</span><span class="se">\\</span><span class="s2">zhanzhang_api.txt&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">//将文件每一行读到一个数组里面去
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nv">$urls</span> <span class="o">=</span> <span class="nx">file</span><span class="p">(</span><span class="nv">$urls_path</span><span class="p">,</span> <span class="nx">FILE_IGNORE_NEW_LINES</span> <span class="o">|</span> <span class="nx">FILE_SKIP_EMPTY_LINES</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nv">$apis</span> <span class="o">=</span> <span class="nx">file</span><span class="p">(</span><span class="nv">$apis_path</span><span class="p">,</span> <span class="nx">FILE_IGNORE_NEW_LINES</span> <span class="o">|</span> <span class="nx">FILE_SKIP_EMPTY_LINES</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">for</span><span class="p">(</span><span class="nv">$x</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="nv">$x</span><span class="o">&lt;</span><span class="nx">count</span><span class="p">(</span><span class="nv">$apis</span><span class="p">);</span><span class="nv">$x</span><span class="o">++</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$ch</span> <span class="o">=</span> <span class="nx">curl_init</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$options</span> <span class="o">=</span>  <span class="k">array</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">CURLOPT_URL</span> <span class="o">=&gt;</span> <span class="nv">$apis</span><span class="p">[</span><span class="nv">$x</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">CURLOPT_POST</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">CURLOPT_RETURNTRANSFER</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">CURLOPT_POSTFIELDS</span> <span class="o">=&gt;</span> <span class="nx">implode</span><span class="p">(</span><span class="s2">&#34;</span><span class="se">\n</span><span class="s2">&#34;</span><span class="p">,</span> <span class="nv">$urls</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">CURLOPT_HTTPHEADER</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;Content-Type: text/plain&#39;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">    <span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">curl_setopt_array</span><span class="p">(</span><span class="nv">$ch</span><span class="p">,</span> <span class="nv">$options</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$result</span> <span class="o">=</span> <span class="nx">curl_exec</span><span class="p">(</span><span class="nv">$ch</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">echo</span> <span class="s2">&#34;API: &lt;br/&gt;&amp;emsp;&#34;</span><span class="o">.</span><span class="nv">$apis</span><span class="p">[</span><span class="nv">$x</span><span class="p">]</span><span class="o">.</span><span class="s2">&#34;&lt;br/&gt;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">echo</span> <span class="s2">&#34;result: &lt;br/&gt;&amp;emsp;&#34;</span><span class="o">.</span><span class="nv">$result</span><span class="o">.</span><span class="s2">&#34;&lt;hr/&gt;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cp">?&gt;</span><span class="err">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="提交结果">提交结果</h2>
+<p></p>]]></description></item><item><title>php 按行读取文件信息</title><link>https://lruihao.cn/posts/phpfile/</link><pubDate>Sat, 28 Sep 2019 17:11:17 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/phpfile/</guid><description><![CDATA[<h2 id="普通方法">普通方法</h2>
+<p>首先采用<code>fopen()</code>函数打开文件，得到返回值的就是资源类型。接着采用 while 循环一行行地读取文件，然后输出每行的文字。<code>feof()</code>判断是否到最后一行，<code>fgets()</code>读取一行文本。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">//首先采用“fopen”函数打开文件，得到返回值的就是资源类型。
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nv">$file_handle</span> <span class="o">=</span> <span class="nx">fopen</span><span class="p">(</span><span class="s2">&#34;C:</span><span class="se">\\</span><span class="s2">Users</span><span class="se">\\</span><span class="s2">李瑞豪、\Desktop</span><span class="se">\\</span><span class="s2">备忘录。txt&#34;</span><span class="p">,</span><span class="s2">&#34;r&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="nv">$file_handle</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">      <span class="c1">//接着采用 while 循环一行行地读取文件，然后输出每行的文字
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="k">while</span> <span class="p">(</span><span class="o">!</span><span class="nx">feof</span><span class="p">(</span><span class="nv">$file_handle</span><span class="p">))</span> <span class="p">{</span> <span class="c1">//判断是否到最后一行
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>          <span class="nv">$line</span> <span class="o">=</span> <span class="nx">fgets</span><span class="p">(</span><span class="nv">$file_handle</span><span class="p">);</span> <span class="c1">//读取一行文本
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>          <span class="k">echo</span> <span class="nv">$line</span><span class="p">;</span> <span class="c1">//输出一行文本
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>          <span class="k">echo</span> <span class="s2">&#34;&lt;br /&gt;&#34;</span><span class="p">;</span> <span class="c1">//换行
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">fclose</span><span class="p">(</span><span class="nv">$file_handle</span><span class="p">);</span><span class="c1">//关闭文件
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="cp">?&gt;</span><span class="err">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>readfile（）</code>函数，返回一整个 String</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">echo</span> <span class="nx">readfile</span><span class="p">(</span><span class="s2">&#34;C:</span><span class="se">\\</span><span class="s2">Users</span><span class="se">\\</span><span class="s2">李瑞豪、\Desktop</span><span class="se">\\</span><span class="s2">备忘录。txt&#34;</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="快速方法">快速方法</h2>
+<p><code>file()</code>函数把整个文件读入一个数组中。<br>
+数组中的每个元素都是文件中相应的一行，包括换行符在内。<br>
+<strong>语法</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nx">file</span><span class="p">(</span><span class="nx">path</span><span class="p">,</span><span class="nx">include_path</span><span class="p">,</span><span class="nx">context</span><span class="p">)</span> 
+</span></span></code></pre></td></tr></table>
+</div>
+</div><table>
+<thead>
+<tr>
+<th style="text-align:center">参数</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">path</td>
+<td style="text-align:left">必需。规定要读取的文件。</td>
+</tr>
+<tr>
+<td style="text-align:center">include_path</td>
+<td style="text-align:left">可选参数<code>include_path</code> 可以是以下一个或多个常量：<br/>**<code>FILE_USE_INCLUDE_PATH</code><strong>在 include_path 中查找文件。<br/></strong><code>FILE_IGNORE_NEW_LINES</code><strong>在数组每个元素的末尾不要添加换行符<br/></strong><code>FILE_SKIP_EMPTY_LINES</code>**跳过空行</td>
+</tr>
+<tr>
+<td style="text-align:center">context</td>
+<td style="text-align:left">可选。规定文件句柄的环境。context 是一套可以修改流的行为的选项。若使用 NULL，则忽略。</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="nv">$filepath</span><span class="o">=</span><span class="s2">&#34;H:</span><span class="se">\\</span><span class="s2">lruihao.cn</span><span class="se">\\</span><span class="s2">public</span><span class="se">\\</span><span class="s2">baidu_urls.txt&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">echo</span> <span class="s2">&#34;&lt;hr/&gt;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">//将文件每一行读到一个数组里面去
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nv">$texts</span> <span class="o">=</span> <span class="nx">file</span><span class="p">(</span><span class="nv">$filepath</span><span class="p">,</span> <span class="nx">FILE_IGNORE_NEW_LINES</span> <span class="o">|</span> <span class="nx">FILE_SKIP_EMPTY_LINES</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">var_dump</span><span class="p">(</span><span class="nv">$texts</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cp">?&gt;</span><span class="err">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="结果">结果</h2>
+<p></p>]]></description></item><item><title>简单评论模块--php 表单练习</title><link>https://lruihao.cn/posts/phpform/</link><pubDate>Fri, 19 Jul 2019 11:38:59 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/phpform/</guid><description><![CDATA[<blockquote>
+<p>简单模仿了一个评论模板，当然肯定是没有博客的 valine 这么强大的 hhhh，<br>
+<strong>PHP 表单安全性的重要提示</strong><br>
+<code>$_SERVER[&quot;PHP_SELF&quot;]</code>变量能够被黑客利用！<br>
+如果页面中使用了<code>PHP_SELF</code>，用户能够输入下划线然后执行跨站点脚本（XSS）。<br>
+比如说注入 js 脚本等，valine 以前的版本也有过这样的漏洞。</p>
+<p><code>跨站点脚本（Cross-site scripting，XSS）</code>是一种计算机安全漏洞类型，常见于 Web 应用程序。XSS 能够使攻击者向其他用户浏览的网页中输入客户端脚本。</p>
+</blockquote>
+<p>可以像 valine 一样在用户输入完后保留输入，还有一些正则控制输入提示等简单功能。UI 就丑爆了算了。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="cp">&lt;!DOCTYPE HTML&gt;</span> 
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;html&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;head&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;style&gt;</span>
+</span></span><span class="line"><span class="cl">.error {color: #FF0000;}
+</span></span><span class="line"><span class="cl">.main{
+</span></span><span class="line"><span class="cl">   width: 20%;
+</span></span><span class="line"><span class="cl">   height: 100%;
+</span></span><span class="line"><span class="cl">   border: 1px #000 solid;
+</span></span><span class="line"><span class="cl">   padding: 20px;
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/style&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/head&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;body&gt;</span> 
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cp">&lt;?php
+</span></span></span><span class="line"><span class="cl"><span class="cp">// 定义变量并设置为空值
+</span></span></span><span class="line"><span class="cl"><span class="cp">$nameErr = $emailErr = $genderErr = $websiteErr = &#34;&#34;;
+</span></span></span><span class="line"><span class="cl"><span class="cp">$name = $email = $gender = $comment = $website = &#34;&#34;;
+</span></span></span><span class="line"><span class="cl"><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">if ($_SERVER[&#34;REQUEST_METHOD&#34;] == &#34;POST&#34;) {
+</span></span></span><span class="line"><span class="cl"><span class="cp">  if (empty($_POST[&#34;name&#34;])) {
+</span></span></span><span class="line"><span class="cl"><span class="cp">    $nameErr = &#34;Name is required&#34;;
+</span></span></span><span class="line"><span class="cl"><span class="cp">  } else {
+</span></span></span><span class="line"><span class="cl"><span class="cp">    $name = test_input($_POST[&#34;name&#34;]);
+</span></span></span><span class="line"><span class="cl"><span class="cp">    // 检查名字是否包含字母和空格
+</span></span></span><span class="line"><span class="cl"><span class="cp">    if (!preg_match(&#34;/^[a-zA-Z ]*$/&#34;,$name)) {
+</span></span></span><span class="line"><span class="cl"><span class="cp">      $nameErr = &#34;Only letters and white space allowed&#34;; 
+</span></span></span><span class="line"><span class="cl"><span class="cp">    }
+</span></span></span><span class="line"><span class="cl"><span class="cp">  }
+</span></span></span><span class="line"><span class="cl"><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">  if (empty($_POST[&#34;email&#34;])) {
+</span></span></span><span class="line"><span class="cl"><span class="cp">    $emailErr = &#34;Email is required&#34;;
+</span></span></span><span class="line"><span class="cl"><span class="cp">  } else {
+</span></span></span><span class="line"><span class="cl"><span class="cp">    $email = test_input($_POST[&#34;email&#34;]);
+</span></span></span><span class="line"><span class="cl"><span class="cp">    // 检查电邮地址语法是否有效
+</span></span></span><span class="line"><span class="cl"><span class="cp">    if (!preg_match(&#34;/([\w\-]+\@[\w\-]+\.[\w\-]+)/&#34;,$email)) {
+</span></span></span><span class="line"><span class="cl"><span class="cp">      $emailErr = &#34;Invalid email format&#34;; 
+</span></span></span><span class="line"><span class="cl"><span class="cp">    }
+</span></span></span><span class="line"><span class="cl"><span class="cp">  }
+</span></span></span><span class="line"><span class="cl"><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">  if (empty($_POST[&#34;website&#34;])) {
+</span></span></span><span class="line"><span class="cl"><span class="cp">    $website = &#34;&#34;;
+</span></span></span><span class="line"><span class="cl"><span class="cp">  } else {
+</span></span></span><span class="line"><span class="cl"><span class="cp">    $website = test_input($_POST[&#34;website&#34;]);
+</span></span></span><span class="line"><span class="cl"><span class="cp">    // 检查 URL 地址语言是否有效（此正则表达式同样允许 URL 中的下划线）
+</span></span></span><span class="line"><span class="cl"><span class="cp">    if (!preg_match(&#34;/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&amp;@#\/%?=~_|!:,.;]*[-a-z0-9+&amp;@#\/%
+</span></span></span><span class="line"><span class="cl"><span class="cp">    =~_|]/i&#34;,$website)) {
+</span></span></span><span class="line"><span class="cl"><span class="cp">      $websiteErr = &#34;Invalid URL&#34;; 
+</span></span></span><span class="line"><span class="cl"><span class="cp">    }
+</span></span></span><span class="line"><span class="cl"><span class="cp">  }
+</span></span></span><span class="line"><span class="cl"><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">  if (empty($_POST[&#34;comment&#34;])) {
+</span></span></span><span class="line"><span class="cl"><span class="cp">    $comment = &#34;&#34;;
+</span></span></span><span class="line"><span class="cl"><span class="cp">  } else {
+</span></span></span><span class="line"><span class="cl"><span class="cp">    $comment = test_input($_POST[&#34;comment&#34;]);
+</span></span></span><span class="line"><span class="cl"><span class="cp">  }
+</span></span></span><span class="line"><span class="cl"><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">  if (empty($_POST[&#34;gender&#34;])) {
+</span></span></span><span class="line"><span class="cl"><span class="cp">    $genderErr = &#34;Gender is required&#34;;
+</span></span></span><span class="line"><span class="cl"><span class="cp">  } else {
+</span></span></span><span class="line"><span class="cl"><span class="cp">    $gender = test_input($_POST[&#34;gender&#34;]);
+</span></span></span><span class="line"><span class="cl"><span class="cp">  }
+</span></span></span><span class="line"><span class="cl"><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">}
+</span></span></span><span class="line"><span class="cl"><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">function test_input($data) {
+</span></span></span><span class="line"><span class="cl"><span class="cp">   $data = trim($data);
+</span></span></span><span class="line"><span class="cl"><span class="cp">   $data = stripslashes($data);
+</span></span></span><span class="line"><span class="cl"><span class="cp">   $data = htmlspecialchars($data);
+</span></span></span><span class="line"><span class="cl"><span class="cp">   return $data;
+</span></span></span><span class="line"><span class="cl"><span class="cp">}
+</span></span></span><span class="line"><span class="cl"><span class="cp">?&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&#34;main&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">   <span class="nt">&lt;h2&gt;</span>PHP 验证实例<span class="nt">&lt;/h2&gt;</span>
+</span></span><span class="line"><span class="cl">   <span class="nt">&lt;form</span> <span class="na">method=</span><span class="s">&#34;post&#34;</span> <span class="na">action=</span><span class="s">&#34;&lt;?php echo htmlspecialchars($_SERVER[&#39;PHP_SELF&#39;]);?&gt;&#34;</span><span class="nt">&gt;</span> 
+</span></span><span class="line"><span class="cl">      姓名：<span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&#34;text&#34;</span> <span class="na">name=</span><span class="s">&#34;name&#34;</span> <span class="na">value=</span><span class="s">&#34;&lt;?php echo $name;?&gt;&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&#34;error&#34;</span><span class="nt">&gt;</span>* <span class="cp">&lt;?php echo $nameErr;?&gt;</span><span class="nt">&lt;/span&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&lt;br&gt;&lt;br&gt;</span>
+</span></span><span class="line"><span class="cl">      性别：
+</span></span><span class="line"><span class="cl">      <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&#34;radio&#34;</span> <span class="na">name=</span><span class="s">&#34;gender&#34;</span> <span class="err">&lt;?php</span> <span class="err">if</span> <span class="err">(isset($gender)</span> <span class="err">&amp;&amp;</span> <span class="err">$</span><span class="na">gender=</span><span class="s">=&#34;女性&#34;)</span> <span class="err">echo</span> <span class="err">&#34;checked&#34;;?</span><span class="nt">&gt;</span> value=&#34;女性&#34;&gt;女性
+</span></span><span class="line"><span class="cl">      <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&#34;radio&#34;</span> <span class="na">name=</span><span class="s">&#34;gender&#34;</span> <span class="err">&lt;?php</span> <span class="err">if</span> <span class="err">(isset($gender)</span> <span class="err">&amp;&amp;</span> <span class="err">$</span><span class="na">gender=</span><span class="s">=&#34;男性&#34;)</span> <span class="err">echo</span> <span class="err">&#34;checked&#34;;?</span><span class="nt">&gt;</span> value=&#34;男性&#34;&gt;男性
+</span></span><span class="line"><span class="cl">      <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&#34;error&#34;</span><span class="nt">&gt;</span>* <span class="cp">&lt;?php echo $genderErr;?&gt;</span><span class="nt">&lt;/span&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&lt;br&gt;&lt;br&gt;</span>
+</span></span><span class="line"><span class="cl">      电邮：<span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&#34;text&#34;</span> <span class="na">name=</span><span class="s">&#34;email&#34;</span> <span class="na">value=</span><span class="s">&#34;&lt;?php echo $email;?&gt;&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&#34;error&#34;</span><span class="nt">&gt;</span>* <span class="cp">&lt;?php echo $emailErr;?&gt;</span><span class="nt">&lt;/span&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&lt;br&gt;&lt;br&gt;</span>
+</span></span><span class="line"><span class="cl">      网址：<span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&#34;text&#34;</span> <span class="na">name=</span><span class="s">&#34;website&#34;</span> <span class="na">value=</span><span class="s">&#34;&lt;?php echo $website;?&gt;&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&#34;error&#34;</span><span class="nt">&gt;</span><span class="cp">&lt;?php echo $websiteErr;?&gt;</span><span class="nt">&lt;/span&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&lt;br&gt;&lt;br&gt;</span>
+</span></span><span class="line"><span class="cl">      评论：<span class="nt">&lt;textarea</span> <span class="na">name=</span><span class="s">&#34;comment&#34;</span> <span class="na">rows=</span><span class="s">&#34;5&#34;</span> <span class="na">cols=</span><span class="s">&#34;40&#34;</span><span class="nt">&gt;</span><span class="cp">&lt;?php echo $comment;?&gt;</span><span class="nt">&lt;/textarea&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&lt;br&gt;&lt;br&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&#34;submit&#34;</span> <span class="na">name=</span><span class="s">&#34;submit&#34;</span> <span class="na">value=</span><span class="s">&#34;提交&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&lt;h2&gt;</span>你的输入是：<span class="nt">&lt;/h2&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="cp">&lt;?php
+</span></span></span><span class="line"><span class="cl"><span class="cp">         echo $name.&#34;&lt;br/&gt;&#34;;
+</span></span></span><span class="line"><span class="cl"><span class="cp">         echo $gender.&#34;&lt;br/&gt;&#34;;
+</span></span></span><span class="line"><span class="cl"><span class="cp">         echo $email.&#34;&lt;br/&gt;&#34;;
+</span></span></span><span class="line"><span class="cl"><span class="cp">         echo $website.&#34;&lt;br/&gt;&#34;;
+</span></span></span><span class="line"><span class="cl"><span class="cp">         echo $comment.&#34;&lt;br/&gt;&#34;;
+</span></span></span><span class="line"><span class="cl"><span class="cp">      ?&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&lt;br/&gt;</span> 
+</span></span><span class="line"><span class="cl">   <span class="nt">&lt;/form&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/div&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/body&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/html&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p></p>]]></description></item><item><title>php 函数学习</title><link>https://lruihao.cn/posts/phpfunc/</link><pubDate>Mon, 15 Jul 2019 11:37:33 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/phpfunc/</guid><description><![CDATA[<blockquote>
+<p>练习 php 函数的基本使用。<br>
+注：<br>
+必选参数在可选参数的前面。<br>
+可在函数中定义函数，需要先调用外层函数才能调用内层函数。</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="cm">/*
+</span></span></span><span class="line"><span class="cl"><span class="cm">创建表格
+</span></span></span><span class="line"><span class="cl"><span class="cm">*/</span>
+</span></span><span class="line"><span class="cl"><span class="k">function</span> <span class="nf">createTable</span><span class="p">(</span><span class="nv">$rows</span><span class="p">,</span><span class="nv">$cols</span><span class="p">,</span><span class="nv">$bgcolor</span><span class="o">=</span><span class="s1">&#39;pink&#39;</span><span class="p">,</span><span class="nv">$content</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">	<span class="nv">$table</span> <span class="o">=</span> <span class="s2">&#34;&lt;table border=&#39;1&#39; bgcolor=&#39;</span><span class="si">{</span><span class="nv">$bgcolor</span><span class="si">}</span><span class="s2">&#39; cellpadding=&#39;10&#39; cellspacing=&#39;0&#39; width=&#39;50%&#39; &gt;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="k">for</span><span class="p">(</span><span class="nv">$i</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="nv">$i</span><span class="o">&lt;=</span><span class="nv">$rows</span><span class="p">;</span><span class="nv">$i</span><span class="o">++</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">		<span class="nv">$table</span><span class="o">.=</span><span class="s2">&#34;&lt;tr&gt;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">		<span class="k">for</span><span class="p">(</span><span class="nv">$j</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="nv">$j</span><span class="o">&lt;=</span><span class="nv">$cols</span><span class="p">;</span><span class="nv">$j</span><span class="o">++</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">			<span class="nv">$table</span><span class="o">.=</span><span class="s2">&#34;&lt;td&gt;</span><span class="si">{</span><span class="nv">$content</span><span class="si">}</span><span class="s2">&lt;/td&gt;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">		<span class="nv">$table</span> <span class="o">.=</span><span class="s2">&#34;&lt;/tr&gt;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="nv">$table</span><span class="o">.=</span><span class="s2">&#34;&lt;/table&gt;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="nv">$table</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="k">echo</span> <span class="nx">createTable</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="s1">&#39;pink&#39;</span><span class="p">,</span><span class="s1">&#39;hello lruihao&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="cp">?&gt;</span><span class="err">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p></p>]]></description></item><item><title>宅音乐播放器</title><link>https://lruihao.cn/posts/player/</link><pubDate>Tue, 19 Mar 2019 23:32:56 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/player/</guid><description><![CDATA[<div class="featured-image">
+        <img src="/posts/player/images/index.png" referrerpolicy="no-referrer">
+      </div><blockquote>
+<p>宅音乐播放器，HTML5 网页播放器，集成后台管理及 API 调用，目前正在开发中，敬请关注~<br>
+<a href="https://github.com/lzx8589561/zhai-music"target="_blank" rel="external nofollow noopener noreferrer">原项目<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 由 <a href="https://www.ilt.me"target="_blank" rel="external nofollow noopener noreferrer">IT 技术宅<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 开源，使用 thinkPHP 开发后台。 <a href="https://github.com/Lruihao/zhai-music"target="_blank" rel="external nofollow noopener noreferrer">fork 地址<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 是我个人学习模仿的库，也是相当于备份源码。<br>
+<em>注： 插件修改于明月浩空免费版，仅用于学习交流，无商业价值，如发现商业传播，将禁止软件的免费使用。</em></p>
+</blockquote>
+<h2 id="技术栈">技术栈</h2>
+<ul>
+<li>后端：thinkphp 5.1</li>
+<li>前端：layui</li>
+<li>数据库：mysql</li>
+</ul>
+<h2 id="演示站">演示站</h2>
+<blockquote>
+<p>已兼容移动端，测试账号仅供测试请勿修改密码！</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">test
+</span></span><span class="line"><span class="cl">test123
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li><a href="https://player.ilt.me/"target="_blank" rel="external nofollow noopener noreferrer">https://player.ilt.me/<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+<li><a href="https://player.lruihao.cn/"target="_blank" rel="external nofollow noopener noreferrer">https://player.lruihao.cn/<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+</ul>
+<h2 id="安装">安装</h2>
+<h3 id="视频安装教程">视频安装教程</h3>
+<p><a href="https://www.bilibili.com/video/av46476706"target="_blank" rel="external nofollow noopener noreferrer">https://www.bilibili.com/video/av46476706<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
+<h3 id="依赖">依赖</h3>
+<ul>
+<li>composer</li>
+<li>php 5.6+</li>
+<li>mysql 5.5+</li>
+</ul>
+<h3 id="步骤">步骤</h3>
+<p>安装 php 依赖包</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">composer install
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>配置数据库，配置链接数据库名以及用户名密码</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">/config/database.php
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>创建数据库</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">字符编码：utf8 -- UTF-8 Unicode
+</span></span><span class="line"><span class="cl">导入数据库脚本，脚本位置 extend/database
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="伪静态配置">伪静态配置</h3>
+<h4 id="nginx">nginx</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">  location / {
+</span></span><span class="line"><span class="cl">      index  index.htm index.html index.php;
+</span></span><span class="line"><span class="cl">      #访问路径的文件不存在则重写 URL 转交给 ThinkPHP 处理
+</span></span><span class="line"><span class="cl">      if (!-e $request_filename) {
+</span></span><span class="line"><span class="cl">         rewrite  ^/(.*)$  /index.php?s=$1  last;
+</span></span><span class="line"><span class="cl">         break;
+</span></span><span class="line"><span class="cl">      }
+</span></span><span class="line"><span class="cl">  }
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="apache">apache</h4>
+<p>项目自带 apache 静态化无需配置</p>
+<h3 id="启动项目">启动项目</h3>
+<ul>
+<li>添加 public 为 web 根目录</li>
+<li>若为 apache 服务器则默认伪静态，nginx 可自行配置伪静态</li>
+</ul>
+<h2 id="预览">预览</h2>
+<p></p>
+<h3 id="首页">首页</h3>
+<p></p>
+<h3 id="登陆页面">登陆页面</h3>
+<p></p>
+<h3 id="后台首页">后台首页</h3>
+<p></p>
+<h3 id="后台播放器管理页面">后台播放器管理页面</h3>
+<p></p>
+<h3 id="后台歌单管理页面">后台歌单管理页面</h3>
+<p></p>]]></description></item></channel></rss>

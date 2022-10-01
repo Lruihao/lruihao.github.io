@@ -1,0 +1,191 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>CDN - 标签 - 菠菜眾長</title><link>https://lruihao.cn/tags/cdn/</link><description>CDN - 标签 - 菠菜眾長</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><lastBuildDate>Sun, 07 Aug 2022 14:40:33 +0800</lastBuildDate><atom:link href="https://lruihao.cn/tags/cdn/" rel="self" type="application/rss+xml"/><item><title>Node.js + GitHub Actions 自动刷新 CDN</title><link>https://lruihao.cn/posts/qcloudcdn/</link><pubDate>Sun, 07 Aug 2022 14:40:33 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/qcloudcdn/</guid><description><![CDATA[<div class="details admonition question open">
+    <div class="details-summary admonition-title">
+      <i class="icon fa-solid fa-question-circle fa-fw" aria-hidden="true"></i>问题<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i>
+    </div>
+    <div class="details-content">
+      <div class="admonition-content">腾讯云云函数从 2022 年 6 月 1 日开始收费了，差不多每个月 12 块，对于可能几个月都用不上一次云函数刷新缓存的人来说，有点太贵了。
+使用 Node.js 和 GitHub Actions 刷新 CDN 的方式，可以节省不少钱。</div>
+    </div>
+  </div>
+<h2 id="安装依赖">安装依赖</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">npm install qcloud-cdn-node-sdk
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="编写脚本">编写脚本</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">vim .scripts/qcloudcdn.js
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * Refresh Qcloud CDN cache
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @command `node qcloudcdn.js $SECRET_ID $SECRET_KEY` 
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">qcloudSDK</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;qcloud-cdn-node-sdk&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Get the config from https://console.qcloud.com/capi
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">qcloudSDK</span><span class="p">.</span><span class="nx">config</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">secretId</span><span class="o">:</span> <span class="nx">process</span><span class="o">?</span><span class="p">.</span><span class="nx">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">secretKey</span><span class="o">:</span> <span class="nx">process</span><span class="o">?</span><span class="p">.</span><span class="nx">argv</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">})</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">qcloudSDK</span><span class="p">.</span><span class="nx">request</span><span class="p">(</span><span class="s1">&#39;RefreshCdnDir&#39;</span><span class="p">,</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// See https://cloud.tencent.com/document/api/228/3947
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="s1">&#39;dirs.0&#39;</span><span class="o">:</span> <span class="s1">&#39;https://lruihao.cn/&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="p">},</span> <span class="p">(</span><span class="nx">res</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">res</span><span class="p">.</span><span class="nx">code</span> <span class="o">&amp;&amp;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">res</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">})</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="增加快捷指令">增加快捷指令</h2>
+<p>打开 <code>package.json</code> 增加 <code>scripts</code>:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;scripts&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;qcloudcdn&#34;</span><span class="p">:</span> <span class="s2">&#34;node .scripts/qcloudcdn.js $SECRET_ID $SECRET_KEY&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>运行方式：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nv">SECRET_ID</span><span class="o">=</span>&lt;secretId&gt; <span class="nv">SECRET_KEY</span><span class="o">=</span>&lt;secretKey&gt; npm run qcloudcdn
+</span></span></code></pre></td></tr></table>
+</div>
+</div><details>
+  <summary>Mac OS 环境变量配置（可选）</summary>
+  <div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">vim ~/.bash_profile
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Qcloud secret key-value</span>
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">SECRET_ID</span><span class="o">=</span>&lt;secretId&gt;
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">SECRET_KEY</span><span class="o">=</span>&lt;secretKey&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">source</span> ~/.bash_profile
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>然后，在本地可简化指令为 <code>npm run qcloudcdn</code> 或者 <code>yarn qcloudcdn</code>。<br>
+等同于 <code>SECRET_ID=$SECRET_ID SECRET_KEY=$SECRET_KEY npm run qcloudcdn</code></p>
+
+</details>
+<h2 id="配置-github-actions">配置 GitHub Actions</h2>
+<p>在原有 GitHub Actions 中部署后增加一个步骤：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl">- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Refresh Qcloud CDN cache</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">env</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">SECRET_ID</span><span class="p">:</span><span class="w"> </span><span class="l">${{ secrets.SECRET_ID }}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">SECRET_KEY</span><span class="p">:</span><span class="w"> </span><span class="l">${{ secrets.SECRET_KEY }}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l">npm run qcloudcdn</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>在仓库 Settings &gt; Secrets &gt; Actions 中增加两个 Secret: <code>SECRET_ID</code> 和 <code>SECRET_KEY</code>，原来有配置过的就不用了，比如，我原来的叫 <code>COS_SECRET_ID</code> 和 <code>COS_SECRET_ID</code>，那修改上面配置 env 中的变量名即可。</p>
+<p>最后上传代码，以后更新仓库时就会自动刷新 CDN 缓存了。</p>
+<h2 id="参考资料">参考资料</h2>
+<ul>
+<li><a href="https://github.com/QCloudCDN/CDN_API_DEMO/tree/master/Qcloud_CDN_API/nodejs"target="_blank" rel="external nofollow noopener noreferrer">Qcloud_CDN_API/nodejs<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+</ul>
+<blockquote>
+<p>本方案使用的旧的 API 请求方式，如果失效，可以参考新的 API，见 <a href="https://cloud.tencent.com/document/sdk"target="_blank" rel="external nofollow noopener noreferrer">SDK 中心<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>。</p>
+</blockquote>]]></description></item><item><title>vps 配置 ssl 及 https 重定向</title><link>https://lruihao.cn/posts/http2https/</link><pubDate>Thu, 28 Mar 2019 19:40:54 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/http2https/</guid><description><![CDATA[<blockquote>
+<p>记录自己在配置 vps 及博客 SSL 证书时遇到的问题。</p>
+</blockquote>
+<h2 id="强制重定向-https">强制重定向 https</h2>
+<blockquote>
+<p>有一种情况相信很多人都遇到过，就是虽然我们配置了 ssl 证书，但是 https 和 http 地址都是各自都可以单独访问。我们应该也见过类似于 github 的代码托管网站有强制 https 的开关。如果是这种情况我们还可以通过 js 进行 301 定向。</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="o">&lt;</span><span class="n">script</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">	<span class="n">var</span> <span class="n">targetProtocol</span> <span class="o">=</span> <span class="s">&#34;https:&#34;</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">	<span class="n">var</span> <span class="n">host</span> <span class="o">=</span> <span class="s">&#34;lruihao.cn&#34;</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="o">(</span><span class="n">window</span><span class="o">.</span><span class="na">location</span><span class="o">.</span><span class="na">host</span> <span class="o">==</span> <span class="n">host</span> <span class="o">&amp;&amp;</span> <span class="n">window</span><span class="o">.</span><span class="na">location</span><span class="o">.</span><span class="na">protocol</span> <span class="o">!=</span> <span class="n">targetProtocol</span><span class="o">){</span>
+</span></span><span class="line"><span class="cl"> 		<span class="n">window</span><span class="o">.</span><span class="na">location</span><span class="o">.</span><span class="na">href</span> <span class="o">=</span> <span class="n">targetProtocol</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  		<span class="n">window</span><span class="o">.</span><span class="na">location</span><span class="o">.</span><span class="na">href</span><span class="o">.</span><span class="na">substring</span><span class="o">(</span><span class="n">window</span><span class="o">.</span><span class="na">location</span><span class="o">.</span><span class="na">protocol</span><span class="o">.</span><span class="na">length</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">&lt;/</span><span class="n">script</span><span class="o">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="腾讯云-cdn-配置">腾讯云 CDN 配置</h2>
+<blockquote>
+<p>这个博客后来是转到了腾讯云的 cos 桶存储。当时在桶内静态网站设置的时候，设置强制 https 发现会出错。而且还接入了 CDN，所以今天在 CDN 设置那里也看到了 https 的设置，打开强制 https 就 OK 了。这天在三丰云撸了一个免费的主机，搭了一个 WordPress（想试试 wp 的感觉），然后 vps 的 SSL 问题现在也很简单了，第一步，到腾讯云申请免费证书；第二步，配置 CDN，按步骤来，其中接入方式选择自有源站；第三步，强制 https（可选）。</p>
+</blockquote>
+<p></p>
+<p></p>]]></description></item></channel></rss>

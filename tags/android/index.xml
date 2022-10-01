@@ -1,0 +1,62 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Android - 标签 - 菠菜眾長</title><link>https://lruihao.cn/tags/android/</link><description>Android - 标签 - 菠菜眾長</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><lastBuildDate>Tue, 05 Jul 2022 15:39:34 +0800</lastBuildDate><atom:link href="https://lruihao.cn/tags/android/" rel="self" type="application/rss+xml"/><item><title>Mac 配置 ADB</title><link>https://lruihao.cn/posts/adb-for-mac/</link><pubDate>Tue, 05 Jul 2022 15:39:34 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/adb-for-mac/</guid><description><![CDATA[<p>作为非安卓专业开发，无需下载 Android SDK，<br>
+仅下载 Android SDK 中的 <a href="https://developer.android.com/studio/releases/platform-tools?hl=zh-cn"target="_blank" rel="external nofollow noopener noreferrer">platform-tools<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 命令行工具即可，并配置好环境变量。</p>
+<h2 id="安装">安装</h2>
+<ul>
+<li><a href="https://developer.android.com/studio/releases/platform-tools?hl=zh-cn"target="_blank" rel="external nofollow noopener noreferrer">platform-tools<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+</ul>
+<h2 id="配置环境变量">配置环境变量</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">open .bash_profile
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>写入以下内容</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl"># platform-tools of Android SDK
+</span></span><span class="line"><span class="cl">export PATH=$PATH:$HOME/Applications/platform-tools
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">source</span> .bash_profile
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Windows 系统打开高级设置，配置 PATH 变量，增加一条路径即可。</p>
+<h2 id="adb-命令">ADB 命令</h2>
+<p>通过 USB 连接手机和电脑，执行以下命令</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 1. 打开手机 tcpip 5555 端口</span>
+</span></span><span class="line"><span class="cl">adb tcpip <span class="m">5555</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 2. 查看手机网络 IP</span>
+</span></span><span class="line"><span class="cl">adb shell ifconfig
+</span></span><span class="line"><span class="cl"><span class="c1"># 3. 在电脑上 ping 手机网络 IP</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 4. adb connect [Android IP]</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li><a href="https://developer.android.com/studio/command-line/adb?hl=zh-cn"target="_blank" rel="external nofollow noopener noreferrer">Android 调试桥 (adb)<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+<li><a href="https://github.com/mzlogin/awesome-adb"target="_blank" rel="external nofollow noopener noreferrer">awesome-adb<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+</ul>
+<h2 id="注意">注意</h2>
+<p>windows 系统下的文件（夹）命名所采用的是 GBK 编码，而 linux 是采用的 UTF-8 编码，使用 adb 的
+push 和 pull 命令时由于编码方式的不同会产生错误，因此需要修改 adb 的源代码来支持编码转换。</p>]]></description></item></channel></rss>
