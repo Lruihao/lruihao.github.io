@@ -11,7 +11,7 @@
 
 {{< admonition example "感谢大家的支持 🙏"  false >}}
 
-{{< reward wechatpay="/images/wechatpay.gif" alipay="/images/alipay.gif" comment="给作者买杯卡布奇诺～" >}}
+{{< reward wechatpay="/images/wechatpay.gif" alipay="/images/alipay.gif" comment="给博主买杯卡布奇诺～" >}}
 
 - **2018.09.28 [francs](https://postgres.fun) AliPay ￥50**  
   作为一个大学生，第一次在网上收到别人的支持，内心表示受宠若惊又非常开心。拿这 50 块买了半年腾讯云服务器！真的非常感谢老哥的支持！
