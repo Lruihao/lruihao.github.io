@@ -9,23 +9,9 @@
 <small>*关于 [FixIt 主题](https://github.com/hugo-fixit/FixIt) 的问题，请移步 [FixIt 官网](https://fixit.lruihao.cn) 相关文章哦～*</small>
 {{< /admonition >}}
 
-{{< admonition example "感谢大家的卡布奇诺 ☕"  false >}}
+{{< admonition example "感谢大家的支持 🙏"  false >}}
 
-<div class="post-reward">
-  <div class="comment">Buy me a coffee~</div>
-  <input type="checkbox" name="reward" id="reward" hidden="">
-  <label class="reward-button" for="reward">赞赏</label>
-  <div class="reward-imgs">
-    <div>
-      <img src="/images/wechatpay.gif" alt="Lruihao 微信">
-      <span data-animation="">微信</span>
-    </div>
-    <div>
-      <img src="/images/alipay.gif" alt="Lruihao 支付宝">
-      <span data-animation="">支付宝</span>
-    </div>
-  </div>
-</div>
+{{< reward wechatpay="/images/wechatpay.gif" alipay="/images/wechatpay.gif" comment="给作者买杯卡布奇诺～" >}}
 
 - **2018.09.28 [francs](https://postgres.fun) AliPay ￥50**  
   作为一个大学生，第一次在网上收到别人的支持，内心表示受宠若惊又非常开心。拿这 50 块买了半年腾讯云服务器！真的非常感谢老哥的支持！
