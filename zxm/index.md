@@ -5,5 +5,5 @@
 ---
 
 > 作者: [Lruihao](https://github.com/Lruihao)  
-> URL: https://lruihao.cn/love/  
+> URL: https://lruihao.cn/zxm/  
 
