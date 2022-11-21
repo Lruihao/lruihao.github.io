@@ -8,7 +8,7 @@
 ## 预览
 
 <div id="app-mmt" v-cloak>
-  <p class="live-content">{{ message || '“沐目之，湘也”，取她之名，写给她的字体。\n 从下笔到停笔，从恋爱开始到结束，沐目体见证了我们稚嫩到成熟。故事的开头往往极具温柔啊，但故事总会有结局，这个故事的结局就是分开画上了最后的句号。' }}</p>
+  <p class="live-content">{{ message || '「沐目之，湘也」\n 从下笔到停笔，从开始到结束，沐目体见证了我们稚嫩到成熟。\n故事的开头往往极具温柔，但结局常常不尽人意。\n那些忘不掉的人和事，岁月都已替我轻描淡写。' }}</p>
   <textarea class="live-textarea" v-model="message" placeholder="请输入文字 ..."></textarea>
 </div>
 
