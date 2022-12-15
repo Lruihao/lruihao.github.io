@@ -1,4 +1,62 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>菠菜眾長</title><link>https://lruihao.cn/</link><description>Lruihao's Note 李瑞豪的博客：探索、分享、记录自己在工作生活学习到一些东西。人知道得越多，就就会发现无知的越多。有更广袤世界可以探索，真是莫大的快乐啊！</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><lastBuildDate>Wed, 31 Aug 2022 09:32:44 +0800</lastBuildDate><atom:link href="https://lruihao.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>Beego 安装及配置</title><link>https://lruihao.cn/posts/beego-install/</link><pubDate>Wed, 31 Aug 2022 09:32:44 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/beego-install/</guid><description><![CDATA[<p>记录 GO 及 Beego 框架安装及基础配置。</p>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>菠菜眾長</title><link>https://lruihao.cn/</link><description>Lruihao's Note 李瑞豪的博客：探索、分享、记录自己在工作生活学习到一些东西。人知道得越多，就就会发现无知的越多。有更广袤世界可以探索，真是莫大的快乐啊！</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><lastBuildDate>Thu, 15 Dec 2022 15:33:30 +0800</lastBuildDate><atom:link href="https://lruihao.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>安装 Homebrew 后导致系统中原有的 npm 和 npx 失效</title><link>https://lruihao.cn/posts/homebrew-npm/</link><pubDate>Thu, 15 Dec 2022 15:33:30 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/homebrew-npm/</guid><description><![CDATA[<div class="details admonition question open">
+    <div class="details-summary admonition-title">
+      <i class="icon fa-solid fa-question-circle fa-fw" aria-hidden="true"></i>问题<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i>
+    </div>
+    <div class="details-content">
+      <div class="admonition-content">前面一段时间，安装了 Homebrew, 但是今天切换 node 版本到 system version (8.10.0) 后，发现虽然 node 版本切换成功，但是 node 版本对应的 npm 和 npx 版本不相符，下面记录一下问题排查过程。</div>
+    </div>
+  </div>
+<h2 id="罪魁祸首">罪魁祸首</h2>
+<p>首先定位到这次问题的根本原因是安装 Homebrew 导致的，这点可以很快也很明确地定位到，因为以前安装 Homebrew 也遇到了这个问题，但是当时的做法是卸载 Homebrew 避免冲突。</p>
+<h2 id="why">Why</h2>
+<p>分析为啥会冲突，Homebrew 安装的工程中也会默认一部分依赖的二进制文件，npm 和 npx 也在其中，所以这导致了 Homebrew 的安装 npm 和 npx 覆盖了系统中 node 的 npm 和 npx 进而导致 node 和 npm 版本不一致，无法使用 npm 启动项目。</p>
+<h2 id="where">Where</h2>
+<p>找一下目前 npm 和 npx 的二进制文件在哪。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">nvm use system
+</span></span><span class="line"><span class="cl">node -v           <span class="c1"># 8.10.0</span>
+</span></span><span class="line"><span class="cl">which npm         <span class="c1"># /opt/homebrew/bin/npm</span>
+</span></span><span class="line"><span class="cl">which npx         <span class="c1"># /opt/homebrew/bin/npx</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="how">How</h2>
+<p>很明显前面的猜测是对的，那就打开这个目录看看：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">open /opt/homebrew/bin
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>找到 npm 和 npx，把他们重命名为 <code>npm-brew</code> 和 <code>npx-brew</code>, 这样通过别名也保留 Homebrew 的 npm 和 npx.</p>
+<p>修改完后，重启终端，再看看 npm 和 npx 是否生效：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">nvm use system
+</span></span><span class="line"><span class="cl">node -v           <span class="c1"># 8.10.0</span>
+</span></span><span class="line"><span class="cl">which npm         <span class="c1"># /usr/local/bin/npm</span>
+</span></span><span class="line"><span class="cl">which npx         <span class="c1"># /usr/local/bin/npx</span>
+</span></span><span class="line"><span class="cl">npm -v
+</span></span><span class="line"><span class="cl">npx -v
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>一切正常了，可以用 npm 继续启动原来的项目了。</p>]]></description></item><item><title>Beego 安装及配置</title><link>https://lruihao.cn/posts/beego-install/</link><pubDate>Wed, 31 Aug 2022 09:32:44 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/beego-install/</guid><description><![CDATA[<p>记录 GO 及 Beego 框架安装及基础配置。</p>
 <h2 id="安装-go">安装 Go</h2>
 <ol>
 <li>
@@ -3543,152 +3601,4 @@ static/images/card-link-bg.jpg
 <p><figure><a class="lightgallery" href="/posts/hugo-admin/images/hugo-admin1.png" data-thumbnail="/posts/hugo-admin/images/hugo-admin1.png" data-sub-html="<h2>Hugo Admin</h2><p>Hugo Admin</p>">
     
   </a><figcaption class="image-caption">Hugo Admin</figcaption>
-  </figure></p>]]></description></item><item><title>Hugo 使用 GitHub Actions 部署到 GithHb Pages 和 腾讯云 cos 桶</title><link>https://lruihao.cn/posts/github-actions/</link><pubDate>Mon, 04 Oct 2021 23:46:49 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/github-actions/</guid><description><![CDATA[<div class="details admonition quote open">
-    <div class="details-summary admonition-title">
-      <i class="icon fa-solid fa-quote-right fa-fw" aria-hidden="true"></i>解決痛點<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i>
-    </div>
-    <div class="details-content">
-      <div class="admonition-content">Github Actions 真是靜態博客的福音，有了它 hugo, hexo 等博客構建過程可以丟給 Github 的服務器幫我們做了。<br>
-也就是説實現了在線寫靜態博客的需求。</div>
-    </div>
-  </div>
-<h2 id="準備">準備</h2>
-<p>工作流程涉及到兩個倉庫和一個 cos 桶，例如：</p>
-<blockquote>
-<ul>
-<li>Lruihao/hugo-blog          # Blog source repository</li>
-<li>Lruihao/lruihao.github.io  # GitHub pages repository</li>
-<li>blog-1256932288            # COS bucket</li>
-</ul>
-</blockquote>
-<h2 id="github-actions">Github Actions</h2>
-<h3 id="創建-workflows-任務">創建 workflows 任務</h3>
-<p>創建 <code>hugo-site/.github/workflows/deploy.yml</code>, 這個文件會寫一些命令告訴 Github 在我們提交源碼的時候，它要幫我們做哪些事情。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span><span class="lnt">37
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Auto Deploy hugo</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">on</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">push]</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">jobs</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">Explore-GitHub-Actions</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l">ubuntu-latest</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">steps</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Check out repository code</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">actions/checkout@v2</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">with</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">submodules</span><span class="p">:</span><span class="w"> </span><span class="l">recursive </span><span class="w"> </span><span class="c"># Fetch Hugo themes (true OR recursive)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">fetch-depth</span><span class="p">:</span><span class="w"> </span><span class="m">0</span><span class="w">         </span><span class="c"># Fetch all history for .GitInfo and .Lastmod</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Setup Hugo</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">peaceiris/actions-hugo@v2</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">with</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">hugo-version</span><span class="p">:</span><span class="w"> </span><span class="l">latest</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">extended</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Build Hugo static files</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l">hugo --minify</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Deploy to Github Pages</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">peaceiris/actions-gh-pages@v3</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">with</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">deploy_key</span><span class="p">:</span><span class="w"> </span><span class="l">${{ secrets.GP_DEPLOY_KEY }}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">external_repository</span><span class="p">:</span><span class="w"> </span><span class="l">Lruihao/lruihao.github.io</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">publish_branch</span><span class="p">:</span><span class="w"> </span><span class="l">main</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">publish_dir</span><span class="p">:</span><span class="w"> </span><span class="l">./public</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">commit_message</span><span class="p">:</span><span class="w"> </span><span class="l">${{ github.event.head_commit.message }}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Install coscmd</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l">sudo pip install coscmd</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Configure coscmd</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">env</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">COS_SECRET_ID</span><span class="p">:</span><span class="w"> </span><span class="l">${{ secrets.COS_SECRET_ID }}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">COS_SECRET_KEY</span><span class="p">:</span><span class="w"> </span><span class="l">${{ secrets.COS_SECRET_KEY }}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">COS_BUCKET_NAME</span><span class="p">:</span><span class="w"> </span><span class="l">blog-1256932288 </span><span class="w"> </span><span class="c"># Change for yourself</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">COS_BUCKET_REGION</span><span class="p">:</span><span class="w"> </span><span class="l">ap-chengdu    </span><span class="w"> </span><span class="c"># Change for yourself</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l">coscmd config -a $COS_SECRET_ID -s $COS_SECRET_KEY -b $COS_BUCKET_NAME -r $COS_BUCKET_REGION</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Deploy to COS Bucket</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l">coscmd upload -r -s --delete -f public/ /</span><span class="w">
-</span></span></span></code></pre></td></tr></table>
-</div>
-</div><h3 id="配置-github-pages-密鑰">配置 Github Pages 密鑰</h3>
-<ol>
-<li>為了讓 Lruihao/hugo-blog 提交代碼后自動部署到 Lruihao/lruihao.github.io, 需要生成一對 ssh key.
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">ssh-keygen -t rsa -b <span class="m">4096</span> -C <span class="s2">&#34;</span><span class="k">$(</span>git config user.email<span class="k">)</span><span class="s2">&#34;</span> -f gh-pages -N <span class="s2">&#34;&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># You will get 2 files:</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># gh-pages.pub (public key)</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># gh-pages     (private key)</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div></li>
-<li>打開 Lruihao/hugo-blog 倉庫的 settings, 再点击 Secrets, 然後添加 private key, name 为 <code>GP_DEPLOY_KEY</code></li>
-<li>打開 Lruihao/lruihao.github.io, 点击 Deploy keys, 添加 public key, name 隨意，<code>Allow write access</code> 一定要勾上，否則無法提交</li>
-</ol>
-<h3 id="配置-cos-密鑰">配置 COS 密鑰</h3>
-<p>打開 Lruihao/hugo-blog 倉庫的 settings, 再点击 Secrets, 然後添加 COS 桶的 <code>secret_id</code> 和 <code>secret_key</code>:</p>
-<ul>
-<li>COS_SECRET_ID</li>
-<li>COS_SECRET_KEY</li>
-</ul>
-<blockquote>
-<p>至此，Github Pages 和 COS 都已經可以通過 Github Actions 自動部署了，有部署記錄后，<br>
-打開 Lruihao/hugo-blog -&gt; Actions 可以看到構建過程和結果，構建失敗也會收到 Github 發給你的郵件。</p>
-</blockquote>
-<h2 id="cos-自動同步-備用">COS 自動同步 （備用）</h2>
-<p>本小節內容和 Github Actions 無關，僅作為 COS 備用上傳方式。</p>
-<ul>
-<li>COSBrowser</li>
-</ul>
-<ol>
-<li>下載 COS 官方軟件 COSBrowser</li>
-<li>點開右上角 工具箱</li>
-<li>選擇 文件同步</li>
-<li>選擇 本地文件夹 eg. <code>hugo-site/public</code></li>
-<li>選擇 存储桶目录</li>
-<li>同步类型：單次同步、自動同步、定時同步</li>
-</ol>
-<blockquote>
-<p>同步前先執行 hugo 構建命令，eg. <code>hugo --minify</code><br>
-有 Github actions 選單次同步就好，在 Github 不好用時可用。</p>
-</blockquote>]]></description></item></channel></rss>
+  </figure></p>]]></description></item></channel></rss>
