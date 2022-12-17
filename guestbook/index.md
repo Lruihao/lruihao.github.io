@@ -31,53 +31,13 @@
 
 ---
 
-<div class="netease-music"></div>
-
-<div class="comment-163" title="随机下一条">
-  <span class="pic-backdrop"></span>
-  <div class="commentator">
-    <img class="comment-avatar" style="display:none;"/>
-    <span class="comment-nickname"></span>
-  </div>
-  <div class="comment-content"></div>
-  <div class="music-info">
-    <span class="artists-name"></span>
-    <span class="music-name"></span>
-  </div>
-</div>
+{{< random-comment >}}
 
 ---
 
 {{< details "来自 [网易云歌单](https://music.163.com/#/playlist?id=2280569152)" >}}
 {{< music server="netease" type="playlist" id="2280569152" loop="all" list-folded="true" >}}
 {{< /details >}}
-
-{{< script >}}
-function getRandomComment() {
-  fetch('https://api.uomg.com/api/comments.163?mid=2280569152')
-  .then(response => response.json())
-  .then((comment) => {
-    document.querySelector('.pic-backdrop').style.backgroundImage = `url(${comment.data.picurl.slice(5)})`;
-    document.querySelector('.comment-avatar').alt = `${comment.data.nickname}'s avatar`;
-    document.querySelector('.comment-avatar').src = comment.data.avatarurl.slice(5);
-    document.querySelector('.comment-avatar').style = '';
-    document.querySelector('.comment-nickname').innerHTML = comment.data.nickname;
-    document.querySelector('.comment-content').innerHTML = comment.data.content.replace('\n','<br/>');
-    document.querySelector('.music-name').innerHTML = comment.data.name;
-    document.querySelector('.artists-name').innerHTML = comment.data.artistsname;
-    let player = document.createElement('meting-js');
-    player.setAttribute('auto', comment.data.url);
-    document.querySelector('.netease-music').innerHTML = '';
-    document.querySelector('.netease-music').appendChild(player);
-  })
-}
-document.addEventListener('DOMContentLoaded', () => {
-  getRandomComment();
-});
-document.querySelector('.comment-163').addEventListener('click', () => {
-  getRandomComment();
-});
-{{< /script >}}
 
 
 ---
