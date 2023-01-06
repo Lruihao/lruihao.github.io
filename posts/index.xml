@@ -1,4 +1,491 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>所有文章 - 菠菜眾長</title><link>https://lruihao.cn/posts/</link><description>所有文章 | 菠菜眾長</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><lastBuildDate>Thu, 15 Dec 2022 15:33:30 +0800</lastBuildDate><atom:link href="https://lruihao.cn/posts/" rel="self" type="application/rss+xml"/><item><title>安装 Homebrew 后导致系统中原有的 npm 和 npx 失效</title><link>https://lruihao.cn/posts/homebrew-npm/</link><pubDate>Thu, 15 Dec 2022 15:33:30 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/homebrew-npm/</guid><description><![CDATA[<div class="details admonition question open">
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>所有文章 - 菠菜眾長</title><link>https://lruihao.cn/posts/</link><description>所有文章 | 菠菜眾長</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><lastBuildDate>Thu, 15 Dec 2022 15:33:30 +0800</lastBuildDate><atom:link href="https://lruihao.cn/posts/" rel="self" type="application/rss+xml"/><item><title>Git 常用指令汇总</title><link>https://lruihao.cn/posts/git/</link><pubDate>Tue, 30 Oct 2018 08:59:56 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/git/</guid><description><![CDATA[<div class="featured-image">
+        <img src="/posts/git/images/relation-1.png" referrerpolicy="no-referrer">
+      </div><ul>
+<li><strong>工作区</strong>：就是你在电脑里能看到的目录。</li>
+<li><strong>暂存区</strong>：英文叫 stage, 或 index。一般存放在 &ldquo;.git 目录下&rdquo; 下的 index 文件（.git/index）中，所以我们把暂存区有时也叫作索引（index）。</li>
+<li><strong>版本库</strong>：工作区有一个隐藏目录。git，这个不算工作区，而是 Git 的版本库。</li>
+</ul>
+<h2 id="介绍">介绍</h2>
+<p>先通过几张图片来大致了解一下 Git 的工作原理吧！<br>
+文章开头的流程图已经简单明了地说明了 Git 常用操作的工作流程，下图换种风格再展示一次：
+</p>
+<p>提到 Git 就会联想到 github, 下图从 Git 的角度简单说明了一些 Github 常用操作的关系：
+</p>
+<p>下面这个图则展示了工作区、版本库中的暂存区和版本库之间的关系：
+</p>
+<p>图中左侧为工作区，右侧为版本库。在版本库中标记为 <code>&quot;index&quot;</code> 的区域是暂存区（stage, index），标记为 &ldquo;master&rdquo; 的是 master 分支所代表的目录树。<br>
+<strong>HEAD 指针：每个 git 仓库有且仅有一个 HEAD 指针，它通常指向當前某个活動的本地分支指针（最初本地仓库 master)。也可以是某个提交记录、某个 tag，但这会让其处于 detached HEAD（游离头）状态，此状态下的所有提交都无效。</strong><br>
+图中我们可以看出此时 <code>&quot;HEAD&quot;</code> 实际是指向 master 分支的一个&quot;游标&quot;。所以图示的命令中出现 HEAD 的地方可以用 master 来替换。<br>
+图中的<code>objects</code>标识的区域为 Git 的对象库，实际位于 <code>&quot;.git/objects&quot;</code> 目录下，里面包含了创建的各种对象及内容。<br>
+当对工作区修改（或新增）的文件执行 <code>&quot;git add&quot;</code>命令时，暂存区的目录树被更新，同时工作区修改（或新增）的文件内容被写入到对象库中的一个新的对象中，而该对象的 ID 被记录在暂存区的文件索引中。<br>
+当执行提交操作（git commit）时，暂存区的目录树写到版本库（对象库）中，master 分支会做相应的更新。即 master 指向的目录树就是提交时暂存区的目录树。<br>
+当执行 <code>&quot;git reset HEAD&quot;</code> 命令时，暂存区的目录树会被重写，被 master 分支指向的目录树所替换，但是工作区不受影响。<br>
+当执行 <code>&quot;git rm --cached &lt;file&gt;&quot;</code> 命令时，会直接从暂存区删除文件，工作区则不做出改变。<br>
+当执行 <code>&quot;git checkout .&quot;</code> 或者 <code>&quot;git checkout -- &lt;file&gt;&quot;</code>   命令时，会用暂存区全部或指定的文件替换工作区的文件。这个操作很危险，会清除工作区中未添加到暂存区的改动。<br>
+当执行 <code>&quot;git checkout HEAD .&quot;</code> 或者 <code>&quot;git checkout HEAD &lt;file&gt;&quot;</code> 命令时，会用 <code>HEAD</code> 指向的 master 分支中的全部或者部分文件替换暂存区和以及工作区中的文件。这个命令也是极具危险性的，因为不但会清除工作区中未提交的改动，也会清除暂存区中未提交的改动。</p>
+<h2 id="基本常用命令">基本常用命令</h2>
+<blockquote>
+<p>第一次使用 git 的时候，需要设置用户信息和用户邮箱，用于辨识提交者身份。</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git config --global user.name &lt;git 用户名&gt;
+</span></span><span class="line"><span class="cl">git config --global user.email &lt;邮箱地址&gt;
+</span></span><span class="line"><span class="cl">git config --list                           <span class="c1">## 查看当前用户信息</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="基本操作">基本操作</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git init                    <span class="c1">## 把当前的目录变成可以用 git 进行版本控制的 git 仓库，生成隐藏。git 文件。</span>
+</span></span><span class="line"><span class="cl">git add XX                  <span class="c1">## 把 xx 文件添加到暂存区去。</span>
+</span></span><span class="line"><span class="cl">git add –A                  <span class="c1">## git add --all 的缩写，添加全部到暂存区</span>
+</span></span><span class="line"><span class="cl">git add –u                  <span class="c1">## 把文件的删除和修改添加到暂存区（不包括新增）</span>
+</span></span><span class="line"><span class="cl">git add .                   <span class="c1">## 监控工作区的状态树，使用它会把工作时的所有变化提交到暂存区</span>
+</span></span><span class="line"><span class="cl">git commit -m <span class="s2">&#34;message&#34;</span>     <span class="c1">## 从暂存区提交到本地仓库</span>
+</span></span><span class="line"><span class="cl">git commit -a -m <span class="s2">&#34;message&#34;</span>  <span class="c1">## 相当于省略 git add，但是无法提交新增的文件</span>
+</span></span><span class="line"><span class="cl">git push origin master      <span class="c1">## Git 会把 master 分支推送到远程库对应的远程分支上</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="details admonition tip open">
+    <div class="details-summary admonition-title">
+      <i class="icon fa-solid fa-lightbulb fa-fw" aria-hidden="true"></i>Tips<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i>
+    </div>
+    <div class="details-content">
+      <div class="admonition-content"><a href="https://github.com/Lruihao/hugo-blog/wiki/Commit-message"target="_blank" rel="external nofollow noopener noreferrer">Commit Message<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 内容尽量规范！<br>
+当某一次提交后，突然想起漏提交了文件，或不小心提交了不满意的代码时，<br>
+可以使用<code>git commit --amend -m &quot;message&quot;</code>指令。它可以在不增加一个新的 commit-id 的情况下将新修改的代码追加到前一次的 commit-id 中。提交之后 message 也将被本次的 message 覆盖，所以还需要再次添加上次的 message。</div>
+    </div>
+  </div>
+<h3 id="push">push</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git push origin branch-name
+</span></span><span class="line"><span class="cl">git push –u origin master
+</span></span><span class="line"><span class="cl">git push origin --delete branch-name     <span class="c1">## 删除远程分支</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>把当前 master 分支推送到远程库；<code>-u</code>表示记住分支和地址，下次使用<code>git push</code>即可。</p>
+</blockquote>
+<h3 id="remote">remote</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git remote add origin reposityUrl     <span class="c1">## 关联一个远程库</span>
+</span></span><span class="line"><span class="cl">git remote                            <span class="c1">## 查看远程库的信息</span>
+</span></span><span class="line"><span class="cl">git remote –v                         <span class="c1">## 查看远程库的详细信息</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="clone">clone</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git clone reposityUrl                   <span class="c1">## 从远程库中克隆</span>
+</span></span><span class="line"><span class="cl">git clone -b branchName reposityUrl     <span class="c1">## 克隆指定分支</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="pull">pull</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git pull
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>从远程仓库拉下来到本地库然后合并相当于<code>git fetch</code>+<code>git merge</code>。<br>
+一般 push 前先拉去最新版本，避免代码冲突，如果有冲突需要解决了冲突才能提交。</p>
+</blockquote>
+<p><strong>import repositories 同步更新</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git pull 原链接
+</span></span><span class="line"><span class="cl">git push origin master
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="fetch">fetch</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git fetch               <span class="c1">## 从远程库抓下最新版本，但是不合并</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>fetch 是从远程库到本地库，但是未在工作区，需要<code>git merge</code></p>
+</blockquote>
+<h3 id="merge">merge</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git merge dev           <span class="c1">## 在当前的分支上合并 dev 分支</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>分支合并也是在本地完成 (<strong>从本地库到工作区</strong>)，新的分支只有在合并后才允许被删除。<br>
+如果分支合并是出现冲突需要解决了冲突才能合并，使用<code>git status</code>查看冲突文件。</p>
+</blockquote>
+<p></p>
+<h3 id="branchcheckout">branch,checkout</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git branch            <span class="c1">## 查看当前所有的分支</span>
+</span></span><span class="line"><span class="cl">git branch name       <span class="c1">## 创建分支</span>
+</span></span><span class="line"><span class="cl">git branch –r         <span class="c1">## 看远程所有分支</span>
+</span></span><span class="line"><span class="cl">git branch –a         <span class="c1">## 查看本地远程分支</span>
+</span></span><span class="line"><span class="cl">git branch –d name    <span class="c1">## 删除分支</span>
+</span></span><span class="line"><span class="cl">git checkout name     <span class="c1">## 切换分支</span>
+</span></span><span class="line"><span class="cl">git checkout –b name  <span class="c1">## 创建并切换到 name 分支上</span>
+</span></span><span class="line"><span class="cl">git checkout -- file
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p><code>git checkout -- file</code>相当于取消对文档的修改，将最新的本地版本库的本文件复制覆盖它。（比较危险！）</p>
+</blockquote>
+<h3 id="refloglog">reflog,log</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git log               <span class="c1">## 显示所有提交过的版本信息：commit id，提交者，日期</span>
+</span></span><span class="line"><span class="cl">git reflog            <span class="c1">## 查看历史记录的 commit id</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="details admonition tip open">
+    <div class="details-summary admonition-title">
+      <i class="icon fa-solid fa-lightbulb fa-fw" aria-hidden="true"></i>Tips<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i>
+    </div>
+    <div class="details-content">
+      <div class="admonition-content"><p>想看到自己的操作记录，则可以使用 log 与 reflog，它两个的区别如下：</p>
+<ol>
+<li><code>git log</code>命令可以显示所有提交过的版本信息；
+如果感觉太繁琐，可以加上参数<code>--pretty=oneline</code>，只会显示版本号和提交时的备注信息。</li>
+<li><code>git reflog</code>可以查看所有分支的所有操作记录。（包括已经被删除的 commit 记录和 reset 的操作）</li>
+</ol>
+</div>
+    </div>
+  </div>
+<h3 id="reset">reset</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git reset --hard HEAD^        
+</span></span><span class="line"><span class="cl">git reset --hard HEAD~        <span class="c1">## 回退到上一个版本</span>
+</span></span><span class="line"><span class="cl">git reset --hard HEAD~100     <span class="c1">## 回退到 100 个版本</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">git reset head -- file        <span class="c1">## 不加 file 则全部退回  </span>
+</span></span><span class="line"><span class="cl">git reset file                <span class="c1">## 将本地仓库的当前版本退回至暂存区，相当于取消暂存</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>版本退回是从本地仓库到暂存区，如果已经提交远程库，此时的版本是低于最新的版本的会拒绝提交，
+需要用<code>git push -f origin master</code>强制提交。</p>
+</blockquote>
+<div class="details admonition danger open">
+    <div class="details-summary admonition-title">
+      <i class="icon fa-solid fa-skull-crossbones fa-fw" aria-hidden="true"></i>特别提醒<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i>
+    </div>
+    <div class="details-content">
+      <div class="admonition-content"><p>如果你<code>git reset --hard HEAD^</code>+<code>git push -f origin master</code>执行完，github 中的记录和本地文件都会回到退回的状态。<strong>简单来说就是一修改了一天的 bug, 完工后，你这一套操作直接打回原形。别慌（实际内心慌的一麻皮。）</strong></p>
+<ol>
+<li>通过<code>git log -g</code>命令来找到需要恢复的信息对应的 commitid，可以通过提交的时间和记录来辨别，
+找到执行<code>reset --hard</code>之前的那个 commit 对应的 commit-id</li>
+<li>通过<code>git branch recover_branch commit-id</code>来建立一个新的分支</li>
+</ol>
+<p><strong>这样，就把到 commitid 为止的代码、各种提交记录等信息都恢复到了 recover_branch 分支上了。</strong></p>
+</div>
+    </div>
+  </div>
+<h3 id="status">status</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git status
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>查看你的文件在暂存区和工作目录的状态，默认是较为详细的显示，并提示你可以用何种命令完成你接下来可能要做的事情。</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git status -s
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>较为简单的输出当前的状态，如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ git status -s
+</span></span><span class="line"><span class="cl">M  README.md
+</span></span><span class="line"><span class="cl"> D hello.rb
+</span></span><span class="line"><span class="cl">?? world.java
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>你可以看到，在简短输出中，有两栏。第一栏是暂存区的，第二栏则是工作目录的。这里表示：</p>
+</blockquote>
+<ul>
+<li><code>README.md</code> 在暂存区中的状态是 <code>modify</code></li>
+<li><code>hello.rb</code> 在工作目录中的状态是 <code>delete</code></li>
+<li><code>world.java</code> 还未添加到版本控制。</li>
+</ul>
+<h3 id="diff">diff</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git diff XX         <span class="c1">## 查看 XX 文件修改了哪些内容</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">git diff            <span class="c1">## 工作目录和暂存区</span>
+</span></span><span class="line"><span class="cl">git diff --cached   <span class="c1">## 暂存区和本地仓库</span>
+</span></span><span class="line"><span class="cl">git diff HEAD       <span class="c1">## 工作目录和本地仓库</span>
+</span></span><span class="line"><span class="cl">git diff --stat     <span class="c1">## 显示信息摘要</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="rm-mv">rm, mv</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git rm                           <span class="c1">## 将文件从暂存区和工作目录删除，-f 为强制删除</span>
+</span></span><span class="line"><span class="cl">git rm filename                  <span class="c1">## 删除文件</span>
+</span></span><span class="line"><span class="cl">git rm –r dirname                <span class="c1">## 删除文件夹 –r 表示递归所有子目录</span>
+</span></span><span class="line"><span class="cl">git rm --cached &lt;path&gt;           <span class="c1">## 将文件从暂存区中删除</span>
+</span></span><span class="line"><span class="cl">git mv &lt;old_path&gt; &lt;new_path&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p><code>git rm</code>用来删除文件、目录。<code>git mv</code>命令用于移动或重命名一个文件、目录。</p>
+</blockquote>
+<p>比如删除 photos 文件，本地删除后，远程仓库还会有，所以</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git rm -r photos
+</span></span><span class="line"><span class="cl">git commit -m <span class="s2">&#34;删除相册&#34;</span>
+</span></span><span class="line"><span class="cl">git push
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="submodule">submodule</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git submodule add         <span class="c1">## 添加子模组</span>
+</span></span><span class="line"><span class="cl">git submodule init        <span class="c1">## 子模组初始化</span>
+</span></span><span class="line"><span class="cl">git submodule update      <span class="c1">## 子模组更新</span>
+</span></span><span class="line"><span class="cl">git submodule -help
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="details admonition Note open">
+    <div class="details-summary admonition-title">
+      <i class="icon fa-solid fa-pencil-alt fa-fw" aria-hidden="true"></i>Note<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i>
+    </div>
+    <div class="details-content">
+      <div class="admonition-content">当一个远程库有子模组时，直接 clone 子模组只是一个空文件夹，需要进入子模组的空文件夹<code>init</code>和<code>update</code>才行。
+或者使用递归克隆<code>git clone --recursive 远程库</code><br>
+子模组更新后，父模组必须更新，因为需要更新 commit id。</div>
+    </div>
+  </div>
+<h3 id="tag">tag</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git tag v1.0
+</span></span><span class="line"><span class="cl">git tag -a v1.0                   <span class="c1">## 给最新一次提交打标签</span>
+</span></span><span class="line"><span class="cl">git tag -a &lt;tagname&gt; -m <span class="s2">&#34;标签&#34;</span>    <span class="c1">## 指定标签信息命令</span>
+</span></span><span class="line"><span class="cl">git show &lt;tagname&gt;                <span class="c1">## 显示标签信息</span>
+</span></span><span class="line"><span class="cl">git tag                           <span class="c1">## 查看版本打的 Tag</span>
+</span></span><span class="line"><span class="cl">git tag -d v1.0                   <span class="c1">## 删除本地标签</span>
+</span></span><span class="line"><span class="cl">git push origin :refs/tags/v1.0   <span class="c1">## 删除远程标签</span>
+</span></span><span class="line"><span class="cl">$ git push <span class="o">[</span>remote<span class="o">]</span> <span class="o">[</span>tag<span class="o">]</span>         <span class="c1">## 提交指定 tag</span>
+</span></span><span class="line"><span class="cl">$ git push <span class="o">[</span>remote<span class="o">]</span> --tags        <span class="c1">## 提交所有 tag</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="details admonition Success open">
+    <div class="details-summary admonition-title">
+      <i class="icon fa-solid fa-pencil-alt fa-fw" aria-hidden="true"></i>Note<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i>
+    </div>
+    <div class="details-content">
+      <div class="admonition-content">当你执行<code>git tag -a</code>命令时，Git 会打开你的编辑器，让你写一句标签注解，就像你给提交写注解一样。
+如果我们忘了给某个提交打标签，又将它发布了，我们可以给它追加标签。</div>
+    </div>
+  </div>
+<p>例如，假设我们发布了提交 85fc7e7（最后一行），但是那时候忘了给它打标签。 我们现在也可以：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ git tag -a v0.9 85fc7e7
+</span></span><span class="line"><span class="cl">$ git log --oneline --decorate --graph
+</span></span><span class="line"><span class="cl">*   d5e9fc2 <span class="o">(</span>HEAD -&gt; master<span class="o">)</span> Merge branch <span class="s1">&#39;change_site&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="p">|</span><span class="se">\ </span> 
+</span></span><span class="line"><span class="cl"><span class="p">|</span> * <span class="m">7774248</span> <span class="o">(</span>change_site<span class="o">)</span> changed the runoob.php
+</span></span><span class="line"><span class="cl">* <span class="p">|</span> c68142b 修改代码
+</span></span><span class="line"><span class="cl"><span class="p">|</span>/  
+</span></span><span class="line"><span class="cl">* c1501a2 removed test.txt、add runoob.php
+</span></span><span class="line"><span class="cl">* 3e92c19 add test.txt
+</span></span><span class="line"><span class="cl">* 3b58100 <span class="o">(</span>tag: v0.9<span class="o">)</span> 第一次版本提交
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="stash">stash</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git stash               <span class="c1">## 把当前的工作隐藏起来，等以后恢复现场后继续工作</span>
+</span></span><span class="line"><span class="cl">git stash list          <span class="c1">## 查看所有被隐藏的文件列表</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="gitk">gitk</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">gitk                    <span class="c1">## git 自带 GUI</span>
+</span></span><span class="line"><span class="cl">gitk --all
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="git-配置">Git 配置</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># git 文件名大小写敏感问题</span>
+</span></span><span class="line"><span class="cl">git config core.ignorecase <span class="nb">false</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="githubgitea-等平台-issue-的常用标签">github,gitea 等平台 issue 的常用标签</h2>
+<ul>
+<li><code>bug</code> 描述的问题是一个 bug</li>
+<li><code>enhancement</code> 功能增强，没有 feature 也可以指 New feature or request</li>
+<li><code>feature</code> 新功能</li>
+<li><code>duplicate</code> 问题重复</li>
+<li><code>invalid</code> 可用的，不是 bug</li>
+<li><code>question</code> 疑问，需要进一步的信息</li>
+<li><code>wontfix</code> 不会修复此问题</li>
+<li><code>help-wanted</code> 需要帮助</li>
+<li><code>good first issue</code> Good for newcomers</li>
+<li><a href="https://www.jianshu.com/p/48b935e36000"target="_blank" rel="external nofollow noopener noreferrer">更多标签<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+</ul>
+<h2 id="license">license</h2>
+<p></p>
+<h2 id="其他">其他</h2>
+<ul>
+<li><a href="http://www.ruanyifeng.com/blog/2015/12/git-cheat-sheet.html"target="_blank" rel="external nofollow noopener noreferrer">常用 Git 命令清单<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+<li><a href="https://blog.csdn.net/qq1332479771/article/details/56087333"target="_blank" rel="external nofollow noopener noreferrer">github 上 fork 了别人的项目后，再同步更新别人的提交<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+<li><a href="https://learngitbranching.js.org/"target="_blank" rel="external nofollow noopener noreferrer">Gearn Git Branching<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+</ul>]]></description></item><item><title>安装 Homebrew 后导致系统中原有的 npm 和 npx 失效</title><link>https://lruihao.cn/posts/homebrew-npm/</link><pubDate>Thu, 15 Dec 2022 15:33:30 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/homebrew-npm/</guid><description><![CDATA[<div class="details admonition question open">
     <div class="details-summary admonition-title">
       <i class="icon fa-solid fa-question-circle fa-fw" aria-hidden="true"></i>问题<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i>
     </div>
