@@ -1218,6 +1218,9 @@
 <li><strong>版本库</strong>：工作区有一个隐藏目录。git，这个不算工作区，而是 Git 的版本库。</li>
 </ul>
 <h2 id="介绍">介绍</h2>
+<blockquote>
+<p><a href="https://git-scm.com/"target="_blank" rel="external nofollow noopener noreferrer">https://git-scm.com/<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
+</blockquote>
 <p>先通过几张图片来大致了解一下 Git 的工作原理吧！<br>
 文章开头的流程图已经简单明了地说明了 Git 常用操作的工作流程，下图换种风格再展示一次：
 </p>
@@ -1235,20 +1238,53 @@
 当执行 <code>&quot;git rm --cached &lt;file&gt;&quot;</code> 命令时，会直接从暂存区删除文件，工作区则不做出改变。<br>
 当执行 <code>&quot;git checkout .&quot;</code> 或者 <code>&quot;git checkout -- &lt;file&gt;&quot;</code>   命令时，会用暂存区全部或指定的文件替换工作区的文件。这个操作很危险，会清除工作区中未添加到暂存区的改动。<br>
 当执行 <code>&quot;git checkout HEAD .&quot;</code> 或者 <code>&quot;git checkout HEAD &lt;file&gt;&quot;</code> 命令时，会用 <code>HEAD</code> 指向的 master 分支中的全部或者部分文件替换暂存区和以及工作区中的文件。这个命令也是极具危险性的，因为不但会清除工作区中未提交的改动，也会清除暂存区中未提交的改动。</p>
-<h2 id="基本常用命令">基本常用命令</h2>
-<blockquote>
-<p>第一次使用 git 的时候，需要设置用户信息和用户邮箱，用于辨识提交者身份。</p>
-</blockquote>
+<h2 id="git-配置">Git 配置</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git config --global user.name &lt;git 用户名&gt;
-</span></span><span class="line"><span class="cl">git config --global user.email &lt;邮箱地址&gt;
-</span></span><span class="line"><span class="cl">git config --list                           <span class="c1">## 查看当前用户信息</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git config --global --list <span class="c1">#查看全局配置</span>
+</span></span><span class="line"><span class="cl">git config --local --list <span class="c1">#查看本项目配置</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 第一次使用 git 的时候，需要设置用户信息和用户邮箱，用于辨识提交者身份</span>
+</span></span><span class="line"><span class="cl">git config --global user.name <span class="s2">&#34;用户名&#34;</span>
+</span></span><span class="line"><span class="cl">git config --global user.email <span class="s2">&#34;邮箱&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">git config --global alias.cm commit
+</span></span><span class="line"><span class="cl">git config --global alias.br branch <span class="c1"># 配置指令别名简写</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">git config --global credential.helper store <span class="c1"># 输入一次账号密码后第二次就会记住账号密码</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">git config --global core.ignorecase <span class="nb">false</span> <span class="c1"># 关闭忽略大小写</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">git config --system core.longpaths <span class="nb">true</span> <span class="c1"># 配置长路径</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">git config --global http.sslVerify <span class="nb">false</span> <span class="c1"># 禁用 SSL 验证</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">git config --global core.protectNTFS <span class="nb">false</span> <span class="c1"># 关闭 NTFS 文件保护</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">git config --global url.<span class="s2">&#34;https://&#34;</span>.insteadOf git:// <span class="c1"># git:// 报错</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="基本操作">基本操作</h3>
@@ -1664,17 +1700,6 @@
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">gitk                    <span class="c1">## git 自带 GUI</span>
 </span></span><span class="line"><span class="cl">gitk --all
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="git-配置">Git 配置</h2>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># git 文件名大小写敏感问题</span>
-</span></span><span class="line"><span class="cl">git config core.ignorecase <span class="nb">false</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="githubgitea-等平台-issue-的常用标签">github,gitea 等平台 issue 的常用标签</h2>

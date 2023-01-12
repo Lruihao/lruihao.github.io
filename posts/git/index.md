@@ -8,6 +8,8 @@
 
 ## 介绍
 
+> https://git-scm.com/
+
 先通过几张图片来大致了解一下 Git 的工作原理吧！  
 文章开头的流程图已经简单明了地说明了 Git 常用操作的工作流程，下图换种风格再展示一次：
 ![关系图](images/relation-2.jpg)
@@ -29,14 +31,30 @@
 当执行 `"git checkout ."` 或者 `"git checkout -- <file>"`   命令时，会用暂存区全部或指定的文件替换工作区的文件。这个操作很危险，会清除工作区中未添加到暂存区的改动。  
 当执行 `"git checkout HEAD ."` 或者 `"git checkout HEAD <file>"` 命令时，会用 `HEAD` 指向的 master 分支中的全部或者部分文件替换暂存区和以及工作区中的文件。这个命令也是极具危险性的，因为不但会清除工作区中未提交的改动，也会清除暂存区中未提交的改动。  
 
-## 基本常用命令
-
-> 第一次使用 git 的时候，需要设置用户信息和用户邮箱，用于辨识提交者身份。
+## Git 配置
 
 ```bash
-git config --global user.name <git 用户名>
-git config --global user.email <邮箱地址>
-git config --list                           ## 查看当前用户信息
+git config --global --list #查看全局配置
+git config --local --list #查看本项目配置
+
+# 第一次使用 git 的时候，需要设置用户信息和用户邮箱，用于辨识提交者身份
+git config --global user.name "用户名"
+git config --global user.email "邮箱"
+
+git config --global alias.cm commit
+git config --global alias.br branch # 配置指令别名简写
+
+git config --global credential.helper store # 输入一次账号密码后第二次就会记住账号密码
+
+git config --global core.ignorecase false # 关闭忽略大小写
+
+git config --system core.longpaths true # 配置长路径
+
+git config --global http.sslVerify false # 禁用 SSL 验证
+
+git config --global core.protectNTFS false # 关闭 NTFS 文件保护
+
+git config --global url."https://".insteadOf git:// # git:// 报错
 ```
 
 ### 基本操作
@@ -291,13 +309,6 @@ git stash list          ## 查看所有被隐藏的文件列表
 ```bash
 gitk                    ## git 自带 GUI
 gitk --all
-```
-
-## Git 配置
-
-```bash
-# git 文件名大小写敏感问题
-git config core.ignorecase false
 ```
 
 ## github,gitea 等平台 issue 的常用标签
