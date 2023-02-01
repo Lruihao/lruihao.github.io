@@ -26,9 +26,7 @@
 </span><span class=lnt>2
 </span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>ax1+by1=ay2+bx2-(a div b)*b*y2
 </span></span><span class=line><span class=cl>       =ay2+b[x2-(a div b)]y2
-</span></span></code></pre></td></tr></table></div></div><p>所以可得：
-<code>x1=y2</code>
-<code>y1=x2-(a div b)*y2</code></p><p>将得到的的 x1,y1 递归操作求解 x2,y2，如此循环往复，将会像欧几里得一样得到 b=0 的情况，此时递归结束，返回 x=1,y=0，回溯得解。</p><p>代码描述：</p><p>此函数返回的是 a,b 的最大公约数，同时也求解出满足 ax+by=gcd(a,b) 的一组可行的 (x,y)</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></span></code></pre></td></tr></table></div></div><p>所以可得：<br><code>x1=y2</code><br><code>y1=x2-(a div b)*y2</code></p><p>将得到的的 x1,y1 递归操作求解 x2,y2，如此循环往复，将会像欧几里得一样得到 b=0 的情况，此时递归结束，返回 x=1,y=0，回溯得解。</p><p>代码描述：</p><p>此函数返回的是 a,b 的最大公约数，同时也求解出满足 ax+by=gcd(a,b) 的一组可行的 (x,y)</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
 </span><span class=lnt>2
 </span><span class=lnt>3
 </span><span class=lnt>4
@@ -58,11 +56,7 @@
 </span></span><span class=line><span class=cl>a*(x0+3*b)+b*(y0-3*a)=c
 </span></span><span class=line><span class=cl>
 </span></span><span class=line><span class=cl>……
-</span></span></code></pre></td></tr></table></div></div><p><code>a*(x0+k*b)+b*(y0-k*a)=c (k∈Z)</code></p><p>至此，我们得到了通解的方程</p><p><code>x=x0+k*b</code>
-<code>y=y0-k*a (k∈Z)</code></p><p>这样，所有满足 ax+by=c 的可行解都可求出。</p><h3 id=具体实现>具体实现</h3><p>有了主体算法，下面要谈到具体实现了。</p><h4 id=先处理一下无解的情况>先处理一下无解的情况：</h4><ol><li><p>当 a=0 并且 b=0，而 c≠0 时，显然无解；<br>当 a=0,b=0，而 c=0 时，[x1,x2],[y1,y2] 都为可行解，根据乘法原理，可行解的个数为<code>(x2-x1+1)*(y2-y1+1)</code>;</p></li><li><p>当 a=0 b≠0 时：<br>此时即为求解 by=c，则 y=c/b，<br>如果 c/b 不是整数或 c/b 不在 [y1,y2] 的范围内，无解<br>否则 [x1,x2] 内全部整数都为可行解。</p></li><li><p>当 b=0,a≠0 时，同上。</p></li><li><p>若 c 不是 gcd(a,b) 的个数，方程显然无解。</p></li></ol><h4 id=处理完了一些繁琐的细节后下面是具体的求解过程>处理完了一些繁琐的细节后，下面是具体的求解过程：</h4><ol><li><p>扩展欧几里得求解的是 ax+by=c，而本题是 ax+by+c=0，需将 c 移项。</p></li><li><p>对于本道题，首先要注意的是，对于负数的模运算在此算法中无法得到正确解，所以要处理一下 a,b,c 的正负情况。
-如果 a 为负数，只需将 a 取相反数后，再处理一下 x∈[x1,x2] 的范围。当 a 取了相反数，相当于把 x 也取反，则需要把 x 的范围由 [x1,x2] 转变成 [-x2,-x1], 类似于把数轴反了过来。b 同理。</p></li><li><p>利用扩展欧几里得解二元一次不定方程，得到一组可行解 (x0,y0)。</p></li><li><p>因为题目中对 x,y 有条件约束，而有 x=x0+kb,y=y0-kb，我们可以求出满足 x∈[x1,x2],y∈[y1,y2] 的 k 的取值范围，
-即为求解 x1&lt;=x0+kb&lt;=x2,y1&lt;=y0-kb&lt;=y2 的整数 k 的个数
-但是在求解这两个一次函数的过程中，会有除不尽的现象，该如何取整呢？</p></li></ol><p>举个例子</p><p>当出现 2.5&lt;=k&lt;=5.5 时，我们需要的可行的 k 为 3,4,5，所以需要将 2.5 向上取整得到 3，5.5 向下取整得到 5，即为 3&lt;=k&lt;=5；</p><p>当出现-5.5&lt;=&lt;=-2.5 时，我们需要的可行的 k 为-5,-4,-3, 所以需要将-5.5 向上取整得到-5,-2.5 向下取整得到-3，即为-5&lt;=k&lt;=-3；</p><p>正负数的情况都已经考虑完全了，可以得到取整的结论：上界下取整，下界上取整。</p><p>最后，将得到的两个范围取交集，得到 [l,r]，则最终答案为 r-l+1。</p><p>这样，本题就可以完美解决了。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span></span></code></pre></td></tr></table></div></div><p><code>a*(x0+k*b)+b*(y0-k*a)=c (k∈Z)</code></p><p>至此，我们得到了通解的方程</p><p><code>x=x0+k*b</code><br><code>y=y0-k*a (k∈Z)</code></p><p>这样，所有满足 ax+by=c 的可行解都可求出。</p><h3 id=具体实现>具体实现</h3><p>有了主体算法，下面要谈到具体实现了。</p><h4 id=先处理一下无解的情况>先处理一下无解的情况：</h4><ol><li><p>当 a=0 并且 b=0，而 c≠0 时，显然无解；<br>当 a=0,b=0，而 c=0 时，[x1,x2],[y1,y2] 都为可行解，根据乘法原理，可行解的个数为<code>(x2-x1+1)*(y2-y1+1)</code>;</p></li><li><p>当 a=0 b≠0 时：<br>此时即为求解 by=c，则 y=c/b，<br>如果 c/b 不是整数或 c/b 不在 [y1,y2] 的范围内，无解<br>否则 [x1,x2] 内全部整数都为可行解。</p></li><li><p>当 b=0,a≠0 时，同上。</p></li><li><p>若 c 不是 gcd(a,b) 的个数，方程显然无解。</p></li></ol><h4 id=处理完了一些繁琐的细节后下面是具体的求解过程>处理完了一些繁琐的细节后，下面是具体的求解过程：</h4><ol><li><p>扩展欧几里得求解的是 ax+by=c，而本题是 ax+by+c=0，需将 c 移项。</p></li><li><p>对于本道题，首先要注意的是，对于负数的模运算在此算法中无法得到正确解，所以要处理一下 a,b,c 的正负情况。<br>如果 a 为负数，只需将 a 取相反数后，再处理一下 x∈[x1,x2] 的范围。当 a 取了相反数，相当于把 x 也取反，则需要把 x 的范围由 [x1,x2] 转变成 [-x2,-x1], 类似于把数轴反了过来。b 同理。</p></li><li><p>利用扩展欧几里得解二元一次不定方程，得到一组可行解 (x0,y0)。</p></li><li><p>因为题目中对 x,y 有条件约束，而有 x=x0+kb,y=y0-kb，我们可以求出满足 x∈[x1,x2],y∈[y1,y2] 的 k 的取值范围，<br>即为求解 x1&lt;=x0+kb&lt;=x2,y1&lt;=y0-kb&lt;=y2 的整数 k 的个数<br>但是在求解这两个一次函数的过程中，会有除不尽的现象，该如何取整呢？</p></li></ol><p>举个例子</p><p>当出现 2.5&lt;=k&lt;=5.5 时，我们需要的可行的 k 为 3,4,5，所以需要将 2.5 向上取整得到 3，5.5 向下取整得到 5，即为 3&lt;=k&lt;=5；</p><p>当出现-5.5&lt;=&lt;=-2.5 时，我们需要的可行的 k 为-5,-4,-3, 所以需要将-5.5 向上取整得到-5,-2.5 向下取整得到-3，即为-5&lt;=k&lt;=-3；</p><p>正负数的情况都已经考虑完全了，可以得到取整的结论：上界下取整，下界上取整。</p><p>最后，将得到的两个范围取交集，得到 [l,r]，则最终答案为 r-l+1。</p><p>这样，本题就可以完美解决了。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
 </span><span class=lnt> 2
 </span><span class=lnt> 3
 </span><span class=lnt> 4

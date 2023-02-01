@@ -4,11 +4,11 @@
 <h2 id="原理">原理</h2>
 <p>本算法基于以下事实：</p>
 <blockquote>
-<p>对于两个数的最大公约数 gcd(m, n)，有
-m&lt;n 时，gcd(m, n)=gcd(n, m)
-m 偶 n 偶时，gcd(m, n)=2*gcd(m/2, n/2)
-m 偶 n 奇时，gcd(m, n)=gcd(m/2, n)
-m 奇 n 偶时，gcd(m, n)=gcd(m, n/2)
+<p>对于两个数的最大公约数 gcd(m, n)，有<br>
+m&lt;n 时，gcd(m, n)=gcd(n, m)<br>
+m 偶 n 偶时，gcd(m, n)=2*gcd(m/2, n/2)<br>
+m 偶 n 奇时，gcd(m, n)=gcd(m/2, n)<br>
+m 奇 n 偶时，gcd(m, n)=gcd(m, n/2)<br>
 m 奇 n 奇时，gcd(m, n)=gcd(n, m-n)</p>
 </blockquote>
 <p>采用递归即可。</p>
@@ -807,8 +807,8 @@ For the second sample, there are only three valid sequence of steps {2, 1}, {1, 
 </span></span><span class="line"><span class="cl">       =ay2+b[x2-(a div b)]y2
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>所以可得：
-<code>x1=y2</code>
+</div><p>所以可得：<br>
+<code>x1=y2</code><br>
 <code>y1=x2-(a div b)*y2</code></p>
 <p>将得到的的 x1,y1 递归操作求解 x2,y2，如此循环往复，将会像欧几里得一样得到 b=0 的情况，此时递归结束，返回 x=1,y=0，回溯得解。</p>
 <p>代码描述：</p>
@@ -869,7 +869,7 @@ For the second sample, there are only three valid sequence of steps {2, 1}, {1, 
 </div>
 </div><p><code>a*(x0+k*b)+b*(y0-k*a)=c (k∈Z)</code></p>
 <p>至此，我们得到了通解的方程</p>
-<p><code>x=x0+k*b</code>
+<p><code>x=x0+k*b</code><br>
 <code>y=y0-k*a (k∈Z)</code></p>
 <p>这样，所有满足 ax+by=c 的可行解都可求出。</p>
 <h3 id="具体实现">具体实现</h3>
@@ -899,15 +899,15 @@ For the second sample, there are only three valid sequence of steps {2, 1}, {1, 
 <p>扩展欧几里得求解的是 ax+by=c，而本题是 ax+by+c=0，需将 c 移项。</p>
 </li>
 <li>
-<p>对于本道题，首先要注意的是，对于负数的模运算在此算法中无法得到正确解，所以要处理一下 a,b,c 的正负情况。
+<p>对于本道题，首先要注意的是，对于负数的模运算在此算法中无法得到正确解，所以要处理一下 a,b,c 的正负情况。<br>
 如果 a 为负数，只需将 a 取相反数后，再处理一下 x∈[x1,x2] 的范围。当 a 取了相反数，相当于把 x 也取反，则需要把 x 的范围由 [x1,x2] 转变成 [-x2,-x1], 类似于把数轴反了过来。b 同理。</p>
 </li>
 <li>
 <p>利用扩展欧几里得解二元一次不定方程，得到一组可行解 (x0,y0)。</p>
 </li>
 <li>
-<p>因为题目中对 x,y 有条件约束，而有 x=x0+kb,y=y0-kb，我们可以求出满足 x∈[x1,x2],y∈[y1,y2] 的 k 的取值范围，
-即为求解 x1&lt;=x0+kb&lt;=x2,y1&lt;=y0-kb&lt;=y2 的整数 k 的个数
+<p>因为题目中对 x,y 有条件约束，而有 x=x0+kb,y=y0-kb，我们可以求出满足 x∈[x1,x2],y∈[y1,y2] 的 k 的取值范围，<br>
+即为求解 x1&lt;=x0+kb&lt;=x2,y1&lt;=y0-kb&lt;=y2 的整数 k 的个数<br>
 但是在求解这两个一次函数的过程中，会有除不尽的现象，该如何取整呢？</p>
 </li>
 </ol>
@@ -1213,7 +1213,7 @@ For the second sample, there are only three valid sequence of steps {2, 1}, {1, 
 C 库函数 double fmod(double x, double y) 返回 x 除以 y 的余数。</p>
 <ul>
 <li>x &ndash; 代表分子的浮点值。</li>
-<li>y &ndash; 代表分母的浮点值。
+<li>y &ndash; 代表分母的浮点值。<br>
 该函数返回 x/y 的余数。</li>
 </ul>
 <p>下面的实例演示了 fmod() 函数的用法。</p>
@@ -1666,7 +1666,7 @@ C 库函数 double fmod(double x, double y) 返回 x 除以 y 的余数。</p>
 </div>]]></description></item><item><title>Heavy Transportation-poj1797(dijkstra 或最大生成树）</title><link>https://lruihao.cn/posts/poj1797/</link><pubDate>Mon, 06 Aug 2018 09:42:11 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/poj1797/</guid><description><![CDATA[<p>题目链接](<a href="http://poj.org/problem?id=1797"target="_blank" rel="external nofollow noopener noreferrer">http://poj.org/problem?id=1797<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>)<br>
 大意：<br>
 要从城市 1 到城市 N 运送货物，有 M 条道路，每条道路都有它的最大载重量，问从城市 1 到城市 N 运送最多的重量是多少。<br>
-其实题意很简单，就是找一条 1&ndash;&gt;N 的路径，在不超过每条路径的最大载重量的情况下，使得运送的货物最多。一条路径上的最大载重量为这个路径上权值最小的边；
+其实题意很简单，就是找一条 1&ndash;&gt;N 的路径，在不超过每条路径的最大载重量的情况下，使得运送的货物最多。一条路径上的最大载重量为这个路径上权值最小的边；<br>
 </p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1900,7 +1900,7 @@ C 库函数 double fmod(double x, double y) 返回 x 除以 y 的余数。</p>
 <p>b. 从 U 中选取一个距离 v 最小的顶点 k，把 k，加入 S 中（该选定的距离就是 v 到 k 的最短路径长度）。</p>
 <p>c. 以 k 为新考虑的中间点，修改 U 中各顶点的距离；若从源点 v 到顶点 u 的距离（经过顶点 k）比原来距离（不经过顶点 k）短，则修改顶点 u 的距离值，修改后的距离值的顶点 k 的距离加上边上的权。</p>
 <p>d. 重复步骤 b 和 c 直到所有顶点都包含在 S 中。</p>
-<p>执行动画过程如下图
+<p>执行动画过程如下图<br>
 </p>
 <h2 id="spfa-算法">spfa 算法</h2>
 <p>spfa 是一种求单源最短路的算法</p>
@@ -1921,7 +1921,7 @@ C 库函数 double fmod(double x, double y) 返回 x 除以 y 的余数。</p>
 </li>
 </ol>
 <h3 id="初始化">初始化：</h3>
-<p>d 数组全部赋值为 INF（无穷大）；p 数组全部赋值为 s（即源点），或者赋值为-1，表示还没有知道前驱，然后 d[s]=0;  表示源点不用求最短路径，或者说最短路就是 0。将源点入队；
+<p>d 数组全部赋值为 INF（无穷大）；p 数组全部赋值为 s（即源点），或者赋值为-1，表示还没有知道前驱，然后 d[s]=0;  表示源点不用求最短路径，或者说最短路就是 0。将源点入队；<br>
 （另外记住在整个算法中有顶点入队了要记得标记 vis 数组，有顶点出队了记得消除那个标记）</p>
 <h3 id="队列松弛操作">队列+松弛操作</h3>
 <p>读取队头顶点 u，并将队头顶点 u 出队（记得消除标记）；将与点 u 相连的所有点 v 进行松弛操作，如果能更新估计值（即令 d[v] 变小），那么就更新，另外，如果点 v 没有在队列中，那么要将点 v 入队（记得标记），如果已经在队列中了，那么就不用入队</p>

@@ -61,8 +61,7 @@ Cell Blog 开发记录，项目地址
 </span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>php artisan vendor:publish --provider=&#34;Encore\Admin\AdminServiceProvider&#34;
 </span></span></code></pre></td></tr></table></div></div><p>在该命令会生成配置文件<code>config/admin.php</code>，可以在里面修改安装的地址、数据库连接、以及表名，建议都是用默认配置不修改。</p><p>然后运行下面的命令完成安装：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>php artisan admin:install
-</span></span></code></pre></td></tr></table></div></div><blockquote><p>运行这个命令的时候，如果遇到了下面的错误：
-<code>SQLSTATE[42000]: Syntax error or access violation: 1071 Specified key was too long; max key length is 1000 bytes (SQL: alter tableusersadd uniqueusers_email_unique(email))</code><br>参考这个 issue 来解决 <a href=https://github.com/z-song/laravel-admin/issues/1541 target=_blank rel="external nofollow noopener noreferrer">https://github.com/z-song/laravel-admin/issues/1541<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden=true></i></a><br>在<code>app\Providers\AppServiceProvider.php</code>添加默认值</p></blockquote><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span></span></code></pre></td></tr></table></div></div><blockquote><p>运行这个命令的时候，如果遇到了下面的错误：<br><code>SQLSTATE[42000]: Syntax error or access violation: 1071 Specified key was too long; max key length is 1000 bytes (SQL: alter tableusersadd uniqueusers_email_unique(email))</code><br>参考这个 issue 来解决 <a href=https://github.com/z-song/laravel-admin/issues/1541 target=_blank rel="external nofollow noopener noreferrer">https://github.com/z-song/laravel-admin/issues/1541<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden=true></i></a><br>在<code>app\Providers\AppServiceProvider.php</code>添加默认值</p></blockquote><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
 </span><span class=lnt> 2
 </span><span class=lnt> 3
 </span><span class=lnt> 4
@@ -224,8 +223,7 @@ Cell Blog 开发记录，项目地址
 </span></span><span class=line><span class=cl>$router-&gt;resource(&#39;pages&#39;, PageController::class);
 </span></span><span class=line><span class=cl>$router-&gt;resource(&#39;systems&#39;, SystemController::class);
 </span></span><span class=line><span class=cl>$router-&gt;resource(&#39;mottoes&#39;, MottoController::class);
-</span></span></code></pre></td></tr></table></div></div><h2 id=editormd-安装>editormd 安装</h2><p><a href=https://github.com/ShareManT/laravel-admin-ext-editormd target=_blank rel="external nofollow noopener noreferrer">editormd<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden=true></i></a>
-<a href=https://github.com/ShareManT/laravel-admin-ext-editormd/issues/3 target=_blank rel="external nofollow noopener noreferrer">github 图像问题<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden=true></i></a></p><h3 id=存放本地表情>存放本地表情</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></span></code></pre></td></tr></table></div></div><h2 id=editormd-安装>editormd 安装</h2><p><a href=https://github.com/ShareManT/laravel-admin-ext-editormd target=_blank rel="external nofollow noopener noreferrer">editormd<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden=true></i></a><br><a href=https://github.com/ShareManT/laravel-admin-ext-editormd/issues/3 target=_blank rel="external nofollow noopener noreferrer">github 图像问题<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden=true></i></a></p><h3 id=存放本地表情>存放本地表情</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>public\vendor\laravel-admin-ext\editormd\editormd-1.5.0\images\emojis
 </span></span></code></pre></td></tr></table></div></div><p>修改 editormd.js 及 editormd.min.js</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
 </span><span class=lnt>2
@@ -257,8 +255,7 @@ Cell Blog 开发记录，项目地址
 </span></span><span class=line><span class=cl>if (csrfToken) {
 </span></span><span class=line><span class=cl>    csrfField = &#34;&lt;input type=&#39;hidden&#39; name=&#39;_token&#39; value=&#39;&#34; + csrfToken + &#34;&#39; /&gt;&#34;;
 </span></span><span class=line><span class=cl>}
-</span></span></code></pre></td></tr></table></div></div><h2 id=markdown-转-html>markdown 转 HTML</h2><p><a href=https://www.zhiqiexing.com/119.html target=_blank rel="external nofollow noopener noreferrer">https://www.zhiqiexing.com/119.html<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden=true></i></a>
-<a href=https://github.com/GrahamCampbell/Laravel-Markdown target=_blank rel="external nofollow noopener noreferrer">Laravel Markdown 安装<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden=true></i></a></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></span></code></pre></td></tr></table></div></div><h2 id=markdown-转-html>markdown 转 HTML</h2><p><a href=https://www.zhiqiexing.com/119.html target=_blank rel="external nofollow noopener noreferrer">https://www.zhiqiexing.com/119.html<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden=true></i></a><br><a href=https://github.com/GrahamCampbell/Laravel-Markdown target=_blank rel="external nofollow noopener noreferrer">Laravel Markdown 安装<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden=true></i></a></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
 </span><span class=lnt>2
 </span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>composer require graham-campbell/markdown
 </span></span><span class=line><span class=cl>php artisan vendor:publish
@@ -274,12 +271,7 @@ Cell Blog 开发记录，项目地址
 </span><span class=lnt>2
 </span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>composer require laravel-admin-ext/media-manager
 </span></span><span class=line><span class=cl>php artisan admin:import media-manager
-</span></span></code></pre></td></tr></table></div></div><p>&rsquo;extensions&rsquo; => [
-&lsquo;media-manager&rsquo; => [
-// Select a local disk that you configured in <code>config/filesystem.php</code>
-&lsquo;disk&rsquo; => &lsquo;public&rsquo;
-],
-],</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></span></code></pre></td></tr></table></div></div><p>&rsquo;extensions&rsquo; => [<br>&lsquo;media-manager&rsquo; => [<br>// Select a local disk that you configured in <code>config/filesystem.php</code><br>&lsquo;disk&rsquo; => &lsquo;public&rsquo;<br>],<br>],</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
 </span><span class=lnt>2
 </span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>
 </span></span><span class=line><span class=cl>## 给 laravel-admin 增加锁屏功能

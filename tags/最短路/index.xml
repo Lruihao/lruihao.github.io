@@ -1,7 +1,7 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>最短路 - 标签 - 菠菜眾長</title><link>https://lruihao.cn/tags/%E6%9C%80%E7%9F%AD%E8%B7%AF/</link><description>最短路 - 标签 - 菠菜眾長</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><lastBuildDate>Mon, 06 Aug 2018 09:42:11 +0000</lastBuildDate><atom:link href="https://lruihao.cn/tags/%E6%9C%80%E7%9F%AD%E8%B7%AF/" rel="self" type="application/rss+xml"/><item><title>Heavy Transportation-poj1797(dijkstra 或最大生成树）</title><link>https://lruihao.cn/posts/poj1797/</link><pubDate>Mon, 06 Aug 2018 09:42:11 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/poj1797/</guid><description><![CDATA[<p>题目链接](<a href="http://poj.org/problem?id=1797"target="_blank" rel="external nofollow noopener noreferrer">http://poj.org/problem?id=1797<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>)<br>
 大意：<br>
 要从城市 1 到城市 N 运送货物，有 M 条道路，每条道路都有它的最大载重量，问从城市 1 到城市 N 运送最多的重量是多少。<br>
-其实题意很简单，就是找一条 1&ndash;&gt;N 的路径，在不超过每条路径的最大载重量的情况下，使得运送的货物最多。一条路径上的最大载重量为这个路径上权值最小的边；
+其实题意很简单，就是找一条 1&ndash;&gt;N 的路径，在不超过每条路径的最大载重量的情况下，使得运送的货物最多。一条路径上的最大载重量为这个路径上权值最小的边；<br>
 </p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -235,7 +235,7 @@
 <p>b. 从 U 中选取一个距离 v 最小的顶点 k，把 k，加入 S 中（该选定的距离就是 v 到 k 的最短路径长度）。</p>
 <p>c. 以 k 为新考虑的中间点，修改 U 中各顶点的距离；若从源点 v 到顶点 u 的距离（经过顶点 k）比原来距离（不经过顶点 k）短，则修改顶点 u 的距离值，修改后的距离值的顶点 k 的距离加上边上的权。</p>
 <p>d. 重复步骤 b 和 c 直到所有顶点都包含在 S 中。</p>
-<p>执行动画过程如下图
+<p>执行动画过程如下图<br>
 </p>
 <h2 id="spfa-算法">spfa 算法</h2>
 <p>spfa 是一种求单源最短路的算法</p>
@@ -256,7 +256,7 @@
 </li>
 </ol>
 <h3 id="初始化">初始化：</h3>
-<p>d 数组全部赋值为 INF（无穷大）；p 数组全部赋值为 s（即源点），或者赋值为-1，表示还没有知道前驱，然后 d[s]=0;  表示源点不用求最短路径，或者说最短路就是 0。将源点入队；
+<p>d 数组全部赋值为 INF（无穷大）；p 数组全部赋值为 s（即源点），或者赋值为-1，表示还没有知道前驱，然后 d[s]=0;  表示源点不用求最短路径，或者说最短路就是 0。将源点入队；<br>
 （另外记住在整个算法中有顶点入队了要记得标记 vis 数组，有顶点出队了记得消除那个标记）</p>
 <h3 id="队列松弛操作">队列+松弛操作</h3>
 <p>读取队头顶点 u，并将队头顶点 u 出队（记得消除标记）；将与点 u 相连的所有点 v 进行松弛操作，如果能更新估计值（即令 d[v] 变小），那么就更新，另外，如果点 v 没有在队列中，那么要将点 v 入队（记得标记），如果已经在队列中了，那么就不用入队</p>

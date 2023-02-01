@@ -5,5 +5,5 @@
 ---
 
 > 作者: [Lruihao](https://github.com/Lruihao)  
-> URL: https://lruihao.cn/years/2023/  
+> URL: https://lruihao.cn/years/2022/  
 
