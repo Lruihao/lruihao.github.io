@@ -1,281 +1,4 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Memo - 分类 - 菠菜眾長</title><link>https://lruihao.cn/categories/memo/</link><description>Memo - 分类 - 菠菜眾長</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><lastBuildDate>Sat, 13 Aug 2022 13:32:03 +0800</lastBuildDate><atom:link href="https://lruihao.cn/categories/memo/" rel="self" type="application/rss+xml"/><item><title>语义版本控制（SemVer）</title><link>https://lruihao.cn/posts/semver/</link><pubDate>Sat, 13 Aug 2022 13:32:03 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/semver/</guid><description><![CDATA[<div class="details admonition tip open">
-    <div class="details-summary admonition-title">
-      <i class="icon fa-solid fa-lightbulb fa-fw" aria-hidden="true"></i>摘要<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i>
-    </div>
-    <div class="details-content">
-      <div class="admonition-content"><p>版本格式：<code>MAJOR.MINOR.PATCH</code>，版本号递增规则如下：</p>
-<ol>
-<li><code>MAJOR</code>: <strong>主版本号</strong>，当你做了不兼容的 API 修改</li>
-<li><code>MINOR</code>: <strong>次版本号</strong>，当你做了向下兼容的功能性新增</li>
-<li><code>PATCH</code>: <strong>修订号</strong>，当你做了向下兼容的问题修正</li>
-</ol>
-<p>先行版本号及版本编译信息可以加到 <code>MAJOR.MINOR.PATCH</code> 的后面，作为延伸。</p>
-</div>
-    </div>
-  </div>
-<h2 id="格式">格式</h2>
-<p>基本的语法格式如下，更多请参考 <a href="https://semver.org/#backusnaur-form-grammar-for-valid-semver-versions"target="_blank" rel="external nofollow noopener noreferrer">Backus–Naur Form Grammar for Valid SemVer Versions<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">&lt;valid semver&gt; ::= &lt;version core&gt;
-</span></span><span class="line"><span class="cl">                 | &lt;version core&gt; &#34;-&#34; &lt;pre-release&gt;
-</span></span><span class="line"><span class="cl">                 | &lt;version core&gt; &#34;+&#34; &lt;build&gt;
-</span></span><span class="line"><span class="cl">                 | &lt;version core&gt; &#34;-&#34; &lt;pre-release&gt; &#34;+&#34; &lt;build&gt;
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>范例：</p>
-<p></p>
-<table>
-<thead>
-<tr>
-<th>代码状态</th>
-<th>等级</th>
-<th>规则</th>
-<th>版本样例</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>首次发布</td>
-<td>新品发布</td>
-<td>以 1.0.0 开始</td>
-<td>1.0.0</td>
-</tr>
-<tr>
-<td>bug 修复，向后兼容</td>
-<td>补丁版本发布</td>
-<td>变更第三位数字</td>
-<td>1.0.1</td>
-</tr>
-<tr>
-<td>新功能，向后兼容</td>
-<td>次版本发布</td>
-<td>变更第二位数字，并且第三位数字重置为 0</td>
-<td>1.1.0</td>
-</tr>
-<tr>
-<td>重大变更，不向后兼容</td>
-<td>主版本发布</td>
-<td>变更第一位数字，并且第二位，第三位数字重置为 0</td>
-<td>2.0.0</td>
-</tr>
-</tbody>
-</table>
-<div class="details admonition question open">
-    <div class="details-summary admonition-title">
-      <i class="icon fa-solid fa-question-circle fa-fw" aria-hidden="true"></i>“v1.2.3” 是一个语义化版本号吗？<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i>
-    </div>
-    <div class="details-content">
-      <div class="admonition-content">“v1.2.3” 并不是的一个语义化的版本号。<br>
-但是，在语义化版本号之前增加前缀 “v” 是用来表示版本号的常用做法。<br>
-在版本控制系统中，将 “version” 缩写为 “v” 是很常见的。<br>
-比如：<code>git tag v1.2.3 -m &quot;Release version 1.2.3&quot;</code> 中，标签是 “v1.2.3”，语义化版本号是 “1.2.3”。</div>
-    </div>
-  </div>
-<h2 id="规范">规范</h2>
-<p>以下关键词 MUST、MUST NOT、REQUIRED、SHALL、SHALL NOT、SHOULD、SHOULD NOT、 RECOMMENDED、MAY、OPTIONAL 依照 <a href="https://www.rfc-editor.org/rfc/rfc2119"target="_blank" rel="external nofollow noopener noreferrer">RFC 2119<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 的叙述解读。</p>
-<details>
-  <summary>语义化版本控制规范（SemVer）</summary>
-  <ol>
-<li>
-<p>使用语义化版本控制的软件必须（MUST）定义公共 API。该 API 可以在代码中被定义或出现于严谨的文档内。无论何种形式都应该力求精确且完整。</p>
-</li>
-<li>
-<p>标准的版本号必须（MUST）采用 X.Y.Z 的格式，其中 X、Y 和 Z 为非负的整数，且禁止（MUST NOT）在数字前方补零。X 是主版本号、Y 是次版本号、而 Z 为修订号。每个元素必须（MUST）以数值来递增。例如：1.9.1 -&gt; 1.10.0 -&gt; 1.11.0。</p>
-</li>
-<li>
-<p>标记版本号的软件发行后，禁止（MUST NOT）改变该版本软件的内容。任何修改都必须（MUST）以新版本发行。</p>
-</li>
-<li>
-<p>主版本号为零（0.y.z）的软件处于开发初始阶段，一切都可能随时被改变。这样的公共 API 不应该被视为稳定版。</p>
-</li>
-<li>
-<p>1.0.0 的版本号用于界定公共 API 的形成。这一版本之后所有的版本号更新都基于公共 API 及其修改内容。</p>
-</li>
-<li>
-<p>修订号 Z（x.y.Z | x &gt; 0）必须（MUST）在只做了向下兼容的修正时才递增。这里的修正指的是针对不正确结果而进行的内部修改。</p>
-</li>
-<li>
-<p>次版本号 Y（x.Y.z | x &gt; 0）必须（MUST）在有向下兼容的新功能出现时递增。在任何公共 API 的功能被标记为弃用（deprecated）时也必须（MUST）递增。也可以（MAY）在内部程序有大量新功能或改进被加入时递增，其中可以（MAY）包括修订级别的改变。每当次版本号递增时，修订号必须（MUST）归零。</p>
-</li>
-<li>
-<p>主版本号 X（X.y.z | X &gt; 0）必须（MUST）在有任何不兼容的修改被加入公共 API 时递增。其中可以（MAY）包括次版本号及修订级别的改变。每当主版本号递增时，次版本号和修订号必须（MUST）归零。</p>
-</li>
-<li>
-<p>先行版本号可以（MAY）被标注在修订版之后，先加上一个连接号再加上一连串以句点分隔的标识符来修饰。标识符必须（MUST）由 ASCII 字母数字和连接号 [0-9A-Za-z-] 组成，且禁止（MUST NOT）留白。数字型的标识符禁止（MUST NOT）在前方补零。先行版的优先级低于相关联的标准版本。被标上先行版本号则表示这个版本并非稳定而且可能无法满足预期的兼容性需求。范例：1.0.0-alpha、1.0.0-alpha.1、1.0.0-0.3.7、1.0.0-x.7.z.92。</p>
-</li>
-<li>
-<p>版本编译信息可以（MAY）被标注在修订版或先行版本号之后，先加上一个加号再加上一连串以句点分隔的标识符来修饰。标识符必须（MUST）由 ASCII 字母数字和连接号 [0-9A-Za-z-] 组成，且禁止（MUST NOT）留白。当判断版本的优先层级时，版本编译信息可（SHOULD）被忽略。因此当两个版本只有在版本编译信息有差别时，属于相同的优先层级。范例：1.0.0-alpha+001、1.0.0+20130313144700、1.0.0-beta+exp.sha.5114f85。</p>
-</li>
-<li>
-<p>版本的优先层级指的是不同版本在排序时如何比较。</p>
-<ol>
-<li>
-<p>判断优先层级时，必须（MUST）把版本依序拆分为主版本号、次版本号、修订号及先行版本号后进行比较（版本编译信息不在这份比较的列表中）。</p>
-</li>
-<li>
-<p>由左到右依序比较每个标识符，第一个差异值用来决定优先层级：主版本号、次版本号及修订号以数值比较。</p>
-<p>例如：1.0.0 &lt; 2.0.0 &lt; 2.1.0 &lt; 2.1.1。</p>
-</li>
-<li>
-<p>当主版本号、次版本号及修订号都相同时，改以优先层级比较低的先行版本号决定。</p>
-<p>例如：1.0.0-alpha &lt; 1.0.0。</p>
-</li>
-<li>
-<p>有相同主版本号、次版本号及修订号的两个先行版本号，其优先层级必须（MUST）透过由左到右的每个被句点分隔的标识符来比较，直到找到一个差异值后决定：</p>
-<ol>
-<li>只有数字的标识符以数值高低比较。</li>
-<li>有字母或连接号时则逐字以 ASCII 的排序来比较。</li>
-<li>数字的标识符比非数字的标识符优先层级低。</li>
-<li>若开头的标识符都相同时，栏位比较多的先行版本号优先层级比较高。</li>
-</ol>
-<p>例如：1.0.0-alpha &lt; 1.0.0-alpha.1 &lt; 1.0.0-alpha.beta &lt; 1.0.0-beta &lt; 1.0.0-beta.2 &lt; 1.0.0-beta.11 &lt; 1.0.0-rc.1 &lt; 1.0.0</p>
-</li>
-</ol>
-</li>
-</ol>
-
-</details>
-<h2 id="版本阶段">版本阶段</h2>
-<ul>
-<li><code>Base</code>: 设计阶段，只有相应的设计没有具体的功能实现</li>
-<li><code>Alpha</code>: 软件的初级版本，基本功能已经实现，但存在较多的 bug</li>
-<li><code>Bate</code>: 相对于 Alpha 已经有了很大的进步，消除了严重的 BUG，但还存在一些潜在的 BUG，还需要不断测试</li>
-<li><code>RC</code>: 该版本已经相当成熟了，基本上不存在导致错误的 Bug，与即将发行的正式版本相差无几</li>
-<li><code>RELEASE</code>: 最终发布版本，没有太大的问题</li>
-</ul>
-<p>最终发布版本（<code>RELEASE</code>）之前的所有版本，都称为先行版本（<code>pre-release</code>）。</p>
-<h2 id="faqhttpssemverorglangzh-cnfaq"><a href="https://semver.org/lang/zh-CN/#faq"target="_blank" rel="external nofollow noopener noreferrer">FAQ<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></h2>
-<h2 id="其他相关">其他相关</h2>
-<h3 id="npm-semver">npm SemVer</h3>
-<p>通常我们发布一个包到 npm 仓库时，我们的做法是先修改 <code>package.json</code> 为某个版本，然后执行 <code>npm publish</code> 命令。手动修改版本号的做法建立在你对 SemVer 规范特别熟悉的基础之上，否则可能会造成版本混乱。npm 和 yarn 两个包管理都提供了 SemVer 规范的版本控制命令：</p>
-<ul>
-<li><a href="https://docs.npmjs.com/cli/v8/commands/npm-version"target="_blank" rel="external nofollow noopener noreferrer">npm-version<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
-<li><a href="https://classic.yarnpkg.com/en/docs/cli/version"target="_blank" rel="external nofollow noopener noreferrer">yarn version<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
-</ul>
-<p>npm 发包基础命令：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 1. 创建一个新的包</span>
-</span></span><span class="line"><span class="cl">npm init
-</span></span><span class="line"><span class="cl"><span class="c1"># 2. 查看是否官方源</span>
-</span></span><span class="line"><span class="cl">npm config get registry 
-</span></span><span class="line"><span class="cl"><span class="c1"># 3. 登录</span>
-</span></span><span class="line"><span class="cl">npm login
-</span></span><span class="line"><span class="cl"><span class="c1"># 4. 发布</span>
-</span></span><span class="line"><span class="cl">npm publish
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># 版本变化 major.minor.patch</span>
-</span></span><span class="line"><span class="cl">npm version patch <span class="c1"># 升级补丁版本 </span>
-</span></span><span class="line"><span class="cl">npm version minor <span class="c1"># 升级小版号</span>
-</span></span><span class="line"><span class="cl">npm version major <span class="c1"># 升级大版号</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># 下架 [-force]</span>
-</span></span><span class="line"><span class="cl">npm unpublish
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>全局设置版本号前缀</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># https://docs.npmjs.com/cli/v8/using-npm/config#tag-version-prefix</span>
-</span></span><span class="line"><span class="cl">npm config <span class="nb">set</span> tag-version-prefix <span class="s2">&#34;&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># 全局设置版本更新 commit 提交信息</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># https://docs.npmjs.com/cli/v8/using-npm/config#message</span>
-</span></span><span class="line"><span class="cl">npm config <span class="nb">set</span> message <span class="s2">&#34;Chore(release): %s&#34;</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>或者设置项目的 <code>.npmrc</code> 或者 <code>.yarnrc</code></p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># .npmrc</span>
-</span></span><span class="line"><span class="cl">tag-version-prefix<span class="o">=</span><span class="s2">&#34;&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="nv">message</span><span class="o">=</span><span class="s2">&#34;Chore(release): %s&#34;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># .yarnrc</span>
-</span></span><span class="line"><span class="cl">version-tag-prefix <span class="s2">&#34;&#34;</span>
-</span></span><span class="line"><span class="cl">version-git-message <span class="s2">&#34;Chore(release): %s&#34;</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>package.json 版本控制规则使用了一些些符号：</p>
-<ul>
-<li><code>^</code></li>
-<li><code>~</code></li>
-<li><code>&gt;</code></li>
-<li><code>&gt;=</code></li>
-<li><code>&lt;</code></li>
-<li><code>&lt;=</code></li>
-<li><code>=</code></li>
-<li><code>-</code></li>
-<li><code>||</code></li>
-</ul>
-<p>这些规则的详情如下：</p>
-<ul>
-<li><code>^</code>: 只会执行不更改最左边非零数字的更新。 如果写入的是 <code>^0.13.0</code>，则当运行 <code>npm update</code> 时，可以更新到 <code>0.13.1</code>、<code>0.13.2</code> 等，但不能更新到 <code>0.14.0</code> 或更高版本。 如果写入的是 <code>^1.13.0</code>，则当运行 <code>npm update</code> 时，可以更新到 <code>1.13.1</code>、<code>1.14.0</code> 等，但不能更新到 <code>2.0.0</code> 或更高版本。</li>
-<li><code>~</code>: 如果写入的是 <code>〜0.13.0</code>，则当运行 <code>npm update</code> 时，会更新到补丁版本：即 <code>0.13.1</code> 可以，但 <code>0.14.0</code> 不可以。</li>
-<li><code>&gt;</code>: 接受高于指定版本的任何版本。</li>
-<li><code>&gt;=</code>: 接受等于或高于指定版本的任何版本。</li>
-<li><code>&lt;=</code>: 接受等于或低于指定版本的任何版本。</li>
-<li><code>&lt;</code>: 接受低于指定版本的任何版本。</li>
-<li><code>=</code>: 接受确切的版本。</li>
-<li><code>-</code>: 接受一定范围的版本。例如：<code>2.1.0 - 2.6.2</code>。</li>
-<li><code>||</code>: 组合集合。例如 <code>&lt; 2.1 || &gt; 2.6</code>。</li>
-</ul>
-<p>可以合并其中的一些符号，例如 <code>1.0.0 || &gt;=1.1.0 &lt;1.2.0</code>，即使用 1.0.0 或从 1.1.0 开始但低于 1.2.0 的版本。</p>
-<p>还有其他的规则：</p>
-<ul>
-<li>无符号：仅接受指定的特定版本（例如 <code>1.2.1</code>）。</li>
-<li><code>latest</code>: 使用可用的最新版本。</li>
-</ul>
-<h3 id="版本保留">版本保留</h3>
-<ol>
-<li>对于大型软件，每个版本都有使用价值时，应保留所有历史版本</li>
-<li>对于始终以最新版本为准的软件，则可保留至少最近的 10 个次版本</li>
-</ol>
-<h2 id="参考">参考</h2>
-<ul>
-<li><a href="https://semver.org/"target="_blank" rel="external nofollow noopener noreferrer">Semantic Versioning 2.0.0<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
-<li><a href="http://nodejs.cn/learn/semantic-versioning-using-npm"target="_blank" rel="external nofollow noopener noreferrer">使用 npm 的语义版本控制<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
-</ul>]]></description></item><item><title>Mac 上的开发配置总结</title><link>https://lruihao.cn/posts/config4mac/</link><pubDate>Fri, 29 Jul 2022 20:22:44 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/config4mac/</guid><description><![CDATA[<p>记录一下使用 Mac 作为生产工具开发的一些基本配置和经验。</p>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Memo - 分类 - 菠菜眾長</title><link>https://lruihao.cn/categories/memo/</link><description>Memo - 分类 - 菠菜眾長</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><lastBuildDate>Fri, 29 Jul 2022 20:22:44 +0800</lastBuildDate><atom:link href="https://lruihao.cn/categories/memo/" rel="self" type="application/rss+xml"/><item><title>Mac 上的开发配置总结</title><link>https://lruihao.cn/posts/config4mac/</link><pubDate>Fri, 29 Jul 2022 20:22:44 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/config4mac/</guid><description><![CDATA[<p>记录一下使用 Mac 作为生产工具开发的一些基本配置和经验。</p>
 <h2 id="配置文件">配置文件</h2>
 <p>Mac 上有很多配置文件都可以用来保存环境变量等配置，根据自己的理解记录了四个文件的用途：</p>
 <div class="highlight"><div class="chroma">
@@ -2831,169 +2554,7 @@ static/images/card-link-bg.jpg
 </span></span><span class="line"><span class="cl">php artisan vendor:publish --tag=laravel-admin-grid-lightbox
 </span></span></code></pre></td></tr></table>
 </div>
-</div>]]></description></item><item><title>RESTful</title><link>https://lruihao.cn/posts/restful/</link><pubDate>Thu, 14 Nov 2019 19:06:05 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/restful/</guid><description><![CDATA[<blockquote>
-<p>RESTful 是一種系統開發設計風格、原則。可視情況調整，以下參考來源 RFC5789 <a href="https://tools.ietf.org/html/rfc5789"target="_blank" rel="external nofollow noopener noreferrer">https://tools.ietf.org/html/rfc5789<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
-</blockquote>
-<h2 id="noun">Noun</h2>
-<ul>
-<li>一般資源<br>
-通用於一律使用複數名詞<br>
-例如：/books 或 /books/123。但有部分人認為應該使用單數名詞，因為： /book/123 看似比 /books/123 合理。但想想檔案系統的目錄命名 （例如/Users 或/Documents)，其實用複數也沒問題。複數可以保持 API endpoint 的一致性，所以一般資源建議用複數。</li>
-<li>唯一資源：對 client 而言只有一份的資源<br>
-通用於單數名詞<br>
-例如：user 是指目前驗證的使用者，使用者永遠只能同時登入一個使用者</li>
-</ul>
-<h2 id="http-method">Http Method</h2>
-<table><tbody><tr><th>Method</th><th>Idempotent</th><th>Safe</th><th>CRUD</th><th>OO</th><th>生活動詞</th><th>用途</th></tr><tr><td rowspan="2">GET</td><td rowspan="2" style="text-align: center;">Y</td><td rowspan="2" style="text-align: center;">Y</td><td rowspan="2"><b>R</b>ead</td><td rowspan="2">get</td><td>get</td><td>取得資料</td></tr><tr><td>list</td><td>列出資料</td></tr><tr><td rowspan="2">POST</td><td rowspan="2"></td><td rowspan="2"></td><td rowspan="2"><b>C</b>reate</td><td rowspan="2">add</td><td>create</td><td>建立一個可以完全獨立存在的實體</td></tr><tr><td>add</td><td>增加一個必須依賴於某個實體的實體</td></tr><tr><td rowspan="2">PUT</td><td rowspan="2" style="text-align: center;">Y</td><td rowspan="2"></td><td rowspan="3"><b>U</b>pdate</td><td rowspan="3">set</td><td>replace</td><td>取代一個關係，已存在時先刪除後建立，不存在時直接建立</td></tr><tr><td>add</td><td>附加唯一關係，兩個關係實體可以互相獨立存在，且已經存在</td></tr><tr><td>PATCH</td><td></td><td></td><td>edit</td><td>編輯某個實體</td></tr><tr><td>DELETE</td><td></td><td></td><td><b>D</b>elete</td><td>remove</td><td>remove<br>delete</td><td>刪除某個實體</td></tr></tbody></table>
-<ul>
-<li>Safe：該操作不會改變伺服器端的資源狀態 （而且結果可以被 cache)，屬於 Safe 的操作必定屬於 Idempotent</li>
-<li>Idempotent （冪等性）：該操作不管做 1 遍或做 n 遍，都會得到同樣的資源狀態結果 （但不一定得到同樣的回傳值，例如第 2 次 DELETE 請求可能回傳 404)，因此 client 端可以放心 retry。</li>
-</ul>
-<h3 id="get">GET</h3>
-<ul>
-<li>SAFE：每次執行操作時，GET 只有讀取 Resource，不會改變到任何的 Resource （資源，資料）</li>
-<li>Idempotent：每次執行操作時，GET 只有讀取 Resource，不會改變到任何的 Resource （資源，資料），所以任何資源的任何狀態都是一樣的</li>
-</ul>
-<h3 id="post">POST</h3>
-<ul>
-<li>每次執行操作時，POST 都會建立一個 Resource （資源，資料）</li>
-<li>範例：建立使用者<br>
-執行第一次時：建立一個 name = &ldquo;帥小慶&rdquo; 的 user，但其 id = 1 執行第二次時：建立一個 name = &ldquo;帥小慶&rdquo; 的 user，但其 id = 2，發送同樣的請求，可每次都是不同的 Resource</li>
-</ul>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">POST /users
-</span></span><span class="line"><span class="cl">Data:
-</span></span><span class="line"><span class="cl">  {
-</span></span><span class="line"><span class="cl">    &#34;name&#34;: &#34;帥小慶&#34;
-</span></span><span class="line"><span class="cl">  }
-</span></span></code></pre></td></tr></table>
-</div>
-</div><ul>
-<li>Create：建立一個可以完全獨立存在的實體</li>
-<li>範例：建立使用者<br>
-建立使用者前不需要建立任何的東西，就可以建立使用者了，使用者是可以完全獨立的存在</li>
-</ul>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">POST /users
-</span></span><span class="line"><span class="cl">Data:
-</span></span><span class="line"><span class="cl">  {
-</span></span><span class="line"><span class="cl">    &#34;name&#34;: &#34;帥小慶&#34;
-</span></span><span class="line"><span class="cl">  }
-</span></span></code></pre></td></tr></table>
-</div>
-</div><ul>
-<li>Add：增加一個必須依賴於某個實體的實體<br>
-資料結構：1 對多的關係</li>
-<li>範例：Add a public key on behalf of a user 增加一個代表使用者的公鑰 (Gitea API)<br>
-增加這個公鑰之前，使用者必須存在，公鑰必須歸屬於某個使用者之下公鑰跟姓名一樣，使用相同電腦的公鑰就會相同，但不表示是同一個使用者，故公鑰也會有自己的 ID 我每次增加公鑰時，都將生成不同的公鑰 ID</li>
-</ul>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">POST ​/admin​/users​/{username}​/keys
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h3 id="put">PUT</h3>
-<ul>
-<li>Idempotent：每次執行操作時，PUT 都會取代 Resource，不管操作幾次，使用者獲取得 Resource 結果都是一樣的</li>
-<li>Replace：不論資源如何，最終的資源狀態都是一樣的<br>
-Resource 已存在時，或許不理會、或許先刪除後建立 （取代）Resource 不存在時，直接建立</li>
-<li>Add：添加唯一關係，建立這個唯一關係前，兩個關連實體都必須存在。在沒有建立關係前，兩個關連實體都可以互相獨立存在</li>
-<li>資料結構應為：多對多，且兩個關連實體的 PK，同時也是關係實體的 PK、FK</li>
-<li>範例：增加使用者與角色的關係<br>
-增加使用者跟角色的關係前，使用者跟角色都必須存在；增加使用者跟角色的關係前，使用者跟角色可以獨立存在使用者 23240，跟角色 2，的關係最多只能有一條關係 （使用者 23240 有角色 2 )，最少沒有關係 （使用者 23240 沒有角色 2 ) 執行第二次操作時，使用者 23240 跟角色 2 的從屬關係仍然存在，也不會跑出第二條使用者 23240 跟角色 2 的從屬關係</li>
-</ul>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">PUT user/{account}/roles
-</span></span><span class="line"><span class="cl">Data
-</span></span><span class="line"><span class="cl">  {
-</span></span><span class="line"><span class="cl">    &#34;role_id&#34;: &#34;2&#34;
-</span></span><span class="line"><span class="cl">  }
-</span></span></code></pre></td></tr></table>
-</div>
-</div><ul>
-<li>範例：Follow a user 關注一個使用者 (Gitea)<br>
-增加關注關係時，關注者與被關注者 （都是使用者） 都必須存在；增加關注關係時，關注者與被關注者 （都是使用者） 都必須存在關注者使用者 23240，跟被關注者使用者 F3860056，的關係最多只能有一條關係 (23240 關注 F3860056)，最少沒有關係 (23240 不關注 F3860056) 執行第二次操作時，關注者 23240 跟被關注者 F3860056 的關注關係仍然存在，也不會跑出第二條關注者 23240 跟被關注者 F3860056 的關注關係</li>
-</ul>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">PUT  ​/user​/following​/{username}
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h3 id="patch">PATCH</h3>
-<ul>
-<li>Edit：編輯可獨立存在、且已經存在的實體，也就是產生新版本的實體，可能會影響其他 Resource</li>
-<li>範例：編輯使用者<br>
-編輯使用者，使用者已經存在，且我們可能有紀錄編輯時間、編輯人、編輯 IP，所以每次的編輯都會造成不一樣的結果<br>
-第一次編輯使用者，更新時間變為 08:00，編輯人 23240，IP 10.151.110.165 第二次編輯使用者，更新時間變為 09:00，編輯人 23241，IP 10.151.110.144</li>
-</ul>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">PATCH /users/{account}
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h3 id="delete">DELETE</h3>
-<ul>
-<li>Idempotent：每次執行操作時，DELETE 都會刪除相同的東西</li>
-<li>範例：刪除使用者<br>
-第一次刪除使用者 23240，刪除使用者 23240 第二次刪除使用者 23240，還是刪除使用者 23240，只不過使用者 23240 不存在了。</li>
-</ul>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">DELETE /users/{account}
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="http-status-code">HTTP Status Code</h2>
-<p>HTTP 状态码（HTTP Status Code）是用以表示网页服务器 HTTP 响应状态的 3 位数字代码。所有状态码的第一个数字代表了响应的五种状态之一。 除非另有说明，状态码是 HTTP / 1.1 标准（RFC 7231）的一部分。</p>
-<p>而关于 RESTful API 的请求状态，通常有以下两种设计方案：</p>
-<ul>
-<li>方案一：使用 HTTP 状态码来表示请求状态，200 时返回的内容就是数据；</li>
-<li>方案二：所有接口都返回 200 ，在响应内容里约定 错误码 或 錯誤信息；</li>
-</ul>
-<p>在實際應用中，應據具體情景及需要進行選擇與調整。</p>
-<table><tbody><tr><th>方案</th><th colspan="2">優劣比較</th></tr><tr><td rowspan="2">方案一</td><td>優點</td><td>對服務端來說較為簡單方便</td></tr><tr><td>缺點</td><td>客戶端難以根據狀態碼處理複雜問題</td></tr><tr><td rowspan="2">方案二</td><td>優點</td><td>方便對返回資料進行統一處理和細細微性的控制</td></tr><tr><td>缺點</td><td>相當於放棄了 HTTP 狀態碼的語義</td></tr></tbody></table>
-<h3 id="常用-http-狀態碼">常用 HTTP 狀態碼</h3>
-<table><tbody><tr><th>Code</th><th>Message</th><th>用途</th></tr><tr><th>1XX</th><th>Informational response</th><th>此類狀態碼通常代表的響應都是信息性的，告訴客戶端可以進行下一步操作。</th></tr><tr><td>100</td><td>Continue</td><td>表示服務端已接收到請求頭，客戶端可以繼續發送請求體（如 POST 請求）。</td></tr><tr><td>101</td><td>Switching Protocols</td><td>表示服務端支持更優協議，讓客戶端在服務端更換協議後重新訪問。</td></tr><tr><th>2XX</th><th>Successful</th><th>此類狀態碼通常代表請求已成功被服務端接收、理解并接受。</th></tr><tr><td>200</td><td>OK</td><td>表示請求成功。</td></tr><tr><td>201</td><td>Created</td><td>表示請求已被實現，通常是在成功創建了某個資源。</td></tr><tr><td>202</td><td>Accepted</td><td>表示請求已被服務端接收，但尚未進行處理。</td></tr><tr><td>204</td><td>No Content</td><td>表示請求成功，但不會返回任何內容。</td></tr><tr><td>205</td><td>Reset Content</td><td>表示請求成功，但不會返回任何內容，並且要求客戶端重置表單。</td></tr><tr><th>3XX</th><th>Redirect</th><th>此類狀態碼通常代表本次請求需要客戶端採取進一步操作才能完成。通常用於重定向。</th></tr><tr><td>300</td><td>Multiple Choices</td><td>表示請求的資源有多個供可選擇，客戶端可自行選擇一個進行請求的重定向。</td></tr><tr><td>301</td><td>Moved Permanently</td><td>表示請求的資源已經永久地移動到了新位置，並且將在 Location 域中攜帶該資源新的 URI。</td></tr><tr><td>304</td><td>Not Modified</td><td>表示請求的資源無發生修改，將不會返回任何資源。</td></tr><tr><th>4XX</th><th>Client Error</th><th>此類狀態碼通常代表客戶端可能出現了錯誤。</th></tr><tr><td>400</td><td>Bad Request</td><td>表示客戶端發出的請求有誤（格式、大小、無效的 ...)，服務端不能/不會處理該請求。</td></tr><tr><td>401</td><td>Unauthorized</td><td>表示客戶端未能提供必要的驗證，服務端拒絕提供資源。</td></tr><tr><td>403</td><td>Forbidden</td><td>表示服務端理解了該請求，但客戶端沒有足夠權限以訪問，遂拒絕提供該資源。</td></tr><tr><td>404</td><td>Not Found</td><td>表示服務端無法找到請求的資源，其可能已經暫時（永久）失效。</td></tr><tr><td>408</td><td>Request Timeout</td><td>表示請求超時。</td></tr><tr><td>409</td><td>Conflict</td><td>表示請求的資源發送了衝突，通常是 PUT 請求。</td></tr><tr><td>410</td><td>Gone</td><td>表示請求的資源已經永久失效，客戶端不應再次請求。</td></tr><tr><td>411</td><td>Length Required</td><td>表示服務端拒絕在沒有定義 Content-Length 頭的情況下接收該請求。</td></tr><tr><th>5XX</th><th>Server Error</th><th>此類狀態碼通常代表由於服務端的原因，導致無法完成請求。</th></tr><tr><td>500</td><td>Internal Server Error</td><td>表示由於服務端遇到意料之外的變故，導致無法完成請求。</td></tr><tr><td>501</td><td>Not Implemented</td><td>表示服務端不支持完成請求所需的功能，導致無法完成請求。</td></tr><tr><td>502</td><td>Bad Gateway</td><td>表示作為網関或代理的服務段在執行請求時，從上游服務器獲得了無效的響應。</td></tr><tr><td>503</td><td>Service Unavailable</td><td>表示由於某些原因（服務器超載或系統維護等），導致暫時無法完成請求。</td></tr><tr><td>504</td><td>Gatewy Timeout</td><td>表示作為網関或代理的服務段在執行請求時，未能及時從上游服務器獲得響應。</td></tr><tr><td>505</td><td>HTTP Version Not Supported</td><td>表示服務端不支持請求的 HTTP 協議版本，導致無法完成請求。</td></tr></tbody></table>
-<blockquote>
-<p>以上內容參考自<a href="https://zh.wikipedia.org/zh-tw/HTTP%E7%8A%B6%E6%80%81%E7%A0%81"target="_blank" rel="external nofollow noopener noreferrer">https://zh.wikipedia.org/zh-tw/HTTP%E7%8A%B6%E6%80%81%E7%A0%81<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>，<br>
-需要查看完整 HTTP 狀態碼請點擊<a href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html"target="_blank" rel="external nofollow noopener noreferrer">https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
-</blockquote>
-]]></description></item><item><title>Sublime Text3 快捷键大全</title><link>https://lruihao.cn/posts/sublime-text3/</link><pubDate>Thu, 15 Aug 2019 20:59:10 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/sublime-text3/</guid><description><![CDATA[<p>Sublime Text3 快捷键一览表</p>
+</div>]]></description></item><item><title>Sublime Text3 快捷键大全</title><link>https://lruihao.cn/posts/sublime-text3/</link><pubDate>Thu, 15 Aug 2019 20:59:10 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/sublime-text3/</guid><description><![CDATA[<p>Sublime Text3 快捷键一览表</p>
 <h2 id="tab-转-space">tab 转 space</h2>
 <p>打开 Settings, 加入几行配置</p>
 <div class="highlight"><div class="chroma">
@@ -3304,478 +2865,7 @@ Resource 已存在時，或許不理會、或許先刪除後建立 （取代）R
 <p><br>
 <br>
 </p>
-]]></description></item><item><title>web 开发规则，代码规范</title><link>https://lruihao.cn/posts/dev-rules/</link><pubDate>Thu, 15 Aug 2019 18:30:31 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/dev-rules/</guid><description><![CDATA[<h2 id="精神">精神</h2>
-<ul>
-<li>絕對不寫死程式</li>
-<li>不留不要用的、垃圾程式碼</li>
-</ul>
-<h2 id="git">Git</h2>
-<ul>
-<li>Master 的 BUG 必須最少且趨近於零，为最稳定的版本</li>
-<li>每次 Commit 訊息應該確實填寫。不可模稜兩可，eg: 修复 BUG、增加功能</li>
-<li>禁止 Commit IDE 的 project data</li>
-<li>禁止上傳垃圾程式碼</li>
-<li>Gitea 編輯內容類似里程碑和版本描述時要使用 Markdown 格式</li>
-</ul>
-<h3 id="分支branch">分支（Branch）</h3>
-<ul>
-<li>命名規則：應以此分支主要目的命名（修復什麼 BUG，新增特定功能）<br>
-不可出現版本號，模組 ID</li>
-<li>合併後的分支應刪除</li>
-</ul>
-<h3 id="commit">commit</h3>
-<ul>
-<li>遵循一個功能一個 commit 的原則</li>
-</ul>
-<h2 id="restful">Restful</h2>
-<ul>
-<li>資源名詞站在 API 的角度思考
-<ul>
-<li>複數名詞：可以複數筆資料，回傳結果為 Array<br>
-舉例：GET/users 取得多筆使用者資料
-<ul>
-<li>刪除，放在複數名詞內，讓 Router 保持一致性</li>
-<li>增加，放在複數名詞內，讓 Router 保持一致性</li>
-</ul>
-</li>
-<li>單數名詞：僅取得單筆資料，必須指定 PK，兩兩一組，回傳結果為 Object<br>
-舉例：GET/user/{accont} 取得單筆使用者資料，必須指定 PK</li>
-</ul>
-</li>
-<li>URL 中一律不帶 id 參數</li>
-</ul>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">正確範例： calendar_manager/calendar/29
-</span></span><span class="line"><span class="cl">錯誤範例： calendar_manager/calendar/29?id=29
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="命名">命名</h2>
-<ul>
-<li>命名應根據內容做有意義的命名，讓後續維護人員可以顧名思義！</li>
-<li>即使不會發生錯誤，程式碼英文大小寫也需明確區分。</li>
-</ul>
-<h3 id="語意">語意</h3>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">類型</th>
-<th style="text-align:left">命名規則</th>
-<th style="text-align:left">說明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">屬性 (Attribute, Property)</td>
-<td style="text-align:left">名詞<br/>user_name、userName</td>
-<td></td>
-</tr>
-<tr>
-<td style="text-align:left">方法 (Method, Function)</td>
-<td style="text-align:left">動詞+名詞<br/>getUserName、get_user_name</td>
-<td style="text-align:left">常見的動詞有：get、set、update、delete、remove</td>
-</tr>
-</tbody>
-</table>
-<h3 id="字母與分隔">字母與分隔</h3>
-<table style="background: #fff;"><tbody><tr><th>語言</th><th>變數 (Variable, Parameter, Argument)</th><th>常數 (Constant)</th><th>物件導向 - 類名 (Class Name)</th><th>物件導向 - 成員 (mebmer)</th></tr><tr><td>HTML、CSS</td><td>全部小寫，不同單字以「-」分隔 <br> user-id</td><td colspan="3"></td></tr><tr><td>JavaScript</td><td><div style="color: #428bca;font-weight: bold;text-align: center;">駝峰式命名法</div>首字小寫，不同單字「首字以大寫」分隔 <br> userId</td><td rowspan="2">全部大寫，不同單字以「_」分隔<br>MAX_COUNT</td><td rowspan="2"><div style="color: #428bca;font-weight: bold;text-align: center;">駝峰式命名法</div>首字大寫，不同單字「首字以大寫」分隔<br>一個檔案放一個 Class<br>檔名即為 Class Name<br>User</td><td rowspan="2"><div style="color: #428bca;font-weight: bold;text-align: center;">駝峰式命名法</div>公有 (public)&nbsp;: 首字小寫，不同單字「首字以大寫」分隔 <br> name, getName<br>私有 (private): _公有命名規則<br> _name, _getName</td></tr><tr><td>PHP</td><td>全部小寫，不同單字以「_」分隔 <br> user_id</td></tr><tr><td>SQL</td><td>由使用者定義的：表名、欄位名<br>全部小寫，不同單字以「_」分隔</td><td>SQL 語法、函數 <br> 全部大寫 <br> SELECT、INSERT INTO</td><td colspan="2">-</td></tr></tbody></table>
-<h2 id="通用">通用</h2>
-<ul>
-<li>程式碼撰寫</li>
-<li>每個函數應該註解，註解應包含函數工能說明、引數說明。</li>
-<li>不必要的代碼不要寫，也禁止放到註解裡面！</li>
-<li>if-else 的 {} 嚴禁省略。</li>
-<li>{} 起始一律跟在 前一個功能的尾巴，禁止分行</li>
-</ul>
-<h3 id="正確寫法">正確寫法</h3>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">public function test(){
-</span></span><span class="line"><span class="cl">  //do something
-</span></span><span class="line"><span class="cl">  if($a === $b){
-</span></span><span class="line"><span class="cl">    //do something
-</span></span><span class="line"><span class="cl">  }
-</span></span><span class="line"><span class="cl">}
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h3 id="錯誤寫法">錯誤寫法</h3>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span><span class="lnt">8
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">public function test()
-</span></span><span class="line"><span class="cl">{
-</span></span><span class="line"><span class="cl">  //do something
-</span></span><span class="line"><span class="cl">  if($a === $b)
-</span></span><span class="line"><span class="cl">  {
-</span></span><span class="line"><span class="cl">    //do something
-</span></span><span class="line"><span class="cl">  }
-</span></span><span class="line"><span class="cl">}
-</span></span></code></pre></td></tr></table>
-</div>
-</div><ul>
-<li>程式碼排版
-<ul>
-<li>任何程式碼應該以 2 個 space 為一個階層做好排版、不可使用 tab。</li>
-</ul>
-</li>
-<li>函數 (Function, Methd)
-<ul>
-<li>函數宣告時需在函數上方加上函數註解，註解應包含函數說明、引數內容 （引數型態、引數英文名稱、引數說明）、 回傳值內容 （回傳值型態、回傳值說明）</li>
-</ul>
-</li>
-<li>類 (Class)
-<ul>
-<li>一個類 (Class) 的宣告只能存在一個檔案。</li>
-<li>類 (Class) 的宣告檔，檔名必須為類名。</li>
-</ul>
-</li>
-<li>其他
-<ul>
-<li>連結本地任何其他資源 （圖片、檔案、網站） 皆使用相對路徑，禁止使用絕對路徑，非本地資源除外。</li>
-</ul>
-</li>
-</ul>
-<h2 id="html">HTML</h2>
-<h3 id="程式碼撰寫">程式碼撰寫</h3>
-<ul>
-<li>禁止在 HTML 使用 <code>&lt;style&gt;</code>、<code>&lt;script&gt;</code>，一律使用外部檔案引用方式引用 CSS、JavaScript 檔案。</li>
-<li>HTML 標籤需成雙成對，有頭有尾。</li>
-<li>區塊標籤：<code>&lt;tag&gt;&lt;/tag&gt;</code></li>
-<li>單標籤：<code>&lt;tag /&gt;</code></li>
-<li>禁止使用已被 HTML 捨棄的舊標籤、屬性，如：</li>
-</ul>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="c">&lt;!-- html tag --&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="nt">&lt;center&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="nt">&lt;font&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="nt">&lt;basefont&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="nt">&lt;s&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="nt">&lt;strike&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="nt">&lt;u&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="nt">&lt;listing&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="nt">&lt;plaintext&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="nt">&lt;xmp&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="c">&lt;!-- html attribute --&gt;</span>
-</span></span><span class="line"><span class="cl">align
-</span></span><span class="line"><span class="cl">bgcolor
-</span></span><span class="line"><span class="cl">color
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h3 id="資安禁止">資安禁止：</h3>
-<blockquote>
-<p>禁止使用 readonly 做為參數傳遞</p>
-</blockquote>
-<h3 id="其他">其他</h3>
-<blockquote>
-<p>連結本地任何其他資源 （圖片、檔案、網站） 皆使用相對路徑，禁止使用絕對路徑，非本地資源除外。</p>
-</blockquote>
-<h2 id="css">CSS</h2>
-<h3 id="程式碼撰寫-1">程式碼撰寫</h3>
-<blockquote>
-<p>CSS 的定義應該獨立一個 CSS 檔案，禁止使用 <code>&lt;style&gt;</code> 或 <code>style</code> 屬性直接在 HTML 中定義樣式。</p>
-</blockquote>
-<h2 id="javascript">JavaScript</h2>
-<h3 id="程式碼撰寫-2">程式碼撰寫</h3>
-<ul>
-<li>禁止使用 HTML 字串，一律使用 Dom 產生 HTML</li>
-<li>禁止省略箭頭函數 (Arrow function) 的括弧</li>
-</ul>
-<p>正確</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">a = (a, b) =&gt; {
-</span></span><span class="line"><span class="cl">  c;
-</span></span><span class="line"><span class="cl">}
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>錯誤 （這是允許的，但造成程式碼閱讀困難，故禁止）</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">a  =&gt; c;
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h3 id="註解">註解</h3>
-<p>JavaScript 註解應該遵循 JSDoc 的標準撰寫</p>
-<h4 id="全域變數-global">全域變數 (Global)</h4>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">/* global $t, Tiger */
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h4 id="常數-constant">常數 (Constant)</h4>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">/**
-</span></span><span class="line"><span class="cl"> * 常數說明
-</span></span><span class="line"><span class="cl"> * @type {常數型態}
-</span></span><span class="line"><span class="cl"> */
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p><strong>Example</strong></p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">/**
-</span></span><span class="line"><span class="cl"> * 使用者 ID
-</span></span><span class="line"><span class="cl"> * @type {String}
-</span></span><span class="line"><span class="cl"> */
-</span></span><span class="line"><span class="cl">var userId = &#39;Hello&#39;;
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h4 id="函數方法-function-method">函數、方法 (Function, Method)</h4>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">/**
-</span></span><span class="line"><span class="cl"> * 函數用途說明
-</span></span><span class="line"><span class="cl"> * @param {引數型態} 引數名稱 引數說明
-</span></span><span class="line"><span class="cl"> * @param {引數型態} [選擇性引數名稱] 引數說明
-</span></span><span class="line"><span class="cl"> * @param {引數型態} [選擇性引數名稱=引數預設值] 引數說明
-</span></span><span class="line"><span class="cl"> * @returns {回傳值型態} 回傳值說明
-</span></span><span class="line"><span class="cl"> */
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p><strong>Example</strong></p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">/**
-</span></span><span class="line"><span class="cl"> * 取得使用者
-</span></span><span class="line"><span class="cl"> * @param {Int} userId 使用者 ID
-</span></span><span class="line"><span class="cl"> * @param {Object} [options] 其他選項
-</span></span><span class="line"><span class="cl"> * @param {String} [options.query=&#39;a&#39;] 查詢關鍵字 預設為 a
-</span></span><span class="line"><span class="cl"> * @returns {Object} 使用者資料
-</span></span><span class="line"><span class="cl"> */
-</span></span><span class="line"><span class="cl">var getUser = function(userId, options){
-</span></span><span class="line"><span class="cl">  //do something
-</span></span><span class="line"><span class="cl">  return user;
-</span></span><span class="line"><span class="cl">};
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="php">PHP</h2>
-<h3 id="前端參數取得">前端參數取得</h3>
-<p>參數取得需透過 filter_input 函數取得，不得使用 $_GET、 $_POST</p>
-<h3 id="輸出到前台">輸出到前台</h3>
-<p>參數命名必須為：全部小寫，不同單字以「_」分隔</p>
-<h3 id="註解-1">註解</h3>
-<p>PHP 註解應該遵循 PHPDoc 的標準撰寫</p>
-<h3 id="成員變數-member">成員變數 (Member)</h3>
-<p>成員變數只的是 Class 內的成員變數，我們都會要求替成員變數增加註解說明。通常 Function 的變數除非太特別否則都不需要特別註解說明。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">/**
-</span></span><span class="line"><span class="cl"> * 成員變數說明
-</span></span><span class="line"><span class="cl"> * @type {型態}
-</span></span><span class="line"><span class="cl"> */
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p><strong>Example</strong></p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">/**
-</span></span><span class="line"><span class="cl"> * 使用者 ID
-</span></span><span class="line"><span class="cl"> * @type {String}
-</span></span><span class="line"><span class="cl"> */
-</span></span><span class="line"><span class="cl">$userId = &#39;Hello&#39;;
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h3 id="函數方法-function-method-1">函數、方法 (Function, Method)</h3>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">/**
-</span></span><span class="line"><span class="cl"> * 函數用途說明
-</span></span><span class="line"><span class="cl"> * @param 引數型態 引數名稱 引數說明
-</span></span><span class="line"><span class="cl"> * @option 引數選項型態 引數選項名稱 引數選項說明
-</span></span><span class="line"><span class="cl"> * @uses 全域變數 全域變數說明
-</span></span><span class="line"><span class="cl"> * @returns 回傳值型態 回傳值說明
-</span></span><span class="line"><span class="cl"> */
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p><strong>Example</strong></p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">/**
-</span></span><span class="line"><span class="cl"> * 取得使用者
-</span></span><span class="line"><span class="cl"> * @param int userId 使用者 ID
-</span></span><span class="line"><span class="cl"> * @param object options 其他選項
-</span></span><span class="line"><span class="cl"> * @option string options[&#39;query&#39;] 查詢關鍵字
-</span></span><span class="line"><span class="cl"> * @uses $_POST[&#39;role_id&#39;] 從前端以 POST 取得角色 ID
-</span></span><span class="line"><span class="cl"> * @returns object 使用者資料
-</span></span><span class="line"><span class="cl"> */
-</span></span><span class="line"><span class="cl">function getUser($userId, $options){
-</span></span><span class="line"><span class="cl">  //do something
-</span></span><span class="line"><span class="cl">  return $user;
-</span></span><span class="line"><span class="cl">};
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="database">Database</h2>
-<ul>
-<li>禁止使用 Table Join。</li>
-<li>禁止使用 Oracle Trigger。</li>
-<li>禁止將查詢資料庫的 SQL 放在迴圈中查詢</li>
-</ul>
-<h3 id="sql-撰寫">SQL 撰寫</h3>
-<ul>
-<li>屬於 SQL 語法使用大寫 (SELECT, WHERE, INSERT etc..)</li>
-<li>屬於使用者自己定義的使用小寫 （表名 table name, 欄位名 column name etc..)</li>
-<li>表名、欄位名前後需加上 `</li>
-</ul>
-<p><strong>Example</strong></p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="cl"><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="o">`</span><span class="k">user</span><span class="o">`</span><span class="w"> </span><span class="k">VALUES</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;b&#39;</span><span class="p">);</span><span class="w">
-</span></span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="統一用詞">統一用詞</h2>
-<blockquote>
-<p>僅為舉例，不限與此。</p>
-</blockquote>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">用詞</th>
-<th style="text-align:left">統一</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">最后</td>
-<td style="text-align:left">最後</td>
-</tr>
-<tr>
-<td style="text-align:left">關閉</td>
-<td style="text-align:left">取消</td>
-</tr>
-<tr>
-<td style="text-align:left">存儲<br/>保存<br/>修改</td>
-<td style="text-align:left">儲存</td>
-</tr>
-<tr>
-<td style="text-align:left">搜尋</td>
-<td style="text-align:left">查詢</td>
-</tr>
-</tbody>
-</table>]]></description></item><item><title>WAMPServer 自定义网站根目录等设置</title><link>https://lruihao.cn/posts/wamproot/</link><pubDate>Fri, 12 Jul 2019 18:44:36 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/wamproot/</guid><description><![CDATA[<blockquote>
+]]></description></item><item><title>WAMPServer 自定义网站根目录等设置</title><link>https://lruihao.cn/posts/wamproot/</link><pubDate>Fri, 12 Jul 2019 18:44:36 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/wamproot/</guid><description><![CDATA[<blockquote>
 <p>使用 WAMPServer 时自定义网站根目录。</p>
 </blockquote>
 <h2 id="wampserver-自定义网站根目录">WAMPServer 自定义网站根目录</h2>
@@ -5202,6 +4292,704 @@ Ctrl+F 查找 <code>localhost</code><br>
 </span></span><span class="line"><span class="cl">    <span class="n">show_result</span><span class="o">:</span> <span class="kc">true</span>
 </span></span><span class="line"><span class="cl">    <span class="err">##</span> <span class="n">Style</span><span class="o">:</span> <span class="err">&#39;</span><span class="n">light</span><span class="o">,</span><span class="n">night</span><span class="o">,</span><span class="n">flat</span><span class="o">,</span><span class="mf">3d</span><span class="n">btn</span><span class="err">&#39;</span> <span class="n">is</span> <span class="n">currently</span> <span class="n">available</span><span class="o">,</span> <span class="n">leave</span> <span class="n">it</span> <span class="n">empty</span> <span class="n">or</span> <span class="n">light</span> <span class="n">is</span> <span class="k">default</span> <span class="n">theme</span>
 </span></span><span class="line"><span class="cl">    <span class="n">style</span><span class="o">:</span> <span class="n">night</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div>]]></description></item><item><title>web 汇总</title><link>https://lruihao.cn/posts/webbiji/</link><pubDate>Mon, 18 Mar 2019 20:40:55 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/webbiji/</guid><description><![CDATA[<blockquote>
+<p>下面一些 web 开发的一些总结，还有一些常用到的代码，脚本等！</p>
+</blockquote>
+<h2 id="front-end">front-end</h2>
+<h3 id="html">html</h3>
+<blockquote>
+<ul>
+<li><a href="https://lruihao.cn/posts/ms-html-css.html"target="_blank" rel="external nofollow noopener noreferrer">HTML+CSS<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+</ul>
+</blockquote>
+<h4 id="oblique-和-intalic-的区别">oblique 和 intalic 的区别</h4>
+<p>这两个都是<code>font-style</code>属性的值，这两个值都能实现倾斜的效果，但是有区别的。</p>
+<ul>
+<li><code>intalic</code>: 这个是字体的倾斜，相当于<strong>斜体</strong>，字体必须有倾斜属性。</li>
+<li><code>oblique</code>: 这个准确地说是让文字倾斜。相当于<strong>斜字</strong>，字体不一定要有倾斜属性。</li>
+</ul>
+<h4 id="title-显示换行">title 显示换行</h4>
+<p><a href="#" title="第一行&#10; 第二行&#10; 第三行">使用<code>&amp;#10;</code></a>或<a href="#" title="第一排&#13; 第二排&#13; 第三排">使用<code>&amp;#13;</code></a></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">&lt;a href=&#34;#&#34; title=&#34;第一行&amp;#10; 第二行&amp;#10; 第三行&#34;&gt;使用`&amp;#10;`&lt;/a&gt;
+</span></span><span class="line"><span class="cl">&lt;a href=&#34;#&#34; title=&#34;第一排&amp;#13; 第二排&amp;#13; 第三排&#34;&gt;使用`&amp;#13;`&lt;/a&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="图片类型选择">图片类型选择</h4>
+<p><figure><a class="lightgallery" href="/posts/webbiji/images/imgType.jpg" data-thumbnail="/posts/webbiji/images/imgType.jpg" data-sub-html="<h2>图片类型选择</h2><p>图片类型选择</p>">
+    
+  </a><figcaption class="image-caption">图片类型选择</figcaption>
+  </figure></p>
+<h3 id="css">css</h3>
+<h4 id="flexbox">flexbox</h4>
+<p>Flex 布局将成为未来布局的首选方案，比如说常见的 bootstrap4 的版本就用 flex 替代了 float 来进行排版。<br>
+我在网上看到几个很好的教程，图文并茂，一目了然。</p>
+<blockquote>
+<ul>
+<li><a href="https://css-tricks.com/snippets/css/a-guide-to-flexbox/"target="_blank" rel="external nofollow noopener noreferrer">A Complete Guide to Flexbox<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+</ul>
+</blockquote>
+<ul>
+<li><a href="http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html"target="_blank" rel="external nofollow noopener noreferrer">Flex 布局教程：语法篇<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+</ul>
+<p>实在懒癌发作，笔记本上手抄了笔记我就不写学习总结了，还有网友 <a href="http://static.vgee.cn/static/index.html"target="_blank" rel="external nofollow noopener noreferrer">Demo<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 也写了。</p>
+<h3 id="javascript">javascript</h3>
+<h4 id="keydown-和-keypress">keydown 和 keypress</h4>
+<ul>
+<li><code>keydown</code>：按下键盘键</li>
+<li><code>keypress</code>：紧接着<code>keydown</code>事件触发（只有按下字符键时触发）</li>
+<li>如果用户按下了一个<strong>字符键</strong>不放，就会重复触发<code>keydown</code>和<code>keypress</code>事件，直到用户松开该键为止。</li>
+<li>如果用户按下了一个<strong>非字符键</strong>不放，就会重复触发<code>keydown</code>事件，直到用户松开该键为止。</li>
+</ul>
+<p><a href="https://www.jianshu.com/p/8f839f558319"target="_blank" rel="external nofollow noopener noreferrer">详解键盘事件 (keydown，keypress，keyup)<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
+<h4 id="textcontentinnertext-和-innerhtml-的区别">textContent、innerText 和 innerHTML 的区别</h4>
+<blockquote>
+<ol>
+<li>设置标签中的文本内容，应该使用<code>textContent</code>或<code>innerText</code>（更老）属性，区别在于浏览器支援程度</li>
+</ol>
+</blockquote>
+<ol start="2">
+<li><code>innerHTML</code>能够获得元素内的所有标签内容，也可以设置标签使之生效。（<strong>注意防止 XSS 注入</strong>）</li>
+</ol>
+<p>如果某个属性在浏览器中不支持，那么这个属性的类型是<code>undefined</code>，判断这个属性的类型是不是<code>undefined</code>，就知道浏览器是否支持。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="o">&lt;</span><span class="nx">script</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 设置任意的标签中间的任意文本内容
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kd">function</span> <span class="nx">setInnerText</span><span class="p">(</span><span class="nx">element</span><span class="p">,</span> <span class="nx">text</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="c1">//判断浏览器是否支持这个属性
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">element</span><span class="p">.</span><span class="nx">textContent</span> <span class="o">==</span> <span class="s2">&#34;undefined&#34;</span><span class="p">)</span> <span class="p">{</span><span class="c1">//不支持
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>          <span class="nx">element</span><span class="p">.</span><span class="nx">innerText</span> <span class="o">=</span> <span class="nx">text</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span> <span class="k">else</span> <span class="p">{</span><span class="c1">//支持这个属性
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>          <span class="nx">element</span><span class="p">.</span><span class="nx">textContent</span> <span class="o">=</span> <span class="nx">text</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="err">/script&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="图床方案">图床方案</h3>
+<blockquote>
+<ul>
+<li>自行搭建<br>
+比如使用开源图床 ImgURL 搭建的<code>img.lruihao.cn</code>（<strong>需要服务器</strong>）<br>
+使用上传工具加第三方免费空间，比如<code>PicGo + 腾讯云 COS</code>（<strong>无需服务器</strong>）</li>
+</ul>
+</blockquote>
+<ul>
+<li>使用各大图床<br>
+诸如 sm.ms，腾讯云 COS，阿里云 OSS，七牛云，又拍云，Github，微博图床，ImgURL 图床等等</li>
+</ul>
+<h3 id="font-awesome">font-awesome</h3>
+<p>现在使用 5 的版本，可以使用<code>webfont+css</code>或<code>svg+js</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&#34;stylesheet&#34;</span> <span class="na">href=</span><span class="s">&#34;https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css&#34;</span><span class="nt">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>其他的图标 js</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">&lt;script src=&#34;//at.alicdn.com/t/font_578712_g26jo2kbzd5qm2t9.js&#34;&gt;&lt;/script&gt;
+</span></span><span class="line"><span class="cl">&lt;svg class=&#34;card-avatar&#34; aria-hidden=&#34;true&#34;&gt;
+</span></span><span class="line"><span class="cl">  &lt;use xlink:href=&#34;#icon-{{n+1}}&#34;&gt;&lt;/use&gt;                &lt;!--n 为一个数字--&gt;
+</span></span><span class="line"><span class="cl">&lt;/svg&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="响应式自适应">响应式（自适应）</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&#34;stylesheet&#34;</span> <span class="na">href=</span><span class="s">&#34;https://apps.bdimg.com/libs/bootstrap/3.3.4/css/bootstrap.min.css&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;script</span> <span class="na">src=</span><span class="s">&#34;https://apps.bdimg.com/libs/bootstrap/3.3.4/js/bootstrap.min.js&#34;</span><span class="nt">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">&#34;viewport&#34;</span> <span class="na">content=</span><span class="s">&#34;width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=0&#34;</span><span class="nt">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<ul>
+<li>.col-xs- 超小屏幕 手机 &lt;768px</li>
+<li>.col-sm- 小屏幕 平板  &gt;=768px</li>
+<li>.col-md- 中等屏幕  &gt;=992px</li>
+<li>.col-lg- 大屏幕  &gt;1200px</li>
+</ul>
+</blockquote>
+<p>css3 写法 @media （宽度具体调整）</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-css" data-lang="css"><span class="line"><span class="cl"><span class="c">/* 手机等小屏幕手持设备 */</span>
+</span></span><span class="line"><span class="cl"><span class="p">@</span><span class="k">media</span> <span class="nt">screen</span> <span class="nt">and</span> <span class="o">(</span><span class="nt">min-width</span><span class="o">:</span> <span class="nt">320px</span><span class="o">)</span> <span class="nt">and</span> <span class="o">(</span><span class="nt">max-width</span><span class="o">:</span> <span class="nt">480px</span><span class="o">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="c">/*手机端 css 样式表*/</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="c">/* 平板之类的宽度 1024 以下设备 */</span>
+</span></span><span class="line"><span class="cl"><span class="p">@</span><span class="k">media</span> <span class="nt">only</span> <span class="nt">screen</span> <span class="nt">and</span> <span class="o">(</span><span class="nt">min-width</span><span class="o">:</span> <span class="nt">321px</span><span class="o">)</span> <span class="nt">and</span> <span class="o">(</span><span class="nt">max-width</span><span class="o">:</span> <span class="nt">1024px</span><span class="o">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="c">/*电脑端 css 样式表*/</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>link 引入不同 css</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="c">&lt;!--手机端--&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&#34;stylesheet&#34;</span> <span class="na">type=</span><span class="s">&#34;text/css&#34;</span> <span class="na">href=</span><span class="s">&#34;style_phone.css&#34;</span> <span class="na">media=</span><span class="s">&#34;screen and (max-width: 960px)&#34;</span><span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="c">&lt;!--电脑端--&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&#34;stylesheet&#34;</span> <span class="na">type=</span><span class="s">&#34;text/css&#34;</span> <span class="na">href=</span><span class="s">&#34;style_PC.css&#34;</span> <span class="na">media=</span><span class="s">&#34;screen and (min-width: 960px)&#34;</span><span class="nt">/&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="jquery">jquery</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="nt">&lt;script</span> <span class="na">src=</span><span class="s">&#34;https://code.jquery.com/jquery-3.3.1.min.js&#34;</span><span class="nt">&gt;&lt;/script&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;script</span> <span class="na">src=</span><span class="s">&#34;https://lib.sinaapp.com/js/jquery/2.0.2/jquery-2.0.2.min.js&#34;</span><span class="nt">&gt;&lt;/script&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;script</span> <span class="na">src=</span><span class="s">&#34;https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js&#34;</span><span class="nt">&gt;&lt;/script&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;script</span> <span class="na">src=</span><span class="s">&#34;http://cdn.bootcss.com/jquery/1.11.0/jquery.min.js&#34;</span><span class="nt">&gt;&lt;/script&gt;</span>
+</span></span><span class="line"><span class="cl">//还有其他的源 ...
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="qq-推广链接">QQ 推广链接</h3>
+<blockquote>
+<p><a href="https://shang.qq.com/v3/widget.html"target="_blank" rel="external nofollow noopener noreferrer">QQ 推广<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> <a href="https://qun.qq.com/join.html"target="_blank" rel="external nofollow noopener noreferrer">QQ 群<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">&lt;a target=&#34;_blank&#34; href=&#34;https://wpa.qq.com/msgrd?v=3&amp;uin=1074627678&amp;site=qq&amp;menu=yes&#34;&gt;&lt;img border=&#34;0&#34; src=&#34;http://wpa.qq.com/pa?p=2:1074627678:51&#34; alt=&#34;点击这里给我发消息&#34; title=&#34;点击这里给我发消息&#34;/&gt;&lt;/a&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><a target="_blank" href="https://wpa.qq.com/msgrd?v=3&uin=1074627678&site=qq&menu=yes"></a></p>
+<h3 id="google-fonts">Google fonts</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-diff" data-lang="diff"><span class="line"><span class="cl">https://fonts.google.com/
+</span></span><span class="line"><span class="cl">一般选用国内源镜像替代（待补充 ...）
+</span></span><span class="line"><span class="cl"><span class="gi">+ https://fonts.loli.net
+</span></span></span><span class="line"><span class="cl"><span class="gi">+ //fonts.lug.ustc.edu.cn
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="fancybox">fancybox</h3>
+<p><a href="https://github.com/fancyapps/fancybox"target="_blank" rel="external nofollow noopener noreferrer">github 介绍<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> <a href="https://www.bootcdn.cn/fancybox/"target="_blank" rel="external nofollow noopener noreferrer">fancybox 源<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="nt">&lt;link</span> <span class="na">href=</span><span class="s">&#34;https://cdn.bootcss.com/fancybox/3.5.7/jquery.fancybox.min.css&#34;</span> <span class="na">rel=</span><span class="s">&#34;stylesheet&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;script</span> <span class="na">src=</span><span class="s">&#34;https://cdn.bootcss.com/fancybox/3.5.7/jquery.fancybox.min.js&#34;</span><span class="nt">&gt;&lt;/script&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="back-end">back-end</h2>
+<blockquote>
+<p>更多学习内容见 <a href="https://github.com/Lruihao/web-dev-data"target="_blank" rel="external nofollow noopener noreferrer">学习课件<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a><br>
+练习作业 <a href="https://github.com/Lruihao/hw"target="_blank" rel="external nofollow noopener noreferrer">源码<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>+<a href="http://hw.lruihao.cn/"target="_blank" rel="external nofollow noopener noreferrer">Demo<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
+</blockquote>]]></description></item><item><title>eclipse 的基本使用</title><link>https://lruihao.cn/posts/eclipseuse/</link><pubDate>Fri, 15 Mar 2019 23:47:24 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/eclipseuse/</guid><description><![CDATA[<h2 id="基本使用">基本使用</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-diff" data-lang="diff"><span class="line"><span class="cl">A: 选择一个工作空间
+</span></span><span class="line"><span class="cl">	D:\develop\eclipse-SDK-3.7.2-win64\workspace
+</span></span><span class="line"><span class="cl">B: 如何写一个 HelloWorld 案例（代码以项目为基本单位）
+</span></span><span class="line"><span class="cl">	a: 创建项目（工程）
+</span></span><span class="line"><span class="cl">		*File -- New -- Java Project
+</span></span><span class="line"><span class="cl">		*在左边空白处，直接右键 -- New -- Java Project
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">		键入项目名称后直接 Finish。
+</span></span><span class="line"><span class="cl">	b: 所有的 java 文件必须写到 src 下面才有效
+</span></span><span class="line"><span class="cl">	c: 创建一个包
+</span></span><span class="line"><span class="cl">		cn.lruihao   
+</span></span><span class="line"><span class="cl">	d: 在包下创建一个类
+</span></span><span class="line"><span class="cl">		HelloWorld
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">		同时让它帮我们写好了 main 方法。
+</span></span><span class="line"><span class="cl">	e: 在 main 方法中写内容即可
+</span></span><span class="line"><span class="cl">	f: 编译程序
+</span></span><span class="line"><span class="cl">		自动编译，在保存的那一刻帮你做好了
+</span></span><span class="line"><span class="cl">	g: 运行程序
+</span></span><span class="line"><span class="cl">		选择要运行的文件或者在要运行的文件内容中
+</span></span><span class="line"><span class="cl">		右键 -- Run as - Java Application 即可
+</span></span><span class="line"><span class="cl">	h: 内容显示
+</span></span><span class="line"><span class="cl">		在 Console 控制台显示内容
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="eclipse-的基本设置">Eclipse 的基本设置</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nl">A:</span> <span class="err">程序的编译和运行的环境配置（如果你的</span> <span class="n">Eclipse</span> <span class="err">启动没有问题，就不要配置了）</span>
+</span></span><span class="line"><span class="cl"><span class="nl">B:</span> <span class="err">去掉默认注释（可以不用改）</span>
+</span></span><span class="line"><span class="cl"><span class="nl">C:</span> <span class="err">行号的显示和隐藏</span>
+</span></span><span class="line"><span class="cl">	<span class="err">显示：在代码区域的最左边的空白区域，右键</span> <span class="o">--</span> <span class="n">Show</span> <span class="n">Line</span> <span class="n">Numbers</span> <span class="err">即可。</span>
+</span></span><span class="line"><span class="cl">	<span class="err">隐藏：把上面的动作再做一次。</span>
+</span></span><span class="line"><span class="cl"><span class="nl">D:</span> <span class="err">字体大小及颜色</span>
+</span></span><span class="line"><span class="cl">	<span class="n">a</span><span class="o">:</span><span class="n">Java</span> <span class="err">代码区域的字体大小和颜色：</span>
+</span></span><span class="line"><span class="cl">		<span class="n">window</span> <span class="o">--</span> <span class="n">Preferences</span> <span class="o">--</span> <span class="n">General</span> <span class="o">--</span> <span class="n">Appearance</span> <span class="o">--</span> <span class="n">Colors</span> <span class="n">And</span> <span class="n">Fonts</span> <span class="o">--</span> <span class="n">Java</span> <span class="err">修改</span> <span class="o">--</span> <span class="n">Java</span> <span class="n">Edit</span> <span class="n">Text</span> <span class="n">Font</span>
+</span></span><span class="line"><span class="cl">	<span class="n">b</span><span class="o">:</span> <span class="err">控制台</span>
+</span></span><span class="line"><span class="cl">		<span class="n">window</span> <span class="o">--</span> <span class="n">Preferences</span> <span class="o">--</span> <span class="n">General</span> <span class="o">--</span> <span class="n">Appearance</span> <span class="o">--</span> <span class="n">Colors</span> <span class="n">And</span> <span class="n">Fonts</span> <span class="o">--</span> <span class="n">Debug</span> <span class="o">--</span> <span class="n">Console</span> <span class="n">font</span>
+</span></span><span class="line"><span class="cl">	<span class="n">c</span><span class="o">:</span> <span class="err">其他文件</span>
+</span></span><span class="line"><span class="cl">		<span class="n">window</span> <span class="o">--</span> <span class="n">Preferences</span> <span class="o">--</span> <span class="n">General</span> <span class="o">--</span> <span class="n">Appearance</span> <span class="o">--</span> <span class="n">Colors</span> <span class="n">And</span> <span class="n">Fonts</span> <span class="o">--</span> <span class="n">Basic</span> <span class="o">--</span> <span class="n">Text</span> <span class="n">Font</span>
+</span></span><span class="line"><span class="cl"><span class="nl">E:</span> <span class="err">窗体给弄乱了，怎么办</span>
+</span></span><span class="line"><span class="cl">	<span class="n">window</span> <span class="o">--</span> <span class="n">Reset</span> <span class="n">Perspective</span>
+</span></span><span class="line"><span class="cl"><span class="nl">F:</span> <span class="err">控制台找不到了</span>
+</span></span><span class="line"><span class="cl">	<span class="n">Window</span><span class="o">--</span><span class="n">Show</span> <span class="n">View</span><span class="err">—</span><span class="n">Console</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="快捷键的使用">快捷键的使用</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nl">A:</span> <span class="err">内容辅助键</span>
+</span></span><span class="line"><span class="cl">	<span class="n">Alt</span><span class="o">+/</span> <span class="err">起提示作用</span>
+</span></span><span class="line"><span class="cl">	<span class="n">main</span><span class="o">+</span><span class="n">alt</span><span class="o">+/,</span><span class="n">syso</span><span class="o">+</span><span class="n">alt</span><span class="o">+/,</span> <span class="err">给出其他提示</span>
+</span></span><span class="line"><span class="cl"><span class="nl">B:</span> <span class="err">快捷键</span>
+</span></span><span class="line"><span class="cl">	<span class="err">格式化</span>  <span class="n">ctrl</span><span class="o">+</span><span class="n">shift</span><span class="o">+</span><span class="n">f</span>
+</span></span><span class="line"><span class="cl">	<span class="err">导入包</span>  <span class="n">ctrl</span><span class="o">+</span><span class="n">shift</span><span class="o">+</span><span class="n">o</span>
+</span></span><span class="line"><span class="cl">	<span class="err">注释</span>	<span class="n">ctrl</span><span class="o">+/</span>
+</span></span><span class="line"><span class="cl">		<span class="n">ctrl</span><span class="o">+</span><span class="n">shift</span><span class="o">+/,</span><span class="n">ctrl</span><span class="o">+</span><span class="n">shift</span><span class="o">+</span><span class="err">\</span>
+</span></span><span class="line"><span class="cl">	<span class="err">代码上下移动</span> <span class="err">选中代码</span> <span class="n">alt</span><span class="o">+</span><span class="err">上</span><span class="o">/</span><span class="err">下箭头</span>
+</span></span><span class="line"><span class="cl">	<span class="err">查看源码</span>  <span class="err">选中类名</span> <span class="o">(</span><span class="n">F3</span> <span class="err">或者</span> <span class="n">Ctrl</span><span class="o">+</span><span class="err">鼠标点击）</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="eclipse-中如何提高开发效率">Eclipse 中如何提高开发效率</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nl">A:</span> <span class="err">自动生成构造方法</span>
+</span></span><span class="line"><span class="cl">	<span class="n">a</span><span class="o">:</span> <span class="err">无参构造方法</span> <span class="err">在代码区域右键</span><span class="o">--</span><span class="n">source</span><span class="o">--</span><span class="n">Generate</span> <span class="n">Constructors</span> <span class="n">from</span> <span class="n">Superclass</span>
+</span></span><span class="line"><span class="cl">	<span class="n">b</span><span class="o">:</span> <span class="err">带参构造方法</span> <span class="err">在代码区域右键</span><span class="o">--</span><span class="n">source</span><span class="o">--</span><span class="n">Generate</span> <span class="n">Constructors</span> <span class="n">using</span> <span class="n">fields</span><span class="o">..</span> <span class="o">--</span> <span class="n">finish</span>
+</span></span><span class="line"><span class="cl"><span class="nl">B:</span> <span class="err">自动生成</span> <span class="n">get</span><span class="o">/</span><span class="n">set</span> <span class="err">方法</span>
+</span></span><span class="line"><span class="cl">	<span class="err">在代码区域右键</span><span class="o">--</span><span class="n">source</span><span class="o">--</span><span class="n">Generate</span> <span class="n">Getters</span> <span class="n">and</span> <span class="n">Setters</span><span class="o">...</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div>]]></description></item><item><title>利用腾讯云对象存储 COS 桶托管 hexo 博客</title><link>https://lruihao.cn/posts/cos-hexo/</link><pubDate>Tue, 22 Jan 2019 14:57:08 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/cos-hexo/</guid><description><![CDATA[<blockquote>
+<p>本以为 coding pages 与腾讯云合作后会更好，没想到正是这种初期 bug 不断，速度也是非常慢。比 gitee, 甚至 github 都要慢很多了。所以决定放弃 coding 了，本想挂到云服务器上，但是这个云服务器只续费了半年，可能不会再续费，前几天看到用腾讯云的 cos 桶 xml 制作动态相册的文章，知道了对象存储这个玩意，腾讯云 COS 提供免费 50G 的存储空间，还有 CDN 加速服务，我觉得是个不错的选择，部署后发现速度还挺好。<br>
+适用于 hexo, hugo 等静态博客的部署。</p>
+</blockquote>
+<h2 id="创建存储桶">创建存储桶</h2>
+<p>打开腾讯云控制台&ndash;云产品&ndash;存储&ndash;对象存储，然后创建存储桶。<br>
+</p>
+<h2 id="开启静态网站设置">开启静态网站设置</h2>
+<p>在基础配置打开静态网站（关掉强制 https)<br>
+</p>
+<h2 id="绑定域名">绑定域名</h2>
+<p></p>
+<p>SSL 设置<br>
+</p>
+<h2 id="域名解析添加记录">域名解析，添加记录</h2>
+<p>去 dns 服务商添加域名解析记录 CNAME 指向上面的域名</p>
+<h2 id="hexo-设置">hexo 设置</h2>
+<ul>
+<li>安装插件</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">npm install hexo-deployer-cos --save
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>站点配置文件</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">deploy:
+</span></span><span class="line"><span class="cl">  type: cos
+</span></span><span class="line"><span class="cl">  bucket: yourBucketName #cos 桶名称
+</span></span><span class="line"><span class="cl">  appId: yourAppId #cos 桶名称后数字
+</span></span><span class="line"><span class="cl">  secretId: yourSecretId  #云 API 密钥
+</span></span><span class="line"><span class="cl">  secretKey: yourSecretKey #云 API 密钥
+</span></span><span class="line"><span class="cl">  region: yourRegion #所属地域
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>发布还是一样的</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">hexo clean
+</span></span><span class="line"><span class="cl">hexo g -d
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>结果类似于<br>
+</p>
+<h2 id="cdn-刷新">CDN 刷新</h2>
+<p>每次更新博客内容完后，都要登陆腾讯云 CDN&ndash;缓存刷新，手动刷新一下 CDN。</p>
+<p>用脚本在每次更新后刷新</p>
+<ul>
+<li>安装</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">npm install qcloud-cdn-node-sdk --save
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>创建<code>qcloudcdn.js</code>放入<code>script</code>文件夹</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">qcloudSDK</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;qcloud-cdn-node-sdk&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">qcloudSDK</span><span class="p">.</span><span class="nx">config</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">secretId</span><span class="o">:</span> <span class="s1">&#39;你的 ID&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">secretKey</span><span class="o">:</span> <span class="s1">&#39;你的密钥&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="p">})</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">qcloudSDK</span><span class="p">.</span><span class="nx">request</span><span class="p">(</span><span class="s1">&#39;RefreshCdnDir&#39;</span><span class="p">,</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="s1">&#39;dirs.1&#39;</span><span class="o">:</span> <span class="s1">&#39;http://博客地址&#39;</span> 
+</span></span><span class="line"><span class="cl"><span class="p">},</span> <span class="p">(</span><span class="nx">res</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">res</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">})</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="自动-cdn-刷新配置-推荐">自动 CDN 刷新配置 （推荐）</h2>
+<ol>
+<li>进入腾讯云，找到 函数计算 -&gt; CDN 缓存刷新函数 -&gt; 创建 CDN 缓存刷新函数</li>
+<li>修改 <code>index.js</code> 内容后重新部署</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span><span class="lnt">79
+</span><span class="lnt">80
+</span><span class="lnt">81
+</span><span class="lnt">82
+</span><span class="lnt">83
+</span><span class="lnt">84
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="s1">&#39;use strict&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">CosSdk</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;cos-nodejs-sdk-v5&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">CdnSdk</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./common/CdnSdk&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">CdnRefreshTask</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./common/CdnRefreshTask&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">getParams</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">getObjectUrl</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">logger</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">getLogSummary</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./common/utils&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">exports</span><span class="p">.</span><span class="nx">main_handler</span> <span class="o">=</span> <span class="kr">async</span> <span class="p">(</span><span class="nx">event</span><span class="p">,</span> <span class="nx">context</span><span class="p">,</span> <span class="nx">callback</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">   * parse param from event and process.env
+</span></span></span><span class="line"><span class="cl"><span class="cm">   */</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="p">{</span> <span class="nx">objects</span><span class="p">,</span> <span class="nx">cdnHosts</span><span class="p">,</span> <span class="nx">secretId</span><span class="p">,</span> <span class="nx">secretKey</span><span class="p">,</span> <span class="nx">token</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">getParams</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="nx">logger</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;param is parsed success, param as follow: &#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">data</span><span class="o">:</span> <span class="p">{</span> <span class="nx">objects</span><span class="p">,</span> <span class="nx">cdnHosts</span><span class="p">,</span> <span class="nx">event</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">})</span>
+</span></span><span class="line"><span class="cl">  <span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">   * init cos instance
+</span></span></span><span class="line"><span class="cl"><span class="cm">   */</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">secretId</span> <span class="o">||</span> <span class="o">!</span><span class="nx">secretKey</span> <span class="o">||</span> <span class="o">!</span><span class="nx">token</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="sb">`secretId, secretKey or token is missing`</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">cdnSdkInstance</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">CdnSdk</span><span class="p">({</span> <span class="nx">secretId</span><span class="p">,</span> <span class="nx">secretKey</span><span class="p">,</span> <span class="nx">token</span> <span class="p">})</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">cosInstance</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">CosSdk</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">SecretId</span><span class="o">:</span> <span class="nx">secretId</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">SecretKey</span><span class="o">:</span> <span class="nx">secretKey</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">XCosSecurityToken</span><span class="o">:</span> <span class="nx">token</span>
+</span></span><span class="line"><span class="cl">  <span class="p">})</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">taskList</span> <span class="o">=</span> <span class="nx">objects</span><span class="p">.</span><span class="nx">map</span><span class="p">(({</span> <span class="nx">bucket</span><span class="p">,</span> <span class="nx">region</span><span class="p">,</span> <span class="nx">key</span> <span class="p">})</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="cm">/* 变更内容-START */</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">purgeUrls</span> <span class="o">=</span> <span class="p">[];</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">cdnHosts</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">host</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="kr">const</span> <span class="nx">tempUrl</span> <span class="o">=</span> <span class="nx">getObjectUrl</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">cosInstance</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">bucket</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">region</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">key</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">origin</span><span class="o">:</span> <span class="sb">`</span><span class="si">${</span><span class="o">/^</span><span class="p">(</span><span class="nx">http</span><span class="err">\</span><span class="o">:</span><span class="err">\</span><span class="o">/</span><span class="err">\</span><span class="o">/|</span><span class="nx">https</span><span class="err">\</span><span class="o">:</span><span class="err">\</span><span class="o">/</span><span class="err">\</span><span class="o">/</span><span class="p">)</span><span class="o">/</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="nx">host</span><span class="p">)</span> <span class="o">?</span> <span class="s1">&#39;&#39;</span> <span class="o">:</span> <span class="s1">&#39;https://&#39;</span><span class="si">}${</span><span class="nx">host</span><span class="si">}</span><span class="sb">`</span>
+</span></span><span class="line"><span class="cl">      <span class="p">});</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">purgeUrls</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">tempUrl</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="c1">// 如果以 /index.html 结尾，则增加目录首页/。
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="c1">// 例如 https://www.xxxx.com/index.html, 则增加 https://www.xxxx.com/。
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="k">if</span><span class="p">(</span><span class="nx">tempUrl</span><span class="p">.</span><span class="nx">lastIndexOf</span><span class="p">(</span><span class="s1">&#39;/index.html&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="p">(</span><span class="nx">tempUrl</span><span class="p">.</span><span class="nx">length</span> <span class="o">-</span> <span class="mi">11</span><span class="p">)){</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">purgeUrls</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">tempUrl</span><span class="p">.</span><span class="nx">substr</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nx">tempUrl</span><span class="p">.</span><span class="nx">length</span> <span class="o">-</span> <span class="mi">10</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">});</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="k">new</span> <span class="nx">CdnRefreshTask</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">cdnSdkInstance</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">urls</span><span class="o">:</span> <span class="nx">purgeUrls</span>
+</span></span><span class="line"><span class="cl">    <span class="p">})</span>
+</span></span><span class="line"><span class="cl">    <span class="cm">/* 变更内容-END */</span>
+</span></span><span class="line"><span class="cl">  <span class="p">})</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">taskResults</span> <span class="o">=</span> <span class="p">[]</span>
+</span></span><span class="line"><span class="cl">  <span class="k">for</span> <span class="p">(</span><span class="kr">const</span> <span class="nx">task</span> <span class="k">of</span> <span class="nx">taskList</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">results</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">task</span><span class="p">.</span><span class="nx">runPurgeTasks</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">taskResults</span><span class="p">.</span><span class="nx">push</span><span class="p">(...</span><span class="nx">results</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="nx">logger</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;cdn refresh full logs:&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">data</span><span class="o">:</span> <span class="nx">taskResults</span>
+</span></span><span class="line"><span class="cl">  <span class="p">})</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="p">{</span> <span class="nx">status</span><span class="p">,</span> <span class="nx">messages</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">getLogSummary</span><span class="p">(</span><span class="nx">taskResults</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="nx">logger</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">messages</span><span class="o">:</span> <span class="nx">messages</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">item</span> <span class="p">=&gt;</span> <span class="nx">item</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/\,\ /g</span><span class="p">,</span> <span class="s1">&#39;\n&#39;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">  <span class="p">})</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="nx">status</span> <span class="o">===</span> <span class="s1">&#39;fail&#39;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">throw</span> <span class="nx">messages</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="s1">&#39;; &#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">messages</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="s1">&#39;; &#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div>]]></description></item></channel></rss>

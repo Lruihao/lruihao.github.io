@@ -1,99 +1,131 @@
-# web 开发规则，代码规范
+# Web 开发规则，代码规范
 
 
 ## 精神
-* 絕對不寫死程式
-* 不留不要用的、垃圾程式碼
-<!--more-->
+
+- 绝不写死代码，硬编码
+- 不留不要用的、垃圾代码
 
 ## Git
-* Master 的 BUG 必須最少且趨近於零，为最稳定的版本
-* 每次 Commit 訊息應該確實填寫。不可模稜兩可，eg: 修复 BUG、增加功能
-* 禁止 Commit IDE 的 project data
-* 禁止上傳垃圾程式碼
-* Gitea 編輯內容類似里程碑和版本描述時要使用 Markdown 格式
+
+- Master 的 BUG 必须最少且趋近于零，为最稳定的版本
+- 每次 Commit 信息应该准确填写。不可模棱两可，eg: 修复 BUG、增加功能
+- 禁止 Commit IDE 的 project data，e.g: .vscode
+- 禁止上传垃圾代码
+
+> 更多规则详见文档 [Commit 规范](/posts/commit-spec/)
 
 ### 分支（Branch）
-* 命名規則：應以此分支主要目的命名（修復什麼 BUG，新增特定功能）  
-  不可出現版本號，模組 ID
-* 合併後的分支應刪除
+
+- 命名规则：应以此分支主要目的命名（修复什么 BUG，新增特定功能）
+- 合并后的分支应该删除
 
 ### commit
-* 遵循一個功能一個 commit 的原則
+
+- 遵循一个功能一个 commit 的原则
 
 ## Restful
-* 資源名詞站在 API 的角度思考
-  * 複數名詞：可以複數筆資料，回傳結果為 Array
-    舉例：GET/users 取得多筆使用者資料
-    * 刪除，放在複數名詞內，讓 Router 保持一致性
-    * 增加，放在複數名詞內，讓 Router 保持一致性
-  * 單數名詞：僅取得單筆資料，必須指定 PK，兩兩一組，回傳結果為 Object
-    舉例：GET/user/{accont} 取得單筆使用者資料，必須指定 PK
-* URL 中一律不帶 id 參數
+
+- 资源名词站在 API 的角度思考
+
+  - 复数名词：可以复数笔数据，回传结果为 Array
+
+    举例：GET/users 取得多笔使用者资料
+
+    - 刪除，放在复数名词內，让 Router 保持一致性
+    - 增加，放在复数名詞內，让 Router 保持一致性
+
+  - 单数名词：仅取得单笔数据，必须指定 PK，两两一组，回传结果为 Object
+    举例：GET/user/{accont} 取得单笔使用者资料，必须指定 PK
+
+- URL 中一律不带 id 参数
+
 ```
-正確範例： calendar_manager/calendar/29
-錯誤範例： calendar_manager/calendar/29?id=29
+正确范例： calendar_manager/calendar/29
+错误范例： calendar_manager/calendar/29?id=29
 ```
+
+> 更多规则详见文档 [RESTful](/posts/restful/)
 
 ## 命名
-* 命名應根據內容做有意義的命名，讓後續維護人員可以顧名思義！
-* 即使不會發生錯誤，程式碼英文大小寫也需明確區分。
 
-### 語意
-|類型|命名規則|說明|
-|:--|:--|:--|
-|屬性 (Attribute, Property)|名詞<br/>user_name、userName||
-|方法 (Method, Function)|動詞+名詞<br/>getUserName、get_user_name|常見的動詞有：get、set、update、delete、remove|
+- 命名应根据内容做有意义的命名，让后续维护人员可以顾名思义！
+- 即使不会发生错误，代码英文大小写也需明确区分。
 
-### 字母與分隔
-<table style="background: #fff;"><tbody><tr><th>語言</th><th>變數 (Variable, Parameter, Argument)</th><th>常數 (Constant)</th><th>物件導向 - 類名 (Class Name)</th><th>物件導向 - 成員 (mebmer)</th></tr><tr><td>HTML、CSS</td><td>全部小寫，不同單字以「-」分隔 <br> user-id</td><td colspan="3"></td></tr><tr><td>JavaScript</td><td><div style="color: #428bca;font-weight: bold;text-align: center;">駝峰式命名法</div>首字小寫，不同單字「首字以大寫」分隔 <br> userId</td><td rowspan="2">全部大寫，不同單字以「_」分隔<br>MAX_COUNT</td><td rowspan="2"><div style="color: #428bca;font-weight: bold;text-align: center;">駝峰式命名法</div>首字大寫，不同單字「首字以大寫」分隔<br>一個檔案放一個 Class<br>檔名即為 Class Name<br>User</td><td rowspan="2"><div style="color: #428bca;font-weight: bold;text-align: center;">駝峰式命名法</div>公有 (public)&nbsp;: 首字小寫，不同單字「首字以大寫」分隔 <br> name, getName<br>私有 (private): _公有命名規則<br> _name, _getName</td></tr><tr><td>PHP</td><td>全部小寫，不同單字以「_」分隔 <br> user_id</td></tr><tr><td>SQL</td><td>由使用者定義的：表名、欄位名<br>全部小寫，不同單字以「_」分隔</td><td>SQL 語法、函數 <br> 全部大寫 <br> SELECT、INSERT INTO</td><td colspan="2">-</td></tr></tbody></table>
+### 语意
+
+| 类型                       | 命名规则                               | 说明                                           |
+| :------------------------- | :------------------------------------- | :--------------------------------------------- |
+| 属性 (Attribute, Property) | 名词 user_name、userName               |                                                |
+| 方法 (Method, Function)    | 动词 + 名词 getUserName、get_user_name | 常見的动词有：get、set、update、delete、remove |
+
+### 字母与分隔
+
+| 语言       | 变量 (Variable, Parameter, Argument)                         | 常量  (Constant)                                     | 面向对象 - 类名 (Class Name)                                 | 面向对象 - 成员 (mebmer)                                     |
+| ---------- | ------------------------------------------------------------ | ---------------------------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| HTML       | 全部小写，不同单词以「-」分隔<br />e.g: user-id              |                                                     |                                                              |                                                              |
+| CSS、SCSS  | 全部小写，不同单词以「-」分隔，CSS 变量以「--」开头，SCSS 变量以「$」开头<br />e.g: .user-id、--header-height、$header-height |                                                      |                                                              |                                                              |
+| JavaScript | 驼峰式命名法<br />首字小写，不同单字「首字以大写」分隔<br /> e.g: userId | 全部大写，不同单字以「_」分隔 MAX_COUNT              | 驼峰式命名法<br />首字大写，不同单字「首字以大写」分隔<br />一个文件放一个 Class, 文件名即为 Class Name <br />e.g: User | 驼峰式命名法<br />公有 (public) : 首字小写，不同单词「首字以大写」分隔<br />e.g: name, getName<br />私有 (private): _公有命名规则<br />e.g: _name,_getName |
+| Vue        |                                                              |                                                      |                                                              |                                                              |
+| Java       |                                                              |                                                      |                                                              |                                                              |
+| PHP        | 全部小写，不同单词以「_」分隔<br />e.g: user_id              |                                                      |                                                              |                                                              |
+| Python     |                                                              |                                                      |                                                              |                                                              |
+| SQL        | 由使用者定义的：表名、字段名<br />全部小写，不同单词以「_」分隔 | SQL 语法、函数全部大写<br />e.g: SELECT、INSERT INTO |                                                              |                                                              |
 
 ## 通用
-* 程式碼撰寫
-* 每個函數應該註解，註解應包含函數工能說明、引數說明。
-* 不必要的代碼不要寫，也禁止放到註解裡面！
-* if-else 的 {} 嚴禁省略。
-* {} 起始一律跟在 前一個功能的尾巴，禁止分行
 
-### 正確寫法
-```
-public function test(){
-  //do something
-  if($a === $b){
-    //do something
+- 代码编写
+- **每个函数应该使用块注释，注释应包含函数功能说明、参数说明**。规则见：JSDoc、JavaDoc
+- 不必要的代码不要写，也应禁止放到注释里面！
+- if-else 的 {} 严禁省略
+- {} 起始一律跟在 前一个功能的尾巴，禁止分行
+- 代码规范、代码排版等可通过 eslint 等工具做统一处理
+
+### 正确写法
+
+```js
+public function test () {
+  // do something
+  if (a === b) {
+    // do something
   }
 }
 ```
-### 錯誤寫法
-```
-public function test()
+
+## 错误写法
+
+```js
+public function test ()
 {
-  //do something
-  if($a === $b)
+  // do something
+  if (a === b)
   {
-    //do something
+    // do something
   }
 }
 ```
-* 程式碼排版
-    * 任何程式碼應該以 2 個 space 為一個階層做好排版、不可使用 tab。
-* 函數 (Function, Methd)
-    * 函數宣告時需在函數上方加上函數註解，註解應包含函數說明、引數內容 （引數型態、引數英文名稱、引數說明）、 回傳值內容 （回傳值型態、回傳值說明）
-* 類 (Class)
-    * 一個類 (Class) 的宣告只能存在一個檔案。
-    * 類 (Class) 的宣告檔，檔名必須為類名。
-* 其他
-    * 連結本地任何其他資源 （圖片、檔案、網站） 皆使用相對路徑，禁止使用絕對路徑，非本地資源除外。
+
+- 代码排版
+  - 任何代码应该以 2 个 space 为一个缩进做好排版、不可使用 tab
+- 函数 (Function, Methd)
+  - 函数声明时需在函数上方加上函数注释，注释应包含函数说明、参数内容（参数类型、参数英文名称、参数说明）、返回值内容（返回值类型、返回值说明）
+- 类 (Class)
+  - 一个类（Class）的声明只能存在一个文件
+  - 类（Class）的声明文件，文件名必须为类名
+- 其他
+  - 连接本地任何其他资源（图片、文件、网站）皆使用相对路径，禁止使用绝对路径，非本地资源除外
 
 ## HTML
-### 程式碼撰寫
-* 禁止在 HTML 使用 `<style>`、`<script>`，一律使用外部檔案引用方式引用 CSS、JavaScript 檔案。
-* HTML 標籤需成雙成對，有頭有尾。
-* 區塊標籤：`<tag></tag>`
-* 單標籤：`<tag />`
-* 禁止使用已被 HTML 捨棄的舊標籤、屬性，如：
 
-```xml
+### 代码编写
+
+- 禁止在 HTML 使用 `<style>`、`<script>`，一律使用外部档案引用方式引用 CSS、JavaScript 文件
+- HTML 标签需成双成对，有头有尾
+- 块级标签：`<tag></tag>`
+- 单标签：`<tag />`
+- 禁止使用已被 HTML 舍弃的旧标签、属性，如：
+
+```html
 <!-- html tag -->
 <center>
 <font>
@@ -109,149 +141,178 @@ align
 bgcolor
 color
 ```
-### 資安禁止：
-> 禁止使用 readonly 做為參數傳遞
-### 其他
-> 連結本地任何其他資源 （圖片、檔案、網站） 皆使用相對路徑，禁止使用絕對路徑，非本地資源除外。
 
 ## CSS
-### 程式碼撰寫
-> CSS 的定義應該獨立一個 CSS 檔案，禁止使用 `<style>` 或 `style` 屬性直接在 HTML 中定義樣式。
+
+> CSS 的定义应该独立一个 CSS 文件，禁止使用 `<style>` 或 `style` 属性直接在 HTML 中定义样式。
 
 ## JavaScript
-### 程式碼撰寫
-* 禁止使用 HTML 字串，一律使用 Dom 產生 HTML
-* 禁止省略箭頭函數 (Arrow function) 的括弧
 
-正確
-```
-a = (a, b) => {
-  c;
-}
-```
-錯誤 （這是允許的，但造成程式碼閱讀困難，故禁止）
-```
-a  => c;
+> 禁止使用 HTML 字串，一律使用 Dom 产生 HTML, e.g: `document.createDocumentFragment()`
+
+### 注释
+
+JavaScript 注释应该遵循 JSDoc 的标准撰写
+
+#### 全局变量 (Global)
+
+```js
+/* global ZT */
 ```
 
-### 註解
-JavaScript 註解應該遵循 JSDoc 的標準撰寫
-#### 全域變數 (Global)
-```
-/* global $t, Tiger */
-```
-#### 常數 (Constant)
-```
+#### 常量 (Constant)
+
+```js
 /**
- * 常數說明
- * @type {常數型態}
+ * 常量說明
+ * @type {常量类型}
  */
 ```
+
 **Example**
-```
+
+```js
 /**
- * 使用者 ID
+ * 请求地址
  * @type {String}
  */
-var userId = 'Hello';
+const REQUEST_URL = 'http://localhost:8080';
 ```
+
 #### 函數、方法 (Function, Method)
-```
+
+```js
 /**
- * 函數用途說明
- * @param {引數型態} 引數名稱 引數說明
- * @param {引數型態} [選擇性引數名稱] 引數說明
- * @param {引數型態} [選擇性引數名稱=引數預設值] 引數說明
- * @returns {回傳值型態} 回傳值說明
+ * 函数用途说明
+ * @param {参数类型} 参数名称参数说明
+ * @param {参数类型} [选择性参数名称] 参数说明
+ * @param {参数类型} [选择性参数名称=参数预设值] 参数说明
+ * @returns {返回值类型} 返回值说明
  */
 ```
+
 **Example**
-```
+
+```js
 /**
  * 取得使用者
  * @param {Int} userId 使用者 ID
- * @param {Object} [options] 其他選項
- * @param {String} [options.query='a'] 查詢關鍵字 預設為 a
- * @returns {Object} 使用者資料
+ * @param {Object} [options] 其他选项
+ * @param {String} [options.query='a'] 查询关键词 默认为 'a'
+ * @returns {Object} 使用者资料
  */
-var getUser = function(userId, options){
-  //do something
+function getUser (userId, options){
+  // do something
   return user;
 };
 ```
 
+## Vue
+
+- [ ] 待补充
+
+## Java
+
+Java 注释应该遵循 JavaDoc 的标准撰写
+
+- [ ] 待补充
+
 ## PHP
-### 前端參數取得
-參數取得需透過 filter_input 函數取得，不得使用 $_GET、 $_POST
-### 輸出到前台
-參數命名必須為：全部小寫，不同單字以「_」分隔
-### 註解
-PHP 註解應該遵循 PHPDoc 的標準撰寫
-### 成員變數 (Member)
-成員變數只的是 Class 內的成員變數，我們都會要求替成員變數增加註解說明。通常 Function 的變數除非太特別否則都不需要特別註解說明。
-```
+
+### 前端参数取得
+
+参数取得需通过 filter_input 函数取得，不得使用 _GET 、_POST
+
+### 输出到前台
+
+参数命名必须为：全部小写，不同单字以「_」分隔
+
+### 注解
+
+PHP 注解应该遵循 PHPDoc 的标准撰写
+
+### 成员变量 (Member)
+
+成员变量只的是 Class 内的成员变数，我们都会要求替成员变量增加注解说明。通常 Function 的变量除非太特别否则都不需要特别注解说明。
+
+```php
 /**
- * 成員變數說明
- * @type {型態}
+ * 成员变量說明
+ * @type {类型}
  */
 ```
+
 **Example**
-```
+
+```php
 /**
  * 使用者 ID
  * @type {String}
  */
 $userId = 'Hello';
 ```
-### 函數、方法 (Function, Method)
-```
+
+### 函数、方法 (Function, Method)
+
+```php
 /**
- * 函數用途說明
- * @param 引數型態 引數名稱 引數說明
- * @option 引數選項型態 引數選項名稱 引數選項說明
- * @uses 全域變數 全域變數說明
- * @returns 回傳值型態 回傳值說明
+ * 函数用途说明
+ * @param 参数型态 参数名称 参数说明
+ * @option 参数选项类型 参数选项名称 参数选项说明
+ * @uses 全局变量 全域变数说明
+ * @returns 返回值类型 返回值说明
  */
 ```
+
 **Example**
-```
+
+```php
 /**
  * 取得使用者
  * @param int userId 使用者 ID
- * @param object options 其他選項
- * @option string options['query'] 查詢關鍵字
- * @uses $_POST['role_id'] 從前端以 POST 取得角色 ID
- * @returns object 使用者資料
+ * @param object options 其他选项
+ * @option string options['query'] 查询关键字
+ * @uses $_POST['role_id'] 从前端以 POST 取得角色 ID
+ * @returns object 使用者资料
  */
-function getUser($userId, $options){
-  //do something
+function getUser ($userId, $options) {
+  // do something
   return $user;
 };
 ```
 
+## Python
+
+- [ ] 待补充
+
 ## Database
-* 禁止使用 Table Join。
-* 禁止使用 Oracle Trigger。
-* 禁止將查詢資料庫的 SQL 放在迴圈中查詢
-### SQL 撰寫
-* 屬於 SQL 語法使用大寫 (SELECT, WHERE, INSERT etc..)
-* 屬於使用者自己定義的使用小寫 （表名 table name, 欄位名 column name etc..)
-* 表名、欄位名前後需加上 \`
+
+- 禁止使用 Table Join。
+- 禁止使用 Oracle Trigger。
+- 禁止将查询数据库的 SQL 放在循环中查询
+
+### SQL 撰写
+
+- 属于 SQL 语法使用大写（SELECT，WHERE，INSERT etc..）
+- 属于使用者自己定义的使用小写（表名 table name，字段名 column name etc..）
+- 表名、字段名前后需加上 `
 
 **Example**
-```
+
+```sql
 INSERT INTO `user` VALUES('a', 'b');
 ```
 
-## 統一用詞
-> 僅為舉例，不限與此。
+## 统一用词
 
-|用詞|統一|
-|:-|:-|
-|最后|最後|
-|關閉|取消|
-|存儲<br/>保存<br/>修改|儲存|
-|搜尋|查詢|
+> 系统中常用词，例如弹出框按钮、搜索框等，仅为举例，不限与此。
+
+| 用词                       | 统一 |
+| :------------------------- | :--- |
+| 最后、最终                 | 最后 |
+| 关闭、Cancel、取消         | 取消 |
+| 存储、保存、修改、OK、确定 | 确定 |
+| 搜寻、查询、查找、搜索     | 搜索 |
 
 
 ---

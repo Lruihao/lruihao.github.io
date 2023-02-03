@@ -2124,45 +2124,52 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 <ul>
 <li><a href="https://www.growingwiththeweb.com/2014/02/async-vs-defer-attributes.html"target="_blank" rel="external nofollow noopener noreferrer">https://www.growingwiththeweb.com/2014/02/async-vs-defer-attributes.html<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
 <li><a href="https://www.jianshu.com/p/17dc82bf08f1"target="_blank" rel="external nofollow noopener noreferrer">https://www.jianshu.com/p/17dc82bf08f1<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
-</ul>]]></description></item><item><title>web 开发规则，代码规范</title><link>https://lruihao.cn/posts/dev-rules/</link><pubDate>Thu, 15 Aug 2019 18:30:31 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/dev-rules/</guid><description><![CDATA[<h2 id="精神">精神</h2>
+</ul>]]></description></item><item><title>Web 开发规则，代码规范</title><link>https://lruihao.cn/posts/dev-rules/</link><pubDate>Thu, 15 Aug 2019 18:30:31 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/dev-rules/</guid><description><![CDATA[<h2 id="精神">精神</h2>
 <ul>
-<li>絕對不寫死程式</li>
-<li>不留不要用的、垃圾程式碼</li>
+<li>绝不写死代码，硬编码</li>
+<li>不留不要用的、垃圾代码</li>
 </ul>
 <h2 id="git">Git</h2>
 <ul>
-<li>Master 的 BUG 必須最少且趨近於零，为最稳定的版本</li>
-<li>每次 Commit 訊息應該確實填寫。不可模稜兩可，eg: 修复 BUG、增加功能</li>
-<li>禁止 Commit IDE 的 project data</li>
-<li>禁止上傳垃圾程式碼</li>
-<li>Gitea 編輯內容類似里程碑和版本描述時要使用 Markdown 格式</li>
+<li>Master 的 BUG 必须最少且趋近于零，为最稳定的版本</li>
+<li>每次 Commit 信息应该准确填写。不可模棱两可，eg: 修复 BUG、增加功能</li>
+<li>禁止 Commit IDE 的 project data，e.g: .vscode</li>
+<li>禁止上传垃圾代码</li>
 </ul>
+<blockquote>
+<p>更多规则详见文档 <a href="/posts/commit-spec/">Commit 规范</a></p>
+</blockquote>
 <h3 id="分支branch">分支（Branch）</h3>
 <ul>
-<li>命名規則：應以此分支主要目的命名（修復什麼 BUG，新增特定功能）<br>
-不可出現版本號，模組 ID</li>
-<li>合併後的分支應刪除</li>
+<li>命名规则：应以此分支主要目的命名（修复什么 BUG，新增特定功能）</li>
+<li>合并后的分支应该删除</li>
 </ul>
 <h3 id="commit">commit</h3>
 <ul>
-<li>遵循一個功能一個 commit 的原則</li>
+<li>遵循一个功能一个 commit 的原则</li>
 </ul>
 <h2 id="restful">Restful</h2>
 <ul>
-<li>資源名詞站在 API 的角度思考
+<li>
+<p>资源名词站在 API 的角度思考</p>
 <ul>
-<li>複數名詞：可以複數筆資料，回傳結果為 Array<br>
-舉例：GET/users 取得多筆使用者資料
+<li>
+<p>复数名词：可以复数笔数据，回传结果为 Array</p>
+<p>举例：GET/users 取得多笔使用者资料</p>
 <ul>
-<li>刪除，放在複數名詞內，讓 Router 保持一致性</li>
-<li>增加，放在複數名詞內，讓 Router 保持一致性</li>
+<li>刪除，放在复数名词內，让 Router 保持一致性</li>
+<li>增加，放在复数名詞內，让 Router 保持一致性</li>
 </ul>
 </li>
-<li>單數名詞：僅取得單筆資料，必須指定 PK，兩兩一組，回傳結果為 Object<br>
-舉例：GET/user/{accont} 取得單筆使用者資料，必須指定 PK</li>
+<li>
+<p>单数名词：仅取得单笔数据，必须指定 PK，两两一组，回传结果为 Object<br>
+举例：GET/user/{accont} 取得单笔使用者资料，必须指定 PK</p>
+</li>
 </ul>
 </li>
-<li>URL 中一律不帶 id 參數</li>
+<li>
+<p>URL 中一律不带 id 参数</p>
+</li>
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -2170,48 +2177,120 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">正確範例： calendar_manager/calendar/29
-</span></span><span class="line"><span class="cl">錯誤範例： calendar_manager/calendar/29?id=29
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">正确范例： calendar_manager/calendar/29
+</span></span><span class="line"><span class="cl">错误范例： calendar_manager/calendar/29?id=29
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="命名">命名</h2>
+</div><blockquote>
+<p>更多规则详见文档 <a href="/posts/restful/">RESTful</a></p>
+</blockquote>
+<h2 id="命名">命名</h2>
 <ul>
-<li>命名應根據內容做有意義的命名，讓後續維護人員可以顧名思義！</li>
-<li>即使不會發生錯誤，程式碼英文大小寫也需明確區分。</li>
+<li>命名应根据内容做有意义的命名，让后续维护人员可以顾名思义！</li>
+<li>即使不会发生错误，代码英文大小写也需明确区分。</li>
 </ul>
-<h3 id="語意">語意</h3>
+<h3 id="语意">语意</h3>
 <table>
 <thead>
 <tr>
-<th style="text-align:left">類型</th>
-<th style="text-align:left">命名規則</th>
-<th style="text-align:left">說明</th>
+<th style="text-align:left">类型</th>
+<th style="text-align:left">命名规则</th>
+<th style="text-align:left">说明</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align:left">屬性 (Attribute, Property)</td>
-<td style="text-align:left">名詞<br/>user_name、userName</td>
-<td></td>
+<td style="text-align:left">属性 (Attribute, Property)</td>
+<td style="text-align:left">名词 user_name、userName</td>
+<td style="text-align:left"></td>
 </tr>
 <tr>
 <td style="text-align:left">方法 (Method, Function)</td>
-<td style="text-align:left">動詞+名詞<br/>getUserName、get_user_name</td>
-<td style="text-align:left">常見的動詞有：get、set、update、delete、remove</td>
+<td style="text-align:left">动词 + 名词 getUserName、get_user_name</td>
+<td style="text-align:left">常見的动词有：get、set、update、delete、remove</td>
 </tr>
 </tbody>
 </table>
-<h3 id="字母與分隔">字母與分隔</h3>
-<table style="background: #fff;"><tbody><tr><th>語言</th><th>變數 (Variable, Parameter, Argument)</th><th>常數 (Constant)</th><th>物件導向 - 類名 (Class Name)</th><th>物件導向 - 成員 (mebmer)</th></tr><tr><td>HTML、CSS</td><td>全部小寫，不同單字以「-」分隔 <br> user-id</td><td colspan="3"></td></tr><tr><td>JavaScript</td><td><div style="color: #428bca;font-weight: bold;text-align: center;">駝峰式命名法</div>首字小寫，不同單字「首字以大寫」分隔 <br> userId</td><td rowspan="2">全部大寫，不同單字以「_」分隔<br>MAX_COUNT</td><td rowspan="2"><div style="color: #428bca;font-weight: bold;text-align: center;">駝峰式命名法</div>首字大寫，不同單字「首字以大寫」分隔<br>一個檔案放一個 Class<br>檔名即為 Class Name<br>User</td><td rowspan="2"><div style="color: #428bca;font-weight: bold;text-align: center;">駝峰式命名法</div>公有 (public)&nbsp;: 首字小寫，不同單字「首字以大寫」分隔 <br> name, getName<br>私有 (private): _公有命名規則<br> _name, _getName</td></tr><tr><td>PHP</td><td>全部小寫，不同單字以「_」分隔 <br> user_id</td></tr><tr><td>SQL</td><td>由使用者定義的：表名、欄位名<br>全部小寫，不同單字以「_」分隔</td><td>SQL 語法、函數 <br> 全部大寫 <br> SELECT、INSERT INTO</td><td colspan="2">-</td></tr></tbody></table>
+<h3 id="字母与分隔">字母与分隔</h3>
+<table>
+<thead>
+<tr>
+<th>语言</th>
+<th>变量 (Variable, Parameter, Argument)</th>
+<th>常量  (Constant)</th>
+<th>面向对象 - 类名 (Class Name)</th>
+<th>面向对象 - 成员 (mebmer)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>HTML</td>
+<td>全部小写，不同单词以「-」分隔<br />e.g: user-id</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>CSS、SCSS</td>
+<td>全部小写，不同单词以「-」分隔，CSS 变量以「&ndash;」开头，SCSS 变量以「$」开头<br />e.g: .user-id、&ndash;header-height、$header-height</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>JavaScript</td>
+<td>驼峰式命名法<br />首字小写，不同单字「首字以大写」分隔<br /> e.g: userId</td>
+<td>全部大写，不同单字以「_」分隔 MAX_COUNT</td>
+<td>驼峰式命名法<br />首字大写，不同单字「首字以大写」分隔<br />一个文件放一个 Class, 文件名即为 Class Name <br />e.g: User</td>
+<td>驼峰式命名法<br />公有 (public) : 首字小写，不同单词「首字以大写」分隔<br />e.g: name, getName<br />私有 (private): _公有命名规则<br />e.g: _name,_getName</td>
+</tr>
+<tr>
+<td>Vue</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Java</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>PHP</td>
+<td>全部小写，不同单词以「_」分隔<br />e.g: user_id</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Python</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>SQL</td>
+<td>由使用者定义的：表名、字段名<br />全部小写，不同单词以「_」分隔</td>
+<td>SQL 语法、函数全部大写<br />e.g: SELECT、INSERT INTO</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
 <h2 id="通用">通用</h2>
 <ul>
-<li>程式碼撰寫</li>
-<li>每個函數應該註解，註解應包含函數工能說明、引數說明。</li>
-<li>不必要的代碼不要寫，也禁止放到註解裡面！</li>
-<li>if-else 的 {} 嚴禁省略。</li>
-<li>{} 起始一律跟在 前一個功能的尾巴，禁止分行</li>
+<li>代码编写</li>
+<li><strong>每个函数应该使用块注释，注释应包含函数功能说明、参数说明</strong>。规则见：JSDoc、JavaDoc</li>
+<li>不必要的代码不要写，也应禁止放到注释里面！</li>
+<li>if-else 的 {} 严禁省略</li>
+<li>{} 起始一律跟在 前一个功能的尾巴，禁止分行</li>
+<li>代码规范、代码排版等可通过 eslint 等工具做统一处理</li>
 </ul>
-<h3 id="正確寫法">正確寫法</h3>
+<h3 id="正确写法">正确写法</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -2222,15 +2301,15 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">public function test(){
-</span></span><span class="line"><span class="cl">  //do something
-</span></span><span class="line"><span class="cl">  if($a === $b){
-</span></span><span class="line"><span class="cl">    //do something
-</span></span><span class="line"><span class="cl">  }
-</span></span><span class="line"><span class="cl">}
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">public</span> <span class="kd">function</span> <span class="nx">test</span> <span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// do something
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">if</span> <span class="p">(</span><span class="nx">a</span> <span class="o">===</span> <span class="nx">b</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// do something
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="錯誤寫法">錯誤寫法</h3>
+</div><h2 id="错误写法">错误写法</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -2243,47 +2322,47 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">public function test()
-</span></span><span class="line"><span class="cl">{
-</span></span><span class="line"><span class="cl">  //do something
-</span></span><span class="line"><span class="cl">  if($a === $b)
-</span></span><span class="line"><span class="cl">  {
-</span></span><span class="line"><span class="cl">    //do something
-</span></span><span class="line"><span class="cl">  }
-</span></span><span class="line"><span class="cl">}
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">public</span> <span class="kd">function</span> <span class="nx">test</span> <span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// do something
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">if</span> <span class="p">(</span><span class="nx">a</span> <span class="o">===</span> <span class="nx">b</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// do something
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><ul>
-<li>程式碼排版
+<li>代码排版
 <ul>
-<li>任何程式碼應該以 2 個 space 為一個階層做好排版、不可使用 tab。</li>
+<li>任何代码应该以 2 个 space 为一个缩进做好排版、不可使用 tab</li>
 </ul>
 </li>
-<li>函數 (Function, Methd)
+<li>函数 (Function, Methd)
 <ul>
-<li>函數宣告時需在函數上方加上函數註解，註解應包含函數說明、引數內容 （引數型態、引數英文名稱、引數說明）、 回傳值內容 （回傳值型態、回傳值說明）</li>
+<li>函数声明时需在函数上方加上函数注释，注释应包含函数说明、参数内容（参数类型、参数英文名称、参数说明）、返回值内容（返回值类型、返回值说明）</li>
 </ul>
 </li>
-<li>類 (Class)
+<li>类 (Class)
 <ul>
-<li>一個類 (Class) 的宣告只能存在一個檔案。</li>
-<li>類 (Class) 的宣告檔，檔名必須為類名。</li>
+<li>一个类（Class）的声明只能存在一个文件</li>
+<li>类（Class）的声明文件，文件名必须为类名</li>
 </ul>
 </li>
 <li>其他
 <ul>
-<li>連結本地任何其他資源 （圖片、檔案、網站） 皆使用相對路徑，禁止使用絕對路徑，非本地資源除外。</li>
+<li>连接本地任何其他资源（图片、文件、网站）皆使用相对路径，禁止使用绝对路径，非本地资源除外</li>
 </ul>
 </li>
 </ul>
 <h2 id="html">HTML</h2>
-<h3 id="程式碼撰寫">程式碼撰寫</h3>
+<h3 id="代码编写">代码编写</h3>
 <ul>
-<li>禁止在 HTML 使用 <code>&lt;style&gt;</code>、<code>&lt;script&gt;</code>，一律使用外部檔案引用方式引用 CSS、JavaScript 檔案。</li>
-<li>HTML 標籤需成雙成對，有頭有尾。</li>
-<li>區塊標籤：<code>&lt;tag&gt;&lt;/tag&gt;</code></li>
-<li>單標籤：<code>&lt;tag /&gt;</code></li>
-<li>禁止使用已被 HTML 捨棄的舊標籤、屬性，如：</li>
+<li>禁止在 HTML 使用 <code>&lt;style&gt;</code>、<code>&lt;script&gt;</code>，一律使用外部档案引用方式引用 CSS、JavaScript 文件</li>
+<li>HTML 标签需成双成对，有头有尾</li>
+<li>块级标签：<code>&lt;tag&gt;&lt;/tag&gt;</code></li>
+<li>单标签：<code>&lt;tag /&gt;</code></li>
+<li>禁止使用已被 HTML 舍弃的旧标签、属性，如：</li>
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -2303,75 +2382,42 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 </span><span class="lnt">14
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="c">&lt;!-- html tag --&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="nt">&lt;center&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="nt">&lt;font&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="nt">&lt;basefont&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="nt">&lt;s&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="nt">&lt;strike&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="nt">&lt;u&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="nt">&lt;listing&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="nt">&lt;plaintext&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="nt">&lt;xmp&gt;</span>
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="c">&lt;!-- html tag --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">center</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">font</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">basefont</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">s</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">strike</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">u</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">listing</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">plaintext</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">xmp</span><span class="p">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="c">&lt;!-- html attribute --&gt;</span>
 </span></span><span class="line"><span class="cl">align
 </span></span><span class="line"><span class="cl">bgcolor
 </span></span><span class="line"><span class="cl">color
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="資安禁止">資安禁止：</h3>
+</div><h2 id="css">CSS</h2>
 <blockquote>
-<p>禁止使用 readonly 做為參數傳遞</p>
-</blockquote>
-<h3 id="其他">其他</h3>
-<blockquote>
-<p>連結本地任何其他資源 （圖片、檔案、網站） 皆使用相對路徑，禁止使用絕對路徑，非本地資源除外。</p>
-</blockquote>
-<h2 id="css">CSS</h2>
-<h3 id="程式碼撰寫-1">程式碼撰寫</h3>
-<blockquote>
-<p>CSS 的定義應該獨立一個 CSS 檔案，禁止使用 <code>&lt;style&gt;</code> 或 <code>style</code> 屬性直接在 HTML 中定義樣式。</p>
+<p>CSS 的定义应该独立一个 CSS 文件，禁止使用 <code>&lt;style&gt;</code> 或 <code>style</code> 属性直接在 HTML 中定义样式。</p>
 </blockquote>
 <h2 id="javascript">JavaScript</h2>
-<h3 id="程式碼撰寫-2">程式碼撰寫</h3>
-<ul>
-<li>禁止使用 HTML 字串，一律使用 Dom 產生 HTML</li>
-<li>禁止省略箭頭函數 (Arrow function) 的括弧</li>
-</ul>
-<p>正確</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">a = (a, b) =&gt; {
-</span></span><span class="line"><span class="cl">  c;
-</span></span><span class="line"><span class="cl">}
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>錯誤 （這是允許的，但造成程式碼閱讀困難，故禁止）</p>
+<blockquote>
+<p>禁止使用 HTML 字串，一律使用 Dom 产生 HTML, e.g: <code>document.createDocumentFragment()</code></p>
+</blockquote>
+<h3 id="注释">注释</h3>
+<p>JavaScript 注释应该遵循 JSDoc 的标准撰写</p>
+<h4 id="全局变量-global">全局变量 (Global)</h4>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">a  =&gt; c;
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="cm">/* global ZT */</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="註解">註解</h3>
-<p>JavaScript 註解應該遵循 JSDoc 的標準撰寫</p>
-<h4 id="全域變數-global">全域變數 (Global)</h4>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">/* global $t, Tiger */
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h4 id="常數-constant">常數 (Constant)</h4>
+</div><h4 id="常量-constant">常量 (Constant)</h4>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -2380,10 +2426,10 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">/**
-</span></span><span class="line"><span class="cl"> * 常數說明
-</span></span><span class="line"><span class="cl"> * @type {常數型態}
-</span></span><span class="line"><span class="cl"> */
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 常量說明
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @type {常量类型}
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p><strong>Example</strong></p>
@@ -2396,11 +2442,11 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">/**
-</span></span><span class="line"><span class="cl"> * 使用者 ID
-</span></span><span class="line"><span class="cl"> * @type {String}
-</span></span><span class="line"><span class="cl"> */
-</span></span><span class="line"><span class="cl">var userId = &#39;Hello&#39;;
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 请求地址
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @type {String}
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">REQUEST_URL</span> <span class="o">=</span> <span class="s1">&#39;http://localhost:8080&#39;</span><span class="p">;</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><h4 id="函數方法-function-method">函數、方法 (Function, Method)</h4>
@@ -2415,13 +2461,13 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">/**
-</span></span><span class="line"><span class="cl"> * 函數用途說明
-</span></span><span class="line"><span class="cl"> * @param {引數型態} 引數名稱 引數說明
-</span></span><span class="line"><span class="cl"> * @param {引數型態} [選擇性引數名稱] 引數說明
-</span></span><span class="line"><span class="cl"> * @param {引數型態} [選擇性引數名稱=引數預設值] 引數說明
-</span></span><span class="line"><span class="cl"> * @returns {回傳值型態} 回傳值說明
-</span></span><span class="line"><span class="cl"> */
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 函数用途说明
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @param {参数类型} 参数名称参数说明
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @param {参数类型} [选择性参数名称] 参数说明
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @param {参数类型} [选择性参数名称=参数预设值] 参数说明
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @returns {返回值类型} 返回值说明
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p><strong>Example</strong></p>
@@ -2440,28 +2486,37 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 </span><span class="lnt">11
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">/**
-</span></span><span class="line"><span class="cl"> * 取得使用者
-</span></span><span class="line"><span class="cl"> * @param {Int} userId 使用者 ID
-</span></span><span class="line"><span class="cl"> * @param {Object} [options] 其他選項
-</span></span><span class="line"><span class="cl"> * @param {String} [options.query=&#39;a&#39;] 查詢關鍵字 預設為 a
-</span></span><span class="line"><span class="cl"> * @returns {Object} 使用者資料
-</span></span><span class="line"><span class="cl"> */
-</span></span><span class="line"><span class="cl">var getUser = function(userId, options){
-</span></span><span class="line"><span class="cl">  //do something
-</span></span><span class="line"><span class="cl">  return user;
-</span></span><span class="line"><span class="cl">};
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 取得使用者
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @param {Int} userId 使用者 ID
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @param {Object} [options] 其他选项
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @param {String} [options.query=&#39;a&#39;] 查询关键词 默认为 &#39;a&#39;
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @returns {Object} 使用者资料
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">getUser</span> <span class="p">(</span><span class="nx">userId</span><span class="p">,</span> <span class="nx">options</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// do something
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">return</span> <span class="nx">user</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="php">PHP</h2>
-<h3 id="前端參數取得">前端參數取得</h3>
-<p>參數取得需透過 filter_input 函數取得，不得使用 $_GET、 $_POST</p>
-<h3 id="輸出到前台">輸出到前台</h3>
-<p>參數命名必須為：全部小寫，不同單字以「_」分隔</p>
-<h3 id="註解-1">註解</h3>
-<p>PHP 註解應該遵循 PHPDoc 的標準撰寫</p>
-<h3 id="成員變數-member">成員變數 (Member)</h3>
-<p>成員變數只的是 Class 內的成員變數，我們都會要求替成員變數增加註解說明。通常 Function 的變數除非太特別否則都不需要特別註解說明。</p>
+</div><h2 id="vue">Vue</h2>
+<ul>
+<li><i class="fa-regular fa-square fa-fw" aria-hidden="true"></i> 待补充</li>
+</ul>
+<h2 id="java">Java</h2>
+<p>Java 注释应该遵循 JavaDoc 的标准撰写</p>
+<ul>
+<li><i class="fa-regular fa-square fa-fw" aria-hidden="true"></i> 待补充</li>
+</ul>
+<h2 id="php">PHP</h2>
+<h3 id="前端参数取得">前端参数取得</h3>
+<p>参数取得需通过 filter_input 函数取得，不得使用 _GET 、_POST</p>
+<h3 id="输出到前台">输出到前台</h3>
+<p>参数命名必须为：全部小写，不同单字以「_」分隔</p>
+<h3 id="注解">注解</h3>
+<p>PHP 注解应该遵循 PHPDoc 的标准撰写</p>
+<h3 id="成员变量-member">成员变量 (Member)</h3>
+<p>成员变量只的是 Class 内的成员变数，我们都会要求替成员变量增加注解说明。通常 Function 的变量除非太特别否则都不需要特别注解说明。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -2470,10 +2525,10 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">/**
-</span></span><span class="line"><span class="cl"> * 成員變數說明
-</span></span><span class="line"><span class="cl"> * @type {型態}
-</span></span><span class="line"><span class="cl"> */
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * 成员变量說明
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * @type {类型}
+</span></span></span><span class="line"><span class="cl"><span class="sd"> */</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p><strong>Example</strong></p>
@@ -2486,14 +2541,14 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">/**
-</span></span><span class="line"><span class="cl"> * 使用者 ID
-</span></span><span class="line"><span class="cl"> * @type {String}
-</span></span><span class="line"><span class="cl"> */
-</span></span><span class="line"><span class="cl">$userId = &#39;Hello&#39;;
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * 使用者 ID
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * @type {String}
+</span></span></span><span class="line"><span class="cl"><span class="sd"> */</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$userId</span> <span class="o">=</span> <span class="s1">&#39;Hello&#39;</span><span class="p">;</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="函數方法-function-method-1">函數、方法 (Function, Method)</h3>
+</div><h3 id="函数方法-function-method">函数、方法 (Function, Method)</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -2505,13 +2560,13 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">/**
-</span></span><span class="line"><span class="cl"> * 函數用途說明
-</span></span><span class="line"><span class="cl"> * @param 引數型態 引數名稱 引數說明
-</span></span><span class="line"><span class="cl"> * @option 引數選項型態 引數選項名稱 引數選項說明
-</span></span><span class="line"><span class="cl"> * @uses 全域變數 全域變數說明
-</span></span><span class="line"><span class="cl"> * @returns 回傳值型態 回傳值說明
-</span></span><span class="line"><span class="cl"> */
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * 函数用途说明
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * @param 参数型态 参数名称 参数说明
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * @option 参数选项类型 参数选项名称 参数选项说明
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * @uses 全局变量 全域变数说明
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * @returns 返回值类型 返回值说明
+</span></span></span><span class="line"><span class="cl"><span class="sd"> */</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p><strong>Example</strong></p>
@@ -2531,31 +2586,35 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 </span><span class="lnt">12
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">/**
-</span></span><span class="line"><span class="cl"> * 取得使用者
-</span></span><span class="line"><span class="cl"> * @param int userId 使用者 ID
-</span></span><span class="line"><span class="cl"> * @param object options 其他選項
-</span></span><span class="line"><span class="cl"> * @option string options[&#39;query&#39;] 查詢關鍵字
-</span></span><span class="line"><span class="cl"> * @uses $_POST[&#39;role_id&#39;] 從前端以 POST 取得角色 ID
-</span></span><span class="line"><span class="cl"> * @returns object 使用者資料
-</span></span><span class="line"><span class="cl"> */
-</span></span><span class="line"><span class="cl">function getUser($userId, $options){
-</span></span><span class="line"><span class="cl">  //do something
-</span></span><span class="line"><span class="cl">  return $user;
-</span></span><span class="line"><span class="cl">};
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * 取得使用者
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * @param int userId 使用者 ID
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * @param object options 其他选项
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * @option string options[&#39;query&#39;] 查询关键字
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * @uses $_POST[&#39;role_id&#39;] 从前端以 POST 取得角色 ID
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * @returns object 使用者资料
+</span></span></span><span class="line"><span class="cl"><span class="sd"> */</span>
+</span></span><span class="line"><span class="cl"><span class="k">function</span> <span class="nf">getUser</span> <span class="p">(</span><span class="nv">$userId</span><span class="p">,</span> <span class="nv">$options</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// do something
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">return</span> <span class="nv">$user</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="database">Database</h2>
+</div><h2 id="python">Python</h2>
+<ul>
+<li><i class="fa-regular fa-square fa-fw" aria-hidden="true"></i> 待补充</li>
+</ul>
+<h2 id="database">Database</h2>
 <ul>
 <li>禁止使用 Table Join。</li>
 <li>禁止使用 Oracle Trigger。</li>
-<li>禁止將查詢資料庫的 SQL 放在迴圈中查詢</li>
+<li>禁止将查询数据库的 SQL 放在循环中查询</li>
 </ul>
-<h3 id="sql-撰寫">SQL 撰寫</h3>
+<h3 id="sql-撰写">SQL 撰写</h3>
 <ul>
-<li>屬於 SQL 語法使用大寫 (SELECT, WHERE, INSERT etc..)</li>
-<li>屬於使用者自己定義的使用小寫 （表名 table name, 欄位名 column name etc..)</li>
-<li>表名、欄位名前後需加上 `</li>
+<li>属于 SQL 语法使用大写（SELECT，WHERE，INSERT etc..）</li>
+<li>属于使用者自己定义的使用小写（表名 table name，字段名 column name etc..）</li>
+<li>表名、字段名前后需加上 `</li>
 </ul>
 <p><strong>Example</strong></p>
 <div class="highlight"><div class="chroma">
@@ -2563,39 +2622,40 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="cl"><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="o">`</span><span class="k">user</span><span class="o">`</span><span class="w"> </span><span class="k">VALUES</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;b&#39;</span><span class="p">);</span><span class="w">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="o">`</span><span class="k">user</span><span class="o">`</span><span class="w"> </span><span class="k">VALUES</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;b&#39;</span><span class="p">);</span><span class="w">
 </span></span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="統一用詞">統一用詞</h2>
+</div><h2 id="统一用词">统一用词</h2>
 <blockquote>
-<p>僅為舉例，不限與此。</p>
+<p>系统中常用词，例如弹出框按钮、搜索框等，仅为举例，不限与此。</p>
 </blockquote>
 <table>
 <thead>
 <tr>
-<th style="text-align:left">用詞</th>
-<th style="text-align:left">統一</th>
+<th style="text-align:left">用词</th>
+<th style="text-align:left">统一</th>
 </tr>
 </thead>
 <tbody>
 <tr>
+<td style="text-align:left">最后、最终</td>
 <td style="text-align:left">最后</td>
-<td style="text-align:left">最後</td>
 </tr>
 <tr>
-<td style="text-align:left">關閉</td>
+<td style="text-align:left">关闭、Cancel、取消</td>
 <td style="text-align:left">取消</td>
 </tr>
 <tr>
-<td style="text-align:left">存儲<br/>保存<br/>修改</td>
-<td style="text-align:left">儲存</td>
+<td style="text-align:left">存储、保存、修改、OK、确定</td>
+<td style="text-align:left">确定</td>
 </tr>
 <tr>
-<td style="text-align:left">搜尋</td>
-<td style="text-align:left">查詢</td>
+<td style="text-align:left">搜寻、查询、查找、搜索</td>
+<td style="text-align:left">搜索</td>
 </tr>
 </tbody>
-</table>]]></description></item><item><title>vps 配置 ssl 及 https 重定向</title><link>https://lruihao.cn/posts/http2https/</link><pubDate>Thu, 28 Mar 2019 19:40:54 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/http2https/</guid><description><![CDATA[<blockquote>
+</table>
+]]></description></item><item><title>vps 配置 ssl 及 https 重定向</title><link>https://lruihao.cn/posts/http2https/</link><pubDate>Thu, 28 Mar 2019 19:40:54 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/http2https/</guid><description><![CDATA[<blockquote>
 <p>记录自己在配置 vps 及博客 SSL 证书时遇到的问题。</p>
 </blockquote>
 <h2 id="强制重定向-https">强制重定向 https</h2>
