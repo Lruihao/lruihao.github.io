@@ -80,14 +80,14 @@
   增加使用者跟角色的关系前，使用者跟角色都必须存在；增加使用者跟角色的关系前，使用者跟角色可以独立存在，
   使用者 12262 跟 角色 2 的关系最多只能有一条关系（ 使用者 12262 有 角色 2)，最少没有关系（使用者 12262 没有 角色 2 ) ，执行第二次操作时，使用者 12262 跟 角色 2  的从属关系仍然存在，也不会跑出第二条 使用者 12262 跟 角色 2 的从属关系
 
-```http
-PUT user/{account}/roles HTTP/1.1
-Host: 127.0.0.1
+  ```http
+  PUT user/{account}/roles HTTP/1.1
+  Host: 127.0.0.1
 
-{
-  "role_id": "2"
-}
-```
+  {
+    "role_id": "2"
+  }
+  ```
 
 - 范例：Follow a user 关注一个使用者 ([Gitea API](https://gitea.com/api/swagger#/user/userCurrentPutFollow))
 
