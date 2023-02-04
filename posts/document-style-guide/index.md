@@ -550,9 +550,9 @@ $1,000
 例句：周围温度：-20 °C 至 -10 °C
 ```
 
-# 文档体系
+## 文档体系
 
-## 结构
+### 结构
 
 软件手册是一部完整的书，建议采用下面的结构。
 
@@ -577,7 +577,7 @@ $1,000
 - [Redux 手册](https://redux.js.org/introduction/getting-started)
 - [Atom 手册](http://flight-manual.atom.io/)
 
-## 文件名
+### 文件名
 
 文档的文件名不得含有空格。
 
