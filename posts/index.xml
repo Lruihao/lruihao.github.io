@@ -1,4 +1,64 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>所有文章 - 菠菜眾長</title><link>https://lruihao.cn/posts/</link><description>所有文章 | 菠菜眾長</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><lastBuildDate>Sat, 04 Feb 2023 16:04:42 +0800</lastBuildDate><atom:link href="https://lruihao.cn/posts/" rel="self" type="application/rss+xml"/><item><title>中文技术文档的写作规范</title><link>https://lruihao.cn/posts/document-style-guide/</link><pubDate>Sat, 04 Feb 2023 16:04:42 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/document-style-guide/</guid><description><![CDATA[<blockquote>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>所有文章 - 菠菜眾長</title><link>https://lruihao.cn/posts/</link><description>所有文章 | 菠菜眾長</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><lastBuildDate>Sun, 05 Feb 2023 21:02:52 +0800</lastBuildDate><atom:link href="https://lruihao.cn/posts/" rel="self" type="application/rss+xml"/><item><title>浏览器渲染原理</title><link>https://lruihao.cn/posts/browser-rendering/</link><pubDate>Sun, 05 Feb 2023 21:02:52 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/browser-rendering/</guid><description><![CDATA[<iframe src="files/browser-rendering.pdf" width="100%" height="550"></iframe>
+<h2 id="浏览器是如何渲染页面的">浏览器是如何渲染页面的？</h2>
+<p>当浏览器的网络线程收到 HTML 文档后，会产生一个渲染任务，并将其传递给渲染主线程的消息队列。</p>
+<p>在事件循环机制的作用下，渲染主线程取出消息队列中的渲染任务，开启渲染流程。</p>
+<hr>
+<p>整个渲染流程分为多个阶段，分别是： HTML 解析、样式计算、布局、分层、绘制、分块、光栅化、画</p>
+<p>每个阶段都有明确的输入输出，上一个阶段的输出会成为下一个阶段的输入。</p>
+<p>这样，整个渲染流程就形成了一套组织严密的生产流水线。</p>
+<hr>
+<p>渲染的第一步是<strong>解析 HTML</strong>。</p>
+<p>解析过程中遇到 CSS 解析 CSS，遇到 JS 执行 JS。为了提高解析效率，浏览器在开始解析前，会启动一个预解析的线程，率先下载 HTML 中的外部 CSS 文件和 外部的 JS 文件。</p>
+<p>如果主线程解析到<code>link</code>位置，此时外部的 CSS 文件还没有下载解析好，主线程不会等待，继续解析后续的 HTML。这是因为下载和解析 CSS 的工作是在预解析线程中进行的。这就是 CSS 不会阻塞 HTML 解析的根本原因。</p>
+<p>如果主线程解析到<code>script</code>位置，会停止解析 HTML，转而等待 JS 文件下载好，并将全局代码解析执行完成后，才能继续解析 HTML。这是因为 JS 代码的执行过程可能会修改当前的 DOM 树，所以 DOM 树的生成必须暂停。这就是 JS 会阻塞 HTML 解析的根本原因。</p>
+<p>第一步完成后，会得到 DOM 树和 CSSOM 树，浏览器的默认样式、内部样式、外部样式、行内样式均会包含在 CSSOM 树中。</p>
+<hr>
+<p>渲染的下一步是<strong>样式计算</strong>。</p>
+<p>主线程会遍历得到的 DOM 树，依次为树中的每个节点计算出它最终的样式，称之为 Computed Style。</p>
+<p>在这一过程中，很多预设值会变成绝对值，比如<code>red</code>会变成<code>rgb(255,0,0)</code>；相对单位会变成绝对单位，比如<code>em</code>会变成<code>px</code></p>
+<p>这一步完成后，会得到一棵带有样式的 DOM 树。</p>
+<hr>
+<p>接下来是<strong>布局</strong>，布局完成后会得到布局树。</p>
+<p>布局阶段会依次遍历 DOM 树的每一个节点，计算每个节点的几何信息。例如节点的宽高、相对包含块的位置。</p>
+<p>大部分时候，DOM 树和布局树并非一一对应。</p>
+<p>比如<code>display:none</code>的节点没有几何信息，因此不会生成到布局树；又比如使用了伪元素选择器，虽然 DOM 树中不存在这些伪元素节点，但它们拥有几何信息，所以会生成到布局树中。还有匿名行盒、匿名块盒等等都会导致 DOM 树和布局树无法一一对应。</p>
+<hr>
+<p>下一步是<strong>分层</strong></p>
+<p>主线程会使用一套复杂的策略对整个布局树中进行分层。</p>
+<p>分层的好处在于，将来某一个层改变后，仅会对该层进行后续处理，从而提升效率。</p>
+<p>滚动条、堆叠上下文、transform、opacity 等样式都会或多或少的影响分层结果，也可以通过<code>will-change</code>属性更大程度的影响分层结果。</p>
+<hr>
+<p>再下一步是<strong>绘制</strong></p>
+<p>主线程会为每个层单独产生绘制指令集，用于描述这一层的内容该如何画出来。</p>
+<hr>
+<p>完成绘制后，主线程将每个图层的绘制信息提交给合成线程，剩余工作将由合成线程完成。</p>
+<p>合成线程首先对每个图层进行分块，将其划分为更多的小区域。</p>
+<p>它会从线程池中拿取多个线程来完成分块工作。</p>
+<hr>
+<p>分块完成后，进入<strong>光栅化</strong>阶段。</p>
+<p>合成线程会将块信息交给 GPU 进程，以极高的速度完成光栅化。</p>
+<p>GPU 进程会开启多个线程来完成光栅化，并且优先处理靠近视口区域的块。</p>
+<p>光栅化的结果，就是一块一块的位图</p>
+<hr>
+<p>最后一个阶段就是<strong>画</strong>了</p>
+<p>合成线程拿到每个层、每个块的位图后，生成一个个「指引（quad）」信息。</p>
+<p>指引会标识出每个位图应该画到屏幕的哪个位置，以及会考虑到旋转、缩放等变形。</p>
+<p>变形发生在合成线程，与渲染主线程无关，这就是<code>transform</code>效率高的本质原因。</p>
+<p>合成线程会把 quad 提交给 GPU 进程，由 GPU 进程产生系统调用，提交给 GPU 硬件，完成最终的屏幕成像。</p>
+<h2 id="什么是-reflow">什么是 reflow？</h2>
+<p>reflow 的本质就是重新计算 layout 树。</p>
+<p>当进行了会影响布局树的操作后，需要重新计算布局树，会引发 layout。</p>
+<p>为了避免连续的多次操作导致布局树反复计算，浏览器会合并这些操作，当 JS 代码全部完成后再进行统一计算。所以，改动属性造成的 reflow 是异步完成的。</p>
+<p>也同样因为如此，当 JS 获取布局属性时，就可能造成无法获取到最新的布局信息。</p>
+<p>浏览器在反复权衡下，最终决定获取属性立即 reflow。</p>
+<h2 id="什么是-repaint">什么是 repaint？</h2>
+<p>repaint 的本质就是重新根据分层信息计算了绘制指令。</p>
+<p>当改动了可见样式后，就需要重新计算，会引发 repaint。</p>
+<p>由于元素的布局信息也属于可见样式，所以 reflow 一定会引起 repaint。</p>
+<h2 id="为什么-transform-的效率高">为什么 transform 的效率高？</h2>
+<p>因为 transform 既不会影响布局也不会影响绘制指令，它影响的只是渲染流程的最后一个「draw」阶段</p>
+<p>由于 draw 阶段在合成线程中，所以 transform 的变化几乎不会影响渲染主线程。反之，渲染主线程无论如何忙碌，也不会影响 transform 的变化。</p>
+]]></description></item><item><title>中文技术文档的写作规范</title><link>https://lruihao.cn/posts/document-style-guide/</link><pubDate>Sat, 04 Feb 2023 16:04:42 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/document-style-guide/</guid><description><![CDATA[<blockquote>
 <p>以下参考来源：阮一峰的 <a href="https://github.com/ruanyf/document-style-guide"target="_blank" rel="external nofollow noopener noreferrer">中文技术文档的写作规范<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
 </blockquote>
 <p>英语世界里，文档非常受重视，许多公司和组织都有自己的文档规范，清楚地规定写作要求，比如<a href="https://www.microsoftpressstore.com/store/microsoft-manual-of-style-9780735648715"target="_blank" rel="external nofollow noopener noreferrer">微软<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>、<a href="http://styleguide.mailchimp.com/"target="_blank" rel="external nofollow noopener noreferrer">MailChimp<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>、<a href="https://help.apple.com/asg/mac/2013/ASG_2013.pdf"target="_blank" rel="external nofollow noopener noreferrer">Apple<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>、<a href="https://www.amazon.com/dp/B003P8QDFU/ref=dp-kindle-redirect?_encoding=UTF8&amp;btkr=1"target="_blank" rel="external nofollow noopener noreferrer">Yahoo<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>、<a href="https://docs.docker.com/opensource/doc-style/"target="_blank" rel="external nofollow noopener noreferrer">docker<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>、<a href="https://struts.apache.org/docs/documentation-style-guide.html"target="_blank" rel="external nofollow noopener noreferrer">Struts<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 等等（维基百科有一份完整的<a href="https://en.wikipedia.org/wiki/List_of_style_guides"target="_blank" rel="external nofollow noopener noreferrer">清单<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>）。<a href="https://github.com/ruanyf/document-style-guide/blob/master/docs/reference.md"target="_blank" rel="external nofollow noopener noreferrer">中文的<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>也有不少，但都不令人满意，要么太简单，要么不太适用。</p>
@@ -2832,7 +2892,67 @@ Idempotent：每次执行操作时，GET 只有读取 Resource，不会改变到
 <li><a href="http://www.ruanyifeng.com/blog/2015/12/git-cheat-sheet.html"target="_blank" rel="external nofollow noopener noreferrer">常用 Git 命令清单<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
 <li><a href="https://blog.csdn.net/qq1332479771/article/details/56087333"target="_blank" rel="external nofollow noopener noreferrer">github 上 fork 了别人的项目后，再同步更新别人的提交<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
 <li><a href="https://learngitbranching.js.org/"target="_blank" rel="external nofollow noopener noreferrer">Gearn Git Branching<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
-</ul>]]></description></item><item><title>中文技术文档的写作规范</title><link>https://lruihao.cn/posts/document-style-guide/</link><pubDate>Sat, 04 Feb 2023 16:04:42 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/document-style-guide/</guid><description><![CDATA[<blockquote>
+</ul>]]></description></item><item><title>浏览器渲染原理</title><link>https://lruihao.cn/posts/browser-rendering/</link><pubDate>Sun, 05 Feb 2023 21:02:52 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/browser-rendering/</guid><description><![CDATA[<iframe src="files/browser-rendering.pdf" width="100%" height="550"></iframe>
+<h2 id="浏览器是如何渲染页面的">浏览器是如何渲染页面的？</h2>
+<p>当浏览器的网络线程收到 HTML 文档后，会产生一个渲染任务，并将其传递给渲染主线程的消息队列。</p>
+<p>在事件循环机制的作用下，渲染主线程取出消息队列中的渲染任务，开启渲染流程。</p>
+<hr>
+<p>整个渲染流程分为多个阶段，分别是： HTML 解析、样式计算、布局、分层、绘制、分块、光栅化、画</p>
+<p>每个阶段都有明确的输入输出，上一个阶段的输出会成为下一个阶段的输入。</p>
+<p>这样，整个渲染流程就形成了一套组织严密的生产流水线。</p>
+<hr>
+<p>渲染的第一步是<strong>解析 HTML</strong>。</p>
+<p>解析过程中遇到 CSS 解析 CSS，遇到 JS 执行 JS。为了提高解析效率，浏览器在开始解析前，会启动一个预解析的线程，率先下载 HTML 中的外部 CSS 文件和 外部的 JS 文件。</p>
+<p>如果主线程解析到<code>link</code>位置，此时外部的 CSS 文件还没有下载解析好，主线程不会等待，继续解析后续的 HTML。这是因为下载和解析 CSS 的工作是在预解析线程中进行的。这就是 CSS 不会阻塞 HTML 解析的根本原因。</p>
+<p>如果主线程解析到<code>script</code>位置，会停止解析 HTML，转而等待 JS 文件下载好，并将全局代码解析执行完成后，才能继续解析 HTML。这是因为 JS 代码的执行过程可能会修改当前的 DOM 树，所以 DOM 树的生成必须暂停。这就是 JS 会阻塞 HTML 解析的根本原因。</p>
+<p>第一步完成后，会得到 DOM 树和 CSSOM 树，浏览器的默认样式、内部样式、外部样式、行内样式均会包含在 CSSOM 树中。</p>
+<hr>
+<p>渲染的下一步是<strong>样式计算</strong>。</p>
+<p>主线程会遍历得到的 DOM 树，依次为树中的每个节点计算出它最终的样式，称之为 Computed Style。</p>
+<p>在这一过程中，很多预设值会变成绝对值，比如<code>red</code>会变成<code>rgb(255,0,0)</code>；相对单位会变成绝对单位，比如<code>em</code>会变成<code>px</code></p>
+<p>这一步完成后，会得到一棵带有样式的 DOM 树。</p>
+<hr>
+<p>接下来是<strong>布局</strong>，布局完成后会得到布局树。</p>
+<p>布局阶段会依次遍历 DOM 树的每一个节点，计算每个节点的几何信息。例如节点的宽高、相对包含块的位置。</p>
+<p>大部分时候，DOM 树和布局树并非一一对应。</p>
+<p>比如<code>display:none</code>的节点没有几何信息，因此不会生成到布局树；又比如使用了伪元素选择器，虽然 DOM 树中不存在这些伪元素节点，但它们拥有几何信息，所以会生成到布局树中。还有匿名行盒、匿名块盒等等都会导致 DOM 树和布局树无法一一对应。</p>
+<hr>
+<p>下一步是<strong>分层</strong></p>
+<p>主线程会使用一套复杂的策略对整个布局树中进行分层。</p>
+<p>分层的好处在于，将来某一个层改变后，仅会对该层进行后续处理，从而提升效率。</p>
+<p>滚动条、堆叠上下文、transform、opacity 等样式都会或多或少的影响分层结果，也可以通过<code>will-change</code>属性更大程度的影响分层结果。</p>
+<hr>
+<p>再下一步是<strong>绘制</strong></p>
+<p>主线程会为每个层单独产生绘制指令集，用于描述这一层的内容该如何画出来。</p>
+<hr>
+<p>完成绘制后，主线程将每个图层的绘制信息提交给合成线程，剩余工作将由合成线程完成。</p>
+<p>合成线程首先对每个图层进行分块，将其划分为更多的小区域。</p>
+<p>它会从线程池中拿取多个线程来完成分块工作。</p>
+<hr>
+<p>分块完成后，进入<strong>光栅化</strong>阶段。</p>
+<p>合成线程会将块信息交给 GPU 进程，以极高的速度完成光栅化。</p>
+<p>GPU 进程会开启多个线程来完成光栅化，并且优先处理靠近视口区域的块。</p>
+<p>光栅化的结果，就是一块一块的位图</p>
+<hr>
+<p>最后一个阶段就是<strong>画</strong>了</p>
+<p>合成线程拿到每个层、每个块的位图后，生成一个个「指引（quad）」信息。</p>
+<p>指引会标识出每个位图应该画到屏幕的哪个位置，以及会考虑到旋转、缩放等变形。</p>
+<p>变形发生在合成线程，与渲染主线程无关，这就是<code>transform</code>效率高的本质原因。</p>
+<p>合成线程会把 quad 提交给 GPU 进程，由 GPU 进程产生系统调用，提交给 GPU 硬件，完成最终的屏幕成像。</p>
+<h2 id="什么是-reflow">什么是 reflow？</h2>
+<p>reflow 的本质就是重新计算 layout 树。</p>
+<p>当进行了会影响布局树的操作后，需要重新计算布局树，会引发 layout。</p>
+<p>为了避免连续的多次操作导致布局树反复计算，浏览器会合并这些操作，当 JS 代码全部完成后再进行统一计算。所以，改动属性造成的 reflow 是异步完成的。</p>
+<p>也同样因为如此，当 JS 获取布局属性时，就可能造成无法获取到最新的布局信息。</p>
+<p>浏览器在反复权衡下，最终决定获取属性立即 reflow。</p>
+<h2 id="什么是-repaint">什么是 repaint？</h2>
+<p>repaint 的本质就是重新根据分层信息计算了绘制指令。</p>
+<p>当改动了可见样式后，就需要重新计算，会引发 repaint。</p>
+<p>由于元素的布局信息也属于可见样式，所以 reflow 一定会引起 repaint。</p>
+<h2 id="为什么-transform-的效率高">为什么 transform 的效率高？</h2>
+<p>因为 transform 既不会影响布局也不会影响绘制指令，它影响的只是渲染流程的最后一个「draw」阶段</p>
+<p>由于 draw 阶段在合成线程中，所以 transform 的变化几乎不会影响渲染主线程。反之，渲染主线程无论如何忙碌，也不会影响 transform 的变化。</p>
+]]></description></item><item><title>中文技术文档的写作规范</title><link>https://lruihao.cn/posts/document-style-guide/</link><pubDate>Sat, 04 Feb 2023 16:04:42 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/document-style-guide/</guid><description><![CDATA[<blockquote>
 <p>以下参考来源：阮一峰的 <a href="https://github.com/ruanyf/document-style-guide"target="_blank" rel="external nofollow noopener noreferrer">中文技术文档的写作规范<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
 </blockquote>
 <p>英语世界里，文档非常受重视，许多公司和组织都有自己的文档规范，清楚地规定写作要求，比如<a href="https://www.microsoftpressstore.com/store/microsoft-manual-of-style-9780735648715"target="_blank" rel="external nofollow noopener noreferrer">微软<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>、<a href="http://styleguide.mailchimp.com/"target="_blank" rel="external nofollow noopener noreferrer">MailChimp<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>、<a href="https://help.apple.com/asg/mac/2013/ASG_2013.pdf"target="_blank" rel="external nofollow noopener noreferrer">Apple<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>、<a href="https://www.amazon.com/dp/B003P8QDFU/ref=dp-kindle-redirect?_encoding=UTF8&amp;btkr=1"target="_blank" rel="external nofollow noopener noreferrer">Yahoo<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>、<a href="https://docs.docker.com/opensource/doc-style/"target="_blank" rel="external nofollow noopener noreferrer">docker<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>、<a href="https://struts.apache.org/docs/documentation-style-guide.html"target="_blank" rel="external nofollow noopener noreferrer">Struts<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 等等（维基百科有一份完整的<a href="https://en.wikipedia.org/wiki/List_of_style_guides"target="_blank" rel="external nofollow noopener noreferrer">清单<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>）。<a href="https://github.com/ruanyf/document-style-guide/blob/master/docs/reference.md"target="_blank" rel="external nofollow noopener noreferrer">中文的<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>也有不少，但都不令人满意，要么太简单，要么不太适用。</p>
@@ -6523,432 +6643,4 @@ static/images/card-link-bg.jpg
       <div class="admonition-content">我的博客即将同步至腾讯云+社区，邀请大家一同入驻：<br>
 <a href="https://cloud.tencent.com/developer/support-plan?invite_code=3o5dmfzf0xkwk"target="_blank" rel="external nofollow noopener noreferrer">https://cloud.tencent.com/developer/support-plan?invite_code=3o5dmfzf0xkwk<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></div>
     </div>
-  </div>]]></description></item><item><title>Hugo i18n 添加中文繁體翻譯</title><link>https://lruihao.cn/posts/hugo-i18n-zh-tw/</link><pubDate>Tue, 05 Oct 2021 19:14:45 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/hugo-i18n-zh-tw/</guid><description><![CDATA[<blockquote>
-<p>工作上一直常用繁體，最近臨帖也都寫的繁體，所以博客的語言也想換成繁體，但是 LoveIt 主題沒有支持中文繁體。就只好自己添加了。</p>
-</blockquote>
-<h2 id="翻譯">翻譯</h2>
-<p>屬於直譯，有些詞語可能並不符合現在臺灣或者香港那邊的說法。比如，<code>分類</code>好像臺灣常說<code>歸類</code>吧</p>
-<p>新建 <code>i18n/zh-TW.toml</code></p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">  1
-</span><span class="lnt">  2
-</span><span class="lnt">  3
-</span><span class="lnt">  4
-</span><span class="lnt">  5
-</span><span class="lnt">  6
-</span><span class="lnt">  7
-</span><span class="lnt">  8
-</span><span class="lnt">  9
-</span><span class="lnt"> 10
-</span><span class="lnt"> 11
-</span><span class="lnt"> 12
-</span><span class="lnt"> 13
-</span><span class="lnt"> 14
-</span><span class="lnt"> 15
-</span><span class="lnt"> 16
-</span><span class="lnt"> 17
-</span><span class="lnt"> 18
-</span><span class="lnt"> 19
-</span><span class="lnt"> 20
-</span><span class="lnt"> 21
-</span><span class="lnt"> 22
-</span><span class="lnt"> 23
-</span><span class="lnt"> 24
-</span><span class="lnt"> 25
-</span><span class="lnt"> 26
-</span><span class="lnt"> 27
-</span><span class="lnt"> 28
-</span><span class="lnt"> 29
-</span><span class="lnt"> 30
-</span><span class="lnt"> 31
-</span><span class="lnt"> 32
-</span><span class="lnt"> 33
-</span><span class="lnt"> 34
-</span><span class="lnt"> 35
-</span><span class="lnt"> 36
-</span><span class="lnt"> 37
-</span><span class="lnt"> 38
-</span><span class="lnt"> 39
-</span><span class="lnt"> 40
-</span><span class="lnt"> 41
-</span><span class="lnt"> 42
-</span><span class="lnt"> 43
-</span><span class="lnt"> 44
-</span><span class="lnt"> 45
-</span><span class="lnt"> 46
-</span><span class="lnt"> 47
-</span><span class="lnt"> 48
-</span><span class="lnt"> 49
-</span><span class="lnt"> 50
-</span><span class="lnt"> 51
-</span><span class="lnt"> 52
-</span><span class="lnt"> 53
-</span><span class="lnt"> 54
-</span><span class="lnt"> 55
-</span><span class="lnt"> 56
-</span><span class="lnt"> 57
-</span><span class="lnt"> 58
-</span><span class="lnt"> 59
-</span><span class="lnt"> 60
-</span><span class="lnt"> 61
-</span><span class="lnt"> 62
-</span><span class="lnt"> 63
-</span><span class="lnt"> 64
-</span><span class="lnt"> 65
-</span><span class="lnt"> 66
-</span><span class="lnt"> 67
-</span><span class="lnt"> 68
-</span><span class="lnt"> 69
-</span><span class="lnt"> 70
-</span><span class="lnt"> 71
-</span><span class="lnt"> 72
-</span><span class="lnt"> 73
-</span><span class="lnt"> 74
-</span><span class="lnt"> 75
-</span><span class="lnt"> 76
-</span><span class="lnt"> 77
-</span><span class="lnt"> 78
-</span><span class="lnt"> 79
-</span><span class="lnt"> 80
-</span><span class="lnt"> 81
-</span><span class="lnt"> 82
-</span><span class="lnt"> 83
-</span><span class="lnt"> 84
-</span><span class="lnt"> 85
-</span><span class="lnt"> 86
-</span><span class="lnt"> 87
-</span><span class="lnt"> 88
-</span><span class="lnt"> 89
-</span><span class="lnt"> 90
-</span><span class="lnt"> 91
-</span><span class="lnt"> 92
-</span><span class="lnt"> 93
-</span><span class="lnt"> 94
-</span><span class="lnt"> 95
-</span><span class="lnt"> 96
-</span><span class="lnt"> 97
-</span><span class="lnt"> 98
-</span><span class="lnt"> 99
-</span><span class="lnt">100
-</span><span class="lnt">101
-</span><span class="lnt">102
-</span><span class="lnt">103
-</span><span class="lnt">104
-</span><span class="lnt">105
-</span><span class="lnt">106
-</span><span class="lnt">107
-</span><span class="lnt">108
-</span><span class="lnt">109
-</span><span class="lnt">110
-</span><span class="lnt">111
-</span><span class="lnt">112
-</span><span class="lnt">113
-</span><span class="lnt">114
-</span><span class="lnt">115
-</span><span class="lnt">116
-</span><span class="lnt">117
-</span><span class="lnt">118
-</span><span class="lnt">119
-</span><span class="lnt">120
-</span><span class="lnt">121
-</span><span class="lnt">122
-</span><span class="lnt">123
-</span><span class="lnt">124
-</span><span class="lnt">125
-</span><span class="lnt">126
-</span><span class="lnt">127
-</span><span class="lnt">128
-</span><span class="lnt">129
-</span><span class="lnt">130
-</span><span class="lnt">131
-</span><span class="lnt">132
-</span><span class="lnt">133
-</span><span class="lnt">134
-</span><span class="lnt">135
-</span><span class="lnt">136
-</span><span class="lnt">137
-</span><span class="lnt">138
-</span><span class="lnt">139
-</span><span class="lnt">140
-</span><span class="lnt">141
-</span><span class="lnt">142
-</span><span class="lnt">143
-</span><span class="lnt">144
-</span><span class="lnt">145
-</span><span class="lnt">146
-</span><span class="lnt">147
-</span><span class="lnt">148
-</span><span class="lnt">149
-</span><span class="lnt">150
-</span><span class="lnt">151
-</span><span class="lnt">152
-</span><span class="lnt">153
-</span><span class="lnt">154
-</span><span class="lnt">155
-</span><span class="lnt">156
-</span><span class="lnt">157
-</span><span class="lnt">158
-</span><span class="lnt">159
-</span><span class="lnt">160
-</span><span class="lnt">161
-</span><span class="lnt">162
-</span><span class="lnt">163
-</span><span class="lnt">164
-</span><span class="lnt">165
-</span><span class="lnt">166
-</span><span class="lnt">167
-</span><span class="lnt">168
-</span><span class="lnt">169
-</span><span class="lnt">170
-</span><span class="lnt">171
-</span><span class="lnt">172
-</span><span class="lnt">173
-</span><span class="lnt">174
-</span><span class="lnt">175
-</span><span class="lnt">176
-</span><span class="lnt">177
-</span><span class="lnt">178
-</span><span class="lnt">179
-</span><span class="lnt">180
-</span><span class="lnt">181
-</span><span class="lnt">182
-</span><span class="lnt">183
-</span><span class="lnt">184
-</span><span class="lnt">185
-</span><span class="lnt">186
-</span><span class="lnt">187
-</span><span class="lnt">188
-</span><span class="lnt">189
-</span><span class="lnt">190
-</span><span class="lnt">191
-</span><span class="lnt">192
-</span><span class="lnt">193
-</span><span class="lnt">194
-</span><span class="lnt">195
-</span><span class="lnt">196
-</span><span class="lnt">197
-</span><span class="lnt">198
-</span><span class="lnt">199
-</span><span class="lnt">200
-</span><span class="lnt">201
-</span><span class="lnt">202
-</span><span class="lnt">203
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-toml" data-lang="toml"><span class="line"><span class="cl"><span class="c"># Translations for Traditional Chinese</span>
-</span></span><span class="line"><span class="cl"><span class="c"># 簡體中文的翻譯</span>
-</span></span><span class="line"><span class="cl"><span class="c"># https://gohugo.io/content-management/multilingual/#translation-of-strings</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c"># === baseof ==</span>
-</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="nx">backToTop</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl"><span class="nx">other</span> <span class="p">=</span> <span class="s2">&#34;回到頂部&#34;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="nx">viewComments</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl"><span class="nx">other</span> <span class="p">=</span> <span class="s2">&#34;查看評論&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="c"># === baseof ==</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c"># === Post ===</span>
-</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="nx">posts</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl"><span class="nx">other</span> <span class="p">=</span> <span class="s2">&#34;文章&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="c"># === Post ===</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c"># === Taxonomy ===</span>
-</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="nx">allSome</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl"><span class="nx">other</span> <span class="p">=</span> <span class="s2">&#34;所有{{ .Some }}&#34;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="nx">tag</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl"><span class="nx">other</span> <span class="p">=</span> <span class="s2">&#34;標籤&#34;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="nx">tags</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl"><span class="nx">other</span> <span class="p">=</span> <span class="s2">&#34;標籤&#34;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="nx">category</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl"><span class="nx">other</span> <span class="p">=</span> <span class="s2">&#34;分類&#34;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="nx">categories</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl"><span class="nx">other</span> <span class="p">=</span> <span class="s2">&#34;分類&#34;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="nx">years</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl"><span class="nx">other</span> <span class="p">=</span> <span class="s2">&#34;年度總結&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="c"># === Taxonomy ===</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c"># === Pagination ===</span>
-</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="nx">more</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl"><span class="nx">other</span> <span class="p">=</span> <span class="s2">&#34;更多&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="c"># === Pagination ===</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c"># === partials/header.html ===</span>
-</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="nx">selectLanguage</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl"><span class="nx">other</span> <span class="p">=</span> <span class="s2">&#34;選擇語言&#34;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="nx">switchTheme</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl"><span class="nx">other</span> <span class="p">=</span> <span class="s2">&#34;切換主題&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="c"># === partials/header.html ===</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c"># === partials/footer.html ===</span>
-</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="nx">poweredBySome</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl"><span class="nx">other</span> <span class="p">=</span> <span class="s2">&#34;由 {{ .Hugo }} 強力驅動 | 主題 - {{ .Theme }}&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="c"># === partials/footer.html ===</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c"># === partials/comment.html ===</span>
-</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="nx">valineLang</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl"><span class="nx">other</span> <span class="p">=</span> <span class="s2">&#34;zh-TW&#34;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="nx">valinePlaceholder</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl"><span class="nx">other</span> <span class="p">=</span> <span class="s2">&#34;你的評論 ...&#34;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="nx">facebookLanguageCode</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl"><span class="nx">other</span> <span class="p">=</span> <span class="s2">&#34;zh-TW&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="c"># === partials/comment.html ===</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c"># === partials/assets.html ===</span>
-</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="nx">search</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl"><span class="nx">other</span> <span class="p">=</span> <span class="s2">&#34;搜索&#34;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="nx">searchPlaceholder</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl"><span class="nx">other</span> <span class="p">=</span> <span class="s2">&#34;搜索文章標題或內容 ...&#34;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="nx">clear</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl"><span class="nx">other</span> <span class="p">=</span> <span class="s2">&#34;清空&#34;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="nx">cancel</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl"><span class="nx">other</span> <span class="p">=</span> <span class="s2">&#34;取消&#34;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="nx">noResultsFound</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl"><span class="nx">other</span> <span class="p">=</span> <span class="s2">&#34;沒有找到結果&#34;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="nx">lunrLanguageCode</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl"><span class="nx">other</span> <span class="p">=</span> <span class="s2">&#34;zh&#34;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="nx">lunrLanguageLib</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl"><span class="nx">other</span> <span class="p">=</span> <span class="s2">&#34;lib/lunr/lunr.zh.js&#34;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="nx">lunrSegmentitLib</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl"><span class="nx">other</span> <span class="p">=</span> <span class="s2">&#34;lib/lunr/lunr.segmentit.js&#34;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="nx">copyToClipboard</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl"><span class="nx">other</span> <span class="p">=</span> <span class="s2">&#34;複製到剪貼板&#34;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="nx">cookieconsentMessage</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl"><span class="nx">other</span> <span class="p">=</span> <span class="s2">&#34;本網站使用 Cookies 來改善您的流覽體驗。&#34;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="nx">cookieconsentDismiss</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl"><span class="nx">other</span> <span class="p">=</span> <span class="s2">&#34;同意&#34;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="nx">cookieconsentLink</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl"><span class="nx">other</span> <span class="p">=</span> <span class="s2">&#34;瞭解更多&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="c"># === partials/assets.html ===</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c"># === partials/plugin/share.html ===</span>
-</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="nx">shareOn</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl"><span class="nx">other</span> <span class="p">=</span> <span class="s2">&#34;分享到&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="c"># === partials/plugin/share.html ===</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c"># === posts/single.html ===</span>
-</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="nx">contents</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl"><span class="nx">other</span> <span class="p">=</span> <span class="s2">&#34;目錄&#34;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="nx">publishedOnDate</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl"><span class="nx">other</span> <span class="p">=</span> <span class="s2">&#34;發佈於 {{ .Date }}&#34;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="nx">includedInCategories</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl"><span class="nx">other</span> <span class="p">=</span> <span class="s2">&#34;收錄於 {{ .Categories }}&#34;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="nx">wordCount</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl"><span class="nx">other</span> <span class="p">=</span> <span class="s2">&#34;約 {{ .Count }} 字&#34;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="nx">readingTime</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl"><span class="nx">other</span> <span class="p">=</span> <span class="s2">&#34;預計閱讀 {{ .Count }} 分鐘&#34;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="nx">views</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl"><span class="nx">other</span> <span class="p">=</span> <span class="s2">&#34;次閱讀&#34;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="nx">author</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl"><span class="nx">other</span> <span class="p">=</span> <span class="s2">&#34;作者&#34;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="nx">updatedOnDate</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl"><span class="nx">other</span> <span class="p">=</span> <span class="s2">&#34;更新於 {{ .Date }}&#34;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="nx">readMarkdown</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl"><span class="nx">other</span> <span class="p">=</span> <span class="s2">&#34;閱讀原始文檔&#34;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="nx">back</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl"><span class="nx">other</span> <span class="p">=</span> <span class="s2">&#34;返回&#34;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="nx">home</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl"><span class="nx">other</span> <span class="p">=</span> <span class="s2">&#34;主頁&#34;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="nx">readMore</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl"><span class="nx">other</span> <span class="p">=</span> <span class="s2">&#34;閱讀全文&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="c"># === posts/single.html ===</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c"># === 404.html ===</span>
-</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="nx">pageNotFound</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl"><span class="nx">other</span> <span class="p">=</span> <span class="s2">&#34;頁面沒找到&#34;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="nx">pageNotFoundText</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl"><span class="nx">other</span> <span class="p">=</span> <span class="s2">&#34;抱歉，您要查找的頁面不存在。&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="c"># === 404.html ===</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c"># === shortcodes/admonition.html ===</span>
-</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="nx">note</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl"><span class="nx">other</span> <span class="p">=</span> <span class="s2">&#34;注意&#34;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="nx">abstract</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl"><span class="nx">other</span> <span class="p">=</span> <span class="s2">&#34;摘要&#34;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="nx">info</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl"><span class="nx">other</span> <span class="p">=</span> <span class="s2">&#34;信息&#34;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="nx">tip</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl"><span class="nx">other</span> <span class="p">=</span> <span class="s2">&#34;技巧&#34;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="nx">success</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl"><span class="nx">other</span> <span class="p">=</span> <span class="s2">&#34;成功&#34;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="nx">question</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl"><span class="nx">other</span> <span class="p">=</span> <span class="s2">&#34;問題&#34;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="nx">warning</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl"><span class="nx">other</span> <span class="p">=</span> <span class="s2">&#34;警告&#34;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="nx">failure</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl"><span class="nx">other</span> <span class="p">=</span> <span class="s2">&#34;失敗&#34;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="nx">danger</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl"><span class="nx">other</span> <span class="p">=</span> <span class="s2">&#34;危險&#34;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="nx">bug</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl"><span class="nx">other</span> <span class="p">=</span> <span class="s2">&#34;Bug&#34;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="nx">example</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl"><span class="nx">other</span> <span class="p">=</span> <span class="s2">&#34;示例&#34;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="nx">quote</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl"><span class="nx">other</span> <span class="p">=</span> <span class="s2">&#34;引用&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="c"># === shortcodes/admonition.html ===</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c"># === shortcodes/version.html ===</span>
-</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="nx">new</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl"><span class="nx">other</span> <span class="p">=</span> <span class="s2">&#34;新增&#34;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="nx">changed</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl"><span class="nx">other</span> <span class="p">=</span> <span class="s2">&#34;更改&#34;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="nx">deleted</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl"><span class="nx">other</span> <span class="p">=</span> <span class="s2">&#34;刪除&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="c"># === shortcodes/version.html ===</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="配置">配置</h2>
-<p>打開 <code>config.toml</code></p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-toml" data-lang="toml"><span class="line"><span class="cl"><span class="nx">defaultContentLanguage</span> <span class="p">=</span> <span class="s2">&#34;zh-tw&#34;</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div>]]></description></item></channel></rss>
+  </div>]]></description></item></channel></rss>

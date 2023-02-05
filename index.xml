@@ -1,4 +1,64 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>菠菜眾長</title><link>https://lruihao.cn/</link><description>Lruihao's Note 李瑞豪的博客：探索、分享、记录自己在工作生活学习到一些东西。人知道得越多，就就会发现无知的越多。有更广袤世界可以探索，真是莫大的快乐啊！</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><lastBuildDate>Sat, 04 Feb 2023 16:04:42 +0800</lastBuildDate><atom:link href="https://lruihao.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>中文技术文档的写作规范</title><link>https://lruihao.cn/posts/document-style-guide/</link><pubDate>Sat, 04 Feb 2023 16:04:42 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/document-style-guide/</guid><description><![CDATA[<blockquote>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>菠菜眾長</title><link>https://lruihao.cn/</link><description>Lruihao's Note 李瑞豪的博客：探索、分享、记录自己在工作生活学习到一些东西。人知道得越多，就就会发现无知的越多。有更广袤世界可以探索，真是莫大的快乐啊！</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><lastBuildDate>Sun, 05 Feb 2023 21:02:52 +0800</lastBuildDate><atom:link href="https://lruihao.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>浏览器渲染原理</title><link>https://lruihao.cn/posts/browser-rendering/</link><pubDate>Sun, 05 Feb 2023 21:02:52 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/browser-rendering/</guid><description><![CDATA[<iframe src="files/browser-rendering.pdf" width="100%" height="550"></iframe>
+<h2 id="浏览器是如何渲染页面的">浏览器是如何渲染页面的？</h2>
+<p>当浏览器的网络线程收到 HTML 文档后，会产生一个渲染任务，并将其传递给渲染主线程的消息队列。</p>
+<p>在事件循环机制的作用下，渲染主线程取出消息队列中的渲染任务，开启渲染流程。</p>
+<hr>
+<p>整个渲染流程分为多个阶段，分别是： HTML 解析、样式计算、布局、分层、绘制、分块、光栅化、画</p>
+<p>每个阶段都有明确的输入输出，上一个阶段的输出会成为下一个阶段的输入。</p>
+<p>这样，整个渲染流程就形成了一套组织严密的生产流水线。</p>
+<hr>
+<p>渲染的第一步是<strong>解析 HTML</strong>。</p>
+<p>解析过程中遇到 CSS 解析 CSS，遇到 JS 执行 JS。为了提高解析效率，浏览器在开始解析前，会启动一个预解析的线程，率先下载 HTML 中的外部 CSS 文件和 外部的 JS 文件。</p>
+<p>如果主线程解析到<code>link</code>位置，此时外部的 CSS 文件还没有下载解析好，主线程不会等待，继续解析后续的 HTML。这是因为下载和解析 CSS 的工作是在预解析线程中进行的。这就是 CSS 不会阻塞 HTML 解析的根本原因。</p>
+<p>如果主线程解析到<code>script</code>位置，会停止解析 HTML，转而等待 JS 文件下载好，并将全局代码解析执行完成后，才能继续解析 HTML。这是因为 JS 代码的执行过程可能会修改当前的 DOM 树，所以 DOM 树的生成必须暂停。这就是 JS 会阻塞 HTML 解析的根本原因。</p>
+<p>第一步完成后，会得到 DOM 树和 CSSOM 树，浏览器的默认样式、内部样式、外部样式、行内样式均会包含在 CSSOM 树中。</p>
+<hr>
+<p>渲染的下一步是<strong>样式计算</strong>。</p>
+<p>主线程会遍历得到的 DOM 树，依次为树中的每个节点计算出它最终的样式，称之为 Computed Style。</p>
+<p>在这一过程中，很多预设值会变成绝对值，比如<code>red</code>会变成<code>rgb(255,0,0)</code>；相对单位会变成绝对单位，比如<code>em</code>会变成<code>px</code></p>
+<p>这一步完成后，会得到一棵带有样式的 DOM 树。</p>
+<hr>
+<p>接下来是<strong>布局</strong>，布局完成后会得到布局树。</p>
+<p>布局阶段会依次遍历 DOM 树的每一个节点，计算每个节点的几何信息。例如节点的宽高、相对包含块的位置。</p>
+<p>大部分时候，DOM 树和布局树并非一一对应。</p>
+<p>比如<code>display:none</code>的节点没有几何信息，因此不会生成到布局树；又比如使用了伪元素选择器，虽然 DOM 树中不存在这些伪元素节点，但它们拥有几何信息，所以会生成到布局树中。还有匿名行盒、匿名块盒等等都会导致 DOM 树和布局树无法一一对应。</p>
+<hr>
+<p>下一步是<strong>分层</strong></p>
+<p>主线程会使用一套复杂的策略对整个布局树中进行分层。</p>
+<p>分层的好处在于，将来某一个层改变后，仅会对该层进行后续处理，从而提升效率。</p>
+<p>滚动条、堆叠上下文、transform、opacity 等样式都会或多或少的影响分层结果，也可以通过<code>will-change</code>属性更大程度的影响分层结果。</p>
+<hr>
+<p>再下一步是<strong>绘制</strong></p>
+<p>主线程会为每个层单独产生绘制指令集，用于描述这一层的内容该如何画出来。</p>
+<hr>
+<p>完成绘制后，主线程将每个图层的绘制信息提交给合成线程，剩余工作将由合成线程完成。</p>
+<p>合成线程首先对每个图层进行分块，将其划分为更多的小区域。</p>
+<p>它会从线程池中拿取多个线程来完成分块工作。</p>
+<hr>
+<p>分块完成后，进入<strong>光栅化</strong>阶段。</p>
+<p>合成线程会将块信息交给 GPU 进程，以极高的速度完成光栅化。</p>
+<p>GPU 进程会开启多个线程来完成光栅化，并且优先处理靠近视口区域的块。</p>
+<p>光栅化的结果，就是一块一块的位图</p>
+<hr>
+<p>最后一个阶段就是<strong>画</strong>了</p>
+<p>合成线程拿到每个层、每个块的位图后，生成一个个「指引（quad）」信息。</p>
+<p>指引会标识出每个位图应该画到屏幕的哪个位置，以及会考虑到旋转、缩放等变形。</p>
+<p>变形发生在合成线程，与渲染主线程无关，这就是<code>transform</code>效率高的本质原因。</p>
+<p>合成线程会把 quad 提交给 GPU 进程，由 GPU 进程产生系统调用，提交给 GPU 硬件，完成最终的屏幕成像。</p>
+<h2 id="什么是-reflow">什么是 reflow？</h2>
+<p>reflow 的本质就是重新计算 layout 树。</p>
+<p>当进行了会影响布局树的操作后，需要重新计算布局树，会引发 layout。</p>
+<p>为了避免连续的多次操作导致布局树反复计算，浏览器会合并这些操作，当 JS 代码全部完成后再进行统一计算。所以，改动属性造成的 reflow 是异步完成的。</p>
+<p>也同样因为如此，当 JS 获取布局属性时，就可能造成无法获取到最新的布局信息。</p>
+<p>浏览器在反复权衡下，最终决定获取属性立即 reflow。</p>
+<h2 id="什么是-repaint">什么是 repaint？</h2>
+<p>repaint 的本质就是重新根据分层信息计算了绘制指令。</p>
+<p>当改动了可见样式后，就需要重新计算，会引发 repaint。</p>
+<p>由于元素的布局信息也属于可见样式，所以 reflow 一定会引起 repaint。</p>
+<h2 id="为什么-transform-的效率高">为什么 transform 的效率高？</h2>
+<p>因为 transform 既不会影响布局也不会影响绘制指令，它影响的只是渲染流程的最后一个「draw」阶段</p>
+<p>由于 draw 阶段在合成线程中，所以 transform 的变化几乎不会影响渲染主线程。反之，渲染主线程无论如何忙碌，也不会影响 transform 的变化。</p>
+]]></description></item><item><title>中文技术文档的写作规范</title><link>https://lruihao.cn/posts/document-style-guide/</link><pubDate>Sat, 04 Feb 2023 16:04:42 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/document-style-guide/</guid><description><![CDATA[<blockquote>
 <p>以下参考来源：阮一峰的 <a href="https://github.com/ruanyf/document-style-guide"target="_blank" rel="external nofollow noopener noreferrer">中文技术文档的写作规范<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
 </blockquote>
 <p>英语世界里，文档非常受重视，许多公司和组织都有自己的文档规范，清楚地规定写作要求，比如<a href="https://www.microsoftpressstore.com/store/microsoft-manual-of-style-9780735648715"target="_blank" rel="external nofollow noopener noreferrer">微软<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>、<a href="http://styleguide.mailchimp.com/"target="_blank" rel="external nofollow noopener noreferrer">MailChimp<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>、<a href="https://help.apple.com/asg/mac/2013/ASG_2013.pdf"target="_blank" rel="external nofollow noopener noreferrer">Apple<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>、<a href="https://www.amazon.com/dp/B003P8QDFU/ref=dp-kindle-redirect?_encoding=UTF8&amp;btkr=1"target="_blank" rel="external nofollow noopener noreferrer">Yahoo<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>、<a href="https://docs.docker.com/opensource/doc-style/"target="_blank" rel="external nofollow noopener noreferrer">docker<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>、<a href="https://struts.apache.org/docs/documentation-style-guide.html"target="_blank" rel="external nofollow noopener noreferrer">Struts<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 等等（维基百科有一份完整的<a href="https://en.wikipedia.org/wiki/List_of_style_guides"target="_blank" rel="external nofollow noopener noreferrer">清单<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>）。<a href="https://github.com/ruanyf/document-style-guide/blob/master/docs/reference.md"target="_blank" rel="external nofollow noopener noreferrer">中文的<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>也有不少，但都不令人满意，要么太简单，要么不太适用。</p>
@@ -3681,61 +3741,4 @@ push 和 pull 命令时由于编码方式的不同会产生错误，因此需要
 </span></span><span class="line"><span class="cl">&#34;pasteImage.path&#34;: &#34;${currentFileDir}/images/&#34;
 </span></span></code></pre></td></tr></table>
 </div>
-</div>]]></description></item><item><title>Hugo 添加知乎卡片式链接 Shortcodes</title><link>https://lruihao.cn/posts/hugo-cardlink/</link><pubDate>Tue, 05 Oct 2021 19:33:13 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/hugo-cardlink/</guid><description><![CDATA[<a href="https://github.com/Lruihao/FixIt"target="_blank" rel="external nofollow noopener noreferrer" class="card-link"><span class="cl-backdrop" style="--cl-bg-url: url(/fixit.min.svg);"></span>
-    <span class="cl-content">
-      <span class="cl-text">
-        <span class="cl-title">卡片式链接已整合到 FixIt 主题</span>
-        <span class="cl-meta">
-          <svg class="cl-icon-link" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" width="16" height="16"><path d="M574 665.4c-3.1-3.1-8.2-3.1-11.3 0L446.5 781.6c-53.8 53.8-144.6 59.5-204 0-59.5-59.5-53.8-150.2 0-204l116.2-116.2c3.1-3.1 3.1-8.2 0-11.3l-39.8-39.8c-3.1-3.1-8.2-3.1-11.3 0L191.4 526.5c-84.6 84.6-84.6 221.5 0 306s221.5 84.6 306 0l116.2-116.2c3.1-3.1 3.1-8.2 0-11.3L574 665.4zM832.6 191.4c-84.6-84.6-221.5-84.6-306 0L410.3 307.6c-3.1 3.1-3.1 8.2 0 11.3l39.7 39.7c3.1 3.1 8.2 3.1 11.3 0l116.2-116.2c53.8-53.8 144.6-59.5 204 0 59.5 59.5 53.8 150.2 0 204L665.3 562.6c-3.1 3.1-3.1 8.2 0 11.3l39.8 39.8c3.1 3.1 8.2 3.1 11.3 0l116.2-116.2c84.5-84.6 84.5-221.5 0-306.1z" fill="#a9a9b3"></path><path d="M610.1 372.3c-3.1-3.1-8.2-3.1-11.3 0L372.3 598.7c-3.1 3.1-3.1 8.2 0 11.3l39.6 39.6c3.1 3.1 8.2 3.1 11.3 0l226.4-226.4c3.1-3.1 3.1-8.2 0-11.3l-39.5-39.6z" fill="#a9a9b3"></path></svg>
-          <span class="cl-url">https://github.com/Lruihao/FixIt</span>
-        </span>
-      </span><svg class="cl-icon-globe" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" width="64" height="64"><path d="M960 512c0 249.408-203.2 448-448 448-244.778667 0-448-198.592-448-448S262.592 64 512 64s448 198.592 448 448" fill="#2196F3"></path><path d="M507.52 718.08c0-8.96-4.48-13.44-13.44-17.92-26.88-8.96-53.76-8.96-76.16-31.381333-4.48-8.96-4.48-17.92-8.96-26.88-8.96-8.96-31.36-13.44-44.8-17.92h-89.6c-13.44-4.48-22.4-22.4-31.36-35.84 0-4.48 0-13.461333-8.96-13.461334-8.96-4.458667-17.92 4.501333-26.88 0-4.48-4.458667-4.48-8.96-4.48-13.418666 0-13.461333 8.96-26.901333 17.92-35.861334 13.44-8.96 26.88 4.48 40.32 4.48 4.48 0 4.48 0 8.96 4.48 13.44 4.48 17.92 22.4 17.92 35.861334v8.96c0 4.48 4.48 4.48 8.96 4.48 4.48-22.4 4.48-44.821333 8.96-67.2 0-26.88 26.88-53.781333 49.28-62.72 8.96-4.458667 13.44 4.501333 22.4 0 26.88-8.96 94.08-35.84 80.64-71.658667-8.96-31.381333-35.84-62.698667-71.68-58.24-8.96 4.501333-13.44 8.96-22.4 13.461333-13.44 8.96-40.32 35.84-53.76 35.84-22.4-4.48-22.4-35.84-17.92-49.301333 4.48-17.92 44.8-76.138667 71.68-67.178667l17.92 17.92c8.96 4.48 22.4 4.48 35.84 4.48 4.48 0 8.96 0 13.44-4.48 4.48-4.48 4.48-4.48 4.48-8.96 0-13.44-13.44-26.901333-22.4-35.861333s-22.4-17.92-35.84-22.378667c-44.8-13.461333-116.48 4.458667-152.32 35.84-35.84 31.36-62.72 85.12-80.64 129.92-8.96 26.88-17.92 62.698667-22.4 94.08-4.48 22.4-8.96 40.32 4.48 62.698667 13.44 26.88 40.32 53.781333 67.2 71.68 17.92 13.44 53.76 13.44 71.68 35.84 13.44 17.941333 8.96 40.32 8.96 62.72 0 26.88 17.92 49.28 26.88 71.658667 4.48 13.461333 8.96 31.381333 13.44 44.821333 0 4.48 4.48 31.36 4.48 35.84 26.88 13.44 49.28 26.901333 80.64 35.861333 4.48 0 22.4-26.901333 22.4-31.381333 13.44-13.44 22.4-31.36 35.84-40.32 8.96-4.48 17.92-8.96 26.88-17.941333 8.96-8.96 13.44-26.88 17.92-40.32 4.48-8.938667 8.96-26.858667 4.48-40.298667M516.48 305.92c4.48 0 8.96-4.48 17.92-8.96 13.44-8.96 26.901333-22.4 40.32-31.36 13.461333-8.96 26.901333-22.4 35.861333-31.36 13.44-8.96 22.4-26.88 26.88-40.341333 4.48-8.96 17.941333-26.88 13.44-40.32-4.48-8.96-26.88-13.44-35.84-17.92C579.2 126.698667 547.84 122.24 512 122.24c-13.44 0-31.36 4.458667-35.84 17.92-4.48 22.4 13.44 17.92 31.36 22.4 0 0 4.48 35.84 4.48 40.32 4.48 22.421333-8.96 35.84-8.96 58.24 0 13.44 0 35.84 8.96 44.8h4.48zM892.8 619.52c4.501333-8.96 4.501333-22.4 8.96-31.36 4.501333-22.421333 4.501333-44.8 4.501333-67.2 0-44.8-4.501333-89.578667-17.92-129.92-8.96-13.44-13.461333-26.88-17.941333-40.341333-8.96-22.378667-22.4-44.8-40.32-62.698667-17.92-22.4-40.341333-85.12-80.64-67.2-13.44 4.501333-22.4 22.421333-31.36 31.381333l-26.88 40.32c-4.501333 4.48-8.96 13.44-4.501333 17.92 0 4.48 4.501333 4.48 8.96 4.48 8.96 4.501333 13.461333 4.501333 22.421333 8.96 4.48 0 8.96 4.501333 4.48 8.96 0 0 0 4.501333-4.48 4.501334-22.421333 22.4-44.8 40.32-67.2 62.698666-4.48 4.48-8.96 13.44-8.96 17.92s4.48 4.48 4.48 8.96c0 4.501333-4.48 4.501333-8.96 8.96-8.96 4.501333-17.92 8.96-22.4 13.461334-4.48 8.96 0 22.4-4.48 31.36-4.48 22.4-17.941333 40.32-26.901333 62.72-8.96 13.418667-13.418667 26.88-22.378667 40.32 0 17.92-4.501333 31.36 4.458667 44.8 22.421333 31.36 62.72 13.44 94.08 26.901333 8.96 4.458667 17.92 4.458667 22.421333 13.418667 13.418667 13.461333 13.418667 35.861333 17.92 49.301333 4.458667 17.92 8.96 35.84 17.92 53.76 4.48 22.421333 13.44 44.821333 17.92 62.72 40.341333-31.36 76.16-67.178667 103.04-112 26.88-31.424 40.341333-67.242667 53.76-103.104" fill="#CDDC39"></path></svg></span></a>
-<div class="details admonition quote open">
-    <div class="details-summary admonition-title">
-      <i class="icon fa-solid fa-quote-right fa-fw" aria-hidden="true"></i>回顧<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i>
-    </div>
-    <div class="details-content">
-      <div class="admonition-content">之前在使用 hexo 的時候也有用到，<a href="/posts/linkcard/">模仿知乎卡片式链接</a><br>
-和之前的相比，優化之前是后加載，由 JS 在 瀏覽器處理，<br>
-使用 shortcodes 方式后，則是在 GO 構建頁面的時候處理，效能上會好很多。</div>
-    </div>
-  </div>
-<h2 id="源碼">源碼</h2>
-<p>基於 LoveIt 主題的 Link Shortcodes, 主要改到以下幾個文件，<a href="https://github.com/Lruihao/hugo-blog/commit/089c303693e806bff855ecf3fee110baa62b870b"target="_blank" rel="external nofollow noopener noreferrer">完整提交記錄<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
-<pre><code>assets/css/custom.scss
-assets/css/partial/cardlink.scss          # 卡片式鏈接樣式
-layouts/partials/plugin/cardlink.html     # 卡片式鏈接模板
-layouts/shortcodes/cardlink.html
-static/images/card-link-bg.jpg
-</code></pre>
-<h2 id="使用">使用</h2>
-<p>使用參數见 <a href="https://fixit.lruihao.cn/zh-cn/theme-documentation-extended-shortcodes/#2-link"target="_blank" rel="external nofollow noopener noreferrer">FixIt 擴展 Shortcodes - Link<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-markdown" data-lang="markdown"><span class="line"><span class="cl">{{<span class="p">&lt;</span> <span class="nt">cardlink</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;https://github.com/Lruihao/hugo-blog/commit/089c303693e806bff855ecf3fee110baa62b870b&#34;</span> <span class="na">content</span><span class="o">=</span><span class="s">&#34;知乎卡片式链接 Git 記錄&#34;</span> <span class="p">&gt;</span>}}
-</span></span></code></pre></td></tr></table>
-</div>
-</div><blockquote>
-<p>💡 注：FixIt <a href="https://github.com/hugo-fixit/FixIt/releases/tag/v0.2.12" rel="external nofollow noopener noreferrer" target="_blank"></a> 已合併 shortcode cardlink 到 shortcode link，只需添加 <code>card=true</code></p>
-</blockquote>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">{{&lt; link href=&#34;https://github.com/Lruihao/FixIt&#34; content=&#34;卡片式链接已整合到 FixIt 主题&#34; card=true &gt;}}
-</span></span></code></pre></td></tr></table>
-</div>
-</div><hr>
-<div class="details admonition info open">
-    <div class="details-summary admonition-title">
-      <i class="icon fa-solid fa-info-circle fa-fw" aria-hidden="true"></i>信息<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i>
-    </div>
-    <div class="details-content">
-      <div class="admonition-content">我的博客即将同步至腾讯云+社区，邀请大家一同入驻：<br>
-<a href="https://cloud.tencent.com/developer/support-plan?invite_code=3o5dmfzf0xkwk"target="_blank" rel="external nofollow noopener noreferrer">https://cloud.tencent.com/developer/support-plan?invite_code=3o5dmfzf0xkwk<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></div>
-    </div>
-  </div>]]></description></item></channel></rss>
+</div>]]></description></item></channel></rss>

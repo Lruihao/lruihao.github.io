@@ -1,4 +1,64 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>JavaScript - 标签 - 菠菜眾長</title><link>https://lruihao.cn/tags/javascript/</link><description>JavaScript - 标签 - 菠菜眾長</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><lastBuildDate>Wed, 11 Jan 2023 11:16:02 +0800</lastBuildDate><atom:link href="https://lruihao.cn/tags/javascript/" rel="self" type="application/rss+xml"/><item><title>浏览器原理 - 事件循环</title><link>https://lruihao.cn/posts/event-loop/</link><pubDate>Wed, 11 Jan 2023 11:16:02 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/event-loop/</guid><description><![CDATA[<div class="featured-image">
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>JavaScript - 标签 - 菠菜眾長</title><link>https://lruihao.cn/tags/javascript/</link><description>JavaScript - 标签 - 菠菜眾長</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><lastBuildDate>Sun, 05 Feb 2023 21:02:52 +0800</lastBuildDate><atom:link href="https://lruihao.cn/tags/javascript/" rel="self" type="application/rss+xml"/><item><title>浏览器渲染原理</title><link>https://lruihao.cn/posts/browser-rendering/</link><pubDate>Sun, 05 Feb 2023 21:02:52 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/browser-rendering/</guid><description><![CDATA[<iframe src="files/browser-rendering.pdf" width="100%" height="550"></iframe>
+<h2 id="浏览器是如何渲染页面的">浏览器是如何渲染页面的？</h2>
+<p>当浏览器的网络线程收到 HTML 文档后，会产生一个渲染任务，并将其传递给渲染主线程的消息队列。</p>
+<p>在事件循环机制的作用下，渲染主线程取出消息队列中的渲染任务，开启渲染流程。</p>
+<hr>
+<p>整个渲染流程分为多个阶段，分别是： HTML 解析、样式计算、布局、分层、绘制、分块、光栅化、画</p>
+<p>每个阶段都有明确的输入输出，上一个阶段的输出会成为下一个阶段的输入。</p>
+<p>这样，整个渲染流程就形成了一套组织严密的生产流水线。</p>
+<hr>
+<p>渲染的第一步是<strong>解析 HTML</strong>。</p>
+<p>解析过程中遇到 CSS 解析 CSS，遇到 JS 执行 JS。为了提高解析效率，浏览器在开始解析前，会启动一个预解析的线程，率先下载 HTML 中的外部 CSS 文件和 外部的 JS 文件。</p>
+<p>如果主线程解析到<code>link</code>位置，此时外部的 CSS 文件还没有下载解析好，主线程不会等待，继续解析后续的 HTML。这是因为下载和解析 CSS 的工作是在预解析线程中进行的。这就是 CSS 不会阻塞 HTML 解析的根本原因。</p>
+<p>如果主线程解析到<code>script</code>位置，会停止解析 HTML，转而等待 JS 文件下载好，并将全局代码解析执行完成后，才能继续解析 HTML。这是因为 JS 代码的执行过程可能会修改当前的 DOM 树，所以 DOM 树的生成必须暂停。这就是 JS 会阻塞 HTML 解析的根本原因。</p>
+<p>第一步完成后，会得到 DOM 树和 CSSOM 树，浏览器的默认样式、内部样式、外部样式、行内样式均会包含在 CSSOM 树中。</p>
+<hr>
+<p>渲染的下一步是<strong>样式计算</strong>。</p>
+<p>主线程会遍历得到的 DOM 树，依次为树中的每个节点计算出它最终的样式，称之为 Computed Style。</p>
+<p>在这一过程中，很多预设值会变成绝对值，比如<code>red</code>会变成<code>rgb(255,0,0)</code>；相对单位会变成绝对单位，比如<code>em</code>会变成<code>px</code></p>
+<p>这一步完成后，会得到一棵带有样式的 DOM 树。</p>
+<hr>
+<p>接下来是<strong>布局</strong>，布局完成后会得到布局树。</p>
+<p>布局阶段会依次遍历 DOM 树的每一个节点，计算每个节点的几何信息。例如节点的宽高、相对包含块的位置。</p>
+<p>大部分时候，DOM 树和布局树并非一一对应。</p>
+<p>比如<code>display:none</code>的节点没有几何信息，因此不会生成到布局树；又比如使用了伪元素选择器，虽然 DOM 树中不存在这些伪元素节点，但它们拥有几何信息，所以会生成到布局树中。还有匿名行盒、匿名块盒等等都会导致 DOM 树和布局树无法一一对应。</p>
+<hr>
+<p>下一步是<strong>分层</strong></p>
+<p>主线程会使用一套复杂的策略对整个布局树中进行分层。</p>
+<p>分层的好处在于，将来某一个层改变后，仅会对该层进行后续处理，从而提升效率。</p>
+<p>滚动条、堆叠上下文、transform、opacity 等样式都会或多或少的影响分层结果，也可以通过<code>will-change</code>属性更大程度的影响分层结果。</p>
+<hr>
+<p>再下一步是<strong>绘制</strong></p>
+<p>主线程会为每个层单独产生绘制指令集，用于描述这一层的内容该如何画出来。</p>
+<hr>
+<p>完成绘制后，主线程将每个图层的绘制信息提交给合成线程，剩余工作将由合成线程完成。</p>
+<p>合成线程首先对每个图层进行分块，将其划分为更多的小区域。</p>
+<p>它会从线程池中拿取多个线程来完成分块工作。</p>
+<hr>
+<p>分块完成后，进入<strong>光栅化</strong>阶段。</p>
+<p>合成线程会将块信息交给 GPU 进程，以极高的速度完成光栅化。</p>
+<p>GPU 进程会开启多个线程来完成光栅化，并且优先处理靠近视口区域的块。</p>
+<p>光栅化的结果，就是一块一块的位图</p>
+<hr>
+<p>最后一个阶段就是<strong>画</strong>了</p>
+<p>合成线程拿到每个层、每个块的位图后，生成一个个「指引（quad）」信息。</p>
+<p>指引会标识出每个位图应该画到屏幕的哪个位置，以及会考虑到旋转、缩放等变形。</p>
+<p>变形发生在合成线程，与渲染主线程无关，这就是<code>transform</code>效率高的本质原因。</p>
+<p>合成线程会把 quad 提交给 GPU 进程，由 GPU 进程产生系统调用，提交给 GPU 硬件，完成最终的屏幕成像。</p>
+<h2 id="什么是-reflow">什么是 reflow？</h2>
+<p>reflow 的本质就是重新计算 layout 树。</p>
+<p>当进行了会影响布局树的操作后，需要重新计算布局树，会引发 layout。</p>
+<p>为了避免连续的多次操作导致布局树反复计算，浏览器会合并这些操作，当 JS 代码全部完成后再进行统一计算。所以，改动属性造成的 reflow 是异步完成的。</p>
+<p>也同样因为如此，当 JS 获取布局属性时，就可能造成无法获取到最新的布局信息。</p>
+<p>浏览器在反复权衡下，最终决定获取属性立即 reflow。</p>
+<h2 id="什么是-repaint">什么是 repaint？</h2>
+<p>repaint 的本质就是重新根据分层信息计算了绘制指令。</p>
+<p>当改动了可见样式后，就需要重新计算，会引发 repaint。</p>
+<p>由于元素的布局信息也属于可见样式，所以 reflow 一定会引起 repaint。</p>
+<h2 id="为什么-transform-的效率高">为什么 transform 的效率高？</h2>
+<p>因为 transform 既不会影响布局也不会影响绘制指令，它影响的只是渲染流程的最后一个「draw」阶段</p>
+<p>由于 draw 阶段在合成线程中，所以 transform 的变化几乎不会影响渲染主线程。反之，渲染主线程无论如何忙碌，也不会影响 transform 的变化。</p>
+]]></description></item><item><title>浏览器原理 - 事件循环</title><link>https://lruihao.cn/posts/event-loop/</link><pubDate>Wed, 11 Jan 2023 11:16:02 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/event-loop/</guid><description><![CDATA[<div class="featured-image">
         <img src="/images/202208092131410.png" referrerpolicy="no-referrer">
       </div><p>最近在抖音上刷到很多次 <a href="http://yuanjin.tech/"target="_blank" rel="external nofollow noopener noreferrer">袁进老师<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 的前端视频，然后就听了一下他的前端大师课，感觉了解一些浏览器原理后，原来工作中的一些疑问也自然解开了。</p>
 <h2 id="浏览器的进程模型">浏览器的进程模型</h2>
@@ -3983,165 +4043,4 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 <pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/javascript&#34;</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;/js/src/crash-cheat.js&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>重新部署博客就可以了。</p>]]></description></item><item><title>hexo 个性化 - next 主题动态显示 subtitle</title><link>https://lruihao.cn/posts/dongtaisub/</link><pubDate>Mon, 20 Aug 2018 16:16:40 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/dongtaisub/</guid><description><![CDATA[<blockquote>
-<p>本文适合我这种纯小白。<br>
-目前为止，全网也就只有一个博主写到过这样动态显示 subtitle 的文章。<a href="https://www.jianshu.com/p/df2c844eeabf"target="_blank" rel="external nofollow noopener noreferrer">传送门<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>（关键词：js, 后加载）<br>
-但是嘞，该博写的不怎么详细，17 年底写的。当然更大的可能是 next 更新了一些文件结构，所以不适合现在使用了。以前我按原博的流程配置了一下没成功就搁在那里了，今天突然心血来潮。翻了翻原博主博客的源码，再与自己的对比了一下，发现了一些端倪。稍作调整后如下：</p>
-</blockquote>
-<h2 id="修改站点配置文件主要修改-subtitle">修改站点配置文件，主要修改 subtitle</h2>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">subtitle: 不怕万人阻挡，只怕自己投降。W 你如何回忆，决定你是一个怎样的人！W 这是一个句子。W 这是另一个句子。W 这些句子你们不要搞一样的不然怎么叫个性签名-_-！。
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>句子与句子之间以 W 分割，后续需要根据该标志位去拆分句子组。<br>
-<strong>小伙伴们博主这里只是提供一个思路，不要和我用一模一样的啊，不然撞了多尴尬呀</strong></p>
-<h2 id="修改-headerindexswig">修改 header\index.swig</h2>
-<p>修改 <code>themes\next\layout_partials\header</code> 下面的 <code>index.swig</code> 文件<br>
-在最开头添加如下代码：<br>
-（这里用的原博的 js)</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="o">&lt;</span><span class="n">script</span><span class="o">&gt;</span>
-</span></span><span class="line"><span class="cl"> <span class="n">function</span> <span class="nf">GetRandomNum</span><span class="o">(</span><span class="n">Min</span><span class="o">,</span><span class="n">Max</span><span class="o">)</span>
-</span></span><span class="line"><span class="cl">  <span class="o">{</span>
-</span></span><span class="line"><span class="cl">    <span class="n">var</span> <span class="n">Range</span> <span class="o">=</span> <span class="n">Max</span> <span class="o">-</span> <span class="n">Min</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl">    <span class="n">var</span> <span class="n">Rand</span> <span class="o">=</span> <span class="n">Math</span><span class="o">.</span><span class="na">random</span><span class="o">();</span>
-</span></span><span class="line"><span class="cl">    <span class="k">return</span><span class="o">(</span><span class="n">Min</span> <span class="o">+</span> <span class="n">Math</span><span class="o">.</span><span class="na">round</span><span class="o">(</span><span class="n">Rand</span> <span class="o">*</span> <span class="n">Range</span><span class="o">));</span>
-</span></span><span class="line"><span class="cl">  <span class="o">}</span>
-</span></span><span class="line"><span class="cl"><span class="n">function</span> <span class="nf">setSidebarMarginTop</span> <span class="o">(</span><span class="n">headerOffset</span><span class="o">)</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">$</span><span class="o">(</span><span class="err">&#39;#</span><span class="n">sidebar</span><span class="err">&#39;</span><span class="o">).</span><span class="na">css</span><span class="o">({</span> <span class="err">&#39;</span><span class="n">margin</span><span class="o">-</span><span class="n">top</span><span class="err">&#39;</span><span class="o">:</span> <span class="n">headerOffset</span> <span class="o">});</span>
-</span></span><span class="line"><span class="cl">  <span class="o">}</span>
-</span></span><span class="line"><span class="cl"> <span class="n">function</span> <span class="nf">getHeaderOffset</span> <span class="o">()</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">$</span><span class="o">(</span><span class="err">&#39;</span><span class="o">.</span><span class="na">header</span><span class="o">-</span><span class="n">inner</span><span class="err">&#39;</span><span class="o">).</span><span class="na">height</span><span class="o">()</span> <span class="o">+</span> <span class="n">CONFIG</span><span class="o">.</span><span class="na">sidebar</span><span class="o">.</span><span class="na">offset</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl">  <span class="o">}</span>
-</span></span><span class="line"><span class="cl">  <span class="n">window</span><span class="o">.</span><span class="na">onload</span><span class="o">=</span><span class="n">function</span><span class="o">(){</span>
-</span></span><span class="line"><span class="cl">    <span class="n">var</span> <span class="n">subtitle</span> <span class="o">=</span> <span class="s">&#34;{{config.subtitle}}&#34;</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl">     <span class="n">var</span> <span class="n">mytitle</span> <span class="o">=</span> <span class="n">subtitle</span><span class="o">.</span><span class="na">split</span><span class="o">(</span><span class="s">&#34;W&#34;</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">     <span class="n">var</span> <span class="n">max</span> <span class="o">=</span> <span class="n">mytitle</span><span class="o">.</span><span class="na">length</span><span class="o">-</span><span class="mi">1</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl">     <span class="n">var</span> <span class="n">index</span> <span class="o">=</span> <span class="n">GetRandomNum</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span><span class="n">max</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">     <span class="n">var</span> <span class="n">text</span> <span class="o">=</span> <span class="n">mytitle</span><span class="o">[</span><span class="n">index</span><span class="o">];</span>
-</span></span><span class="line"><span class="cl">     <span class="n">$</span><span class="o">(</span><span class="s">&#34;#helloTitle&#34;</span><span class="o">).</span><span class="na">html</span><span class="o">(</span><span class="n">text</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">     <span class="n">var</span> <span class="n">headOffset</span> <span class="o">=</span> <span class="n">getHeaderOffset</span><span class="o">();</span>
-</span></span><span class="line"><span class="cl">     <span class="n">setSidebarMarginTop</span><span class="o">(</span><span class="n">headOffset</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">     <span class="c1">//动态 subtitle 设置
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="o">}</span>
-</span></span><span class="line"><span class="cl"><span class="o">&lt;/</span><span class="n">script</span><span class="o">&gt;</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="修改-brandswig">修改 brand.swig</h2>
-<p>找到</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">{% if subtitle %}
-</span></span><span class="line"><span class="cl">  {% if theme.seo %}
-</span></span><span class="line"><span class="cl">    ...
-</span></span><span class="line"><span class="cl">  {% else %}
-</span></span><span class="line"><span class="cl">    ...
-</span></span><span class="line"><span class="cl">  {% endif %}
-</span></span><span class="line"><span class="cl">{% endif %}
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>把这一段，把原来的修改成以下代码即可<br>
-ps: <code>title</code>和<code>subtitle</code>的<code>字体</code>还有<code>颜色</code>也可以在这个文件修改，即使用<code>style</code>标签，按个人爱好修改也可不要。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">{% if subtitle %}
-</span></span><span class="line"><span class="cl">  {% if theme.seo %}
-</span></span><span class="line"><span class="cl">    &lt;p class=&#34;site-subtitle&#34; id=&#34;helloTitle&#34; itemprop=&#34;description&#34;&gt;&lt;/p&gt;
-</span></span><span class="line"><span class="cl">  {% else %}
-</span></span><span class="line"><span class="cl">    &lt;p id=&#34;helloTitle&#34; class=&#34;site-subtitle&#34;&gt;&lt;/p&gt;
-</span></span><span class="line"><span class="cl">  {% endif %}
-</span></span><span class="line"><span class="cl">{% endif %}
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>之后部署后每次刷新就可以看到不同的 subtitle 了，开心😀</p>
-<h2 id="今日诗词">今日诗词</h2>
-<p><a href="https://www.jinrishici.com/"target="_blank" rel="external nofollow noopener noreferrer">今日诗词<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-XML" data-lang="XML"><span class="line"><span class="cl"><span class="nt">&lt;span</span> <span class="na">id=</span><span class="s">&#34;jinrishici-sentence&#34;</span><span class="nt">&gt;</span>正在加载今日诗词 ....<span class="nt">&lt;/span&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="nt">&lt;script</span> <span class="na">src=</span><span class="s">&#34;https://sdk.jinrishici.com/v2/browser/jinrishici.js&#34;</span> <span class="na">charset=</span><span class="s">&#34;utf-8&#34;</span><span class="nt">&gt;&lt;/script&gt;</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><hr>
-<div id="jinrishici-sentence" style="text-align:center;">正在加载今日诗词 ....</div>
-<script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
-<hr>
-<h2 id="api-调用">api 调用</h2>
-<p>直接 js 调用 api 简单快速</p>
-<blockquote>
-<p>2021/9/30 更新<br>
-<a href="https://api.imjad.cn/hitokoto.md"target="_blank" rel="external nofollow noopener noreferrer">一言 api-参数详见<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 已经挂了</p>
-</blockquote>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/javascript&#34;</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;https://api.imjad.cn/hitokoto/?cat=&amp;charset=utf-8&amp;length=&amp;encode=js&amp;fun=sync&amp;source=&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;hitokoto&#34;</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span><span class="nx">hitokoto</span><span class="p">()&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">  <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div>]]></description></item></channel></rss>
+</div><p>重新部署博客就可以了。</p>]]></description></item></channel></rss>
