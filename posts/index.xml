@@ -1,4 +1,90 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>所有文章 - 菠菜眾長</title><link>https://lruihao.cn/posts/</link><description>所有文章 | 菠菜眾長</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><lastBuildDate>Sun, 05 Feb 2023 21:02:52 +0800</lastBuildDate><atom:link href="https://lruihao.cn/posts/" rel="self" type="application/rss+xml"/><item><title>浏览器渲染原理</title><link>https://lruihao.cn/posts/browser-rendering/</link><pubDate>Sun, 05 Feb 2023 21:02:52 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/browser-rendering/</guid><description><![CDATA[<iframe src="files/browser-rendering.pdf" width="100%" height="550"></iframe>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>所有文章 - 菠菜眾長</title><link>https://lruihao.cn/posts/</link><description>所有文章 | 菠菜眾長</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><lastBuildDate>Sun, 05 Feb 2023 21:02:52 +0800</lastBuildDate><atom:link href="https://lruihao.cn/posts/" rel="self" type="application/rss+xml"/><item><title>Commit Message Spec</title><link>https://lruihao.cn/posts/commit-spec/</link><pubDate>Fri, 12 Aug 2022 15:37:44 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/commit-spec/</guid><description><![CDATA[<p>Commit messages are short descriptions of changes to a repository. We should follow certain standards to effectively describe changes, such as the <a href="https://www.conventionalcommits.org/en/v1.0.0-beta.4/"target="_blank" rel="external nofollow noopener noreferrer">Conventional Commits<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> specification based on the <a href="https://github.com/angular/angular/blob/68a6a07/CONTRIBUTING.md#commit"target="_blank" rel="external nofollow noopener noreferrer">Angular convention<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> that is most used on GitHub, or each development team can simplify and formulate their own commit specification. This is not only conducive to the automatic generation of Changelog in the later stage, but more importantly, when a bug occurs, the entire warehouse can be quickly checked, the problem point can be accurately located, and the version can be reverted.</p>
+<h2 id="format">Format</h2>
+<p><code>[{emoji} ]{type}[({module})]: {subject within 50 words}[ (#{issue/pull request})]</code></p>
+<p>example:</p>
+<ul>
+<li>🎉 Feat: add shortcode fixit-encryptor shortcode (#123)</li>
+<li>⬆️ Chore(libs): update Artalk from 2.2.12 to 2.3.4 (#150)</li>
+</ul>
+<h2 id="emoji">Emoji</h2>
+<ul>
+<li><a href="https://gitmoji.dev"target="_blank" rel="external nofollow noopener noreferrer">https://gitmoji.dev<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+<li><a href="https://github.com/maixiaojie/git-emoji-zh.git"target="_blank" rel="external nofollow noopener noreferrer">vscode plugin<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+<li>utools plugin <code>GitEmoji</code></li>
+</ul>
+<h2 id="message">Message</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Emoji</th>
+<th style="text-align:left">Type</th>
+<th style="text-align:left">Example</th>
+<th style="text-align:left">Description (No Ambiguous)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">🎉  <br>✨</td>
+<td style="text-align:left">Feat</td>
+<td style="text-align:left">Feat: add {feature}</td>
+<td style="text-align:left">new feature</td>
+</tr>
+<tr>
+<td style="text-align:left">🚚</td>
+<td style="text-align:left"></td>
+<td style="text-align:left">Feat: adjust/migrate {feature name}, {change details}</td>
+<td style="text-align:left">For the adjustment feature, it is necessary to describe the current situation (before) and after adjustment (after)</td>
+</tr>
+<tr>
+<td style="text-align:left">🔥</td>
+<td style="text-align:left"></td>
+<td style="text-align:left">Feat: delete {feature name}, {deletion reason}</td>
+<td style="text-align:left">If the feature is deleted, the reason for deletion must be explained</td>
+</tr>
+<tr>
+<td style="text-align:left">🐛 <br>🚧 <br>🚨</td>
+<td style="text-align:left">Fix</td>
+<td style="text-align:left">Fix: fix {bug description}</td>
+<td style="text-align:left">Fix known bugs</td>
+</tr>
+<tr>
+<td style="text-align:left">🎨 <br>💄 <br>✏️</td>
+<td style="text-align:left">Style</td>
+<td style="text-align:left">Style: Typesetting/CSS style {optimizing content}</td>
+<td style="text-align:left">Changes that do not affect code operation, such as code layout and style change</td>
+</tr>
+<tr>
+<td style="text-align:left">♻️</td>
+<td style="text-align:left">Refactor</td>
+<td style="text-align:left">Refactor: override {feature name}</td>
+<td style="text-align:left">It is neither a new function nor a code change to fix a bug. Simply rewriting the code of a function does not affect the function result</td>
+</tr>
+<tr>
+<td style="text-align:left">⚡</td>
+<td style="text-align:left">Perf</td>
+<td style="text-align:left">Perf: improve performance {function name}, {improve content}</td>
+<td style="text-align:left">Optimize code performance</td>
+</tr>
+<tr>
+<td style="text-align:left">⏪</td>
+<td style="text-align:left">Revert</td>
+<td style="text-align:left">Revert: restore version {commit message of restore version}</td>
+<td style="text-align:left">Restore the version of one commit</td>
+</tr>
+<tr>
+<td style="text-align:left">✏ <br>✏️</td>
+<td style="text-align:left">Docs</td>
+<td style="text-align:left">Docs: revise comments/update documents</td>
+<td style="text-align:left">Adjustment of documents and notes</td>
+</tr>
+<tr>
+<td style="text-align:left">🔧</td>
+<td style="text-align:left">Chore</td>
+<td style="text-align:left">Chore: update plugin version</td>
+<td style="text-align:left">Changes in the construction process or auxiliary tools</td>
+</tr>
+</tbody>
+</table>]]></description></item><item><title>浏览器渲染原理</title><link>https://lruihao.cn/posts/browser-rendering/</link><pubDate>Sun, 05 Feb 2023 21:02:52 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/browser-rendering/</guid><description><![CDATA[<iframe src="files/browser-rendering.pdf" width="100%" height="550"></iframe>
 <h2 id="浏览器是如何渲染页面的">浏览器是如何渲染页面的？</h2>
 <p>当浏览器的网络线程收到 HTML 文档后，会产生一个渲染任务，并将其传递给渲染主线程的消息队列。</p>
 <p>在事件循环机制的作用下，渲染主线程取出消息队列中的渲染任务，开启渲染流程。</p>
@@ -949,7 +1035,7 @@
 </ul>
 </li>
 <li>
-<p>单数名词：仅取得单笔数据，必须指定 PK，两两一组，回传结果为 Object<br>
+<p>单数名词：仅取得单笔数据，必须指定 PK，两两一组，回传结果为 Object
 举例：GET/user/{accont} 取得单笔使用者资料，必须指定 PK</p>
 </li>
 </ul>
@@ -1074,7 +1160,8 @@
 <li><strong>每个函数应该使用块注释，注释应包含函数功能说明、参数说明</strong>。规则见：JSDoc、JavaDoc</li>
 <li>不必要的代码不要写，也应禁止放到注释里面！</li>
 <li>if-else 的 {} 严禁省略</li>
-<li>{} 起始一律跟在 前一个功能的尾巴，禁止分行</li>
+<li>
+</li>
 <li>代码规范、代码排版等可通过 eslint 等工具做统一处理</li>
 </ul>
 <h3 id="正确写法">正确写法</h3>
@@ -1447,11 +1534,11 @@
 </blockquote>
 <h2 id="noun">Noun</h2>
 <ul>
-<li>一般资源<br>
-通用于一律使用复数名词<br>
+<li>一般资源
+通用于一律使用复数名词
 例如：/books 或 /books/123。但有部分人认为应该使用单数名词，因为： /book/123 看似比 /books/123 合理。但想想文件系统的目录命名（例如 /Users 或 /Documents)，其实用复数也没问题。复数可以保持 API endpoint 的一致性，所以一般资源建议用复数。</li>
-<li>唯一资源：对 client 而言只有一份的资源<br>
-通用于单数名词<br>
+<li>唯一资源：对 client 而言只有一份的资源
+通用于单数名词
 例如：user 是指目前验证的使用者，使用者永远只能同时登入一个使用者</li>
 </ul>
 <h2 id="http-method">Http Method</h2>
@@ -1527,13 +1614,13 @@ Idempotent：每次执行操作时，GET 只有读取 Resource，不会改变到
 <blockquote>
 <p>Idempotent：每次执行操作时，PUT 都会取代 Resource，不管操作几次，使用者获取得 Resource 结果都是一样的</p>
 <p>Replace：不论资源如何，最终的资源状态都是一样的，Resource 已存在时，或许不理会、或许先删除后建立（取代）Resource 不存在时，直接建立</p>
-<p>Add：添加唯一关系，建立这个唯一关系前，两个关连实体都必须存在。在没有建立关系前，两个关连实体都可以互相独立存在<br>
+<p>Add：添加唯一关系，建立这个唯一关系前，两个关连实体都必须存在。在没有建立关系前，两个关连实体都可以互相独立存在
 资料结构：多对多，且两个关连实体的 PK，同时也是关系实体的 PK、FK</p>
 </blockquote>
 <ul>
 <li>
 <p>范例：增加使用者与角色的关系</p>
-<p>增加使用者跟角色的关系前，使用者跟角色都必须存在；增加使用者跟角色的关系前，使用者跟角色可以独立存在，<br>
+<p>增加使用者跟角色的关系前，使用者跟角色都必须存在；增加使用者跟角色的关系前，使用者跟角色可以独立存在，
 使用者 12262 跟 角色 2 的关系最多只能有一条关系（ 使用者 12262 有 角色 2)，最少没有关系（使用者 12262 没有 角色 2 ) ，执行第二次操作时，使用者 12262 跟 角色 2  的从属关系仍然存在，也不会跑出第二条 使用者 12262 跟 角色 2 的从属关系</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1576,7 +1663,7 @@ Idempotent：每次执行操作时，GET 只有读取 Resource，不会改变到
 <ul>
 <li>
 <p>范例：编辑使用者</p>
-<p>编辑使用者，使用者已经存在，且我们可能有纪录编辑时间、编辑人、编辑IP，所以每次的编辑都会造成不一样的结果<br>
+<p>编辑使用者，使用者已经存在，且我们可能有纪录编辑时间、编辑人、编辑IP，所以每次的编辑都会造成不一样的结果
 第一次编辑使用者，更新时间变为 08:00，编辑人 12262，IP 172.18.0.66 第二次编辑使用者，更新时间变为 09:00，编辑人12263，IP 172.18.0.67</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1789,95 +1876,9 @@ Idempotent：每次执行操作时，GET 只有读取 Resource，不会改变到
 </tbody>
 </table>
 <blockquote>
-<p>以上内容参考自<a href="https://zh.wikipedia.org/zh-cn/HTTP%e7%8a%b6%e6%80%81%e7%a0%81"target="_blank" rel="external nofollow noopener noreferrer">https://zh.wikipedia.org/zh-cn/HTTP状态码<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>，<br>
+<p>以上内容参考自<a href="https://zh.wikipedia.org/zh-cn/HTTP%e7%8a%b6%e6%80%81%e7%a0%81"target="_blank" rel="external nofollow noopener noreferrer">https://zh.wikipedia.org/zh-cn/HTTP状态码<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>，
 需要查看完整 HTTP 状态码请点击 <a href="https://www.rfc-editor.org/rfc/rfc9110.html#name-status-codes"target="_blank" rel="external nofollow noopener noreferrer">https://www.rfc-editor.org/rfc/rfc9110.html#name-status-codes<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
-</blockquote>]]></description></item><item><title>Commit Message Spec</title><link>https://lruihao.cn/posts/commit-spec/</link><pubDate>Fri, 12 Aug 2022 15:37:44 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/commit-spec/</guid><description><![CDATA[<p>Commit messages are short descriptions of changes to a repository. We should follow certain standards to effectively describe changes, such as the most used Angular Commit specification on GitHub, or each development team can simplify and formulate their own submission specifications, which is not only conducive to the automatic generation of Changelog in the later stage, but more importantly, when it appears When there is a bug, the entire warehouse can be quickly checked, the problem point can be accurately located, and the version can be returned.</p>
-<h2 id="format">Format</h2>
-<p><code>[{emoji} ]{type}[({module})]: {subject within 50 words}[ (#{issue/pull request})]</code></p>
-<p>example:</p>
-<ul>
-<li>🎉 Feat: add shortcode fixit-encryptor shortcode (#123)</li>
-<li>⬆️ Chore(libs): update Artalk from 2.2.12 to 2.3.4 (#150)</li>
-</ul>
-<h2 id="emoji">Emoji</h2>
-<ul>
-<li><a href="https://gitmoji.dev"target="_blank" rel="external nofollow noopener noreferrer">https://gitmoji.dev<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
-<li><a href="https://github.com/maixiaojie/git-emoji-zh.git"target="_blank" rel="external nofollow noopener noreferrer">vscode plugin<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
-<li>utools plugin <code>GitEmoji</code></li>
-</ul>
-<h2 id="message">Message</h2>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">Emoji</th>
-<th style="text-align:left">Type</th>
-<th style="text-align:left">Example</th>
-<th style="text-align:left">Description (No Ambiguous)</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">🎉  <br>✨</td>
-<td style="text-align:left">Feat</td>
-<td style="text-align:left">Feat: add {feature}</td>
-<td style="text-align:left">new feature</td>
-</tr>
-<tr>
-<td style="text-align:left">🚚</td>
-<td style="text-align:left"></td>
-<td style="text-align:left">Feat: adjust/migrate {feature name}, {change details}</td>
-<td style="text-align:left">For the adjustment feature, it is necessary to describe the current situation (before) and after adjustment (after)</td>
-</tr>
-<tr>
-<td style="text-align:left">🔥</td>
-<td style="text-align:left"></td>
-<td style="text-align:left">Feat: delete {feature name}, {deletion reason}</td>
-<td style="text-align:left">If the feature is deleted, the reason for deletion must be explained</td>
-</tr>
-<tr>
-<td style="text-align:left">🐛 <br>🚧 <br>🚨</td>
-<td style="text-align:left">Fix</td>
-<td style="text-align:left">Fix: fix {bug description}</td>
-<td style="text-align:left">Fix known bugs</td>
-</tr>
-<tr>
-<td style="text-align:left">🎨 <br>💄 <br>✏️</td>
-<td style="text-align:left">Style</td>
-<td style="text-align:left">Style: Typesetting/CSS style {optimizing content}</td>
-<td style="text-align:left">Changes that do not affect code operation, such as code layout and style change</td>
-</tr>
-<tr>
-<td style="text-align:left">♻️</td>
-<td style="text-align:left">Refactor</td>
-<td style="text-align:left">Refactor: override {feature name}</td>
-<td style="text-align:left">It is neither a new function nor a code change to fix a bug. Simply rewriting the code of a function does not affect the function result</td>
-</tr>
-<tr>
-<td style="text-align:left">⚡</td>
-<td style="text-align:left">Perf</td>
-<td style="text-align:left">Perf: improve performance {function name}, {improve content}</td>
-<td style="text-align:left">Optimize code performance</td>
-</tr>
-<tr>
-<td style="text-align:left">⏪</td>
-<td style="text-align:left">Revert</td>
-<td style="text-align:left">Revert: restore version {commit message of restore version}</td>
-<td style="text-align:left">Restore the version of one commit</td>
-</tr>
-<tr>
-<td style="text-align:left">✏ <br>✏️</td>
-<td style="text-align:left">Docs</td>
-<td style="text-align:left">Docs: revise comments/update documents</td>
-<td style="text-align:left">Adjustment of documents and notes</td>
-</tr>
-<tr>
-<td style="text-align:left">🔧</td>
-<td style="text-align:left">Chore</td>
-<td style="text-align:left">Chore: update plugin version</td>
-<td style="text-align:left">Changes in the construction process or auxiliary tools</td>
-</tr>
-</tbody>
-</table>]]></description></item><item><title>语义版本控制（SemVer）</title><link>https://lruihao.cn/posts/semver/</link><pubDate>Sat, 13 Aug 2022 13:32:03 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/semver/</guid><description><![CDATA[<div class="details admonition tip open">
+</blockquote>]]></description></item><item><title>语义版本控制（SemVer）</title><link>https://lruihao.cn/posts/semver/</link><pubDate>Sat, 13 Aug 2022 13:32:03 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/semver/</guid><description><![CDATA[<div class="details admonition tip open">
     <div class="details-summary admonition-title">
       <i class="icon fa-solid fa-lightbulb fa-fw" aria-hidden="true"></i>摘要<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i>
     </div>
@@ -2322,9 +2323,9 @@ Idempotent：每次执行操作时，GET 只有读取 Resource，不会改变到
 <p>但<strong>消息队列是有优先级的</strong></p>
 <p>根据 W3C 的最新解释：</p>
 <ul>
-<li>每个任务都有一个任务类型，同一个类型的任务必须在一个队列，不同类型的任务可以分属于不同的队列。<br>
+<li>每个任务都有一个任务类型，同一个类型的任务必须在一个队列，不同类型的任务可以分属于不同的队列。
 在一次事件循环中，浏览器可以根据实际情况从不同的队列中取出任务执行。</li>
-<li>浏览器必须准备好一个微队列，微队列中的任务优先所有其他任务执行<br>
+<li>浏览器必须准备好一个微队列，微队列中的任务优先所有其他任务执行
 <a href="https://html.spec.whatwg.org/multipage/webappapis.html#perform-a-microtask-checkpoint"target="_blank" rel="external nofollow noopener noreferrer">https://html.spec.whatwg.org/multipage/webappapis.html#perform-a-microtask-checkpoint<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
 </ul>
 <blockquote>
@@ -2392,11 +2393,11 @@ Idempotent：每次执行操作时，GET 只有读取 Resource，不会改变到
 <p><a href="https://git-scm.com/"target="_blank" rel="external nofollow noopener noreferrer">https://git-scm.com/<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
 </blockquote>
 <p>先通过几张图片来大致了解一下 Git 的工作原理吧！<br>
-文章开头的流程图已经简单明了地说明了 Git 常用操作的工作流程，下图换种风格再展示一次：<br>
+文章开头的流程图已经简单明了地说明了 Git 常用操作的工作流程，下图换种风格再展示一次：
 </p>
-<p>提到 Git 就会联想到 github, 下图从 Git 的角度简单说明了一些 Github 常用操作的关系：<br>
+<p>提到 Git 就会联想到 github, 下图从 Git 的角度简单说明了一些 Github 常用操作的关系：
 </p>
-<p>下面这个图则展示了工作区、版本库中的暂存区和版本库之间的关系：<br>
+<p>下面这个图则展示了工作区、版本库中的暂存区和版本库之间的关系：
 </p>
 <p>图中左侧为工作区，右侧为版本库。在版本库中标记为 <code>&quot;index&quot;</code> 的区域是暂存区（stage, index），标记为 &ldquo;master&rdquo; 的是 master 分支所代表的目录树。<br>
 <strong>HEAD 指针：每个 git 仓库有且仅有一个 HEAD 指针，它通常指向當前某个活動的本地分支指针（最初本地仓库 master)。也可以是某个提交记录、某个 tag，但这会让其处于 detached HEAD（游离头）状态，此状态下的所有提交都无效。</strong><br>
@@ -2624,7 +2625,7 @@ Idempotent：每次执行操作时，GET 只有读取 Resource，不会改变到
     <div class="details-content">
       <div class="admonition-content"><p>想看到自己的操作记录，则可以使用 log 与 reflog，它两个的区别如下：</p>
 <ol>
-<li><code>git log</code>命令可以显示所有提交过的版本信息；<br>
+<li><code>git log</code>命令可以显示所有提交过的版本信息；
 如果感觉太繁琐，可以加上参数<code>--pretty=oneline</code>，只会显示版本号和提交时的备注信息。</li>
 <li><code>git reflog</code>可以查看所有分支的所有操作记录。（包括已经被删除的 commit 记录和 reset 的操作）</li>
 </ol>
@@ -2651,7 +2652,7 @@ Idempotent：每次执行操作时，GET 只有读取 Resource，不会改变到
 </span></span></code></pre></td></tr></table>
 </div>
 </div><blockquote>
-<p>版本退回是从本地仓库到暂存区，如果已经提交远程库，此时的版本是低于最新的版本的会拒绝提交，<br>
+<p>版本退回是从本地仓库到暂存区，如果已经提交远程库，此时的版本是低于最新的版本的会拒绝提交，
 需要用<code>git push -f origin master</code>强制提交。</p>
 </blockquote>
 <div class="details admonition danger open">
@@ -2661,7 +2662,7 @@ Idempotent：每次执行操作时，GET 只有读取 Resource，不会改变到
     <div class="details-content">
       <div class="admonition-content"><p>如果你<code>git reset --hard HEAD^</code>+<code>git push -f origin master</code>执行完，github 中的记录和本地文件都会回到退回的状态。<strong>简单来说就是一修改了一天的 bug, 完工后，你这一套操作直接打回原形。别慌（实际内心慌的一麻皮。）</strong></p>
 <ol>
-<li>通过<code>git log -g</code>命令来找到需要恢复的信息对应的 commitid，可以通过提交的时间和记录来辨别，<br>
+<li>通过<code>git log -g</code>命令来找到需要恢复的信息对应的 commitid，可以通过提交的时间和记录来辨别，
 找到执行<code>reset --hard</code>之前的那个 commit 对应的 commit-id</li>
 <li>通过<code>git branch recover_branch commit-id</code>来建立一个新的分支</li>
 </ol>
@@ -2784,7 +2785,7 @@ Idempotent：每次执行操作时，GET 只有读取 Resource，不会改变到
       <i class="icon fa-solid fa-pencil-alt fa-fw" aria-hidden="true"></i>Note<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i>
     </div>
     <div class="details-content">
-      <div class="admonition-content">当一个远程库有子模组时，直接 clone 子模组只是一个空文件夹，需要进入子模组的空文件夹<code>init</code>和<code>update</code>才行。<br>
+      <div class="admonition-content">当一个远程库有子模组时，直接 clone 子模组只是一个空文件夹，需要进入子模组的空文件夹<code>init</code>和<code>update</code>才行。
 或者使用递归克隆<code>git clone --recursive 远程库</code><br>
 子模组更新后，父模组必须更新，因为需要更新 commit id。</div>
     </div>
@@ -2819,7 +2820,7 @@ Idempotent：每次执行操作时，GET 只有读取 Resource，不会改变到
       <i class="icon fa-solid fa-pencil-alt fa-fw" aria-hidden="true"></i>Note<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i>
     </div>
     <div class="details-content">
-      <div class="admonition-content">当你执行<code>git tag -a</code>命令时，Git 会打开你的编辑器，让你写一句标签注解，就像你给提交写注解一样。<br>
+      <div class="admonition-content">当你执行<code>git tag -a</code>命令时，Git 会打开你的编辑器，让你写一句标签注解，就像你给提交写注解一样。
 如果我们忘了给某个提交打标签，又将它发布了，我们可以给它追加标签。</div>
     </div>
   </div>
@@ -3973,9 +3974,9 @@ Idempotent：每次执行操作时，GET 只有读取 Resource，不会改变到
 <p>但<strong>消息队列是有优先级的</strong></p>
 <p>根据 W3C 的最新解释：</p>
 <ul>
-<li>每个任务都有一个任务类型，同一个类型的任务必须在一个队列，不同类型的任务可以分属于不同的队列。<br>
+<li>每个任务都有一个任务类型，同一个类型的任务必须在一个队列，不同类型的任务可以分属于不同的队列。
 在一次事件循环中，浏览器可以根据实际情况从不同的队列中取出任务执行。</li>
-<li>浏览器必须准备好一个微队列，微队列中的任务优先所有其他任务执行<br>
+<li>浏览器必须准备好一个微队列，微队列中的任务优先所有其他任务执行
 <a href="https://html.spec.whatwg.org/multipage/webappapis.html#perform-a-microtask-checkpoint"target="_blank" rel="external nofollow noopener noreferrer">https://html.spec.whatwg.org/multipage/webappapis.html#perform-a-microtask-checkpoint<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
 </ul>
 <blockquote>
@@ -4449,7 +4450,7 @@ Idempotent：每次执行操作时，GET 只有读取 Resource，不会改变到
 <ul>
 <li><a href="https://semver.org/"target="_blank" rel="external nofollow noopener noreferrer">Semantic Versioning 2.0.0<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
 <li><a href="http://nodejs.cn/learn/semantic-versioning-using-npm"target="_blank" rel="external nofollow noopener noreferrer">使用 npm 的语义版本控制<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
-</ul>]]></description></item><item><title>Commit Message Spec</title><link>https://lruihao.cn/posts/commit-spec/</link><pubDate>Fri, 12 Aug 2022 15:37:44 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/commit-spec/</guid><description><![CDATA[<p>Commit messages are short descriptions of changes to a repository. We should follow certain standards to effectively describe changes, such as the most used Angular Commit specification on GitHub, or each development team can simplify and formulate their own submission specifications, which is not only conducive to the automatic generation of Changelog in the later stage, but more importantly, when it appears When there is a bug, the entire warehouse can be quickly checked, the problem point can be accurately located, and the version can be returned.</p>
+</ul>]]></description></item><item><title>Commit Message Spec</title><link>https://lruihao.cn/posts/commit-spec/</link><pubDate>Fri, 12 Aug 2022 15:37:44 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/commit-spec/</guid><description><![CDATA[<p>Commit messages are short descriptions of changes to a repository. We should follow certain standards to effectively describe changes, such as the <a href="https://www.conventionalcommits.org/en/v1.0.0-beta.4/"target="_blank" rel="external nofollow noopener noreferrer">Conventional Commits<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> specification based on the <a href="https://github.com/angular/angular/blob/68a6a07/CONTRIBUTING.md#commit"target="_blank" rel="external nofollow noopener noreferrer">Angular convention<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> that is most used on GitHub, or each development team can simplify and formulate their own commit specification. This is not only conducive to the automatic generation of Changelog in the later stage, but more importantly, when a bug occurs, the entire warehouse can be quickly checked, the problem point can be accurately located, and the version can be reverted.</p>
 <h2 id="format">Format</h2>
 <p><code>[{emoji} ]{type}[({module})]: {subject within 50 words}[ (#{issue/pull request})]</code></p>
 <p>example:</p>
@@ -4904,7 +4905,7 @@ Idempotent：每次执行操作时，GET 只有读取 Resource，不会改变到
       <i class="icon fa-solid fa-question-circle fa-fw" aria-hidden="true"></i>问题<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i>
     </div>
     <div class="details-content">
-      <div class="admonition-content">腾讯云云函数从 2022 年 6 月 1 日开始收费了，差不多每个月 12 块，对于可能几个月都用不上一次云函数刷新缓存的人来说，有点太贵了。<br>
+      <div class="admonition-content">腾讯云云函数从 2022 年 6 月 1 日开始收费了，差不多每个月 12 块，对于可能几个月都用不上一次云函数刷新缓存的人来说，有点太贵了。
 使用 Node.js 和 GitHub Actions 刷新 CDN 的方式，可以节省不少钱。</div>
     </div>
   </div>
@@ -5748,7 +5749,7 @@ Idempotent：每次执行操作时，GET 只有读取 Resource，不会改变到
 <li><a href="https://github.com/mzlogin/awesome-adb"target="_blank" rel="external nofollow noopener noreferrer">awesome-adb<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
 </ul>
 <h2 id="注意">注意</h2>
-<p>windows 系统下的文件（夹）命名所采用的是 GBK 编码，而 linux 是采用的 UTF-8 编码，使用 adb 的<br>
+<p>windows 系统下的文件（夹）命名所采用的是 GBK 编码，而 linux 是采用的 UTF-8 编码，使用 adb 的
 push 和 pull 命令时由于编码方式的不同会产生错误，因此需要修改 adb 的源代码来支持编码转换。</p>]]></description></item><item><title>重新认识 JavaScript</title><link>https://lruihao.cn/posts/js-rediscover/</link><pubDate>Sun, 01 May 2022 10:59:36 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/js-rediscover/</guid><description><![CDATA[<div class="details admonition tip open">
     <div class="details-summary admonition-title">
       <i class="icon fa-solid fa-lightbulb fa-fw" aria-hidden="true"></i>前言<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i>
@@ -6517,7 +6518,7 @@ push 和 pull 命令时由于编码方式的不同会产生错误，因此需要
 </tbody>
 </table>
 <h2 id="总结">总结</h2>
-<p>之前在 Foxconn 工作，因为工作电脑、个人电脑、手机可以做到互不干扰，本来想的是把<strong>工作、学习 (Free Code) 和 生活</strong> 的计划完全分开。<br>
+<p>之前在 Foxconn 工作，因为工作电脑、个人电脑、手机可以做到互不干扰，本来想的是把<strong>工作、学习 (Free Code) 和 生活</strong> 的计划完全分开。
 但是换工作后用自己的电脑，工作和 Free Code 就有了交集，换 mac 后，由于苹果生态的原因，不可避免生活计划也加入其中，形成一个三者互相交错的 Venn 图，所以简单分一下：</p>
 <ul>
 <li>工作、生活
