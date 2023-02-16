@@ -28,6 +28,6 @@
 
 ---
 
-> 作者: [杨灿](mailto:1845280636@qq.com)  
+> 作者: map[link:mailto:1845280636@qq.com name:杨灿]  
 > URL: https://lruihao.cn/posts/renative/  
 
