@@ -4,10 +4,13 @@
 两题水过，暴力，找规律。
 
 ## [托米的赌球](https://www.nowcoder.com/acm/contest/156/A)
+
 ## [托米的划分](https://www.nowcoder.com/acm/contest/156/B)
+
 <!--more-->
 
 ## a
+
 ```cpp
 #include<bits/stdc++.h>
 using namespace std;
@@ -45,7 +48,9 @@ int main(){
 ```
 
 ## b
+
 f(n)=f(n-1)+n-1;
+
 ```c
 #include<bits/stdc++.h>
 using namespace std;
@@ -68,6 +73,7 @@ int main(){
 }
 
 ```
+
 
 ---
 

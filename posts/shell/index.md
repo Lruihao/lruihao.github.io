@@ -2,18 +2,20 @@
 
 
 今天上机学了几个小命令
-* read
-* echo
-* if
+
+- read
+- echo
+- if
 
 然后自己写了一个小脚本觉得还挺有趣的
+
 <!--more-->
 
 ```sh
 #!/bin/bash
 #liruihao
 #menu.sh
-#sudo apt curl install nyancat sl figlet toilet cowsay 
+#sudo apt curl install nyancat sl figlet toilet cowsay
 echo "-------------菜-单--------------"
 echo "------------1-打印二维码--------"
 echo "------------2-彩虹猫------------"
@@ -65,12 +67,14 @@ clear
 ./menu.sh
 
 ```
+
 ![](images/1.png)
 ![](images/2.png)
 ![](images/3.png)
 ![](images/4.1.png)
 ![](images/4.2.png)
 ![](images/5.png)
+
 
 ---
 

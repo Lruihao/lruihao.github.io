@@ -8,27 +8,40 @@ Dreamoon wants to climb up a stair of n steps. He can climb 1 or 2 steps at each
 What is the minimal number of moves making him climb to the top of the stairs that satisfies his condition?
 
 ### Input
+
 The single line contains two space separated integers n, m (0 < n ≤ 10000, 1 < m ≤ 10).
 
 ### Output
+
 Print a single integer — the minimal number of moves being a multiple of m. If there is no way he can climb satisfying condition print  - 1 instead.
 
 ### Examples
+
 #### input
+
     10 2
+
 #### output
+
     6
+
 #### input
+
     3 5
+
 #### output
+
     -1
+
 ### Note
+
 For the first sample, Dreamoon could climb in 6 moves with following sequence of steps: {2, 2, 2, 2, 1, 1}.  
-For the second sample, there are only three valid sequence of steps {2, 1}, {1, 2}, {1, 1, 1} with 2, 2, and 3 steps respectively. All these numbers are not multiples of 5.  
+For the second sample, there are only three valid sequence of steps {2, 1}, {1, 2}, {1, 1, 1} with 2, 2, and 3 steps respectively. All these numbers are not multiples of 5.
 
 有一个 n 级台阶，每次可以走一级或两级，问最少的步数是多少，且步数必须是 m 的倍数。  
 找一下数学公式就好了。  
-具体看代码。  
+具体看代码。
+
 ```cpp
 #include<bits/stdc++.h>
 using namespace std;

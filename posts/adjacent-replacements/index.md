@@ -1,9 +1,10 @@
 # Adjacent Replacements
 
 
-[A. Adjacent Replacements](https://codeforces.com/contest/1006/problem/A)  
+[A. Adjacent Replacements](https://codeforces.com/contest/1006/problem/A)
 
 第一次打 cf 就做出一道这样的找规律的题，打到自闭。
+
 ```cpp
 #include<bits/stdc++.h>
 using namespace std;
@@ -22,6 +23,7 @@ int main(){
 	return 0;
 }
 ```
+
 
 ---
 

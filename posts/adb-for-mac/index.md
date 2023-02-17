@@ -50,6 +50,7 @@ adb shell ifconfig
 windows 系统下的文件（夹）命名所采用的是 GBK 编码，而 linux 是采用的 UTF-8 编码，使用 adb 的
 push 和 pull 命令时由于编码方式的不同会产生错误，因此需要修改 adb 的源代码来支持编码转换。
 
+
 ---
 
 > 作者: [Lruihao](https://github.com/Lruihao)  

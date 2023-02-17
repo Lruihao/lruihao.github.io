@@ -28,8 +28,8 @@
 当执行提交操作（git commit）时，暂存区的目录树写到版本库（对象库）中，master 分支会做相应的更新。即 master 指向的目录树就是提交时暂存区的目录树。  
 当执行 `"git reset HEAD"` 命令时，暂存区的目录树会被重写，被 master 分支指向的目录树所替换，但是工作区不受影响。  
 当执行 `"git rm --cached <file>"` 命令时，会直接从暂存区删除文件，工作区则不做出改变。  
-当执行 `"git checkout ."` 或者 `"git checkout -- <file>"`   命令时，会用暂存区全部或指定的文件替换工作区的文件。这个操作很危险，会清除工作区中未添加到暂存区的改动。  
-当执行 `"git checkout HEAD ."` 或者 `"git checkout HEAD <file>"` 命令时，会用 `HEAD` 指向的 master 分支中的全部或者部分文件替换暂存区和以及工作区中的文件。这个命令也是极具危险性的，因为不但会清除工作区中未提交的改动，也会清除暂存区中未提交的改动。  
+当执行 `"git checkout ."` 或者 `"git checkout -- <file>"` 命令时，会用暂存区全部或指定的文件替换工作区的文件。这个操作很危险，会清除工作区中未添加到暂存区的改动。  
+当执行 `"git checkout HEAD ."` 或者 `"git checkout HEAD <file>"` 命令时，会用 `HEAD` 指向的 master 分支中的全部或者部分文件替换暂存区和以及工作区中的文件。这个命令也是极具危险性的，因为不但会清除工作区中未提交的改动，也会清除暂存区中未提交的改动。
 
 ## Git 配置
 
@@ -108,7 +108,7 @@ git pull
 ```
 
 > 从远程仓库拉下来到本地库然后合并相当于`git fetch`+`git merge`。  
-一般 push 前先拉去最新版本，避免代码冲突，如果有冲突需要解决了冲突才能提交。
+> 一般 push 前先拉去最新版本，避免代码冲突，如果有冲突需要解决了冲突才能提交。
 
 **import repositories 同步更新**
 
@@ -132,7 +132,7 @@ git merge dev           ## 在当前的分支上合并 dev 分支
 ```
 
 > 分支合并也是在本地完成 (**从本地库到工作区**)，新的分支只有在合并后才允许被删除。  
-如果分支合并是出现冲突需要解决了冲突才能合并，使用`git status`查看冲突文件。
+> 如果分支合并是出现冲突需要解决了冲突才能合并，使用`git status`查看冲突文件。
 
 ![分支合并后删除](images/delete-merge.png)
 
@@ -159,32 +159,34 @@ git reflog            ## 查看历史记录的 commit id
 ```
 
 {{< admonition tip "Tips" >}}
+
 想看到自己的操作记录，则可以使用 log 与 reflog，它两个的区别如下：
 
 1. `git log`命令可以显示所有提交过的版本信息；
-如果感觉太繁琐，可以加上参数`--pretty=oneline`，只会显示版本号和提交时的备注信息。
+   如果感觉太繁琐，可以加上参数`--pretty=oneline`，只会显示版本号和提交时的备注信息。
 2. `git reflog`可以查看所有分支的所有操作记录。（包括已经被删除的 commit 记录和 reset 的操作）
+
 {{< /admonition >}}
 
 ### reset
 
 ```bash
-git reset --hard HEAD^        
+git reset --hard HEAD^
 git reset --hard HEAD~        ## 回退到上一个版本
 git reset --hard HEAD~100     ## 回退到 100 个版本
 
-git reset head -- file        ## 不加 file 则全部退回  
+git reset head -- file        ## 不加 file 则全部退回
 git reset file                ## 将本地仓库的当前版本退回至暂存区，相当于取消暂存
 ```
 
 > 版本退回是从本地仓库到暂存区，如果已经提交远程库，此时的版本是低于最新的版本的会拒绝提交，
-需要用`git push -f origin master`强制提交。
+> 需要用`git push -f origin master`强制提交。
 
 {{< admonition danger "特别提醒" >}}
 如果你`git reset --hard HEAD^`+`git push -f origin master`执行完，github 中的记录和本地文件都会回到退回的状态。**简单来说就是一修改了一天的 bug, 完工后，你这一套操作直接打回原形。别慌（实际内心慌的一麻皮。）**
 
 1. 通过`git log -g`命令来找到需要恢复的信息对应的 commitid，可以通过提交的时间和记录来辨别，
-找到执行`reset --hard`之前的那个 commit 对应的 commit-id
+   找到执行`reset --hard`之前的那个 commit 对应的 commit-id
 2. 通过`git branch recover_branch commit-id`来建立一个新的分支
 
 **这样，就把到 commitid 为止的代码、各种提交记录等信息都恢复到了 recover_branch 分支上了。**
@@ -288,10 +290,10 @@ $ git push [remote] --tags        ## 提交所有 tag
 $ git tag -a v0.9 85fc7e7
 $ git log --oneline --decorate --graph
 *   d5e9fc2 (HEAD -> master) Merge branch 'change_site'
-|\  
+|\
 | * 7774248 (change_site) changed the runoob.php
 * | c68142b 修改代码
-|/  
+|/
 * c1501a2 removed test.txt、add runoob.php
 * 3e92c19 add test.txt
 * 3b58100 (tag: v0.9) 第一次版本提交

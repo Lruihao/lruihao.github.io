@@ -4,21 +4,24 @@
 > 二进制最大公约数算法避免了欧几里得算法（辗转相除法）的大量取模操作，有效减少了时间消耗，且更为方便。
 
 <!--more-->
+
 ## 原理
 
-本算法基于以下事实：  
+本算法基于以下事实：
+
 > 对于两个数的最大公约数 gcd(m, n)，有
-m<n 时，gcd(m, n)=gcd(n, m)
-m 偶 n 偶时，gcd(m, n)=2\*gcd(m/2, n/2)
-m 偶 n 奇时，gcd(m, n)=gcd(m/2, n)
-m 奇 n 偶时，gcd(m, n)=gcd(m, n/2)
-m 奇 n 奇时，gcd(m, n)=gcd(n, m-n)
+> m<n 时，gcd(m, n)=gcd(n, m)
+> m 偶 n 偶时，gcd(m, n)=2\*gcd(m/2, n/2)
+> m 偶 n 奇时，gcd(m, n)=gcd(m/2, n)
+> m 奇 n 偶时，gcd(m, n)=gcd(m, n/2)
+> m 奇 n 奇时，gcd(m, n)=gcd(n, m-n)
 
 采用递归即可。
 
 ## 实现
+
 ```cpp 最大公约数
-inline int GCD(int x,int y)   
+inline int GCD(int x,int y)
 {
         int i,j;
         if(x==0) return y;
@@ -48,6 +51,7 @@ int get_lcm(int a,int b)///获得最小公倍数
     return x/a*y;
 }
 ```
+
 
 ---
 

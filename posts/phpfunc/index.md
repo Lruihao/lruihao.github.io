@@ -2,9 +2,9 @@
 
 
 > 练习 php 函数的基本使用。  
-注：  
-必选参数在可选参数的前面。  
-可在函数中定义函数，需要先调用外层函数才能调用内层函数。  
+> 注：  
+> 必选参数在可选参数的前面。  
+> 可在函数中定义函数，需要先调用外层函数才能调用内层函数。
 
 <!--more-->
 
@@ -28,7 +28,9 @@ function createTable($rows,$cols,$bgcolor='pink',$content='x'){
 echo createTable(5,5,'pink','hello lruihao');
 ?>
 ```
+
 ![php 创建表格](images/table.png)
+
 
 ---
 

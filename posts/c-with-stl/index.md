@@ -70,6 +70,7 @@ c=min(s,d);
 ## 5.`__gcd`（最大公约数）
 
 手写 gcd 函数也行，辗转相除，辗转相减；
+
 ```c
 int gcd(int a,int b){
 
@@ -79,11 +80,13 @@ int gcd(int a,int b){
 ```
 
 //直接用
+
 ```c
 int a=4,b=6;
 
 int c=__gcd(a,b);
 ```
+
 //注意下划线，此时 c 等于 2
 
 ## 6.lower_bound 和 upper_bound（二分查找）
@@ -119,7 +122,8 @@ vector<int>::iterator it;
 
 it = lower_bound(a.begin(),a.end(),4);
 ```
-//这里的 it 就是迭代器，那么* it 就是该下标对应的 value 了。
+
+//这里的 it 就是迭代器，那么\* it 就是该下标对应的 value 了。
 
 //set 集合
 
@@ -134,6 +138,7 @@ it = a.lower_bound(value);
 ## 7.next_permutation （排列）
 
 bool next_permutation( iterator start, iterator end ); 通常用于生成序列的全排列。用之前先保证有序；
+
 ```c
 int a[]={1,2,3};
 
@@ -183,17 +188,17 @@ do{
 ```c
 int length;
 
-char str[MAX];    
+char str[MAX];
 
-gets(str);    
+gets(str);
 
-length = strlen(str);    
+length = strlen(str);
 
-sort(str, str + length);    
+sort(str, str + length);
 
-do{        
+do{
 
-       puts(str);    
+       puts(str);
 
 }while(next_permutation(str, str+length))；
 ```
@@ -203,6 +208,7 @@ do{
 如何把序列 a 中的重复元素去除呢？首先需要对原序列 a 进行排序，保证有序后，调用 unique(a.head , a.tail ) 就可以了。unique 会返回一个类似指针的东西（和 lower_bound 有点像），-a 后表示去重之后序列的长度。
 
 下面是实例。
+
 ```c
 int a[]={1,3,5,7,9,2,2,2,1,1,1};
 
@@ -218,6 +224,7 @@ for(int i=0;i<len;i++)
 输出结果为：1 2 3 5 7 9
 
 [传送门](https://weibo.com/ttarticle/p/show?id=2309404241150725776250&mod=zwenzhang)
+
 
 ---
 

@@ -1,14 +1,16 @@
 # python 玩微信：初探 wxpy
 
 
-> ***文中涉及的图片涉及个人隐私，仅做举例，请勿传播***
+> **_文中涉及的图片涉及个人隐私，仅做举例，请勿传播_**
 >
 > - 查看微信好友男女比例
 > - 查看好友地区分布
 > - 群性别统计
 
 <!--more-->
+
 ## 前期准备
+
 - [wxpy](https://github.com/youfou/wxpy)
 - [pyecharts](https://github.com/pyecharts/pyecharts)（百度 echarts）
 
@@ -20,7 +22,7 @@ from pyecharts import Pie
 
 bot = Bot(cache_path = True)   #定义一个微信机器人
 friends = bot.friends(update=False)   #获取更新好友列表
-male = female = other = 0    
+male = female = other = 0
 
 for i in friends[1:]:     #[1:] 自己是第一个，排除掉
     sex = i.sex
@@ -40,6 +42,7 @@ pie.add("", attr, v1, radius=[40, 75], label_text_color=None, is_label_show=True
         legend_orient='vertical', legend_pos='left')
 pie.render("sex.html")
 ```
+
 ![微信好友男女比例](images/1.png)
 
 ## 查看好友地区分布
@@ -56,7 +59,7 @@ def s(x):
 #只提取湖南的
 bot = Bot(cache_path = True)
 friends = bot.friends(update=False).search(province = '湖南')
-citys = []   
+citys = []
 for f in friends :
     city = f.city
     citys.append(city)
@@ -80,11 +83,13 @@ map = Map("湖南地图示例", width=1200, height=600)
 map.add("", attrs, values, maptype='湖南', is_visualmap=True, visual_text_color='#000')
 map.render("city.html")
 ```
+
 ![微信地区分布](images/2.png)
 
 > **以上参考简书 [陈思煜](https://www.jianshu.com/p/c0baf3c6db15)**
 
 ## 统计所有群男女数目
+
 > 统计结果会自动发送到所有群聊
 > 男女人数和不一定等于总数（有些人不显示性别）
 
@@ -92,7 +97,7 @@ map.render("city.html")
 #encoding=utf-8
 from wxpy import *
 import numpy
-    
+
 def removeAll(the_list, val):
     return [value for value in the_list if value != val]
 
@@ -100,7 +105,7 @@ def stats_text(target_group, group_name):
     print(group_name + "群共有：" + str(len(target_group)) + "人，其中：")
     all_stats_text = []
     all_dict = {}
-    
+
     ## 乱序先整理一份省份 + 地点的列表
     for user in target_group.members:
         trimed_data = user.province.replace(' ', '') + user.city.replace(' ', '')
@@ -110,7 +115,7 @@ def stats_text(target_group, group_name):
     for data in all_stats_text:
         if all_stats_text.count(data) != 0:
             all_dict[data] = all_stats_text.count(data)
-            all_stats_text = removeAll(all_stats_text, data)        
+            all_stats_text = removeAll(all_stats_text, data)
     final_dict = {}
     for i in sorted(all_dict.keys()):
         final_dict[i] = all_dict[i]
@@ -120,7 +125,7 @@ def stats_sex(target_group):
     male = 0
     female = 0
     other = 0
-    
+
     for user in target_group.members:
         if user.sex == 1:
             male = male + 1
@@ -128,7 +133,7 @@ def stats_sex(target_group):
             female = female + 1
         else:
             other = other + 1
-    
+
     print("男的有：" + str(male) + "人")
     print("女的有：" + str(female) + "人")
     msg = "男的有：" + str(male) + "人、n" + "女的有：" + str(female) + "人、n"
@@ -147,6 +152,7 @@ for curr_group in target_group:
     msg = stats_sex(curr_group)
     curr_group.send(curr_group.name + "群，一共有：" + str(len(curr_group)) + "人、n" + msg)
 ```
+
 
 ---
 

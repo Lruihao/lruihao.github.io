@@ -9,19 +9,23 @@ next 主题好像更新了，现在自带的可以用了，如果可以用了，
 {{< /admonition >}}
 
 <!--more-->
+
 ## 安装
 
 [wordcount github](https://github.com/willin/hexo-wordcount)
 如果没有安装 hexo-wordcount 插件，先安装该插件：
+
 ```
 npm i --save hexo-wordcount
 
 # Node 版本 7.6.0 之前，请安装 2.x 版本 (Node.js v7.6.0 and previous)
 npm install hexo-wordcount@2 --save
 ```
+
 ## post 添加
 
 打开`hexo\themes\hexo-theme-next\layout\_macro`路径下的 post.swig 文件，既然没有字数统计那么我们就加一个，简单暴力地直接在阅读数后面加上一条就好了，在文件类搜索关键词`busuanzi`, 我用的是不蒜子，如果用的了 leancloud 的搜 leancloud 就好了，其他类似。找到这段代码后
+
 ```
 {% if not is_index and theme.busuanzi_count.enable and theme.busuanzi_count.post_views %}
     <span class="post-meta-divider">|</span>
@@ -31,10 +35,12 @@ npm install hexo-wordcount@2 --save
     {% if theme.post_meta.item_text %} {{__('post.views') + __('symbol.colon') }} {% endif %}
     <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
     </span>
-            
+
 {% endif %}
 ```
+
 在`endif`上面，即本文代码块那个空行处添加以下代码
+
 ```
 <span class="post-meta-divider">|</span>
 <span title="{{ __('post.wordcount') }}"><span class="post-meta-item-icon"><i class="fa fa-file-word-o"></i></span>字数： {{ wordcount(post.content) }}</span>
@@ -43,6 +49,7 @@ npm install hexo-wordcount@2 --save
 ## 全站添加
 
 打开`hexo\themes\hexo-theme-next\layout\_partials`路径下 footer.swig 文件，在你喜欢的位置添加以下代码
+
 ```
 <div class="theme-info">
   <div class="powered-by"></div>

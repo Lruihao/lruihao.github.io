@@ -2,43 +2,52 @@
 
 
 ## StringBuffer/StringBuilder（掌握）
+
 ### StringBuffer 是线程安全的可变字符串。
-   StringBuilder 是线程不安全的可变字符串。  
-   和 StringBuffer 的功能一样。就是效率高一些，但是不安全。  
+
+StringBuilder 是线程不安全的可变字符串。  
+ 和 StringBuffer 的功能一样。就是效率高一些，但是不安全。
+
 ### 构造方法：
+
 - StringBuffer sb = new StringBuffer();
 - StringBuffer sb = new StringBuffer(50);
 - StringBuffer sb = new StringBuffer("hello");
 
 ### 成员方法：（自己补齐方法和意思）
+
 - 添加功能  
-	public StringBuffer append(String str): 追加字符串  
-	public StringBuffer insert(int offset,String str): 在指定位置插入字符串  
+  public StringBuffer append(String str): 追加字符串  
+  public StringBuffer insert(int offset,String str): 在指定位置插入字符串
 - 删除功能  
-	public StringBuffer deleteCharAt(int index): 删除指定位置字符  
-	public StringBuffer delete(int start,int end): 删除从指定开始到结束的字符，左闭右开  
+  public StringBuffer deleteCharAt(int index): 删除指定位置字符  
+  public StringBuffer delete(int start,int end): 删除从指定开始到结束的字符，左闭右开
 - 替换功能  
-	public StringBuffer replace(int start,int end,String str): 以字符串替代从指定开始到结束的字符  
+  public StringBuffer replace(int start,int end,String str): 以字符串替代从指定开始到结束的字符
 - 反转功能  
-	public StringBuffer reverse(): 反转  
+  public StringBuffer reverse(): 反转
 - 截取功能  
-	public String substring(int start): 从指定索引到末尾的字符串  
-	public String substring(int start,int end): 从指定索引开始到指定索引结束的字符串  
+  public String substring(int start): 从指定索引到末尾的字符串  
+  public String substring(int start,int end): 从指定索引开始到指定索引结束的字符串
 
 ### 案例：
+
 - String 和 StringBuffer 的相互转换，通过构造即可。
 - 把数组转成指定的字符串格式
 - 把字符串反转
 - 判断一个字符串是否是对称字符串
 
 ## 数组高级部分（理解）
+
 ### 排序
+
 - 冒泡排序
-> 相邻元素，两两比较，大的往后放。
+  > 相邻元素，两两比较，大的往后放。
 
 ![冒泡排序](images/bubble.gif)
 
 ![冒泡排序](images/1.png)
+
 ```java
 	public static void bubbleSort(int[] arr) {
 		for(int x=0; x<arr.length-1; x++) {
@@ -52,10 +61,12 @@
 		}
 	}
 ```
+
 - 选择排序
-> 从 0 开始，依次和后面的比较，小的往前放。
+  > 从 0 开始，依次和后面的比较，小的往前放。
 
 ![选择排序 1](images/2.png)
+
 ```java
 	public static void selectSort(int[] arr) {
 		for(int x=0; x<arr.length-1; x++) {
@@ -71,7 +82,8 @@
 ```
 
 ![选择排序 2](images/select.gif)
-```java 
+
+```java
 public static void selectSort(int[] a)
 {
     int min=0;
@@ -96,11 +108,13 @@ public static void selectSort(int[] a)
     }
 }
 ```
+
 ### 查找
+
 - 基本查找  
-	数组无序  
+  数组无序
 - 二分查找  
-	数组有序  
+  数组有序
 
 ```java
 public static int getIndex(int[] arr,int value) {
@@ -127,21 +141,28 @@ public static int getIndex(int[] arr,int value) {
 ```
 
 ## Arrays 工具类（掌握）
+
 ### Arrays 是针对数组进行操作的工具类，提供了排序和查找等功能
+
 ### 成员方法：（自己补齐方法和意思）
+
 - 把数组转成字符串
-	public static String toString(): 将任意类型数据转换成字符串
+  public static String toString(): 将任意类型数据转换成字符串
 - 排序
-	public static void sort()：
+  public static void sort()：
 - 二分查找
-	public static int binarySearch(int[] arr,int key)
+  public static int binarySearch(int[] arr,int key)
 
 ### 案例：
+
 把字符串中的字符进行排序
 
 ## 基本类型包装类（掌握）
+
 ### 为了让我们对基本类型进行更多的操作，java 针对每种基本类型提供了对应的包装类类型。
+
 ### 分别是哪些呢？
+
 ```
 	byte		Byte
 	short		Short
@@ -153,15 +174,18 @@ public static int getIndex(int[] arr,int value) {
 	boolean		Boolean
 特殊：  void		Void
 ```
+
 ### Integer
+
 - 构造方法
-	- Integer i = new Integer(100);
-	- Integer i = new Integer("100");
+  - Integer i = new Integer(100);
+  - Integer i = new Integer("100");
 - 成员方法（自己补齐方法和意思）
-	- 把字符串转成 int 类型  
-		String->int: Integer.parseInt()  
-		int->String: String.valueOf() 或 Integer.toString()  
+  - 把字符串转成 int 类型  
+    String->int: Integer.parseInt()  
+    int->String: String.valueOf() 或 Integer.toString()
 - JDK5 的新特性
+
 ```
 自动装箱：
 	int --> Integer		//Integer.valueOf()
@@ -175,22 +199,24 @@ public static int getIndex(int[] arr,int value) {
 ```
 
 - byte 缓存池面试题  
-	byte,short,char--->小于 127，否则报-6 的错误（查看 JDK)
+  byte,short,char--->小于 127，否则报-6 的错误（查看 JDK)
 
 ### Character
+
 - 构造方法  
-	Character ch = new Character('a');  
+  Character ch = new Character('a');
 - 成员方法（自己补齐方法和意思）
-	- 判断字符是否是大写字母
-	public boolean isUpperCase(char ch)
-	- 判断字符是否是小写字母
-	public boolean isLowerCase(Char ch)
-	- 判断字符是否是数字字符
-	public boolean isDigit(Char ch)
-	- 把字符转成大写
-	public Char toUpperCase(Char ch)
-	- 把字符转成小写
-	public Char toLowerCase(Char ch)
+  - 判断字符是否是大写字母
+    public boolean isUpperCase(char ch)
+  - 判断字符是否是小写字母
+    public boolean isLowerCase(Char ch)
+  - 判断字符是否是数字字符
+    public boolean isDigit(Char ch)
+  - 把字符转成大写
+    public Char toUpperCase(Char ch)
+  - 把字符转成小写
+    public Char toLowerCase(Char ch)
+
 
 ---
 

@@ -2,25 +2,32 @@
 
 
 {{< admonition info >}}
+
 这件事还得从一只蝙蝠说起 ...  
 算了，昨天下午 3 点半，我还在王者峡谷 Timing, 突然潇 X 巴哥打了个电话给我说关于自动打卡的想法 ...  
 哎，反正就是由于疫情需要每天健康打卡汇报给学校，然后每天提交一样的太麻烦了，就想写个程序自动打卡 ...  
-我和潇 X 巴哥确定思路后兵分两路：   
+我和潇 X 巴哥确定思路后兵分两路：
+
 1. 他用 java 写个后台自动刷多人的，再弄个网页给用户填写账号密码保存在数据库；
 2. 我想的就很直接，只刷一个人的，python 模拟浏览器登录后打卡，再设置定时任务（多人则设定多个）；
+
 {{< /admonition >}}
 
 <!--more-->
+
 ## Windows 运行效果
-![打卡成功](images/result1.png "打卡成功")  
-![重复打卡](images/result.png "重复打卡")  
-![定时任务日志](images/result2.png "定时任务日志")  
+
+![打卡成功](images/result1.png '打卡成功')  
+![重复打卡](images/result.png '重复打卡')  
+![定时任务日志](images/result2.png '定时任务日志')
 
 ## 核心代码
+
 > 适用湖南工程学院的打卡系统。  
-请勿滥用代码提交不实健康信息，隐瞒疫情将受到相关法律处理！
+> 请勿滥用代码提交不实健康信息，隐瞒疫情将受到相关法律处理！
 
 [完整代码](https://github.com/Lruihao/python-funny-code/blob/master/%E6%98%93%E7%8F%AD%E6%89%93%E5%8D%A1.py)
+
 ```py 模拟登录打卡 https://github.com/Lruihao/python-funny-code/blob/master/%E6%98%93%E7%8F%AD%E6%89%93%E5%8D%A1.py 完整代码
 def lajaDaka():
   # 登录
@@ -50,8 +57,11 @@ if __name__=="__main__":
 ```
 
 ## 自动运行
+
 ### Windows
+
 适用 python 代码控制休眠时间
+
 ```py 定时
 if __name__=="__main__":
   while True:
@@ -75,16 +85,20 @@ if __name__=="__main__":
 ```
 
 ### linux（云服务器）
+
 搭建 python 环境下载依赖后，使用 shell 脚本定时执行。
+
 ```bash 脚本内容设定
 python /home/python/yiban_daka/daka.py
 ```
+
 [CRON 表达式的基本语法](/posts/cron/)
 
 ## 潇 x 巴哥的 java web 版本
+
 符合程序员的应该有的简洁和方便，干净又卫生！
 `http://39.105.174.214/index.html`  
-![java web 版](images/javaweb.png "java web 版")  
+![java web 版](images/javaweb.png 'java web 版')
 
 
 ---

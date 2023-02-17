@@ -24,7 +24,7 @@
 </thead>
 <tbody>
 <tr>
-<td style="text-align:left">🎉  <br>✨</td>
+<td style="text-align:left">🎉 <br>✨</td>
 <td style="text-align:left">Feat</td>
 <td style="text-align:left">Feat: add {feature}</td>
 <td style="text-align:left">new feature</td>
@@ -97,9 +97,9 @@
 <p>工作流程涉及到兩個倉庫和一個 cos 桶，例如：</p>
 <blockquote>
 <ul>
-<li>Lruihao/hugo-blog          # Blog source repository</li>
-<li>Lruihao/lruihao.github.io  # GitHub pages repository</li>
-<li>blog-1256932288            # COS bucket</li>
+<li>Lruihao/hugo-blog # Blog source repository</li>
+<li>Lruihao/lruihao.github.io # GitHub pages repository</li>
+<li>blog-1256932288 # COS bucket</li>
 </ul>
 </blockquote>
 <h2 id="github-actions">Github Actions</h2>
@@ -155,8 +155,8 @@
 </span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Check out repository code</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">actions/checkout@v2</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">with</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">submodules</span><span class="p">:</span><span class="w"> </span><span class="l">recursive </span><span class="w"> </span><span class="c"># Fetch Hugo themes (true OR recursive)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">fetch-depth</span><span class="p">:</span><span class="w"> </span><span class="m">0</span><span class="w">         </span><span class="c"># Fetch all history for .GitInfo and .Lastmod</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">submodules</span><span class="p">:</span><span class="w"> </span><span class="l">recursive</span><span class="w"> </span><span class="c"># Fetch Hugo themes (true OR recursive)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">fetch-depth</span><span class="p">:</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="c"># Fetch all history for .GitInfo and .Lastmod</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Setup Hugo</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">peaceiris/actions-hugo@v2</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">with</span><span class="p">:</span><span class="w">
@@ -178,8 +178,8 @@
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">env</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">COS_SECRET_ID</span><span class="p">:</span><span class="w"> </span><span class="l">${{ secrets.COS_SECRET_ID }}</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">COS_SECRET_KEY</span><span class="p">:</span><span class="w"> </span><span class="l">${{ secrets.COS_SECRET_KEY }}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">COS_BUCKET_NAME</span><span class="p">:</span><span class="w"> </span><span class="l">blog-1256932288 </span><span class="w"> </span><span class="c"># Change for yourself</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">COS_BUCKET_REGION</span><span class="p">:</span><span class="w"> </span><span class="l">ap-chengdu    </span><span class="w"> </span><span class="c"># Change for yourself</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">COS_BUCKET_NAME</span><span class="p">:</span><span class="w"> </span><span class="l">blog-1256932288</span><span class="w"> </span><span class="c"># Change for yourself</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">COS_BUCKET_REGION</span><span class="p">:</span><span class="w"> </span><span class="l">ap-chengdu</span><span class="w"> </span><span class="c"># Change for yourself</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l">coscmd config -a $COS_SECRET_ID -s $COS_SECRET_KEY -b $COS_BUCKET_NAME -r $COS_BUCKET_REGION</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Deploy to COS Bucket</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l">coscmd upload -r -s --delete -f public/ /</span><span class="w">
@@ -328,7 +328,7 @@
 当执行提交操作（git commit）时，暂存区的目录树写到版本库（对象库）中，master 分支会做相应的更新。即 master 指向的目录树就是提交时暂存区的目录树。<br>
 当执行 <code>&quot;git reset HEAD&quot;</code> 命令时，暂存区的目录树会被重写，被 master 分支指向的目录树所替换，但是工作区不受影响。<br>
 当执行 <code>&quot;git rm --cached &lt;file&gt;&quot;</code> 命令时，会直接从暂存区删除文件，工作区则不做出改变。<br>
-当执行 <code>&quot;git checkout .&quot;</code> 或者 <code>&quot;git checkout -- &lt;file&gt;&quot;</code>   命令时，会用暂存区全部或指定的文件替换工作区的文件。这个操作很危险，会清除工作区中未添加到暂存区的改动。<br>
+当执行 <code>&quot;git checkout .&quot;</code> 或者 <code>&quot;git checkout -- &lt;file&gt;&quot;</code> 命令时，会用暂存区全部或指定的文件替换工作区的文件。这个操作很危险，会清除工作区中未添加到暂存区的改动。<br>
 当执行 <code>&quot;git checkout HEAD .&quot;</code> 或者 <code>&quot;git checkout HEAD &lt;file&gt;&quot;</code> 命令时，会用 <code>HEAD</code> 指向的 master 分支中的全部或者部分文件替换暂存区和以及工作区中的文件。这个命令也是极具危险性的，因为不但会清除工作区中未提交的改动，也会清除暂存区中未提交的改动。</p>
 <h2 id="git-配置">Git 配置</h2>
 <div class="highlight"><div class="chroma">
@@ -564,11 +564,11 @@
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git reset --hard HEAD^        
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git reset --hard HEAD^
 </span></span><span class="line"><span class="cl">git reset --hard HEAD~        <span class="c1">## 回退到上一个版本</span>
 </span></span><span class="line"><span class="cl">git reset --hard HEAD~100     <span class="c1">## 回退到 100 个版本</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">git reset head -- file        <span class="c1">## 不加 file 则全部退回  </span>
+</span></span><span class="line"><span class="cl">git reset head -- file        <span class="c1">## 不加 file 则全部退回</span>
 </span></span><span class="line"><span class="cl">git reset file                <span class="c1">## 将本地仓库的当前版本退回至暂存区，相当于取消暂存</span>
 </span></span></code></pre></td></tr></table>
 </div>
@@ -763,10 +763,10 @@
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ git tag -a v0.9 85fc7e7
 </span></span><span class="line"><span class="cl">$ git log --oneline --decorate --graph
 </span></span><span class="line"><span class="cl">*   d5e9fc2 <span class="o">(</span>HEAD -&gt; master<span class="o">)</span> Merge branch <span class="s1">&#39;change_site&#39;</span>
-</span></span><span class="line"><span class="cl"><span class="p">|</span><span class="se">\ </span> 
-</span></span><span class="line"><span class="cl"><span class="p">|</span> * <span class="m">7774248</span> <span class="o">(</span>change_site<span class="o">)</span> changed the runoob.php
+</span></span><span class="line"><span class="cl"><span class="p">|</span><span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span><span class="p">|</span> * <span class="m">7774248</span> <span class="o">(</span>change_site<span class="o">)</span> changed the runoob.php
 </span></span><span class="line"><span class="cl">* <span class="p">|</span> c68142b 修改代码
-</span></span><span class="line"><span class="cl"><span class="p">|</span>/  
+</span></span><span class="line"><span class="cl"><span class="p">|</span>/
 </span></span><span class="line"><span class="cl">* c1501a2 removed test.txt、add runoob.php
 </span></span><span class="line"><span class="cl">* 3e92c19 add test.txt
 </span></span><span class="line"><span class="cl">* 3b58100 <span class="o">(</span>tag: v0.9<span class="o">)</span> 第一次版本提交

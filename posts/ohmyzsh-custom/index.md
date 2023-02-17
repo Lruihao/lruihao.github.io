@@ -5,7 +5,6 @@ ohmyzsh 自带了很多主题，也有很多没有收录的扩展主题，我就
 
 <!--more-->
 
-
 ## 自定义主题
 
 复制默认主题，当作模板：
@@ -34,7 +33,6 @@ ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg[green]%})"
 
 ## 配置
 
-
 ```bash
 vim ~/.zshrc
 ```
@@ -44,6 +42,7 @@ ZSH_THEME=custom
 ```
 
 然后重启终端即可。
+
 
 ---
 

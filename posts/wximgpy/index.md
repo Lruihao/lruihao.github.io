@@ -2,28 +2,32 @@
 
 
 > Python 通过 wxpy 登录微信网页版，爬取好友所有头像并拼接成一张大图。然后删除所有子图。（注释相关代码可以不删除）  
-> ***文中涉及的图片涉及个人隐私，仅做举例，请勿传播***  
-> **文中编码由 Sunbelife 提供，来自他的同名微信公众号，本博仅用于学习，侵删**  
+> **_文中涉及的图片涉及个人隐私，仅做举例，请勿传播_**  
+> **文中编码由 Sunbelife 提供，来自他的同名微信公众号，本博仅用于学习，侵删**
 
 <!--more-->
+
 ## 依赖
+
 - wxpy（Pythone 登录微信）
 - pillow（拼接头像）
 - os（文件夹操作）
 - math（数学计算）
 
 > [wxpy](https://github.com/youfou/wxpy):  
-&ensp;&ensp;wxpy 在 itchat 的基础上，通过大量接口优化提升了模块的易用性，并进行丰富的功能扩展。  
-[PIL](https://www.liaoxuefeng.com/wiki/0014316089557264a6b348958f449949df42a6d3a2e542c000/0014320027235877860c87af5544f25a8deeb55141d60c5000)：  
-&ensp;&ensp;Python Imaging Library，已经是 Python 平台事实上的图像处理标准库了。PIL 功能非常强大，但 API 却非常简单易用。由于 PIL 仅支持到 Python 2.7，加上年久失修，于是一群志愿者在 PIL 的基础上创建了兼容的版本，名字叫 Pillow，支持最新 Python 3.x，又加入了许多新特性，因此，我们可以直接安装使用 Pillow。
+> &ensp;&ensp;wxpy 在 itchat 的基础上，通过大量接口优化提升了模块的易用性，并进行丰富的功能扩展。  
+> [PIL](https://www.liaoxuefeng.com/wiki/0014316089557264a6b348958f449949df42a6d3a2e542c000/0014320027235877860c87af5544f25a8deeb55141d60c5000)：  
+> &ensp;&ensp;Python Imaging Library，已经是 Python 平台事实上的图像处理标准库了。PIL 功能非常强大，但 API 却非常简单易用。由于 PIL 仅支持到 Python 2.7，加上年久失修，于是一群志愿者在 PIL 的基础上创建了兼容的版本，名字叫 Pillow，支持最新 Python 3.x，又加入了许多新特性，因此，我们可以直接安装使用 Pillow。
 
 ## 安装
+
 ```
 pip install -U wxpy -i "https://pypi.doubanio.com/simple/"
 pip install pillow
 ```
 
 ## 运行
+
 > 如果在 Python IDE 运行出错，可能是因为微信好友的 id 是特殊字符，在 IDE 打印出错，注释掉代码 36 行即可。
 
 ```py @Sunbelife
@@ -75,7 +79,7 @@ for filter_ls in ls:
 		continue
 	else:
 		ls.remove(filter_ls)
-		
+
 ## 排序
 ls.sort(key=lambda x:int(x[:-4]))
 
@@ -103,7 +107,7 @@ for file_names in ls:
 		if x == x_lines:
 			x = 0
 			y += 1
-				
+
 img = image.save(curr_dir + "all.jpg")
 
 try:
@@ -121,6 +125,7 @@ print("2019.4.18")
 ```
 
 ## 群友全家福
+
 > 修改 11 行群名称
 
 ```py @Sunbelife
@@ -171,7 +176,8 @@ for i in range(0,len(ls)+1):
 image.save("all.png")
 shutil.rmtree("./group-images")
 ```
-![绥宁一中高 396 班](images/2.png "绥宁一中高 396 班")
+
+![绥宁一中高 396 班](images/2.png '绥宁一中高 396 班')
 
 > 加个列表，加个循环实现自动爬取所有群聊头像并发送
 
@@ -226,6 +232,7 @@ for room in roomslist:
     itchat.send_image("all.jpg", room['UserName'])
     shutil.rmtree("./group-images")
 ```
+
 
 ---
 

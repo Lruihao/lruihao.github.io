@@ -4,6 +4,7 @@
 > java 中匿名类用的最多的地方就是可视化界面设计中，特别是将`事件监听器`注册到某个组件上的时候。
 
 <!--more-->
+
 ## 代码
 
 ```java
@@ -24,11 +25,11 @@ public class QFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				JOptionPane.showMessageDialog(null, "单击了新建按钮");
 				System.out.println("lruihao.cn");
-				
+
 			}
 		});
 	}
-	
+
 	public static void main(String[] args) {
 		JFrame frame=new QFrame();
 		frame.setTitle("QFrame");
@@ -41,13 +42,17 @@ public class QFrame extends JFrame {
 
 }
 ```
+
 创建一个可视化界面，界面中有一个按钮，单击按钮显示“单击了新建按钮”。
 
 ## 结果
-![](images/1.png)
+
+![](../qframe/images/1.png)
 
 ## 参考
+
 - [JOptionPane 的使用](https://www.cnblogs.com/fantasy01/p/3911488.html)
+
 
 ---
 

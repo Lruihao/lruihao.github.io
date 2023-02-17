@@ -104,6 +104,7 @@ Custom actions
 
 - zsh: `.zsh`
 - bash: `.sh`
+
 {{< /admonition >}}
 
 ```bash sync_tags.sh
@@ -184,6 +185,7 @@ alias subl="'/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl'"
 alias mysql=/usr/local/mysql/bin/mysql
 alias mysqladmin=/usr/local/mysql/bin/mysqladmin
 alias incr="source $WORKSPACE/.shell/incr*.zsh"
+alias typora="open -a typora"
 
 # nvm
 export NVM_DIR="$HOME/.nvm"

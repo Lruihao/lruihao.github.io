@@ -340,6 +340,7 @@
 </span><span class="lnt">66
 </span><span class="lnt">67
 </span><span class="lnt">68
+</span><span class="lnt">69
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># -------------------------------------</span>
@@ -358,6 +359,7 @@
 </span></span><span class="line"><span class="cl"><span class="nb">alias</span> <span class="nv">mysql</span><span class="o">=</span>/usr/local/mysql/bin/mysql
 </span></span><span class="line"><span class="cl"><span class="nb">alias</span> <span class="nv">mysqladmin</span><span class="o">=</span>/usr/local/mysql/bin/mysqladmin
 </span></span><span class="line"><span class="cl"><span class="nb">alias</span> <span class="nv">incr</span><span class="o">=</span><span class="s2">&#34;source </span><span class="nv">$WORKSPACE</span><span class="s2">/.shell/incr*.zsh&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">alias</span> <span class="nv">typora</span><span class="o">=</span><span class="s2">&#34;open -a typora&#34;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1"># nvm</span>
 </span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">NVM_DIR</span><span class="o">=</span><span class="s2">&#34;</span><span class="nv">$HOME</span><span class="s2">/.nvm&#34;</span>
@@ -1106,71 +1108,47 @@ static/images/card-link-bg.jpg
 </span><span class="lnt">38
 </span><span class="lnt">39
 </span><span class="lnt">40
-</span><span class="lnt">41
-</span><span class="lnt">42
-</span><span class="lnt">43
-</span><span class="lnt">44
-</span><span class="lnt">45
-</span><span class="lnt">46
-</span><span class="lnt">47
-</span><span class="lnt">48
-</span><span class="lnt">49
-</span><span class="lnt">50
-</span><span class="lnt">51
-</span><span class="lnt">52
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl">{{- define &#34;title&#34; }}{{ .Title }} - {{ .Site.Title }}{{ end -}}
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl">{{- define &#34;title&#34; }}{{ .Title }} - {{ .Site.Title }}{{ end -}} {{- define &#34;content&#34; -}} {{- $params := .Scratch.Get &#34;params&#34; -}}
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;page single special&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  {{- /* Title */ -}}
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">h1</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;single-title animated pulse faster&#34;</span><span class="p">&gt;</span>{{- .Title -}}<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">{{- define &#34;content&#34; -}}
-</span></span><span class="line"><span class="cl">    {{- $params := .Scratch.Get &#34;params&#34; -}}
-</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;page single special&#34;</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">        {{- /* Title */ -}}
-</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">h1</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;single-title animated pulse faster&#34;</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">            {{- .Title -}}
-</span></span><span class="line"><span class="cl">        <span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  {{- /* Subtitle */ -}} {{- with $params.subtitle -}}
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">h2</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;single-subtitle&#34;</span><span class="p">&gt;</span>{{ . }}<span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  {{- end -}} {{- /* Friend links */ -}} {{- $loading := resources.Get &#34;svg/loading.svg&#34; | minify -}}
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;//at.alicdn.com/t/font_578712_g26jo2kbzd5qm2t9.js&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&#34;stylesheet&#34;</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;/friends/css/_friends.css&#34;</span> <span class="p">/&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;friend-links&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    {{ range $index, $friend := .Site.Data.friends }}
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">a</span>
+</span></span><span class="line"><span class="cl">      <span class="na">class</span><span class="o">=</span><span class="s">&#34;friend-link&#34;</span>
+</span></span><span class="line"><span class="cl">      <span class="na">title</span><span class="o">=</span><span class="s">&#34;{{ $friend.description }}&#34;</span>
+</span></span><span class="line"><span class="cl">      <span class="na">href</span><span class="o">=</span><span class="s">&#34;{{ $friend.url | safeURL }}&#34;</span>
+</span></span><span class="line"><span class="cl">      <span class="na">rel</span><span class="o">=</span><span class="s">&#34;external nofollow noopener noreferrer&#34;</span>
+</span></span><span class="line"><span class="cl">      <span class="na">target</span><span class="o">=</span><span class="s">&#34;_blank&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">      {{ if $friend.avatar }}
+</span></span><span class="line"><span class="cl">      <span class="p">&lt;</span><span class="nt">img</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;friend-avatar lazyload&#34;</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;{{ $loading.RelPermalink }}&#34;</span> <span class="na">data-src</span><span class="o">=</span><span class="s">&#34;{{ $friend.avatar }}&#34;</span> <span class="na">alt</span><span class="o">=</span><span class="s">&#34;{{ $friend.nickname }}&#34;</span> <span class="p">/&gt;</span>
+</span></span><span class="line"><span class="cl">      {{ else }}
+</span></span><span class="line"><span class="cl">      <span class="p">&lt;</span><span class="nt">svg</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;friend-avatar&#34;</span> <span class="na">aria-hidden</span><span class="o">=</span><span class="s">&#34;true&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">use</span> <span class="na">xlink:href</span><span class="o">=</span><span class="s">&#34;#icon-{{ add 1 $index }}&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">use</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">&lt;/</span><span class="nt">svg</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">      {{ end }}
+</span></span><span class="line"><span class="cl">      <span class="p">&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;friend-nickname&#34;</span> <span class="na">title</span><span class="o">=</span><span class="s">&#34;{{ $friend.nickname }}&#34;</span><span class="p">&gt;</span>@{{ $friend.nickname }}<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    {{ end }}
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">        {{- /* Subtitle */ -}}
-</span></span><span class="line"><span class="cl">        {{- with $params.subtitle -}}
-</span></span><span class="line"><span class="cl">            <span class="p">&lt;</span><span class="nt">h2</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;single-subtitle&#34;</span><span class="p">&gt;</span>{{ . }}<span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">        {{- end -}}
+</span></span><span class="line"><span class="cl">  {{- /* Content */ -}}
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;content&#34;</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;content&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    {{- dict &#34;Content&#34; .Content &#34;Ruby&#34; $params.ruby &#34;Fraction&#34; $params.fraction &#34;Fontawesome&#34; $params.fontawesome | partial &#34;function/content.html&#34; |
+</span></span><span class="line"><span class="cl">    safeHTML -}}
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">        {{- /* Friend links */ -}}
-</span></span><span class="line"><span class="cl">        {{- $loading := resources.Get &#34;svg/loading.svg&#34; | minify -}}
-</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;//at.alicdn.com/t/font_578712_g26jo2kbzd5qm2t9.js&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&#34;stylesheet&#34;</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;/friends/css/_friends.css&#34;</span> <span class="p">/&gt;</span>
-</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;friend-links&#34;</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">            {{ range $index, $friend := .Site.Data.friends }}
-</span></span><span class="line"><span class="cl">                <span class="p">&lt;</span><span class="nt">a</span>
-</span></span><span class="line"><span class="cl">                    <span class="na">class</span><span class="o">=</span><span class="s">&#34;friend-link&#34;</span>
-</span></span><span class="line"><span class="cl">                    <span class="na">title</span><span class="o">=</span><span class="s">&#34;{{ $friend.description }}&#34;</span>
-</span></span><span class="line"><span class="cl">                    <span class="na">href</span><span class="o">=</span><span class="s">&#34;{{ $friend.url | safeURL }}&#34;</span>
-</span></span><span class="line"><span class="cl">                    <span class="na">rel</span><span class="o">=</span><span class="s">&#34;external nofollow noopener noreferrer&#34;</span>
-</span></span><span class="line"><span class="cl">                    <span class="na">target</span><span class="o">=</span><span class="s">&#34;_blank&#34;</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">                    {{ if $friend.avatar }}
-</span></span><span class="line"><span class="cl">                        <span class="p">&lt;</span><span class="nt">img</span>
-</span></span><span class="line"><span class="cl">                            <span class="na">class</span><span class="o">=</span><span class="s">&#34;friend-avatar lazyload&#34;</span> 
-</span></span><span class="line"><span class="cl">                            <span class="na">src</span><span class="o">=</span><span class="s">&#34;{{ $loading.RelPermalink }}&#34;</span>
-</span></span><span class="line"><span class="cl">                            <span class="na">data-src</span><span class="o">=</span><span class="s">&#34;{{ $friend.avatar }}&#34;</span>
-</span></span><span class="line"><span class="cl">                            <span class="na">alt</span><span class="o">=</span><span class="s">&#34;{{ $friend.nickname }}&#34;</span> <span class="p">/&gt;</span>
-</span></span><span class="line"><span class="cl">                    {{ else }}
-</span></span><span class="line"><span class="cl">                        <span class="p">&lt;</span><span class="nt">svg</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;friend-avatar&#34;</span> <span class="na">aria-hidden</span><span class="o">=</span><span class="s">&#34;true&#34;</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">                            <span class="p">&lt;</span><span class="nt">use</span> <span class="na">xlink:href</span><span class="o">=</span><span class="s">&#34;#icon-{{ add 1 $index }}&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">use</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">                        <span class="p">&lt;/</span><span class="nt">svg</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">                    {{ end }}
-</span></span><span class="line"><span class="cl">                    <span class="p">&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;friend-nickname&#34;</span> <span class="na">title</span><span class="o">=</span><span class="s">&#34;{{ $friend.nickname }}&#34;</span><span class="p">&gt;</span>@{{ $friend.nickname }}<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">                <span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">            {{ end }}
-</span></span><span class="line"><span class="cl">        <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">        {{- /* Content */ -}}
-</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;content&#34;</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;content&#34;</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">            {{- dict &#34;Content&#34; .Content &#34;Ruby&#34; $params.ruby &#34;Fraction&#34; $params.fraction &#34;Fontawesome&#34; $params.fontawesome | partial &#34;function/content.html&#34; | safeHTML -}}
-</span></span><span class="line"><span class="cl">        <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">        {{- /* Comment */ -}}
-</span></span><span class="line"><span class="cl">        {{- partial &#34;comment.html&#34; . -}}
-</span></span><span class="line"><span class="cl">    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  {{- /* Comment */ -}} {{- partial &#34;comment.html&#34; . -}}
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
 </span></span><span class="line"><span class="cl">{{- end -}}
 </span></span></code></pre></td></tr></table>
 </div>
@@ -1248,7 +1226,7 @@ static/images/card-link-bg.jpg
 </span></span></span><span class="line"><span class="cl"><span class="c"> * @Author: lruihao.cn
 </span></span></span><span class="line"><span class="cl"><span class="c"> * @Updated:  2021/9/20 19:26
 </span></span></span><span class="line"><span class="cl"><span class="c"> */</span>
-</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="p">.</span><span class="nc">friend-links</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="k">margin-top</span><span class="p">:</span> <span class="mi">1</span><span class="kt">rem</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  <span class="k">display</span><span class="p">:</span> <span class="kc">flex</span><span class="p">;</span>
@@ -1266,11 +1244,11 @@ static/images/card-link-bg.jpg
 </span></span><span class="line"><span class="cl">  <span class="k">height</span><span class="p">:</span> <span class="mi">200</span><span class="kt">px</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  <span class="k">font-size</span><span class="p">:</span> <span class="mi">1</span><span class="kt">rem</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  <span class="k">text-align</span><span class="p">:</span> <span class="kc">center</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">  <span class="k">background</span><span class="p">:</span> <span class="nb">rgba</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mf">0.3</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="k">box-sizing</span><span class="p">:</span> <span class="kc">border-box</span><span class="p">;</span> 
+</span></span><span class="line"><span class="cl">  <span class="k">background</span><span class="p">:</span> <span class="nb">rgba</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">box-sizing</span><span class="p">:</span> <span class="kc">border-box</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  <span class="k">box-shadow</span><span class="p">:</span> <span class="mi">3</span><span class="kt">px</span> <span class="mi">3</span><span class="kt">px</span> <span class="mi">5</span><span class="kt">px</span> <span class="mh">#aaa</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  <span class="k">border-radius</span><span class="p">:</span> <span class="mi">5</span><span class="kt">px</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">  <span class="k">border</span><span class="p">:</span><span class="kc">none</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">border</span><span class="p">:</span> <span class="kc">none</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  <span class="k">transition-duration</span><span class="p">:</span> <span class="mf">0.3</span><span class="kt">s</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  <span class="k">margin-bottom</span><span class="p">:</span> <span class="mi">1</span><span class="kt">rem</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  <span class="k">display</span><span class="p">:</span> <span class="kc">flex</span><span class="p">;</span>
@@ -1285,13 +1263,13 @@ static/images/card-link-bg.jpg
 </span></span><span class="line"><span class="cl"><span class="p">.</span><span class="nc">friend-avatar</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="k">object-fit</span><span class="p">:</span> <span class="kc">cover</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  <span class="k">object-position</span><span class="p">:</span> <span class="kc">center</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">  <span class="k">width</span><span class="p">:</span> <span class="mi">100</span><span class="kt">%</span><span class="cp">!important</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">  <span class="k">height</span><span class="p">:</span> <span class="mi">150</span><span class="kt">px</span><span class="cp">!important</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">width</span><span class="p">:</span> <span class="mi">100</span><span class="kt">%</span> <span class="cp">!important</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">height</span><span class="p">:</span> <span class="mi">150</span><span class="kt">px</span> <span class="cp">!important</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  <span class="k">border-radius</span><span class="p">:</span> <span class="mi">5</span><span class="kt">px</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  <span class="k">margin</span><span class="p">:</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  <span class="k">padding</span><span class="p">:</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">.</span><span class="nc">friend-nickname</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="p">.</span><span class="nc">friend-nickname</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="k">display</span><span class="p">:</span> <span class="kc">block</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  <span class="k">position</span><span class="p">:</span> <span class="kc">relative</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  <span class="k">color</span><span class="p">:</span> <span class="mh">#2bbc8a</span><span class="p">;</span>
@@ -1330,9 +1308,9 @@ static/images/card-link-bg.jpg
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-md" data-lang="md"><span class="line"><span class="cl">---
-</span></span><span class="line"><span class="cl">title: &#34;友鏈&#34;
+</span></span><span class="line"><span class="cl">title: &#39;友鏈&#39;
 </span></span><span class="line"><span class="cl">date: 2021-09-19T12:33:48+08:00
-</span></span><span class="line"><span class="cl">type: &#34;friends&#34;
+</span></span><span class="line"><span class="cl">type: &#39;friends&#39;
 </span></span><span class="line"><span class="cl">---
 </span></span></code></pre></td></tr></table>
 </div>
@@ -1456,7 +1434,7 @@ static/images/card-link-bg.jpg
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">cd</span> ..
-</span></span><span class="line"><span class="cl">git submodule update --remote 
+</span></span><span class="line"><span class="cl">git submodule update --remote
 </span></span><span class="line"><span class="cl">git add public
 </span></span><span class="line"><span class="cl">git commit -m <span class="s2">&#34;Feat: Update public module commit id&#34;</span>
 </span></span></code></pre></td></tr></table>
@@ -1485,7 +1463,7 @@ static/images/card-link-bg.jpg
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="c1">#author: Lruihao</span>
 </span></span><span class="line"><span class="cl"><span class="nb">cd</span> ..
 </span></span><span class="line"><span class="cl"><span class="c1"># 是否需要每次提交自動更新子模組</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># git submodule update --remote </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># git submodule update --remote</span>
 </span></span><span class="line"><span class="cl"><span class="c1"># git add public</span>
 </span></span><span class="line"><span class="cl"><span class="c1"># git commit -m &#34;Feat: Update public module commit id&#34;</span>
 </span></span><span class="line"><span class="cl">git add .
@@ -1557,7 +1535,7 @@ static/images/card-link-bg.jpg
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="nb">read</span> num
 </span></span><span class="line"><span class="cl"><span class="k">case</span> <span class="nv">$num</span> in
-</span></span><span class="line"><span class="cl">  1<span class="o">)</span> 
+</span></span><span class="line"><span class="cl">  1<span class="o">)</span>
 </span></span><span class="line"><span class="cl">    sh post_generator.sh
 </span></span><span class="line"><span class="cl">    <span class="p">;;</span>
 </span></span><span class="line"><span class="cl">  2<span class="o">)</span>
@@ -1609,9 +1587,9 @@ static/images/card-link-bg.jpg
 <p>工作流程涉及到兩個倉庫和一個 cos 桶，例如：</p>
 <blockquote>
 <ul>
-<li>Lruihao/hugo-blog          # Blog source repository</li>
-<li>Lruihao/lruihao.github.io  # GitHub pages repository</li>
-<li>blog-1256932288            # COS bucket</li>
+<li>Lruihao/hugo-blog # Blog source repository</li>
+<li>Lruihao/lruihao.github.io # GitHub pages repository</li>
+<li>blog-1256932288 # COS bucket</li>
 </ul>
 </blockquote>
 <h2 id="github-actions">Github Actions</h2>
@@ -1667,8 +1645,8 @@ static/images/card-link-bg.jpg
 </span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Check out repository code</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">actions/checkout@v2</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">with</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">submodules</span><span class="p">:</span><span class="w"> </span><span class="l">recursive </span><span class="w"> </span><span class="c"># Fetch Hugo themes (true OR recursive)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">fetch-depth</span><span class="p">:</span><span class="w"> </span><span class="m">0</span><span class="w">         </span><span class="c"># Fetch all history for .GitInfo and .Lastmod</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">submodules</span><span class="p">:</span><span class="w"> </span><span class="l">recursive</span><span class="w"> </span><span class="c"># Fetch Hugo themes (true OR recursive)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">fetch-depth</span><span class="p">:</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="c"># Fetch all history for .GitInfo and .Lastmod</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Setup Hugo</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">peaceiris/actions-hugo@v2</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">with</span><span class="p">:</span><span class="w">
@@ -1690,8 +1668,8 @@ static/images/card-link-bg.jpg
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">env</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">COS_SECRET_ID</span><span class="p">:</span><span class="w"> </span><span class="l">${{ secrets.COS_SECRET_ID }}</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">COS_SECRET_KEY</span><span class="p">:</span><span class="w"> </span><span class="l">${{ secrets.COS_SECRET_KEY }}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">COS_BUCKET_NAME</span><span class="p">:</span><span class="w"> </span><span class="l">blog-1256932288 </span><span class="w"> </span><span class="c"># Change for yourself</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">COS_BUCKET_REGION</span><span class="p">:</span><span class="w"> </span><span class="l">ap-chengdu    </span><span class="w"> </span><span class="c"># Change for yourself</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">COS_BUCKET_NAME</span><span class="p">:</span><span class="w"> </span><span class="l">blog-1256932288</span><span class="w"> </span><span class="c"># Change for yourself</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">COS_BUCKET_REGION</span><span class="p">:</span><span class="w"> </span><span class="l">ap-chengdu</span><span class="w"> </span><span class="c"># Change for yourself</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l">coscmd config -a $COS_SECRET_ID -s $COS_SECRET_KEY -b $COS_BUCKET_NAME -r $COS_BUCKET_REGION</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Deploy to COS Bucket</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l">coscmd upload -r -s --delete -f public/ /</span><span class="w">
@@ -1872,7 +1850,7 @@ static/images/card-link-bg.jpg
 </details>
 <ul>
 <li>
-<p><i class="fa-regular fa-square fa-fw" aria-hidden="true"></i> <del><a href="https://img.lruihao.cn"target="_blank" rel="external nofollow noopener noreferrer">cos-album<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 和 <a href="https://sz.journey.lruihao.cn"target="_blank" rel="external nofollow noopener noreferrer">🍚饭醉团伙🍷<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 整合到博客 cos-album/ <a href="https://github.com/Lruihao/hugo-blog/issues/7"target="_blank" rel="external nofollow noopener noreferrer">#7 (wontfix)<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></del></p>
+<p><i class="fa-regular fa-square fa-fw" aria-hidden="true"></i> <del><a href="https://img.lruihao.cn"target="_blank" rel="external nofollow noopener noreferrer">cos-album<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 和 <a href="https://sz.journey.lruihao.cn"target="_blank" rel="external nofollow noopener noreferrer">🍚 饭醉团伙 🍷<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 整合到博客 cos-album/ <a href="https://github.com/Lruihao/hugo-blog/issues/7"target="_blank" rel="external nofollow noopener noreferrer">#7 (wontfix)<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></del></p>
 </li>
 <li>
 <p><i class="fa-regular fa-square fa-fw" aria-hidden="true"></i> <del>新增 demo/, 以子模组的形式存放前端 demo, serverless 记账本等</del> （保持原本博客的纯粹性）</p>
@@ -1925,11 +1903,11 @@ static/images/card-link-bg.jpg
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">let</span> <span class="nx">urls</span> <span class="o">=</span> <span class="p">[]</span>
-</span></span><span class="line"><span class="cl"><span class="k">for</span><span class="p">(</span><span class="kd">let</span> <span class="nx">a</span> <span class="k">of</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelectorAll</span><span class="p">(</span><span class="s1">&#39;.archive-item a&#39;</span><span class="p">)){</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">urls</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">a</span><span class="p">.</span><span class="nx">href</span><span class="p">)</span>
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">let</span> <span class="nx">urls</span> <span class="o">=</span> <span class="p">[];</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">a</span> <span class="k">of</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelectorAll</span><span class="p">(</span><span class="s1">&#39;.archive-item a&#39;</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">urls</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">a</span><span class="p">.</span><span class="nx">href</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">urls</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="s1">&#39;\n&#39;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">urls</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="s1">&#39;\n&#39;</span><span class="p">));</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><blockquote>
@@ -2612,7 +2590,7 @@ static/images/card-link-bg.jpg
 <h2 id="编辑类">编辑类</h2>
 <ul>
 <li>Ctrl+J 合并选中的多行代码为一行。举个栗子：将多行格式的 CSS 属性合并为一行。</li>
-<li>Ctrl+Shift+D  复制光标所在整行，插入到下一行。</li>
+<li>Ctrl+Shift+D 复制光标所在整行，插入到下一行。</li>
 <li>Tab 向右缩进。</li>
 <li>Shift+Tab 向左缩进。</li>
 <li>Ctrl+K+K 从光标处开始删除代码至行尾。</li>
@@ -2696,7 +2674,7 @@ static/images/card-link-bg.jpg
 </p>
 <h3 id="程式碼樣板">程式碼樣板</h3>
 <blockquote>
-<p>　程式碼樣板可以幫助你快速書寫程序，不必繁瑣地聲明函數或其他代碼塊，更專注與邏輯的書寫。</p>
+<p>程式碼樣板可以幫助你快速書寫程序，不必繁瑣地聲明函數或其他代碼塊，更專注與邏輯的書寫。</p>
 </blockquote>
 <p>在 NetBeans 中設置程式碼樣板</p>
 <ol>
@@ -2806,7 +2784,7 @@ static/images/card-link-bg.jpg
 </tbody>
 </table>
 <ul>
-<li>NetBeans 中常用的快捷鍵↑：</li>
+<li>NetBeans 中常用的快捷鍵 ↑：</li>
 <li>三種複製行方法</li>
 </ul>
 <ol>
@@ -2855,7 +2833,7 @@ static/images/card-link-bg.jpg
 <li>打開 chrome 中的應用程式商店（使用 chrome 瀏覽器點擊下方鏈接即可）<br>
 <a href="https://chrome.google.com/webstore/category/themes?hl=en-US/"target="_blank" rel="external nofollow noopener noreferrer">chrome 應用程式商店<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
 <li>在搜索框中輸入 NetNeans Connector 后搜索，然後點擊右邊的加到 Chrome 即可，安裝成功后右上角會顯示 NetBeans 圖標。</li>
-<li>開啟 netbeans 選擇 Run→Set Project Browser→選中 Chrome with NetBeans Connector</li>
+<li>開啟 netbeans 選擇 Run→Set Project Browser→ 選中 Chrome with NetBeans Connector</li>
 <li>選擇 default 下的 Customize → 選擇 Browser → 選擇 Browser 下 Chrome with NetBeans Connector 即可</li>
 </ol>
 <p>
@@ -3198,10 +3176,10 @@ Ctrl+F 查找 <code>localhost</code><br>
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-css" data-lang="css"><span class="line"><span class="cl"><span class="p">.</span><span class="nc">fix</span><span class="p">::</span><span class="nd">after</span> <span class="p">{</span> 
-</span></span><span class="line"><span class="cl">     <span class="k">content</span><span class="p">:</span><span class="s2">&#34;&#34;</span><span class="p">;</span> 
-</span></span><span class="line"><span class="cl">     <span class="k">display</span><span class="p">:</span><span class="kc">block</span><span class="p">;</span> 
-</span></span><span class="line"><span class="cl">     <span class="k">clear</span><span class="p">:</span><span class="kc">both</span><span class="p">;</span>
+<pre tabindex="0" class="chroma"><code class="language-css" data-lang="css"><span class="line"><span class="cl"><span class="p">.</span><span class="nc">fix</span><span class="p">::</span><span class="nd">after</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">content</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">display</span><span class="p">:</span> <span class="kc">block</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">clear</span><span class="p">:</span> <span class="kc">both</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
@@ -3229,15 +3207,15 @@ Ctrl+F 查找 <code>localhost</code><br>
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-css" data-lang="css"><span class="line"><span class="cl"><span class="p">.</span><span class="nc">father</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">position</span><span class="p">:</span> <span class="kc">relative</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">position</span><span class="p">:</span> <span class="kc">relative</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">.</span><span class="nc">son</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">position</span><span class="p">:</span> <span class="kc">absolute</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="k">top</span><span class="p">:</span> <span class="mi">0</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="k">right</span><span class="p">:</span> <span class="mi">0</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="k">bottom</span><span class="p">:</span> <span class="mi">0</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="k">left</span><span class="p">:</span> <span class="mi">0</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="k">margin</span><span class="p">:</span> <span class="kc">auto</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">position</span><span class="p">:</span> <span class="kc">absolute</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">top</span><span class="p">:</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">right</span><span class="p">:</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">bottom</span><span class="p">:</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">left</span><span class="p">:</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">margin</span><span class="p">:</span> <span class="kc">auto</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
@@ -3258,13 +3236,13 @@ Ctrl+F 查找 <code>localhost</code><br>
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-css" data-lang="css"><span class="line"><span class="cl"><span class="p">.</span><span class="nc">father</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">position</span><span class="p">:</span> <span class="kc">relative</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">position</span><span class="p">:</span> <span class="kc">relative</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">.</span><span class="nc">son</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">position</span><span class="p">:</span> <span class="kc">absolute</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="k">top</span><span class="p">:</span> <span class="mi">50</span><span class="kt">%</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="k">left</span><span class="p">:</span> <span class="mi">50</span><span class="kt">%</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="k">transform</span><span class="p">:</span> <span class="nb">translate</span><span class="p">(</span><span class="mi">-50</span><span class="kt">%</span><span class="p">,</span> <span class="mi">-50</span><span class="kt">%</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">position</span><span class="p">:</span> <span class="kc">absolute</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">top</span><span class="p">:</span> <span class="mi">50</span><span class="kt">%</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">left</span><span class="p">:</span> <span class="mi">50</span><span class="kt">%</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">transform</span><span class="p">:</span> <span class="nb">translate</span><span class="p">(</span><span class="mi">-50</span><span class="kt">%</span><span class="p">,</span> <span class="mi">-50</span><span class="kt">%</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
@@ -3281,9 +3259,9 @@ Ctrl+F 查找 <code>localhost</code><br>
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-css" data-lang="css"><span class="line"><span class="cl"><span class="p">.</span><span class="nc">father</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">display</span><span class="p">:</span> <span class="kc">flex</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="k">justify-content</span><span class="p">:</span> <span class="kc">center</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="k">align-items</span><span class="p">:</span> <span class="kc">center</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">display</span><span class="p">:</span> <span class="kc">flex</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">justify-content</span><span class="p">:</span> <span class="kc">center</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">align-items</span><span class="p">:</span> <span class="kc">center</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
@@ -3449,7 +3427,7 @@ Ctrl+F 查找 <code>localhost</code><br>
 </span></span><span class="line"><span class="cl">\layout\_third-party\custom.swig             #该模块在 layout.swig 引入用于在 body 自定义标签
 </span></span><span class="line"><span class="cl">\source\css\_custom\customs.styl             #主要用户自定义样式表
 </span></span><span class="line"><span class="cl">\source\fonts\                               #引入了一些我的手写体及外部字体
-</span></span><span class="line"><span class="cl">\scripts\qcloudcdn.js                        #腾讯云 cos 桶刷新缓存的脚本，不需要可删掉 [^1]     
+</span></span><span class="line"><span class="cl">\scripts\qcloudcdn.js                        #腾讯云 cos 桶刷新缓存的脚本，不需要可删掉 [^1]
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p><a href="https://lruihao.cn/posts/cos-hexo.html#CDN%E5%88%B7%E6%96%B0"target="_blank" rel="external nofollow noopener noreferrer">^1<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
@@ -3649,7 +3627,7 @@ Ctrl+F 查找 <code>localhost</code><br>
 </span></span><span class="line"><span class="cl">{% block page_class %}page-post-detail{% endblock %}
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">{% block content %}
-</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">  &lt;div id=&#34;posts&#34; class=&#34;posts-expand&#34;&gt;
 </span></span><span class="line"><span class="cl">    {##################}
 </span></span><span class="line"><span class="cl">    {#### PAGE BLOCK ###}
@@ -3696,7 +3674,7 @@ Ctrl+F 查找 <code>localhost</code><br>
 </span></span><span class="line"><span class="cl">          font-size: 1rem;
 </span></span><span class="line"><span class="cl">          text-align: center;
 </span></span><span class="line"><span class="cl">          background: rgba(255,255,255,0.3);
-</span></span><span class="line"><span class="cl">          box-sizing: border-box; 
+</span></span><span class="line"><span class="cl">          box-sizing: border-box;
 </span></span><span class="line"><span class="cl">          box-shadow: 3px 3px 5px #aaa;
 </span></span><span class="line"><span class="cl">          border-radius: 5px;
 </span></span><span class="line"><span class="cl">          transition-duration: 0.3s;
@@ -3710,7 +3688,7 @@ Ctrl+F 查找 <code>localhost</code><br>
 </span></span><span class="line"><span class="cl">          box-shadow: 0 0 3px #aaa;
 </span></span><span class="line"><span class="cl">        }
 </span></span><span class="line"><span class="cl">        .card-box a {
-</span></span><span class="line"><span class="cl">          border:none; 
+</span></span><span class="line"><span class="cl">          border:none;
 </span></span><span class="line"><span class="cl">        }
 </span></span><span class="line"><span class="cl">        .card-avatar {
 </span></span><span class="line"><span class="cl">          width: 100%!important;
@@ -3799,9 +3777,9 @@ Ctrl+F 查找 <code>localhost</code><br>
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl">- nickname: 博採眾長      
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl">- nickname: 博採眾長
 </span></span><span class="line"><span class="cl">  avatar: http://lruihao.cn/images/avatar.png
-</span></span><span class="line"><span class="cl">  site: http://lruihao.cn 
+</span></span><span class="line"><span class="cl">  site: http://lruihao.cn
 </span></span><span class="line"><span class="cl">  info: 一个菜鸟的博客
 </span></span><span class="line"><span class="cl">- nickname:                 #友链名称
 </span></span><span class="line"><span class="cl">  avatar:                   #友链头像
@@ -3848,7 +3826,7 @@ Ctrl+F 查找 <code>localhost</code><br>
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl">\source\css\_custom\customs.styl  
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl">\source\css\_custom\customs.styl
 </span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="相关文章收纳">相关文章收纳</h3>
@@ -4158,7 +4136,7 @@ Ctrl+F 查找 <code>localhost</code><br>
 </span></span><span class="line"><span class="cl">      {#################}
 </span></span><span class="line"><span class="cl">      {#### PAGE BODY ###}
 </span></span><span class="line"><span class="cl">      {#################}
-</span></span><span class="line"><span class="cl">      
+</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">      &lt;div class=&#34;post-body{% if theme.han %} han-init-context{% endif %}{% if page.direction &amp;&amp; page.direction.toLowerCase() === &#39;rtl&#39; %} rtl{% endif %}&#34;&gt;
 </span></span><span class="line"><span class="cl">        {{ page.content }}
 </span></span><span class="line"><span class="cl">        &lt;div id=&#34;top&#34;&gt;&lt;/div&gt;
@@ -4215,7 +4193,7 @@ Ctrl+F 查找 <code>localhost</code><br>
 </span></span><span class="line"><span class="cl">          });
 </span></span><span class="line"><span class="cl">        },1000)
 </span></span><span class="line"><span class="cl">      &lt;/script&gt;
-</span></span><span class="line"><span class="cl">      
+</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">      {#####################}
 </span></span><span class="line"><span class="cl">      {#### END PAGE BODY ###}
 </span></span><span class="line"><span class="cl">      {#####################}
@@ -4347,11 +4325,9 @@ Ctrl+F 查找 <code>localhost</code><br>
 <blockquote>
 <ol>
 <li>设置标签中的文本内容，应该使用<code>textContent</code>或<code>innerText</code>（更老）属性，区别在于浏览器支援程度</li>
-</ol>
-</blockquote>
-<ol start="2">
 <li><code>innerHTML</code>能够获得元素内的所有标签内容，也可以设置标签使之生效。（<strong>注意防止 XSS 注入</strong>）</li>
 </ol>
+</blockquote>
 <p>如果某个属性在浏览器中不支持，那么这个属性的类型是<code>undefined</code>，判断这个属性的类型是不是<code>undefined</code>，就知道浏览器是否支持。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -4440,39 +4416,31 @@ Ctrl+F 查找 <code>localhost</code><br>
 </div><blockquote>
 <ul>
 <li>.col-xs- 超小屏幕 手机 &lt;768px</li>
-<li>.col-sm- 小屏幕 平板  &gt;=768px</li>
-<li>.col-md- 中等屏幕  &gt;=992px</li>
-<li>.col-lg- 大屏幕  &gt;1200px</li>
+<li>.col-sm- 小屏幕 平板 &gt;=768px</li>
+<li>.col-md- 中等屏幕 &gt;=992px</li>
+<li>.col-lg- 大屏幕 &gt;1200px</li>
 </ul>
 </blockquote>
 <p>css3 写法 @media （宽度具体调整）</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-css" data-lang="css"><span class="line"><span class="cl"><span class="c">/* 手机等小屏幕手持设备 */</span>
 </span></span><span class="line"><span class="cl"><span class="p">@</span><span class="k">media</span> <span class="nt">screen</span> <span class="nt">and</span> <span class="o">(</span><span class="nt">min-width</span><span class="o">:</span> <span class="nt">320px</span><span class="o">)</span> <span class="nt">and</span> <span class="o">(</span><span class="nt">max-width</span><span class="o">:</span> <span class="nt">480px</span><span class="o">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">	<span class="c">/*手机端 css 样式表*/</span>
-</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c">/*手机端 css 样式表*/</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="c">/* 平板之类的宽度 1024 以下设备 */</span>
 </span></span><span class="line"><span class="cl"><span class="p">@</span><span class="k">media</span> <span class="nt">only</span> <span class="nt">screen</span> <span class="nt">and</span> <span class="o">(</span><span class="nt">min-width</span><span class="o">:</span> <span class="nt">321px</span><span class="o">)</span> <span class="nt">and</span> <span class="o">(</span><span class="nt">max-width</span><span class="o">:</span> <span class="nt">1024px</span><span class="o">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">	<span class="c">/*电脑端 css 样式表*/</span>
-</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c">/*电脑端 css 样式表*/</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
@@ -4596,7 +4564,7 @@ Ctrl+F 查找 <code>localhost</code><br>
 </span></span><span class="line"><span class="cl">		键入项目名称后直接 Finish。
 </span></span><span class="line"><span class="cl">	b: 所有的 java 文件必须写到 src 下面才有效
 </span></span><span class="line"><span class="cl">	c: 创建一个包
-</span></span><span class="line"><span class="cl">		cn.lruihao   
+</span></span><span class="line"><span class="cl">		cn.lruihao
 </span></span><span class="line"><span class="cl">	d: 在包下创建一个类
 </span></span><span class="line"><span class="cl">		HelloWorld
 </span></span><span class="line"><span class="cl">
@@ -4791,20 +4759,28 @@ Ctrl+F 查找 <code>localhost</code><br>
 </span><span class="lnt">10
 </span><span class="lnt">11
 </span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">qcloudSDK</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;qcloud-cdn-node-sdk&#39;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="nx">qcloudSDK</span><span class="p">.</span><span class="nx">config</span><span class="p">({</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">secretId</span><span class="o">:</span> <span class="s1">&#39;你的 ID&#39;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">secretKey</span><span class="o">:</span> <span class="s1">&#39;你的密钥&#39;</span>
-</span></span><span class="line"><span class="cl"><span class="p">})</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">secretId</span><span class="o">:</span> <span class="s1">&#39;你的 ID&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">secretKey</span><span class="o">:</span> <span class="s1">&#39;你的密钥&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nx">qcloudSDK</span><span class="p">.</span><span class="nx">request</span><span class="p">(</span><span class="s1">&#39;RefreshCdnDir&#39;</span><span class="p">,</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="s1">&#39;dirs.1&#39;</span><span class="o">:</span> <span class="s1">&#39;http://博客地址&#39;</span> 
-</span></span><span class="line"><span class="cl"><span class="p">},</span> <span class="p">(</span><span class="nx">res</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">res</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="p">})</span>
+</span></span><span class="line"><span class="cl"><span class="nx">qcloudSDK</span><span class="p">.</span><span class="nx">request</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">  <span class="s1">&#39;RefreshCdnDir&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;dirs.1&#39;</span><span class="o">:</span> <span class="s1">&#39;http://博客地址&#39;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="p">(</span><span class="nx">res</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">res</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">);</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="自动-cdn-刷新配置-推荐">自动 CDN 刷新配置 （推荐）</h2>
@@ -4893,53 +4869,43 @@ Ctrl+F 查找 <code>localhost</code><br>
 </span><span class="lnt">77
 </span><span class="lnt">78
 </span><span class="lnt">79
-</span><span class="lnt">80
-</span><span class="lnt">81
-</span><span class="lnt">82
-</span><span class="lnt">83
-</span><span class="lnt">84
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="s1">&#39;use strict&#39;</span>
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="s1">&#39;use strict&#39;</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">CosSdk</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;cos-nodejs-sdk-v5&#39;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">CdnSdk</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./common/CdnSdk&#39;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">CdnRefreshTask</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./common/CdnRefreshTask&#39;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">getParams</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">getObjectUrl</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">logger</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">getLogSummary</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./common/utils&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">CosSdk</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;cos-nodejs-sdk-v5&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">CdnSdk</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./common/CdnSdk&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">CdnRefreshTask</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./common/CdnRefreshTask&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="p">{</span> <span class="nx">getParams</span><span class="p">,</span> <span class="nx">getObjectUrl</span><span class="p">,</span> <span class="nx">logger</span><span class="p">,</span> <span class="nx">getLogSummary</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./common/utils&#39;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="nx">exports</span><span class="p">.</span><span class="nx">main_handler</span> <span class="o">=</span> <span class="kr">async</span> <span class="p">(</span><span class="nx">event</span><span class="p">,</span> <span class="nx">context</span><span class="p">,</span> <span class="nx">callback</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="cm">/**
 </span></span></span><span class="line"><span class="cl"><span class="cm">   * parse param from event and process.env
 </span></span></span><span class="line"><span class="cl"><span class="cm">   */</span>
-</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="p">{</span> <span class="nx">objects</span><span class="p">,</span> <span class="nx">cdnHosts</span><span class="p">,</span> <span class="nx">secretId</span><span class="p">,</span> <span class="nx">secretKey</span><span class="p">,</span> <span class="nx">token</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">getParams</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="p">{</span> <span class="nx">objects</span><span class="p">,</span> <span class="nx">cdnHosts</span><span class="p">,</span> <span class="nx">secretId</span><span class="p">,</span> <span class="nx">secretKey</span><span class="p">,</span> <span class="nx">token</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">getParams</span><span class="p">(</span><span class="nx">event</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">  <span class="nx">logger</span><span class="p">({</span>
 </span></span><span class="line"><span class="cl">    <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;param is parsed success, param as follow: &#39;</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">    <span class="nx">data</span><span class="o">:</span> <span class="p">{</span> <span class="nx">objects</span><span class="p">,</span> <span class="nx">cdnHosts</span><span class="p">,</span> <span class="nx">event</span> <span class="p">}</span>
-</span></span><span class="line"><span class="cl">  <span class="p">})</span>
+</span></span><span class="line"><span class="cl">  <span class="p">});</span>
 </span></span><span class="line"><span class="cl">  <span class="cm">/**
 </span></span></span><span class="line"><span class="cl"><span class="cm">   * init cos instance
 </span></span></span><span class="line"><span class="cl"><span class="cm">   */</span>
 </span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">secretId</span> <span class="o">||</span> <span class="o">!</span><span class="nx">secretKey</span> <span class="o">||</span> <span class="o">!</span><span class="nx">token</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="sb">`secretId, secretKey or token is missing`</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="sb">`secretId, secretKey or token is missing`</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="p">}</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">cdnSdkInstance</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">CdnSdk</span><span class="p">({</span> <span class="nx">secretId</span><span class="p">,</span> <span class="nx">secretKey</span><span class="p">,</span> <span class="nx">token</span> <span class="p">})</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">cdnSdkInstance</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">CdnSdk</span><span class="p">({</span> <span class="nx">secretId</span><span class="p">,</span> <span class="nx">secretKey</span><span class="p">,</span> <span class="nx">token</span> <span class="p">});</span>
 </span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">cosInstance</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">CosSdk</span><span class="p">({</span>
 </span></span><span class="line"><span class="cl">    <span class="nx">SecretId</span><span class="o">:</span> <span class="nx">secretId</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">    <span class="nx">SecretKey</span><span class="o">:</span> <span class="nx">secretKey</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">    <span class="nx">XCosSecurityToken</span><span class="o">:</span> <span class="nx">token</span>
-</span></span><span class="line"><span class="cl">  <span class="p">})</span>
+</span></span><span class="line"><span class="cl">  <span class="p">});</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">taskList</span> <span class="o">=</span> <span class="nx">objects</span><span class="p">.</span><span class="nx">map</span><span class="p">(({</span> <span class="nx">bucket</span><span class="p">,</span> <span class="nx">region</span><span class="p">,</span> <span class="nx">key</span> <span class="p">})</span> <span class="p">=&gt;</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="cm">/* 变更内容-START */</span>
 </span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">purgeUrls</span> <span class="o">=</span> <span class="p">[];</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">cdnHosts</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">host</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">cdnHosts</span><span class="p">.</span><span class="nx">forEach</span><span class="p">((</span><span class="nx">host</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">      <span class="kr">const</span> <span class="nx">tempUrl</span> <span class="o">=</span> <span class="nx">getObjectUrl</span><span class="p">({</span>
 </span></span><span class="line"><span class="cl">        <span class="nx">cosInstance</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">        <span class="nx">bucket</span><span class="p">,</span>
@@ -4950,40 +4916,40 @@ Ctrl+F 查找 <code>localhost</code><br>
 </span></span><span class="line"><span class="cl">      <span class="nx">purgeUrls</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">tempUrl</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">      <span class="c1">// 如果以 /index.html 结尾，则增加目录首页/。
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="c1">// 例如 https://www.xxxx.com/index.html, 则增加 https://www.xxxx.com/。
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="k">if</span><span class="p">(</span><span class="nx">tempUrl</span><span class="p">.</span><span class="nx">lastIndexOf</span><span class="p">(</span><span class="s1">&#39;/index.html&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="p">(</span><span class="nx">tempUrl</span><span class="p">.</span><span class="nx">length</span> <span class="o">-</span> <span class="mi">11</span><span class="p">)){</span>
-</span></span><span class="line"><span class="cl">        <span class="nx">purgeUrls</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">tempUrl</span><span class="p">.</span><span class="nx">substr</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nx">tempUrl</span><span class="p">.</span><span class="nx">length</span> <span class="o">-</span> <span class="mi">10</span><span class="p">))</span>
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="k">if</span> <span class="p">(</span><span class="nx">tempUrl</span><span class="p">.</span><span class="nx">lastIndexOf</span><span class="p">(</span><span class="s1">&#39;/index.html&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="nx">tempUrl</span><span class="p">.</span><span class="nx">length</span> <span class="o">-</span> <span class="mi">11</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">purgeUrls</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">tempUrl</span><span class="p">.</span><span class="nx">substr</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nx">tempUrl</span><span class="p">.</span><span class="nx">length</span> <span class="o">-</span> <span class="mi">10</span><span class="p">));</span>
 </span></span><span class="line"><span class="cl">      <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="p">});</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="k">new</span> <span class="nx">CdnRefreshTask</span><span class="p">({</span>
 </span></span><span class="line"><span class="cl">      <span class="nx">cdnSdkInstance</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">      <span class="nx">urls</span><span class="o">:</span> <span class="nx">purgeUrls</span>
-</span></span><span class="line"><span class="cl">    <span class="p">})</span>
+</span></span><span class="line"><span class="cl">    <span class="p">});</span>
 </span></span><span class="line"><span class="cl">    <span class="cm">/* 变更内容-END */</span>
-</span></span><span class="line"><span class="cl">  <span class="p">})</span>
+</span></span><span class="line"><span class="cl">  <span class="p">});</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">taskResults</span> <span class="o">=</span> <span class="p">[]</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">taskResults</span> <span class="o">=</span> <span class="p">[];</span>
 </span></span><span class="line"><span class="cl">  <span class="k">for</span> <span class="p">(</span><span class="kr">const</span> <span class="nx">task</span> <span class="k">of</span> <span class="nx">taskList</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">results</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">task</span><span class="p">.</span><span class="nx">runPurgeTasks</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">taskResults</span><span class="p">.</span><span class="nx">push</span><span class="p">(...</span><span class="nx">results</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">results</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">task</span><span class="p">.</span><span class="nx">runPurgeTasks</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">taskResults</span><span class="p">.</span><span class="nx">push</span><span class="p">(...</span><span class="nx">results</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">  <span class="nx">logger</span><span class="p">({</span>
 </span></span><span class="line"><span class="cl">    <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;cdn refresh full logs:&#39;</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">    <span class="nx">data</span><span class="o">:</span> <span class="nx">taskResults</span>
-</span></span><span class="line"><span class="cl">  <span class="p">})</span>
+</span></span><span class="line"><span class="cl">  <span class="p">});</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="p">{</span> <span class="nx">status</span><span class="p">,</span> <span class="nx">messages</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">getLogSummary</span><span class="p">(</span><span class="nx">taskResults</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="p">{</span> <span class="nx">status</span><span class="p">,</span> <span class="nx">messages</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">getLogSummary</span><span class="p">(</span><span class="nx">taskResults</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">  <span class="nx">logger</span><span class="p">({</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">messages</span><span class="o">:</span> <span class="nx">messages</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">item</span> <span class="p">=&gt;</span> <span class="nx">item</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/\,\ /g</span><span class="p">,</span> <span class="s1">&#39;\n&#39;</span><span class="p">))</span>
-</span></span><span class="line"><span class="cl">  <span class="p">})</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">messages</span><span class="o">:</span> <span class="nx">messages</span><span class="p">.</span><span class="nx">map</span><span class="p">((</span><span class="nx">item</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nx">item</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/\,\ /g</span><span class="p">,</span> <span class="s1">&#39;\n&#39;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">  <span class="p">});</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="nx">status</span> <span class="o">===</span> <span class="s1">&#39;fail&#39;</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">throw</span> <span class="nx">messages</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="s1">&#39;; &#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">throw</span> <span class="nx">messages</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="s1">&#39;; &#39;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">messages</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="s1">&#39;; &#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">messages</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="s1">&#39;; &#39;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div>]]></description></item></channel></rss>

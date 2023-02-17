@@ -4,10 +4,13 @@
 > 工作上一直常用繁體，最近臨帖也都寫的繁體，所以博客的語言也想換成繁體，但是 LoveIt 主題沒有支持中文繁體。就只好自己添加了。
 
 <!--more-->
+
 ## 翻譯
+
 屬於直譯，有些詞語可能並不符合現在臺灣或者香港那邊的說法。比如，`分類`好像臺灣常說`歸類`吧
 
 新建 `i18n/zh-TW.toml`
+
 ```toml
 # Translations for Traditional Chinese
 # 簡體中文的翻譯
@@ -215,10 +218,13 @@ other = "刪除"
 ```
 
 ## 配置
+
 打開 `config.toml`
+
 ```toml
 defaultContentLanguage = "zh-tw"
 ```
+
 
 ---
 

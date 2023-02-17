@@ -65,12 +65,12 @@
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">debounce</span><span class="p">(</span><span class="nx">fn</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="kd">let</span> <span class="nx">timer</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="nx">clearTimeOut</span><span class="p">(</span><span class="nx">timer</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="nx">timer</span> <span class="o">=</span> <span class="nx">setTimeOut</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">      <span class="nx">fn</span><span class="p">.</span><span class="nx">applay</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">arguments</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="p">},</span> <span class="mi">300</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span> <span class="mi">300</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">};</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
@@ -91,13 +91,13 @@
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">throttle</span><span class="p">(</span><span class="nx">fn</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="kd">let</span> <span class="nx">timer</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nx">timer</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="nx">timer</span> <span class="o">=</span> <span class="nx">setTimeOut</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">      <span class="nx">fn</span><span class="p">.</span><span class="nx">applay</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">arguments</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">      <span class="nx">timer</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="p">},</span> <span class="mi">300</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span> <span class="mi">300</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">};</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
@@ -128,19 +128,85 @@
 </span><span class="lnt">13
 </span><span class="lnt">14
 </span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;app&#34;</span><span class="p">&gt;</span>
 </span></span><span class="line"><span class="cl">  <span class="c">&lt;!-- Display the loading icon and text until Vue initialization is complete --&gt;</span>
 </span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">style</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/css&#34;</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">    <span class="nt">html</span><span class="o">,</span><span class="nt">body</span> <span class="p">{</span> <span class="k">height</span><span class="p">:</span> <span class="mi">100</span><span class="kt">%</span><span class="p">;</span> <span class="k">margin</span><span class="p">:</span> <span class="mi">0</span><span class="p">;</span> <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="nt">body</span> <span class="p">{</span> <span class="k">display</span><span class="p">:</span> <span class="kc">flex</span><span class="p">;</span> <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="p">#</span><span class="nn">app</span> <span class="p">{</span> <span class="k">margin</span><span class="p">:</span> <span class="kc">auto</span><span class="p">;</span> <span class="k">display</span><span class="p">:</span> <span class="kc">flex</span><span class="p">;</span> <span class="k">align-items</span><span class="p">:</span> <span class="kc">center</span><span class="p">;</span> <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="p">@</span><span class="k">media</span> <span class="o">(</span><span class="nt">prefers-color-scheme</span><span class="o">:</span> <span class="nt">dark</span><span class="o">)</span> <span class="p">{</span> <span class="nt">body</span> <span class="p">{</span> <span class="k">color</span><span class="p">:</span> <span class="mh">#fff</span><span class="p">;</span> <span class="k">background-color</span><span class="p">:</span> <span class="mh">#202124</span><span class="p">;</span> <span class="p">}}</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">html</span><span class="o">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">body</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">height</span><span class="p">:</span> <span class="mi">100</span><span class="kt">%</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="k">margin</span><span class="p">:</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">body</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">display</span><span class="p">:</span> <span class="kc">flex</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">#</span><span class="nn">app</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">margin</span><span class="p">:</span> <span class="kc">auto</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="k">display</span><span class="p">:</span> <span class="kc">flex</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="k">align-items</span><span class="p">:</span> <span class="kc">center</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">@</span><span class="k">media</span> <span class="o">(</span><span class="nt">prefers-color-scheme</span><span class="o">:</span> <span class="nt">dark</span><span class="o">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">body</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">color</span><span class="p">:</span> <span class="mh">#fff</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">background-color</span><span class="p">:</span> <span class="mh">#202124</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">  <span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">svg</span> <span class="na">xmlns</span><span class="o">=</span><span class="s">&#34;http://www.w3.org/2000/svg&#34;</span> <span class="na">style</span><span class="o">=</span><span class="s">&#34;margin:auto;background:0 0&#34;</span> <span class="na">width</span><span class="o">=</span><span class="s">&#34;60&#34;</span> <span class="na">height</span><span class="o">=</span><span class="s">&#34;60&#34;</span> <span class="na">viewBox</span><span class="o">=</span><span class="s">&#34;0 0 100 100&#34;</span> <span class="na">preserveAspectRatio</span><span class="o">=</span><span class="s">&#34;xMidYMid&#34;</span> <span class="na">display</span><span class="o">=</span><span class="s">&#34;block&#34;</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">circle</span> <span class="na">cx</span><span class="o">=</span><span class="s">&#34;50&#34;</span> <span class="na">cy</span><span class="o">=</span><span class="s">&#34;50&#34;</span> <span class="na">r</span><span class="o">=</span><span class="s">&#34;20&#34;</span> <span class="na">stroke-width</span><span class="o">=</span><span class="s">&#34;4&#34;</span> <span class="na">stroke</span><span class="o">=</span><span class="s">&#34;#a5a5a5&#34;</span> <span class="na">stroke-dasharray</span><span class="o">=</span><span class="s">&#34;31.416 31.416&#34;</span> <span class="na">fill</span><span class="o">=</span><span class="s">&#34;none&#34;</span> <span class="na">stroke-linecap</span><span class="o">=</span><span class="s">&#34;round&#34;</span> <span class="na">transform</span><span class="o">=</span><span class="s">&#34;rotate(67.21 50 50)&#34;</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">      <span class="p">&lt;</span><span class="nt">animateTransform</span> <span class="na">attributeName</span><span class="o">=</span><span class="s">&#34;transform&#34;</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;rotate&#34;</span> <span class="na">repeatCount</span><span class="o">=</span><span class="s">&#34;indefinite&#34;</span> <span class="na">dur</span><span class="o">=</span><span class="s">&#34;1s&#34;</span> <span class="na">keyTimes</span><span class="o">=</span><span class="s">&#34;0;1&#34;</span> <span class="na">values</span><span class="o">=</span><span class="s">&#34;0 50 50;360 50 50&#34;</span><span class="p">/&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">svg</span>
+</span></span><span class="line"><span class="cl">    <span class="na">xmlns</span><span class="o">=</span><span class="s">&#34;http://www.w3.org/2000/svg&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="na">style</span><span class="o">=</span><span class="s">&#34;margin:auto;background:0 0&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="na">width</span><span class="o">=</span><span class="s">&#34;60&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="na">height</span><span class="o">=</span><span class="s">&#34;60&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="na">viewBox</span><span class="o">=</span><span class="s">&#34;0 0 100 100&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="na">preserveAspectRatio</span><span class="o">=</span><span class="s">&#34;xMidYMid&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="na">display</span><span class="o">=</span><span class="s">&#34;block&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">circle</span>
+</span></span><span class="line"><span class="cl">      <span class="na">cx</span><span class="o">=</span><span class="s">&#34;50&#34;</span>
+</span></span><span class="line"><span class="cl">      <span class="na">cy</span><span class="o">=</span><span class="s">&#34;50&#34;</span>
+</span></span><span class="line"><span class="cl">      <span class="na">r</span><span class="o">=</span><span class="s">&#34;20&#34;</span>
+</span></span><span class="line"><span class="cl">      <span class="na">stroke-width</span><span class="o">=</span><span class="s">&#34;4&#34;</span>
+</span></span><span class="line"><span class="cl">      <span class="na">stroke</span><span class="o">=</span><span class="s">&#34;#a5a5a5&#34;</span>
+</span></span><span class="line"><span class="cl">      <span class="na">stroke-dasharray</span><span class="o">=</span><span class="s">&#34;31.416 31.416&#34;</span>
+</span></span><span class="line"><span class="cl">      <span class="na">fill</span><span class="o">=</span><span class="s">&#34;none&#34;</span>
+</span></span><span class="line"><span class="cl">      <span class="na">stroke-linecap</span><span class="o">=</span><span class="s">&#34;round&#34;</span>
+</span></span><span class="line"><span class="cl">      <span class="na">transform</span><span class="o">=</span><span class="s">&#34;rotate(67.21 50 50)&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">&lt;</span><span class="nt">animateTransform</span> <span class="na">attributeName</span><span class="o">=</span><span class="s">&#34;transform&#34;</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;rotate&#34;</span> <span class="na">repeatCount</span><span class="o">=</span><span class="s">&#34;indefinite&#34;</span> <span class="na">dur</span><span class="o">=</span><span class="s">&#34;1s&#34;</span> <span class="na">keyTimes</span><span class="o">=</span><span class="s">&#34;0;1&#34;</span> <span class="na">values</span><span class="o">=</span><span class="s">&#34;0 50 50;360 50 50&#34;</span> <span class="p">/&gt;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">&lt;/</span><span class="nt">circle</span><span class="p">&gt;</span>
 </span></span><span class="line"><span class="cl">  <span class="p">&lt;/</span><span class="nt">svg</span><span class="p">&gt;</span>
 </span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">span</span><span class="p">&gt;</span>加载中 ...<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
@@ -219,7 +285,7 @@
 </span></span><span class="line"><span class="cl">      <span class="p">{</span> <span class="nx">label</span><span class="o">:</span> <span class="s1">&#39;全选&#39;</span><span class="p">,</span> <span class="nx">role</span><span class="o">:</span> <span class="s1">&#39;selectAll&#39;</span> <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="p">]</span>
 </span></span><span class="line"><span class="cl">  <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">];</span>
 </span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">dev</span> <span class="o">=</span> <span class="p">[</span>
 </span></span><span class="line"><span class="cl">  <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="nx">label</span><span class="o">:</span> <span class="s1">&#39;开发者&#39;</span><span class="p">,</span>
@@ -230,13 +296,13 @@
 </span></span><span class="line"><span class="cl">      <span class="p">{</span> <span class="nx">label</span><span class="o">:</span> <span class="s1">&#39;开发者工具&#39;</span><span class="p">,</span> <span class="nx">role</span><span class="o">:</span> <span class="s1">&#39;toggledevtools&#39;</span> <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="p">]</span>
 </span></span><span class="line"><span class="cl">  <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">];</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">NODE_ENV</span> <span class="o">===</span> <span class="s1">&#39;development&#39;</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">main</span><span class="p">.</span><span class="nx">push</span><span class="p">(...</span><span class="nx">dev</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">main</span><span class="p">.</span><span class="nx">push</span><span class="p">(...</span><span class="nx">dev</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="k">default</span> <span class="nx">main</span>
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="k">default</span> <span class="nx">main</span><span class="p">;</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><div class="highlight"><div class="chroma">
@@ -250,12 +316,12 @@
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">import</span> <span class="nx">memuConfig</span> <span class="nx">from</span> <span class="s1">&#39;./menu&#39;</span>
-</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">Menu</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;electron&#39;</span>
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">import</span> <span class="nx">memuConfig</span> <span class="nx">from</span> <span class="s1">&#39;./menu&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">Menu</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;electron&#39;</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">platform</span> <span class="o">===</span> <span class="s1">&#39;darwin&#39;</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">menu</span> <span class="o">=</span> <span class="nx">Menu</span><span class="p">.</span><span class="nx">buildFromTemplate</span><span class="p">(</span><span class="nx">memuConfig</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">Menu</span><span class="p">.</span><span class="nx">setApplicationMenu</span><span class="p">(</span><span class="nx">menu</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">menu</span> <span class="o">=</span> <span class="nx">Menu</span><span class="p">.</span><span class="nx">buildFromTemplate</span><span class="p">(</span><span class="nx">memuConfig</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">Menu</span><span class="p">.</span><span class="nx">setApplicationMenu</span><span class="p">(</span><span class="nx">menu</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>

@@ -2,13 +2,16 @@
 
 
 > php 主动推送站点链接到百度站长，神马站长进行 SEO。
+
 <!--more-->
 
 ## 代码
+
 把需要提交的链接和各站长 api 分别放在两个 txt 文件里面，然后运行 php 文件进行提交，不同站长提交成功一般返回的都是 `200` 状态码。
+
 ```php
 <?php
-  
+
   //链接存放路径和站长 api 文件存放路径
   $urls_path = "H:\\lruihao.cn\\public\\baidu_urls.txt";
   $apis_path = "G:\\Demo\\lrh01\\zhanzhang_api.txt";
@@ -35,7 +38,9 @@
 ```
 
 ## 提交结果
-![提交结果](images/result.png)
+
+![提交结果](../phppushurl/images/result.png)
+
 
 ---
 

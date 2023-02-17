@@ -45,11 +45,15 @@
 </span><span class="lnt">16
 </span><span class="lnt">17
 </span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="cm">/**
 </span></span></span><span class="line"><span class="cl"><span class="cm"> * Refresh Qcloud CDN cache
-</span></span></span><span class="line"><span class="cl"><span class="cm"> * @command `node qcloudcdn.js $SECRET_ID $SECRET_KEY` 
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @command `node qcloudcdn.js $SECRET_ID $SECRET_KEY`
 </span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
 </span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">qcloudSDK</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;qcloud-cdn-node-sdk&#39;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
@@ -57,14 +61,18 @@
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">qcloudSDK</span><span class="p">.</span><span class="nx">config</span><span class="p">({</span>
 </span></span><span class="line"><span class="cl">  <span class="nx">secretId</span><span class="o">:</span> <span class="nx">process</span><span class="o">?</span><span class="p">.</span><span class="nx">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>
 </span></span><span class="line"><span class="cl">  <span class="nx">secretKey</span><span class="o">:</span> <span class="nx">process</span><span class="o">?</span><span class="p">.</span><span class="nx">argv</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl"><span class="p">})</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nx">qcloudSDK</span><span class="p">.</span><span class="nx">request</span><span class="p">(</span><span class="s1">&#39;RefreshCdnDir&#39;</span><span class="p">,</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="c1">// See https://cloud.tencent.com/document/api/228/3947
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="s1">&#39;dirs.0&#39;</span><span class="o">:</span> <span class="s1">&#39;https://lruihao.cn/&#39;</span>
-</span></span><span class="line"><span class="cl"><span class="p">},</span> <span class="p">(</span><span class="nx">res</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">res</span><span class="p">.</span><span class="nx">code</span> <span class="o">&amp;&amp;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">res</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="p">})</span>
+</span></span><span class="line"><span class="cl"><span class="nx">qcloudSDK</span><span class="p">.</span><span class="nx">request</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">  <span class="s1">&#39;RefreshCdnDir&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// See https://cloud.tencent.com/document/api/228/3947
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="s1">&#39;dirs.0&#39;</span><span class="o">:</span> <span class="s1">&#39;https://lruihao.cn/&#39;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="p">(</span><span class="nx">res</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">res</span><span class="p">.</span><span class="nx">code</span> <span class="o">&amp;&amp;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">res</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">);</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="增加快捷指令">增加快捷指令</h2>
@@ -496,6 +504,7 @@
 </span><span class="lnt">66
 </span><span class="lnt">67
 </span><span class="lnt">68
+</span><span class="lnt">69
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># -------------------------------------</span>
@@ -514,6 +523,7 @@
 </span></span><span class="line"><span class="cl"><span class="nb">alias</span> <span class="nv">mysql</span><span class="o">=</span>/usr/local/mysql/bin/mysql
 </span></span><span class="line"><span class="cl"><span class="nb">alias</span> <span class="nv">mysqladmin</span><span class="o">=</span>/usr/local/mysql/bin/mysqladmin
 </span></span><span class="line"><span class="cl"><span class="nb">alias</span> <span class="nv">incr</span><span class="o">=</span><span class="s2">&#34;source </span><span class="nv">$WORKSPACE</span><span class="s2">/.shell/incr*.zsh&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">alias</span> <span class="nv">typora</span><span class="o">=</span><span class="s2">&#34;open -a typora&#34;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1"># nvm</span>
 </span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">NVM_DIR</span><span class="o">=</span><span class="s2">&#34;</span><span class="nv">$HOME</span><span class="s2">/.nvm&#34;</span>
@@ -1068,7 +1078,7 @@ cmatrix -b -C blue
 </div><p></p>
 <p><a href="http://font-spider.org"target="_blank" rel="external nofollow noopener noreferrer">官网<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
 ]]></description></item><item><title>在 Android 上搭建 hexo 博客</title><link>https://lruihao.cn/posts/termux/</link><pubDate>Sat, 11 Aug 2018 16:59:05 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/termux/</guid><description><![CDATA[<blockquote>
-<p>暑假刚开始的时候放假回家没带电脑，只能玩手机，想折腾一下博客都没有条件，在一个发现一个 app, 卧槽😱，termux 真的强大！（初始化需要科学上网）安卓手机上的 linux 简直了，在手机就可以搭了一个 hexo 博客，只要在 github 上实现分支管理就可以多终端同步更新了。恕我学疏才浅，还只想到这些！一开始想回校后，折腾一下 hexo-admin 实现类似动态博客一样的多终端管理（手动滑稽），现在发现 termux 这样子的操作也不错嘛，挺装哔 hhhhhh**<a href="https://lruihao.gitee.io"target="_blank" rel="external nofollow noopener noreferrer">部署后的效果<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>**</p>
+<p>暑假刚开始的时候放假回家没带电脑，只能玩手机，想折腾一下博客都没有条件，在一个发现一个 app, 卧槽 😱，termux 真的强大！（初始化需要科学上网）安卓手机上的 linux 简直了，在手机就可以搭了一个 hexo 博客，只要在 github 上实现分支管理就可以多终端同步更新了。恕我学疏才浅，还只想到这些！一开始想回校后，折腾一下 hexo-admin 实现类似动态博客一样的多终端管理（手动滑稽），现在发现 termux 这样子的操作也不错嘛，挺装哔 hhhhhh**<a href="https://lruihao.gitee.io"target="_blank" rel="external nofollow noopener noreferrer">部署后的效果<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>**</p>
 </blockquote>
 <h2 id="准备">准备</h2>
 <ul>
@@ -1096,7 +1106,7 @@ cmatrix -b -C blue
 安装部署插件<code>npm install hexo-deployer-git --save</code>，部署<code>hexo d -g</code><br>
 没有问题的话进行下一步。</p>
 <h2 id="编辑">编辑</h2>
-<p>写文章的话创建 md 文件命令和电脑上一样，文件管理器打开<code>/data/data/com.termux/files/home/i/source/_posts/</code>  编辑文章 md 文件。这种方式需要 Root。<br>
+<p>写文章的话创建 md 文件命令和电脑上一样，文件管理器打开<code>/data/data/com.termux/files/home/i/source/_posts/</code> 编辑文章 md 文件。这种方式需要 Root。<br>
 没有 Root 的话可以使用 Vim，网上很多教程。但是这种方式相对来说更麻烦。</p>
 <h2 id="参考">参考</h2>
 <ul>
@@ -1227,7 +1237,7 @@ cmatrix -b -C blue
 <p><strong>这些美化都写的很详细，我建议你们自己好好看看吧，我也是在这里看到的，如果问我和这里说的是一样的。</strong></p>
 <ul>
 <li><a href="/categories/hexo/">hexo 个性化教程</a></li>
-<li><a href="http://www.zhaojun.im"target="_blank" rel="external nofollow noopener noreferrer">valine 特别鸣谢赵俊👍<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+<li><a href="http://www.zhaojun.im"target="_blank" rel="external nofollow noopener noreferrer">valine 特别鸣谢赵俊 👍<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
 <li><a href="https://asdfv1929.github.io/tags/Hexo/"target="_blank" rel="external nofollow noopener noreferrer">asdfv1929<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
 <li><a href="https://hexo.io/themes/"target="_blank" rel="external nofollow noopener noreferrer">hexo 官方主题集合<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>，<del>我用的是 aloha 主题</del>，该主题 <a href="https://github.com/henryhuang/hexo-theme-aloha/wiki/zh_CN"target="_blank" rel="external nofollow noopener noreferrer">官方文档<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>，<strong>后改用 next 主题 <a href="https://theme-next.iissnan.com/"target="_blank" rel="external nofollow noopener noreferrer">next 主题<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></strong></li>
 <li><a href="https://hexo.io/plugins"target="_blank" rel="external nofollow noopener noreferrer">hexo 官方插件<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>
@@ -1356,12 +1366,10 @@ cmatrix -b -C blue
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
-</span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">align</span><span class="o">=</span><span class="s">&#34;left&#34;</span><span class="p">&gt;&lt;</span><span class="nt">span</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;busuanzi_container_page_pv&#34;</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">      本文总阅读量<span class="p">&lt;</span><span class="nt">span</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;busuanzi_value_page_pv&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>次
-</span></span><span class="line"><span class="cl">    <span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">align</span><span class="o">=</span><span class="s">&#34;left&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">span</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;busuanzi_container_page_pv&#34;</span><span class="p">&gt;</span> 本文总阅读量<span class="p">&lt;</span><span class="nt">span</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;busuanzi_value_page_pv&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>次 <span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
 </span></span></code></pre></td></tr></table>
 </div>
@@ -1373,20 +1381,12 @@ cmatrix -b -C blue
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js&#34;</span> <span class="na">async</span> <span class="na">defer</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">span</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;busuanzi_container_page_pv&#34;</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">    本站总访问量<span class="p">&lt;</span><span class="nt">span</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;busuanzi_value_site_pv&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>次  |  
-</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">span</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;busuanzi_container_site_uv&#34;</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">	本站访客数<span class="p">&lt;</span><span class="nt">span</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;busuanzi_value_site_uv&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>人次
-</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">span</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;busuanzi_container_page_pv&#34;</span><span class="p">&gt;</span> 本站总访问量<span class="p">&lt;</span><span class="nt">span</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;busuanzi_value_site_pv&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>次 | <span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">span</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;busuanzi_container_site_uv&#34;</span><span class="p">&gt;</span> 本站访客数<span class="p">&lt;</span><span class="nt">span</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;busuanzi_value_site_uv&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>人次 <span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p><strong>2018.10.08 更新

@@ -109,10 +109,13 @@ valine 可以實現無後端，那我是不是也可以，leancloud 文檔走一
 </span><span class="lnt">14
 </span><span class="lnt">15
 </span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="c1">//記賬提交按鈕事件監聽
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s1">&#39;.submit&#39;</span><span class="p">).</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">){</span>
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s1">&#39;.submit&#39;</span><span class="p">).</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="nx">event</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">  <span class="kd">let</span> <span class="nx">formPay</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s1">&#39;#form-pay&#39;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="kd">let</span> <span class="nx">bill</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">AV</span><span class="p">.</span><span class="nb">Object</span><span class="p">(</span><span class="s1">&#39;Bill&#39;</span><span class="p">);</span>
@@ -120,12 +123,15 @@ valine 可以實現無後端，那我是不是也可以，leancloud 文檔走一
 </span></span><span class="line"><span class="cl">  <span class="nx">bill</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s1">&#39;pay_type&#39;</span><span class="p">,</span> <span class="nb">Number</span><span class="p">(</span><span class="nx">formPay</span><span class="p">.</span><span class="nx">pay_type</span><span class="p">.</span><span class="nx">value</span><span class="p">));</span>
 </span></span><span class="line"><span class="cl">  <span class="nx">bill</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s1">&#39;pay_user&#39;</span><span class="p">,</span> <span class="nb">Number</span><span class="p">(</span><span class="nx">formPay</span><span class="p">.</span><span class="nx">pay_user</span><span class="p">.</span><span class="nx">value</span><span class="p">));</span>
 </span></span><span class="line"><span class="cl">  <span class="nx">bill</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s1">&#39;pay_description&#39;</span><span class="p">,</span> <span class="nx">formPay</span><span class="p">.</span><span class="nx">pay_description</span><span class="p">.</span><span class="nx">value</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">bill</span><span class="p">.</span><span class="nx">save</span><span class="p">().</span><span class="nx">then</span><span class="p">((</span><span class="nx">object</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">formPay</span><span class="p">.</span><span class="nx">reset</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl">  <span class="p">},</span> <span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">error</span><span class="p">));</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;保存失敗&#39;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="p">}))</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">bill</span><span class="p">.</span><span class="nx">save</span><span class="p">().</span><span class="nx">then</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="nx">object</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">formPay</span><span class="p">.</span><span class="nx">reset</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">error</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;保存失敗&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="p">});</span>
 </span></span></code></pre></td></tr></table>
 </div>
@@ -189,6 +195,9 @@ valine 可以實現無後端，那我是不是也可以，leancloud 文檔走一
 </span><span class="lnt">55
 </span><span class="lnt">56
 </span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="cm">/**
@@ -196,34 +205,37 @@ valine 可以實現無後端，那我是不是也可以，leancloud 文檔走一
 </span></span></span><span class="line"><span class="cl"><span class="cm"> * @param [start=0] 開始位置
 </span></span></span><span class="line"><span class="cl"><span class="cm"> * @param [count=15] 每次查詢筆數
 </span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
-</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">getBillData</span><span class="p">(</span><span class="nx">start</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span><span class="nx">count</span> <span class="o">=</span> <span class="mi">15</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">queryBill</span><span class="p">.</span><span class="nx">descending</span><span class="p">(</span><span class="s1">&#39;createdAt&#39;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="p">.</span><span class="nx">skip</span><span class="p">(</span><span class="nx">start</span> <span class="o">*</span> <span class="nx">count</span><span class="p">).</span><span class="nx">limit</span><span class="p">(</span><span class="nx">count</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="p">.</span><span class="nx">find</span><span class="p">().</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">getBillData</span><span class="p">(</span><span class="nx">start</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">count</span> <span class="o">=</span> <span class="mi">15</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">queryBill</span>
+</span></span><span class="line"><span class="cl">    <span class="p">.</span><span class="nx">descending</span><span class="p">(</span><span class="s1">&#39;createdAt&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">.</span><span class="nx">skip</span><span class="p">(</span><span class="nx">start</span> <span class="o">*</span> <span class="nx">count</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">.</span><span class="nx">limit</span><span class="p">(</span><span class="nx">count</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">.</span><span class="nx">find</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">      <span class="kd">let</span> <span class="nx">billLength</span> <span class="o">=</span> <span class="nx">response</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">      <span class="k">if</span><span class="p">(</span><span class="nx">billLength</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">){</span>
-</span></span><span class="line"><span class="cl">        <span class="nx">billVm</span><span class="p">.</span><span class="nx">noMore</span> <span class="o">=</span> <span class="p">(</span><span class="nx">billLength</span> <span class="o">!==</span> <span class="nx">count</span><span class="p">)</span> <span class="o">?</span> <span class="kc">true</span> <span class="o">:</span> <span class="kc">false</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">        <span class="k">for</span><span class="p">(</span><span class="nx">bill</span> <span class="k">of</span> <span class="nx">response</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">      <span class="k">if</span> <span class="p">(</span><span class="nx">billLength</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">billVm</span><span class="p">.</span><span class="nx">noMore</span> <span class="o">=</span> <span class="nx">billLength</span> <span class="o">!==</span> <span class="nx">count</span> <span class="o">?</span> <span class="kc">true</span> <span class="o">:</span> <span class="kc">false</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="p">(</span><span class="nx">bill</span> <span class="k">of</span> <span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">          <span class="nx">billVm</span><span class="p">.</span><span class="nx">bills</span><span class="p">.</span><span class="nx">push</span><span class="p">({</span>
 </span></span><span class="line"><span class="cl">            <span class="nx">pay</span><span class="o">:</span> <span class="nx">bill</span><span class="p">.</span><span class="nx">attributes</span><span class="p">.</span><span class="nx">pay</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">            <span class="nx">payType</span><span class="o">:</span> <span class="nx">payType</span><span class="p">[</span><span class="nx">bill</span><span class="p">.</span><span class="nx">attributes</span><span class="p">.</span><span class="nx">pay_type</span><span class="p">],</span>
 </span></span><span class="line"><span class="cl">            <span class="nx">payUser</span><span class="o">:</span> <span class="nx">payUser</span><span class="p">[</span><span class="nx">bill</span><span class="p">.</span><span class="nx">attributes</span><span class="p">.</span><span class="nx">pay_user</span><span class="p">],</span>
 </span></span><span class="line"><span class="cl">            <span class="nx">payDescription</span><span class="o">:</span> <span class="nx">bill</span><span class="p">.</span><span class="nx">attributes</span><span class="p">.</span><span class="nx">pay_description</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">            <span class="nx">payDt</span><span class="o">:</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">(</span><span class="nx">bill</span><span class="p">.</span><span class="nx">createdAt</span><span class="p">).</span><span class="nx">toLocaleString</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">          <span class="p">})</span>
+</span></span><span class="line"><span class="cl">          <span class="p">});</span>
 </span></span><span class="line"><span class="cl">        <span class="p">}</span>
 </span></span><span class="line"><span class="cl">      <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="nx">billVm</span><span class="p">.</span><span class="nx">noMore</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">      <span class="p">}</span>
-</span></span><span class="line"><span class="cl">  <span class="p">});</span>
+</span></span><span class="line"><span class="cl">    <span class="p">});</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="cm">/**
 </span></span></span><span class="line"><span class="cl"><span class="cm"> * 獲取月賬單數據
 </span></span></span><span class="line"><span class="cl"><span class="cm"> * @param month 年月份 fmt: yyyy-MM
 </span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
-</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">getMonthBill</span><span class="p">(</span><span class="nx">month</span><span class="p">){</span>
-</span></span><span class="line"><span class="cl">  <span class="kd">let</span> <span class="nx">dateTime</span> <span class="o">=</span> <span class="sb">`</span><span class="si">${</span><span class="nx">month</span><span class="si">}</span><span class="sb"> 00:00:00`</span>
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">getMonthBill</span><span class="p">(</span><span class="nx">month</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">let</span> <span class="nx">dateTime</span> <span class="o">=</span> <span class="sb">`</span><span class="si">${</span><span class="nx">month</span><span class="si">}</span><span class="sb"> 00:00:00`</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  <span class="kd">let</span> <span class="nx">startMonth</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">(</span><span class="nx">dateTime</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="kd">let</span> <span class="nx">nextMonth</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">(</span><span class="k">new</span> <span class="nb">Date</span><span class="p">(</span><span class="nx">dateTime</span><span class="p">).</span><span class="nx">setMonth</span><span class="p">(</span><span class="nx">startMonth</span><span class="p">.</span><span class="nx">getMonth</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span><span class="p">));</span>
 </span></span><span class="line"><span class="cl">  <span class="kd">let</span> <span class="nx">startDateQuery</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">AV</span><span class="p">.</span><span class="nx">Query</span><span class="p">(</span><span class="s1">&#39;Bill&#39;</span><span class="p">);</span>
@@ -231,7 +243,7 @@ valine 可以實現無後端，那我是不是也可以，leancloud 文檔走一
 </span></span><span class="line"><span class="cl">  <span class="kd">let</span> <span class="nx">endDateQuery</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">AV</span><span class="p">.</span><span class="nx">Query</span><span class="p">(</span><span class="s1">&#39;Bill&#39;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="nx">endDateQuery</span><span class="p">.</span><span class="nx">lessThan</span><span class="p">(</span><span class="s1">&#39;createdAt&#39;</span><span class="p">,</span> <span class="nx">nextMonth</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="kd">let</span> <span class="nx">MonthBillQuery</span> <span class="o">=</span> <span class="nx">AV</span><span class="p">.</span><span class="nx">Query</span><span class="p">.</span><span class="nx">and</span><span class="p">(</span><span class="nx">startDateQuery</span><span class="p">,</span> <span class="nx">endDateQuery</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">MonthBillQuery</span><span class="p">.</span><span class="nx">find</span><span class="p">().</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">response</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">MonthBillQuery</span><span class="p">.</span><span class="nx">find</span><span class="p">().</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="nx">billVm</span><span class="p">.</span><span class="nx">monthBill</span> <span class="o">=</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">      <span class="nx">payType0</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">      <span class="nx">payType1</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
@@ -241,8 +253,8 @@ valine 可以實現無後端，那我是不是也可以，leancloud 文檔走一
 </span></span><span class="line"><span class="cl">      <span class="nx">payUser1</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">      <span class="nx">payUser2</span><span class="o">:</span> <span class="mi">0</span>
 </span></span><span class="line"><span class="cl">    <span class="p">};</span>
-</span></span><span class="line"><span class="cl">    <span class="k">for</span><span class="p">(</span><span class="nx">bill</span> <span class="k">of</span> <span class="nx">response</span><span class="p">){</span>
-</span></span><span class="line"><span class="cl">      <span class="kd">let</span> <span class="p">{</span><span class="nx">pay</span><span class="p">,</span> <span class="nx">pay_type</span><span class="p">,</span> <span class="nx">pay_user</span><span class="p">}</span> <span class="o">=</span> <span class="nx">bill</span><span class="p">.</span><span class="nx">attributes</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="nx">bill</span> <span class="k">of</span> <span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="kd">let</span> <span class="p">{</span> <span class="nx">pay</span><span class="p">,</span> <span class="nx">pay_type</span><span class="p">,</span> <span class="nx">pay_user</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">bill</span><span class="p">.</span><span class="nx">attributes</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">      <span class="nx">billVm</span><span class="p">.</span><span class="nx">monthBill</span><span class="p">[</span><span class="sb">`payType</span><span class="si">${</span><span class="nx">pay_type</span><span class="si">}</span><span class="sb">`</span><span class="p">]</span> <span class="o">+=</span> <span class="nx">pay</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">      <span class="nx">billVm</span><span class="p">.</span><span class="nx">monthBill</span><span class="p">[</span><span class="sb">`payUser</span><span class="si">${</span><span class="nx">pay_user</span><span class="si">}</span><span class="sb">`</span><span class="p">]</span> <span class="o">+=</span> <span class="nx">pay</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
@@ -338,7 +350,7 @@ valine 可以實現無後端，那我是不是也可以，leancloud 文檔走一
 </span><span class="lnt">68
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="ch">#!/usr/bin/python </span>
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="ch">#!/usr/bin/python</span>
 </span></span><span class="line"><span class="cl"><span class="c1"># -*- coding: utf-8 -*-</span>
 </span></span><span class="line"><span class="cl"><span class="n">__author__</span> <span class="o">=</span> <span class="s1">&#39;lruihao.cn&#39;</span>
 </span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">urllib.request</span>
@@ -433,9 +445,7 @@ valine 可以實現無後端，那我是不是也可以，leancloud 文檔走一
 </span></span><span class="line"><span class="cl">            <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div>]]></description></item><item><title>新冠疫情未返校未返工第 N 天之“自动打卡”</title><link>https://lruihao.cn/posts/daka/</link><pubDate>Wed, 25 Mar 2020 08:22:42 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/daka/</guid><description><![CDATA[<div class="featured-image">
-        <img src="/posts/daka/images/result.png" referrerpolicy="no-referrer">
-      </div><div class="details admonition info open">
+</div>]]></description></item><item><title>新冠疫情未返校未返工第 N 天之“自动打卡”</title><link>https://lruihao.cn/posts/daka/</link><pubDate>Wed, 25 Mar 2020 08:22:42 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/daka/</guid><description><![CDATA[<div class="details admonition info open">
     <div class="details-summary admonition-title">
       <i class="icon fa-solid fa-info-circle fa-fw" aria-hidden="true"></i>信息<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i>
     </div>
@@ -454,7 +464,7 @@ valine 可以實現無後端，那我是不是也可以，leancloud 文檔走一
 <h2 id="windows-运行效果">Windows 运行效果</h2>
 <p><figure><a class="lightgallery" href="/posts/daka/images/result1.png" data-thumbnail="/posts/daka/images/result1.png" data-sub-html="<h2>打卡成功</h2><p>打卡成功</p>"></a><figcaption class="image-caption">打卡成功</figcaption>
   </figure><br>
-<figure><a class="lightgallery" href="/posts/daka/images/result.png" data-thumbnail="/posts/daka/images/result.png" data-sub-html="<h2>重复打卡</h2><p>重复打卡</p>"></a><figcaption class="image-caption">重复打卡</figcaption>
+<figure><a class="lightgallery" href="images/result.png" data-thumbnail="images/result.png" data-sub-html="<h2>重复打卡</h2><p>重复打卡</p>"></a><figcaption class="image-caption">重复打卡</figcaption>
   </figure><br>
 <figure><a class="lightgallery" href="/posts/daka/images/result2.png" data-thumbnail="/posts/daka/images/result2.png" data-sub-html="<h2>定时任务日志</h2><p>定时任务日志</p>"></a><figcaption class="image-caption">定时任务日志</figcaption>
   </figure></p>
@@ -699,7 +709,7 @@ valine 可以實現無後端，那我是不是也可以，leancloud 文檔走一
 </div>
 </div><ul>
 <li>普通二维码 介绍了 <code>Words</code>, <code>-v</code>, <code>-l</code>, <code>-n</code>, <code>-d</code></li>
-<li>艺术二维码 介绍了  <code>-p</code>, <code>-c</code>, <code>-con</code>, <code>-bri</code></li>
+<li>艺术二维码 介绍了 <code>-p</code>, <code>-c</code>, <code>-con</code>, <code>-bri</code></li>
 <li>动态 GIF 二维码 介绍了动态的生成方法和注意点</li>
 </ul>
 <h4 id="普通二维码">普通二维码</h4>
@@ -744,7 +754,7 @@ valine 可以實現無後端，那我是不是也可以，leancloud 文檔走一
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-markdown" data-lang="markdown"><span class="line"><span class="cl"><span class="gh">#3 -n, -d
-</span></span></span><span class="line"><span class="cl"><span class="gh"></span>myqr https://github.com -n github_qr.jpg  -d .../paths/
+</span></span></span><span class="line"><span class="cl"><span class="gh"></span>myqr https://github.com -n github_qr.jpg -d .../paths/
 </span></span></code></pre></td></tr></table>
 </div>
 </div><ul>
@@ -1015,11 +1025,11 @@ valine 可以實現無後端，那我是不是也可以，leancloud 文檔走一
 </span></span><span class="line"><span class="cl"><span class="c1">## 下载图片</span>
 </span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">urllib_download</span><span class="p">(</span><span class="n">url</span><span class="p">,</span><span class="n">num</span><span class="p">):</span>  <span class="c1">## （下载链接，图片编号）</span>
 </span></span><span class="line"><span class="cl">    <span class="kn">from</span> <span class="nn">urllib.request</span> <span class="kn">import</span> <span class="n">urlretrieve</span>
-</span></span><span class="line"><span class="cl">    <span class="n">urlretrieve</span><span class="p">(</span><span class="n">url</span><span class="p">,</span><span class="n">path</span><span class="o">+</span><span class="n">num</span><span class="o">+</span><span class="s2">&#34;.png&#34;</span><span class="p">)</span>     
+</span></span><span class="line"><span class="cl">    <span class="n">urlretrieve</span><span class="p">(</span><span class="n">url</span><span class="p">,</span><span class="n">path</span><span class="o">+</span><span class="n">num</span><span class="o">+</span><span class="s2">&#34;.png&#34;</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">## 判断状态码</span>
-</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">get_status</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>  
-</span></span><span class="line"><span class="cl">    <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">allow_redirects</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>  
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">get_status</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">allow_redirects</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">r</span><span class="o">.</span><span class="n">status_code</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
@@ -1055,12 +1065,12 @@ valine 可以實現無後端，那我是不是也可以，leancloud 文檔走一
 </span></span><span class="line"><span class="cl">			<span class="nb">print</span><span class="p">(</span><span class="s2">&#34;正在爬取第&#34;</span><span class="p">,</span><span class="n">total</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="s2">&#34;张图片！&#34;</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">		<span class="n">n</span><span class="o">+=</span><span class="mi">1</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">	<span class="nb">print</span><span class="p">(</span><span class="s2">&#34;</span><span class="se">\n</span><span class="s2"> 爬取完毕！共爬取&#34;</span><span class="p">,</span><span class="n">total</span><span class="p">,</span><span class="s2">&#34;张图片！&#34;</span><span class="p">)</span>		
+</span></span><span class="line"><span class="cl">	<span class="nb">print</span><span class="p">(</span><span class="s2">&#34;</span><span class="se">\n</span><span class="s2"> 爬取完毕！共爬取&#34;</span><span class="p">,</span><span class="n">total</span><span class="p">,</span><span class="s2">&#34;张图片！&#34;</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">	<span class="nb">print</span><span class="p">(</span><span class="s2">&#34;图片存放路径：&#34;</span><span class="o">+</span><span class="n">path</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">	<span class="nb">print</span><span class="p">(</span><span class="s2">&#34;作者博客：lruihao.cn&#34;</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="vm">__name__</span><span class="o">==</span><span class="s2">&#34;__main__&#34;</span><span class="p">:</span>  
-</span></span><span class="line"><span class="cl">    <span class="n">main</span><span class="p">();</span> 
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="vm">__name__</span><span class="o">==</span><span class="s2">&#34;__main__&#34;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">main</span><span class="p">();</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="爬取过程及结果">爬取过程及结果</h2>
@@ -1088,7 +1098,7 @@ valine 可以實現無後端，那我是不是也可以，leancloud 文檔走一
 <p>模拟浏览器载入 html 文件，获取源码，查找到所有<code>&lt;img&gt;</code>标签内链接，必要时配合正则表达式，然后下载图片。</p>]]></description></item><item><title>python 玩微信：初探 wxpy</title><link>https://lruihao.cn/posts/wxpy1/</link><pubDate>Sat, 20 Apr 2019 15:44:57 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/wxpy1/</guid><description><![CDATA[<div class="featured-image">
         <img src="/posts/wxpy1/images/1.png" referrerpolicy="no-referrer">
       </div><blockquote>
-<p><em><strong>文中涉及的图片涉及个人隐私，仅做举例，请勿传播</strong></em></p>
+<p><strong><em>文中涉及的图片涉及个人隐私，仅做举例，请勿传播</em></strong></p>
 <ul>
 <li>查看微信好友男女比例</li>
 <li>查看好友地区分布</li>
@@ -1134,7 +1144,7 @@ valine 可以實現無後端，那我是不是也可以，leancloud 文檔走一
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="n">bot</span> <span class="o">=</span> <span class="n">Bot</span><span class="p">(</span><span class="n">cache_path</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>   <span class="c1">#定义一个微信机器人</span>
 </span></span><span class="line"><span class="cl"><span class="n">friends</span> <span class="o">=</span> <span class="n">bot</span><span class="o">.</span><span class="n">friends</span><span class="p">(</span><span class="n">update</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>   <span class="c1">#获取更新好友列表</span>
-</span></span><span class="line"><span class="cl"><span class="n">male</span> <span class="o">=</span> <span class="n">female</span> <span class="o">=</span> <span class="n">other</span> <span class="o">=</span> <span class="mi">0</span>    
+</span></span><span class="line"><span class="cl"><span class="n">male</span> <span class="o">=</span> <span class="n">female</span> <span class="o">=</span> <span class="n">other</span> <span class="o">=</span> <span class="mi">0</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">friends</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>     <span class="c1">#[1:] 自己是第一个，排除掉</span>
 </span></span><span class="line"><span class="cl">    <span class="n">sex</span> <span class="o">=</span> <span class="n">i</span><span class="o">.</span><span class="n">sex</span>
@@ -1206,7 +1216,7 @@ valine 可以實現無後端，那我是不是也可以，leancloud 文檔走一
 </span></span><span class="line"><span class="cl"><span class="c1">#只提取湖南的</span>
 </span></span><span class="line"><span class="cl"><span class="n">bot</span> <span class="o">=</span> <span class="n">Bot</span><span class="p">(</span><span class="n">cache_path</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="n">friends</span> <span class="o">=</span> <span class="n">bot</span><span class="o">.</span><span class="n">friends</span><span class="p">(</span><span class="n">update</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">province</span> <span class="o">=</span> <span class="s1">&#39;湖南&#39;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="n">citys</span> <span class="o">=</span> <span class="p">[]</span>   
+</span></span><span class="line"><span class="cl"><span class="n">citys</span> <span class="o">=</span> <span class="p">[]</span>
 </span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">friends</span> <span class="p">:</span>
 </span></span><span class="line"><span class="cl">    <span class="n">city</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">city</span>
 </span></span><span class="line"><span class="cl">    <span class="n">citys</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">city</span><span class="p">)</span>
@@ -1304,7 +1314,7 @@ valine 可以實現無後端，那我是不是也可以，leancloud 文檔走一
 <pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="line"><span class="cl"><span class="c1">#encoding=utf-8</span>
 </span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">wxpy</span> <span class="kn">import</span> <span class="o">*</span>
 </span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">numpy</span>
-</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">removeAll</span><span class="p">(</span><span class="n">the_list</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">[</span><span class="n">value</span> <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">the_list</span> <span class="k">if</span> <span class="n">value</span> <span class="o">!=</span> <span class="n">val</span><span class="p">]</span>
 </span></span><span class="line"><span class="cl">
@@ -1312,7 +1322,7 @@ valine 可以實現無後端，那我是不是也可以，leancloud 文檔走一
 </span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">group_name</span> <span class="o">+</span> <span class="s2">&#34;群共有：&#34;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">target_group</span><span class="p">))</span> <span class="o">+</span> <span class="s2">&#34;人，其中：&#34;</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="n">all_stats_text</span> <span class="o">=</span> <span class="p">[]</span>
 </span></span><span class="line"><span class="cl">    <span class="n">all_dict</span> <span class="o">=</span> <span class="p">{}</span>
-</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="c1">## 乱序先整理一份省份 + 地点的列表</span>
 </span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">user</span> <span class="ow">in</span> <span class="n">target_group</span><span class="o">.</span><span class="n">members</span><span class="p">:</span>
 </span></span><span class="line"><span class="cl">        <span class="n">trimed_data</span> <span class="o">=</span> <span class="n">user</span><span class="o">.</span><span class="n">province</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="n">user</span><span class="o">.</span><span class="n">city</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
@@ -1322,7 +1332,7 @@ valine 可以實現無後端，那我是不是也可以，leancloud 文檔走一
 </span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">all_stats_text</span><span class="p">:</span>
 </span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">all_stats_text</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
 </span></span><span class="line"><span class="cl">            <span class="n">all_dict</span><span class="p">[</span><span class="n">data</span><span class="p">]</span> <span class="o">=</span> <span class="n">all_stats_text</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">            <span class="n">all_stats_text</span> <span class="o">=</span> <span class="n">removeAll</span><span class="p">(</span><span class="n">all_stats_text</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>        
+</span></span><span class="line"><span class="cl">            <span class="n">all_stats_text</span> <span class="o">=</span> <span class="n">removeAll</span><span class="p">(</span><span class="n">all_stats_text</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="n">final_dict</span> <span class="o">=</span> <span class="p">{}</span>
 </span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">all_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">()):</span>
 </span></span><span class="line"><span class="cl">        <span class="n">final_dict</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">all_dict</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
@@ -1332,7 +1342,7 @@ valine 可以實現無後端，那我是不是也可以，leancloud 文檔走一
 </span></span><span class="line"><span class="cl">    <span class="n">male</span> <span class="o">=</span> <span class="mi">0</span>
 </span></span><span class="line"><span class="cl">    <span class="n">female</span> <span class="o">=</span> <span class="mi">0</span>
 </span></span><span class="line"><span class="cl">    <span class="n">other</span> <span class="o">=</span> <span class="mi">0</span>
-</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">user</span> <span class="ow">in</span> <span class="n">target_group</span><span class="o">.</span><span class="n">members</span><span class="p">:</span>
 </span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">user</span><span class="o">.</span><span class="n">sex</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
 </span></span><span class="line"><span class="cl">            <span class="n">male</span> <span class="o">=</span> <span class="n">male</span> <span class="o">+</span> <span class="mi">1</span>
@@ -1340,7 +1350,7 @@ valine 可以實現無後端，那我是不是也可以，leancloud 文檔走一
 </span></span><span class="line"><span class="cl">            <span class="n">female</span> <span class="o">=</span> <span class="n">female</span> <span class="o">+</span> <span class="mi">1</span>
 </span></span><span class="line"><span class="cl">        <span class="k">else</span><span class="p">:</span>
 </span></span><span class="line"><span class="cl">            <span class="n">other</span> <span class="o">=</span> <span class="n">other</span> <span class="o">+</span> <span class="mi">1</span>
-</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;男的有：&#34;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">male</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&#34;人&#34;</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;女的有：&#34;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">female</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&#34;人&#34;</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="n">msg</span> <span class="o">=</span> <span class="s2">&#34;男的有：&#34;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">male</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&#34;人、n&#34;</span> <span class="o">+</span> <span class="s2">&#34;女的有：&#34;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">female</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&#34;人、n&#34;</span>
@@ -1364,7 +1374,7 @@ valine 可以實現無後端，那我是不是也可以，leancloud 文檔走一
         <img src="/posts/wximgpy/images/1.jpg" referrerpolicy="no-referrer">
       </div><blockquote>
 <p>Python 通过 wxpy 登录微信网页版，爬取好友所有头像并拼接成一张大图。然后删除所有子图。（注释相关代码可以不删除）<br>
-<em><strong>文中涉及的图片涉及个人隐私，仅做举例，请勿传播</strong></em><br>
+<strong><em>文中涉及的图片涉及个人隐私，仅做举例，请勿传播</em></strong><br>
 <strong>文中编码由 Sunbelife 提供，来自他的同名微信公众号，本博仅用于学习，侵删</strong></p>
 </blockquote>
 <h2 id="依赖">依赖</h2>
@@ -1538,7 +1548,7 @@ valine 可以實現無後端，那我是不是也可以，leancloud 文檔走一
 </span></span><span class="line"><span class="cl">		<span class="k">continue</span>
 </span></span><span class="line"><span class="cl">	<span class="k">else</span><span class="p">:</span>
 </span></span><span class="line"><span class="cl">		<span class="n">ls</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">filter_ls</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">		
+</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">## 排序</span>
 </span></span><span class="line"><span class="cl"><span class="n">ls</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="p">[:</span><span class="o">-</span><span class="mi">4</span><span class="p">]))</span>
 </span></span><span class="line"><span class="cl">
@@ -1566,7 +1576,7 @@ valine 可以實現無後端，那我是不是也可以，leancloud 文檔走一
 </span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="n">x_lines</span><span class="p">:</span>
 </span></span><span class="line"><span class="cl">			<span class="n">x</span> <span class="o">=</span> <span class="mi">0</span>
 </span></span><span class="line"><span class="cl">			<span class="n">y</span> <span class="o">+=</span> <span class="mi">1</span>
-</span></span><span class="line"><span class="cl">				
+</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="n">img</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">curr_dir</span> <span class="o">+</span> <span class="s2">&#34;all.jpg&#34;</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">try</span><span class="p">:</span>

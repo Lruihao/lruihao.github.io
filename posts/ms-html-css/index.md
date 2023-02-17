@@ -2,7 +2,7 @@
 
 
 > [原文链接](https://github.com/ltadpoles/web-document/tree/master/Other)  
-“卓越班”到了大三突然掀起一股毕业慌，一部分人投身于考研的热潮中，一部分人选择了培训机构学习技术。而我出于种种原因既不考研也不培训，选择自学 java 和 web 相关的知识，也希望因此能在以后谋得一份心仪的工作。
+> “卓越班”到了大三突然掀起一股毕业慌，一部分人投身于考研的热潮中，一部分人选择了培训机构学习技术。而我出于种种原因既不考研也不培训，选择自学 java 和 web 相关的知识，也希望因此能在以后谋得一份心仪的工作。
 
 如果文章中有出现纰漏、错误之处，还请看到的小伙伴多多指教，先行谢过
 
@@ -29,6 +29,7 @@
 ### 3. 简述一下你对 HTML 语义化的理解
 
 简单来说，就是合适的标签做合适的事情，这样具有以下好处：
+
 - 有助于构架良好的 HTML 结构，有利于搜索引擎的建立索引、抓取，利于 SEO
 - 有利于不同设备的解析
 - 有利于构建清晰的机构，有利于团队的开发、维护
@@ -41,7 +42,7 @@
 
 > Presto 内核：Opera7 及以上。[Opera 内核原为：Presto，现为：Blink;]
 
-> Webkit 内核：Safari，Chrome 等。[Chrome 的：Blink（WebKit 的分支）] 
+> Webkit 内核：Safari，Chrome 等。[Chrome 的：Blink（WebKit 的分支）]
 
 浏览器内核又可以分成两部分：**渲染引擎和 JS 引擎。** 渲染引擎主要负责取得网页的内容、整理讯息、计算网页的显示方式等，JS 引擎则是解析 Javascript 语言，执行 javascript 语言来实现网页的动态效果。
 
@@ -54,16 +55,16 @@
 - 地理定位：`Geolocation`
 - 拖放 API：`drag`
 - web worker：是运行在后台的 JavaScript，独立于其他脚本，不会影响页面的性能
-- web storage: `localStorage` `sessionStorage` 
+- web storage: `localStorage` `sessionStorage`
 - WebSocket: HTML5 开始提供的一种在单个 TCP 连接上进行全双工通讯的协议
 
 ### 6. 描述一下 cookie，sessionStorage 和 localStorage 的区别
 
-|特性|Cookie|localStorage|sessionStorage|
-|:--|:--|:--|:--|
-|生命周期|可设置失效时间，没有设置的话，默认是关闭浏览器后失效|除非被手动清除，否则将会永久保存|仅在当前网页会话下有效，关闭页面或浏览器后就会被清除|
-|存放数据大小|4KB 左右|可以保存 5MB 的信息|可以保存 5MB 的信息|
-|http 请求|每次都会携带在 HTTP 头中，如果使用 cookie 保存过多数据会带来性能问题|仅在客户端（即浏览器）中保存，不参与和服务器的通信|仅在客户端（即浏览器）中保存，不参与和服务器的通信|
+| 特性         | Cookie                                                               | localStorage                                       | sessionStorage                                       |
+| :----------- | :------------------------------------------------------------------- | :------------------------------------------------- | :--------------------------------------------------- |
+| 生命周期     | 可设置失效时间，没有设置的话，默认是关闭浏览器后失效                 | 除非被手动清除，否则将会永久保存                   | 仅在当前网页会话下有效，关闭页面或浏览器后就会被清除 |
+| 存放数据大小 | 4KB 左右                                                             | 可以保存 5MB 的信息                                | 可以保存 5MB 的信息                                  |
+| http 请求    | 每次都会携带在 HTTP 头中，如果使用 cookie 保存过多数据会带来性能问题 | 仅在客户端（即浏览器）中保存，不参与和服务器的通信 | 仅在客户端（即浏览器）中保存，不参与和服务器的通信   |
 
 ### 7. 如何实现浏览器内多个标签页之间的通信
 
@@ -100,9 +101,11 @@
 css 的盒模型由 content（内容）、padding（内边距）、border（边框）、margin（外边距）组成。但盒子的大小由 content+padding+border 这几部分决定
 
 box-sizing 是一个 CSS3 属性，与盒子模型有着密切联系。即决定元素的宽高如何计算，box-sizing 有三个属性：
+
 ```css
 box-sizing: content-box|border-box|inherit:
 ```
+
 - content-box 使得元素的宽高即为内容区的宽高（默认模式）
 - border-box: 计算方式 content + padding + border = 本身元素大小，即缩小了 content 大小
 - inherit 指定 box-sizing 属性的值，应该从父元素继承
@@ -112,16 +115,19 @@ box-sizing: content-box|border-box|inherit:
 浮动的元素是脱离文档标准流的，如果我们不清楚浮动，那么就会造成**父元素高度塌陷**，影响页面布局。
 
 清除浮动的方式：
+
 - 为父元素设置高度
 - 为父元素添加`overflow:hidden`
 - 伪元素
+
 ```css
-.fix::after { 
-     content:""; 
-     display:block; 
-     clear:both;
+.fix::after {
+  content: '';
+  display: block;
+  clear: both;
 }
 ```
+
 使用伪元素的好处：不增加冗余的 DOM 节点，符合语义化
 
 > overflow:hidden 可以触发 BFC 机制。BFC：块级格式化上下文，创建了 BFC 的元素就是一个独立的盒子，它规定了内部如何布局，并且与这个独立盒子里的布局不受外部影响，当然它也不会影响到外面的元素，**计算 BFC 的高度时，浮动元素也参与计算**
@@ -130,39 +136,41 @@ box-sizing: content-box|border-box|inherit:
 
 > 定位的方式
 
-```css 
+```css
 .father {
-    position: relative;
+  position: relative;
 }
 .son {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    margin: auto;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
 }
 ```
+
 > css3 属性
 
 ```css
 .father {
-    position: relative;
+  position: relative;
 }
 .son {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 ```
+
 > flex 布局
 
 ```css
 .father {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 ```
 
@@ -186,11 +194,11 @@ box-sizing: content-box|border-box|inherit:
 
 ### 6. display:none 与 visibility：hidden 的区别
 
-区别 | display:none | visibility：hidden 的
----|---|---
-是否占据空间 | 不占据任何空间，在文档渲染时，该元素如同不存在（但依然存在文档对象模型树中）| 该元素空间依旧存在
-是否渲染 | 会触发 reflow（回流），进行渲染 | 只会触发 repaint（重绘），因为没有发现位置变化，不进行渲染
-是否是继承属性 | 不是继承属性，元素及其子元素都会消失 | 是继承属性，若子元素使用了 visibility:visible，则不继承，这个子孙元素又会显现出
+| 区别           | display:none                                                                 | visibility：hidden 的                                                           |
+| -------------- | ---------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
+| 是否占据空间   | 不占据任何空间，在文档渲染时，该元素如同不存在（但依然存在文档对象模型树中） | 该元素空间依旧存在                                                              |
+| 是否渲染       | 会触发 reflow（回流），进行渲染                                              | 只会触发 repaint（重绘），因为没有发现位置变化，不进行渲染                      |
+| 是否是继承属性 | 不是继承属性，元素及其子元素都会消失                                         | 是继承属性，若子元素使用了 visibility:visible，则不继承，这个子孙元素又会显现出 |
 
 ### 7. CSS 中 link 和@import 的区别
 
@@ -248,6 +256,7 @@ box-sizing: content-box|border-box|inherit:
 ### 15. css 预处理器
 
 提供了一种 css 的书写方式，常见的就是 [SAAS 文档](http://sass.bootcss.com/docs/sass-reference/) 和 [LESS 文档](https://less.bootcss.com/)
+
 
 ---
 

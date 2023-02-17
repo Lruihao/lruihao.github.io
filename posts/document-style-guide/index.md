@@ -148,7 +148,7 @@
 
 （1）避免使用长句。
 
-不包含任何标点符号的单个句子，或者以逗号分隔的句子构件，长度尽量保持在 20 个字以内；20～29 个字的句子，可以接受；30～39 个字的句子，语义必须明确，才能接受；多于 40 个字的句子，任何情况下都不能接受。
+不包含任何标点符号的单个句子，或者以逗号分隔的句子构件，长度尽量保持在 20 个字以内；20 ～ 29 个字的句子，可以接受；30 ～ 39 个字的句子，语义必须明确，才能接受；多于 40 个字的句子，任何情况下都不能接受。
 
 ```
 错误：本产品适用于从由一台服务器进行动作控制的单一节点结构到由多台服务器进行动作控制的并行处理程序结构等多种体系结构。
@@ -619,7 +619,7 @@ $1,000
 - [中文排版需求](http://w3c.github.io/clreq/), by W3C
 - [为什么文件名要小写？](http://www.ruanyifeng.com/blog/2017/02/filename-should-be-lowercase.html), by 阮一峰
 - [Google Developer Documentation Style Guide](https://developers.google.com/style/), by Google
-- [出版物上数字用法的规定（国家标准GBT15835－2011）](http://www.moe.gov.cn/ewebeditor/uploadfile/2015/01/13/20150113091154536.pdf)
+- [出版物上数字用法的规定（国家标准 GBT15835－2011）](http://www.moe.gov.cn/ewebeditor/uploadfile/2015/01/13/20150113091154536.pdf)
 - [GB 3100-1993 国际单位制及其应用](https://zh.wikisource.org/zh-hans/GB_3100-1993_国际单位制及其应用)
 - [markdownlint](https://github.com/DavidAnson/vscode-markdownlint), VSCode 插件
 - [pangu.js](https://github.com/vinta/pangu.js), 盘古之白系列插件

@@ -4,7 +4,9 @@
 > 完全倒装： 把整个谓语动词放到主语前。
 
 ### 表方位或时间的副词 (adv)、表地点的介词短语位于句首时
+
 **例句**
+
 1. Here comes the bus.
 2. In the lecture hall of a university sits a professor.
 3. Out rushed the children.
@@ -19,7 +21,9 @@
 9. Here are you.&emsp;&emsp;&emsp;&emsp;Away it flew.
 
 ### 表语（词/短语）位于句首时，adj/doing/done
+
 **例句**
+
 1. Written on the blackboard are the name of these who were late.
 2. Gone are the days when we worked together.
 3. Standing at the tree is a shy girl with two big eges.
@@ -27,7 +31,9 @@
 5. Lying on the grassland is the boy who was injured in the fire.
 
 ### 存在句 there be 中，其中 be \->exist/arise/follow/enter/appear/live 等表状态 vi
+
 **例句**
+
 1. There come shows for help from the river.
 2. There seems something wrong with machine.
 3. There remains nothing to be done.

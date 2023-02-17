@@ -2,27 +2,30 @@
 
 
 ### 介绍
+
 使用 fusion app 对网页进行的封装。  
-功能：  
-* 浏览本博客，主页
-* 私人网盘
-* 2048 等小游戏
-* 在线客服，QQ 等
-* pc 与移动浏览器标识切换
-* 留言，打赏，博主日志等
-* 分享功能，分享到 QQ，微信，浏览器打开等
-* app 内添加书签，自动记录历史记录，刷新等
-* **配合博客的`PWA + quicklink`功能可实现离线浏览**
+功能：
+
+- 浏览本博客，主页
+- 私人网盘
+- 2048 等小游戏
+- 在线客服，QQ 等
+- pc 与移动浏览器标识切换
+- 留言，打赏，博主日志等
+- 分享功能，分享到 QQ，微信，浏览器打开等
+- app 内添加书签，自动记录历史记录，刷新等
+- **配合博客的`PWA + quicklink`功能可实现离线浏览**
 <!--more-->
 
 ### 下载
 
 > ~~app 内也可以更新，不过就我自己用，懒得更新。~~
 
-* [百度云，密码：479l](https://pan.baidu.com/s/19jOvnNhssF302Mi1GRa2Sw) 
-* [github 下载](https://github.com/Lruihao/Blog_fas_apk)
+- [百度云，密码：479l](https://pan.baidu.com/s/19jOvnNhssF302Mi1GRa2Sw)
+- [github 下载](https://github.com/Lruihao/Blog_fas_apk)
 
 **PWA 应用**
+
 1. 地址栏输入：Chrome://flags
 2. 搜索并启用以下项目：Desktop PWAs（桌面 PWAs)、App Banners（应用横幅）、Experimental App Banners（实验性应用横幅）
 3. 重启浏览器使修改的设置生效
@@ -30,8 +33,9 @@
 5. 安装“博採眾長”
 
 ### 部分源码
-> 看到这些中文的函数总觉得怪怪的哈哈哈😂
-语言：`lua`
+
+> 看到这些中文的函数总觉得怪怪的哈哈哈 😂
+> 语言：`lua`
 
 #### 检测更新
 
@@ -66,7 +70,7 @@ end
 
 if（版本 > versioncode) then
   dl.dismiss()
-    tt.stop() 
+    tt.stop()
 对话框 ()
 . 设置标题 ("检测到更新")
 . 设置消息 ("版本："..version.."→".. 版本名。."\n 更新内容：".. 内容）
@@ -87,11 +91,12 @@ Http.get(url,nil,"UTF-8",nil,function(code,content,cookie,header)
     过滤 (content)
   else
   dl.dismiss()
-    tt.stop() 
+    tt.stop()
      弹出消息 ("本地网络或服务器异常 "..code)
   end
 end)
 ```
+
 #### 方向锁定
 
 ```lua
@@ -113,6 +118,7 @@ end
 ```
 
 #### 程序启动事件
+
 ```lua
 弹出消息 ("©2018 李瑞豪")
 
@@ -151,7 +157,7 @@ function onKeyDown(key,event)
            )
           . 设置消极按钮 ("取消")
           end
-        }      
+        }
       math.randomseed(tonumber(tostring(os.time()):reverse():sub(1, 6)))
       退出按钮 [math.random(1,1)]()
       退出确认。show()
@@ -164,49 +170,49 @@ end
 lstads="/data/data/"..activity.getPackageName().."/lst.lua"
 lstwebads="/data/data/"..activity.getPackageName().."/lstweb.lua"
 --2. 序列化
-function slz(obj) 
-  local lua = "" 
-  local t = type(obj) 
-  if t == "number" then 
-    lua = lua .. obj 
-  elseif t == "boolean" then 
-    lua = lua .. tostring(obj) 
-  elseif t == "string" then 
-    lua = lua .. string.format("%q", obj) 
-  elseif t == "table" then 
-    lua = lua .. "{\n" 
-    for k, v in pairs(obj) do 
-      lua = lua .. "[" .. slz(k) .. "]=" .. slz(v) .. ",\n" 
-    end 
-    local metatable = getmetatable(obj) 
-    if metatable ~= nil and type(metatable.__index) == "table" then 
-      for k, v in pairs(metatable.__index) do 
-        lua = lua .. "[" .. slz(k) .. "]=" .. slz(v) .. ",\n" 
-      end 
-    end 
-    lua = lua .. "}" 
-  elseif t == "nil" then 
-    return nil 
-  else 
-    error("can not serialize a " .. t .. " type.") 
-  end 
-  return lua 
-end 
-function rslz(lua) 
-  local t = type(lua) 
-  if t == "nil" or lua == "" then 
+function slz(obj)
+  local lua = ""
+  local t = type(obj)
+  if t == "number" then
+    lua = lua .. obj
+  elseif t == "boolean" then
+    lua = lua .. tostring(obj)
+  elseif t == "string" then
+    lua = lua .. string.format("%q", obj)
+  elseif t == "table" then
+    lua = lua .. "{\n"
+    for k, v in pairs(obj) do
+      lua = lua .. "[" .. slz(k) .. "]=" .. slz(v) .. ",\n"
+    end
+    local metatable = getmetatable(obj)
+    if metatable ~= nil and type(metatable.__index) == "table" then
+      for k, v in pairs(metatable.__index) do
+        lua = lua .. "[" .. slz(k) .. "]=" .. slz(v) .. ",\n"
+      end
+    end
+    lua = lua .. "}"
+  elseif t == "nil" then
+    return nil
+  else
+    error("can not serialize a " .. t .. " type.")
+  end
+  return lua
+end
+function rslz(lua)
+  local t = type(lua)
+  if t == "nil" or lua == "" then
     return {}
-  elseif t == "number" or t == "string" or t == "boolean" then 
-    lua = tostring(lua) 
-  else 
-    error("can not unserialize a " .. t .. " type.") 
-  end 
-  lua = "return " .. lua 
-  local func = loadstring(lua) 
-  if func == nil then 
-    return nil 
-  end 
-  return func() 
+  elseif t == "number" or t == "string" or t == "boolean" then
+    lua = tostring(lua)
+  else
+    error("can not unserialize a " .. t .. " type.")
+  end
+  lua = "return " .. lua
+  local func = loadstring(lua)
+  if func == nil then
+    return nil
+  end
+  return func()
 end
 
 --3. 历史记录框布局
@@ -286,7 +292,7 @@ function save_hst()
 end
 
 --4. 显示历史记录框
-function show_hst() 
+function show_hst()
   hstshow()
   local hl=AlertDialog.Builder(activity)
   .setView(loadlayout(hstlayout))
@@ -460,8 +466,8 @@ function adapterData(data,jdpuk)
   for d in pairs(data) do
     table.insert(adpd,{
       text={
-        Text=tostring(data[d]), 
-      }, 
+        Text=tostring(data[d]),
+      },
     })
   end
   return adpd
@@ -635,6 +641,7 @@ function addDataDialog(name,title,value,key)--32552732
   end
 end
 ```
+
 
 ---
 

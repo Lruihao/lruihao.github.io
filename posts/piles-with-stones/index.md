@@ -5,9 +5,11 @@ Codeforces Round #500 (Div. 2)
 题目链接：[Piles With Stones](https://codeforces.com/contest/1013/problem/A)
 
 <!--more-->
+
 大致题意就是有 n 堆石头，第一天每堆有一定数目的石头，第二天石头可能被小朋友移动或者带走，求满足题意的两天的石碓；  
 所以第二天的石头总数不会大于第一天的，所以是 sum1-sum2>=0 即可。  
-//又只打了一道题，扣了 80 多分。  
+//又只打了一道题，扣了 80 多分。
+
 ```cpp
 #include<bits/stdc++.h>
 using namespace std;
@@ -30,6 +32,7 @@ int main(){
 	return 0;
 }
 ```
+
 
 ---
 

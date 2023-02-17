@@ -7,6 +7,7 @@
 <!--more-->
 
 ## 代码
+
 ```java
 package code0507;
 
@@ -23,7 +24,7 @@ public class WildCardTest {
 		point.printpoint(520, 1314);
 		point.printpoint("me", "too");
 	}
-	
+
 	public static void getData(Box<?>data){//类型通配符
 		System.out.println("data:"+data.getData());
 	}
@@ -48,7 +49,9 @@ class Box<T>{
 	}
 }
 ```
+
 ## 运行结果
+
 ```java
 data:hello
 data:12

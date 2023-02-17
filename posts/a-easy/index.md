@@ -3,24 +3,26 @@
 
 ## A. Easy h-index
 
-The h-index of an author is the largest h where he has at least h papers with citations not less than h.   
-Bobo has published many papers. Given a0,a1,a2,...,an which means Bobo has published ai papers with   
-itations exactly i, ﬁnd the h-index of Bobo.  
+The h-index of an author is the largest h where he has at least h papers with citations not less than h.  
+Bobo has published many papers. Given a0,a1,a2,...,an which means Bobo has published ai papers with  
+itations exactly i, ﬁnd the h-index of Bobo.
 
 <!--more-->
+
 ### Input
 
-The input consists of several test cases and is terminated by end-of-ﬁle.   
-The ﬁrst line of each test case contains an integer n. The second line contains (n+1) integers a0,a1,...,an.  
+The input consists of several test cases and is terminated by end-of-ﬁle.  
+The ﬁrst line of each test case contains an integer n. The second line contains (n+1) integers a0,a1,...,an.
 
 ### Output
-For each test case, print an integer which denotes the result. 
+
+For each test case, print an integer which denotes the result.
 
 ### Constraint
 
-  • 1≤ n ≤2·105
-  • 0≤ ai ≤109
-  • The sum of n does not exceed 250,000.
+• 1≤ n ≤2·105
+• 0≤ ai ≤109
+• The sum of n does not exceed 250,000.
 
 ### Sample Input
 
@@ -41,6 +43,7 @@ For each test case, print an integer which denotes the result.
 思路：在区间 [0,n] 内二分答案；或直接从 n~0 遍历找到第一个满足条件的 h
 
 后 AC 代码
+
 ```c
 #include "bits/stdc++.h"
 using namespace std;
@@ -65,6 +68,7 @@ int main(){
     return 0;
 }
 ```
+
 
 ---
 

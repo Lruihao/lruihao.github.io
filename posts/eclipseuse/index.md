@@ -2,6 +2,7 @@
 
 
 ## 基本使用
+
 ```diff 基本使用
 A: 选择一个工作空间
 	D:\develop\eclipse-SDK-3.7.2-win64\workspace
@@ -13,7 +14,7 @@ B: 如何写一个 HelloWorld 案例（代码以项目为基本单位）
 		键入项目名称后直接 Finish。
 	b: 所有的 java 文件必须写到 src 下面才有效
 	c: 创建一个包
-		cn.lruihao   
+		cn.lruihao
 	d: 在包下创建一个类
 		HelloWorld
 
@@ -27,7 +28,9 @@ B: 如何写一个 HelloWorld 案例（代码以项目为基本单位）
 	h: 内容显示
 		在 Console 控制台显示内容
 ```
+
 ## Eclipse 的基本设置
+
 ```java 基本设置
 A: 程序的编译和运行的环境配置（如果你的 Eclipse 启动没有问题，就不要配置了）
 B: 去掉默认注释（可以不用改）
@@ -46,7 +49,9 @@ E: 窗体给弄乱了，怎么办
 F: 控制台找不到了
 	Window--Show View—Console
 ```
+
 ## 快捷键的使用
+
 ```java 快捷键
 A: 内容辅助键
 	Alt+/ 起提示作用
@@ -59,7 +64,9 @@ B: 快捷键
 	代码上下移动 选中代码 alt+上/下箭头
 	查看源码  选中类名 (F3 或者 Ctrl+鼠标点击）
 ```
+
 ## Eclipse 中如何提高开发效率
+
 ```java 提高开发效率
 A: 自动生成构造方法
 	a: 无参构造方法 在代码区域右键--source--Generate Constructors from Superclass
@@ -67,6 +74,7 @@ A: 自动生成构造方法
 B: 自动生成 get/set 方法
 	在代码区域右键--source--Generate Getters and Setters...
 ```
+
 
 ---
 

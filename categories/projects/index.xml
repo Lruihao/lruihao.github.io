@@ -339,10 +339,13 @@ valine 可以實現無後端，那我是不是也可以，leancloud 文檔走一
 </span><span class="lnt">14
 </span><span class="lnt">15
 </span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="c1">//記賬提交按鈕事件監聽
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s1">&#39;.submit&#39;</span><span class="p">).</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">){</span>
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s1">&#39;.submit&#39;</span><span class="p">).</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="nx">event</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">  <span class="kd">let</span> <span class="nx">formPay</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s1">&#39;#form-pay&#39;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="kd">let</span> <span class="nx">bill</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">AV</span><span class="p">.</span><span class="nb">Object</span><span class="p">(</span><span class="s1">&#39;Bill&#39;</span><span class="p">);</span>
@@ -350,12 +353,15 @@ valine 可以實現無後端，那我是不是也可以，leancloud 文檔走一
 </span></span><span class="line"><span class="cl">  <span class="nx">bill</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s1">&#39;pay_type&#39;</span><span class="p">,</span> <span class="nb">Number</span><span class="p">(</span><span class="nx">formPay</span><span class="p">.</span><span class="nx">pay_type</span><span class="p">.</span><span class="nx">value</span><span class="p">));</span>
 </span></span><span class="line"><span class="cl">  <span class="nx">bill</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s1">&#39;pay_user&#39;</span><span class="p">,</span> <span class="nb">Number</span><span class="p">(</span><span class="nx">formPay</span><span class="p">.</span><span class="nx">pay_user</span><span class="p">.</span><span class="nx">value</span><span class="p">));</span>
 </span></span><span class="line"><span class="cl">  <span class="nx">bill</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s1">&#39;pay_description&#39;</span><span class="p">,</span> <span class="nx">formPay</span><span class="p">.</span><span class="nx">pay_description</span><span class="p">.</span><span class="nx">value</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">bill</span><span class="p">.</span><span class="nx">save</span><span class="p">().</span><span class="nx">then</span><span class="p">((</span><span class="nx">object</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">formPay</span><span class="p">.</span><span class="nx">reset</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl">  <span class="p">},</span> <span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">error</span><span class="p">));</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;保存失敗&#39;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="p">}))</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">bill</span><span class="p">.</span><span class="nx">save</span><span class="p">().</span><span class="nx">then</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="nx">object</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">formPay</span><span class="p">.</span><span class="nx">reset</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">error</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;保存失敗&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="p">});</span>
 </span></span></code></pre></td></tr></table>
 </div>
@@ -419,6 +425,9 @@ valine 可以實現無後端，那我是不是也可以，leancloud 文檔走一
 </span><span class="lnt">55
 </span><span class="lnt">56
 </span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="cm">/**
@@ -426,34 +435,37 @@ valine 可以實現無後端，那我是不是也可以，leancloud 文檔走一
 </span></span></span><span class="line"><span class="cl"><span class="cm"> * @param [start=0] 開始位置
 </span></span></span><span class="line"><span class="cl"><span class="cm"> * @param [count=15] 每次查詢筆數
 </span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
-</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">getBillData</span><span class="p">(</span><span class="nx">start</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span><span class="nx">count</span> <span class="o">=</span> <span class="mi">15</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">queryBill</span><span class="p">.</span><span class="nx">descending</span><span class="p">(</span><span class="s1">&#39;createdAt&#39;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="p">.</span><span class="nx">skip</span><span class="p">(</span><span class="nx">start</span> <span class="o">*</span> <span class="nx">count</span><span class="p">).</span><span class="nx">limit</span><span class="p">(</span><span class="nx">count</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="p">.</span><span class="nx">find</span><span class="p">().</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">getBillData</span><span class="p">(</span><span class="nx">start</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">count</span> <span class="o">=</span> <span class="mi">15</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">queryBill</span>
+</span></span><span class="line"><span class="cl">    <span class="p">.</span><span class="nx">descending</span><span class="p">(</span><span class="s1">&#39;createdAt&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">.</span><span class="nx">skip</span><span class="p">(</span><span class="nx">start</span> <span class="o">*</span> <span class="nx">count</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">.</span><span class="nx">limit</span><span class="p">(</span><span class="nx">count</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">.</span><span class="nx">find</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">      <span class="kd">let</span> <span class="nx">billLength</span> <span class="o">=</span> <span class="nx">response</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">      <span class="k">if</span><span class="p">(</span><span class="nx">billLength</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">){</span>
-</span></span><span class="line"><span class="cl">        <span class="nx">billVm</span><span class="p">.</span><span class="nx">noMore</span> <span class="o">=</span> <span class="p">(</span><span class="nx">billLength</span> <span class="o">!==</span> <span class="nx">count</span><span class="p">)</span> <span class="o">?</span> <span class="kc">true</span> <span class="o">:</span> <span class="kc">false</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">        <span class="k">for</span><span class="p">(</span><span class="nx">bill</span> <span class="k">of</span> <span class="nx">response</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">      <span class="k">if</span> <span class="p">(</span><span class="nx">billLength</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">billVm</span><span class="p">.</span><span class="nx">noMore</span> <span class="o">=</span> <span class="nx">billLength</span> <span class="o">!==</span> <span class="nx">count</span> <span class="o">?</span> <span class="kc">true</span> <span class="o">:</span> <span class="kc">false</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="p">(</span><span class="nx">bill</span> <span class="k">of</span> <span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">          <span class="nx">billVm</span><span class="p">.</span><span class="nx">bills</span><span class="p">.</span><span class="nx">push</span><span class="p">({</span>
 </span></span><span class="line"><span class="cl">            <span class="nx">pay</span><span class="o">:</span> <span class="nx">bill</span><span class="p">.</span><span class="nx">attributes</span><span class="p">.</span><span class="nx">pay</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">            <span class="nx">payType</span><span class="o">:</span> <span class="nx">payType</span><span class="p">[</span><span class="nx">bill</span><span class="p">.</span><span class="nx">attributes</span><span class="p">.</span><span class="nx">pay_type</span><span class="p">],</span>
 </span></span><span class="line"><span class="cl">            <span class="nx">payUser</span><span class="o">:</span> <span class="nx">payUser</span><span class="p">[</span><span class="nx">bill</span><span class="p">.</span><span class="nx">attributes</span><span class="p">.</span><span class="nx">pay_user</span><span class="p">],</span>
 </span></span><span class="line"><span class="cl">            <span class="nx">payDescription</span><span class="o">:</span> <span class="nx">bill</span><span class="p">.</span><span class="nx">attributes</span><span class="p">.</span><span class="nx">pay_description</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">            <span class="nx">payDt</span><span class="o">:</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">(</span><span class="nx">bill</span><span class="p">.</span><span class="nx">createdAt</span><span class="p">).</span><span class="nx">toLocaleString</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">          <span class="p">})</span>
+</span></span><span class="line"><span class="cl">          <span class="p">});</span>
 </span></span><span class="line"><span class="cl">        <span class="p">}</span>
 </span></span><span class="line"><span class="cl">      <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="nx">billVm</span><span class="p">.</span><span class="nx">noMore</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">      <span class="p">}</span>
-</span></span><span class="line"><span class="cl">  <span class="p">});</span>
+</span></span><span class="line"><span class="cl">    <span class="p">});</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="cm">/**
 </span></span></span><span class="line"><span class="cl"><span class="cm"> * 獲取月賬單數據
 </span></span></span><span class="line"><span class="cl"><span class="cm"> * @param month 年月份 fmt: yyyy-MM
 </span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
-</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">getMonthBill</span><span class="p">(</span><span class="nx">month</span><span class="p">){</span>
-</span></span><span class="line"><span class="cl">  <span class="kd">let</span> <span class="nx">dateTime</span> <span class="o">=</span> <span class="sb">`</span><span class="si">${</span><span class="nx">month</span><span class="si">}</span><span class="sb"> 00:00:00`</span>
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">getMonthBill</span><span class="p">(</span><span class="nx">month</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">let</span> <span class="nx">dateTime</span> <span class="o">=</span> <span class="sb">`</span><span class="si">${</span><span class="nx">month</span><span class="si">}</span><span class="sb"> 00:00:00`</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  <span class="kd">let</span> <span class="nx">startMonth</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">(</span><span class="nx">dateTime</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="kd">let</span> <span class="nx">nextMonth</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">(</span><span class="k">new</span> <span class="nb">Date</span><span class="p">(</span><span class="nx">dateTime</span><span class="p">).</span><span class="nx">setMonth</span><span class="p">(</span><span class="nx">startMonth</span><span class="p">.</span><span class="nx">getMonth</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span><span class="p">));</span>
 </span></span><span class="line"><span class="cl">  <span class="kd">let</span> <span class="nx">startDateQuery</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">AV</span><span class="p">.</span><span class="nx">Query</span><span class="p">(</span><span class="s1">&#39;Bill&#39;</span><span class="p">);</span>
@@ -461,7 +473,7 @@ valine 可以實現無後端，那我是不是也可以，leancloud 文檔走一
 </span></span><span class="line"><span class="cl">  <span class="kd">let</span> <span class="nx">endDateQuery</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">AV</span><span class="p">.</span><span class="nx">Query</span><span class="p">(</span><span class="s1">&#39;Bill&#39;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="nx">endDateQuery</span><span class="p">.</span><span class="nx">lessThan</span><span class="p">(</span><span class="s1">&#39;createdAt&#39;</span><span class="p">,</span> <span class="nx">nextMonth</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="kd">let</span> <span class="nx">MonthBillQuery</span> <span class="o">=</span> <span class="nx">AV</span><span class="p">.</span><span class="nx">Query</span><span class="p">.</span><span class="nx">and</span><span class="p">(</span><span class="nx">startDateQuery</span><span class="p">,</span> <span class="nx">endDateQuery</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">MonthBillQuery</span><span class="p">.</span><span class="nx">find</span><span class="p">().</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">response</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">MonthBillQuery</span><span class="p">.</span><span class="nx">find</span><span class="p">().</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="nx">billVm</span><span class="p">.</span><span class="nx">monthBill</span> <span class="o">=</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">      <span class="nx">payType0</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">      <span class="nx">payType1</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
@@ -471,8 +483,8 @@ valine 可以實現無後端，那我是不是也可以，leancloud 文檔走一
 </span></span><span class="line"><span class="cl">      <span class="nx">payUser1</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">      <span class="nx">payUser2</span><span class="o">:</span> <span class="mi">0</span>
 </span></span><span class="line"><span class="cl">    <span class="p">};</span>
-</span></span><span class="line"><span class="cl">    <span class="k">for</span><span class="p">(</span><span class="nx">bill</span> <span class="k">of</span> <span class="nx">response</span><span class="p">){</span>
-</span></span><span class="line"><span class="cl">      <span class="kd">let</span> <span class="p">{</span><span class="nx">pay</span><span class="p">,</span> <span class="nx">pay_type</span><span class="p">,</span> <span class="nx">pay_user</span><span class="p">}</span> <span class="o">=</span> <span class="nx">bill</span><span class="p">.</span><span class="nx">attributes</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="nx">bill</span> <span class="k">of</span> <span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="kd">let</span> <span class="p">{</span> <span class="nx">pay</span><span class="p">,</span> <span class="nx">pay_type</span><span class="p">,</span> <span class="nx">pay_user</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">bill</span><span class="p">.</span><span class="nx">attributes</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">      <span class="nx">billVm</span><span class="p">.</span><span class="nx">monthBill</span><span class="p">[</span><span class="sb">`payType</span><span class="si">${</span><span class="nx">pay_type</span><span class="si">}</span><span class="sb">`</span><span class="p">]</span> <span class="o">+=</span> <span class="nx">pay</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">      <span class="nx">billVm</span><span class="p">.</span><span class="nx">monthBill</span><span class="p">[</span><span class="sb">`payUser</span><span class="si">${</span><span class="nx">pay_user</span><span class="si">}</span><span class="sb">`</span><span class="p">]</span> <span class="o">+=</span> <span class="nx">pay</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
@@ -675,11 +687,7 @@ valine 可以實現無後端，那我是不是也可以，leancloud 文檔走一
 <p>Cell Blog is open-sourced software licensed under the MIT license.</p>
 <p></p>]]></description></item><item><title>利用腾讯云为静态页面添加“动态”相册</title><link>https://lruihao.cn/projects/cos-album/</link><pubDate>Sun, 24 Nov 2019 10:52:34 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/projects/cos-album/</guid><description><![CDATA[<div class="featured-image">
         <img src="/projects/cos-album/images/view.png" referrerpolicy="no-referrer">
-      </div><blockquote>
-<p><strong>Warning</strong></p>
-<p>已停止维护！</p>
-</blockquote>
-<div class="details admonition info open">
+      </div><div class="details admonition info open">
     <div class="details-summary admonition-title">
       <i class="icon fa-solid fa-info-circle fa-fw" aria-hidden="true"></i>信息<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i>
     </div>
@@ -804,7 +812,7 @@ valine 可以實現無後端，那我是不是也可以，leancloud 文檔走一
 </table>
 <p><code>viewport</code> 视个人情况添加。<br>
 hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用等等，这里不再展开。<br>
-<em><strong>注：代码设定不加载根目录文件，所以可以利用静态服务把源码部署在根目录，配合 PicGo、COSBrowser 上传来搭建个人图床。</strong></em></p>
+<strong><em>注：代码设定不加载根目录文件，所以可以利用静态服务把源码部署在根目录，配合 PicGo、COSBrowser 上传来搭建个人图床。</em></strong></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -833,19 +841,19 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 <pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="cp">&lt;!DOCTYPE html&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
 </span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">&#34;UTF-8&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">&#34;UTF-8&#34;</span> <span class="p">/&gt;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>cos-album<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
 </span></span><span class="line"><span class="cl">    <span class="c">&lt;!-- &lt;meta name=&#34;viewport&#34; content=&#34;width=device-width, initial-scale=1.0&#34;&gt; --&gt;</span>
-</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&#34;stylesheet&#34;</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/css&#34;</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;cos-album.css&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&#34;stylesheet&#34;</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/css&#34;</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;cos-album.css&#34;</span> <span class="p">/&gt;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/javascript&#34;</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;cos-album.js&#34;</span> <span class="na">defer</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
 </span></span><span class="line"><span class="cl">  <span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
 </span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/javascript&#34;</span><span class="p">&gt;</span>
 </span></span><span class="line"><span class="cl">      <span class="k">new</span> <span class="nx">Cosalbum</span><span class="p">({</span>
-</span></span><span class="line"><span class="cl">        <span class="s1">&#39;xmlLink&#39;</span><span class="o">:</span> <span class="s1">&#39;https://img-xxxxxxxxxx.cos.ap-chengdu.myqcloud.com&#39;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">        <span class="s1">&#39;prependTo&#39;</span><span class="o">:</span> <span class="s1">&#39;.cos-album&#39;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">        <span class="s1">&#39;viewNum&#39;</span><span class="o">:</span> <span class="mi">8</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">        <span class="s1">&#39;copyUrl&#39;</span><span class="o">:</span> <span class="s1">&#39;//img.lruihao.cn&#39;</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">xmlLink</span><span class="o">:</span> <span class="s1">&#39;https://img-xxxxxxxxxx.cos.ap-chengdu.myqcloud.com&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">prependTo</span><span class="o">:</span> <span class="s1">&#39;.cos-album&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">viewNum</span><span class="o">:</span> <span class="mi">8</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">copyUrl</span><span class="o">:</span> <span class="s1">&#39;//img.lruihao.cn&#39;</span>
 </span></span><span class="line"><span class="cl">      <span class="p">});</span>
 </span></span><span class="line"><span class="cl">    <span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
 </span></span><span class="line"><span class="cl">    <span class="c">&lt;!-- 你的其他内容，如评论等 --&gt;</span>

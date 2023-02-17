@@ -1,16 +1,18 @@
 # java 猜数字小游戏（Math 类）
 
 
-> 大一刚学 c 的时候以前写过 [c 语言版](https://github.com/Lruihao/Grocery/tree/master/C%26C%2B%2B) 的。  
+> 大一刚学 c 的时候以前写过 [c 语言版](https://github.com/Lruihao/Grocery/tree/master/C%26C%2B%2B) 的。
+
 1. Math: 针对数学进行运算的类
 2. 特点：没有构造方法，因为它的成员都是静态的
 3. 产生随机数：
-	public static double random(): 产生随机数，范围 [0.0,1.0)
+   public static double random(): 产生随机数，范围 [0.0,1.0)
 4. 产生 1-100 之间的随机数
-	int number = (int)(Math.random()*100)+1;
+   int number = (int)(Math.random()\*100)+1;
 5. 猜数字小游戏案例
 
 <!--more-->
+
 ```java
 class MathDemo {
 	public static void main(String[] args) {
@@ -35,8 +37,9 @@ class MathDemo {
 ```
 
 ### 小游戏
+
 > 该游戏可以由程序随机产生或由用户输入四个 0 到 9 之间的数字，且不重复。玩游戏者通过游戏提示输入八次来匹配上面所输入的数字。A 表示位置正确且数字正确，B 表示数字正确而位置不正确。  
-算法： 可以直接算出 A 类的数目，但是 B 类的数目直接算出或许会很麻烦，正好我们可以先算出 C 类数目恰好减去 A 类就是 B 类了。
+> 算法： 可以直接算出 A 类的数目，但是 B 类的数目直接算出或许会很麻烦，正好我们可以先算出 C 类数目恰好减去 A 类就是 B 类了。
 
 ```java
 package caishuzi;
@@ -45,9 +48,9 @@ import java.util.Scanner;
 
 class Num {
 	private int[] a= {0,0,0,0};
-	
+
 	public Num() {}
-	
+
 	public void setx() {
 		/*for(int i=0;i<4;i++) {
 			a[i]=(int)(Math.random()*10);
@@ -63,7 +66,7 @@ class Num {
 				}
 			}
 			a[i]=t;
-		}	
+		}
 	}
 	public int[] getx() {
 		return a;
@@ -74,11 +77,11 @@ class Num {
 			System.out.print(a[i]+" ");
 		System.out.println();
 	}
-	
+
 }
 
 public class caishuzi {
-	
+
 	public static void main(String agrs[]) {
 		int a[] = {0,0,0,0},b[] = {0,0,0,0};
 		System.out.println("* * * *\n 请输入 4 个数字！A 表示位置数字都正确，B 表示数字正确位置错误。");
@@ -109,13 +112,14 @@ public class caishuzi {
 				System.out.println(A+"A"+B+"B");
 			}
 		}
-		
+
 	}
 
 }
 ```
 
 ### 一次游戏过程
+
 ```
 * * * *
 请输入 4 个数字！A 表示位置数字都正确，B 表示数字正确位置错误。
@@ -132,6 +136,7 @@ public class caishuzi {
 1 6 7 5
 恭喜猜对啦！
 ```
+
 
 ---
 

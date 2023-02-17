@@ -115,9 +115,9 @@
 d=2,x 应该吃了 y, 也就是 (r[x]+1)%3 == r[y] </p>
 </blockquote>
 <p>不同树合并且更新关系 (<strong>x 树做主根</strong>)<br>
-&rsquo;   <strong>如果 x 和 y 为关系 r1, y 和 z 为关系 r2， 那么 x 和 z 的关系就是（r1+r2）%3</strong></p>
+&rsquo; <strong>如果 x 和 y 为关系 r1, y 和 z 为关系 r2， 那么 x 和 z 的关系就是（r1+r2）%3</strong></p>
 <blockquote>
-<p>如果 d==1 则 x 和 y 是同类 ，那么 y 对 x 的关系是 0, 如果 d==2 , 则 x 吃了 y,  那么 y 对 x 的关系是 1, x 对 y 的关系是 2。综上所述 , 无论 d 为 1 或者是为 2,  y 对 x 的关系都是 d-1。<br>
+<p>如果 d==1 则 x 和 y 是同类 ，那么 y 对 x 的关系是 0, 如果 d==2 , 则 x 吃了 y, 那么 y 对 x 的关系是 1, x 对 y 的关系是 2。综上所述 , 无论 d 为 1 或者是为 2, y 对 x 的关系都是 d-1。<br>
 fy 对 y 的关系为 3-r[y] （有点互补的感觉，注意这里是不同类喔）<br>
 y 对 x 的关系为 d-1,<br>
 x 对 fx 的关系为 r[x]<br>
@@ -188,12 +188,12 @@ x 对 fx 的关系为 r[x]<br>
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span><span class="cpf">&lt;cstdio&gt;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span> 
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
 </span></span><span class="line"><span class="cl"><span class="k">const</span> <span class="kt">int</span> <span class="n">maxn</span> <span class="o">=</span> <span class="mi">50000</span><span class="o">+</span><span class="mi">10</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">p</span><span class="p">[</span><span class="n">maxn</span><span class="p">];</span> <span class="c1">//存父节点
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">int</span> <span class="n">r</span><span class="p">[</span><span class="n">maxn</span><span class="p">];</span><span class="c1">//存与父节点的关系 0 同一类，1 被父节点吃，2 吃父节点
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span> 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
 </span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">set</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">)</span> <span class="c1">//初始化
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">x</span> <span class="o">&lt;=</span> <span class="n">n</span><span class="p">;</span> <span class="n">x</span><span class="o">++</span><span class="p">)</span>
@@ -202,40 +202,40 @@ x 对 fx 的关系为 r[x]<br>
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">r</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span><span class="c1">//开始自己就是自己的父亲，每一个点均独立
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">find</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">)</span> <span class="c1">//找父亲节点
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">x</span> <span class="o">==</span> <span class="n">p</span><span class="p">[</span><span class="n">x</span><span class="p">])</span> <span class="k">return</span> <span class="n">x</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">t</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="n">x</span><span class="p">];</span>
 </span></span><span class="line"><span class="cl">    <span class="n">p</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="nf">find</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="n">x</span><span class="p">]);</span>
 </span></span><span class="line"><span class="cl">    <span class="n">r</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="n">x</span><span class="p">]</span><span class="o">+</span><span class="n">r</span><span class="p">[</span><span class="n">t</span><span class="p">])</span><span class="o">%</span><span class="mi">3</span><span class="p">;</span> <span class="c1">//回溯由子节点与父节点的关系和父节点与根节点的关系找子节点与根节点的关系
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">return</span> <span class="n">p</span><span class="p">[</span><span class="n">x</span><span class="p">];</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">Union</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="n">y</span><span class="p">,</span> <span class="kt">int</span> <span class="n">d</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">fx</span> <span class="o">=</span> <span class="nf">find</span><span class="p">(</span><span class="n">x</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">fy</span> <span class="o">=</span> <span class="nf">find</span><span class="p">(</span><span class="n">y</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="n">p</span><span class="p">[</span><span class="n">fy</span><span class="p">]</span> <span class="o">=</span> <span class="n">fx</span><span class="p">;</span> <span class="c1">//合并树 注意：被 x 吃，所以以 x 的根为父
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">r</span><span class="p">[</span><span class="n">fy</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="n">x</span><span class="p">]</span><span class="o">-</span><span class="n">r</span><span class="p">[</span><span class="n">y</span><span class="p">]</span><span class="o">+</span><span class="mi">3</span><span class="o">+</span><span class="p">(</span><span class="n">d</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span><span class="o">%</span><span class="mi">3</span><span class="p">;</span> <span class="c1">//对应更新与父节点的关系
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
-</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="nf">scanf</span><span class="p">(</span><span class="s">&#34;%d%d&#34;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">n</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">m</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="nf">set</span><span class="p">(</span><span class="n">n</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">ans</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">d</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="k">while</span><span class="p">(</span><span class="n">m</span><span class="o">--</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="nf">scanf</span><span class="p">(</span><span class="s">&#34;%d%d%d&#34;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">d</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">x</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">y</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="p">(</span><span class="n">x</span> <span class="o">&gt;</span> <span class="n">n</span> <span class="o">||</span> <span class="n">y</span> <span class="o">&gt;</span> <span class="n">n</span> <span class="o">||</span> <span class="p">(</span><span class="n">d</span> <span class="o">==</span> <span class="mi">2</span> <span class="o">&amp;&amp;</span> <span class="n">x</span> <span class="o">==</span> <span class="n">y</span><span class="p">))</span> <span class="n">ans</span><span class="o">++</span><span class="p">;</span> <span class="c1">//如果节点编号大于最大编号，或者自己吃自己，说谎
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span> 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
 </span></span><span class="line"><span class="cl">        <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="nf">find</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">==</span> <span class="nf">find</span><span class="p">(</span><span class="n">y</span><span class="p">))</span> <span class="c1">//如果原来有关系，也就是在同一棵树中，那么直接判断是否说谎
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="p">{</span>
 </span></span><span class="line"><span class="cl">            <span class="k">if</span><span class="p">(</span><span class="n">d</span> <span class="o">==</span> <span class="mi">1</span> <span class="o">&amp;&amp;</span> <span class="n">r</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">!=</span> <span class="n">r</span><span class="p">[</span><span class="n">y</span><span class="p">])</span> <span class="n">ans</span><span class="o">++</span><span class="p">;</span> <span class="c1">//如果 x 和 y 不属于同一类
@@ -248,7 +248,7 @@ x 对 fx 的关系为 r[x]<br>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div>]]></description></item><item><title>The-suspects-POJ-1611（并查集）</title><link>https://lruihao.cn/posts/the-suspects/</link><pubDate>Tue, 31 Jul 2018 11:11:31 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/the-suspects/</guid><description><![CDATA[<h2 id="题目链接the-suspectshttppojorgproblemid1611">题目链接：<a href="http://poj.org/problem?id=1611"target="_blank" rel="external nofollow noopener noreferrer">The-suspects<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></h2>
+</div>]]></description></item><item><title>The-suspects-POJ-1611（并查集）</title><link>https://lruihao.cn/posts/poj-1611/</link><pubDate>Tue, 31 Jul 2018 11:11:31 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/poj-1611/</guid><description><![CDATA[<h2 id="题目链接the-suspectshttppojorgproblemid1611">题目链接：<a href="http://poj.org/problem?id=1611"target="_blank" rel="external nofollow noopener noreferrer">The-suspects<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></h2>
 <h2 id="翻译">翻译：</h2>
 <p>警察抓贩毒集团。有不同类型的犯罪集团，人员可能重复，集团内的人会相互接触。现在警察在其中一人（0 号）身上搜出毒品，认为与这个人直接接触或通过其他人有间接接触的人都是嫌疑犯。问包括 0 号犯人共有多少嫌疑犯？</p>
 <h3 id="input">Input</h3>
@@ -371,7 +371,7 @@ n = 0 且 m = 0 时输入结束。</p>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div>]]></description></item><item><title>wireless network-POJ-2236（并查集）</title><link>https://lruihao.cn/posts/wireless-network/</link><pubDate>Tue, 31 Jul 2018 11:10:54 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/wireless-network/</guid><description><![CDATA[<h2 id="题目链接wireless-networkhttppojorgproblemid2236">题目链接：<a href="http://poj.org/problem?id=2236"target="_blank" rel="external nofollow noopener noreferrer">wireless network<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></h2>
+</div>]]></description></item><item><title>wireless network-POJ-2236（并查集）</title><link>https://lruihao.cn/posts/poj-2236/</link><pubDate>Tue, 31 Jul 2018 11:10:54 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/poj-2236/</guid><description><![CDATA[<h2 id="题目链接wireless-networkhttppojorgproblemid2236">题目链接：<a href="http://poj.org/problem?id=2236"target="_blank" rel="external nofollow noopener noreferrer">wireless network<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></h2>
 <h2 id="翻译">翻译：</h2>
 <p>南亚发生了一次地震。ACM (Asia Cooperated Medical 亚洲联合医疗队） 已经为膝上型电脑搭建了一个无线网络，但受到了一次不可预知的余震攻击，因此网络中的所有电脑都被破坏了。电脑被逐台修复，网络逐步恢复了工作。由于受到硬件的约束，每台电脑只能与距离它不超过 d 米的其它电脑直接通信。但每台电脑可被看作其它两台电脑的通信中转点，也就是说，如果电脑 A 和电脑 B 可以直接通信，或存在一台电脑 C 既可与 A 也可与 B 通信，那么电脑 A 和电脑 B 之间就能够通信。</p>
 <p>在处理网络修复的过程中，工作人员们在任何一个时刻，可以执行两种操作：维修一台电脑，或测试两台电脑是否能够通信。请您找出全部的测试操作。</p>
@@ -534,7 +534,7 @@ SUCCESS
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div>]]></description></item><item><title>POJ-3278-Catch That Cow(bfs)</title><link>https://lruihao.cn/posts/poj-3278-catch-that-cow-bfs/</link><pubDate>Sun, 22 Jul 2018 12:10:32 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/poj-3278-catch-that-cow-bfs/</guid><description><![CDATA[<p>Farmer John has been informed of the location of a fugitive cow and wants to catch her immediately. He starts at a point N (0 ≤ N ≤ 100,000) on a number line and the cow is at a point K (0 ≤ K ≤ 100,000) on the same number line. Farmer John has two modes of transportation: walking and teleporting.</p>
+</div>]]></description></item><item><title>POJ-3278-Catch That Cow(bfs)</title><link>https://lruihao.cn/posts/poj-3278/</link><pubDate>Sun, 22 Jul 2018 12:10:32 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/poj-3278/</guid><description><![CDATA[<p>Farmer John has been informed of the location of a fugitive cow and wants to catch her immediately. He starts at a point N (0 ≤ N ≤ 100,000) on a number line and the cow is at a point K (0 ≤ K ≤ 100,000) on the same number line. Farmer John has two modes of transportation: walking and teleporting.</p>
 <ul>
 <li>Walking: FJ can move from any point X to the points X&quot;,&ldquo;1 or X + 1 in a single minute</li>
 <li>Teleporting: FJ can move from any point X to the point 2 × X in a single minute.</li>
@@ -698,7 +698,7 @@ SUCCESS
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div>]]></description></item><item><title>poj-2251-Dungeon Master（三维 bfs 最短路）</title><link>https://lruihao.cn/posts/poj-2251-dungeon-master%E4%B8%89%E7%BB%B4bfs%E6%9C%80%E7%9F%AD%E8%B7%AF/</link><pubDate>Sun, 22 Jul 2018 12:02:32 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/poj-2251-dungeon-master%E4%B8%89%E7%BB%B4bfs%E6%9C%80%E7%9F%AD%E8%B7%AF/</guid><description><![CDATA[<p><a href="http://poj.org/problem?id=2251"target="_blank" rel="external nofollow noopener noreferrer">英文原题链接<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
+</div>]]></description></item><item><title>poj-2251-Dungeon Master（三维 bfs 最短路）</title><link>https://lruihao.cn/posts/poj-2251/</link><pubDate>Sun, 22 Jul 2018 12:02:32 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/poj-2251/</guid><description><![CDATA[<p><a href="http://poj.org/problem?id=2251"target="_blank" rel="external nofollow noopener noreferrer">英文原题链接<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
 <h3 id="description---题目描述">Description - 题目描述</h3>
 <p>你被困在一个三维的空间中，现在要寻找最短路径逃生！<br>
 空间由立方体单位构成<br>
@@ -716,7 +716,7 @@ L 表示空间的高度。R 和 C 分别表示每层空间的行与列的大小�
 <p>每个空间对应一行输出。<br>
 如果可以逃生，则输出如下<br>
 Escaped in x minute(s).</p>
-<p>　　x 为最短脱离时间。</p>
+<p>x 为最短脱离时间。</p>
 <p>如果无法逃生，则输出如下</p>
 <p>Trapped!</p>
 <h3 id="sample-input---输入样例">Sample Input - 输入样例</h3>
@@ -742,8 +742,8 @@ S##
 0 0 0
 </code></pre>
 <h3 id="sample-output---输出样例">Sample Output - 输出样例</h3>
-<pre><code>Escaped in 11 minute(s).  
-Trapped!  
+<pre><code>Escaped in 11 minute(s).
+Trapped!
 </code></pre>
 <p>类似二维四个方向的 bfs 最短路，改成上下东西南北就行了，三维 bfs 最短路</p>
 <div class="highlight"><div class="chroma">
@@ -938,7 +938,7 @@ Trapped!
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div>]]></description></item><item><title>poj-1321 棋盘问题（dfs）</title><link>https://lruihao.cn/posts/poj-1321-%E6%A3%8B%E7%9B%98%E9%97%AE%E9%A2%98dfs/</link><pubDate>Sun, 22 Jul 2018 11:58:14 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/poj-1321-%E6%A3%8B%E7%9B%98%E9%97%AE%E9%A2%98dfs/</guid><description><![CDATA[<p>Time Limit: 1000MS<br>
+</div>]]></description></item><item><title>poj-1321 棋盘问题（dfs）</title><link>https://lruihao.cn/posts/poj-1321/</link><pubDate>Sun, 22 Jul 2018 11:58:14 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/poj-1321/</guid><description><![CDATA[<p>Time Limit: 1000MS<br>
 Memory Limit: 10000K<br>
 Total Submissions: 63659<br>
 Accepted: 30423</p>
@@ -1079,9 +1079,9 @@ Accepted: 30423</p>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p><a href="https://blog.csdn.net/hurmishine/article/details/49835913"target="_blank" rel="external nofollow noopener noreferrer">传送门<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
-]]></description></item><item><title>poj-1426-Find The Multiple(dfs)</title><link>https://lruihao.cn/posts/poj-1426-find-the-multipledfs/</link><pubDate>Sun, 22 Jul 2018 11:57:13 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/poj-1426-find-the-multipledfs/</guid><description><![CDATA[<h2 id="find-the-multiple">Find The Multiple</h2>
-<p>Time Limit: 1000MS		Memory Limit: 10000K<br>
-Total Submissions: 40713		Accepted: 17088		Special Judge</p>
+]]></description></item><item><title>poj-1426-Find The Multiple(dfs)</title><link>https://lruihao.cn/posts/poj-1426/</link><pubDate>Sun, 22 Jul 2018 11:57:13 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/poj-1426/</guid><description><![CDATA[<h2 id="find-the-multiple">Find The Multiple</h2>
+<p>Time Limit: 1000MS Memory Limit: 10000K<br>
+Total Submissions: 40713 Accepted: 17088 Special Judge</p>
 <h3 id="description">Description</h3>
 <p>Given a positive integer n, write a program to find out a nonzero multiple m of n whose decimal representation contains only the digits 0 and 1. You may assume that n is not greater than 200 and there is a corresponding m containing no more than 100 decimal digits.</p>
 <h3 id="input">Input</h3>
@@ -1168,9 +1168,9 @@ Total Submissions: 40713		Accepted: 17088		Special Judge</p>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div>]]></description></item><item><title>poj-3984-迷宫问题 (bfs 路径）</title><link>https://lruihao.cn/posts/poj-3984-%E8%BF%B7%E5%AE%AB%E9%97%AE%E9%A2%98bfs%E8%B7%AF%E5%BE%84/</link><pubDate>Sun, 22 Jul 2018 11:50:20 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/poj-3984-%E8%BF%B7%E5%AE%AB%E9%97%AE%E9%A2%98bfs%E8%B7%AF%E5%BE%84/</guid><description><![CDATA[<h3 id="迷宫问题httppojorgproblemid3984"><a href="http://poj.org/problem?id=3984"target="_blank" rel="external nofollow noopener noreferrer">迷宫问题<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></h3>
-<p>Time Limit: 1000MS		Memory Limit: 65536K<br>
-Total Submissions: 32323		Accepted: 18471</p>
+</div>]]></description></item><item><title>poj-3984-迷宫问题 (bfs 路径）</title><link>https://lruihao.cn/posts/poj-3984/</link><pubDate>Sun, 22 Jul 2018 11:50:20 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/poj-3984/</guid><description><![CDATA[<h3 id="迷宫问题httppojorgproblemid3984"><a href="http://poj.org/problem?id=3984"target="_blank" rel="external nofollow noopener noreferrer">迷宫问题<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></h3>
+<p>Time Limit: 1000MS Memory Limit: 65536K<br>
+Total Submissions: 32323 Accepted: 18471</p>
 <h3 id="description">Description</h3>
 <p>定义一个二维数组：</p>
 <pre><code>int maze[5][5] = {

@@ -22,18 +22,18 @@ example:
 
 ## Message
 
-| Emoji                                         | Type     | Example                                                      | Description (No Ambiguous)                                   |
-| :-------------------------------------------- | :------- | :----------------------------------------------------------- | :----------------------------------------------------------- |
-| :tada:  <br>:sparkles:                        | Feat     | Feat: add {feature}                                          | new feature                                                  |
-| :truck:                                       |          | Feat: adjust/migrate {feature name}, {change details}        | For the adjustment feature, it is necessary to describe the current situation (before) and after adjustment (after) |
-| :fire:                                        |          | Feat: delete {feature name}, {deletion reason}               | If the feature is deleted, the reason for deletion must be explained |
-| :bug: <br>:construction: <br>:rotating_light: | Fix      | Fix: fix {bug description}                                   | Fix known bugs                                               |
-| :art: <br>:lipstick: <br>:pencil2:            | Style    | Style: Typesetting/CSS style {optimizing content}            | Changes that do not affect code operation, such as code layout and style change |
+| Emoji                                         | Type     | Example                                                      | Description (No Ambiguous)                                                                                                               |
+| :-------------------------------------------- | :------- | :----------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------- |
+| :tada: <br>:sparkles:                         | Feat     | Feat: add {feature}                                          | new feature                                                                                                                              |
+| :truck:                                       |          | Feat: adjust/migrate {feature name}, {change details}        | For the adjustment feature, it is necessary to describe the current situation (before) and after adjustment (after)                      |
+| :fire:                                        |          | Feat: delete {feature name}, {deletion reason}               | If the feature is deleted, the reason for deletion must be explained                                                                     |
+| :bug: <br>:construction: <br>:rotating_light: | Fix      | Fix: fix {bug description}                                   | Fix known bugs                                                                                                                           |
+| :art: <br>:lipstick: <br>:pencil2:            | Style    | Style: Typesetting/CSS style {optimizing content}            | Changes that do not affect code operation, such as code layout and style change                                                          |
 | :recycle:                                     | Refactor | Refactor: override {feature name}                            | It is neither a new function nor a code change to fix a bug. Simply rewriting the code of a function does not affect the function result |
-| :zap:                                         | Perf     | Perf: improve performance {function name}, {improve content} | Optimize code performance                                    |
-| :rewind:                                      | Revert   | Revert: restore version {commit message of restore version}  | Restore the version of one commit                            |
-| :pencil: <br>:pencil2:                              | Docs     | Docs: revise comments/update documents                     | Adjustment of documents and notes                            |
-| :wrench:                                      | Chore    | Chore: update plugin version                                 | Changes in the construction process or auxiliary tools       |
+| :zap:                                         | Perf     | Perf: improve performance {function name}, {improve content} | Optimize code performance                                                                                                                |
+| :rewind:                                      | Revert   | Revert: restore version {commit message of restore version}  | Restore the version of one commit                                                                                                        |
+| :pencil: <br>:pencil2:                        | Docs     | Docs: revise comments/update documents                       | Adjustment of documents and notes                                                                                                        |
+| :wrench:                                      | Chore    | Chore: update plugin version                                 | Changes in the construction process or auxiliary tools                                                                                   |
 
 
 ---

@@ -1,12 +1,13 @@
 # 牛客暑假多校第五场
 
 
-[题目链接 密码：l9sn](https://pan.baidu.com/s/1VP9Wn0OF4SVaqEVwpNralA)   
+[题目链接 密码：l9sn](https://pan.baidu.com/s/1VP9Wn0OF4SVaqEVwpNralA)  
 终于不爆零了，但是还是 wa 了无数次，有时候代码感觉都差不多
 
 <!--more-->
 
 ## G-max
+
 ```cpp
 /*
 //wa
@@ -40,6 +41,7 @@ int main(){
 ```
 
 ## J-plan
+
 ```cpp
 /*枚举所有情况
 全买双人 n%2  0 or 1//剩 1 个人的时候，可以多开一间房或者退一间 2 人房开一间 3 人房
@@ -71,6 +73,7 @@ int main(){
   return 0;
 }
 ```
+
 
 ---
 

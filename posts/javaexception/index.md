@@ -24,13 +24,13 @@ public class ExceptionDemo {
 		new Book("php"),
 		new Book("c")
 	};
-	
+
 	public static void main(String[] args) {
 		System.out.println("欢迎来到借书系统！");
 		ExceptionDemo jieshu= new ExceptionDemo();
 		jieshu.menu();
 	}
-	
+
 	public void menu() {
 		System.out.println("输入命令：1. 书名查找；\t2. 序号查找；");
 		 //初始化并捕获用户输入
@@ -55,7 +55,7 @@ public class ExceptionDemo {
 
 	private void inquire(int id) {
 		Scanner sc = new Scanner(System.in);
-		
+
 		if(id==1) {
 			System.out.println("请输入要查找的书名！");
 			String name=sc.nextLine();
@@ -74,7 +74,7 @@ public class ExceptionDemo {
 			FindNum(id2);
 			sc.close();
 		}
-		
+
 	}
 
 	private void FindNum(int num) {
@@ -90,7 +90,7 @@ public class ExceptionDemo {
 			e.printStackTrace();
 			System.out.println("输入有误！~~");
 		}
-		
+
 	}
 
 	private int FindName(String name) {
@@ -124,12 +124,14 @@ public class Book {
 	public Book(String name) {
 		this.name = name;
 	}
-	
+
 }
 ```
 
 ## 大致运行效果
-![](images/2.png)
+
+![](../javaexception/images/2.png)
+
 
 ---
 

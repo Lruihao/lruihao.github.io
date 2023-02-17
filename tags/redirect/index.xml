@@ -151,9 +151,9 @@
 </span></span><span class="line"><span class="cl"><span class="o">}</span>
 </span></span><span class="line"><span class="cl"><span class="c1">// 这样调用：
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">alert</span><span class="o">(</span><span class="n">GetQueryString</span><span class="o">(</span><span class="s">&#34;参数名 1&#34;</span><span class="o">));</span>
-</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="n">alert</span><span class="o">(</span><span class="n">GetQueryString</span><span class="o">(</span><span class="s">&#34;参数名 2&#34;</span><span class="o">));</span>
-</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="n">alert</span><span class="o">(</span><span class="n">GetQueryString</span><span class="o">(</span><span class="s">&#34;参数名 3&#34;</span><span class="o">));</span>
 </span></span></code></pre></td></tr></table>
 </div>
@@ -194,7 +194,7 @@
 </span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="n">theRequest</span><span class="o">;</span>
 </span></span><span class="line"><span class="cl"><span class="o">}</span>
 </span></span><span class="line"><span class="cl"><span class="n">var</span> <span class="n">Request</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Object</span><span class="o">();</span>
-</span></span><span class="line"><span class="cl"><span class="n">Request</span> <span class="o">=</span> <span class="n">GetRequest</span><span class="o">();&lt;</span><span class="n">br</span><span class="o">&gt;</span><span class="c1">// var id=Request[&#34;id&#34;]; 
+</span></span><span class="line"><span class="cl"><span class="n">Request</span> <span class="o">=</span> <span class="n">GetRequest</span><span class="o">();&lt;</span><span class="n">br</span><span class="o">&gt;</span><span class="c1">// var id=Request[&#34;id&#34;];
 </span></span></span><span class="line"><span class="cl"><span class="c1">// var 参数 1, 参数 2, 参数 3, 参数 N;
 </span></span></span><span class="line"><span class="cl"><span class="c1">// 参数 1 = Request[&#39;参数 1&#39;];
 </span></span></span><span class="line"><span class="cl"><span class="c1">// 参数 2 = Request[&#39;参数 2&#39;];
@@ -219,15 +219,15 @@
 </span><span class="lnt">11
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">function</span> <span class="nf">GetQueryString</span><span class="o">(</span><span class="n">name</span><span class="o">)</span> <span class="o">{</span> 
-</span></span><span class="line"><span class="cl">  <span class="n">var</span> <span class="n">reg</span> <span class="o">=</span> <span class="k">new</span> <span class="n">RegExp</span><span class="o">(</span><span class="s">&#34;(^|&amp;)&#34;</span> <span class="o">+</span> <span class="n">name</span> <span class="o">+</span> <span class="s">&#34;=([^&amp;]*)(&amp;|$)&#34;</span><span class="o">,</span> <span class="s">&#34;i&#34;</span><span class="o">);</span> 
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">function</span> <span class="nf">GetQueryString</span><span class="o">(</span><span class="n">name</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">var</span> <span class="n">reg</span> <span class="o">=</span> <span class="k">new</span> <span class="n">RegExp</span><span class="o">(</span><span class="s">&#34;(^|&amp;)&#34;</span> <span class="o">+</span> <span class="n">name</span> <span class="o">+</span> <span class="s">&#34;=([^&amp;]*)(&amp;|$)&#34;</span><span class="o">,</span> <span class="s">&#34;i&#34;</span><span class="o">);</span>
 </span></span><span class="line"><span class="cl">  <span class="n">var</span> <span class="n">r</span> <span class="o">=</span> <span class="n">window</span><span class="o">.</span><span class="na">location</span><span class="o">.</span><span class="na">search</span><span class="o">.</span><span class="na">substr</span><span class="o">(</span><span class="mi">1</span><span class="o">).</span><span class="na">match</span><span class="o">(</span><span class="n">reg</span><span class="o">);</span> <span class="c1">//获取 url 中&#34;?&#34;符后的字符串并正则匹配
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="n">var</span> <span class="n">context</span> <span class="o">=</span> <span class="s">&#34;&#34;</span><span class="o">;</span> 
-</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="o">(</span><span class="n">r</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> 
-</span></span><span class="line"><span class="cl">     <span class="n">context</span> <span class="o">=</span> <span class="n">r</span><span class="o">[</span><span class="mi">2</span><span class="o">];</span> 
-</span></span><span class="line"><span class="cl">  <span class="n">reg</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span> 
-</span></span><span class="line"><span class="cl">  <span class="n">r</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span> 
-</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="n">context</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">||</span> <span class="n">context</span> <span class="o">==</span> <span class="s">&#34;&#34;</span> <span class="o">||</span> <span class="n">context</span> <span class="o">==</span> <span class="s">&#34;undefined&#34;</span> <span class="o">?</span> <span class="s">&#34;&#34;</span> <span class="o">:</span> <span class="n">context</span><span class="o">;</span> 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="n">var</span> <span class="n">context</span> <span class="o">=</span> <span class="s">&#34;&#34;</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="o">(</span><span class="n">r</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">     <span class="n">context</span> <span class="o">=</span> <span class="n">r</span><span class="o">[</span><span class="mi">2</span><span class="o">];</span>
+</span></span><span class="line"><span class="cl">  <span class="n">reg</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">r</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="n">context</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">||</span> <span class="n">context</span> <span class="o">==</span> <span class="s">&#34;&#34;</span> <span class="o">||</span> <span class="n">context</span> <span class="o">==</span> <span class="s">&#34;undefined&#34;</span> <span class="o">?</span> <span class="s">&#34;&#34;</span> <span class="o">:</span> <span class="n">context</span><span class="o">;</span>
 </span></span><span class="line"><span class="cl"><span class="o">}</span>
 </span></span><span class="line"><span class="cl"><span class="n">alert</span><span class="o">(</span><span class="n">GetQueryString</span><span class="o">(</span><span class="s">&#34;j&#34;</span><span class="o">));</span>
 </span></span></code></pre></td></tr></table>

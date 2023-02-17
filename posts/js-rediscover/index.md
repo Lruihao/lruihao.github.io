@@ -26,8 +26,8 @@ arr.some(callback(element[, index[, array]])[, thisArg])
 ```
 
 ```js
-[2, 5, 8, 1, 4].some(x => x > 10); // false
-[12, 5, 8, 1, 4].some(x => x > 10); // true
+[2, 5, 8, 1, 4].some((x) => x > 10); // false
+[12, 5, 8, 1, 4].some((x) => x > 10); // true
 ```
 
 {{< admonition tip >}}
@@ -49,8 +49,8 @@ arr.every(callback(element[, index[, array]])[, thisArg])
 ```
 
 ```js
-[12, 5, 8, 130, 44].every(x => x >= 10); // false
-[12, 54, 18, 130, 44].every(x => x >= 10); // true
+[12, 5, 8, 130, 44].every((x) => x >= 10); // false
+[12, 54, 18, 130, 44].every((x) => x >= 10); // true
 ```
 
 {{< admonition tip >}}
@@ -63,7 +63,7 @@ arr.every(callback(element[, index[, array]])[, thisArg])
 
 > 助记：功能和 `some()` 类似，`some()` 返回布尔值，`find()` 返回**找到**的元素
 
- `find()` 方法返回数组中满足提供的测试函数的第一个元素的值，否则返回 [`undefined`](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/undefined)。
+`find()` 方法返回数组中满足提供的测试函数的第一个元素的值，否则返回 [`undefined`](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/undefined)。
 
 ```js
 arr.find(callback[, thisArg])
@@ -72,7 +72,7 @@ arr.find(callback[, thisArg])
 ```js
 const array1 = [5, 12, 8, 130, 44];
 
-const found = array1.find(element => element > 10);
+const found = array1.find((element) => element > 10);
 
 console.log(found);
 // expected output: 12
@@ -101,7 +101,7 @@ var newArray = arr.filter(callback(element[, index[, array]])[, thisArg])
 ```js
 const words = ['spray', 'limit', 'elite', 'exuberant', 'destruction', 'present'];
 
-const result = words.filter(word => word.length > 6);
+const result = words.filter((word) => word.length > 6);
 
 console.log(result);
 // expected output: Array ["exuberant", "destruction", "present"]
@@ -117,7 +117,7 @@ console.log(result);
 
 ```js
 var new_array = arr.map(function callback(currentValue[, index[, array]]) {
- // Return element for new_array 
+ // Return element for new_array
 }[, thisArg])
 ```
 
@@ -125,7 +125,7 @@ var new_array = arr.map(function callback(currentValue[, index[, array]]) {
 const array1 = [1, 4, 9, 16];
 
 // pass a function to map
-const map1 = array1.map(x => x * 2);
+const map1 = array1.map((x) => x * 2);
 
 console.log(map1);
 // expected output: Array [2, 8, 18, 32]
@@ -141,13 +141,13 @@ console.log(map1);
 
 ```javascript
 const Person = function (age) {
-  this.age = age
-}
-Person.prototype.name = 'fatfish'
+  this.age = age;
+};
+Person.prototype.name = 'fatfish';
 
-const p1 = new Person(24)
-console.log('age' in p1) // true
-console.log('name' in p1) // true  注意这里
+const p1 = new Person(24);
+console.log('age' in p1); // true
+console.log('name' in p1); // true  注意这里
 ```
 
 **obj.hasOwnProperty**
@@ -156,19 +156,19 @@ console.log('name' in p1) // true  注意这里
 
 ```javascript
 const Person = function (age) {
-  this.age = age
-}
-Person.prototype.name = 'fatfish'
+  this.age = age;
+};
+Person.prototype.name = 'fatfish';
 
-const p1 = new Person(24)
-console.log(p1.hasOwnProperty('age')) // true
-console.log(p1.hasOwnProperty('name')) // fasle  注意这里
+const p1 = new Person(24);
+console.log(p1.hasOwnProperty('age')); // true
+console.log(p1.hasOwnProperty('name')); // fasle  注意这里
 ```
 
 `obj.hasOwnProperty` 已经可以过滤掉原型链上的属性，但在某些情况下，它还是不安全。
 
 ```javascript
-Object.create(null).hasOwnProperty('name')
+Object.create(null).hasOwnProperty('name');
 // Uncaught TypeError: Object.create(...).hasOwnProperty is not a function
 ```
 
@@ -177,11 +177,11 @@ Object.create(null).hasOwnProperty('name')
 别急，我们可以使用 `Object.hasOwn` 来避免这两个问题，这比 `obj.hasOwnProperty` 方法更加方便、安全。
 
 ```javascript
-let object = { age: 24 }
-Object.hasOwn(object, 'age') // true
+let object = { age: 24 };
+Object.hasOwn(object, 'age'); // true
 
-let object3 = Object.create(null)
-Object.hasOwn(object3, 'age') // false
+let object3 = Object.create(null);
+Object.hasOwn(object3, 'age'); // false
 ```
 
 ## 使用 "#" 声明私有属性
@@ -190,52 +190,52 @@ Object.hasOwn(object3, 'age') // false
 
 ```javascript
 class Person {
-  constructor (name) {
-    this._money = 1
-    this.name = name
+  constructor(name) {
+    this._money = 1;
+    this.name = name;
   }
-  get money () {
-    return this._money
+  get money() {
+    return this._money;
   }
-  set money (money) {
-    this._money = money
+  set money(money) {
+    this._money = money;
   }
-  showMoney () {
-    console.log(this._money)
+  showMoney() {
+    console.log(this._money);
   }
 }
-const p1 = new Person('fatfish')
-console.log(p1.money) // 1
-console.log(p1._money) // 1
-p1._money = 2 // 依旧可以从外部修改_money 属性，所以这种做法并不安全
-console.log(p1.money) // 2
-console.log(p1._money) // 2
+const p1 = new Person('fatfish');
+console.log(p1.money); // 1
+console.log(p1._money); // 1
+p1._money = 2; // 依旧可以从外部修改_money 属性，所以这种做法并不安全
+console.log(p1.money); // 2
+console.log(p1._money); // 2
 ```
 
 **使用 `#` 实现真正私有属性**
 
 ```javascript
 class Person {
-  #money=1
-  constructor (name) {
-    this.name = name
+  #money = 1;
+  constructor(name) {
+    this.name = name;
   }
-  get money () {
-    return this.#money
+  get money() {
+    return this.#money;
   }
-  set money (money) {
-    this.#money = money
+  set money(money) {
+    this.#money = money;
   }
-  showMoney () {
-    console.log(this.#money)
+  showMoney() {
+    console.log(this.#money);
   }
 }
-const p1 = new Person('fatfish')
-console.log(p1.money) // 1
+const p1 = new Person('fatfish');
+console.log(p1.money); // 1
 // p1.#money = 2 // 没法从外部直接修改
-p1.money = 2
-console.log(p1.money) // 2
-console.log(p1.#money) // Uncaught SyntaxError: Private field '#money' must be declared in an enclosing class
+p1.money = 2;
+console.log(p1.money); // 2
+console.log(p1.#money); // Uncaught SyntaxError: Private field '#money' must be declared in an enclosing class
 ```
 
 ## 有用的数字分隔符
@@ -244,16 +244,16 @@ console.log(p1.#money) // Uncaught SyntaxError: Private field '#money' must be d
 
 ```javascript
 // ✅ 更加易于阅读
-const newSixBillion = 6000_000_000
+const newSixBillion = 6000_000_000;
 // ❌ 难以阅读
-const originSixBillion = 6000000000
+const originSixBillion = 6000000000;
 
-console.log(newSixBillion === originSixBillion)
+console.log(newSixBillion === originSixBillion);
 // expected output: true
 ```
 
 ```javascript
-const sum = 1000 + 6000_000_000
+const sum = 1000 + 6000_000_000;
 // expected output: 6000001000
 ```
 
@@ -270,21 +270,21 @@ const sum = 1000 + 6000_000_000
 以前我们为了简化 `if else`，通常会写出这样的代码
 
 ```js
-const obj = null
-console.log(obj && obj.name)
+const obj = null;
+console.log(obj && obj.name);
 
-const $title = document.querySelector('.title')
-const title = $title ? title.innerText : undefined
+const $title = document.querySelector('.title');
+const title = $title ? title.innerText : undefined;
 ```
 
 使用 `?.` 简化 `&&` 和三元运算符
 
 ```js
-const obj = null
-console.log(obj?.name)
+const obj = null;
+console.log(obj?.name);
 
-const $title = document.querySelector('.title')
-const title = $title?.innerText
+const $title = document.querySelector('.title');
+const title = $title?.innerText;
 ```
 
 **空值合并运算符 ??**
@@ -292,45 +292,45 @@ const title = $title?.innerText
 之前给变量赋默认值时，我们一般会用 `||` 来写，比如
 
 ```js
-let foo = 1
-let bar = foo || 2
-console.log(bar) // 1
+let foo = 1;
+let bar = foo || 2;
+console.log(bar); // 1
 
-let foo = 0
-let bar = foo || 2
-console.log(bar) // 2 注意这里
+let foo = 0;
+let bar = foo || 2;
+console.log(bar); // 2 注意这里
 ```
 
 所以，`||` 有时候并不是很安全，所以我们不得不加判断
 
 ```js
-let foo = 0
-let bar = foo !== undefined ? foo : 2
-console.log(bar) // 0
+let foo = 0;
+let bar = foo !== undefined ? foo : 2;
+console.log(bar); // 0
 ```
 
 现在使用 `??` 可以使代码更加优雅
 
 ```js
-let foo = 1
-let bar = foo ?? 2
-console.log(bar) // 1
+let foo = 1;
+let bar = foo ?? 2;
+console.log(bar); // 1
 
-let foo = 0
-let bar = foo ?? 2
-console.log(bar) // 0
+let foo = 0;
+let bar = foo ?? 2;
+console.log(bar); // 0
 ```
 
 **空值赋值运算符 ??=**
 
 ```js
-let foo = 0
-foo ??= 2
-console.log(foo) // 0
+let foo = 0;
+foo ??= 2;
+console.log(foo); // 0
 
-let foo = 1
-foo ??= 2
-console.log(foo) // 1
+let foo = 1;
+foo ??= 2;
+console.log(foo); // 1
 ```
 
 很好理解，这里的 `foo ??= 2` 等价于 `foo = foo ?? 2`
@@ -342,7 +342,7 @@ JS 中超过 `Number.MAX_SAFE_INTEGER` 的数字计算将是不安全的。
 **Example:**
 
 ```javascript
-Math.pow(2, 53) === Math.pow(2, 53) + 1 // true
+Math.pow(2, 53) === Math.pow(2, 53) + 1; // true
 // Math.pow(2, 53) => 9007199254740992
 // Math.pow(2, 53) + 1 => 9007199254740992
 ```
@@ -350,7 +350,7 @@ Math.pow(2, 53) === Math.pow(2, 53) + 1 // true
 使用 `BigInt` 完全可以避免这个问题
 
 ```javascript
-BigInt(Math.pow(2, 53)) === BigInt(Math.pow(2, 53)) + BigInt(1) // false
+BigInt(Math.pow(2, 53)) === BigInt(Math.pow(2, 53)) + BigInt(1); // false
 // BigInt(Math.pow(2, 53)) => 9007199254740992n
 // BigInt(Math.pow(2, 53)) + BigInt(1) => 9007199254740993n
 ```
@@ -358,14 +358,15 @@ BigInt(Math.pow(2, 53)) === BigInt(Math.pow(2, 53)) + BigInt(1) // false
 要创建一个 BigInt，可以在一个整数的末尾添加字符`n`，或者调用函数 `BigInt()`。
 
 ```js
-let foo = BigInt(1) // 1n
-let bar = BigInt(2) // 2n
-console.log(foo > bar) // false
+let foo = BigInt(1); // 1n
+let bar = BigInt(2); // 2n
+console.log(foo > bar); // false
 
-console.log(1n > 2n) // false
+console.log(1n > 2n); // false
 ```
 
-*学无止境，与未来的自己共勉*
+_学无止境，与未来的自己共勉_
+
 
 ---
 

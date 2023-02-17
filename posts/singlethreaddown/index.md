@@ -6,7 +6,9 @@
 <!--more-->
 
 ## GUI 设计基本流程
-先记录一下 GUI 设计的基本流程：  
+
+先记录一下 GUI 设计的基本流程：
+
 1. 根据需要从相应的顶层容器继承（如果创建窗体就继承 JFrame，对话框就继承 JDialog），新建一个子类。
 2. 然后设置顶层容器的属性，包括大小、位置、标题和关闭事件等。
 3. 设置界面上 GUI 组件的事件响应。 `public void actionPerformed(ActionEvent e) {}`
@@ -43,7 +45,7 @@ public class SingleThreadDown extends JFrame implements ActionListener {
 	JButton resetButton = new JButton("清空");
 	JButton exitButton = new JButton("退出");
 	JTextField urlField  = new JTextField(20);
-	
+
 	public SingleThreadDown() {
 		panel.setLayout(new FlowLayout()); //布局管理器
 		label1.setFont(new Font("雅黑",Font.BOLD,15));
@@ -62,7 +64,7 @@ public class SingleThreadDown extends JFrame implements ActionListener {
 		resetButton.addActionListener(this);
 		exitButton.addActionListener(this);
 	}
-	
+
 	public void download(String address) throws Exception {
 		URL url = new URL(address);
 		URLConnection urlcon = url.openConnection();
@@ -112,9 +114,11 @@ public class SingleThreadDown extends JFrame implements ActionListener {
 ```
 
 ## 运行结果测试
+
 通过`https://github.com/Lruihao/Grocery/raw/master/fonts/MMT_last.ttf`下载沐目体 ttf 字体文件，稍微等待一下弹出对话框“下载完毕”，经检查下载内容正常。
 
-![运行效果](images/1.png)
+![运行效果](../singlethreaddown/images/1.png)
+
 
 ---
 

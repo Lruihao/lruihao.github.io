@@ -3,8 +3,10 @@
 
 七夕又快到了，分享一个曾经玩过的代码，用 C 语言画一个跳动的心，很有逼格有木有。
 
-![截图](https://i.loli.net/2018/08/29/5b8680e407e09.gif "大一在机房拍的图")
+![截图](https://i.loli.net/2018/08/29/5b8680e407e09.gif '大一在机房拍的图')
+
 <!--more-->
+
 ```c
 #include <stdio.h>
 #include <math.h>
@@ -63,6 +65,7 @@ int main() {
 ```
 
 [exe 文件下载 :(fa-solid fa-download):](heart.zip)
+
 
 ---
 

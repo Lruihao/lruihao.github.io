@@ -9,6 +9,7 @@
 {{< /admonition >}}
 
 <!--more-->
+
 {{< admonition success "next" >}}
 基于 [hexo-theme-next 6.0+](https://github.com/theme-next/hexo-theme-next) 的 Pisces 模板做的 DIY 扩展性设计（部分兼容 next 其他几种模板）。主要是一些 custom style 还有一些第三方的 js。修改的地方太多也有点小乱就不提 PR 了。  
 [modified](https://github.com/Lruihao/hexo-theme-next)&emsp; 官方 Demo => <https://theme-next.org>  
@@ -17,6 +18,7 @@
 {{< /admonition >}}
 
 主要的几个自定义文件
+
 ```xml 主要修改路径及文件
 _config.swig                                 #主题配置文件 相关账户信息自己注册替换
 \layout\custom\head.swig                     #在头部自定义加入标签
@@ -32,29 +34,36 @@ _config.swig                                 #主题配置文件 相关账户信
 \layout\_third-party\custom.swig             #该模块在 layout.swig 引入用于在 body 自定义标签
 \source\css\_custom\customs.styl             #主要用户自定义样式表
 \source\fonts\                               #引入了一些我的手写体及外部字体
-\scripts\qcloudcdn.js                        #腾讯云 cos 桶刷新缓存的脚本，不需要可删掉 [^1]     
+\scripts\qcloudcdn.js                        #腾讯云 cos 桶刷新缓存的脚本，不需要可删掉 [^1]
 ```
+
 [^1](https://lruihao.cn/posts/cos-hexo.html#CDN%E5%88%B7%E6%96%B0)
 
 ## 初步安装
+
 > 安装整个改过的主题，然后下载相应的 lib 资源解压放入 source 文件夹
 
-```bash 
+```bash
 cd hexo
 git clone https://github.com/Lruihao/hexo-theme-next themes/next
 ```
+
 主题配置文件`_config.yml`, 选择主题
+
 ```
 theme: next
 ```
+
 {{< link href="http://github.com/Lruihao/hexo-theme-next/releases/tag/v6.9.1" content="lib 下载" card=true >}}
 
 ![lib 资源](images/lib.png)
 
 ## 更新内容
+
 > 更多自定义详见源码
 
 ### links 模板
+
 > 自定义友链模板，打开`hexo\themes\next\layout\`新建`links.swig`文件，写下以下内容后保存。
 
 ```swig
@@ -80,7 +89,7 @@ theme: next
 {% block page_class %}page-post-detail{% endblock %}
 
 {% block content %}
-  
+
   <div id="posts" class="posts-expand">
     {##################}
     {#### PAGE BLOCK ###}
@@ -127,7 +136,7 @@ theme: next
           font-size: 1rem;
           text-align: center;
           background: rgba(255,255,255,0.3);
-          box-sizing: border-box; 
+          box-sizing: border-box;
           box-shadow: 3px 3px 5px #aaa;
           border-radius: 5px;
           transition-duration: 0.3s;
@@ -141,7 +150,7 @@ theme: next
           box-shadow: 0 0 3px #aaa;
         }
         .card-box a {
-          border:none; 
+          border:none;
         }
         .card-avatar {
           width: 100%!important;
@@ -188,24 +197,30 @@ theme: next
   {% include '_scripts/pages/post-details.swig' %}
 {% endblock %}
 ```
-- **若未使用懒加载请将模板中的`data-original`属性改为`src`**  
+
+- **若未使用懒加载请将模板中的`data-original`属性改为`src`**
 - **若懒加载无法加载预览图请手动添加`src="/images/loading.gif"`**
 - **若 fancybox 显示 alt 内容请更换 fancybox2 或者将 alt 属值删除**
+
 ```
 <img class="card-avatar" data-original="{{ link.avatar }}" alt="{{ link.nickname }}"/>
 ```
+
 然后`hexo n page links`新建一个页面文章配置写下如下内容：
+
 ```XMl
 ---
 title: 友情链接
 layout: links
 ---
 ```
+
 然后在`links`页面文件夹下面新建文件夹`_data`，再在里面新建`links.yml`，内容如下
+
 ```xml links.yml
-- nickname: 博採眾長      
+- nickname: 博採眾長
   avatar: http://lruihao.cn/images/avatar.png
-  site: http://lruihao.cn 
+  site: http://lruihao.cn
   info: 一个菜鸟的博客
 - nickname:                 #友链名称
   avatar:                   #友链头像
@@ -214,6 +229,7 @@ layout: links
 ```
 
 ### 备案信息自定义
+
 ```xml _config.yml
 ## -------------------------------------------------------------
 ## footer_custom Settings
@@ -224,22 +240,27 @@ beian:
   recordcode: 43030402000254
   icp: 湘 ICP 备 18020535 号
 ```
+
 ### 文字抖动特效
 
 ```xml 使用方法
 <div class="shaky">（づ●'◡'●) づ ❥内容区</div>
 ```
+
 <div class="shaky">（づ●'◡'●) づ ❥内容区</div>
 
 ### 左下角微信公众号
+
 ```xml 替换为自己的二维码
-\source\css\_custom\customs.styl  
+\source\css\_custom\customs.styl
 ```
 
 ### 相关文章收纳
+
 加入 H5 标签，实现可收纳功能，点击查看详情。
 
 ### Chat Services
+
 > 共 chatra,tidio,daovoice 三个选项，三选一
 
 ```swig _config.swig
@@ -265,7 +286,9 @@ daovoice_app_id: xxxx   ## http://www.daovoice.io/
 ```
 
 ### pdf 和 Mermaid 解析模块
+
 [pdf 传送门](https://lruihao.cn/posts/next-pdf/)
+
 ```swig config.swig
 pdf:
   enable: false
@@ -285,6 +308,7 @@ mermaid:
 ```
 
 ### 模仿 csdn 转发样式
+
 ```diff post.swig 主要修改
 ...
    <a class="post-title-link" href="{{ url_for(post.path) }}" itemprop="url">
@@ -318,11 +342,13 @@ title: xxxx
 repost: true
 ---
 ```
+
 [预览](https://lruihao.cn/tags/他山之石/)
 
 ### 热度页面
 
 > 打开`hexo\themes\next\layout`新建 top.swig 文件，写下如下内容保存：
+
 ```swig
 {% extends '_layout.swig' %}
 {% import '_macro/sidebar.swig' as sidebar_template %}
@@ -356,7 +382,7 @@ repost: true
       {#################}
       {#### PAGE BODY ###}
       {#################}
-      
+
       <div class="post-body{% if theme.han %} han-init-context{% endif %}{% if page.direction && page.direction.toLowerCase() === 'rtl' %} rtl{% endif %}">
         {{ page.content }}
         <div id="top"></div>
@@ -413,7 +439,7 @@ repost: true
           });
         },1000)
       </script>
-      
+
       {#####################}
       {#### END PAGE BODY ###}
       {#####################}
@@ -438,6 +464,7 @@ repost: true
 其中第 36 行改成你自己的 leancloud 的 appid 和 appkey, 比如我的是在主题配置文件里面的 valine 配置下，所以我就写成`theme.valine.appid`。和我一样就不需要修改，其他自行配置。
 
 然后`hexo n page top`新建一个页面文章配置写下如下内容，limit 表示显示篇数：
+
 ```XMl top.md
 ---
 title: 热度
@@ -447,6 +474,7 @@ limit: 20
 ```
 
 ### 复制按钮样式
+
 ![](images/lightbtn.png)
 ![](images/nightbtn.png)
 ![](images/3dbtn.png)
@@ -466,6 +494,7 @@ codeblock:
     ## Style: 'light,night,flat,3dbtn' is currently available, leave it empty or light is default theme
     style: night
 ```
+
 
 ---
 

@@ -8,6 +8,7 @@
 ![](images/更新。jpg)
 
 <!--more-->
+
 ```cpp
 //dijkstra
 #include<iostream>
@@ -58,6 +59,7 @@ int main(){
 	return 0;
 }
 ```
+
 
 ---
 
