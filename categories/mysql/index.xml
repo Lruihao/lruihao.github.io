@@ -1,0 +1,286 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>MySQL - 分类 - 菠菜眾長</title><link>https://lruihao.cn/categories/mysql/</link><description>MySQL - 分类 - 菠菜眾長</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><lastBuildDate>Thu, 16 Jan 2020 19:28:05 +0000</lastBuildDate><atom:link href="https://lruihao.cn/categories/mysql/" rel="self" type="application/rss+xml"/><item><title>SQL 总结</title><link>https://lruihao.cn/posts/sql/</link><pubDate>Thu, 16 Jan 2020 19:28:05 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/sql/</guid><description><![CDATA[<blockquote>
+<p>SQL 增删改查 (CRUD) 语句与常用函数总结。</p>
+</blockquote>
+<h2 id="sql-introduction">SQL Introduction</h2>
+<p>一般我们对数据库的操作主要分为四种，增** C**(CREATE)、删** D**(DELETE)、改** U**(UPDATE)、查** R**(READ)，所以，我就从** CRUD **这四个方面来制作查询表。</p>
+<p><strong>开发规则：</strong></p>
+<ol>
+<li>
+<p>尽量减少对数据库的访问次数，且不能查询无用的数据，浪费效能（例如：我只要男生的数据，你把所有人的数据都查询出来）。</p>
+</li>
+<li>
+<p>属于<code>SQL</code>语法的要使用大写 （SELECT, WHERE, INSERT etc&hellip;）。</p>
+</li>
+<li>
+<p>属于使用者自己定义的要使用小写（表名、列名 etc&hellip;）。</p>
+</li>
+<li>
+<p>表名与列名前后使用 ` 包起来，防止与关键字冲突（例如： INSERT INTO `user` VALUES(&lsquo;a&rsquo;,&lsquo;b&rsquo;); ）。</p>
+</li>
+<li>
+<p>禁止使用 Table Join。</p>
+</li>
+<li>
+<p>禁止使用 Oracle Trigger。</p>
+</li>
+<li>
+<p>禁止使用 SELECT * （为了加强代码可读性）。</p>
+</li>
+<li>
+<p>不能将查询数据库的 SQL 放在循环中查询。</p>
+</li>
+</ol>
+<h2 id="新增create">新增（CREATE）</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">功能</th>
+<th style="text-align:left">语句</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">创建数据库</td>
+<td style="text-align:left"><code>CREATE DATABASE &lt;数据库名&gt;;</code></td>
+</tr>
+<tr>
+<td style="text-align:left">创建数据表</td>
+<td style="text-align:left"><code>CREATE TABLE  &lt;表名&gt; (</code><br/><code>&lt;列名 1&gt; &lt;数据类型&gt; &lt;约束条件&gt;,</code><br/><code>&lt;列名 2&gt; &lt;数据类型&gt; &lt;约束条件&gt;,</code><br/><code>&lt;列名 3&gt; &lt;数据类型&gt; &lt;约束条件&gt;,</code><br/><code>......</code><br/><code>&lt;该表的的约束条件 1&gt; </code><br/><code>&lt;该表的的约束条件 2&gt;...);</code></td>
+</tr>
+<tr>
+<td style="text-align:left">插入数据</td>
+<td style="text-align:left"><code>INSERT INTO &lt;表名&gt; （列名 1, 列名 2,...) VALUES （值 1, 值 2,...);</code><br/>（每列都有数据插入时，可省略列名。但是为了代码的可读性，不建议如此操作。）</td>
+</tr>
+<tr>
+<td style="text-align:left">增加列</td>
+<td style="text-align:left"><code>ALTER TABLE &lt;表名&gt; ADD &lt;列名&gt; &lt;数据类型&gt; &lt;约束条件&gt; AFTER &lt;前一列列名&gt;;</code><br/>（默认插入到最后一列）</td>
+</tr>
+</tbody>
+</table>
+<h2 id="删除delete">删除（DELETE）</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">功能</th>
+<th style="text-align:left">语句</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">删除数据库</td>
+<td style="text-align:left"><code>DROP DATABASE &lt;数据库名&gt;;</code></td>
+</tr>
+<tr>
+<td style="text-align:left">删除数据表</td>
+<td style="text-align:left"><code>DROP TABLE &lt;表名&gt;;</code></td>
+</tr>
+<tr>
+<td style="text-align:left">清空表数据</td>
+<td style="text-align:left"><code>DELETE FROM &lt;表名&gt;;</code> 或者 <code>TRUNCATE TABLE &lt;表名&gt;;</code></td>
+</tr>
+<tr>
+<td style="text-align:left">删除行数据</td>
+<td style="text-align:left"><code>DELETE FROM &lt;表名&gt; WHERE &lt;条件&gt;;</code></td>
+</tr>
+<tr>
+<td style="text-align:left">删除列数据</td>
+<td style="text-align:left"><code>ALTER TABLE &lt;表名&gt; DROP &lt;列名&gt;;</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="修改update">修改（UPDATE）</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">功能</th>
+<th style="text-align:left">语句</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">修改数据库名</td>
+<td style="text-align:left"><code>RENAME DATABASE &lt;旧名称&gt; TO &lt;新名称&gt;;</code></td>
+</tr>
+<tr>
+<td style="text-align:left">修改表名</td>
+<td style="text-align:left"><code>RENAME TABLE &lt;旧名称&gt; TO &lt;新名称&gt;;</code></td>
+</tr>
+<tr>
+<td style="text-align:left">修改数据</td>
+<td style="text-align:left"><code>UPDATE &lt;表名&gt; SET &lt;列名 1&gt; = &lt;新值 1&gt;,&lt;列名 2&gt; = &lt;新值 2&gt; WHERE &lt;条件&gt;;</code></td>
+</tr>
+<tr>
+<td style="text-align:left">修改列名</td>
+<td style="text-align:left"><code>ALTER TABLE &lt;表名&gt; CHANGE &lt;旧列名&gt; &lt;新列名&gt; &lt;数据类型&gt; &lt;约束条件&gt;;</code></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>注意：重命名数据库与数据表一般不推荐使用，若想测试，请先备份好自己的数据库~</p>
+</blockquote>
+<h2 id="查询nbsprnbspenbspanbspdnbsp">查询（ R E A D ）</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">功能</th>
+<th style="text-align:left">语句</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">查询所有数据库</td>
+<td style="text-align:left"><code>SHOW DATABASES;</code></td>
+</tr>
+<tr>
+<td style="text-align:left">查询指定数据库中所有表名</td>
+<td style="text-align:left"><code>USE &lt;数据库名&gt;;</code> 然后 <code>SHOW TABLES;</code><br/>或者 <code>SHOW TABLES FROM &lt;数据库名&gt;;</code></td>
+</tr>
+<tr>
+<td style="text-align:left">查询表中所有列信息</td>
+<td style="text-align:left"><code>SHOW COLUMNS FROM &lt;表名&gt;;</code></td>
+</tr>
+<tr>
+<td style="text-align:left">查询表中所有数据</td>
+<td style="text-align:left"><code>SELECT &lt;列名 1&gt;,&lt;列名 2&gt;,&lt;列名 3&gt;,... FROM &lt;表名&gt;;</code></td>
+</tr>
+<tr>
+<td style="text-align:left">查询表中某个数据</td>
+<td style="text-align:left"><code>SELECT &lt;列名&gt; FROM &lt;表名&gt;;</code></td>
+</tr>
+<tr>
+<td style="text-align:left">查询表中指定多个数据</td>
+<td style="text-align:left"><code>SELECT &lt;列名 1&gt;,&lt;列名 2&gt;,&lt;列名 3&gt;,... FROM &lt;表名&gt; WHERE &lt;条件&gt;;</code></td>
+</tr>
+<tr>
+<td style="text-align:left">查询表中指定一个数据</td>
+<td style="text-align:left"><code>SELECT &lt;列名&gt; FROM &lt;表名&gt; WHERE &lt;条件&gt;;</code></td>
+</tr>
+<tr>
+<td style="text-align:left">查询指定范围数据</td>
+<td style="text-align:left"><code>SELECT &lt;列名 1&gt;,&lt;列名 2&gt;,&lt;列名 3&gt;,... FROM &lt;表名&gt; WHERE </code><br/><code>&lt;某列名&gt; BETWEEN &lt;某列名范围值-小&gt; AND &lt;某列名范围值-大&gt;;</code></td>
+</tr>
+<tr>
+<td style="text-align:left">字符串模式匹配查询</td>
+<td style="text-align:left"><code>SELECT &lt;列名&gt; FROM &lt;表名&gt; WHERE name LIKE 'Y%';</code><br/>（查询以 Y 开头的，更多匹配方式自行百度哦~。）</td>
+</tr>
+<tr>
+<td style="text-align:left">指定多个值数据查询</td>
+<td style="text-align:left"><code>SELECT &lt;列名 1&gt;,&lt;列名 2&gt;,&lt;列名 3&gt;,... FROM &lt;表名&gt; WHERE </code><br/><code>&lt;某列名&gt; IN ('&lt;某列名值 1&gt;','&lt;某列名值 2&gt;','&lt;某列名值 3&gt;',...);</code></td>
+</tr>
+<tr>
+<td style="text-align:left">查询结果排序</td>
+<td style="text-align:left"><code>SELECT &lt;列名 1&gt;,&lt;列名 2&gt;,&lt;列名 3&gt;,... FROM &lt;表名&gt; ORDER BY &lt;某列名&gt; DESC;</code><br/>（此处为递减排列，默认为递增<code>ASC</code>）</td>
+</tr>
+<tr>
+<td style="text-align:left">查询指定几笔数据</td>
+<td style="text-align:left"><code>SELECT &lt;列名 1&gt;,&lt;列名 2&gt;,&lt;列名 3&gt;,... FROM &lt;表名&gt; LIMIT n,m;</code><br/>（从<code>n</code>到<code>m</code>笔数据）</td>
+</tr>
+<tr>
+<td style="text-align:left">分群查询</td>
+<td style="text-align:left"><code>SELECT &lt;列名 1&gt;,&lt;列名 2&gt;,&lt;列名 3&gt;,...,&lt;函数&gt; FROM &lt;表名&gt; GROUP BY &lt;列名 1&gt;,&lt;列名 2&gt;,&lt;列名 3&gt;,...;</code><br/>（常搭配函数有：<code>SUM()</code>、<code>AVG()</code>、<code>COUNT()</code>、<code>MAX()</code>、<code>MIN()</code>）</td>
+</tr>
+</tbody>
+</table>
+<h2 id="常用函数">常用函数</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">函数名</th>
+<th style="text-align:left">用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>ABS</code>（数值）</td>
+<td style="text-align:left">ABS 函数（求绝对值）</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>MOD</code>（被除数，除数）</td>
+<td style="text-align:left">MOD 函数（求余）</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>ROUND</code>（对象数值，保留小数的位数）</td>
+<td style="text-align:left">ROUND 函数（四舍五入）</td>
+</tr>
+<tr>
+<td style="text-align:left">字符串 1 ΙΙ 字符串 2</td>
+<td style="text-align:left">ΙΙ 函数（拼接）</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>LENGTH</code>（字符串）</td>
+<td style="text-align:left">LENGTH 函数（求字符串长度）</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>LOWER</code>（字符串）</td>
+<td style="text-align:left">LOWER 函数（小写转换）</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>UPPER</code>（字符串）</td>
+<td style="text-align:left">UPPER 函数（大写转换）</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>REPLACE</code>（对象字符串，替换前的字符串，替换后的字符串）</td>
+<td style="text-align:left">REPLACE 函数（字符串的替换）</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>SUBSTRING</code> （对象字符串，截取的起始位置，截取的字符数）</td>
+<td style="text-align:left">SUBSTRING 函数（字符串的截取）</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>CURRENT_DATE</code></td>
+<td style="text-align:left">CURRENT_DATE 函数（当前日期）</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>CURRENT_TIME</code></td>
+<td style="text-align:left">CURRENT_TIME 函数（当前时间）</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>CURRENT_TIMESTAMP</code></td>
+<td style="text-align:left">CURRENT_TIMESTAMP 函数（当前日期和时间）</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>EXTRACT</code>（日期元素 FROM 日期）</td>
+<td style="text-align:left">EXTRACT 函数（截取日期元素）</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>CAST</code>（转换前的值 AS 想要转换的数据类型）</td>
+<td style="text-align:left">CAST 函数（类型转换）</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>COALESCE</code>（数据 1, 数据 2, 数据 3&hellip;.)</td>
+<td style="text-align:left">COALESCE 函数（将 NULL 转换为其他值）</td>
+</tr>
+</tbody>
+</table>
+<p>补充：CASE 表达式。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">CASE WHEN &lt;求值表达式&gt; THEN &lt;表达式&gt;
+</span></span><span class="line"><span class="cl">     WHEN &lt;求值表达式&gt; THEN &lt;表达式&gt;
+</span></span><span class="line"><span class="cl">     WHEN &lt;求值表达式&gt; THEN &lt;表达式&gt;
+</span></span><span class="line"><span class="cl">     ......
+</span></span><span class="line"><span class="cl">     ELSE &lt;表达式&gt;
+</span></span><span class="line"><span class="cl"> END
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="其他知识">其他知识</h2>
+<h3 id="常见数据类型">常见数据类型</h3>
+<p>
+</p>
+<h3 id="别名">别名</h3>
+<p>给表设置别名，让 SQL 更简洁。例如：</p>
+<p><code>SELECT &lt;col-1&gt;,&lt;col-2&gt;,&lt;col-3&gt;,... FROM &lt;table1&gt; &lt;alias-a&gt;,&lt;table2&gt; &lt;alias-b&gt; WHERE &lt;alias-a&gt;.&lt;id&gt; = &lt;alias-b&gt;.&lt;id&gt;;</code></p>
+<p>列名也可以设置别名。例如：</p>
+<p><code>SELECT &lt;col-1&gt; &lt;alias-a&gt;,&lt;col-2&gt; &lt;alias-b&gt;,&lt;col-3&gt; &lt;alias-c&gt;,... FROM &lt;table&gt;;</code><br>
+或者<br>
+<code>SELECT &lt;col-1&gt; AS &lt;alias-a&gt;,&lt;col-2&gt; AS &lt;alias-b&gt;,&lt;col-3&gt; AS &lt;alias-c&gt;,... FROM &lt;table&gt;;</code></p>
+<h2 id="总结">总结</h2>
+<p>以上整理的内容均为基础内容，更多进阶知识还需各位自行 Google。</p>]]></description></item></channel></rss>

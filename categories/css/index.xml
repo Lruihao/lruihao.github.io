@@ -1,0 +1,164 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>CSS - 分类 - 菠菜眾長</title><link>https://lruihao.cn/categories/css/</link><description>CSS - 分类 - 菠菜眾長</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><lastBuildDate>Sat, 30 Apr 2022 22:04:29 +0800</lastBuildDate><atom:link href="https://lruihao.cn/categories/css/" rel="self" type="application/rss+xml"/><item><title>关于 CSS 和 Scss 变量运算那些事</title><link>https://lruihao.cn/posts/css-scss-var/</link><pubDate>Sat, 30 Apr 2022 22:04:29 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/css-scss-var/</guid><description><![CDATA[<h2 id="问题分析">问题分析</h2>
+<p>昨天在开发 FixIt 的时候，在 Scss 中写 <code>max(foo, bar)</code> 函数比较不同的单位变量时报错了，但是在 CSS 中使用 <code>max</code> 或者 <code>min</code> 函数函数比较不同的单位变量是没有问题的。</p>
+<p>造成这一问题的原因是，在 Scss 中，也实现了 <code>max</code> 和 <code>min</code> 函数，但是在 Scss 中，<strong>不同单位的变量是不能进行运算的</strong>，所以使得在 Scss 中直接使用 <code>max</code> 或者 <code>min</code> 函数会提示单位不同的报错。（同类 Less 中的变量运算是支持不同单位的）</p>
+<p>知道造成问题的原因后，解决这个问题就很简单了，有很多种方法，有些方法感觉像在卡 BUG，有点意思，记录一下。</p>
+<h2 id="奇思淫技">奇思淫技</h2>
+<ol>
+<li>
+<p>由于 <strong>Scss 区分大小写而 CSS 不区分</strong>，所以为了不让 Scss 中的函数覆盖 CSS 的函数，我们可以使用除了 <code>max</code> 以外的 2<sup>3</sup> - 1 种写法，这样就能使用原生 CSS 的 <code>max</code> 函数来比较了，就不会报错了。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-scss" data-lang="scss"><span class="line"><span class="cl"><span class="nc">.foo</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="na">padding-left</span><span class="o">:</span> <span class="nf">MAX</span><span class="p">(</span><span class="mi">10</span><span class="kt">vh</span><span class="o">,</span> <span class="mi">3</span><span class="mf">.5</span><span class="kt">rem</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>使用 Scss 没有的 CSS 函数 <a href="https://developer.mozilla.org/zh-CN/docs/web/css/clamp"target="_blank" rel="external nofollow noopener noreferrer"><code>clamp</code><i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>:</p>
+<p><code>clamp(MIN, VAL, MAX)</code> 其实就是表示 <code>max(MIN, min(VAL, MAX))</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-scss" data-lang="scss"><span class="line"><span class="cl"><span class="nc">.foo</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="na">padding-left</span><span class="o">:</span> <span class="nf">clamp</span><span class="p">(</span><span class="nv">$header-height</span><span class="o">,</span> <span class="mi">10</span><span class="kt">vh</span><span class="o">,</span> <span class="mi">10</span><span class="kt">vh</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>使用 <code>unquote($string)</code> 函数让 Scss 删除字符串最前和最后的单引号或双引号</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-scss" data-lang="scss"><span class="line"><span class="cl"><span class="nc">.foo</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="na">padding-left</span><span class="o">:</span> <span class="nf">unquote</span><span class="p">(</span><span class="s1">&#39;max(10vh, </span><span class="si">#{</span><span class="nv">$header-height</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ol>
+<h2 id="by-the-way">By the way</h2>
+<p>如果需要在 CSS 函数内部恢复 <code>Scss</code> 解析（引用 <code>Scss</code> 变量），只需用 <code>#{...}</code> 包围 Scss 代码。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-scss" data-lang="scss"><span class="line"><span class="cl"><span class="nv">$header-height</span><span class="o">:</span> <span class="mi">3</span><span class="mf">.5</span><span class="kt">rem</span> <span class="k">!default</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nc">.foo</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="na">margin</span><span class="o">:</span> <span class="nf">calc</span><span class="p">(</span><span class="mi">10</span><span class="kt">vh</span> <span class="o">-</span> <span class="nv">$header-height</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面的 Scss 将解析成 以下无效的 CSS 代码：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-css" data-lang="css"><span class="line"><span class="cl"><span class="p">.</span><span class="nc">foo</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">margin</span><span class="p">:</span> <span class="nb">calc</span><span class="p">(</span><span class="mi">10</span><span class="kt">vh</span> <span class="o">-</span> <span class="err">$</span><span class="n">header</span><span class="o">-</span><span class="n">height</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>用 <code>#{...}</code> 包围 Scss 变量</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-scss" data-lang="scss"><span class="line"><span class="cl"><span class="nv">$header-height</span><span class="o">:</span> <span class="mi">3</span><span class="mf">.5</span><span class="kt">rem</span> <span class="k">!default</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nc">.foo</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="na">margin</span><span class="o">:</span> <span class="nf">calc</span><span class="p">(</span><span class="mi">10</span><span class="kt">vh</span> <span class="o">-</span> <span class="si">#{</span><span class="nv">$header-height</span><span class="si">}</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div>]]></description></item><item><title>less&amp;sass&amp;scss</title><link>https://lruihao.cn/posts/less-sass-scss/</link><pubDate>Tue, 22 Jun 2021 16:39:47 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/less-sass-scss/</guid><description><![CDATA[<blockquote>
+<p>Sass 和 Less 都屬於 <strong>CSS 前置處理器</strong>，CSS 前置處理器定義了一種新的語言，其基本思想是，用一種專門的程式設計語言，為 CSS 增加了一些程式設計的特性，將 CSS 作為目標生成檔，然後開發者就只要使用這種語言進行 CSS 的編碼工作。<br>
+轉化成通俗易懂的話來說就是 <strong>“用一種專門的程式設計語言，進行 Web 頁面樣式設計，再通過編譯器轉化為正常的 CSS 檔，以供專案使用”。</strong></p>
+</blockquote>
+<h2 id="為什麼什麼時候要使用-css-前置處理器-why-when">為什麼，什麼時候要使用 CSS 前置處理器？ (Why, When)</h2>
+<p><strong>CSS 有具體以下幾個缺點：</strong></p>
+<ul>
+<li>語法不夠強大，比如無法嵌套書寫，導致模組化開發中需要書寫很多重複的選擇器</li>
+<li>沒有變數和合理的樣式複用機制，使得邏輯上相關的屬性值必須以字面量的形式重複輸出，導致難以維護</li>
+</ul>
+<p>這就導致了我們在工作中無端增加了許多工作量。<strong>而使用 CSS 前置處理器可大大提高了我們的開發效率：</strong></p>
+<ul>
+<li>提供 CSS 缺失的樣式層複用機制</li>
+<li>減少冗餘碼</li>
+<li>提高樣式代碼的可維護性。</li>
+</ul>
+<p>但是，CSS 的好處在於簡便、隨時隨地被使用和調試。<strong>這就使得預編譯 CSS 步驟的加入具有以下缺點：</strong></p>
+<ul>
+<li>開發工作流中多了一個環節，調試也變得更麻煩</li>
+<li>預編譯很容易造成後代選擇器的濫用</li>
+</ul>
+<p>所以我們在實際項目中衡量預編譯方案時，還是得想想，比起帶來的額外維護開銷，CSS 前置處理器有沒有解決更大的麻煩。</p>
+<ul>
+<li>系統級框架開發 （大型複雜的樣式設計）</li>
+<li>持續維護</li>
+</ul>
+<h2 id="lesssassscss-是什麼-what">Less、Sass/Scss 是什麼？ (What)</h2>
+<h3 id="less">Less</h3>
+<p>是一種動態樣式語言。對 CSS 賦予了動態語言的特性，如變數、繼承、運算、函數。<br>
+Less 既可以在用戶端上運行 （支援 IE 6+, Webkit, Firefox)，也可在服務端運行。</p>
+<h3 id="sass">Sass</h3>
+<p>是一種動態樣式語言，Sass 語法屬於縮排語法，<br>
+比 CSS 比多出好些功能（如變數、嵌套、運算，混入 (Mixin)、繼承、顏色處理，函數等），更容易閱讀。</p>
+<h3 id="sass-與-scss-的關係">Sass 與 Scss 的關係</h3>
+<p>Sass 的縮排語法，對於寫慣 CSS 的前端開發者來說很不直觀，也不能將 CSS 代碼加入到 Sass 裡面，因此 Sass 語法進行了改良，Sass 3 就變成了 Scss(Sassy CSS)。與原來的語法相容，只是用<code>{}</code>取代了原來的縮進。Sass 相當於 Scss 的嚴格模式。</p>
+<h2 id="sass-和-less-的比較">Sass 和 Less 的比較</h2>
+<h3 id="相同點">相同點</h3>
+<p>Less 和 Sass 在語法上有些共性，比如下面這些：</p>
+<ol>
+<li>混入 (Mixins)——class 中的 class</li>
+<li>參數混入——可以傳遞參數的 class，就像函數一樣</li>
+<li>嵌套規則——Class 中嵌套 class，從而減少重複的代碼</li>
+<li>運算——CSS 中用上數學</li>
+<li>顏色功能——可以編輯顏色</li>
+<li>名字空間 (namespace)——分組樣式，從而可以被調用</li>
+<li>作用域——局部修改樣式</li>
+<li>JavaScript 賦值——在 CSS 中使用 JavaScript 運算式賦值</li>
+</ol>
+<h3 id="不同點">不同點</h3>
+<ol>
+<li>實現方式</li>
+</ol>
+<ul>
+<li>Less 是基於 JavaScript，是在用戶端處理的</li>
+<li>Sass 是基於 Ruby 的，是在伺服器端處理的</li>
+</ul>
+<ol start="2">
+<li>關於變數在 Less 和 Sass 中的唯一區別就是 Less 用<code>@</code>，Sass 用<code>$</code></li>
+<li>less 中的變量運算可帶、可不帶單位，Sass 需要帶單位元</li>
+<li>語法不同，請詳見 Less、Sass 官網</li>
+</ol>
+<h2 id="選用-less-還是-sass-">選用 Less 還是 Sass ?</h2>
+<p>無論是學習資料，討論情況，以及項目使用情況 Sass/Scss 都優於 Less，比如 Bootstrap 4 就使用的 Sass, 但是 Less 的使用更加簡單，使用門檻也較低，內網開發的情況，Less 則更加適合。</p>]]></description></item></channel></rss>

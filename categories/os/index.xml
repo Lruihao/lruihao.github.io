@@ -1,0 +1,1166 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>OS - 分类 - 菠菜眾長</title><link>https://lruihao.cn/categories/os/</link><description>OS - 分类 - 菠菜眾長</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><lastBuildDate>Sun, 07 Aug 2022 00:10:30 +0800</lastBuildDate><atom:link href="https://lruihao.cn/categories/os/" rel="self" type="application/rss+xml"/><item><title>不同系统的换行符的差异</title><link>https://lruihao.cn/posts/newline/</link><pubDate>Sun, 07 Aug 2022 00:10:30 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/newline/</guid><description><![CDATA[<p>换行符（通常称为行尾、行尾 (EOL)、下一行 (NEL) 或换行符）是字符编码规范（例如，ASCII、EBCDIC）中的控制字符或控制字符序列，用于表示一行文本的结尾和新文本的开头。</p>
+<p>周五下班的时候想在 windows 电脑上跑一下 FixIt 看看有没有什么 bug, 然后就发现了 typyit shortcode 开头多出一行空行，mermaid shortcode 则直接语法报错了。</p>
+<p>看了一下代码明明有 trim <code>\n</code> 处理，而且 Vercel 打包和 Mac 上运行打包都没问题。debug 了一下才发现 Windows 系统上的换行是 <code>\r\n</code>, 而 Mac 系统上的换行是 <code>\n</code>。于是查了一下不同系统的换行符的差异问题。</p>
+<h2 id="历史">历史</h2>
+<p>简单来说，回车换行这些说法是从打字机那个时代开始叫的，然后在不同的标准下换行符有不同的表现符号。</p>
+<p>Windows 系统设计遵循了 <code>CR + LF</code> 的约定，而 Unix 系统则遵循了 <code>LF</code> 的约定，之后的 类 Unix (Linux, macOS) 系统也遵循了 <code>LF</code> 的约定。</p>
+<p>当然也有异类，老版的 mac 系统使用 <code>CR</code> 作为换行符。</p>
+<h2 id="表示">表示</h2>
+<ul>
+<li><code>CR</code> 回车：<code>\r</code></li>
+<li><code>LF</code> 换行：<code>\n</code></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>操作系统</th>
+<th>换行符号</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Windows</td>
+<td><code>\r\n</code></td>
+</tr>
+<tr>
+<td>Unix、Linux、MacOS</td>
+<td><code>\n</code></td>
+</tr>
+<tr>
+<td>classic Mac OS</td>
+<td><code>\r</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="问题">问题</h2>
+<p>由于这个差异，会导致文本类的文件在跨系统浏览时会产生一些差异，比如说，Mac 的文本文件在 Windows 打开会全部挤在一行等等。</p>
+<p>对于开发人员来说，这很有可能导致某些程序失效，比如正则去除空行等等。</p>
+<p>甚至因此，Linux 系统下提供有两个命令用来进行 Windows 和 Unix 文件的转化：<code>dos2unix</code>和 <code>unix2dos</code>。</p>
+<h2 id="参考">参考</h2>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Newline"target="_blank" rel="external nofollow noopener noreferrer">Newline<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+</ul>]]></description></item><item><title>linux 文件权限</title><link>https://lruihao.cn/posts/linux-permission/</link><pubDate>Sat, 30 Jul 2022 17:15:44 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/linux-permission/</guid><description><![CDATA[<p>记录 linux 系统下文件权限相关的内容，Mac OS 下类似。</p>
+<h2 id="查看文件权限">查看文件权限</h2>
+<p>查看 linux 系统下的文件权限，可以使用 <code>ll</code> 命令或者 <code>ls</code> 命令 带 <code>-l</code>（长列表选项）</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">➜  ~ ll
+</span></span><span class="line"><span class="cl">total <span class="m">160</span>
+</span></span><span class="line"><span class="cl">drwx------@  <span class="m">8</span> liruihao  staff   256B Jul  <span class="m">5</span> 14:47 Applications
+</span></span><span class="line"><span class="cl">drwx------@ <span class="m">10</span> liruihao  staff   320B Jul <span class="m">27</span> 11:31 Desktop
+</span></span><span class="line"><span class="cl">drwx------+  <span class="m">7</span> liruihao  staff   224B Jun <span class="m">17</span> 15:01 Documents
+</span></span><span class="line"><span class="cl">drwx------@ <span class="m">22</span> liruihao  staff   704B Jul <span class="m">29</span> 16:35 Downloads
+</span></span><span class="line"><span class="cl">drwx------@ <span class="m">94</span> liruihao  staff   2.9K Jul <span class="m">23</span> 19:02 Library
+</span></span><span class="line"><span class="cl">drwx------   <span class="m">4</span> liruihao  staff   128B Nov <span class="m">13</span>  <span class="m">2021</span> Movies
+</span></span><span class="line"><span class="cl">drwx------+  <span class="m">6</span> liruihao  staff   192B Nov <span class="m">18</span>  <span class="m">2021</span> Music
+</span></span><span class="line"><span class="cl">drwx------+  <span class="m">9</span> liruihao  staff   288B Apr <span class="m">26</span> 10:25 Pictures
+</span></span><span class="line"><span class="cl">drwxr-xr-x+  <span class="m">5</span> liruihao  staff   160B Nov <span class="m">14</span>  <span class="m">2021</span> Public
+</span></span><span class="line"><span class="cl">drwxr-xr-x   <span class="m">5</span> liruihao  staff   160B Jul <span class="m">29</span> 17:48 file-share
+</span></span><span class="line"><span class="cl">drwxr-xr-x   <span class="m">3</span> liruihao  staff    96B Jul <span class="m">26</span> 17:17 node_modules
+</span></span><span class="line"><span class="cl">-rw-r--r--   <span class="m">1</span> liruihao  staff    27B Jun <span class="m">24</span> 13:47 package-lock.json
+</span></span><span class="line"><span class="cl">drwxr-xr-x  <span class="m">20</span> liruihao  staff   640B Jul <span class="m">29</span> 22:20 workspace
+</span></span><span class="line"><span class="cl">-rw-r--r--   <span class="m">1</span> liruihao  staff    86B Jul <span class="m">26</span> 17:17 yarn.lock
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>文件列表信息分为：文件类型、权限、链接数、所属用户、所属用户组、文件大小、最后修改时间、文件名。</p>
+<h2 id="文件类型">文件类型</h2>
+<p>linux 一共有 7 种文件类型，分别如下：</p>
+<ul>
+<li>
+<p><code>-</code>: 普通文件</p>
+</li>
+<li>
+<p><code>d</code>: 目录文件</p>
+</li>
+<li>
+<p><code>l</code>: 链接文件</p>
+</li>
+<li>
+<p><code>b</code>: 块设备文件</p>
+</li>
+<li>
+<p><code>p</code>: 管道文件</p>
+</li>
+<li>
+<p><code>c</code>: 字符设备文件</p>
+</li>
+<li>
+<p><code>s</code>: 套接口文件/数据接口文件</p>
+<p><em>后四种是特殊文件</em></p>
+</li>
+</ul>
+<h2 id="文件权限对应关系">文件权限对应关系</h2>
+<table>
+<thead>
+<tr>
+<th>权限</th>
+<th>含义</th>
+<th>对应数字</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>r</td>
+<td>读权限</td>
+<td>4</td>
+</tr>
+<tr>
+<td>w</td>
+<td>写权限</td>
+<td>2</td>
+</tr>
+<tr>
+<td>x</td>
+<td>执行权限</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<p>读、写、运行三项权限用数字表示就是 <strong>r=4,w=2,x=1</strong>。所以，<code>-rw-r--r--</code> 用数字表示成 644。</p>
+<p>权限字段 <code>-rwxrwxrwx</code> 的内容总共会有 10 个 <code>-</code>，第一个表示文件类型，如该文件是<strong>文件 (-表示）</strong>，<strong>文件夹 (d 表示）</strong>, <strong>连接文件 (l 表示）</strong>，后面 9 个按照每三位为一组分。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">drwxr-xr-x   <span class="m">5</span> liruihao  staff   160B Jul <span class="m">29</span> 17:48 file-share
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>d</strong>: 代表文件夹</p>
+<p><strong>rwx</strong>: 代表文件所有者 (u 表示）权限，这里是 liruihao，liruihao 对该文件拥有读写执行权限。</p>
+<p><strong>r-x</strong>: 代表所属（g 表示）的权限，这里同组用户拥有对该文件读和执行的权限。</p>
+<p><strong>r-x</strong>: 代表其他用户（o 表示）的权限，这里和上面权限一样。</p>]]></description></item><item><title>Cron 表达式的基本语法</title><link>https://lruihao.cn/posts/cron/</link><pubDate>Wed, 25 Mar 2020 09:19:44 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/cron/</guid><description><![CDATA[<h2 id="基本语法">基本语法</h2>
+<blockquote>
+<p><code>&lt;秒&gt; &lt;分钟&gt; &lt;小时&gt; &lt;日期 day-of-month&gt; &lt;月份&gt; &lt;星期 day-of-week&gt;</code></p>
+</blockquote>
+<p>Cron 表达式是一个具有时间含义的字符串，字符串以 5 个空格隔开，分为 6 个域，格式为 <code>X X X X X X</code>。其中 X 是一个域的占位符。单个域有多个取值时，使用半角逗号，隔开取值。每个域可以是确定的取值，也可以是具有逻辑意义的特殊字符。</p>
+<h2 id="域取值">域取值</h2>
+<table>
+<thead>
+<tr>
+<th>位置</th>
+<th>字段</th>
+<th>约束</th>
+<th>取值</th>
+<th>可使用的特殊符号</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>秒</td>
+<td>必须</td>
+<td>0-59</td>
+<td><code>, - * /</code></td>
+</tr>
+<tr>
+<td>2</td>
+<td>分钟</td>
+<td>必须</td>
+<td>0-59</td>
+<td><code>, - * /</code></td>
+</tr>
+<tr>
+<td>3</td>
+<td>小时</td>
+<td>必须</td>
+<td>0-23（0 为午夜）</td>
+<td><code>, - * /</code></td>
+</tr>
+<tr>
+<td>4</td>
+<td>日期</td>
+<td>必须</td>
+<td>1-31</td>
+<td><code>, - * ? / L W</code></td>
+</tr>
+<tr>
+<td>5</td>
+<td>月份</td>
+<td>必须</td>
+<td>1-12 或者 JAN-DEC</td>
+<td><code>, - * /</code></td>
+</tr>
+<tr>
+<td>6</td>
+<td>星期</td>
+<td>必须</td>
+<td>1-7 或者 SUN-SAT (<code>1</code> 代表星期一）</td>
+<td><code>, - ? / L #</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="特殊符号">特殊符号</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">符号</th>
+<th style="text-align:left">含义</th>
+<th style="text-align:left">示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>*</code></td>
+<td style="text-align:left">所有可能的值。</td>
+<td style="text-align:left">在月域中，<code>*</code>表示每个月；在星期域中，<code>*</code>表示星期的每一天。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>,</code></td>
+<td style="text-align:left">列出枚举值。</td>
+<td style="text-align:left">在分钟域中，<code>5,20</code>表示分别在 5 分钟和 20 分钟触发一次。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>-</code></td>
+<td style="text-align:left">范围。</td>
+<td style="text-align:left">在分钟域中，<code>5-20</code>表示从 5 分钟到 20 分钟之间每隔一分钟触发一次。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>/</code></td>
+<td style="text-align:left">指定数值的增量。</td>
+<td style="text-align:left">在分钟域中，<code>0/15</code>表示从第 0 分钟开始，每 15 分钟。在分钟域中<code>3/20</code>表示从第 3 分钟开始，每 20 分钟。<strong>*/</strong> 和 <strong>0/</strong> 相同</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>?</code></td>
+<td style="text-align:left">不指定值，仅日期和星期域支持该字符。</td>
+<td style="text-align:left">当日期或星期域其中之一被指定了值以后，为了避免冲突，需要将另一个域的值设为<code>?</code>。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>L</code></td>
+<td style="text-align:left">单词 Last 的首字母，表示最后一天，仅日期和星期域支持该字符。<strong>说明</strong> 指定<code>L</code>字符时，避免指定列表或者范围，否则，会导致逻辑问题。</td>
+<td style="text-align:left">在日期域中，<code>L</code>表示某个月的最后一天。在星期域中，<code>L</code>表示一个星期的最后一天，也就是星期日（<code>SUN</code>）。如果在<code>L</code>前有具体的内容，例如，在星期域中的<code>6L</code>表示这个月的最后一个星期六。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>W</code></td>
+<td style="text-align:left">除周末以外的有效工作日，在离指定日期的最近的有效工作日触发事件。<code>W</code>字符寻找最近有效工作日时不会跨过当前月份，连用字符<code>LW</code>时表示为指定月份的最后一个工作日。</td>
+<td style="text-align:left">在日期域中<code>5W</code>，如果 5 日是星期六，则将在最近的工作日星期五，即 4 日触发。如果 5 日是星期天，则将在最近的工作日星期一，即 6 日触发；如果 5 日在星期一到星期五中的一天，则就在 5 日触发。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>#</code></td>
+<td style="text-align:left">确定每个月第几个星期几，仅星期域支持该字符。</td>
+<td style="text-align:left">在星期域中，<code>4#2</code>表示某月的第二个星期四。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="举个栗子-">举个栗子 🌰</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">表达式</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>0 0/5 * * * ?</code></td>
+<td style="text-align:left">每隔 5 分钟执行一次</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>10 0/5 * * * ?</code></td>
+<td style="text-align:left">每隔 5 分钟执行一次，每次执行都在分钟开始的 10 秒，例如 10:00:10、10:05:10 等等。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>0 30 10-13 ? * WED,FRI</code></td>
+<td style="text-align:left">每周三和每周五的 10:30、11:30、12:30、13:30 执行。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>0 0/30 8-9 5,20 * ?</code></td>
+<td style="text-align:left">每个月的 5 号和 20 号的 8 点和 10 点之间每隔 30 分钟执行一次，也就是 8:00、8:30、9:00 和 9:30。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>0 15 10 ? * *</code></td>
+<td style="text-align:left">每天上午 10:15 执行任务</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>0 15 10 * * ?</code></td>
+<td style="text-align:left">每天上午 10:15 执行任务</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>0 0 12 * * ?</code></td>
+<td style="text-align:left">每天中午 12:00 执行任务</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>0 0 10,14,16 * * ?</code></td>
+<td style="text-align:left">每天上午 10:00 点、下午 14:00 以及下午 16:00 执行任务</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>0 0/30 9-17 * * ?</code></td>
+<td style="text-align:left">每天上午 09:00 到下午 17:00 时间段内每隔半小时执行任务</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>0 * 14 * * ?</code></td>
+<td style="text-align:left">每天下午 14:00 到下午 14:59 时间段内每隔 1 分钟执行任务</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>0 0-5 14 * * ?</code></td>
+<td style="text-align:left">每天下午 14:00 到下午 14:05 时间段内每隔 1 分钟执行任务</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>0 0/5 14 * * ?</code></td>
+<td style="text-align:left">每天下午 14:00 到下午 14:55 时间段内每隔 5 分钟执行任务</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>0 0/5 14,18 * * ?</code></td>
+<td style="text-align:left">每天下午 14:00 到下午 14:55、下午 18:00 到下午 18:55 时间段内每隔 5 分钟执行任务</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>0 0 12 ? * WED</code></td>
+<td style="text-align:left">每个星期三中午 12:00 执行任务</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>0 15 10 15 * ?</code></td>
+<td style="text-align:left">每月 15 日上午 10:15 执行任务</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>0 15 10 L * ?</code></td>
+<td style="text-align:left">每月最后一日上午 10:15 执行任务</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>0 15 10 ? * 6L</code></td>
+<td style="text-align:left">每月最后一个星期六上午 10:15 执行任务</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>0 15 10 ? * 6#3</code></td>
+<td style="text-align:left">每月第三个星期六上午 10:15 执行任务</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>0 10,44 14 ? 3 WED</code></td>
+<td style="text-align:left">每年 3 月的每个星期三下午 14:10 和 14:44 执行任务</td>
+</tr>
+</tbody>
+</table>]]></description></item><item><title>本地搭建网站服务器并穿透内网</title><link>https://lruihao.cn/posts/ngrok/</link><pubDate>Wed, 03 Apr 2019 19:29:43 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/ngrok/</guid><description><![CDATA[<blockquote>
+<p>一直都想在自己电脑上搭建一个网站或者把自己的电脑做成服务器，今天终于简单实现了。还有很多知识需要学习，简单记录一下。</p>
+</blockquote>
+<h2 id="搭建环境">搭建环境</h2>
+<p>我的电脑是<code>ubuntu+windows</code>双系统的，所以我先在 ubuntu 上面装了一个宝塔面板，方便通过 web 管理电脑，宝塔安装好后安装相关的环境<code>mysql,php,nginx</code>等。我们现在只能通过本地 ip<code>127.0.0.1:8888</code>访问面板。</p>
+<h2 id="ngrok-穿透">ngrok 穿透</h2>
+<p>去 ngrok 注册登录，购买隧道（有免费的），然后绑定端口，绑定域名，这里我们拿端口<code>8888</code>和域名<code>test.lruihao.cn</code>做实验，也就是宝塔面板的端口，这样我们就可以透过域名远程访问本地服务器，这样是不是开始有云服务器的感觉了。然后宝塔面板设置也绑定好域名<code>test.lruihao.cn</code>,dns 服务商那里做好相应的解析。<br>
+然后在 ngrok 那里下载 sunny 客户端文件，我们是 ubuntu 选择<code>linux-64bits</code>版本。解压后在 ubuntu 打开终端进入 sunny 文件目录，权限给到 755，运行命令<code>./sunny clientid xxxxxxx</code> 后面的你的隧道订单的 id。</p>
+<p>现在就可以通过互联网访问我的 ubuntu 服务器了。</p>
+<h2 id="搭建网站">搭建网站</h2>
+<p>前面两步搞定，搭建网站就没问题了。<br>
+我们只要把网站的端口按第二步的在 ngrok 设置好就可以穿透了。</p>
+<h2 id="注意">注意</h2>
+<p>访问本地网站的必要条件是你的电脑得是开机状态而且有网络。</p>]]></description></item><item><title>ubuntu + windows 双系统默认启动项设置</title><link>https://lruihao.cn/posts/windefault/</link><pubDate>Thu, 21 Mar 2019 12:48:30 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/windefault/</guid><description><![CDATA[<div class="featured-image">
+        <img src="/posts/windefault/images/1.png" referrerpolicy="no-referrer">
+      </div><blockquote>
+<p>双系统默认启动项是 Ubuntu，而日常使用最多的还是 Windows，所以说很不方便，一不小心就开机到 Ubuntu 去了。今天来设置一下。</p>
+</blockquote>
+<h2 id="修改etcdefaultgrub文件">修改<code>/etc/default/grub</code>文件</h2>
+<blockquote>
+<p>同时按住键盘上的“Ctrl Alt T”三个键（即快捷键“Ctrl+Alt+T”），打开终端窗口。在终端内输入 sudo gedit /etc/default/grub 按 Enter 键确认，提示输入用户密码，输入的用户密码是看不见的，不要管它，输入完成确认即可打开 grub 文件。</p>
+</blockquote>
+<p></p>
+<blockquote>
+<p>把 grub 文件中的 <code>GRUB_DEFAULT=0</code> 中的 0 改为 <code>saved</code>, 把 <code>GRUB_TIMEOUT=10</code> 中的 10 改为 5。（这里的 5 表示开机时等待选择操作系统是时间是 5 秒）<br>
+在文件末尾添加 <code>GRUB_SAVEDEFAULT=true</code>后保存文件并退出。</p>
+</blockquote>
+<p></p>
+<h2 id="更新启动配置文件">更新启动配置文件</h2>
+<blockquote>
+<p>在终端输入 sudo update-grub 按 Enter 键确认</p>
+</blockquote>
+<p></p>
+<h2 id="重启">重启</h2>
+<p><code>sudo reboot</code>或者点击重启，重启到启动菜单时，选择你要更改为默认启动项的系统，按 Enter 键确认启动即可，下次启动时刚刚选择的系统即为默认启动系统，直到你手动选择启动其他的系统为止。以后可以轻松的来回切换默认系统了。</p>]]></description></item><item><title>宝塔面板安装</title><link>https://lruihao.cn/posts/bt/</link><pubDate>Mon, 18 Mar 2019 21:31:43 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/bt/</guid><description><![CDATA[<div class="featured-image">
+        <img src="/posts/bt/images/1.png" referrerpolicy="no-referrer">
+      </div><p>极速方便的一键配置与管理，免除繁琐的命令行操作，通过 Web 面板一键即可操作实现。可选择安装 lamp 或者 lnmp 环境，可创建及管理网站，可创建及管理数据库，可创建及管理 FTP 等等。<a href="https://www.bt.cn/?invite_code=MV9sYXJnZHI="target="_blank" rel="external nofollow noopener noreferrer">宝塔官网介绍<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
+<h2 id="系统要求">系统要求</h2>
+<blockquote>
+<p>操作系统：全新系统（支持 CentOS、Ubuntu、Debian、Fedora、Deepin)，<br>
+确保是干净的操作系统，没有安装过其它环境带的 Apache/Nginx/php/MySQL<br>
+宝塔 Linux6.0 版本是基于 centos7 开发的，强烈建议使用 centos7.x 系统<br>
+内存要求：内存要求最低 512MB，推荐 768MB 以上，纯面板约占系统 60MB 内存.</p>
+</blockquote>
+<h2 id="安装方法">安装方法</h2>
+<p>官方号称 2 分钟装好面板，一键管理服务器。</p>
+<blockquote>
+<p>使用 SSH 连接工具，如宝塔远程桌面助手连接到您的 Linux 服务器后，挂载磁盘，根据系统执行相应命令开始安装（大约 2 分钟完成面板安装）：</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Shell" data-lang="Shell"><span class="line"><span class="cl">yum install -y wget <span class="o">&amp;&amp;</span> wget -O install.sh http://download.bt.cn/install/install_6.0.sh <span class="o">&amp;&amp;</span> sh install.sh
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Shell" data-lang="Shell"><span class="line"><span class="cl">wget -O install.sh http://download.bt.cn/install/install-ubuntu_6.0.sh <span class="o">&amp;&amp;</span> sudo bash install.sh
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Shell" data-lang="Shell"><span class="line"><span class="cl">wget -O install.sh http://download.bt.cn/install/install-ubuntu_6.0.sh <span class="o">&amp;&amp;</span> bash install.sh
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Shell" data-lang="Shell"><span class="line"><span class="cl">wget -O install.sh http://download.bt.cn/install/install_6.0.sh <span class="o">&amp;&amp;</span> bash install.sh
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p></p>
+<h2 id="搭建-ftp-和云盘服务器">搭建 ftp 和云盘服务器</h2>
+<p>可以很傻瓜式的搭建自己的云盘，和平时用的比较多的 ftp 服务器。搭建静态网站也可以用 ftp 来上传文件。</p>]]></description></item><item><title>win10,ubuntu 双系统时间不一致</title><link>https://lruihao.cn/posts/ubuntutime/</link><pubDate>Fri, 15 Mar 2019 14:28:10 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/ubuntutime/</guid><description><![CDATA[<blockquote>
+<p>我的 Ubuntu 和 Windows 双系统是 Ubuntu 是第一启动项，所以总是开机忘记点下键，一进 Ubuntu 系统时间就不对了（总是少了 8 小时），回到 Windows 时间也是错的。知道是错的调整一下还好。忘记调了有时候真的会误事。比如说 git 版本控制提交会遇到问题种种等。</p>
+</blockquote>
+<h2 id="原因">原因</h2>
+<p>在安装 Ubuntu 和 Windows 双系统的情况下，Ubuntu 的时间总会和 Windows 的时间相差 8 小时，原因在于 widows 认为 BIOS 时间是本地时间，Ubuntu 认为 BIOS 时间是 UTC 时间，即协调世界时，(Universal Time Coordinated) 英文缩写，是由国际无线电咨询委员会规定和推荐，并由国际时间局 (BIH) 负责保持的以秒为基础的时间标度。UTC 相当于本初子午线（即经度 0 度）上的平均太阳时，过去曾用格林威治平均时 (GMT) 来表示。北京时间比 UTC 时间早 8 小时，以 1999 年 1 月 1 日 00:00 UTC 为例，UTC 时间是零点，北京时间为 1999 年 1 月 1 日早上 8 点整。)，所以我们在时间上面相隔了 8 个小时。这个时候 bios 的时间和系统的时间当然是不一致，一个代表 utc 时间，一个代表 cst（＋ 8 时区），即我们常用的时间。</p>
+<h2 id="方法一">方法一</h2>
+<p>在 Windows 下 进行如下修改：（博主 win10,win7 自测）<br>
+以管理员身份运行 CMD（<code>win+x 后选择 Windows Powershell（管理员）</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">Reg add HKLM\SYSTEM\CurrentControlSet\Control\TimeZoneInformation /v RealTimeIsUniversal /t REG_DWORD /d 1
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>重启看看时间发现 ok 了。</p>
+<h2 id="方法二">方法二</h2>
+<p>老版 Ubuntu（Ubuntu10 左右）：<br>
+修改 <code>/etc/default/rcS</code> 文件<br>
+编辑 <code>/etc/default/rcS</code> 将 <code>UTC=yes</code>改成 <code>UTC=no</code> 。</p>
+<p>新版 Ubuntu（Ubuntu16.04）：
+新版本的 Ubuntu 使用 systemd 启动之后，时间也改成了由 timedatectl 来管理，此方法就不适用了。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">$sudo timedatectl set-local-rtc 1
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>先在 ubuntu 下更新一下时间，确保时间无误：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">$sudo apt-get install ntpdate
+</span></span><span class="line"><span class="cl">$sudo ntpdate time.windows.com
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>然后将时间更新到硬件上：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">$sudo hwclock --localtime --systohc
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>重新进入 windows10，发现时间恢复正常了！</p>]]></description></item><item><title>磁盘存储器的管理</title><link>https://lruihao.cn/posts/cipanadmin/</link><pubDate>Mon, 04 Mar 2019 23:08:32 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/cipanadmin/</guid><description><![CDATA[<h2 id="外存的组织方式">外存的组织方式</h2>
+<h3 id="连续组织方式">连续组织方式</h3>
+<ul>
+<li>
+<p>连续组织方式的优点</p>
+<ul>
+<li>顺序访问容易</li>
+<li>顺序访问速度快</li>
+</ul>
+</li>
+<li>
+<p>连续组织方式的缺点</p>
+<ul>
+<li>分配连续的存储空间</li>
+<li>必须知道文件长度</li>
+<li>删除与插入数据不灵活</li>
+<li>动态增长的文件分配空间问题</li>
+</ul>
+</li>
+</ul>
+<h3 id="链接组织方式">链接组织方式</h3>
+<ul>
+<li>隐式链接</li>
+<li>显式链接</li>
+</ul>
+<h3 id="fat-技术">FAT 技术</h3>
+<ul>
+<li>
+<p>FAT12</p>
+<ul>
+<li>早期的 FAT12 文件系统</li>
+<li>以簇为单位的 FAT12 文件系统</li>
+</ul>
+</li>
+<li>
+<p>FAT16</p>
+</li>
+<li>
+<p>FAT32</p>
+</li>
+</ul>
+<h3 id="ntfs-的文件组织方式">NTFS 的文件组织方式</h3>
+<ul>
+<li>NTFS 新特征</li>
+<li>磁盘组织</li>
+<li>文件的组织</li>
+</ul>
+<h3 id="索引组织方式">索引组织方式</h3>
+<ul>
+<li>
+<p>单级索引组织方式</p>
+</li>
+<li>
+<p>多级索引组织方式</p>
+</li>
+<li>
+<p>增量式索引组织方式</p>
+<ul>
+<li>
+<p>增量式索引组织方式的基本思想</p>
+</li>
+<li>
+<p>UNIX System V 的组织方式</p>
+<ul>
+<li>直接地址</li>
+<li>一次间接地址</li>
+<li>多次间接地址</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="文件存储空间的管理">文件存储空间的管理</h2>
+<h3 id="空闲表法和空闲链表法">空闲表法和空闲链表法</h3>
+<ul>
+<li>
+<p>空闲表法</p>
+<ul>
+<li>空闲表</li>
+<li>存储空间的分配与回收</li>
+</ul>
+</li>
+<li>
+<p>空闲链表法</p>
+<ul>
+<li>空闲盘块链</li>
+<li>空闲盘区链</li>
+</ul>
+</li>
+</ul>
+<h3 id="位示图法">位示图法</h3>
+<ul>
+<li>
+<p>位示图</p>
+</li>
+<li>
+<p>盘块的分配（步骤）</p>
+<ul>
+<li>
+<ol>
+<li>顺序扫描示图</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>转换盘块号</li>
+</ol>
+</li>
+<li>
+<ol start="3">
+<li>修改位示图</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>
+<p>盘块的回收（步骤）</p>
+<ul>
+<li>
+<ol>
+<li>盘块号转换成行列号</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>修改位示图</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="成组链接法">成组链接法</h3>
+<ul>
+<li>空闲盘块的组织</li>
+<li>空闲盘块的分配与回收</li>
+</ul>
+<h2 id="提高磁盘-io-速度的途径">提高磁盘 I/O 速度的途径</h2>
+<h3 id="磁盘高速缓存">磁盘高速缓存</h3>
+<ul>
+<li>
+<p>数据交付方式</p>
+<ul>
+<li>数据交付</li>
+<li>指针交付</li>
+</ul>
+</li>
+<li>
+<p>置换算法</p>
+</li>
+<li>
+<p>周期性地写回磁盘</p>
+</li>
+</ul>
+<h3 id="提高磁盘-io-速度的其他方法">提高磁盘 I/O 速度的其他方法</h3>
+<ul>
+<li>提前读</li>
+<li>延迟写</li>
+<li>优化物理块的分布</li>
+<li>虚拟盘</li>
+</ul>
+<h3 id="廉价磁盘冗余阵列-raid">廉价磁盘冗余阵列 (RAID)</h3>
+<ul>
+<li>
+<p>并行交叉存取</p>
+</li>
+<li>
+<p>RAID 的分级</p>
+<ul>
+<li>RAID 0 级</li>
+<li>RAID 1 级</li>
+<li>RAID 2 级</li>
+<li>RAID 3 级</li>
+<li>RAID 4 级</li>
+<li>RAID 5 级</li>
+<li>RAID 6 级和 RAID 7 级</li>
+</ul>
+</li>
+<li>
+<p>RAID 的优点</p>
+<ul>
+<li>可靠性高</li>
+<li>磁盘 I/O 速度高</li>
+<li>性价比高</li>
+</ul>
+</li>
+</ul>
+<h2 id="提高磁盘可靠性的技术">提高磁盘可靠性的技术</h2>
+<h3 id="第一级容错技术-sft-">第一级容错技术 SFT-Ⅰ</h3>
+<ul>
+<li>
+<p>双份目录和双份文件分配表</p>
+</li>
+<li>
+<p>热修复重定向和写后读校验</p>
+<ul>
+<li>热修复重定向</li>
+<li>写后读校验方式</li>
+</ul>
+</li>
+</ul>
+<h3 id="第二级容错技术-sft-">第二级容错技术 SFT-Ⅱ</h3>
+<ul>
+<li>磁盘镜像</li>
+<li>磁盘双工</li>
+</ul>
+<h3 id="基于集群技术的容错功能">基于集群技术的容错功能</h3>
+<ul>
+<li>双机热备份模式</li>
+<li>双机互为备份模式</li>
+<li>公用磁盘模式</li>
+</ul>
+<h3 id="后备系统">后备系统</h3>
+<ul>
+<li>
+<p>磁带机</p>
+</li>
+<li>
+<p>硬盘</p>
+<ul>
+<li>移动磁盘</li>
+<li>固定硬盘驱动器</li>
+</ul>
+</li>
+<li>
+<p>光盘驱动器</p>
+<ul>
+<li>CD-ROM 和 DVD-ROM</li>
+<li>刻录机</li>
+</ul>
+</li>
+</ul>
+<h2 id="数据一致性控制">数据一致性控制</h2>
+<h3 id="事务">事务</h3>
+<ul>
+<li>
+<p>事务的定义</p>
+</li>
+<li>
+<p>事务记录</p>
+</li>
+<li>
+<p>恢复算法</p>
+<ul>
+<li>undo &lt;Ti&gt;</li>
+<li>redo &lt;Ti&gt;</li>
+</ul>
+</li>
+</ul>
+<h3 id="检查点">检查点</h3>
+<ul>
+<li>检查点的作用</li>
+<li>新的恢复算法</li>
+</ul>
+<h3 id="并发控制">并发控制</h3>
+<ul>
+<li>利用互斥锁实现“顺序性”</li>
+<li>利用互斥锁和共享锁实现顺序性</li>
+</ul>
+<h3 id="重复数据的数据一致性问题">重复数据的数据一致性问题</h3>
+<ul>
+<li>重复文件的一致性</li>
+<li>链接数一致性检查</li>
+</ul>
+]]></description></item><item><title>通过 bat 批处理文件自动提交博客代码</title><link>https://lruihao.cn/posts/commit-bat/</link><pubDate>Sat, 17 Nov 2018 14:25:49 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/commit-bat/</guid><description><![CDATA[<blockquote>
+<p>前面我有文章提到怎么提交本地文件到 github,coding 等远程仓库。每次可以分为三个步骤</p>
+<ul>
+<li>git add * （添加需要提交的文件，这里全选）</li>
+<li>git commit -m &ldquo;提交信息&rdquo;</li>
+<li>git push</li>
+</ul>
+<p>但是这样感觉很麻烦每次都要重复输入提交命令和提示信息。
+这个时候可以用到 windows 批处理 bat 文件 (linux 的话可以用 shell 脚本）。用完发现好用到不行！</p>
+</blockquote>
+<h3 id="新建文本文档">新建文本文档</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bat" data-lang="bat"><span class="line"><span class="cl"><span class="p">@</span><span class="k">echo</span> off
+</span></span><span class="line"><span class="cl"><span class="k">title</span> Commit
+</span></span><span class="line"><span class="cl">git add .
+</span></span><span class="line"><span class="cl"><span class="k">set</span> <span class="k">/p</span> <span class="nv">m</span><span class="p">=</span>Message:
+</span></span><span class="line"><span class="cl">git commit -m <span class="s2">&#34;</span><span class="nv">%m%</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">git push
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>然后另存为<code>commit.bat</code>文件，只要后缀是<code>bat</code>就行了。</p>
+<h3 id="使用">使用</h3>
+<p>把文件放到你原本需要提交代码的本地文件夹。双击运行，输入提交信息回车即可。</p>
+<h3 id="hexo-博客新姿势">hexo 博客新姿势</h3>
+<p>hexo 提交也很麻烦，当然也要批处理一下呀</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bat" data-lang="bat"><span class="line"><span class="cl">hexo clean<span class="p">&amp;&amp;</span>hexo g -d
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="其他">其他</h3>
+<h4 id="死机脚本">死机脚本</h4>
+<p>(<strong>友情提醒千万不要在真机实验，请在虚拟机运行</strong>)</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bat" data-lang="bat"><span class="line"><span class="cl"><span class="k">start</span> cmd ifconfig
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>另外也说一下 linux 死机命令。fork 炸弹。<br>
+死机无非是耗尽系统资源</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">_(){ _ | _ &amp; }; _
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这个&amp;指后台运行的意思。</p>
+<h4 id="统计文件名">统计文件名</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bat" data-lang="bat"><span class="line"><span class="cl"><span class="k">dir</span> \\?\<span class="nv">%1</span> /a:-d /b /o /p /w <span class="p">&gt;</span>Filelist.txt
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>将需要统计的文件夹拖到 bat 文件上。</p>]]></description></item><item><title>shell 脚本初体验</title><link>https://lruihao.cn/posts/shell/</link><pubDate>Mon, 29 Oct 2018 11:57:39 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/shell/</guid><description><![CDATA[<p>今天上机学了几个小命令</p>
+<ul>
+<li>read</li>
+<li>echo</li>
+<li>if</li>
+</ul>
+<p>然后自己写了一个小脚本觉得还挺有趣的</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="cp">#!/bin/bash
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="c1">#liruihao</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#menu.sh</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#sudo apt curl install nyancat sl figlet toilet cowsay</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;-------------菜-单--------------&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;------------1-打印二维码--------&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;------------2-彩虹猫------------&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;------------3-小火切------------&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;------------4-打字机------------&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;------------5-小许牛------------&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;----------Ctrl+c 暂停程序--------&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;请输入序号！&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">read</span> i
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="nb">test</span> <span class="nv">$i</span> -eq <span class="m">1</span>
+</span></span><span class="line"><span class="cl"><span class="k">then</span>
+</span></span><span class="line"><span class="cl">	<span class="nb">echo</span> <span class="s2">&#34;请输入网址！&#34;</span>
+</span></span><span class="line"><span class="cl">	<span class="nb">read</span> s1
+</span></span><span class="line"><span class="cl">       	<span class="nb">echo</span> <span class="nv">$s1</span> <span class="p">|</span>curl -F-<span class="o">=</span><span class="se">\&lt;</span>- qrenco.de
+</span></span><span class="line"><span class="cl"><span class="k">fi</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="nb">test</span> <span class="nv">$i</span> -eq <span class="m">2</span>
+</span></span><span class="line"><span class="cl"><span class="k">then</span>
+</span></span><span class="line"><span class="cl">	nyancat
+</span></span><span class="line"><span class="cl"><span class="k">fi</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="nb">test</span> <span class="nv">$i</span> -eq <span class="m">3</span>
+</span></span><span class="line"><span class="cl"><span class="k">then</span>
+</span></span><span class="line"><span class="cl">	sl
+</span></span><span class="line"><span class="cl"><span class="k">fi</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="nb">test</span> <span class="nv">$i</span> -eq <span class="m">4</span>
+</span></span><span class="line"><span class="cl"><span class="k">then</span>
+</span></span><span class="line"><span class="cl">	<span class="nb">echo</span> <span class="s2">&#34;请输入字符串！&#34;</span>
+</span></span><span class="line"><span class="cl">	<span class="nb">read</span> s2
+</span></span><span class="line"><span class="cl">	<span class="nb">echo</span> <span class="s2">&#34;选择样式：&#34;</span>
+</span></span><span class="line"><span class="cl">	<span class="nb">echo</span> <span class="s2">&#34;------样式 1-----&#34;</span>
+</span></span><span class="line"><span class="cl">	<span class="nb">echo</span> <span class="s2">&#34;------样式 2-----&#34;</span>
+</span></span><span class="line"><span class="cl">	<span class="nb">read</span> j
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nb">test</span> <span class="nv">$j</span> -eq <span class="m">1</span>
+</span></span><span class="line"><span class="cl">	<span class="k">then</span>
+</span></span><span class="line"><span class="cl">		figlet <span class="nv">$s2</span>
+</span></span><span class="line"><span class="cl">	<span class="k">else</span>
+</span></span><span class="line"><span class="cl">		toilet -f mono12 -F gay <span class="nv">$s2</span>
+</span></span><span class="line"><span class="cl">	<span class="k">fi</span>
+</span></span><span class="line"><span class="cl"><span class="k">fi</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="nb">test</span> <span class="nv">$i</span> -eq <span class="m">5</span>
+</span></span><span class="line"><span class="cl"><span class="k">then</span>
+</span></span><span class="line"><span class="cl">	<span class="nb">echo</span> <span class="s2">&#34;请输入字符串！&#34;</span>
+</span></span><span class="line"><span class="cl">	<span class="nb">read</span> s3
+</span></span><span class="line"><span class="cl">	cowsay <span class="nv">$s3</span>
+</span></span><span class="line"><span class="cl"><span class="k">fi</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;任意建继续！&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">read</span> x
+</span></span><span class="line"><span class="cl">clear
+</span></span><span class="line"><span class="cl">./menu.sh
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>
+
+
+
+
+</p>]]></description></item><item><title>云服务器 CentOS 系统搭建 web 服务</title><link>https://lruihao.cn/posts/web-server-yun/</link><pubDate>Mon, 29 Oct 2018 09:15:58 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/web-server-yun/</guid><description><![CDATA[<h3 id="搭建-apache-web-服务">搭建 Apache web 服务</h3>
+<ol>
+<li>安装 Apache 超文本传输协议 (HTTP) 服务器的主程序</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">[root@VM_0_6_centos /]# yum install -y httpd
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>注意安装目录，可通过 cd 命令切换。</p>
+<ol start="2">
+<li>启动 HTTP 服务</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">[root@VM_0_6_centos /]# systemctl start httpd.service
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>如果启动失败，可通过 systemctl status httpd.service 查看错误原因。<br>
+启动成功，证明 http 服务已经可以使用，发现还需要把本地文件传到服务器。<br>
+默认根目录<code>/var/www/html/</code></p>
+<h3 id="使用-ssh-连接服务器">使用 SSH 连接服务器</h3>
+<p>尝试了两种方式：PuTTY 和 Xshell（推荐）</p>
+<h4 id="xshell-方式">Xshell 方式</h4>
+<p>官网下载安装 Xshell 打开，输入 ip 账号密码连接主机。</p>
+<p>使用 lrzsz 方式上传下载文件<br>
+步骤 1：在服务器安装 lrzsz</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">[root@VM_0_6_centos /]# yum -y install lrzsz
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>步骤 2：输入命令<code>rz</code>打开上传窗口（可以选择多个文件。)<br>
+使用<code>sz</code>文件名命令可打开从服务器下载文件的保存窗口。</p>
+<h3 id="修改-http-配置">修改 HTTP 配置</h3>
+<p>1.VIM 编辑器打开配置文件</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">[root@VM_0_6_centos /]# vim /etc/httpd/conf/httpd.conf
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ol start="2">
+<li>
+<p>按<code>I</code>键进入编辑模式</p>
+</li>
+<li>
+<p>找到并修改以下内容</p>
+</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">ServerAdmin 管理员邮箱，用于浏览器请求报错时展示
+</span></span><span class="line"><span class="cl">DocumentRoot 访问根目录（默认：/var/www/html），如项目存放在其他地方，可修改为项目存放位置
+</span></span><span class="line"><span class="cl">&lt;Directory &#34;/var/www/html&#34;&gt; 同 DocumentRoot 配置
+</span></span><span class="line"><span class="cl">ServerName 服务器 IP 或 域名
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ol start="4">
+<li>
+<p>按下 ESC 键输入<code>:wq</code>保存退出</p>
+</li>
+<li>
+<p>重启服务<code>service httpd restart</code></p>
+</li>
+<li>
+<p>打开浏览器，输入地址访问<br>
+如：我的项目索引 html 路径为 <code>love/index.html</code>，输入<br>
+<code>http://IP 地址或域名/love/index.html</code></p>
+</li>
+<li>
+<p>访问不成功，先检查网络，再查看 http 服务是否开启，最后检查配置；<br>
+访问成功，配置完成。</p>
+</li>
+</ol>
+]]></description></item><item><title>linux 编程初体验</title><link>https://lruihao.cn/posts/linux-hello-c/</link><pubDate>Mon, 15 Oct 2018 21:19:27 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/linux-hello-c/</guid><description><![CDATA[<blockquote>
+<p>在 Linux 上编译 c 语言文件。</p>
+</blockquote>
+<h3 id="打开-vim-编辑器">打开 vim 编辑器</h3>
+<p>（没有就用 vi, 或者先安装 vim<code>sudo apt-get install vim</code>)</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">$ vim
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="编辑文件">编辑文件</h3>
+<p>打开文件编辑器之后编辑文件
+</p>
+<p>首先按<code>Esc</code>再<code>:</code>进入末行命令<br>
+再保存为 hello.c 文件后退出</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">: w hello.c
+</span></span><span class="line"><span class="cl">: q
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>打开目录看看生成的文件</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">$ ls
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="编译生成可执行文件并执行">编译生成可执行文件并执行</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">$ gcc hello.c -o hello
+</span></span><span class="line"><span class="cl">$ ./hello
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p></p>
+<p>若权限不够则加可执行权限<code>chmod +x hello</code></p>
+]]></description></item><item><title>linux/centos 下的安装 git</title><link>https://lruihao.cn/posts/linux-git/</link><pubDate>Sat, 22 Sep 2018 22:28:45 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/linux-git/</guid><description><![CDATA[<h3 id="下载-git">下载 git</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">wget https://github.com/git/git/archive/v2.14.1.zip
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="安装依赖">安装依赖</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">sudo yum -y install zlib-devel openssl-devel cpio expat-devel gettext-devel curl-devel perl-ExtUtils-CBuilder perl-ExtUtils-MakeMaker
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="解压-git">解压 git</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">unzip v2.14.1.zip
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>注：
+unzip 命令用不了，具体步骤如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">#yum list | grep zip/unzip 
+</span></span><span class="line"><span class="cl">#yum install zip
+</span></span><span class="line"><span class="cl">#yum install unzip
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>基本完成，如果在编译的时候出现错误：<code>gcc : error trying to exec 'cc1plus': execvp : No sunch file or directory</code><br>
+可以用<code>gcc -v/g++ -v</code> 来查看 gcc 版本，会发现没有安装。安装如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">#yum list | grep gcc
+</span></span><span class="line"><span class="cl">#yum install gcc-c++
+</span></span><span class="line"><span class="cl">#yum install unzip
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="将-git-安装到usrlocal-上">将 git 安装到/usr/local 上</h3>
+<p>先进入 git 文件夹<br>
+编译<br>
+安装</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">cd git-2.14.1
+</span></span><span class="line"><span class="cl">make prefix=/usr/local all
+</span></span><span class="line"><span class="cl">make prefix=/usr/local install
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="验证是否安装完成">验证是否安装完成</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">git --version
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>&hellip;</p>
+]]></description></item></channel></rss>

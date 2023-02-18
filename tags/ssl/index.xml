@@ -1,0 +1,35 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>SSL - 标签 - 菠菜眾長</title><link>https://lruihao.cn/tags/ssl/</link><description>SSL - 标签 - 菠菜眾長</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><lastBuildDate>Thu, 28 Mar 2019 19:40:54 +0000</lastBuildDate><atom:link href="https://lruihao.cn/tags/ssl/" rel="self" type="application/rss+xml"/><item><title>vps 配置 ssl 及 https 重定向</title><link>https://lruihao.cn/posts/http2https/</link><pubDate>Thu, 28 Mar 2019 19:40:54 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/http2https/</guid><description><![CDATA[<blockquote>
+<p>记录自己在配置 vps 及博客 SSL 证书时遇到的问题。</p>
+</blockquote>
+<h2 id="强制重定向-https">强制重定向 https</h2>
+<blockquote>
+<p>有一种情况相信很多人都遇到过，就是虽然我们配置了 ssl 证书，但是 https 和 http 地址都是各自都可以单独访问。我们应该也见过类似于 github 的代码托管网站有强制 https 的开关。如果是这种情况我们还可以通过 js 进行 301 定向。</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="o">&lt;</span><span class="n">script</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">	<span class="n">var</span> <span class="n">targetProtocol</span> <span class="o">=</span> <span class="s">&#34;https:&#34;</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">	<span class="n">var</span> <span class="n">host</span> <span class="o">=</span> <span class="s">&#34;lruihao.cn&#34;</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="o">(</span><span class="n">window</span><span class="o">.</span><span class="na">location</span><span class="o">.</span><span class="na">host</span> <span class="o">==</span> <span class="n">host</span> <span class="o">&amp;&amp;</span> <span class="n">window</span><span class="o">.</span><span class="na">location</span><span class="o">.</span><span class="na">protocol</span> <span class="o">!=</span> <span class="n">targetProtocol</span><span class="o">){</span>
+</span></span><span class="line"><span class="cl"> 		<span class="n">window</span><span class="o">.</span><span class="na">location</span><span class="o">.</span><span class="na">href</span> <span class="o">=</span> <span class="n">targetProtocol</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  		<span class="n">window</span><span class="o">.</span><span class="na">location</span><span class="o">.</span><span class="na">href</span><span class="o">.</span><span class="na">substring</span><span class="o">(</span><span class="n">window</span><span class="o">.</span><span class="na">location</span><span class="o">.</span><span class="na">protocol</span><span class="o">.</span><span class="na">length</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">&lt;/</span><span class="n">script</span><span class="o">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="腾讯云-cdn-配置">腾讯云 CDN 配置</h2>
+<blockquote>
+<p>这个博客后来是转到了腾讯云的 cos 桶存储。当时在桶内静态网站设置的时候，设置强制 https 发现会出错。而且还接入了 CDN，所以今天在 CDN 设置那里也看到了 https 的设置，打开强制 https 就 OK 了。这天在三丰云撸了一个免费的主机，搭了一个 WordPress（想试试 wp 的感觉），然后 vps 的 SSL 问题现在也很简单了，第一步，到腾讯云申请免费证书；第二步，配置 CDN，按步骤来，其中接入方式选择自有源站；第三步，强制 https（可选）。</p>
+</blockquote>
+<p></p>
+<p></p>]]></description></item></channel></rss>

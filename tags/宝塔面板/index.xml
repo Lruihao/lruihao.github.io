@@ -1,0 +1,114 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>宝塔面板 - 标签 - 菠菜眾長</title><link>https://lruihao.cn/tags/%E5%AE%9D%E5%A1%94%E9%9D%A2%E6%9D%BF/</link><description>宝塔面板 - 标签 - 菠菜眾長</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><lastBuildDate>Thu, 16 May 2019 20:31:33 +0000</lastBuildDate><atom:link href="https://lruihao.cn/tags/%E5%AE%9D%E5%A1%94%E9%9D%A2%E6%9D%BF/" rel="self" type="application/rss+xml"/><item><title>宝塔面板安装 ImgURL 图床</title><link>https://lruihao.cn/posts/imgurl/</link><pubDate>Thu, 16 May 2019 20:31:33 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/imgurl/</guid><description><![CDATA[<div class="featured-image">
+        <img src="/posts/imgurl/images/1.png" referrerpolicy="no-referrer">
+      </div><blockquote>
+<p>ImgURL 是一个开源、免费的图床程序，ImgURL 2.x 之后对环境要求更高，尤其是 ImageMagick 组件的支持，很多朋友不清楚怎样安装这个组件，这篇文章分享宝塔面板安装 ImgURL 2.x 图床的过程（包括 ImgURL 2.x 需要的各种组件）
+<a href="https://www.xiaoz.me/archives/12081"target="_blank" rel="external nofollow noopener noreferrer">阅读原文<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
+</blockquote>
+<h2 id="准备工作">准备工作</h2>
+<ol>
+<li>已经安装宝塔面板</li>
+<li>在宝塔后台创建一个站点</li>
+<li>下载 <a href="https://github.com/helloxz/imgurl"target="_blank" rel="external nofollow noopener noreferrer">ImgURL 2.x<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 上传到站点根目录并解压</li>
+</ol>
+<h2 id="设置伪静态">设置伪静态</h2>
+<p>如果您宝塔面板安装的 Apache 则不需要再设置伪静态，直接跳过这个步骤，如果使用的 Nginx 环境，请继续往下看。</p>
+<p>找到对应的站点 - 点击后面设置按钮 - 伪静态 - 添加下面的伪静态规则</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nx">location</span> <span class="o">/</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="nx">try_files</span> <span class="nv">$uri</span> <span class="nv">$uri</span><span class="o">/</span> <span class="o">/</span><span class="nx">index</span><span class="o">.</span><span class="nx">php</span><span class="o">?</span><span class="nv">$query_string</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nx">location</span> <span class="o">~*</span> <span class="nx">\</span><span class="o">.</span><span class="p">(</span><span class="nx">db3</span><span class="o">|</span><span class="nx">json</span><span class="p">)</span><span class="err">$</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">deny</span> <span class="nx">all</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nx">location</span> <span class="o">~*</span> <span class="o">^/</span><span class="p">(</span><span class="nx">temp</span><span class="o">|</span><span class="nx">upload</span><span class="o">|</span><span class="nx">imgs</span><span class="o">|</span><span class="nx">data</span><span class="o">|</span><span class="nx">application</span><span class="o">|</span><span class="k">static</span><span class="o">|</span><span class="nx">system</span><span class="p">)</span><span class="o">/.*.</span><span class="p">(</span><span class="nx">php</span><span class="o">|</span><span class="nx">php5</span><span class="p">)</span><span class="err">$</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">403</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p></p>
+<h2 id="安装-fileinfo--imagemagick">安装 fileinfo &amp; imagemagick</h2>
+<p>在宝塔后台 - 软件管理 - 找到您站点对应的 PHP 版本 - 设置 PHP - 安装扩展 - 勾选<code>fileinfo</code>和<code>imagemagick</code>，如下截图。</p>
+<p></p>
+<h2 id="安装-imgurl-2x">安装 ImgURL 2.x</h2>
+<p>其它所需扩展宝塔默认已经支持，重点是安装<code>fileinfo</code>和<code>imagemagick</code>，扩展安装完毕后就可以访问您自己的域名安装 ImgURL 了，如果正常会看到 ImgURL 安装界面。</p>
+<p><br>
+</p>
+<h2 id="其它说明">其它说明</h2>
+<ul>
+<li>如果安装遇到任何问题，请留言反馈或到 <a href="https://ttt.sh/category/6/imgurl%E5%9B%BE%E5%BA%8A"target="_blank" rel="external nofollow noopener noreferrer">3T 官方社区<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 进行反馈</li>
+<li>ImgURL 更多使用说明请参考帮助文档：<a href="https://dwz.ovh/imgurldoc"target="_blank" rel="external nofollow noopener noreferrer">https://dwz.ovh/imgurldoc<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+</ul>]]></description></item><item><title>本地搭建网站服务器并穿透内网</title><link>https://lruihao.cn/posts/ngrok/</link><pubDate>Wed, 03 Apr 2019 19:29:43 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/ngrok/</guid><description><![CDATA[<blockquote>
+<p>一直都想在自己电脑上搭建一个网站或者把自己的电脑做成服务器，今天终于简单实现了。还有很多知识需要学习，简单记录一下。</p>
+</blockquote>
+<h2 id="搭建环境">搭建环境</h2>
+<p>我的电脑是<code>ubuntu+windows</code>双系统的，所以我先在 ubuntu 上面装了一个宝塔面板，方便通过 web 管理电脑，宝塔安装好后安装相关的环境<code>mysql,php,nginx</code>等。我们现在只能通过本地 ip<code>127.0.0.1:8888</code>访问面板。</p>
+<h2 id="ngrok-穿透">ngrok 穿透</h2>
+<p>去 ngrok 注册登录，购买隧道（有免费的），然后绑定端口，绑定域名，这里我们拿端口<code>8888</code>和域名<code>test.lruihao.cn</code>做实验，也就是宝塔面板的端口，这样我们就可以透过域名远程访问本地服务器，这样是不是开始有云服务器的感觉了。然后宝塔面板设置也绑定好域名<code>test.lruihao.cn</code>,dns 服务商那里做好相应的解析。<br>
+然后在 ngrok 那里下载 sunny 客户端文件，我们是 ubuntu 选择<code>linux-64bits</code>版本。解压后在 ubuntu 打开终端进入 sunny 文件目录，权限给到 755，运行命令<code>./sunny clientid xxxxxxx</code> 后面的你的隧道订单的 id。</p>
+<p>现在就可以通过互联网访问我的 ubuntu 服务器了。</p>
+<h2 id="搭建网站">搭建网站</h2>
+<p>前面两步搞定，搭建网站就没问题了。<br>
+我们只要把网站的端口按第二步的在 ngrok 设置好就可以穿透了。</p>
+<h2 id="注意">注意</h2>
+<p>访问本地网站的必要条件是你的电脑得是开机状态而且有网络。</p>]]></description></item><item><title>宝塔面板安装</title><link>https://lruihao.cn/posts/bt/</link><pubDate>Mon, 18 Mar 2019 21:31:43 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/bt/</guid><description><![CDATA[<div class="featured-image">
+        <img src="/posts/bt/images/1.png" referrerpolicy="no-referrer">
+      </div><p>极速方便的一键配置与管理，免除繁琐的命令行操作，通过 Web 面板一键即可操作实现。可选择安装 lamp 或者 lnmp 环境，可创建及管理网站，可创建及管理数据库，可创建及管理 FTP 等等。<a href="https://www.bt.cn/?invite_code=MV9sYXJnZHI="target="_blank" rel="external nofollow noopener noreferrer">宝塔官网介绍<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
+<h2 id="系统要求">系统要求</h2>
+<blockquote>
+<p>操作系统：全新系统（支持 CentOS、Ubuntu、Debian、Fedora、Deepin)，<br>
+确保是干净的操作系统，没有安装过其它环境带的 Apache/Nginx/php/MySQL<br>
+宝塔 Linux6.0 版本是基于 centos7 开发的，强烈建议使用 centos7.x 系统<br>
+内存要求：内存要求最低 512MB，推荐 768MB 以上，纯面板约占系统 60MB 内存.</p>
+</blockquote>
+<h2 id="安装方法">安装方法</h2>
+<p>官方号称 2 分钟装好面板，一键管理服务器。</p>
+<blockquote>
+<p>使用 SSH 连接工具，如宝塔远程桌面助手连接到您的 Linux 服务器后，挂载磁盘，根据系统执行相应命令开始安装（大约 2 分钟完成面板安装）：</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Shell" data-lang="Shell"><span class="line"><span class="cl">yum install -y wget <span class="o">&amp;&amp;</span> wget -O install.sh http://download.bt.cn/install/install_6.0.sh <span class="o">&amp;&amp;</span> sh install.sh
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Shell" data-lang="Shell"><span class="line"><span class="cl">wget -O install.sh http://download.bt.cn/install/install-ubuntu_6.0.sh <span class="o">&amp;&amp;</span> sudo bash install.sh
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Shell" data-lang="Shell"><span class="line"><span class="cl">wget -O install.sh http://download.bt.cn/install/install-ubuntu_6.0.sh <span class="o">&amp;&amp;</span> bash install.sh
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Shell" data-lang="Shell"><span class="line"><span class="cl">wget -O install.sh http://download.bt.cn/install/install_6.0.sh <span class="o">&amp;&amp;</span> bash install.sh
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p></p>
+<h2 id="搭建-ftp-和云盘服务器">搭建 ftp 和云盘服务器</h2>
+<p>可以很傻瓜式的搭建自己的云盘，和平时用的比较多的 ftp 服务器。搭建静态网站也可以用 ftp 来上传文件。</p>]]></description></item></channel></rss>

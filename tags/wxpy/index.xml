@@ -1,0 +1,888 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>wxpy - 标签 - 菠菜眾長</title><link>https://lruihao.cn/tags/wxpy/</link><description>wxpy - 标签 - 菠菜眾長</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><lastBuildDate>Sat, 11 May 2019 17:02:31 +0000</lastBuildDate><atom:link href="https://lruihao.cn/tags/wxpy/" rel="self" type="application/rss+xml"/><item><title>python 实战：模拟 post 请求定时获取后台数据并打包发送至微信</title><link>https://lruihao.cn/posts/mx2wx/</link><pubDate>Sat, 11 May 2019 17:02:31 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/mx2wx/</guid><description><![CDATA[<blockquote>
+<p>用 python 模拟 post 请求获取“麻小科技”示例酒店后台的数据，再打包发送至指定的微信群或者好友。<br>
+要求每天早上 8 点定时把每个酒店的数据发送至每个酒店的微信工作群。</p>
+</blockquote>
+<h2 id="背景">背景</h2>
+<blockquote>
+<p>麻小科技：<br>
+麻小科技全名深圳市麻小科技有限公司，成立于 2017 年 1 月。是我高一的时候参加<code>Peer 夏令营</code>带我们一个玩的“老师”和他的朋友的创业公司，说老师有点奇怪，我们都是直接叫名字的，比如大家都叫我瑞豪，我也就叫他文捷哥，简称捷哥吧。他们公司主要的开发模式是，小程序前端+php 后端，然后做的是酒店小程序，为每个酒店定制小程序。这些小程序可以贴在客房中给访客提供一些服务，大大节省了成本也提高了效率。<br>
+然后每个酒店小程序都有独立的后台，后台会记录一些点击需求的数据。现在他们有一个需求需要把每个酒店小程序后台的数据在每天早上 9 点发送至对应酒店的微信群。</p>
+</blockquote>
+<h2 id="实现代码">实现代码</h2>
+<blockquote>
+<p>缓存登录信息，短时间类无需重复登录，仅第一次需要扫码登录（相当于微信网页版），后面的登录只需在手机上确认登录信息。</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="ch">#!/usr/bin/python</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">requests</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">json</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">time</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">wxpy</span> <span class="kn">import</span> <span class="o">*</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">## 基本信息填写：</span>
+</span></span><span class="line"><span class="cl"><span class="c1">## 酒店 id，酒店名称及群名列表数据，格式：[&#34;xxx&#34;,&#34;xxx&#34;,&#34;xxx&#34;]</span>
+</span></span><span class="line"><span class="cl"><span class="c1">## 使用时请将以下三个列表一一对应</span>
+</span></span><span class="line"><span class="cl"><span class="n">hotel</span><span class="o">=</span><span class="p">[</span><span class="s2">&#34;xxxx&#34;</span><span class="p">,</span><span class="s2">&#34;xxxx&#34;</span><span class="p">]</span> <span class="c1">## 酒店后台数据接口二级域名，已匿名</span>
+</span></span><span class="line"><span class="cl"><span class="n">hotel_name</span><span class="o">=</span><span class="p">[</span><span class="s2">&#34;增城宾馆&#34;</span><span class="p">,</span><span class="s2">&#34;百丽酒店&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">grouplist</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&#34;麻小&#34;</span><span class="p">,</span><span class="s2">&#34;富强民主文明和谐自由平等公正法治&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">## post 请求发送的数据</span>
+</span></span><span class="line"><span class="cl"><span class="n">postData</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">## &#39;username&#39;:&#39;test&#39;,</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">## &#39;password&#39;:&#39;123456&#39;,</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">get_data</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">	<span class="n">result</span> <span class="o">=</span> <span class="p">[]</span> <span class="c1">#结果列表</span>
+</span></span><span class="line"><span class="cl">	<span class="n">i</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1">#计数器</span>
+</span></span><span class="line"><span class="cl">	<span class="k">for</span> <span class="n">each</span> <span class="ow">in</span> <span class="n">hotel</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">		<span class="n">url</span><span class="o">=</span><span class="s2">&#34;http://&#34;</span><span class="o">+</span><span class="n">each</span><span class="o">+</span><span class="s2">&#34;.maxiaokeji.com/xxx/xxxxxxx/xxx&#34;</span> <span class="c1">## 为保护隐私及权益，这里不提供接口</span>
+</span></span><span class="line"><span class="cl">		<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span><span class="p">,</span><span class="n">data</span><span class="o">=</span><span class="n">postData</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="c1">## print(r.text)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">		<span class="c1">## 把结果转化为 json 字符串</span>
+</span></span><span class="line"><span class="cl">		<span class="n">response</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">(),</span><span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span><span class="n">ensure_ascii</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="c1">#sort_keys=True</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">		<span class="c1">## 把 json 转换为 dict 字典作为中间结果，再取出昨日数据</span>
+</span></span><span class="line"><span class="cl">		<span class="n">midresult</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&#34;早上好！&#34;</span><span class="o">+</span><span class="n">hotel_name</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">+</span><span class="s2">&#34;小程序昨日数据如下：</span><span class="se">\n</span><span class="s2"> 访问数：&#34;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">midresult</span><span class="p">[</span><span class="s2">&#34;data&#34;</span><span class="p">][</span><span class="s2">&#34;yesterday_data&#34;</span><span class="p">][</span><span class="s2">&#34;type1&#34;</span><span class="p">])</span><span class="o">+</span><span class="s2">&#34;</span><span class="se">\n</span><span class="s2"> 房间数：&#34;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">midresult</span><span class="p">[</span><span class="s2">&#34;data&#34;</span><span class="p">][</span><span class="s2">&#34;yesterday_data&#34;</span><span class="p">][</span><span class="s2">&#34;type2&#34;</span><span class="p">])</span><span class="o">+</span><span class="s2">&#34;</span><span class="se">\n</span><span class="s2"> 需求量：&#34;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">midresult</span><span class="p">[</span><span class="s2">&#34;data&#34;</span><span class="p">][</span><span class="s2">&#34;yesterday_data&#34;</span><span class="p">][</span><span class="s2">&#34;type3&#34;</span><span class="p">])</span><span class="o">+</span><span class="s2">&#34;</span><span class="se">\n</span><span class="s2"> 商品点击量：&#34;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">midresult</span><span class="p">[</span><span class="s2">&#34;data&#34;</span><span class="p">][</span><span class="s2">&#34;yesterday_data&#34;</span><span class="p">][</span><span class="s2">&#34;type4&#34;</span><span class="p">]))</span>
+</span></span><span class="line"><span class="cl">		<span class="n">i</span><span class="o">+=</span><span class="mi">1</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">## print(result)</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="n">result</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">wechat_send</span><span class="p">(</span><span class="n">bot</span><span class="p">,</span><span class="n">result</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">## my_friend = bot.friends().search(&#39;lrh&#39;)[0]</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">## my_friend.send(result)</span>
+</span></span><span class="line"><span class="cl">	<span class="n">i</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1">## 计数器</span>
+</span></span><span class="line"><span class="cl">	<span class="k">for</span> <span class="n">group</span> <span class="ow">in</span> <span class="n">grouplist</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">		<span class="n">my_group</span> <span class="o">=</span> <span class="n">bot</span><span class="o">.</span><span class="n">groups</span><span class="p">()</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">group</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="c1">#依次搜索每一个群名称，每次一个</span>
+</span></span><span class="line"><span class="cl">		<span class="n">my_group</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">		<span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">		<span class="nb">print</span><span class="p">(</span><span class="s2">&#34;已发送至群：&#34;</span><span class="o">+</span><span class="n">group</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="n">i</span><span class="o">+=</span><span class="mi">1</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">bot</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">## 设置最大休眠时间，防止程序长时间占用系统资源</span>
+</span></span><span class="line"><span class="cl">	<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">		<span class="n">now_hour</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&#34;%H&#34;</span><span class="p">,</span> <span class="n">time</span><span class="o">.</span><span class="n">localtime</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">		<span class="n">now_min</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&#34;%M&#34;</span><span class="p">,</span> <span class="n">time</span><span class="o">.</span><span class="n">localtime</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">		<span class="c1">## 设置每天 8 点发送</span>
+</span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="n">now_hour</span> <span class="o">&lt;</span> <span class="s2">&#34;08&#34;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">			<span class="n">rest</span> <span class="o">=</span> <span class="mi">8</span> <span class="o">-</span> <span class="nb">int</span><span class="p">(</span><span class="n">now_hour</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">			<span class="n">sleeptime</span> <span class="o">=</span> <span class="p">(</span><span class="n">rest</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="mi">3600</span> <span class="o">+</span> <span class="p">(</span><span class="mi">60</span><span class="o">-</span><span class="nb">int</span><span class="p">(</span><span class="n">now_min</span><span class="p">))</span><span class="o">*</span><span class="mi">60</span>
+</span></span><span class="line"><span class="cl">			<span class="nb">print</span><span class="p">(</span><span class="s2">&#34;启动时北京时间为：&#34;</span><span class="o">+</span><span class="n">time</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&#34;%H:%M&#34;</span><span class="p">,</span> <span class="n">time</span><span class="o">.</span><span class="n">localtime</span><span class="p">()),</span><span class="s2">&#34;</span><span class="se">\t</span><span class="s2"> 软件将在&#34;</span><span class="p">,</span><span class="n">rest</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="s2">&#34;小时&#34;</span><span class="p">,</span><span class="nb">int</span><span class="p">((</span><span class="n">sleeptime</span><span class="o">-</span><span class="p">(</span><span class="n">rest</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="mi">3600</span><span class="p">)</span><span class="o">/</span><span class="mi">60</span><span class="p">),</span><span class="s2">&#34;分钟后发送数据&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">			<span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">sleeptime</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="k">elif</span> <span class="n">now_hour</span> <span class="o">&gt;</span> <span class="s2">&#34;08&#34;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">			<span class="n">rest</span> <span class="o">=</span> <span class="mi">8</span> <span class="o">-</span> <span class="nb">int</span><span class="p">(</span><span class="n">now_hour</span><span class="p">)</span> <span class="o">+</span> <span class="mi">24</span>
+</span></span><span class="line"><span class="cl">			<span class="n">sleeptime</span> <span class="o">=</span> <span class="p">(</span><span class="n">rest</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="mi">3600</span> <span class="o">+</span> <span class="p">(</span><span class="mi">60</span><span class="o">-</span><span class="nb">int</span><span class="p">(</span><span class="n">now_min</span><span class="p">))</span><span class="o">*</span><span class="mi">60</span>
+</span></span><span class="line"><span class="cl">			<span class="nb">print</span><span class="p">(</span><span class="s2">&#34;启动时北京时间为：&#34;</span><span class="o">+</span><span class="n">time</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&#34;%H:%M&#34;</span><span class="p">,</span> <span class="n">time</span><span class="o">.</span><span class="n">localtime</span><span class="p">()),</span><span class="s2">&#34;</span><span class="se">\t</span><span class="s2"> 软件将在&#34;</span><span class="p">,</span><span class="n">rest</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="s2">&#34;小时&#34;</span><span class="p">,</span><span class="nb">int</span><span class="p">((</span><span class="n">sleeptime</span><span class="o">-</span><span class="p">(</span><span class="n">rest</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="mi">3600</span><span class="p">)</span><span class="o">/</span><span class="mi">60</span><span class="p">),</span><span class="s2">&#34;分钟后发送数据&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">			<span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">sleeptime</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="k">elif</span> <span class="n">now_hour</span> <span class="o">==</span> <span class="s2">&#34;08&#34;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">			<span class="nb">print</span><span class="p">(</span><span class="s2">&#34;软件明天开始将在每天 8 点发送数据！&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">			<span class="n">result</span><span class="o">=</span><span class="n">get_data</span><span class="p">()</span> <span class="c1">## 获取数据</span>
+</span></span><span class="line"><span class="cl">			<span class="n">wechat_send</span><span class="p">(</span><span class="n">bot</span><span class="p">,</span><span class="n">result</span><span class="p">)</span> <span class="c1">## 发送数据</span>
+</span></span><span class="line"><span class="cl">			<span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">86400</span><span class="o">-</span><span class="nb">int</span><span class="p">(</span><span class="n">now_min</span><span class="p">)</span><span class="o">*</span><span class="mi">60</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="vm">__name__</span><span class="o">==</span><span class="s2">&#34;__main__&#34;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">	<span class="n">bot</span> <span class="o">=</span> <span class="n">Bot</span><span class="p">(</span><span class="n">cache_path</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="c1">## 初始化机器人，扫码登陆</span>
+</span></span><span class="line"><span class="cl">	<span class="n">main</span><span class="p">(</span><span class="n">bot</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="测试结果">测试结果</h2>
+<p>  </p>
+<h2 id="程序打包">程序打包</h2>
+<p>使用 pyinstaller 工具打包成可执行文件即可。（可执行文件不可跨平台运行，分平台打包）</p>
+<blockquote>
+<p>目前该程序已经上线测试中 &hellip; 暂未反馈问题</p>
+</blockquote>
+<h2 id="收获">收获</h2>
+<blockquote>
+<p>第一次参与实际公司的项目开发，虽然只是一个小的需求设计，但是我在这个过程中也学到了很多，比如通过实际一两周的编程对 Python 的熟悉度远远好过以前在实验室看的一个月视频。<br>
+还有就是在此次开发中，也感受到了实际项目开发的团队合作重要性，刚开始拿到这个需求，由于我对 python 和后台，以及数据接口这些基本的操作都不懂，就拿数据获取来说，我一开始一位要自己模拟登陆后台（已知密码），一顿操作、百度等等失败告终，后来涛哥给了一个数据接口，加上涛哥耐心指点，我才终于拿到了数据。<br>
+还有在多人合作的项目中，为保持代码的可读性，要尽量的多些注释，还有函数方法的命名尽量具备可读性。比如我代码中的<code>wechat_send()</code>，一开始的命名是<code>wxfs()</code>，经捷哥指正我才改过来的。</p>
+</blockquote>]]></description></item><item><title>python 玩微信：初探 wxpy</title><link>https://lruihao.cn/posts/wxpy1/</link><pubDate>Sat, 20 Apr 2019 15:44:57 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/wxpy1/</guid><description><![CDATA[<div class="featured-image">
+        <img src="/posts/wxpy1/images/1.png" referrerpolicy="no-referrer">
+      </div><blockquote>
+<p><strong><em>文中涉及的图片涉及个人隐私，仅做举例，请勿传播</em></strong></p>
+<ul>
+<li>查看微信好友男女比例</li>
+<li>查看好友地区分布</li>
+<li>群性别统计</li>
+</ul>
+</blockquote>
+<h2 id="前期准备">前期准备</h2>
+<ul>
+<li><a href="https://github.com/youfou/wxpy"target="_blank" rel="external nofollow noopener noreferrer">wxpy<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+<li><a href="https://github.com/pyecharts/pyecharts"target="_blank" rel="external nofollow noopener noreferrer">pyecharts<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>（百度 echarts）</li>
+</ul>
+<h2 id="查看微信好友男女比例">查看微信好友男女比例</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">wxpy</span> <span class="kn">import</span> <span class="o">*</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">pyecharts</span> <span class="kn">import</span> <span class="n">Pie</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">bot</span> <span class="o">=</span> <span class="n">Bot</span><span class="p">(</span><span class="n">cache_path</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>   <span class="c1">#定义一个微信机器人</span>
+</span></span><span class="line"><span class="cl"><span class="n">friends</span> <span class="o">=</span> <span class="n">bot</span><span class="o">.</span><span class="n">friends</span><span class="p">(</span><span class="n">update</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>   <span class="c1">#获取更新好友列表</span>
+</span></span><span class="line"><span class="cl"><span class="n">male</span> <span class="o">=</span> <span class="n">female</span> <span class="o">=</span> <span class="n">other</span> <span class="o">=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">friends</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>     <span class="c1">#[1:] 自己是第一个，排除掉</span>
+</span></span><span class="line"><span class="cl">    <span class="n">sex</span> <span class="o">=</span> <span class="n">i</span><span class="o">.</span><span class="n">sex</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">sex</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">male</span> <span class="o">+=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">    <span class="k">elif</span> <span class="n">sex</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">female</span> <span class="o">+=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">other</span> <span class="o">+=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl"><span class="n">total</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">friends</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>   <span class="c1">#计算总数</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#下面为分析</span>
+</span></span><span class="line"><span class="cl"><span class="n">attr</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&#34;男性&#34;</span><span class="p">,</span><span class="s2">&#34;女性&#34;</span><span class="p">,</span><span class="s2">&#34;其他&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">v1</span> <span class="o">=</span> <span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="n">male</span><span class="p">),</span><span class="nb">float</span><span class="p">(</span><span class="n">female</span><span class="p">),</span><span class="nb">float</span><span class="p">(</span><span class="n">other</span><span class="p">)]</span>
+</span></span><span class="line"><span class="cl"><span class="n">pie</span> <span class="o">=</span> <span class="n">Pie</span><span class="p">(</span><span class="s2">&#34;饼图-圆环图示例&#34;</span><span class="p">,</span> <span class="n">title_pos</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">pie</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">&#34;&#34;</span><span class="p">,</span> <span class="n">attr</span><span class="p">,</span> <span class="n">v1</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="p">[</span><span class="mi">40</span><span class="p">,</span> <span class="mi">75</span><span class="p">],</span> <span class="n">label_text_color</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">is_label_show</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">legend_orient</span><span class="o">=</span><span class="s1">&#39;vertical&#39;</span><span class="p">,</span> <span class="n">legend_pos</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">pie</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="s2">&#34;sex.html&#34;</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p></p>
+<h2 id="查看好友地区分布">查看好友地区分布</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">wxpy</span> <span class="kn">import</span> <span class="o">*</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">pyecharts</span> <span class="kn">import</span> <span class="n">Map</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#因为获取的列表城市都没有带市字，而 pyecharts 需要带个市字</span>
+</span></span><span class="line"><span class="cl"><span class="n">b</span> <span class="o">=</span> <span class="s1">&#39;市&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">s</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">x</span><span class="o">+</span><span class="n">b</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#只提取湖南的</span>
+</span></span><span class="line"><span class="cl"><span class="n">bot</span> <span class="o">=</span> <span class="n">Bot</span><span class="p">(</span><span class="n">cache_path</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">friends</span> <span class="o">=</span> <span class="n">bot</span><span class="o">.</span><span class="n">friends</span><span class="p">(</span><span class="n">update</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">province</span> <span class="o">=</span> <span class="s1">&#39;湖南&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">citys</span> <span class="o">=</span> <span class="p">[]</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">friends</span> <span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">city</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">city</span>
+</span></span><span class="line"><span class="cl">    <span class="n">citys</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">city</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">r</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="n">citys</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">cityss</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#为城市计数</span>
+</span></span><span class="line"><span class="cl"><span class="n">a</span> <span class="o">=</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">cityss</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">cityss</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">a</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;市&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#把字典进行有序拆分为 2 个列表</span>
+</span></span><span class="line"><span class="cl"><span class="n">attrs</span> <span class="o">=</span> <span class="p">[]</span>
+</span></span><span class="line"><span class="cl"><span class="n">values</span> <span class="o">=</span> <span class="p">[]</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">value</span><span class="p">,</span> <span class="n">attr</span> <span class="ow">in</span> <span class="n">a</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="n">values</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">attr</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">attrs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#开始绘图</span>
+</span></span><span class="line"><span class="cl"><span class="nb">map</span> <span class="o">=</span> <span class="n">Map</span><span class="p">(</span><span class="s2">&#34;湖南地图示例&#34;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">1200</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">600</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">map</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">&#34;&#34;</span><span class="p">,</span> <span class="n">attrs</span><span class="p">,</span> <span class="n">values</span><span class="p">,</span> <span class="n">maptype</span><span class="o">=</span><span class="s1">&#39;湖南&#39;</span><span class="p">,</span> <span class="n">is_visualmap</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">visual_text_color</span><span class="o">=</span><span class="s1">&#39;#000&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">map</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="s2">&#34;city.html&#34;</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p></p>
+<blockquote>
+<p><strong>以上参考简书 <a href="https://www.jianshu.com/p/c0baf3c6db15"target="_blank" rel="external nofollow noopener noreferrer">陈思煜<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></strong></p>
+</blockquote>
+<h2 id="统计所有群男女数目">统计所有群男女数目</h2>
+<blockquote>
+<p>统计结果会自动发送到所有群聊
+男女人数和不一定等于总数（有些人不显示性别）</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="line"><span class="cl"><span class="c1">#encoding=utf-8</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">wxpy</span> <span class="kn">import</span> <span class="o">*</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">numpy</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">removeAll</span><span class="p">(</span><span class="n">the_list</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">[</span><span class="n">value</span> <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">the_list</span> <span class="k">if</span> <span class="n">value</span> <span class="o">!=</span> <span class="n">val</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">stats_text</span><span class="p">(</span><span class="n">target_group</span><span class="p">,</span> <span class="n">group_name</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">group_name</span> <span class="o">+</span> <span class="s2">&#34;群共有：&#34;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">target_group</span><span class="p">))</span> <span class="o">+</span> <span class="s2">&#34;人，其中：&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">all_stats_text</span> <span class="o">=</span> <span class="p">[]</span>
+</span></span><span class="line"><span class="cl">    <span class="n">all_dict</span> <span class="o">=</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">## 乱序先整理一份省份 + 地点的列表</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">user</span> <span class="ow">in</span> <span class="n">target_group</span><span class="o">.</span><span class="n">members</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">trimed_data</span> <span class="o">=</span> <span class="n">user</span><span class="o">.</span><span class="n">province</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="n">user</span><span class="o">.</span><span class="n">city</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">trimed_data</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">all_stats_text</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">trimed_data</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">## 计数</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">all_stats_text</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">all_stats_text</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">all_dict</span><span class="p">[</span><span class="n">data</span><span class="p">]</span> <span class="o">=</span> <span class="n">all_stats_text</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">all_stats_text</span> <span class="o">=</span> <span class="n">removeAll</span><span class="p">(</span><span class="n">all_stats_text</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">final_dict</span> <span class="o">=</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">all_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">()):</span>
+</span></span><span class="line"><span class="cl">        <span class="n">final_dict</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">all_dict</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">final_dict</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">stats_sex</span><span class="p">(</span><span class="n">target_group</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">male</span> <span class="o">=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">    <span class="n">female</span> <span class="o">=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">    <span class="n">other</span> <span class="o">=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">user</span> <span class="ow">in</span> <span class="n">target_group</span><span class="o">.</span><span class="n">members</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">user</span><span class="o">.</span><span class="n">sex</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">male</span> <span class="o">=</span> <span class="n">male</span> <span class="o">+</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">user</span><span class="o">.</span><span class="n">sex</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">female</span> <span class="o">=</span> <span class="n">female</span> <span class="o">+</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">        <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">other</span> <span class="o">=</span> <span class="n">other</span> <span class="o">+</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;男的有：&#34;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">male</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&#34;人&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;女的有：&#34;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">female</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&#34;人&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">msg</span> <span class="o">=</span> <span class="s2">&#34;男的有：&#34;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">male</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&#34;人、n&#34;</span> <span class="o">+</span> <span class="s2">&#34;女的有：&#34;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">female</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&#34;人、n&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">msg</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">bot</span> <span class="o">=</span> <span class="n">Bot</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">target_group</span> <span class="o">=</span> <span class="n">bot</span><span class="o">.</span><span class="n">groups</span><span class="p">(</span><span class="n">update</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">contact_only</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">curr_group</span> <span class="ow">in</span> <span class="n">target_group</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">## 小于 10 人的群过滤掉</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">curr_group</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">continue</span>
+</span></span><span class="line"><span class="cl">    <span class="n">curr_group</span><span class="o">.</span><span class="n">update_group</span><span class="p">(</span><span class="n">members_details</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">curr_group</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="s2">&#34;一共有：&#34;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">curr_group</span><span class="p">))</span> <span class="o">+</span> <span class="s2">&#34;人、n&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">msg</span> <span class="o">=</span> <span class="n">stats_sex</span><span class="p">(</span><span class="n">curr_group</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">curr_group</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">curr_group</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="s2">&#34;群，一共有：&#34;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">curr_group</span><span class="p">))</span> <span class="o">+</span> <span class="s2">&#34;人、n&#34;</span> <span class="o">+</span> <span class="n">msg</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div>]]></description></item><item><title>基本 python 实现的爬取微信好友头像，并拼接成大图</title><link>https://lruihao.cn/posts/wximgpy/</link><pubDate>Sat, 20 Apr 2019 13:32:58 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/wximgpy/</guid><description><![CDATA[<div class="featured-image">
+        <img src="/posts/wximgpy/images/1.jpg" referrerpolicy="no-referrer">
+      </div><blockquote>
+<p>Python 通过 wxpy 登录微信网页版，爬取好友所有头像并拼接成一张大图。然后删除所有子图。（注释相关代码可以不删除）<br>
+<strong><em>文中涉及的图片涉及个人隐私，仅做举例，请勿传播</em></strong><br>
+<strong>文中编码由 Sunbelife 提供，来自他的同名微信公众号，本博仅用于学习，侵删</strong></p>
+</blockquote>
+<h2 id="依赖">依赖</h2>
+<ul>
+<li>wxpy（Pythone 登录微信）</li>
+<li>pillow（拼接头像）</li>
+<li>os（文件夹操作）</li>
+<li>math（数学计算）</li>
+</ul>
+<blockquote>
+<p><a href="https://github.com/youfou/wxpy"target="_blank" rel="external nofollow noopener noreferrer">wxpy<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>:<br>
+  wxpy 在 itchat 的基础上，通过大量接口优化提升了模块的易用性，并进行丰富的功能扩展。<br>
+<a href="https://www.liaoxuefeng.com/wiki/0014316089557264a6b348958f449949df42a6d3a2e542c000/0014320027235877860c87af5544f25a8deeb55141d60c5000"target="_blank" rel="external nofollow noopener noreferrer">PIL<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>：<br>
+  Python Imaging Library，已经是 Python 平台事实上的图像处理标准库了。PIL 功能非常强大，但 API 却非常简单易用。由于 PIL 仅支持到 Python 2.7，加上年久失修，于是一群志愿者在 PIL 的基础上创建了兼容的版本，名字叫 Pillow，支持最新 Python 3.x，又加入了许多新特性，因此，我们可以直接安装使用 Pillow。</p>
+</blockquote>
+<h2 id="安装">安装</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">pip install -U wxpy -i &#34;https://pypi.doubanio.com/simple/&#34;
+</span></span><span class="line"><span class="cl">pip install pillow
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="运行">运行</h2>
+<blockquote>
+<p>如果在 Python IDE 运行出错，可能是因为微信好友的 id 是特殊字符，在 IDE 打印出错，注释掉代码 36 行即可。</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span><span class="lnt">79
+</span><span class="lnt">80
+</span><span class="lnt">81
+</span><span class="lnt">82
+</span><span class="lnt">83
+</span><span class="lnt">84
+</span><span class="lnt">85
+</span><span class="lnt">86
+</span><span class="lnt">87
+</span><span class="lnt">88
+</span><span class="lnt">89
+</span><span class="lnt">90
+</span><span class="lnt">91
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">wxpy</span> <span class="kn">import</span> <span class="o">*</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">math</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">PIL.Image</span> <span class="k">as</span> <span class="nn">Image</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">os</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">sys</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">shutil</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#</span>
+</span></span><span class="line"><span class="cl"><span class="c1">### 获取文件所在的绝对路径</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">get_dir</span><span class="p">(</span><span class="n">sys_arg</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">	<span class="n">sys_arg</span> <span class="o">=</span> <span class="n">sys_arg</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&#34;/&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="n">dir_str</span> <span class="o">=</span> <span class="s2">&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">	<span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">	<span class="k">for</span> <span class="n">cur_dir</span> <span class="ow">in</span> <span class="n">sys_arg</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="n">count</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">			<span class="n">count</span> <span class="o">=</span> <span class="n">count</span> <span class="o">+</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="n">count</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">sys_arg</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">			<span class="k">break</span>
+</span></span><span class="line"><span class="cl">		<span class="n">dir_str</span> <span class="o">=</span> <span class="n">dir_str</span> <span class="o">+</span> <span class="n">cur_dir</span> <span class="o">+</span> <span class="s2">&#34;/&#34;</span>
+</span></span><span class="line"><span class="cl">		<span class="n">count</span> <span class="o">=</span> <span class="n">count</span> <span class="o">+</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="n">dir_str</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">curr_dir</span> <span class="o">=</span> <span class="n">get_dir</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">bot</span> <span class="o">=</span> <span class="n">Bot</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">## 机器人账号自身</span>
+</span></span><span class="line"><span class="cl"><span class="n">myself</span> <span class="o">=</span> <span class="n">bot</span><span class="o">.</span><span class="n">self</span>
+</span></span><span class="line"><span class="cl"><span class="n">my_friends</span> <span class="o">=</span> <span class="n">bot</span><span class="o">.</span><span class="n">friends</span><span class="p">(</span><span class="n">update</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">curr_dir</span> <span class="o">+</span> <span class="s2">&#34;group-images/&#34;</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">	<span class="n">os</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">curr_dir</span> <span class="o">+</span> <span class="s2">&#34;group-images/&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">friend</span> <span class="ow">in</span> <span class="n">my_friends</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">	<span class="nb">print</span><span class="p">(</span><span class="n">friend</span><span class="o">.</span><span class="n">nick_name</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="n">friend</span><span class="o">.</span><span class="n">get_avatar</span><span class="p">(</span><span class="n">curr_dir</span> <span class="o">+</span> <span class="s2">&#34;group-images/&#34;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">count</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&#34;.jpg&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="n">count</span> <span class="o">=</span> <span class="n">count</span> <span class="o">+</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">## 获取下载的头像文件</span>
+</span></span><span class="line"><span class="cl"><span class="n">ls</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">curr_dir</span> <span class="o">+</span> <span class="s1">&#39;group-images&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">## 去除非 .jpg 文件</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">filter_ls</span> <span class="ow">in</span> <span class="n">ls</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="s2">&#34;.jpg&#34;</span> <span class="ow">in</span> <span class="n">filter_ls</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">		<span class="k">continue</span>
+</span></span><span class="line"><span class="cl">	<span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">		<span class="n">ls</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">filter_ls</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">## 排序</span>
+</span></span><span class="line"><span class="cl"><span class="n">ls</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="p">[:</span><span class="o">-</span><span class="mi">4</span><span class="p">]))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">## 头像墙尺寸</span>
+</span></span><span class="line"><span class="cl"><span class="n">image_size</span> <span class="o">=</span> <span class="mi">2560</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">each_size</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">image_size</span><span class="o">/</span><span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ls</span><span class="p">))))</span>
+</span></span><span class="line"><span class="cl"><span class="n">x_lines</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ls</span><span class="p">)))</span>
+</span></span><span class="line"><span class="cl"><span class="n">y_lines</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ls</span><span class="p">)))</span>
+</span></span><span class="line"><span class="cl"><span class="n">image</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s1">&#39;RGB&#39;</span><span class="p">,</span> <span class="p">(</span><span class="n">each_size</span> <span class="o">*</span> <span class="n">x_lines</span><span class="p">,</span> <span class="n">each_size</span> <span class="o">*</span> <span class="n">y_lines</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">x</span> <span class="o">=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl"><span class="n">y</span> <span class="o">=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">file_names</span> <span class="ow">in</span> <span class="n">ls</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">	<span class="k">try</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">		<span class="n">img</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">curr_dir</span> <span class="o">+</span> <span class="s2">&#34;group-images/&#34;</span> <span class="o">+</span> <span class="n">file_names</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="nb">print</span><span class="p">(</span><span class="s2">&#34;正在处理&#34;</span> <span class="o">+</span> <span class="n">file_names</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.jpg&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&#34;/&#34;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ls</span><span class="p">)))</span>
+</span></span><span class="line"><span class="cl">	<span class="k">except</span> <span class="ne">IOError</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">		<span class="k">continue</span>
+</span></span><span class="line"><span class="cl">	<span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">		<span class="n">img</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">resize</span><span class="p">((</span><span class="n">each_size</span><span class="p">,</span> <span class="n">each_size</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">		<span class="n">image</span><span class="o">.</span><span class="n">paste</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="n">each_size</span><span class="p">,</span> <span class="n">y</span> <span class="o">*</span> <span class="n">each_size</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">		<span class="n">x</span> <span class="o">+=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="n">x_lines</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">			<span class="n">x</span> <span class="o">=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">			<span class="n">y</span> <span class="o">+=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">img</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">curr_dir</span> <span class="o">+</span> <span class="s2">&#34;all.jpg&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">try</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">	<span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="n">curr_dir</span> <span class="o">+</span> <span class="s2">&#34;group-images/&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="nb">print</span><span class="p">(</span><span class="s2">&#34;收尾，清理临时文件&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">except</span> <span class="ne">FileNotFoundError</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">	<span class="nb">print</span><span class="p">(</span><span class="s2">&#34;没什么好删的&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;！！！</span><span class="se">\n</span><span class="s2"> 生成完毕了，放在了目录&#34;</span> <span class="o">+</span> <span class="n">curr_dir</span> <span class="o">+</span> <span class="s2">&#34;，去看看吧。&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;工具作者：@Sunbelife（新浪微博）&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;公众号：Sunbelife&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;感谢使用&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;v1.2&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;2019.4.18&#34;</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="群友全家福">群友全家福</h2>
+<blockquote>
+<p>修改 11 行群名称</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">itchat</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">math</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">PIL.Image</span> <span class="k">as</span> <span class="nn">Image</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">os</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">shutil</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">## 变量</span>
+</span></span><span class="line"><span class="cl"><span class="n">itchat</span><span class="o">.</span><span class="n">auto_login</span><span class="p">(</span><span class="n">hotReload</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">enableCmdQR</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">roomslist</span> <span class="o">=</span> <span class="n">itchat</span><span class="o">.</span><span class="n">get_chatrooms</span><span class="p">(</span><span class="n">update</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">0</span><span class="p">:]</span>
+</span></span><span class="line"><span class="cl"><span class="n">itchat</span><span class="o">.</span><span class="n">dump_login_status</span><span class="p">()</span> <span class="c1">## 显示所有的群聊信息，默认是返回保存到通讯录中的群聊</span>
+</span></span><span class="line"><span class="cl"><span class="n">myroom</span><span class="o">=</span><span class="n">itchat</span><span class="o">.</span><span class="n">search_chatrooms</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="sa">u</span><span class="s1">&#39;绥宁一中高 396 班&#39;</span><span class="p">)</span> <span class="c1">#群聊名称</span>
+</span></span><span class="line"><span class="cl"><span class="n">gsq</span><span class="o">=</span><span class="n">itchat</span><span class="o">.</span><span class="n">update_chatroom</span><span class="p">(</span><span class="n">myroom</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;UserName&#39;</span><span class="p">],</span> <span class="n">detailedMember</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">num</span> <span class="o">=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="s2">&#34;./group-images/&#34;</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">os</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="s2">&#34;./group-images/&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">gsq</span><span class="p">[</span><span class="s1">&#39;MemberList&#39;</span><span class="p">]:</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="s2">&#34;UserName&#34;</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">    <span class="n">img</span> <span class="o">=</span> <span class="n">itchat</span><span class="o">.</span><span class="n">get_head_img</span><span class="p">(</span><span class="n">userName</span><span class="o">=</span><span class="n">i</span><span class="p">[</span><span class="s2">&#34;UserName&#34;</span><span class="p">],</span><span class="n">chatroomUserName</span><span class="o">=</span><span class="n">myroom</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;UserName&#39;</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">    <span class="n">fileImage</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&#34;./group-images/&#34;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">num</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&#34;.jpg&#34;</span><span class="p">,</span><span class="s1">&#39;wb&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">fileImage</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">fileImage</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="n">num</span> <span class="o">+=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">ls</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="s1">&#39;./group-images&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">each_size</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="mi">640</span><span class="o">*</span><span class="mi">640</span><span class="p">)</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">ls</span><span class="p">)))</span>
+</span></span><span class="line"><span class="cl"><span class="n">lines</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="mi">640</span><span class="o">/</span><span class="n">each_size</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">image</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s1">&#39;RGBA&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mi">640</span><span class="p">,</span> <span class="mi">640</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">x</span> <span class="o">=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl"><span class="n">y</span> <span class="o">=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">ls</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">try</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">img</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">&#34;./group-images/&#34;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&#34;.jpg&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">except</span> <span class="ne">IOError</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;Error&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">img</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">resize</span><span class="p">((</span><span class="n">each_size</span><span class="p">,</span> <span class="n">each_size</span><span class="p">),</span> <span class="n">Image</span><span class="o">.</span><span class="n">ANTIALIAS</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">image</span><span class="o">.</span><span class="n">paste</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="n">each_size</span><span class="p">,</span> <span class="n">y</span> <span class="o">*</span> <span class="n">each_size</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">        <span class="n">x</span> <span class="o">+=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="n">lines</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">            <span class="n">y</span> <span class="o">+=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl"><span class="n">image</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">&#34;all.png&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="s2">&#34;./group-images&#34;</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><figure><a class="lightgallery" href="/posts/wximgpy/images/2.png" data-thumbnail="/posts/wximgpy/images/2.png" data-sub-html="<h2>绥宁一中高 396 班</h2><p>绥宁一中高 396 班</p>"></a><figcaption class="image-caption">绥宁一中高 396 班</figcaption>
+  </figure></p>
+<blockquote>
+<p>加个列表，加个循环实现自动爬取所有群聊头像并发送</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">itchat</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">math</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">PIL.Image</span> <span class="k">as</span> <span class="nn">Image</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">os</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">shutil</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">## 变量</span>
+</span></span><span class="line"><span class="cl"><span class="n">itchat</span><span class="o">.</span><span class="n">auto_login</span><span class="p">(</span><span class="n">hotReload</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">enableCmdQR</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">roomslist</span> <span class="o">=</span> <span class="n">itchat</span><span class="o">.</span><span class="n">get_chatrooms</span><span class="p">(</span><span class="n">update</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">0</span><span class="p">:]</span>
+</span></span><span class="line"><span class="cl"><span class="n">itchat</span><span class="o">.</span><span class="n">dump_login_status</span><span class="p">()</span> <span class="c1">## 显示所有的群聊信息，默认是返回保存到通讯录中的群聊</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">room</span> <span class="ow">in</span> <span class="n">roomslist</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">room</span><span class="p">[</span><span class="s1">&#39;UserName&#39;</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">    <span class="n">gsq</span><span class="o">=</span><span class="n">itchat</span><span class="o">.</span><span class="n">update_chatroom</span><span class="p">(</span><span class="n">room</span><span class="p">[</span><span class="s1">&#39;UserName&#39;</span><span class="p">],</span> <span class="n">detailedMember</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">num</span> <span class="o">=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="s2">&#34;./group-images/&#34;</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="n">os</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="s2">&#34;./group-images/&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">gsq</span><span class="p">[</span><span class="s1">&#39;MemberList&#39;</span><span class="p">]:</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="s2">&#34;UserName&#34;</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">        <span class="n">img</span> <span class="o">=</span> <span class="n">itchat</span><span class="o">.</span><span class="n">get_head_img</span><span class="p">(</span><span class="n">userName</span><span class="o">=</span><span class="n">i</span><span class="p">[</span><span class="s2">&#34;UserName&#34;</span><span class="p">],</span><span class="n">chatroomUserName</span><span class="o">=</span><span class="n">room</span><span class="p">[</span><span class="s1">&#39;UserName&#39;</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">        <span class="n">fileImage</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&#34;./group-images/&#34;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">num</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&#34;.jpg&#34;</span><span class="p">,</span><span class="s1">&#39;wb&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">fileImage</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">fileImage</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="n">num</span> <span class="o">+=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">ls</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="s1">&#39;./group-images&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">each_size</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="mi">640</span><span class="o">*</span><span class="mi">640</span><span class="p">)</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">ls</span><span class="p">)))</span>
+</span></span><span class="line"><span class="cl">    <span class="n">lines</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="mi">640</span><span class="o">/</span><span class="n">each_size</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">image</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s1">&#39;RGB&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mi">640</span><span class="p">,</span> <span class="mi">640</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">    <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">    <span class="n">y</span> <span class="o">=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">ls</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="k">try</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">img</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">&#34;./group-images/&#34;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&#34;.jpg&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">except</span> <span class="ne">IOError</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;Error&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">img</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">resize</span><span class="p">((</span><span class="n">each_size</span><span class="p">,</span> <span class="n">each_size</span><span class="p">),</span> <span class="n">Image</span><span class="o">.</span><span class="n">ANTIALIAS</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">image</span><span class="o">.</span><span class="n">paste</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="n">each_size</span><span class="p">,</span> <span class="n">y</span> <span class="o">*</span> <span class="n">each_size</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">            <span class="n">x</span> <span class="o">+=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="n">lines</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">                <span class="n">y</span> <span class="o">+=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">    <span class="n">image</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">&#34;all.jpg&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">itchat</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="s2">&#34;写了个好玩的… 测试一下&#34;</span><span class="p">,</span> <span class="n">room</span><span class="p">[</span><span class="s1">&#39;UserName&#39;</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">    <span class="n">itchat</span><span class="o">.</span><span class="n">send_image</span><span class="p">(</span><span class="s2">&#34;all.jpg&#34;</span><span class="p">,</span> <span class="n">room</span><span class="p">[</span><span class="s1">&#39;UserName&#39;</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">    <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="s2">&#34;./group-images&#34;</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div>]]></description></item></channel></rss>

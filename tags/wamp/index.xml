@@ -1,0 +1,143 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>WAMP - 标签 - 菠菜眾長</title><link>https://lruihao.cn/tags/wamp/</link><description>WAMP - 标签 - 菠菜眾長</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><lastBuildDate>Fri, 12 Jul 2019 18:44:36 +0000</lastBuildDate><atom:link href="https://lruihao.cn/tags/wamp/" rel="self" type="application/rss+xml"/><item><title>WAMPServer 自定义网站根目录等设置</title><link>https://lruihao.cn/posts/wamproot/</link><pubDate>Fri, 12 Jul 2019 18:44:36 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/wamproot/</guid><description><![CDATA[<blockquote>
+<p>使用 WAMPServer 时自定义网站根目录。</p>
+</blockquote>
+<h2 id="wampserver-自定义网站根目录">WAMPServer 自定义网站根目录</h2>
+<h3 id="修改-apache-配置文件">修改 apache 配置文件</h3>
+<p>打开<code>httpd.conf</code>文件搜索<code>documentroot</code>后，找到路径修改为自定义的。<br>
+</p>
+<p>再打开<code>httpd-vhost.conf</code>文件修改对应的路径。<br>
+<code>修改完配置文件需要重启所有服务！</code></p>
+<h3 id="修改-wampmanager-文件">修改 wampmanager 文件</h3>
+<p>在 wampserver 安装路径根目录知道<code>wampmanager.ini</code>和<code>wampmanager.tpl</code>两个文件。搜索<code>menu.left</code>, 然后也修改为自定义的路径。
+<code>然后退出，重启软件！</code></p>
+<p><br>
+</p>
+<h3 id="编写-php-文件测试">编写 php 文件测试</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl">	<span class="k">echo</span> <span class="s2">&#34;hello world&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="cp">?&gt;</span><span class="err">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p></p>
+<h2 id="wampserver-多站点配置">WAMPServer 多站点配置</h2>
+<p>打开<code>httpd-vhost.conf</code>文件，复制原有的几行配置文件，粘贴修改路径和域名等配置。比如</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">## Virtual Hosts
+</span></span><span class="line"><span class="cl">#
+</span></span><span class="line"><span class="cl">&lt;VirtualHost *:80&gt;
+</span></span><span class="line"><span class="cl">  ServerName localhost
+</span></span><span class="line"><span class="cl">  ServerAlias localhost
+</span></span><span class="line"><span class="cl">  DocumentRoot &#34;g:/Demo&#34;
+</span></span><span class="line"><span class="cl">  &lt;Directory &#34;g:/Demo&#34;&gt;
+</span></span><span class="line"><span class="cl">    Options +Indexes +Includes +FollowSymLinks +MultiViews
+</span></span><span class="line"><span class="cl">    AllowOverride All
+</span></span><span class="line"><span class="cl">    Require local
+</span></span><span class="line"><span class="cl">  &lt;/Directory&gt;
+</span></span><span class="line"><span class="cl">&lt;/VirtualHost&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">&lt;VirtualHost *:80&gt;
+</span></span><span class="line"><span class="cl">  ServerName test01.com
+</span></span><span class="line"><span class="cl">  DocumentRoot &#34;g:/Demo/test01&#34;
+</span></span><span class="line"><span class="cl">&lt;/VirtualHost&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">&lt;VirtualHost *:80&gt;
+</span></span><span class="line"><span class="cl">  ServerName test02.com
+</span></span><span class="line"><span class="cl">  DocumentRoot &#34;g:/Demo/test02&#34;
+</span></span><span class="line"><span class="cl">&lt;/VirtualHost&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>再打开<code>C:\Windows\System32\drivers\etc\hosts</code>文件，在文件最后添加类似于云服务器的域名解析，进行本地域名解析，当输入域名时优先从本地申请资源。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">...
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">## For example:
+</span></span><span class="line"><span class="cl">#
+</span></span><span class="line"><span class="cl">## 102.54.94.97 rhino.acme.com ## source server
+</span></span><span class="line"><span class="cl">## 38.25.63.10 x.acme.com ## x client host
+</span></span><span class="line"><span class="cl">## localhost name resolution is handled within DNS itself.
+</span></span><span class="line"><span class="cl">#	127.0.0.1 localhost
+</span></span><span class="line"><span class="cl">#	::1 localhost
+</span></span><span class="line"><span class="cl">127.0.0.1 steamcommunity.com
+</span></span><span class="line"><span class="cl">192.168.28.1 windows10.microdone.cn
+</span></span><span class="line"><span class="cl">127.0.0.1 localhost
+</span></span><span class="line"><span class="cl">::1 localhost
+</span></span><span class="line"><span class="cl">127.0.0.1 test01.com
+</span></span><span class="line"><span class="cl">127.0.0.1 test02.com
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="wampserver-自拟定端口">WAMPServer 自拟定端口</h2>
+<p>WAMP 服务我安装了好几次，每次因为修改配置文件搞崩了。第一次装的时候发现 80 端口被占用了，因为以前玩了一下 Windows 的 IIS，暂停 IIS 的网站，再使用命令或者直接在控制面板关掉就好了。</p>
+<ol>
+<li>如果不使用 80 多为默认端口，比如修改为 8080，还是在<code>httpd.conf</code>文件里修改。搜索<code>80</code>都改成<code>8080</code>然后，Ctrl+S 保存，重新启动 WampServer<br>
+在浏览器地址栏输入<code>localhost:8000</code></li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">#监听端口
+</span></span><span class="line"><span class="cl">Listen 0.0.0.0:8080
+</span></span><span class="line"><span class="cl">Listen [::0]:8080
+</span></span><span class="line"><span class="cl">ServerName localhost:8080
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ol start="2">
+<li>使用 Notepad++打开 C:\wamp 目录下的 wampmanager.ini 和 wampmanager.tpl<br>
+Ctrl+F 查找 <code>localhost</code><br>
+将其全部替换为<code>localhost:8000</code><br>
+然后，Ctrl+S 保存，重新启动 WampServer</li>
+</ol>]]></description></item></channel></rss>
