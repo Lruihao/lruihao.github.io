@@ -49,8 +49,8 @@ arr.every(callback(element[, index[, array]])[, thisArg])
 ```
 
 ```js
-[12, 5, 8, 130, 44].every((x) => x >= 10); // false
-[12, 54, 18, 130, 44].every((x) => x >= 10); // true
+[12, 5, 8, 130, 44].every(x => x >= 10); // false
+[12, 54, 18, 130, 44].every(x => x >= 10); // true
 ```
 
 {{< admonition tip >}}

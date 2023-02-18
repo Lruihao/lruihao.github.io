@@ -9,7 +9,7 @@
 
 <!--more-->
 
-![](../hellojava/images/2.png)
+![](images/2.png)
 
 ## 编写 java
 
@@ -25,7 +25,7 @@ public class HelloWorld{
 
 ## 打开 cmd
 
-![](../hellojava/images/1.png)
+![](images/1.png)
 
 
 ---

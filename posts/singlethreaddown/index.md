@@ -117,7 +117,7 @@ public class SingleThreadDown extends JFrame implements ActionListener {
 
 通过`https://github.com/Lruihao/Grocery/raw/master/fonts/MMT_last.ttf`下载沐目体 ttf 字体文件，稍微等待一下弹出对话框“下载完毕”，经检查下载内容正常。
 
-![运行效果](../singlethreaddown/images/1.png)
+![运行效果](images/1.png)
 
 
 ---

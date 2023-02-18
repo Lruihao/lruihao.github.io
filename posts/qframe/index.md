@@ -47,7 +47,7 @@ public class QFrame extends JFrame {
 
 ## 结果
 
-![](../qframe/images/1.png)
+![](images/1.png)
 
 ## 参考
 
