@@ -53,6 +53,7 @@ const RNC = new (function () {
     if (!$music || !$comment) {
       return;
     }
+    this.getRequire();
     this.getRandomComment();
     $comment.addEventListener('click', () => {
       this.getRandomComment();
@@ -61,7 +62,6 @@ const RNC = new (function () {
 })();
 
 (() => {
-  RNC.getRequire();
   // It will be executed when the DOM tree is built.
   document.addEventListener('DOMContentLoaded', () => {
     RNC.initMMTNetease();
