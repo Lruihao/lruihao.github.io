@@ -8,9 +8,10 @@ const RNC = new (function () {
 
   /**
    * 获取随机网易云评论
+   * @param {Boolean} [autoplay=false] 是否自动播放
    * @name RNC#getRandomComment
    */
-  this.getRandomComment = () => {
+  this.getRandomComment = (autoplay=false) => {
     fetch(`https://api.uomg.com/api/comments.163?mid=${$music.dataset.mid}`)
     .then(response => response.json())
     .then((comment) => {
@@ -25,6 +26,7 @@ const RNC = new (function () {
       $comment.querySelector('.artists-name').innerHTML = comment.data.artistsname;
       const $player = document.createElement('meting-js');
       $player.setAttribute('auto', comment.data.url);
+      $player.setAttribute('autoplay', autoplay);
       $music.innerHTML = '';
       $music.appendChild($player);
     })
@@ -56,7 +58,7 @@ const RNC = new (function () {
     this.getRequire();
     this.getRandomComment();
     $comment.addEventListener('click', () => {
-      this.getRandomComment();
+      this.getRandomComment($music.dataset.autoplay);
     });
   };
 })();
