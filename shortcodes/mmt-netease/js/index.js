@@ -5,6 +5,7 @@
 const RNC = new (function () {
   const $music = document.querySelector('.netease-music');
   const $comment = document.querySelector('.comment-163');
+  let lastMusic = void 0;
 
   /**
    * 获取随机网易云评论
@@ -24,11 +25,14 @@ const RNC = new (function () {
       $comment.querySelector('.comment-content').innerHTML = comment.data.content.replace('\n','<br/>');
       $comment.querySelector('.music-name').innerHTML = comment.data.name;
       $comment.querySelector('.artists-name').innerHTML = comment.data.artistsname;
-      const $player = document.createElement('meting-js');
-      $player.setAttribute('auto', comment.data.url);
-      $player.setAttribute('autoplay', autoplay);
-      $music.innerHTML = '';
-      $music.appendChild($player);
+      if (!lastMusic || (lastMusic !== comment.data.url)) {
+        const $player = document.createElement('meting-js');
+        $player.setAttribute('auto', comment.data.url);
+        $player.setAttribute('autoplay', autoplay);
+        $music.innerHTML = '';
+        $music.appendChild($player);
+        lastMusic = comment.data.url;
+      }
     })
   };
 
