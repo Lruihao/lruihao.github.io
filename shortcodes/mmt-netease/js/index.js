@@ -29,6 +29,9 @@ const RNC = new (function () {
         const $player = document.createElement('meting-js');
         $player.setAttribute('auto', comment.data.url);
         $player.setAttribute('autoplay', autoplay);
+        $music.dataset.fixed && $player.setAttribute('fixed', $music.dataset.fixed);
+        $music.dataset.mini && $player.setAttribute('mini', $music.dataset.mini);
+        $music.dataset.volume && $player.setAttribute('volume', $music.dataset.volume);
         $music.innerHTML = '';
         $music.appendChild($player);
         lastMusic = comment.data.url;
