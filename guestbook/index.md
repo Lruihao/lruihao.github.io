@@ -2,7 +2,7 @@
 
 
 {{< admonition abstract "感谢大家的支持 🙏"  false >}}
-{{< reward wechatpay="/images/wechatpay.gif" alipay="/images/alipay.gif" comment="给博主买杯卡布奇诺～" >}}
+{{< reward wechatpay="/images/wechatpay.jpg" alipay="/images/alipay.jpg" comment="给博主买杯卡布奇诺～" >}}
 {{< sponsor-log >}}
 {{< /admonition >}}
 
