@@ -1,11 +1,6 @@
 # 留言
 
 
-{{< admonition abstract "感谢大家的支持 🙏"  false >}}
-{{< reward wechatpay="/images/wechatpay.jpg" alipay="/images/alipay.jpg" comment="给博主买杯卡布奇诺～" >}}
-{{< sponsor-log >}}
-{{< /admonition >}}
-
 {{< admonition tip "Welcome" >}}
 {{< typeit >}}
 互联网的广大朋友们，欢迎光临我的小博客！欢迎留言！
@@ -20,6 +15,10 @@
 {.text-center style="font-size: 80%;"}
 
 {{< mmt-netease "2280569152" true >}}
+
+---
+
+{{< reward wechatpay="/images/wechatpay.jpg" alipay="/images/alipay.jpg" comment="给博主买杯卡布奇诺～" >}}
 
 
 ---

@@ -53,6 +53,13 @@ console.log(site.name);
 - [GitHub](https://github.com/Lruihao/hugo-blog)
 - [![云+社区](https://imgcache.qq.com/open_proj/proj_qcloud_v2/community-pc/build/base/images/c-nav-logo-icon-white.svg)](https://cloud.tencent.com/developer/column/94521)
 
+## 致谢
+
+{{< details "感谢大家的支持 🙏" >}}
+{{< reward wechatpay="/images/wechatpay.jpg" alipay="/images/alipay.jpg" comment="给博主买杯卡布奇诺～" >}}
+{{< sponsor-log >}}
+{{< /details >}}
+
 {{< music url="https://cdn-1256932288.cos.ap-chengdu.myqcloud.com/files/nanjing.mp3" name="李志" artist="你离开了南京，从此没人和我说话" cover="https://p2.music.126.net/UuSe-Vc6rS7JtRJSQgDU2g==/2323268069553116.jpg?param=300x300" fixed=true >}}
 
 
