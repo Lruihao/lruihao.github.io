@@ -24,6 +24,6 @@
 
 ---
 
-> 作者: map[link:mailto:1845280636@qq.com name:杨灿]  
+> 作者: [杨灿](mailto:1845280636@qq.com)  
 > URL: https://lruihao.cn/posts/%E6%88%8F%E5%AD%90%E6%98%A5%E7%A7%8B/  
 

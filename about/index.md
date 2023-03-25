@@ -56,7 +56,7 @@ console.log(site.name);
 ## 致谢
 
 {{< details "感谢大家的支持 🙏" >}}
-{{< reward wechatpay="/images/wechatpay.jpg" alipay="/images/alipay.jpg" comment="给博主买杯卡布奇诺～" >}}
+{{< reward wechatpay="/images/wechatpay.jpg" alipay="/images/alipay.jpg" comment="给博主买杯卡布奇诺～" mode="fixed" >}}
 {{< sponsor-log >}}
 {{< /details >}}
 
