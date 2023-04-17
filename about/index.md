@@ -3,6 +3,11 @@
 
 {{< style "min-height: 230px;" >}}
 {{< typeit code=javascript >}}
+/**
+ * 建站的初衷不是為了炫耀所知，而是記錄無知。
+ * 人知道的越多，就會發現無知的越多。有更廣袤的世界可以探索，真是莫大的快樂！
+ * @since 2018-05-28 20:01:01
+ */
 class Blog {
   constructor(name, author, url) {
     this.name = name;
@@ -11,7 +16,6 @@ class Blog {
   }
 }
 const site = new Blog('菠菜眾長', 'Lruihao', 'https://lruihao.cn');
-console.log(site.name);
 {{< /typeit >}}
 {{< /style >}}
 
@@ -20,7 +24,7 @@ console.log(site.name);
 {{< link href="https://github.com/users/Lruihao/projects/1" content="@Lruihao's Recent activity" card=true >}}
 
 [![Follow me on GitHub](https://img.shields.io/github/followers/Lruihao.svg?style=social&label=Followers)](https://github.com/Lruihao)  [:(fa-brands fa-weibo fa-fw ms-1 text-warning):](https://weibo.com/liahao "在微博上關注我")
-{ .text-center style="font-size: 1.25rem;" }
+{.text-center style="font-size: 1.25rem;"}
 
 - 一名前端開發人員
 - [@hugo-fixit](https://github.com/hugo-fixit) 的創建者
@@ -33,23 +37,15 @@ console.log(site.name);
 不嗔不怒，不爭不棄，獨善其身
 {{< /center-quote >}}
 
-## 初衷
-
-建站的初衷不是為了炫耀所知，而是記錄無知。  
-人知道的越多，就會發現無知的越多。有更廣袤的世界可以探索，真是莫大的快樂！
-
-—— 创建于 2018-05-28 20:01:01
-{style="text-align: right;font-size: 80%;"}
-
 ## 訂閱
 
 - [RSS](http://lruihao.cn/index.xml)
 - [GitHub](https://github.com/Lruihao/hugo-blog)
 - [![云+社区](https://imgcache.qq.com/open_proj/proj_qcloud_v2/community-pc/build/base/images/c-nav-logo-icon-white.svg)](https://cloud.tencent.com/developer/column/94521)
 
-## 致谢
+## 致謝
 
-{{< details "感谢大家的支持 🙏" >}}
+{{< details "感謝大家的支持 🙏" >}}
 {{< reward wechatpay="/images/wechatpay.jpg" alipay="/images/alipay.jpg" comment="给博主买杯卡布奇诺～" mode="fixed" >}}
 {{< sponsor-log >}}
 {{< /details >}}
