@@ -15,22 +15,23 @@ console.log(site.name);
 {{< /typeit >}}
 {{< /style >}}
 
-## 資訊
-
-[![Follow me on GitHub](https://img.shields.io/github/followers/Lruihao.svg?style=social&label=Followers)](https://github.com/Lruihao)
-
-{{< admonition info "關於我" false >}}
-|      角色      |       職業       |
-| :------------: | :--------------: |
-| ~~在校大學生~~ | ~~Web 前端開發~~ |
-|   ~~實習生~~   | ~~Web 后端開發~~ |
-|      社畜      | ~~Web 全棧開發~~ |
-|                |   Web 前端開發   |
-{{< /admonition >}}
-
-> 用我所学，学我所用。不盲目堆疊技術棧，保持謙遜，保持探索欲，砥礪前行。
+## 關於我
 
 {{< link href="https://github.com/users/Lruihao/projects/1" content="@Lruihao's Recent activity" card=true >}}
+
+[![Follow me on GitHub](https://img.shields.io/github/followers/Lruihao.svg?style=social&label=Followers)](https://github.com/Lruihao)  [:(fa-brands fa-weibo fa-fw ms-1 text-warning):](https://weibo.com/liahao "在微博上關注我")
+{ .text-center style="font-size: 1.25rem;" }
+
+- 一名前端開發人員
+- [@hugo-fixit](https://github.com/hugo-fixit) 的創建者
+
+> **自我期許：**
+>
+> 用我所學，學我所用。不盲目堆疊技術棧，保持謙遜，保持探索欲，砥礪前行。
+{{< center-quote >}}
+不卑不亢，不矜不伐，戒驕戒躁\
+不嗔不怒，不爭不棄，獨善其身
+{{< /center-quote >}}
 
 ## 初衷
 
@@ -39,13 +40,6 @@ console.log(site.name);
 
 —— 创建于 2018-05-28 20:01:01
 {style="text-align: right;font-size: 80%;"}
-
-## 期許
-
-{{% center-quote %}}
-不卑不亢，不矜不伐，戒驕戒躁  
-不嗔不怒，不爭不棄，獨善其身
-{{% /center-quote %}}
 
 ## 訂閱
 
