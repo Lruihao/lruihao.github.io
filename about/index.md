@@ -5,7 +5,7 @@
 {{< typeit code=javascript >}}
 /**
  * 建站的初衷不是為了炫耀所知，而是記錄無知。
- * 人知道的越多，就會發現無知的越多。有更廣袤的世界可以探索，真是莫大的快樂！
+ * 人知道的越多，就會發現無知的越多。有更廣袤的世界可以探索，是莫大的快樂！
  * @since 2018-05-28 20:01:01
  */
 class Blog {
@@ -21,21 +21,21 @@ const site = new Blog('菠菜眾長', 'Lruihao', 'https://lruihao.cn');
 
 ## 關於我
 
-{{< link href="https://github.com/users/Lruihao/projects/1" content="@Lruihao's Recent activity" card=true >}}
-
-[![Follow me on GitHub](https://img.shields.io/github/followers/Lruihao.svg?style=social&label=Followers)](https://github.com/Lruihao)  [:(fa-brands fa-weibo fa-fw ms-1 text-warning):](https://weibo.com/liahao "在微博上關注我")
-{.text-center style="font-size: 1.25rem;"}
-
-- 一名前端開發人員
-- [@hugo-fixit](https://github.com/hugo-fixit) 的創建者
-
-> **自我期許：**
->
-> 用我所學，學我所用。不盲目堆疊技術棧，保持謙遜，保持探索欲，砥礪前行。
 {{< center-quote >}}
 不卑不亢，不矜不伐，戒驕戒躁\
 不嗔不怒，不爭不棄，獨善其身
 {{< /center-quote >}}
+
+[![Follow me on GitHub](https://img.shields.io/github/followers/Lruihao.svg?style=social&label=Followers)](https://github.com/Lruihao)  [:(fa-brands fa-weibo fa-fw ms-1 text-warning):](https://weibo.com/liahao "在微博上關注我")
+{.text-center style="font-size: 1.25rem;"}
+
+- 👨‍💻 一名前端開發工程師
+- 👨‍💼 [@hugo-fixit](https://github.com/hugo-fixit) 的創建者
+- 📝 我經常在 [菠菜眾長](https://lruihao.cn) 和 [FixIt](https://fixit.lruihao.cn) 上撰寫文章和文檔
+
+> **自我期許：** 用我所學，學我所用。保持謙遜，保持探索欲，砥礪前行。
+
+{{< link href="https://github.com/users/Lruihao/projects/1" content="@Lruihao's Recent activity" card=true >}}
 
 ## 訂閱
 
