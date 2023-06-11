@@ -1,0 +1,171 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>tailwindcss - 标签 - 菠菜眾長</title><link>https://lruihao.cn/tags/tailwindcss/</link><description>tailwindcss - 标签 - 菠菜眾長</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><lastBuildDate>Sat, 03 Jun 2023 17:38:44 +0800</lastBuildDate><atom:link href="https://lruihao.cn/tags/tailwindcss/" rel="self" type="application/rss+xml"/><item><title>Vue2 + tailwindcss 初始化</title><link>https://lruihao.cn/posts/v2-tailwind/</link><pubDate>Sat, 03 Jun 2023 17:38:44 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/v2-tailwind/</guid><description><![CDATA[<h2 id="新建-vue2-项目">新建 Vue2 项目</h2>
+<p>通过 <code>vue-cli</code> 创建一个叫 <code>v2-tailwind</code> 的项目：</p>
+<div class="highlight" id="id-1"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">vue create vue2-tailwind</span></span></code></pre></td></tr></table>
+</div>
+</div><p>根据需要选择其他的功能插件，例如：<code>Babel, Router, Vuex, CSS Pre-processors, Linter</code>。</p>
+<details>
+  <summary>关于 ESLint</summary>
+  当在 Vue 创建项目时，你可以根据自己的需求选择不同的 ESLint 配置。以下是一些常见的选项及其优缺点和注意事项：
+<ol>
+<li>
+<p><strong>ESLint with error prevention only</strong>:</p>
+<ul>
+<li>优点：这个配置只会帮助你防止代码中的错误，它的规则相对宽松。适用于刚开始使用 ESLint 或者希望避免太多约束的开发者。</li>
+<li>缺点：由于规则相对宽松，可能无法完全确保代码风格的一致性。</li>
+<li>注意事项：如果你想要更严格的代码检查，可以考虑其他配置。</li>
+</ul>
+</li>
+<li>
+<p><strong>ESLint + Airbnb config</strong>:</p>
+<ul>
+<li>优点：Airbnb 的配置非常严格，能够帮助你遵循最佳实践和编写高质量的代码。此外，它也包含了许多 ES6+ 的规则。</li>
+<li>缺点：由于其严格性，初学者可能需要花费更多时间来解决 ESLint 报告的问题。</li>
+<li>注意事项：在使用此配置时，请确保你理解并接受 Airbnb 的代码规范。</li>
+</ul>
+</li>
+<li>
+<p><strong>ESLint + Standard config</strong>:</p>
+<ul>
+<li>优点：Standard 的配置旨在提供一个相对简单、一致的代码风格，适合那些喜欢“零配置”的开发者。</li>
+<li>缺点：这个配置可能不适用于所有项目，因为它有自己的代码风格要求。</li>
+<li>注意事项：如果你的团队或项目已经有自己的编码规范，使用 Standard 配置可能会导致不一致。</li>
+</ul>
+</li>
+<li>
+<p><strong>ESLint + Prettier</strong>:</p>
+<ul>
+<li>优点：Prettier 是一个自动格式化工具，可以与 ESLint 结合使用，以确保代码风格的一致性。这可以提高代码可读性，并减少在代码审查过程中关注格式问题的时间。</li>
+<li>缺点：Prettier 可能会覆盖某些 ESLint 规则，所以需要花一些时间确保配置正确。</li>
+<li>注意事项：为了避免冲突，请确保 ESLint 和 Prettier 的规则正确配置。</li>
+</ul>
+</li>
+</ol>
+<p>总之，在选择 ESLint 配置时，需要根据你的团队、项目需求和个人偏好来权衡。选择适当的配置可以帮助你提高代码质量并保持一致的代码风格。</p>
+</details>
+<h2 id="安装-tailwindcss">安装 tailwindcss</h2>
+<p>打开项目，安装 <code>tailwindcss</code>：</p>
+<div class="highlight" id="id-2"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">cd</span> vue2-tailwind
+</span></span><span class="line"><span class="cl"><span class="c1"># 安装 tailwindcss 低版本及相关插件</span>
+</span></span><span class="line"><span class="cl">npm install tailwindcss@npm:@tailwindcss/postcss7-compat @tailwindcss/postcss7-compat postcss@^7 autoprefixer@^9</span></span></code></pre></td></tr></table>
+</div>
+</div><p>然后创建配置文件：</p>
+<div class="highlight" id="id-3"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 创建 postcss.config.js, tailwind.config.js</span>
+</span></span><span class="line"><span class="cl">npx tailwindcss init -p</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight" id="id-4"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">plugins</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">tailwindcss</span><span class="o">:</span> <span class="p">{},</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">autoprefixer</span><span class="o">:</span> <span class="p">{},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight" id="id-5"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">purge</span><span class="o">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;./src/App.vue&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;./src/views/**/*.{vue,js,ts,jsx,tsx}&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;./src/components/**/*.{vue,js,ts,jsx,tsx}&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="p">],</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">darkMode</span><span class="o">:</span> <span class="s1">&#39;class&#39;</span><span class="p">,</span> <span class="c1">// or &#39;media&#39; or &#39;class&#39;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">mode</span><span class="o">:</span> <span class="s1">&#39;jit&#39;</span><span class="p">,</span> <span class="c1">// 是否开启 jit 模式，开启以后编译会更快，当然，tailwindcss 版本需要在 2.1 以上
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">theme</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">extend</span><span class="o">:</span> <span class="p">{},</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">variants</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">extend</span><span class="o">:</span> <span class="p">{},</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">plugins</span><span class="o">:</span> <span class="p">[],</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>最后在 <code>main.js</code> 中引入 <code>tailwindcss</code></p>
+<div class="highlight" id="id-6"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">import</span> <span class="s2">&#34;tailwindcss/tailwind.css&#34;</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="启动项目">启动项目</h2>
+<p>启动项目，修改模板中的 class 进行测试。</p>
+<div class="highlight" id="id-7"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">npm run serve</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight" id="id-8"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-vue" data-lang="vue"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">template</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;app&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;bg-gray-100&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;container mx-auto&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;flex justify-center items-center h-screen&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">          <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;text-4xl text-gray-700&#34;</span><span class="p">&gt;</span><span class="nx">Hello</span> <span class="nx">Vue2</span> <span class="o">+</span> <span class="nx">tailwindcss</span><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">template</span><span class="p">&gt;</span></span></span></code></pre></td></tr></table>
+</div>
+</div>]]></description></item></channel></rss>

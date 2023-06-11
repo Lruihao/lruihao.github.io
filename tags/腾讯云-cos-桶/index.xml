@@ -19,7 +19,7 @@
 <h2 id="github-actions">Github Actions</h2>
 <h3 id="創建-workflows-任務">創建 workflows 任務</h3>
 <p>創建 <code>hugo-site/.github/workflows/deploy.yml</code>, 這個文件會寫一些命令告訴 Github 在我們提交源碼的時候，它要幫我們做哪些事情。</p>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-1"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -96,13 +96,12 @@
 </span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">COS_BUCKET_REGION</span><span class="p">:</span><span class="w"> </span><span class="l">ap-chengdu</span><span class="w"> </span><span class="c"># Change for yourself</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l">coscmd config -a $COS_SECRET_ID -s $COS_SECRET_KEY -b $COS_BUCKET_NAME -r $COS_BUCKET_REGION</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Deploy to COS Bucket</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l">coscmd upload -r -s --delete -f public/ /</span><span class="w">
-</span></span></span></code></pre></td></tr></table>
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l">coscmd upload -r -s --delete -f public/ /</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="配置-github-pages-密鑰">配置 Github Pages 密鑰</h3>
 <ol>
 <li>為了讓 Lruihao/hugo-blog 提交代碼后自動部署到 Lruihao/lruihao.github.io, 需要生成一對 ssh key.
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-2"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -113,8 +112,7 @@
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">ssh-keygen -t rsa -b <span class="m">4096</span> -C <span class="s2">&#34;</span><span class="k">$(</span>git config user.email<span class="k">)</span><span class="s2">&#34;</span> -f gh-pages -N <span class="s2">&#34;&#34;</span>
 </span></span><span class="line"><span class="cl"><span class="c1"># You will get 2 files:</span>
 </span></span><span class="line"><span class="cl"><span class="c1"># gh-pages.pub (public key)</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># gh-pages     (private key)</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="c1"># gh-pages     (private key)</span></span></span></code></pre></td></tr></table>
 </div>
 </div></li>
 <li>打開 Lruihao/hugo-blog 倉庫的 settings, 再点击 Secrets, 然後添加 private key, name 为 <code>GP_DEPLOY_KEY</code></li>
@@ -189,18 +187,17 @@
 <li>然后，在你的 js 中 new 一个 Cosalbum 对象 ( xmlLink 后不需要添加<code>/</code>)</li>
 </ol>
 <h3 id="step1">Step1</h3>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-1"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="o">&lt;</span><span class="nx">link</span> <span class="nx">rel</span><span class="o">=</span><span class="s2">&#34;stylesheet&#34;</span> <span class="nx">type</span><span class="o">=</span><span class="s2">&#34;text/css&#34;</span> <span class="nx">href</span><span class="o">=</span><span class="s2">&#34;cos-album.min.css?v=1.1.2&#34;</span><span class="o">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="nx">script</span> <span class="nx">type</span><span class="o">=</span><span class="s2">&#34;text/javascript&#34;</span> <span class="nx">src</span><span class="o">=</span><span class="s2">&#34;cos-album.min.js?v=1.1.2&#34;</span><span class="o">&gt;&lt;</span><span class="err">/script&gt;</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="nx">script</span> <span class="nx">type</span><span class="o">=</span><span class="s2">&#34;text/javascript&#34;</span> <span class="nx">src</span><span class="o">=</span><span class="s2">&#34;cos-album.min.js?v=1.1.2&#34;</span><span class="o">&gt;&lt;</span><span class="err">/script&gt;</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="step2">Step2</h3>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-2"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -219,8 +216,7 @@
 </span></span><span class="line"><span class="cl">    <span class="s1">&#39;viewNum&#39;</span><span class="o">:</span> <span class="mi">8</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">    <span class="s1">&#39;imgUrl&#39;</span><span class="o">:</span> <span class="s1">&#39;//img.lruihao.cn&#39;</span>
 </span></span><span class="line"><span class="cl">  <span class="p">});</span>
-</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="err">/script&gt;</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="err">/script&gt;</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="params">Params</h3>
 <table>
@@ -274,7 +270,7 @@
 <p><code>viewport</code> 视个人情况添加。<br>
 hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用等等，这里不再展开。<br>
 <strong><em>注：代码设定不加载根目录文件，所以可以利用静态服务把源码部署在根目录，配合 PicGo、COSBrowser 上传来搭建个人图床。</em></strong></p>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-3"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -319,12 +315,11 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 </span></span><span class="line"><span class="cl">    <span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
 </span></span><span class="line"><span class="cl">    <span class="c">&lt;!-- 你的其他内容，如评论等 --&gt;</span>
 </span></span><span class="line"><span class="cl">  <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p><a href="https://img.lruihao.cn" target="_blank" class="LinkCard">cos-album demo</a></p>
 <p>
-<div id="id-1"></div></p>
+<div id="id-4"></div></p>
 <h2 id="changelog">changelog</h2>
 <ul>
 <li>2020-9-28 22:46
@@ -355,18 +350,17 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 <ul>
 <li>安装插件</li>
 </ul>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-1"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">npm install hexo-deployer-cos --save
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">npm install hexo-deployer-cos --save</span></span></code></pre></td></tr></table>
 </div>
 </div><ul>
 <li>站点配置文件</li>
 </ul>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-2"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -383,21 +377,19 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 </span></span><span class="line"><span class="cl">  appId: yourAppId #cos 桶名称后数字
 </span></span><span class="line"><span class="cl">  secretId: yourSecretId  #云 API 密钥
 </span></span><span class="line"><span class="cl">  secretKey: yourSecretKey #云 API 密钥
-</span></span><span class="line"><span class="cl">  region: yourRegion #所属地域
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl">  region: yourRegion #所属地域</span></span></code></pre></td></tr></table>
 </div>
 </div><ul>
 <li>发布还是一样的</li>
 </ul>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-3"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">hexo clean
-</span></span><span class="line"><span class="cl">hexo g -d
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl">hexo g -d</span></span></code></pre></td></tr></table>
 </div>
 </div><p>结果类似于<br>
 </p>
@@ -407,18 +399,17 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 <ul>
 <li>安装</li>
 </ul>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-4"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">npm install qcloud-cdn-node-sdk --save
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">npm install qcloud-cdn-node-sdk --save</span></span></code></pre></td></tr></table>
 </div>
 </div><ul>
 <li>创建<code>qcloudcdn.js</code>放入<code>script</code>文件夹</li>
 </ul>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-5"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -453,15 +444,14 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 </span></span><span class="line"><span class="cl">  <span class="p">(</span><span class="nx">res</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">res</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">);</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="p">);</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="自动-cdn-刷新配置-推荐">自动 CDN 刷新配置 （推荐）</h2>
 <ol>
 <li>进入腾讯云，找到 函数计算 -&gt; CDN 缓存刷新函数 -&gt; 创建 CDN 缓存刷新函数</li>
 <li>修改 <code>index.js</code> 内容后重新部署</li>
 </ol>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-6"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -622,7 +612,6 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 </span></span><span class="line"><span class="cl">  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">messages</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="s1">&#39;; &#39;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">};</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="p">};</span></span></span></code></pre></td></tr></table>
 </div>
 </div>]]></description></item></channel></rss>

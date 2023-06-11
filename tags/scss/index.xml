@@ -6,7 +6,7 @@
 <ol>
 <li>
 <p>由于 <strong>Scss 区分大小写而 CSS 不区分</strong>，所以为了不让 Scss 中的函数覆盖 CSS 的函数，我们可以使用除了 <code>max</code> 以外的 2<sup>3</sup> - 1 种写法，这样就能使用原生 CSS 的 <code>max</code> 函数来比较了，就不会报错了。</p>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-1"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -15,14 +15,13 @@
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-scss" data-lang="scss"><span class="line"><span class="cl"><span class="nc">.foo</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="na">padding-left</span><span class="o">:</span> <span class="nf">MAX</span><span class="p">(</span><span class="mi">10</span><span class="kt">vh</span><span class="o">,</span> <span class="mi">3</span><span class="mf">.5</span><span class="kt">rem</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
 </div></li>
 <li>
 <p>使用 Scss 没有的 CSS 函数 <a href="https://developer.mozilla.org/zh-CN/docs/web/css/clamp"target="_blank" rel="external nofollow noopener noreferrer"><code>clamp</code><i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>:</p>
 <p><code>clamp(MIN, VAL, MAX)</code> 其实就是表示 <code>max(MIN, min(VAL, MAX))</code></p>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-2"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -31,13 +30,12 @@
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-scss" data-lang="scss"><span class="line"><span class="cl"><span class="nc">.foo</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="na">padding-left</span><span class="o">:</span> <span class="nf">clamp</span><span class="p">(</span><span class="nv">$header-height</span><span class="o">,</span> <span class="mi">10</span><span class="kt">vh</span><span class="o">,</span> <span class="mi">10</span><span class="kt">vh</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
 </div></li>
 <li>
 <p>使用 <code>unquote($string)</code> 函数让 Scss 删除字符串最前和最后的单引号或双引号</p>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-3"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -46,14 +44,13 @@
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-scss" data-lang="scss"><span class="line"><span class="cl"><span class="nc">.foo</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="na">padding-left</span><span class="o">:</span> <span class="nf">unquote</span><span class="p">(</span><span class="s1">&#39;max(10vh, </span><span class="si">#{</span><span class="nv">$header-height</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
 </div></li>
 </ol>
 <h2 id="by-the-way">By the way</h2>
 <p>如果需要在 CSS 函数内部恢复 <code>Scss</code> 解析（引用 <code>Scss</code> 变量），只需用 <code>#{...}</code> 包围 Scss 代码。</p>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-4"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -66,11 +63,10 @@
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="nc">.foo</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="na">margin</span><span class="o">:</span> <span class="nf">calc</span><span class="p">(</span><span class="mi">10</span><span class="kt">vh</span> <span class="o">-</span> <span class="nv">$header-height</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>上面的 Scss 将解析成 以下无效的 CSS 代码：</p>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-5"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -79,11 +75,10 @@
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-css" data-lang="css"><span class="line"><span class="cl"><span class="p">.</span><span class="nc">foo</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="k">margin</span><span class="p">:</span> <span class="nb">calc</span><span class="p">(</span><span class="mi">10</span><span class="kt">vh</span> <span class="o">-</span> <span class="err">$</span><span class="n">header</span><span class="o">-</span><span class="n">height</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>用 <code>#{...}</code> 包围 Scss 变量</p>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-6"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -96,8 +91,7 @@
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="nc">.foo</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="na">margin</span><span class="o">:</span> <span class="nf">calc</span><span class="p">(</span><span class="mi">10</span><span class="kt">vh</span> <span class="o">-</span> <span class="si">#{</span><span class="nv">$header-height</span><span class="si">}</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
 </div>]]></description></item><item><title>less&amp;sass&amp;scss</title><link>https://lruihao.cn/posts/less-sass-scss/</link><pubDate>Tue, 22 Jun 2021 16:39:47 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/less-sass-scss/</guid><description><![CDATA[<blockquote>
 <p>Sass 和 Less 都屬於 <strong>CSS 前置處理器</strong>，CSS 前置處理器定義了一種新的語言，其基本思想是，用一種專門的程式設計語言，為 CSS 增加了一些程式設計的特性，將 CSS 作為目標生成檔，然後開發者就只要使用這種語言進行 CSS 的編碼工作。<br>
@@ -208,15 +202,14 @@ Less 既可以在用戶端上運行 （支援 IE 6+, Webkit, Firefox)，也可�
 <p>URL 中一律不带 id 参数</p>
 </li>
 </ul>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-1"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">正确范例： calendar_manager/calendar/29
-</span></span><span class="line"><span class="cl">错误范例： calendar_manager/calendar/29?id=29
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl">错误范例： calendar_manager/calendar/29?id=29</span></span></code></pre></td></tr></table>
 </div>
 </div><blockquote>
 <p>更多规则详见文档 <a href="/posts/restful/">RESTful</a></p>
@@ -329,7 +322,7 @@ Less 既可以在用戶端上運行 （支援 IE 6+, Webkit, Firefox)，也可�
 <li>代码规范、代码排版等可通过 eslint 等工具做统一处理</li>
 </ul>
 <h3 id="正确写法">正确写法</h3>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-2"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -344,11 +337,10 @@ Less 既可以在用戶端上運行 （支援 IE 6+, Webkit, Firefox)，也可�
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">if</span> <span class="p">(</span><span class="nx">a</span> <span class="o">===</span> <span class="nx">b</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">// do something
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="错误写法">错误写法</h2>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-3"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -367,8 +359,7 @@ Less 既可以在用戶端上運行 （支援 IE 6+, Webkit, Firefox)，也可�
 </span></span><span class="line"><span class="cl">  <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">// do something
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
 </div><ul>
 <li>代码排版
@@ -402,7 +393,7 @@ Less 既可以在用戶端上運行 （支援 IE 6+, Webkit, Firefox)，也可�
 <li>单标签：<code>&lt;tag /&gt;</code></li>
 <li>禁止使用已被 HTML 舍弃的旧标签、属性，如：</li>
 </ul>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-4"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -433,8 +424,7 @@ Less 既可以在用戶端上運行 （支援 IE 6+, Webkit, Firefox)，也可�
 </span></span><span class="line"><span class="cl"><span class="c">&lt;!-- html attribute --&gt;</span>
 </span></span><span class="line"><span class="cl">align
 </span></span><span class="line"><span class="cl">bgcolor
-</span></span><span class="line"><span class="cl">color
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl">color</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="css">CSS</h2>
 <blockquote>
@@ -447,16 +437,15 @@ Less 既可以在用戶端上運行 （支援 IE 6+, Webkit, Firefox)，也可�
 <h3 id="注释">注释</h3>
 <p>JavaScript 注释应该遵循 JSDoc 的标准撰写</p>
 <h4 id="全局变量-global">全局变量 (Global)</h4>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-5"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="cm">/* global ZT */</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="cm">/* global ZT */</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h4 id="常量-constant">常量 (Constant)</h4>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-6"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -467,11 +456,10 @@ Less 既可以在用戶端上運行 （支援 IE 6+, Webkit, Firefox)，也可�
 <pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="cm">/**
 </span></span></span><span class="line"><span class="cl"><span class="cm"> * 常量說明
 </span></span></span><span class="line"><span class="cl"><span class="cm"> * @type {常量类型}
-</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
-</span></span></code></pre></td></tr></table>
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p><strong>Example</strong></p>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-7"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -484,11 +472,10 @@ Less 既可以在用戶端上運行 （支援 IE 6+, Webkit, Firefox)，也可�
 </span></span></span><span class="line"><span class="cl"><span class="cm"> * 请求地址
 </span></span></span><span class="line"><span class="cl"><span class="cm"> * @type {String}
 </span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
-</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">REQUEST_URL</span> <span class="o">=</span> <span class="s1">&#39;http://localhost:8080&#39;</span><span class="p">;</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">REQUEST_URL</span> <span class="o">=</span> <span class="s1">&#39;http://localhost:8080&#39;</span><span class="p">;</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h4 id="函數方法-function-method">函數、方法 (Function, Method)</h4>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-8"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -505,11 +492,10 @@ Less 既可以在用戶端上運行 （支援 IE 6+, Webkit, Firefox)，也可�
 </span></span></span><span class="line"><span class="cl"><span class="cm"> * @param {参数类型} [选择性参数名称] 参数说明
 </span></span></span><span class="line"><span class="cl"><span class="cm"> * @param {参数类型} [选择性参数名称=参数预设值] 参数说明
 </span></span></span><span class="line"><span class="cl"><span class="cm"> * @returns {返回值类型} 返回值说明
-</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
-</span></span></code></pre></td></tr></table>
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p><strong>Example</strong></p>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-9"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -534,8 +520,7 @@ Less 既可以在用戶端上運行 （支援 IE 6+, Webkit, Firefox)，也可�
 </span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">getUser</span><span class="p">(</span><span class="nx">userId</span><span class="p">,</span> <span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="c1">// do something
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">return</span> <span class="nx">user</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="vue">Vue</h2>
 <ul>
@@ -555,7 +540,7 @@ Less 既可以在用戶端上運行 （支援 IE 6+, Webkit, Firefox)，也可�
 <p>PHP 注解应该遵循 PHPDoc 的标准撰写</p>
 <h3 id="成员变量-member">成员变量 (Member)</h3>
 <p>成员变量只的是 Class 内的成员变数，我们都会要求替成员变量增加注解说明。通常 Function 的变量除非太特别否则都不需要特别注解说明。</p>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-10"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -566,11 +551,10 @@ Less 既可以在用戶端上運行 （支援 IE 6+, Webkit, Firefox)，也可�
 <pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="sd">/**
 </span></span></span><span class="line"><span class="cl"><span class="sd"> * 成员变量說明
 </span></span></span><span class="line"><span class="cl"><span class="sd"> * @type {类型}
-</span></span></span><span class="line"><span class="cl"><span class="sd"> */</span>
-</span></span></code></pre></td></tr></table>
+</span></span></span><span class="line"><span class="cl"><span class="sd"> */</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p><strong>Example</strong></p>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-11"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -583,11 +567,10 @@ Less 既可以在用戶端上運行 （支援 IE 6+, Webkit, Firefox)，也可�
 </span></span></span><span class="line"><span class="cl"><span class="sd"> * 使用者 ID
 </span></span></span><span class="line"><span class="cl"><span class="sd"> * @type {String}
 </span></span></span><span class="line"><span class="cl"><span class="sd"> */</span>
-</span></span><span class="line"><span class="cl"><span class="nv">$userId</span> <span class="o">=</span> <span class="s1">&#39;Hello&#39;</span><span class="p">;</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="nv">$userId</span> <span class="o">=</span> <span class="s1">&#39;Hello&#39;</span><span class="p">;</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="函数方法-function-method">函数、方法 (Function, Method)</h3>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-12"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -604,11 +587,10 @@ Less 既可以在用戶端上運行 （支援 IE 6+, Webkit, Firefox)，也可�
 </span></span></span><span class="line"><span class="cl"><span class="sd"> * @option 参数选项类型 参数选项名称 参数选项说明
 </span></span></span><span class="line"><span class="cl"><span class="sd"> * @uses 全局变量 全域变数说明
 </span></span></span><span class="line"><span class="cl"><span class="sd"> * @returns 返回值类型 返回值说明
-</span></span></span><span class="line"><span class="cl"><span class="sd"> */</span>
-</span></span></code></pre></td></tr></table>
+</span></span></span><span class="line"><span class="cl"><span class="sd"> */</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p><strong>Example</strong></p>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-13"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -635,8 +617,7 @@ Less 既可以在用戶端上運行 （支援 IE 6+, Webkit, Firefox)，也可�
 </span></span><span class="line"><span class="cl"><span class="k">function</span> <span class="nf">getUser</span> <span class="p">(</span><span class="nv">$userId</span><span class="p">,</span> <span class="nv">$options</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="c1">// do something
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">return</span> <span class="nv">$user</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">};</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="p">};</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="python">Python</h2>
 <ul>
@@ -655,13 +636,12 @@ Less 既可以在用戶端上運行 （支援 IE 6+, Webkit, Firefox)，也可�
 <li>表名、字段名前后需加上 `</li>
 </ul>
 <p><strong>Example</strong></p>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-14"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="o">`</span><span class="k">user</span><span class="o">`</span><span class="w"> </span><span class="k">VALUES</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;b&#39;</span><span class="p">);</span><span class="w">
-</span></span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="o">`</span><span class="k">user</span><span class="o">`</span><span class="w"> </span><span class="k">VALUES</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;b&#39;</span><span class="p">);</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="统一用词">统一用词</h2>
 <blockquote>

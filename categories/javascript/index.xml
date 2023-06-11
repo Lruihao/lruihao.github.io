@@ -1,4 +1,174 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>JavaScript - 分类 - 菠菜眾長</title><link>https://lruihao.cn/categories/javascript/</link><description>JavaScript - 分类 - 菠菜眾長</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><lastBuildDate>Fri, 12 Aug 2022 11:22:01 +0800</lastBuildDate><atom:link href="https://lruihao.cn/categories/javascript/" rel="self" type="application/rss+xml"/><item><title>electron 踩坑总结</title><link>https://lruihao.cn/posts/electron-summary/</link><pubDate>Fri, 12 Aug 2022 11:22:01 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/electron-summary/</guid><description><![CDATA[<p>总结一下最近 electron 开发遇到的问题和一些重要知识点。</p>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>JavaScript - 分类 - 菠菜眾長</title><link>https://lruihao.cn/categories/javascript/</link><description>JavaScript - 分类 - 菠菜眾長</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><lastBuildDate>Sat, 03 Jun 2023 17:38:44 +0800</lastBuildDate><atom:link href="https://lruihao.cn/categories/javascript/" rel="self" type="application/rss+xml"/><item><title>Vue2 + tailwindcss 初始化</title><link>https://lruihao.cn/posts/v2-tailwind/</link><pubDate>Sat, 03 Jun 2023 17:38:44 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/v2-tailwind/</guid><description><![CDATA[<h2 id="新建-vue2-项目">新建 Vue2 项目</h2>
+<p>通过 <code>vue-cli</code> 创建一个叫 <code>v2-tailwind</code> 的项目：</p>
+<div class="highlight" id="id-1"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">vue create vue2-tailwind</span></span></code></pre></td></tr></table>
+</div>
+</div><p>根据需要选择其他的功能插件，例如：<code>Babel, Router, Vuex, CSS Pre-processors, Linter</code>。</p>
+<details>
+  <summary>关于 ESLint</summary>
+  当在 Vue 创建项目时，你可以根据自己的需求选择不同的 ESLint 配置。以下是一些常见的选项及其优缺点和注意事项：
+<ol>
+<li>
+<p><strong>ESLint with error prevention only</strong>:</p>
+<ul>
+<li>优点：这个配置只会帮助你防止代码中的错误，它的规则相对宽松。适用于刚开始使用 ESLint 或者希望避免太多约束的开发者。</li>
+<li>缺点：由于规则相对宽松，可能无法完全确保代码风格的一致性。</li>
+<li>注意事项：如果你想要更严格的代码检查，可以考虑其他配置。</li>
+</ul>
+</li>
+<li>
+<p><strong>ESLint + Airbnb config</strong>:</p>
+<ul>
+<li>优点：Airbnb 的配置非常严格，能够帮助你遵循最佳实践和编写高质量的代码。此外，它也包含了许多 ES6+ 的规则。</li>
+<li>缺点：由于其严格性，初学者可能需要花费更多时间来解决 ESLint 报告的问题。</li>
+<li>注意事项：在使用此配置时，请确保你理解并接受 Airbnb 的代码规范。</li>
+</ul>
+</li>
+<li>
+<p><strong>ESLint + Standard config</strong>:</p>
+<ul>
+<li>优点：Standard 的配置旨在提供一个相对简单、一致的代码风格，适合那些喜欢“零配置”的开发者。</li>
+<li>缺点：这个配置可能不适用于所有项目，因为它有自己的代码风格要求。</li>
+<li>注意事项：如果你的团队或项目已经有自己的编码规范，使用 Standard 配置可能会导致不一致。</li>
+</ul>
+</li>
+<li>
+<p><strong>ESLint + Prettier</strong>:</p>
+<ul>
+<li>优点：Prettier 是一个自动格式化工具，可以与 ESLint 结合使用，以确保代码风格的一致性。这可以提高代码可读性，并减少在代码审查过程中关注格式问题的时间。</li>
+<li>缺点：Prettier 可能会覆盖某些 ESLint 规则，所以需要花一些时间确保配置正确。</li>
+<li>注意事项：为了避免冲突，请确保 ESLint 和 Prettier 的规则正确配置。</li>
+</ul>
+</li>
+</ol>
+<p>总之，在选择 ESLint 配置时，需要根据你的团队、项目需求和个人偏好来权衡。选择适当的配置可以帮助你提高代码质量并保持一致的代码风格。</p>
+</details>
+<h2 id="安装-tailwindcss">安装 tailwindcss</h2>
+<p>打开项目，安装 <code>tailwindcss</code>：</p>
+<div class="highlight" id="id-2"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">cd</span> vue2-tailwind
+</span></span><span class="line"><span class="cl"><span class="c1"># 安装 tailwindcss 低版本及相关插件</span>
+</span></span><span class="line"><span class="cl">npm install tailwindcss@npm:@tailwindcss/postcss7-compat @tailwindcss/postcss7-compat postcss@^7 autoprefixer@^9</span></span></code></pre></td></tr></table>
+</div>
+</div><p>然后创建配置文件：</p>
+<div class="highlight" id="id-3"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 创建 postcss.config.js, tailwind.config.js</span>
+</span></span><span class="line"><span class="cl">npx tailwindcss init -p</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight" id="id-4"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">plugins</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">tailwindcss</span><span class="o">:</span> <span class="p">{},</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">autoprefixer</span><span class="o">:</span> <span class="p">{},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight" id="id-5"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">purge</span><span class="o">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;./src/App.vue&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;./src/views/**/*.{vue,js,ts,jsx,tsx}&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;./src/components/**/*.{vue,js,ts,jsx,tsx}&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="p">],</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">darkMode</span><span class="o">:</span> <span class="s1">&#39;class&#39;</span><span class="p">,</span> <span class="c1">// or &#39;media&#39; or &#39;class&#39;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">mode</span><span class="o">:</span> <span class="s1">&#39;jit&#39;</span><span class="p">,</span> <span class="c1">// 是否开启 jit 模式，开启以后编译会更快，当然，tailwindcss 版本需要在 2.1 以上
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">theme</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">extend</span><span class="o">:</span> <span class="p">{},</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">variants</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">extend</span><span class="o">:</span> <span class="p">{},</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">plugins</span><span class="o">:</span> <span class="p">[],</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>最后在 <code>main.js</code> 中引入 <code>tailwindcss</code></p>
+<div class="highlight" id="id-6"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">import</span> <span class="s2">&#34;tailwindcss/tailwind.css&#34;</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="启动项目">启动项目</h2>
+<p>启动项目，修改模板中的 class 进行测试。</p>
+<div class="highlight" id="id-7"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">npm run serve</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight" id="id-8"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-vue" data-lang="vue"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">template</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;app&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;bg-gray-100&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;container mx-auto&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;flex justify-center items-center h-screen&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">          <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;text-4xl text-gray-700&#34;</span><span class="p">&gt;</span><span class="nx">Hello</span> <span class="nx">Vue2</span> <span class="o">+</span> <span class="nx">tailwindcss</span><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">template</span><span class="p">&gt;</span></span></span></code></pre></td></tr></table>
+</div>
+</div>]]></description></item><item><title>electron 踩坑总结</title><link>https://lruihao.cn/posts/electron-summary/</link><pubDate>Fri, 12 Aug 2022 11:22:01 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/electron-summary/</guid><description><![CDATA[<p>总结一下最近 electron 开发遇到的问题和一些重要知识点。</p>
 <h2 id="简介">简介</h2>
 <p>如果你可以建一个网站，你就可以建一个桌面应用程序。 <a href="https://www.electronjs.org/"target="_blank" rel="external nofollow noopener noreferrer">Electron<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 是一个使用 JavaScript, HTML 和 CSS 等 Web 技术创建原生程序的开源框架，它负责比较难搞的部分，你只需把精力放在你的应用的核心上即可。</p>
 <h2 id="知识点">知识点</h2>
@@ -12,7 +182,7 @@
 <p>electron 整合了 Node 和浏览器的所有能力，可以随意发挥这些技术栈的特点。由于固定浏览器内核，可以无需考虑兼容性地使用 html/js/css 新特性。</p>
 <h3 id="安装">安装</h3>
 <p>安装 electron 时，可能因为网络问题导致下载失败，需要使用镜像仓库来下载。</p>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-1"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -23,8 +193,7 @@
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 设置 electron 镜像仓库</span>
 </span></span><span class="line"><span class="cl"><span class="c1"># https://registry.npmmirror.com/-/binary/electron</span>
 </span></span><span class="line"><span class="cl"><span class="c1"># 13.1.7 版本 下载链接可能会拼错导致 404，要设置成 https://registry.npmmirror.com/-/binary/electron/v</span>
-</span></span><span class="line"><span class="cl">npm config <span class="nb">set</span> <span class="nv">electron_mirror</span><span class="o">=</span>https://npmmirror.com/mirrors/electron/
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl">npm config <span class="nb">set</span> <span class="nv">electron_mirror</span><span class="o">=</span>https://npmmirror.com/mirrors/electron/</span></span></code></pre></td></tr></table>
 </div>
 </div><p>M1 Mac 安装较低版本 electron 时可能会报错，<code>Failed to find Electron v xxx for darwin-arm64</code>，因为这些版本的 electron 不支持 darwin-arm64 架构。Apple 针对未适配的 X64 应用提供了 Rosetta2 转换器，安装 darwin-x64 版本的 electron 在 Intel 模式下运行即可，<a href="https://www.jianshu.com/p/b1b3577fd373"target="_blank" rel="external nofollow noopener noreferrer">参考<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>。</p>
 <h3 id="remote">remote</h3>
@@ -34,7 +203,7 @@
 <p>使用时需在窗口创建时设置 <code>webPreferences.enableRemoteModule</code> 为 <code>true</code>。</p>
 <p>旧版本的 <code>electron.remote </code> 已经弃用，应该使用依赖 <code>electron/remote</code> 代替。</p>
 <p>使用了旧版本的 remote 时会有控制台警告信息：</p>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-2"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
@@ -50,7 +219,7 @@
 <p>electron 的 <code>shell</code> 模块，可以使用 <code>shell.openExternal(url)</code> 在默认浏览器打开链接。</p>
 <h3 id="防抖与节流">防抖与节流</h3>
 <p>防抖：短期内大量触发事件时，只执行最后一次。</p>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-3"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -71,11 +240,10 @@
 </span></span><span class="line"><span class="cl">      <span class="nx">fn</span><span class="p">.</span><span class="nx">applay</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">arguments</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="p">},</span> <span class="mi">300</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="p">};</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>节流：短期内大量触发事件时，只执行第一次。</p>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-4"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -98,8 +266,7 @@
 </span></span><span class="line"><span class="cl">      <span class="nx">timer</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">},</span> <span class="mi">300</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="p">};</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="devtools">devTools</h3>
 <p>初始化窗口时设置 <code>webPreferences.devTools</code> 为 <code>true</code>，然后通过 <code>mainWindow.webContents.openDevTools()</code> 打开开发者工具。</p>
@@ -111,7 +278,7 @@
 <p>额外创建一个 loading 窗口，该窗口可设置为透明只包含 loading 图标和文字，在 <code>mainWindow.show()</code> 后关闭。</p>
 <h4 id="启动后-loading">启动后 loading</h4>
 <p>如果使用了 Vue 框架，在 Vue 初始化之前窗口虽然出现了，但是内容时空白的，可以在 Vue 实例 #app 里写一个 loading, Vue 加载完后会覆盖掉。</p>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-5"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -210,8 +377,7 @@
 </span></span><span class="line"><span class="cl">    <span class="p">&lt;/</span><span class="nt">circle</span><span class="p">&gt;</span>
 </span></span><span class="line"><span class="cl">  <span class="p">&lt;/</span><span class="nt">svg</span><span class="p">&gt;</span>
 </span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">span</span><span class="p">&gt;</span>加载中 ...<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="阻止窗口关闭">阻止窗口关闭</h3>
 <p>可以在关闭前一些事件里做拦截，比如：<code>onbeforeunload</code> 等，详见 <a href="https://www.electronjs.org/zh/docs/latest/api/browser-window#%e5%ae%9e%e4%be%8b%e4%ba%8b%e4%bb%b6"target="_blank" rel="external nofollow noopener noreferrer">实例事件<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>。</p>
@@ -219,7 +385,7 @@
 <p>当自定义关闭时，使用 <code>mainWindow.destroy()</code> 来关闭窗口，因为使用 <code>mainWindow.close()</code> 时，windows 系统打开开发者工具时会出现无法关闭窗口的情况。</p>
 <h3 id="全局快捷键">全局快捷键</h3>
 <p>当 electron 版本较低时，比如 <code>13.1.7</code>，会出现在 mac 系统上复制粘贴等常用快捷键失效的问题。可通过设置菜单并绑定快捷键的方式解决。</p>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-6"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -302,10 +468,9 @@
 </span></span><span class="line"><span class="cl">  <span class="nx">main</span><span class="p">.</span><span class="nx">push</span><span class="p">(...</span><span class="nx">dev</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="k">default</span> <span class="nx">main</span><span class="p">;</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="k">default</span> <span class="nx">main</span><span class="p">;</span></span></span></code></pre></td></tr></table>
 </div>
-</div><div class="highlight"><div class="chroma">
+</div><div class="highlight" id="id-7"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -322,20 +487,18 @@
 </span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">platform</span> <span class="o">===</span> <span class="s1">&#39;darwin&#39;</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">menu</span> <span class="o">=</span> <span class="nx">Menu</span><span class="p">.</span><span class="nx">buildFromTemplate</span><span class="p">(</span><span class="nx">memuConfig</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="nx">Menu</span><span class="p">.</span><span class="nx">setApplicationMenu</span><span class="p">(</span><span class="nx">menu</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="electron-builder">electron-builder</h3>
 <p>下载时，可能因为网络问题导致下载失败，可设置 GitHub 下载镜像。</p>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-8"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl"># GitHub 仓库下载地址前缀镜像
-</span></span><span class="line"><span class="cl"># disturl=https://registry.npmmirror.com/-/binary/
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"># disturl=https://registry.npmmirror.com/-/binary/</span></span></code></pre></td></tr></table>
 </div>
 </div><p>或者去 GitHub 手动下载，然后解压到缓存目录：</p>
 <ul>
@@ -344,7 +507,7 @@
 <li>windows: <code>%LOCALAPPDATA%\electron-builder\cache\</code></li>
 </ul>
 <p>mac 上缓存目录如下，其他可 <a href="https://www.cnblogs.com/xueyoucd/p/8006610.html"target="_blank" rel="external nofollow noopener noreferrer">参考<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-9"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -361,12 +524,11 @@
 </span></span><span class="line"><span class="cl">▸ winCodeSign/
 </span></span><span class="line"><span class="cl">  ▸ winCodeSign-2.6.0/
 </span></span><span class="line"><span class="cl">▸ wine/
-</span></span><span class="line"><span class="cl">  ▸ wine-4.0.1-mac/
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl">  ▸ wine-4.0.1-mac/</span></span></code></pre></td></tr></table>
 </div>
 </div><h4 id="windows-打包">windows 打包</h4>
 <p>windows 系统打包配置，当没有配置签名时，<code>sign</code> 字段应删除或者配置为 <code>null</code>，否则可能导致打包时报错。</p>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-10"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -385,8 +547,7 @@
 </span></span><span class="line"><span class="cl">    <span class="nt">&#34;target&#34;</span><span class="p">:</span> <span class="s2">&#34;nsis&#34;</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">    <span class="nt">&#34;sign&#34;</span><span class="p">:</span> <span class="kc">null</span>
 </span></span><span class="line"><span class="cl">  <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>注：win11 打包在 win10 上可能运行不了，最好使用 win10 打包或者 mac 打包指定系统和位数。</p>
 <h4 id="macos-打包">macOS 打包</h4>
@@ -436,24 +597,22 @@
     </div>
   </div>
 <h2 id="安装依赖">安装依赖</h2>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-1"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">npm install qcloud-cdn-node-sdk
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">npm install qcloud-cdn-node-sdk</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="编写脚本">编写脚本</h2>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-2"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">vim .scripts/qcloudcdn.js
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">vim .scripts/qcloudcdn.js</span></span></code></pre></td></tr></table>
 </div>
-</div><div class="highlight"><div class="chroma">
+</div><div class="highlight" id="id-3"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -500,12 +659,11 @@
 </span></span><span class="line"><span class="cl">  <span class="p">(</span><span class="nx">res</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="nx">res</span><span class="p">.</span><span class="nx">code</span> <span class="o">&amp;&amp;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">res</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">);</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="p">);</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="增加快捷指令">增加快捷指令</h2>
 <p>打开 <code>package.json</code> 增加 <code>scripts</code>:</p>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-4"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -518,29 +676,26 @@
 </span></span><span class="line"><span class="cl">  <span class="nt">&#34;scripts&#34;</span><span class="p">:</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="nt">&#34;qcloudcdn&#34;</span><span class="p">:</span> <span class="s2">&#34;node .scripts/qcloudcdn.js $SECRET_ID $SECRET_KEY&#34;</span>
 </span></span><span class="line"><span class="cl">  <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>运行方式：</p>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-5"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nv">SECRET_ID</span><span class="o">=</span>&lt;secretId&gt; <span class="nv">SECRET_KEY</span><span class="o">=</span>&lt;secretKey&gt; npm run qcloudcdn
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nv">SECRET_ID</span><span class="o">=</span>&lt;secretId&gt; <span class="nv">SECRET_KEY</span><span class="o">=</span>&lt;secretKey&gt; npm run qcloudcdn</span></span></code></pre></td></tr></table>
 </div>
 </div><details>
   <summary>Mac OS 环境变量配置（可选）</summary>
-  <div class="highlight"><div class="chroma">
+  <div class="highlight" id="id-7"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">vim ~/.bash_profile
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">vim ~/.bash_profile</span></span></code></pre></td></tr></table>
 </div>
-</div><div class="highlight"><div class="chroma">
+</div><div class="highlight" id="id-8"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -549,16 +704,14 @@
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Qcloud secret key-value</span>
 </span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">SECRET_ID</span><span class="o">=</span>&lt;secretId&gt;
-</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">SECRET_KEY</span><span class="o">=</span>&lt;secretKey&gt;
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">SECRET_KEY</span><span class="o">=</span>&lt;secretKey&gt;</span></span></code></pre></td></tr></table>
 </div>
-</div><div class="highlight"><div class="chroma">
+</div><div class="highlight" id="id-9"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">source</span> ~/.bash_profile
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">source</span> ~/.bash_profile</span></span></code></pre></td></tr></table>
 </div>
 </div><p>然后，在本地可简化指令为 <code>npm run qcloudcdn</code> 或者 <code>yarn qcloudcdn</code>。<br>
 等同于 <code>SECRET_ID=$SECRET_ID SECRET_KEY=$SECRET_KEY npm run qcloudcdn</code></p>
@@ -566,7 +719,7 @@
 </details>
 <h2 id="配置-github-actions">配置 GitHub Actions</h2>
 <p>在原有 GitHub Actions 中部署后增加一个步骤：</p>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-6"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -579,8 +732,7 @@
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">env</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">SECRET_ID</span><span class="p">:</span><span class="w"> </span><span class="l">${{ secrets.SECRET_ID }}</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">SECRET_KEY</span><span class="p">:</span><span class="w"> </span><span class="l">${{ secrets.SECRET_KEY }}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l">npm run qcloudcdn</span><span class="w">
-</span></span></span></code></pre></td></tr></table>
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l">npm run qcloudcdn</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>在仓库 Settings &gt; Secrets &gt; Actions 中增加两个 Secret: <code>SECRET_ID</code> 和 <code>SECRET_KEY</code>，原来有配置过的就不用了，比如，我原来的叫 <code>COS_SECRET_ID</code> 和 <code>COS_SECRET_ID</code>，那修改上面配置 env 中的变量名即可。</p>
 <p>最后上传代码，以后更新仓库时就会自动刷新 CDN 缓存了。</p>
@@ -607,15 +759,14 @@
 <p><strong><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/some"target="_blank" rel="external nofollow noopener noreferrer">some<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></strong></p>
 <p><code>some()</code> 方法测试数组中是不是至少有 1 个元素通过了被提供的函数测试，它返回一个布尔值。</p>
 <p>数组中有至少一个元素通过回调函数的测试就会返回 <code>true</code>，所有元素都没有通过回调函数的测试返回值才会为 <code>false</code>。</p>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-1"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">arr</span><span class="p">.</span><span class="nx">some</span><span class="p">(</span><span class="nx">callback</span><span class="p">(</span><span class="nx">element</span><span class="p">[,</span> <span class="nx">index</span><span class="p">[,</span> <span class="nx">array</span><span class="p">]])[,</span> <span class="nx">thisArg</span><span class="p">])</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">arr</span><span class="p">.</span><span class="nx">some</span><span class="p">(</span><span class="nx">callback</span><span class="p">(</span><span class="nx">element</span><span class="p">[,</span> <span class="nx">index</span><span class="p">[,</span> <span class="nx">array</span><span class="p">]])[,</span> <span class="nx">thisArg</span><span class="p">])</span></span></span></code></pre></td></tr></table>
 </div>
-</div><div class="highlight"><div class="chroma">
+</div><div class="highlight" id="id-2"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -639,15 +790,14 @@
 </blockquote>
 <p><code>every()</code> 方法测试一个数组内的所有元素是否都能通过某个指定函数的测试，它返回一个布尔值。</p>
 <p>如果回调函数的每一次返回都为 <a href="https://developer.mozilla.org/zh-CN/docs/Glossary/Truthy"target="_blank" rel="external nofollow noopener noreferrer">truthy<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 值，返回 <code>true</code> ，否则返回 <code>false</code>。</p>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-3"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">arr</span><span class="p">.</span><span class="nx">every</span><span class="p">(</span><span class="nx">callback</span><span class="p">(</span><span class="nx">element</span><span class="p">[,</span> <span class="nx">index</span><span class="p">[,</span> <span class="nx">array</span><span class="p">]])[,</span> <span class="nx">thisArg</span><span class="p">])</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">arr</span><span class="p">.</span><span class="nx">every</span><span class="p">(</span><span class="nx">callback</span><span class="p">(</span><span class="nx">element</span><span class="p">[,</span> <span class="nx">index</span><span class="p">[,</span> <span class="nx">array</span><span class="p">]])[,</span> <span class="nx">thisArg</span><span class="p">])</span></span></span></code></pre></td></tr></table>
 </div>
-</div><div class="highlight"><div class="chroma">
+</div><div class="highlight" id="id-4"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -670,15 +820,14 @@
 <p>助记：功能和 <code>some()</code> 类似，<code>some()</code> 返回布尔值，<code>find()</code> 返回<strong>找到</strong>的元素</p>
 </blockquote>
 <p><code>find()</code> 方法返回数组中满足提供的测试函数的第一个元素的值，否则返回 <a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/undefined"target="_blank" rel="external nofollow noopener noreferrer"><code>undefined</code><i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>。</p>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-5"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">arr</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="nx">callback</span><span class="p">[,</span> <span class="nx">thisArg</span><span class="p">])</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">arr</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="nx">callback</span><span class="p">[,</span> <span class="nx">thisArg</span><span class="p">])</span></span></span></code></pre></td></tr></table>
 </div>
-</div><div class="highlight"><div class="chroma">
+</div><div class="highlight" id="id-6"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -712,15 +861,14 @@
 </blockquote>
 <p><code>filter()</code> 方法创建一个新数组，其包含通过所提供函数实现的测试的所有元素。</p>
 <p>返回值是一个新的、由通过测试的元素组成的数组，如果没有任何数组元素通过测试，则返回空数组。</p>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-7"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">newArray</span> <span class="o">=</span> <span class="nx">arr</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">callback</span><span class="p">(</span><span class="nx">element</span><span class="p">[,</span> <span class="nx">index</span><span class="p">[,</span> <span class="nx">array</span><span class="p">]])[,</span> <span class="nx">thisArg</span><span class="p">])</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">newArray</span> <span class="o">=</span> <span class="nx">arr</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">callback</span><span class="p">(</span><span class="nx">element</span><span class="p">[,</span> <span class="nx">index</span><span class="p">[,</span> <span class="nx">array</span><span class="p">]])[,</span> <span class="nx">thisArg</span><span class="p">])</span></span></span></code></pre></td></tr></table>
 </div>
-</div><div class="highlight"><div class="chroma">
+</div><div class="highlight" id="id-8"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -744,7 +892,7 @@
 </blockquote>
 <p><code>map()</code> 方法创建一个新数组，这个新数组由原数组中的每个元素都调用一次提供的函数后的返回值组成。</p>
 <p>返回值是一个新的、由通过测试的元素组成的数组，如果没有任何数组元素通过测试，则返回空数组。</p>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-9"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -753,10 +901,9 @@
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">new_array</span> <span class="o">=</span> <span class="nx">arr</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="kd">function</span> <span class="nx">callback</span><span class="p">(</span><span class="nx">currentValue</span><span class="p">[,</span> <span class="nx">index</span><span class="p">[,</span> <span class="nx">array</span><span class="p">]])</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl"> <span class="c1">// Return element for new_array
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}[,</span> <span class="nx">thisArg</span><span class="p">])</span>
-</span></span></code></pre></td></tr></table>
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}[,</span> <span class="nx">thisArg</span><span class="p">])</span></span></span></code></pre></td></tr></table>
 </div>
-</div><div class="highlight"><div class="chroma">
+</div><div class="highlight" id="id-10"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -780,7 +927,7 @@
 <p>有时，我们想知道对象上是否存在某个属性，一般会使用 <code>in</code> 操作符或 <code>obj.hasOwnProperty</code>，但它们都有各自的缺陷。</p>
 <p><strong>in</strong></p>
 <p>如果指定的属性位于对象或其原型链中，<code>in</code> 运算符将返回 <code>true</code>。</p>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-11"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -804,7 +951,7 @@
 </div>
 </div><p><strong>obj.hasOwnProperty</strong></p>
 <p><code>hasOwnProperty</code> 方法会返回一个布尔值，表示对象<strong>自身属性</strong>中是否具有对应的值（原型链上的属性不会读取）。</p>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-12"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -827,7 +974,7 @@
 </span></span></span></code></pre></td></tr></table>
 </div>
 </div><p><code>obj.hasOwnProperty</code> 已经可以过滤掉原型链上的属性，但在某些情况下，它还是不安全。</p>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-13"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -839,7 +986,7 @@
 </div>
 </div><p><strong>Object.hasOwn</strong></p>
 <p>别急，我们可以使用 <code>Object.hasOwn</code> 来避免这两个问题，这比 <code>obj.hasOwnProperty</code> 方法更加方便、安全。</p>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-14"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -857,7 +1004,7 @@
 </div>
 </div><h2 id="使用--声明私有属性">使用 &ldquo;#&rdquo; 声明私有属性</h2>
 <p>以前，我们一般用 <code>_</code> 表示私有属性，但它并不靠谱，还是会被外部修改。</p>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-15"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -906,7 +1053,7 @@
 </span></span></span></code></pre></td></tr></table>
 </div>
 </div><p><strong>使用 <code>#</code> 实现真正私有属性</strong></p>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-16"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -956,7 +1103,7 @@
 </div>
 </div><h2 id="有用的数字分隔符">有用的数字分隔符</h2>
 <p>可以使用 <code>_</code> 分隔数字，当然也可以用于计算</p>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-17"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -976,7 +1123,7 @@
 </span></span><span class="line"><span class="cl"><span class="c1">// expected output: true
 </span></span></span></code></pre></td></tr></table>
 </div>
-</div><div class="highlight"><div class="chroma">
+</div><div class="highlight" id="id-18"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -997,7 +1144,7 @@
 <h2 id="---的使用">&ldquo;?.&rdquo;, &ldquo;??&rdquo;, &ldquo;??=&rdquo; 的使用</h2>
 <p><strong>可选链 ?.</strong></p>
 <p>以前我们为了简化 <code>if else</code>，通常会写出这样的代码</p>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-19"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -1010,11 +1157,10 @@
 </span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">obj</span> <span class="o">&amp;&amp;</span> <span class="nx">obj</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">$title</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s1">&#39;.title&#39;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">title</span> <span class="o">=</span> <span class="nx">$title</span> <span class="o">?</span> <span class="nx">title</span><span class="p">.</span><span class="nx">innerText</span> <span class="o">:</span> <span class="kc">undefined</span><span class="p">;</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">title</span> <span class="o">=</span> <span class="nx">$title</span> <span class="o">?</span> <span class="nx">title</span><span class="p">.</span><span class="nx">innerText</span> <span class="o">:</span> <span class="kc">undefined</span><span class="p">;</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>使用 <code>?.</code> 简化 <code>&amp;&amp;</code> 和三元运算符</p>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-20"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -1027,12 +1173,11 @@
 </span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">obj</span><span class="o">?</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">$title</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s1">&#39;.title&#39;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">title</span> <span class="o">=</span> <span class="nx">$title</span><span class="o">?</span><span class="p">.</span><span class="nx">innerText</span><span class="p">;</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">title</span> <span class="o">=</span> <span class="nx">$title</span><span class="o">?</span><span class="p">.</span><span class="nx">innerText</span><span class="p">;</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p><strong>空值合并运算符 ??</strong></p>
 <p>之前给变量赋默认值时，我们一般会用 <code>||</code> 来写，比如</p>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-21"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -1053,7 +1198,7 @@
 </span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>所以，<code>||</code> 有时候并不是很安全，所以我们不得不加判断</p>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-22"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -1066,7 +1211,7 @@
 </span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>现在使用 <code>??</code> 可以使代码更加优雅</p>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-23"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -1087,7 +1232,7 @@
 </span></span></span></code></pre></td></tr></table>
 </div>
 </div><p><strong>空值赋值运算符 ??=</strong></p>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-24"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -1111,7 +1256,7 @@
 <h2 id="使用-bigint-支持大数计算">使用 BigInt 支持大数计算</h2>
 <p>JS 中超过 <code>Number.MAX_SAFE_INTEGER</code> 的数字计算将是不安全的。</p>
 <p><strong>Example:</strong></p>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-25"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -1124,7 +1269,7 @@
 </span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>使用 <code>BigInt</code> 完全可以避免这个问题</p>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-26"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -1137,7 +1282,7 @@
 </span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>要创建一个 BigInt，可以在一个整数的末尾添加字符<code>n</code>，或者调用函数 <code>BigInt()</code>。</p>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-27"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -1158,7 +1303,7 @@
 <p>一般的網頁，圖片是使用 img 標籤寫在 HTML 頁面中，圖片點擊并不會放大，想放大看圖片要麼方法整個網頁，要麼複製圖片鏈接新開窗口，操作繁瑣，而使用 Lightbox 的網站可以点击缩略图浮层显示大图，放大後可点击键盘 ←、→ 键切换图片，也可以鼠标点击左右箭头切换。按下键盘 Esc 键或者点击关闭按钮可輕鬆關閉圖層，圖片流覽的體驗度是遠遠大於未使用的 Lightbox 的網站。</p>
 <h2 id="實現思路">實現思路</h2>
 <p>大概思路就在每个图片的点击事件中添加图层与图片副本。</p>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-1"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">  1
 </span><span class="lnt">  2
@@ -1557,7 +1702,7 @@ jQuery lightbox script for displaying images, videos and more. Touch enabled, re
 <ol>
 <li>Add latest jQuery and fancyBox files</li>
 </ol>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-2"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -1568,13 +1713,12 @@ jQuery lightbox script for displaying images, videos and more. Touch enabled, re
 <pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;https://code.jquery.com/jquery-3.3.1.min.js&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">link</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;/path/to/jquery.fancybox.min.css&#34;</span> <span class="na">rel</span><span class="o">=</span><span class="s">&#34;stylesheet&#34;</span> <span class="p">/&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;/path/to/jquery.fancybox.min.js&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;/path/to/jquery.fancybox.min.js&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span></span></span></code></pre></td></tr></table>
 </div>
 </div><ol start="2">
 <li>Create links</li>
 </ol>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-3"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -1591,8 +1735,7 @@ jQuery lightbox script for displaying images, videos and more. Touch enabled, re
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">a</span> <span class="na">data-fancybox</span><span class="o">=</span><span class="s">&#34;gallery&#34;</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;big_2.jpg&#34;</span><span class="p">&gt;</span>
 </span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">img</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;small_2.jpg&#34;</span> <span class="p">/&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span></span></span></code></pre></td></tr></table>
 </div>
 </div><ol start="3">
 <li>Enjoy!</li>
@@ -1602,18 +1745,17 @@ jQuery lightbox script for displaying images, videos and more. Touch enabled, re
 <ol>
 <li>
 <p>Clone source</p>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-1"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">git clone git@github.com:Lruihao/watermark.git
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">git clone git@github.com:Lruihao/watermark.git</span></span></code></pre></td></tr></table>
 </div>
 </div></li>
 <li>
 <p>Load <code>Watermark</code></p>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-2"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -1626,13 +1768,12 @@ jQuery lightbox script for displaying images, videos and more. Touch enabled, re
 </span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/javascript&#34;</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;./src/watermark.min.js&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="c">&lt;!-- Or CDN --&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/javascript&#34;</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;https://cdn.jsdelivr.net/npm/cell-watermark@1.0.3/src/watermark.js&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/javascript&#34;</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;https://cdn.jsdelivr.net/npm/cell-watermark@1.0.3/src/watermark.min.js&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/javascript&#34;</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;https://cdn.jsdelivr.net/npm/cell-watermark@1.0.3/src/watermark.min.js&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span></span></span></code></pre></td></tr></table>
 </div>
 </div></li>
 <li>
 <p>Initialization</p>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-3"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -1645,8 +1786,7 @@ jQuery lightbox script for displaying images, videos and more. Touch enabled, re
 </span></span><span class="line"><span class="cl">  <span class="k">new</span> <span class="nx">Watermark</span><span class="p">({</span>
 </span></span><span class="line"><span class="cl">    <span class="nx">content</span><span class="o">:</span> <span class="s2">&#34;cell-watermark&#34;</span>
 </span></span><span class="line"><span class="cl">  <span class="p">})</span>
-</span></span><span class="line"><span class="cl"><span class="p">});</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="p">});</span></span></span></code></pre></td></tr></table>
 </div>
 </div></li>
 </ol>
@@ -1654,18 +1794,17 @@ jQuery lightbox script for displaying images, videos and more. Touch enabled, re
 <ol>
 <li>
 <p>Install</p>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-4"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">npm i cell-watermark
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">npm i cell-watermark</span></span></code></pre></td></tr></table>
 </div>
 </div></li>
 <li>
 <p>Import</p>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-5"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -1674,8 +1813,7 @@ jQuery lightbox script for displaying images, videos and more. Touch enabled, re
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kr">import</span> <span class="nx">Watermark</span> <span class="nx">from</span> <span class="s1">&#39;cell-watermark&#39;</span>
 </span></span><span class="line"><span class="cl"><span class="cm">/* Or */</span>
-</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">Watermark</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&#34;cell-watermark&#34;</span><span class="p">)</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">Watermark</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&#34;cell-watermark&#34;</span><span class="p">)</span></span></span></code></pre></td></tr></table>
 </div>
 </div></li>
 </ol>
@@ -1870,18 +2008,17 @@ jQuery lightbox script for displaying images, videos and more. Touch enabled, re
 <li>然后，在你的 js 中 new 一个 Cosalbum 对象 ( xmlLink 后不需要添加<code>/</code>)</li>
 </ol>
 <h3 id="step1">Step1</h3>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-1"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="o">&lt;</span><span class="nx">link</span> <span class="nx">rel</span><span class="o">=</span><span class="s2">&#34;stylesheet&#34;</span> <span class="nx">type</span><span class="o">=</span><span class="s2">&#34;text/css&#34;</span> <span class="nx">href</span><span class="o">=</span><span class="s2">&#34;cos-album.min.css?v=1.1.2&#34;</span><span class="o">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="nx">script</span> <span class="nx">type</span><span class="o">=</span><span class="s2">&#34;text/javascript&#34;</span> <span class="nx">src</span><span class="o">=</span><span class="s2">&#34;cos-album.min.js?v=1.1.2&#34;</span><span class="o">&gt;&lt;</span><span class="err">/script&gt;</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="nx">script</span> <span class="nx">type</span><span class="o">=</span><span class="s2">&#34;text/javascript&#34;</span> <span class="nx">src</span><span class="o">=</span><span class="s2">&#34;cos-album.min.js?v=1.1.2&#34;</span><span class="o">&gt;&lt;</span><span class="err">/script&gt;</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="step2">Step2</h3>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-2"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -1900,8 +2037,7 @@ jQuery lightbox script for displaying images, videos and more. Touch enabled, re
 </span></span><span class="line"><span class="cl">    <span class="s1">&#39;viewNum&#39;</span><span class="o">:</span> <span class="mi">8</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">    <span class="s1">&#39;imgUrl&#39;</span><span class="o">:</span> <span class="s1">&#39;//img.lruihao.cn&#39;</span>
 </span></span><span class="line"><span class="cl">  <span class="p">});</span>
-</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="err">/script&gt;</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="err">/script&gt;</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="params">Params</h3>
 <table>
@@ -1955,7 +2091,7 @@ jQuery lightbox script for displaying images, videos and more. Touch enabled, re
 <p><code>viewport</code> 视个人情况添加。<br>
 hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用等等，这里不再展开。<br>
 <strong><em>注：代码设定不加载根目录文件，所以可以利用静态服务把源码部署在根目录，配合 PicGo、COSBrowser 上传来搭建个人图床。</em></strong></p>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-3"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -2000,12 +2136,11 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 </span></span><span class="line"><span class="cl">    <span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
 </span></span><span class="line"><span class="cl">    <span class="c">&lt;!-- 你的其他内容，如评论等 --&gt;</span>
 </span></span><span class="line"><span class="cl">  <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p><a href="https://img.lruihao.cn" target="_blank" class="LinkCard">cos-album demo</a></p>
 <p>
-<div id="id-1"></div></p>
+<div id="id-4"></div></p>
 <h2 id="changelog">changelog</h2>
 <ul>
 <li>2020-9-28 22:46
@@ -2022,7 +2157,7 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 <blockquote>
 <p>话不多说，直接贴码！</p>
 </blockquote>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-1"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -2099,8 +2234,7 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 </span></span></span><span class="line"><span class="cl"><span class="cm"> * HTML 写法
 </span></span></span><span class="line"><span class="cl"><span class="cm">&lt;span class=&#34;run-times&#34; title=&#34;网站运行时间&#34;&gt;载入时分秒 ...&lt;/span&gt;
 </span></span></span><span class="line"><span class="cl"><span class="cm">&lt;p class=&#34;run-times&#34; title=&#34;主頁运行时间&#34;&gt;RunTime Loading...&lt;/p&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cm">*/</span>
-</span></span></code></pre></td></tr></table>
+</span></span></span><span class="line"><span class="cl"><span class="cm">*/</span></span></span></code></pre></td></tr></table>
 </div>
 </div>]]></description></item><item><title>script 的三种加载方式 (async, defer)</title><link>https://lruihao.cn/posts/async-defer/</link><pubDate>Sun, 08 Sep 2019 11:47:50 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/async-defer/</guid><description><![CDATA[<div class="featured-image">
         <img src="/posts/async-defer/images/async_vs_defer.svg" referrerpolicy="no-referrer">
@@ -2119,37 +2253,34 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 一般建议把<code>&lt;script&gt;</code>标签放在<code>&lt;body&gt;</code>结尾处，这样尽可能减少页面阻塞。<br>
 而如果想要异步执行 script，则可以给其加上 async 或 defer 属性。</p>
 </blockquote>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-1"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="defer">defer</h2>
 <blockquote>
 <p>defer 属性在 HTML 解析期间异步下载文件，并且只在 HTML 解析完成后才执行它。对于 defer，我们可以理解是将外链的 js 放在了页面底部。js 的加载不会阻塞页面的渲染和资源的加载。不过 defer 会按照原本的 js 的顺序执行，<strong>所以如果前后有依赖关系的 js 可以放心使用。</strong></p>
 </blockquote>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-2"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span> <span class="na">defer</span><span class="p">&gt;</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span> <span class="na">defer</span><span class="p">&gt;</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="async">async</h2>
 <blockquote>
 <p>async 属性会在 HTML 解析期间异步下载文件，并在完成下载后立即暂停 HTML 解析器去执行 script 中的代码。在执行过程中浏览器处于阻塞状态，响应不了任何需求。<strong>如果 js 前后有依赖性，用 async，就很有可能出错。</strong></p>
 </blockquote>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-3"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span> <span class="na">async</span><span class="p">&gt;</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span> <span class="na">async</span><span class="p">&gt;</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="区别">区别</h2>
 <h3 id="相同点">相同点</h3>
@@ -2190,7 +2321,7 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 <p><strong>2021/10/2 1:29 更新</strong></p>
 </blockquote>
 <p>这是一种后加载，创建<code>linkcard.js</code>放到<code>source/js/src/</code>，然后在<code>next\layout\_macro\post.swig</code>中引用</p>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-1"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -2229,28 +2360,25 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="nb">window</span><span class="p">.</span><span class="nx">onload</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="nx">cardLink</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl"><span class="p">};</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="p">};</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="使用">使用</h2>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-2"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="c">&lt;!--知乎卡片链接--&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/javascript&#34;</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;/js/src/card-link.js&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/javascript&#34;</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;/js/src/card-link.js&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>html 链接写法，a 标签加上<code>class=&quot;card-link&quot;</code></p>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-3"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">&lt;a href=&#34;https://github.com/Lruihao/lruihao.github.io&#34; target=&#34;_blank&#34; class=&#34;card-link&#34;&gt;Lruihao 博客&lt;/a&gt;
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">&lt;a href=&#34;https://github.com/Lruihao/lruihao.github.io&#34; target=&#34;_blank&#34; class=&#34;card-link&#34;&gt;Lruihao 博客&lt;/a&gt;</span></span></code></pre></td></tr></table>
 </div>
 </div><a href="https://github.com/Lruihao/lruihao.github.io"target="_blank" rel="external nofollow noopener noreferrer" class="card-link"><span class="cl-backdrop" style="--cl-bg-url: url(/fixit.min.svg);"></span>
     <span class="cl-content">
@@ -2265,7 +2393,7 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 查了一下百度知道了大概就是 qq 没有抓取到你的网站的 xml。并在其他教程中得到了一个强制提交抓取的 url <code>https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshareget_urlinfo?url=</code> 于是就有了脚本刷新的想法。简陋的写了一下。</p>
 </blockquote>
 <h2 id="批量式刷新">批量式刷新</h2>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-1"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -2350,11 +2478,10 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 </span></span><span class="line"><span class="cl">  <span class="nx">createArrayAndOpenWindow</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">  <span class="c1">//设置定时函数，疯狂刷新直到 xml 出现内容
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kd">var</span> <span class="nx">timer</span> <span class="o">=</span> <span class="nx">setInterval</span><span class="p">(</span><span class="s1">&#39;createArrayAndOpenWindow()&#39;</span><span class="p">,</span> <span class="mi">2000</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="p">};</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="p">};</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="单链接刷新">单链接刷新</h2>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-2"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -2365,10 +2492,9 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 <pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">style</span><span class="o">=</span><span class="s">&#34;text-align: center;&#34;</span><span class="p">&gt;</span>
 </span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text&#34;</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;input&#34;</span> <span class="na">value</span><span class="o">=</span><span class="s">&#34;&#34;</span> <span class="p">/&gt;</span>
 </span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;button&#34;</span> <span class="na">value</span><span class="o">=</span><span class="s">&#34;疯狂刷新&#34;</span> <span class="na">onclick</span><span class="o">=</span><span class="s">&#34;yanzheng()&#34;</span> <span class="p">/&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span></span></span></code></pre></td></tr></table>
 </div>
-</div><div class="highlight"><div class="chroma">
+</div><div class="highlight" id="id-3"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -2427,8 +2553,7 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 </span></span><span class="line"><span class="cl">  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">timer</span> <span class="o">=</span> <span class="nx">setInterval</span><span class="p">(</span><span class="s1">&#39;open_new()&#39;</span><span class="p">,</span> <span class="mi">200</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="demo">demo</h2>
 <p><figure><a class="lightgallery" href="/posts/qqxml/images/1.png" data-thumbnail="/posts/qqxml/images/1.png" data-sub-html="<h2>线上 demo 仅做参考请自行下载</h2><p>线上 demo 仅做参考请自行下载</p>"></a><figcaption class="image-caption">线上 demo 仅做参考请自行下载</figcaption>
@@ -2495,7 +2620,7 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 </div>
 <h2 id="heading"></h2>
 <p>验证码 JS 来源互联网</p>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-1"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -2586,12 +2711,11 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">        <span class="nx">createCode</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="err">/script&gt;</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="err">/script&gt;</span></span></span></code></pre></td></tr></table>
 </div>
 </div>]]></description></item><item><title>js 判断用户设备类型及平台</title><link>https://lruihao.cn/posts/js-device/</link><pubDate>Sat, 03 Nov 2018 23:35:44 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/js-device/</guid><description><![CDATA[<p>前端开发经常遇到需要判断用户的浏览设备，是 pc 端还是移动端，移动端使用的是什么手机系统？android、ios、ipad、windows phone 等等，有时候还需要知道用户浏览页面是在微信中打开还是在移动端浏览器中打开，等等一系列判断做一些相应的处理。</p>
 <h3 id="首先判断-pc-端还是移动端">首先判断 pc 端还是移动端</h3>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-1"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -2622,11 +2746,10 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 </span></span><span class="line"><span class="cl">            }
 </span></span><span class="line"><span class="cl">        }
 </span></span><span class="line"><span class="cl">        return flag;
-</span></span><span class="line"><span class="cl">    }
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl">    }</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="判断用户移动端使用的系统平台">判断用户移动端使用的系统平台</h3>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-2"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -2645,11 +2768,10 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 </span></span><span class="line"><span class="cl">        //苹果手机
 </span></span><span class="line"><span class="cl">    } else if (u.indexOf(&#39;Windows Phone&#39;) &gt; -1) {
 </span></span><span class="line"><span class="cl">        //winphone 手机
-</span></span><span class="line"><span class="cl">    }
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl">    }</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="判断用户是否在微信中打开">判断用户是否在微信中打开</h3>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-3"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -2668,12 +2790,11 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 </span></span><span class="line"><span class="cl">        } else {
 </span></span><span class="line"><span class="cl">            return false;
 </span></span><span class="line"><span class="cl">        }
-</span></span><span class="line"><span class="cl">    }
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl">    }</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="实际运用">实际运用</h3>
 <p>根据 pc 或者移动端控制飘花数目，降低 cpu 消耗，减少卡顿。<a href="https://www.lruihao.cn"target="_blank" rel="external nofollow noopener noreferrer">demo<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-4"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -2732,101 +2853,93 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 </span></span><span class="line"><span class="cl">        }
 </span></span><span class="line"><span class="cl">    }
 </span></span><span class="line"><span class="cl">    window.onload = sakuraInit();
-</span></span><span class="line"><span class="cl">  &lt;/script&gt;
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl">  &lt;/script&gt;</span></span></code></pre></td></tr></table>
 </div>
 </div>]]></description></item><item><title>使用 js 准确获取当前页面 url 网址信息及 301 重定向实战</title><link>https://lruihao.cn/posts/href-301/</link><pubDate>Sun, 28 Oct 2018 14:22:00 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/href-301/</guid><description><![CDATA[<h3 id="获取链接转">获取链接（转）</h3>
 <p><a href="https://www.cnblogs.com/zhabayi/p/6419938.html"target="_blank" rel="external nofollow noopener noreferrer">传送门<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a><br>
 在 WEB 开发中，时常会用到 javascript 来获取当前页面的 url 网址信息，在这里是我的一些获取 url 信息的小总结。</p>
 <p>下面我们举例一个 URL，然后获得它的各个组成部分：<code>http://i.cnblogs.com/EditPosts.aspx?opt=1</code></p>
 <h4 id="windowlocationhref设置或获取整个-url-为字符串">window.location.href（设置或获取整个 URL 为字符串）</h4>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-1"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">var test = window.location.href;
-</span></span><span class="line"><span class="cl">alert(test);
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl">alert(test);</span></span></code></pre></td></tr></table>
 </div>
 </div><p>返回：<code>http://i.cnblogs.com/EditPosts.aspx?opt=1</code></p>
 <h4 id="windowlocationprotocol设置或获取-url-的协议部分">window.location.protocol（设置或获取 URL 的协议部分）</h4>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-2"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">var test = window.location.protocol;
-</span></span><span class="line"><span class="cl">alert(test);
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl">alert(test);</span></span></code></pre></td></tr></table>
 </div>
 </div><p>返回：<code>http:</code></p>
 <h4 id="windowlocationhost设置或获取-url-的主机部分">window.location.host（设置或获取 URL 的主机部分）</h4>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-3"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">var test = window.location.host;
-</span></span><span class="line"><span class="cl">alert(test);
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl">alert(test);</span></span></code></pre></td></tr></table>
 </div>
 </div><p>返回：<code>i.cnblogs.com</code></p>
 <h4 id="windowlocationport设置或获取与-url-关联的端口号码">window.location.port（设置或获取与 URL 关联的端口号码）</h4>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-4"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">var test = window.location.port;
-</span></span><span class="line"><span class="cl">alert(test);
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl">alert(test);</span></span></code></pre></td></tr></table>
 </div>
 </div><p>返回：空字符（如果采用默认的 80 端口 (update: 即使添加了：80)，那么返回值并不是默认的 80 而是空字符）</p>
 <h4 id="windowlocationpathname设置或获取与-url-的路径部分就是文件地址">window.location.pathname（设置或获取与 URL 的路径部分（就是文件地址）)</h4>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-5"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">var test = window.location.pathname;
-</span></span><span class="line"><span class="cl">alert(test);
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl">alert(test);</span></span></code></pre></td></tr></table>
 </div>
 </div><p>返回：<code>/EditPosts.aspx</code></p>
 <h4 id="windowlocationsearch设置或获取-href-属性中跟在问号后面的部分">window.location.search（设置或获取 href 属性中跟在问号后面的部分）</h4>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-6"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">var test = window.location.search;
-</span></span><span class="line"><span class="cl">alert(test);
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl">alert(test);</span></span></code></pre></td></tr></table>
 </div>
 </div><p>返回：<code>?opt=1</code></p>
 <p>PS：获得查询（参数）部分，除了给动态语言赋值以外，我们同样可以给静态页面，并使用 javascript 来获得相信应的参数值。</p>
 <h4 id="windowlocationhash设置或获取-href-属性中在井号后面的分段">window.location.hash（设置或获取 href 属性中在井号“#”后面的分段）</h4>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-7"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">var test = window.location.hash;
-</span></span><span class="line"><span class="cl">alert(test);
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl">alert(test);</span></span></code></pre></td></tr></table>
 </div>
 </div><p>返回：空字符（因为 url 中没有）</p>
 <h4 id="js-获取-url-中的参数值">js 获取 url 中的参数值</h4>
 <h5 id="正则法">正则法</h5>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-8"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -2857,11 +2970,10 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="n">alert</span><span class="o">(</span><span class="n">GetQueryString</span><span class="o">(</span><span class="s">&#34;参数名 2&#34;</span><span class="o">));</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="n">alert</span><span class="o">(</span><span class="n">GetQueryString</span><span class="o">(</span><span class="s">&#34;参数名 3&#34;</span><span class="o">));</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="n">alert</span><span class="o">(</span><span class="n">GetQueryString</span><span class="o">(</span><span class="s">&#34;参数名 3&#34;</span><span class="o">));</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h5 id="split-拆分法">split 拆分法</h5>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-9"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -2907,7 +3019,7 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 </div>
 </div><h5 id="指定取">指定取</h5>
 <p>比如说一个 url：<code>http://i.cnblogs.com/?j=js</code>, 我们想得到参数 j 的值，可以通过以下函数调用。</p>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-10"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -2932,13 +3044,12 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 </span></span><span class="line"><span class="cl">  <span class="n">r</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
 </span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="n">context</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">||</span> <span class="n">context</span> <span class="o">==</span> <span class="s">&#34;&#34;</span> <span class="o">||</span> <span class="n">context</span> <span class="o">==</span> <span class="s">&#34;undefined&#34;</span> <span class="o">?</span> <span class="s">&#34;&#34;</span> <span class="o">:</span> <span class="n">context</span><span class="o">;</span>
 </span></span><span class="line"><span class="cl"><span class="o">}</span>
-</span></span><span class="line"><span class="cl"><span class="n">alert</span><span class="o">(</span><span class="n">GetQueryString</span><span class="o">(</span><span class="s">&#34;j&#34;</span><span class="o">));</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="n">alert</span><span class="o">(</span><span class="n">GetQueryString</span><span class="o">(</span><span class="s">&#34;j&#34;</span><span class="o">));</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="301-重定向实践">301 重定向（实践）</h3>
 <p>由于之前把 blog 和网站主页分开在两个仓库所以要想在 blog 中 menu 里跳转到站外链接就要做一些处理。以前一直百度不到。
 其实想法早就有了，只要在 blog 首页或者网站首页检测到<code>https://lruihao.cn/home</code>这个链接，或者检测到 home 字段就自动跳转。想法很简单。可是对 js 真的一点都不了解，以前百度也找不到实际的效果案例。所以还是自己写吧！附上蹩脚代码。</p>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-11"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -2951,11 +3062,10 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 </span></span><span class="line"><span class="cl">    <span class="c1">//alert(path);
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">if</span> <span class="o">(</span><span class="n">path</span><span class="o">==</span><span class="err">&#39;</span><span class="n">https</span><span class="o">:</span><span class="c1">//lruihao.cn/home/&#39;) {
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="n">window</span><span class="o">.</span><span class="na">location</span><span class="o">.</span><span class="na">replace</span><span class="o">(</span><span class="s">&#34;https://www.lruihao.cn&#34;</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">    <span class="o">}</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>或者</p>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-12"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -2968,11 +3078,10 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 </span></span><span class="line"><span class="cl">    <span class="c1">//alert(path);
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">if</span> <span class="o">(</span><span class="n">path</span><span class="o">==</span><span class="err">&#39;</span><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="err">&#39;</span><span class="o">)</span> <span class="o">{</span>
 </span></span><span class="line"><span class="cl">      <span class="n">window</span><span class="o">.</span><span class="na">location</span><span class="o">.</span><span class="na">replace</span><span class="o">(</span><span class="s">&#34;https://www.lruihao.cn&#34;</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">    <span class="o">}</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>http 强制重定向 https</p>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-13"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -2991,15 +3100,14 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 </span></span><span class="line"><span class="cl">    <span class="n">window</span><span class="o">.</span><span class="na">location</span><span class="o">.</span><span class="na">href</span> <span class="o">=</span> <span class="n">targetProtocol</span> <span class="o">+</span>
 </span></span><span class="line"><span class="cl">      <span class="n">window</span><span class="o">.</span><span class="na">location</span><span class="o">.</span><span class="na">href</span><span class="o">.</span><span class="na">substring</span><span class="o">(</span><span class="n">window</span><span class="o">.</span><span class="na">location</span><span class="o">.</span><span class="na">protocol</span><span class="o">.</span><span class="na">length</span><span class="o">);</span>
 </span></span><span class="line"><span class="cl">    <span class="o">}</span>
-</span></span><span class="line"><span class="cl"><span class="o">&lt;/</span><span class="n">script</span><span class="o">&gt;</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="o">&lt;/</span><span class="n">script</span><span class="o">&gt;</span></span></span></code></pre></td></tr></table>
 </div>
 </div>]]></description></item><item><title>网页夜间效果</title><link>https://lruihao.cn/posts/night/</link><pubDate>Thu, 27 Sep 2018 13:13:31 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/night/</guid><description><![CDATA[<blockquote>
 <p>这几天看到别人的博客有开关灯效果，就想给自己的博客也加一个，其实以前就在想了。经过谷歌百度后这样实现了。<code>css+js</code></p>
 </blockquote>
 <p>如何给 Web 页面增加夜间模式功能？其实所谓的夜间模式就是在页面上增加一个透明的遮罩层，但是遮罩层会挡住页面元素， 解决方法是 添加 DIV，给 DIV 的 outline 属性一个很大的 outline-width 值，用 outline 的边框作为遮罩，这样既能正常点击页面元素，又能达到夜间模式的效果。</p>
 <h3 id="css-部分">css 部分</h3>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-1"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -3020,11 +3128,10 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 </span></span><span class="line"><span class="cl">    <span class="k">outline</span><span class="p">:</span><span class="mi">5000</span><span class="kt">px</span> <span class="kc">solid</span> <span class="nb">rgba</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span><span class="err">//初始亮度</span>
 </span></span><span class="line"><span class="cl">    <span class="k">z-index</span><span class="p">:</span> <span class="mi">99999</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="o">&lt;/</span><span class="nt">style</span><span class="o">&gt;</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="o">&lt;/</span><span class="nt">style</span><span class="o">&gt;</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="js-部分">js 部分</h3>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-2"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -3085,17 +3192,15 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 </span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="nx">brightness</span> <span class="o">+</span> <span class="mf">0.05</span> <span class="o">&lt;</span> <span class="mf">0.95</span><span class="p">)</span> <span class="nx">cover</span><span class="p">(</span><span class="nx">brightness</span> <span class="o">+=</span> <span class="mf">0.05</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">},</span> <span class="kc">false</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="err">/script&gt;</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="err">/script&gt;</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="html-部分">html 部分</h3>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-3"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">&lt;div class=&#34;cover&#34;&gt;&lt;/div&gt;
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">&lt;div class=&#34;cover&#34;&gt;&lt;/div&gt;</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="使用">使用</h3>
 <ol>
@@ -3110,7 +3215,7 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 <p>我们先创建一个 js 文件，我们用记事本就好了，然后改个文件名，不妨就叫<code>crash-cheat.js</code>吧，你们可以随意！<br>
 然后把文件放到 source 文件夹的 js 文件夹的 src 里面。（我用的 next 主题，放这里统一存放，其他主题随意）</p>
 <p>崩溃欺骗 (Jquery 版）</p>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-1"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -3145,11 +3250,10 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 </span></span><span class="line"><span class="cl">      <span class="nx">$</span><span class="p">(</span><span class="s2">&#34;[rel=&#39;icon&#39;]&#34;</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;href&#39;</span><span class="p">,</span> <span class="s1">&#39;/images/favicon-32x32-next.png&#39;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="p">},</span> <span class="mi">2000</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">});</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="p">});</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>崩溃欺骗 (JS 版）</p>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-2"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -3182,19 +3286,17 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 </span></span><span class="line"><span class="cl">      <span class="nb">document</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="nx">oldTitle</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">},</span> <span class="mi">1000</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">});</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="p">});</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="使用">使用</h2>
 <p>在<code>hexo\themes\hexo-theme-next\layout</code>文件路径找到<code>layout.swig</code>文件，其他有些主题用的是<code>.ejs</code>后缀，一样的。<br>
 然后打开文件，在<code>&lt;body&gt;&lt;/body&gt;</code>之间加入调用刚刚的 js。</p>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-3"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/javascript&#34;</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;/js/src/crash-cheat.js&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/javascript&#34;</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;/js/src/crash-cheat.js&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>重新部署博客就可以了。</p>]]></description></item><item><title>hexo 博客自定义 console log</title><link>https://lruihao.cn/posts/console-log/</link><pubDate>Sat, 04 Aug 2018 16:19:06 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/console-log/</guid><description><![CDATA[<p>看到知乎，百度的页面 F12 检查后都会有一些有趣的招聘信息。于是乎我也想给我的博客加一个。<br>
 我主要用到的工具：</p>
@@ -3231,12 +3333,11 @@ Ctrl+H 替换<br>
   </figure><br>
 <a href="https://lruihao.cn"target="_blank" rel="external nofollow noopener noreferrer">线上 demo<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>, 按 F12 找到 console</p>
 <h2 id="我的-txt">我的 txt</h2>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-1"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-txt" data-lang="txt"><span class="line"><span class="cl">\n`              @@#``@@@@@@@@@@@@@@@@@@##,`   \n`              @@#`;@@@@@@@@@@@@@@@@@@@&#39;:&#39;   \n`              @@#`@@@@@@@@@@@@@@@@@@@#+#;`  \n`              @@#`@@@@@@@@@@@@@@@@@@###@&#39;.  \n`              @@+.@@@@@@@@@@@@@@@@@@@@@##,  \n`              @@#,@@@@@@@@@@@@@@@@@@@@@@#,  \n`              #@#:@@@@@@@@@@@@@@@@@@@@@@@,  \n`              #@#&#39;@@@@@@@@@@@@@@@@@@@@@@@.  \n`              +@#;@@@@@@@@@@@@@@@@@@@@@@#   \n`          `;: ;@#&#39;@@@@@@@@@@@@@@@@@@+&#39;+@&#39;   \n`    `,,;&#39;;&#39;+&#39;;&#39;@@+:@@@@@@@@@@@@##@#&#39;,.:#;   \n,, ``    ``..,:;@@#&#39;@@@@@@@@#####@@@@#:`:.   \n`       `````:++@@@@@@@@@@@@@###@@@@#+,..    \n        ``````.#@@@@@@@@@@@@@@#@@@#++#&#39;``    \n`    ```.,,:,.`:@@@@@@@@@@@@@###@@@##&#39;.`     \n``..`````..,::;+@@@@@@@@@@@@#+`::+##&#39;`.      \n`      ````.```,@@@@@@@@@@@##;``.,&#39;;` `      \n``.;@@@@@@@@@@@@@@@@@@@@@@###;``..``````     \n#@@@@@@@@@@@@@@@@@@@@@@@@##@#;``,``,.``      \n@@@@@@@@@@@@@@@@@@@.`````..``.. +` `:`       \n@+&#39;&#39;++#####@@#`.@@@``````` ` `,```  ``       \n&#39;;;;;&#39;+##+&#39;+.`;+@@@,..```` `` :,.            \n;::,,:;+#++``,,#@@@&#39;..``````` ,`.``          \n;,,,,...&#39;#.,,..#@@@#,,.`````` .````          \n:,,,,....`,::;&#39;&#39;+#@#;,..`````````.``         \n:,,,.....&#39;##++&#39;&#39;&#39;;:+&#39;:,.`..,,...`            \n:,,,...#####+&#39;+#@@@&#39;.&#39;;+:.  ` ``             \n;,,.`&#39;####&#39;#,`.`+@@@+&#39;``` `.`                \n;,.`#@@@#+:&#39;+++##+@##@,,,,`                  \n&#39;,.#@@###&#39;&#39;&#39;&#39;;:,.```,+#.                     \n+,#@@@####;,,..```````````````         `.:,::\n+@@@@###+;,,..``````````````````          `.,\n#@@@##+&#39;,,,........``````````````            \n@@@@#+:,,,,`........``````````               \n@@@#+:,,,,.`````.....``````````           `` \n@@##&#39;:,......`````....```  `````          ```\n@@@#&#39;:,....,..``````..````    ```         ```\n@@@#&#39;,....,,,..```````````     ```         ..\n@@@#,.....,,,,.``  ````````   ``````         \n@@@+....,,,,,..`````````````   ``````````    \n@@@:....,,,,.LiRuihao````````  ```````````` \n#@@,....,,,,.Always Be Yourself !````````````\n,##,,...,::,.````````````..``````   `......``\n,&#39;#,,..,,:::.`````````........``````   `.,,..\n\n 你好！\n 欢迎进入什么都不会的李瑞豪的个人网站！\nhttps://lruihao.cn\nhttps://www.lruihao.cn\nhttps://lruihao.github.io\nhttps://liruihao.coding.me\n\n\n\n
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-txt" data-lang="txt"><span class="line"><span class="cl">\n`              @@#``@@@@@@@@@@@@@@@@@@##,`   \n`              @@#`;@@@@@@@@@@@@@@@@@@@&#39;:&#39;   \n`              @@#`@@@@@@@@@@@@@@@@@@@#+#;`  \n`              @@#`@@@@@@@@@@@@@@@@@@###@&#39;.  \n`              @@+.@@@@@@@@@@@@@@@@@@@@@##,  \n`              @@#,@@@@@@@@@@@@@@@@@@@@@@#,  \n`              #@#:@@@@@@@@@@@@@@@@@@@@@@@,  \n`              #@#&#39;@@@@@@@@@@@@@@@@@@@@@@@.  \n`              +@#;@@@@@@@@@@@@@@@@@@@@@@#   \n`          `;: ;@#&#39;@@@@@@@@@@@@@@@@@@+&#39;+@&#39;   \n`    `,,;&#39;;&#39;+&#39;;&#39;@@+:@@@@@@@@@@@@##@#&#39;,.:#;   \n,, ``    ``..,:;@@#&#39;@@@@@@@@#####@@@@#:`:.   \n`       `````:++@@@@@@@@@@@@@###@@@@#+,..    \n        ``````.#@@@@@@@@@@@@@@#@@@#++#&#39;``    \n`    ```.,,:,.`:@@@@@@@@@@@@@###@@@##&#39;.`     \n``..`````..,::;+@@@@@@@@@@@@#+`::+##&#39;`.      \n`      ````.```,@@@@@@@@@@@##;``.,&#39;;` `      \n``.;@@@@@@@@@@@@@@@@@@@@@@###;``..``````     \n#@@@@@@@@@@@@@@@@@@@@@@@@##@#;``,``,.``      \n@@@@@@@@@@@@@@@@@@@.`````..``.. +` `:`       \n@+&#39;&#39;++#####@@#`.@@@``````` ` `,```  ``       \n&#39;;;;;&#39;+##+&#39;+.`;+@@@,..```` `` :,.            \n;::,,:;+#++``,,#@@@&#39;..``````` ,`.``          \n;,,,,...&#39;#.,,..#@@@#,,.`````` .````          \n:,,,,....`,::;&#39;&#39;+#@#;,..`````````.``         \n:,,,.....&#39;##++&#39;&#39;&#39;;:+&#39;:,.`..,,...`            \n:,,,...#####+&#39;+#@@@&#39;.&#39;;+:.  ` ``             \n;,,.`&#39;####&#39;#,`.`+@@@+&#39;``` `.`                \n;,.`#@@@#+:&#39;+++##+@##@,,,,`                  \n&#39;,.#@@###&#39;&#39;&#39;&#39;;:,.```,+#.                     \n+,#@@@####;,,..```````````````         `.:,::\n+@@@@###+;,,..``````````````````          `.,\n#@@@##+&#39;,,,........``````````````            \n@@@@#+:,,,,`........``````````               \n@@@#+:,,,,.`````.....``````````           `` \n@@##&#39;:,......`````....```  `````          ```\n@@@#&#39;:,....,..``````..````    ```         ```\n@@@#&#39;,....,,,..```````````     ```         ..\n@@@#,.....,,,,.``  ````````   ``````         \n@@@+....,,,,,..`````````````   ``````````    \n@@@:....,,,,.LiRuihao````````  ```````````` \n#@@,....,,,,.Always Be Yourself !````````````\n,##,,...,::,.````````````..``````   `......``\n,&#39;#,,..,,:::.`````````........``````   `.,,..\n\n 你好！\n 欢迎进入什么都不会的李瑞豪的个人网站！\nhttps://lruihao.cn\nhttps://www.lruihao.cn\nhttps://lruihao.github.io\nhttps://liruihao.coding.me\n\n\n\n</span></span></code></pre></td></tr></table>
 </div>
 </div><p>其他个人网站，个人博客也是可以的。</p>]]></description></item></channel></rss>

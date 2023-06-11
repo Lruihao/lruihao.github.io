@@ -12,7 +12,7 @@
 <p>分析为啥会冲突，Homebrew 安装的工程中也会默认一部分依赖的二进制文件，npm 和 npx 也在其中，所以这导致了 Homebrew 的安装 npm 和 npx 覆盖了系统中 node 的 npm 和 npx 进而导致 node 和 npm 版本不一致，无法使用 npm 启动项目。</p>
 <h2 id="where">Where</h2>
 <p>找一下目前 npm 和 npx 的二进制文件在哪。</p>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-1"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -23,22 +23,20 @@
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">nvm use system
 </span></span><span class="line"><span class="cl">node -v           <span class="c1"># 8.10.0</span>
 </span></span><span class="line"><span class="cl">which npm         <span class="c1"># /opt/homebrew/bin/npm</span>
-</span></span><span class="line"><span class="cl">which npx         <span class="c1"># /opt/homebrew/bin/npx</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl">which npx         <span class="c1"># /opt/homebrew/bin/npx</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="how">How</h2>
 <p>很明显前面的猜测是对的，那就打开这个目录看看：</p>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-2"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">open /opt/homebrew/bin
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">open /opt/homebrew/bin</span></span></code></pre></td></tr></table>
 </div>
 </div><p>找到 npm 和 npx，把他们重命名为 <code>npm-brew</code> 和 <code>npx-brew</code>, 这样通过别名也保留 Homebrew 的 npm 和 npx.</p>
 <p>修改完后，重启终端，再看看 npm 和 npx 是否生效：</p>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-3"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -53,13 +51,12 @@
 </span></span><span class="line"><span class="cl">which npm         <span class="c1"># /usr/local/bin/npm</span>
 </span></span><span class="line"><span class="cl">which npx         <span class="c1"># /usr/local/bin/npx</span>
 </span></span><span class="line"><span class="cl">npm -v
-</span></span><span class="line"><span class="cl">npx -v
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl">npx -v</span></span></code></pre></td></tr></table>
 </div>
 </div><p>一切正常了，可以用 npm 继续启动原来的项目了。</p>]]></description></item><item><title>linux 文件权限</title><link>https://lruihao.cn/posts/linux-permission/</link><pubDate>Sat, 30 Jul 2022 17:15:44 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/linux-permission/</guid><description><![CDATA[<p>记录 linux 系统下文件权限相关的内容，Mac OS 下类似。</p>
 <h2 id="查看文件权限">查看文件权限</h2>
 <p>查看 linux 系统下的文件权限，可以使用 <code>ll</code> 命令或者 <code>ls</code> 命令 带 <code>-l</code>（长列表选项）</p>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-1"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -94,8 +91,7 @@
 </span></span><span class="line"><span class="cl">drwxr-xr-x   <span class="m">3</span> liruihao  staff    96B Jul <span class="m">26</span> 17:17 node_modules
 </span></span><span class="line"><span class="cl">-rw-r--r--   <span class="m">1</span> liruihao  staff    27B Jun <span class="m">24</span> 13:47 package-lock.json
 </span></span><span class="line"><span class="cl">drwxr-xr-x  <span class="m">20</span> liruihao  staff   640B Jul <span class="m">29</span> 22:20 workspace
-</span></span><span class="line"><span class="cl">-rw-r--r--   <span class="m">1</span> liruihao  staff    86B Jul <span class="m">26</span> 17:17 yarn.lock
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl">-rw-r--r--   <span class="m">1</span> liruihao  staff    86B Jul <span class="m">26</span> 17:17 yarn.lock</span></span></code></pre></td></tr></table>
 </div>
 </div><p>文件列表信息分为：文件类型、权限、链接数、所属用户、所属用户组、文件大小、最后修改时间、文件名。</p>
 <h2 id="文件类型">文件类型</h2>
@@ -153,13 +149,12 @@
 </table>
 <p>读、写、运行三项权限用数字表示就是 <strong>r=4,w=2,x=1</strong>。所以，<code>-rw-r--r--</code> 用数字表示成 644。</p>
 <p>权限字段 <code>-rwxrwxrwx</code> 的内容总共会有 10 个 <code>-</code>，第一个表示文件类型，如该文件是<strong>文件 (-表示）</strong>，<strong>文件夹 (d 表示）</strong>, <strong>连接文件 (l 表示）</strong>，后面 9 个按照每三位为一组分。</p>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-2"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">drwxr-xr-x   <span class="m">5</span> liruihao  staff   160B Jul <span class="m">29</span> 17:48 file-share
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">drwxr-xr-x   <span class="m">5</span> liruihao  staff   160B Jul <span class="m">29</span> 17:48 file-share</span></span></code></pre></td></tr></table>
 </div>
 </div><p><strong>d</strong>: 代表文件夹</p>
 <p><strong>rwx</strong>: 代表文件所有者 (u 表示）权限，这里是 liruihao，liruihao 对该文件拥有读写执行权限。</p>
@@ -167,7 +162,7 @@
 <p><strong>r-x</strong>: 代表其他用户（o 表示）的权限，这里和上面权限一样。</p>]]></description></item><item><title>Mac 上的开发配置总结</title><link>https://lruihao.cn/posts/config4mac/</link><pubDate>Fri, 29 Jul 2022 20:22:44 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/config4mac/</guid><description><![CDATA[<p>记录一下使用 Mac 作为生产工具开发的一些基本配置和经验。</p>
 <h2 id="配置文件">配置文件</h2>
 <p>Mac 上有很多配置文件都可以用来保存环境变量等配置，根据自己的理解记录了四个文件的用途：</p>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-1"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -178,12 +173,11 @@
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># etc/profile        系统配置文件</span>
 </span></span><span class="line"><span class="cl"><span class="c1"># etc/.bash_profile  系统环境变量配置</span>
 </span></span><span class="line"><span class="cl"><span class="c1"># ~/.bash_profile    个人环境变量配置</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># ~/.zshrc           zsh 的配置文件</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="c1"># ~/.zshrc           zsh 的配置文件</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>编辑最多的应该是 <code>~/.bash_profile</code> 和 <code>~/.zshrc</code>, 基本上建议所有的个人配置都放在 <code>~/.bash_profile</code> 中，然后在 <code>~/.zshrc</code> 最后执行 <code>source ~/.bash_profile</code>, 这样也方便将自己的个人环境变量配置备份。</p>
 <h2 id="常用命令">常用命令</h2>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-2"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -206,11 +200,10 @@
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1"># 释放端口</span>
 </span></span><span class="line"><span class="cl">lsof -i:<span class="nv">$your_port</span>  <span class="c1"># 1. 查看使用端口进程</span>
-</span></span><span class="line"><span class="cl"><span class="nb">kill</span> -9 <span class="nv">$your_PID</span>   <span class="c1"># 2. 释放进程</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="nb">kill</span> -9 <span class="nv">$your_PID</span>   <span class="c1"># 2. 释放进程</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="node">Node</h2>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-3"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -303,11 +296,10 @@
 </span></span><span class="line"><span class="cl">ncu vue
 </span></span><span class="line"><span class="cl"><span class="c1">## 更新</span>
 </span></span><span class="line"><span class="cl">ncu -u
-</span></span><span class="line"><span class="cl">ncu -u vue
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl">ncu -u vue</span></span></code></pre></td></tr></table>
 </div>
 </div><p>electron 相关配置</p>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-4"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -318,8 +310,7 @@
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 设置 electron 镜像仓库</span>
 </span></span><span class="line"><span class="cl"><span class="c1"># https://registry.npmmirror.com/-/binary/electron</span>
 </span></span><span class="line"><span class="cl"><span class="c1"># 13.1.7 版本 下载链接可能会拼错导致 404，要设置成 https://registry.npmmirror.com/-/binary/electron/v</span>
-</span></span><span class="line"><span class="cl">npm config <span class="nb">set</span> <span class="nv">electron_mirror</span><span class="o">=</span>https://npmmirror.com/mirrors/electron/
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl">npm config <span class="nb">set</span> <span class="nv">electron_mirror</span><span class="o">=</span>https://npmmirror.com/mirrors/electron/</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="sourcetree">SourceTree</h2>
 <p>Custom actions</p>
@@ -340,7 +331,7 @@
 </div>
     </div>
   </div>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-5"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -355,10 +346,9 @@
 </span></span><span class="line"><span class="cl">git tag -l <span class="p">|</span> xargs git tag -d
 </span></span><span class="line"><span class="cl"><span class="c1"># git fetch origin --prune</span>
 </span></span><span class="line"><span class="cl"><span class="c1"># git fetch origin --tags</span>
-</span></span><span class="line"><span class="cl">git fetch origin --prune --prune-tags
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl">git fetch origin --prune --prune-tags</span></span></code></pre></td></tr></table>
 </div>
-</div><div class="highlight"><div class="chroma">
+</div><div class="highlight" id="id-6"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -367,10 +357,9 @@
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="cp">#! /bin/bash
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="c1"># 同步所有子模组</span>
-</span></span><span class="line"><span class="cl">git submodule update --remote --merge
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl">git submodule update --remote --merge</span></span></code></pre></td></tr></table>
 </div>
-</div><div class="highlight"><div class="chroma">
+</div><div class="highlight" id="id-7"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -381,8 +370,7 @@
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="cp">#! /bin/zsh
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="c1"># ssh 配置但无法连接时</span>
 </span></span><span class="line"><span class="cl">ssh-agent -s
-</span></span><span class="line"><span class="cl">ssh-add ~/.ssh/Lruihao-Github  <span class="c1"># 私钥路径</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl">ssh-add ~/.ssh/Lruihao-Github  <span class="c1"># 私钥路径</span></span></span></code></pre></td></tr></table>
 </div>
 </div><div class="details admonition tip open">
     <div class="details-summary admonition-title">
@@ -399,16 +387,15 @@
 <li>美化: <a href="https://github.com/ohmyzsh/ohmyzsh"target="_blank" rel="external nofollow noopener noreferrer">ohmyzsh<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
 </ul>
 <p>修改启动语</p>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-8"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">vim <span class="nv">$PREFIX</span>/etc/motd
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">vim <span class="nv">$PREFIX</span>/etc/motd</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="sublime-text-3">sublime-text 3</h2>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-9"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -425,8 +412,7 @@
 </span></span><span class="line"><span class="cl"><span class="c1">## 2.设置别名</span>
 </span></span><span class="line"><span class="cl">vim ~/.bash_profile
 </span></span><span class="line"><span class="cl"><span class="nb">alias</span> <span class="nv">subl</span><span class="o">=</span><span class="s2">&#34;&#39;/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl&#39;&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="nb">source</span> ~/.bash_profile <span class="c1"># 每打开一个命令窗口，需要先让命令生效</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="nb">source</span> ~/.bash_profile <span class="c1"># 每打开一个命令窗口，需要先让命令生效</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="startup">开机自启动</h2>
 <ol>
@@ -436,7 +422,7 @@
 <h2 id="备份">备份</h2>
 <h3 id="bash_profile">.bash_profile</h3>
 <p>Path: <code>~/.bash_profile</code></p>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-10"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -577,13 +563,12 @@
 </span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">GOPATH</span><span class="o">=</span><span class="nv">$HOME</span>/go
 </span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">GOPROXY</span><span class="o">=</span>https://goproxy.cn
 </span></span><span class="line"><span class="cl"><span class="c1"># Go work bin</span>
-</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="nv">$PATH</span>:<span class="nv">$GOPATH</span>/bin
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="nv">$PATH</span>:<span class="nv">$GOPATH</span>/bin</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="vimrc">.vimrc</h3>
 <p>Path: <code>~/.vimrc</code></p>
 <p>先添加一些基础配置 <a href="https://github.com/amix/vimrc/blob/master/vimrcs/basic.vim"target="_blank" rel="external nofollow noopener noreferrer">basic.vim<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-11"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -600,7 +585,6 @@
 </span></span></span><span class="line"><span class="cl"><span class="s2">&#34;</span> Enable mouse
 </span></span><span class="line"><span class="cl"><span class="nb">set</span> <span class="nv">mouse</span><span class="o">=</span>a
 </span></span><span class="line"><span class="cl"><span class="s2">&#34; Enable line-number
-</span></span></span><span class="line"><span class="cl"><span class="s2">set number
-</span></span></span></code></pre></td></tr></table>
+</span></span></span><span class="line"><span class="cl"><span class="s2">set number</span></span></span></code></pre></td></tr></table>
 </div>
 </div>]]></description></item></channel></rss>

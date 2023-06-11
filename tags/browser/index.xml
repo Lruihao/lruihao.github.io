@@ -167,7 +167,7 @@
   </div>
 <h3 id="js-为何会阻碍渲染">JS 为何会阻碍渲染？</h3>
 <p>先看代码</p>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-1"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -204,8 +204,7 @@
 </span></span><span class="line"><span class="cl">    <span class="nx">h1</span><span class="p">.</span><span class="nx">textContent</span> <span class="o">=</span> <span class="s1">&#39;袁老师很帅！&#39;</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="nx">delay</span><span class="p">(</span><span class="mi">3000</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="p">};</span>
-</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>点击按钮后，会发生什么呢？</p>
 <p>&lt;复制代码自行演示&gt;</p>
@@ -231,15 +230,14 @@
 <p><figure><a class="lightgallery" href="/posts/event-loop/images/multiple-queues.png" data-thumbnail="/posts/event-loop/images/multiple-queues.png" data-sub-html="<h2>多队列演示图</h2><p>微队列、延时队列、交互队列</p>"></a><figcaption class="image-caption">多队列演示图</figcaption>
   </figure></p>
 <p>添加任务到微队列的主要方式主要是使用 Promise、MutationObserver，例如：</p>
-<div class="highlight"><div class="chroma">
+<div class="highlight" id="id-2"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="c1">// 立即把一个函数添加到微队列
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nb">Promise</span><span class="p">.</span><span class="nx">resolve</span><span class="p">().</span><span class="nx">then</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{});</span>
-</span></span></code></pre></td></tr></table>
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nb">Promise</span><span class="p">.</span><span class="nx">resolve</span><span class="p">().</span><span class="nx">then</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{});</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>浏览器还有很多其他的队列，由于和我们开发关系不大，不作考虑。</p>
 <div class="details admonition question">
