@@ -7,7 +7,7 @@
 
 ![](images/23_1686538807.png)
 
-看错误，是一个 catch 参数的问题，在旧版本的 Node 中，catch 参数是可以省略的，但是在新版本中，catch 参数是必须的。
+看错误，是一个 catch 参数的问题，在新版本的 Node 中，catch 参数是可以省略的，但是在旧版本中，catch 参数是必须的。
 
 由于使用了 nvm 管理 Node 版本，项目中的 Node 是正常的，但是 SourceTree 使用的是系统的 Node，所以会出现这个问题。
 
