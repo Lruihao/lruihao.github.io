@@ -17,7 +17,7 @@
 
 配置 `.huskyrc` 文件，内容如下：
 
-``` {title="~/.huskyrc"}
+```bash {title="~/.huskyrc"}
 echo "export PATH=\"$(dirname $(which node)):\$PATH\"" > ~/.huskyrc
 ```
 
