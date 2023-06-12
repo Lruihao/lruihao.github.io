@@ -1,4 +1,106 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>菠菜眾長</title><link>https://lruihao.cn/</link><description>Lruihao's Note 李瑞豪的博客：探索、分享、记录自己在工作生活学习到一些东西。人知道得越多，就就会发现无知的越多。有更广袤世界可以探索，真是莫大的快乐啊！</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><lastBuildDate>Sat, 03 Jun 2023 17:38:44 +0800</lastBuildDate><atom:link href="https://lruihao.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>Vue2 + tailwindcss 初始化</title><link>https://lruihao.cn/posts/v2-tailwind/</link><pubDate>Sat, 03 Jun 2023 17:38:44 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/v2-tailwind/</guid><description><![CDATA[<h2 id="新建-vue2-项目">新建 Vue2 项目</h2>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>菠菜眾長</title><link>https://lruihao.cn/</link><description>Lruihao's Note 李瑞豪的博客：探索、分享、记录自己在工作生活学习到一些东西。人知道得越多，就就会发现无知的越多。有更广袤世界可以探索，真是莫大的快乐啊！</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><lastBuildDate>Mon, 12 Jun 2023 10:58:44 +0800</lastBuildDate><atom:link href="https://lruihao.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>解决 SourceTree 提交时候 husky 命令失败问题</title><link>https://lruihao.cn/posts/sourcetree-husky/</link><pubDate>Mon, 12 Jun 2023 10:58:44 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/sourcetree-husky/</guid><description><![CDATA[<h2 id="问题描述">问题描述</h2>
+<p>在使用 SourceTree 提交代码的时候，会出现 husky 命令失败的问题（通过命令行提交代码没有问题），如下图所示：</p>
+<p></p>
+<p>看错误，是一个 catch 参数的问题，在旧版本的 Node 中，catch 参数是可以省略的，但是在新版本中，catch 参数是必须的。</p>
+<p>由于使用了 nvm 管理 Node 版本，项目中的 Node 是正常的，但是 SourceTree 使用的是系统的 Node，所以会出现这个问题。</p>
+<h2 id="解决方案">解决方案</h2>
+<p>知道了问题的原因，解决起来就很简单了，只需要将 SourceTree husky hook 阶段的 Node 版本切换到项目中的 Node 版本即可。</p>
+<p>配置 <code>.huskyrc</code> 文件，内容如下：</p>
+<div class="highlight" id="id-1"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">echo &#34;export PATH=\&#34;$(dirname $(which node)):\$PATH\&#34;&#34; &gt; ~/.huskyrc</span></span></code></pre></td></tr></table>
+</div>
+</div><p>如果你使用了 <code>zsh</code> 和 <code>nvm</code>, 建议在 <code>$ZSH_CUSTOM</code> 目录下添加一个自定义 zsh 脚本。
+这个脚本会在你进入包含了 <code>.nvmrc</code> 文件目录中自动切换 node 版本，切换版本后修正 <code>~/.huskyrc</code> 的 path 内容。</p>
+<div class="highlight" id="id-2"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">vim <span class="nv">$ZSH_CUSTOM</span>/nvm_custom.zsh</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight" id="id-3"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-zsh" data-lang="zsh"><span class="line"><span class="cl"><span class="c1"># https://github.com/nvm-sh/nvm#manual-install</span>
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">NVM_DIR</span><span class="o">=</span><span class="s2">&#34;</span><span class="nv">$HOME</span><span class="s2">/.nvm&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span> -s <span class="s2">&#34;</span><span class="nv">$NVM_DIR</span><span class="s2">/nvm.sh&#34;</span> <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="se">\.</span> <span class="s2">&#34;</span><span class="nv">$NVM_DIR</span><span class="s2">/nvm.sh&#34;</span>  <span class="c1"># This loads nvm</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span> -s <span class="s2">&#34;</span><span class="nv">$NVM_DIR</span><span class="s2">/bash_completion&#34;</span> <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="se">\.</span> <span class="s2">&#34;</span><span class="nv">$NVM_DIR</span><span class="s2">/bash_completion&#34;</span>  <span class="c1"># This loads nvm bash_completion</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># https://github.com/nvm-sh/nvm#deeper-shell-integration</span>
+</span></span><span class="line"><span class="cl">autoload -U add-zsh-hook
+</span></span><span class="line"><span class="cl">load-nvmrc<span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">local</span> <span class="nv">node_version</span><span class="o">=</span><span class="s2">&#34;</span><span class="k">$(</span>nvm version<span class="k">)</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">local</span> <span class="nv">nvmrc_path</span><span class="o">=</span><span class="s2">&#34;</span><span class="k">$(</span>nvm_find_nvmrc<span class="k">)</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="o">[</span> -n <span class="s2">&#34;</span><span class="nv">$nvmrc_path</span><span class="s2">&#34;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">local</span> <span class="nv">nvmrc_node_version</span><span class="o">=</span><span class="k">$(</span>nvm version <span class="s2">&#34;</span><span class="k">$(</span>cat <span class="s2">&#34;</span><span class="si">${</span><span class="nv">nvmrc_path</span><span class="si">}</span><span class="s2">&#34;</span><span class="k">)</span><span class="s2">&#34;</span><span class="k">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="o">[</span> <span class="s2">&#34;</span><span class="nv">$nvmrc_node_version</span><span class="s2">&#34;</span> <span class="o">=</span> <span class="s2">&#34;N/A&#34;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl">      nvm install
+</span></span><span class="line"><span class="cl">    <span class="k">elif</span> <span class="o">[</span> <span class="s2">&#34;</span><span class="nv">$nvmrc_node_version</span><span class="s2">&#34;</span> !<span class="o">=</span> <span class="s2">&#34;</span><span class="nv">$node_version</span><span class="s2">&#34;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl">      nvm use
+</span></span><span class="line"><span class="cl">    <span class="k">fi</span>
+</span></span><span class="line"><span class="cl">  <span class="k">elif</span> <span class="o">[</span> <span class="s2">&#34;</span><span class="nv">$node_version</span><span class="s2">&#34;</span> !<span class="o">=</span> <span class="s2">&#34;</span><span class="k">$(</span>nvm version default<span class="k">)</span><span class="s2">&#34;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">echo</span> <span class="s2">&#34;Reverting to nvm default version&#34;</span>
+</span></span><span class="line"><span class="cl">    nvm use default
+</span></span><span class="line"><span class="cl">  <span class="k">fi</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1"># fix husky hook</span>
+</span></span><span class="line"><span class="cl">  <span class="c1"># ref: https://github.com/typicode/husky/issues/390#issuecomment-762213421</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">echo</span> <span class="s2">&#34;export PATH=\&#34;</span><span class="k">$(</span>dirname <span class="k">$(</span>which node<span class="k">))</span><span class="s2">:\$PATH\&#34;&#34;</span> &gt; ~/.huskyrc
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">add-zsh-hook chpwd load-nvmrc
+</span></span><span class="line"><span class="cl">load-nvmrc
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># https://github.com/nvm-sh/nvm#use-a-mirror-of-node-binaries</span>
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">NVM_NODEJS_ORG_MIRROR</span><span class="o">=</span>https://mirrors.ustc.edu.cn/node/</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="参考">参考</h2>
+<ul>
+<li><a href="https://wxhboy.cn/2022/04/12/%e8%a7%a3%e5%86%b3SourceTree%e6%8f%90%e4%ba%a4%e6%97%b6%e5%80%99husky%e5%91%bd%e4%bb%a4%e5%a4%b1%e8%b4%a5%e9%97%ae%e9%a2%98/"target="_blank" rel="external nofollow noopener noreferrer">https://wxhboy.cn/2022/04/12/解决SourceTree提交时候husky命令失败问题/<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+<li><a href="https://github.com/typicode/husky/issues/390#issuecomment-762213421"target="_blank" rel="external nofollow noopener noreferrer">https://github.com/typicode/husky/issues/390#issuecomment-762213421<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+<li><a href="https://github.com/typicode/husky/issues/904#issuecomment-862184954"target="_blank" rel="external nofollow noopener noreferrer">https://github.com/typicode/husky/issues/904#issuecomment-862184954<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+<li><a href="https://github.com/nvm-sh/nvm#deeper-shell-integration"target="_blank" rel="external nofollow noopener noreferrer">https://github.com/nvm-sh/nvm#deeper-shell-integration<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+</ul>
+]]></description></item><item><title>Vue2 + tailwindcss 初始化</title><link>https://lruihao.cn/posts/v2-tailwind/</link><pubDate>Sat, 03 Jun 2023 17:38:44 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/v2-tailwind/</guid><description><![CDATA[<h2 id="新建-vue2-项目">新建 Vue2 项目</h2>
 <p>通过 <code>vue-cli</code> 创建一个叫 <code>v2-tailwind</code> 的项目：</p>
 <div class="highlight" id="id-1"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -2646,12 +2748,14 @@
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
+</span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># etc/profile        系统配置文件</span>
 </span></span><span class="line"><span class="cl"><span class="c1"># etc/.bash_profile  系统环境变量配置</span>
 </span></span><span class="line"><span class="cl"><span class="c1"># ~/.bash_profile    个人环境变量配置</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># ~/.zshrc           zsh 的配置文件</span></span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="c1"># ~/.zshrc           zsh 的配置文件</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># $ZSH_CUSTOM/*.zsh  自定义 zsh 脚本，在 zsh 启动时会自动执行</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>编辑最多的应该是 <code>~/.bash_profile</code> 和 <code>~/.zshrc</code>, 基本上建议所有的个人配置都放在 <code>~/.bash_profile</code> 中，然后在 <code>~/.zshrc</code> 最后执行 <code>source ~/.bash_profile</code>, 这样也方便将自己的个人环境变量配置备份。</p>
 <h2 id="常用命令">常用命令</h2>
@@ -2858,6 +2962,17 @@
       <div class="admonition-content">开机启动时系统会去自动读取 <code>id_rsa</code> 的私钥来启动 SSH 链接，若不是默认命令就会失败需要手动执行上诉命令启动，可添加到<a href="#startup">开机自启动</a>。</div>
     </div>
   </div>
+<div class="details admonition tip open">
+    <div class="details-summary admonition-title">
+      <i class="icon fa-solid fa-lightbulb fa-fw" aria-hidden="true"></i>SourceTree 相关文章<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i>
+    </div>
+    <div class="details-content">
+      <div class="admonition-content"><ul>
+<li><a href="/posts/sourcetree-husky/">解决 SourceTree 提交时候 husky 命令失败问题</a></li>
+</ul>
+</div>
+    </div>
+  </div>
 <h2 id="terminal">Terminal</h2>
 <ul>
 <li>Terminal: 系统自带</li>
@@ -2898,8 +3013,6 @@
 <li>将 shell 命令添加到 <code>/System/Library/StartupItems/</code> 或 <code>/Library/StartupItems/</code> 文件夹（测试无效）</li>
 </ol>
 <h2 id="备份">备份</h2>
-<h3 id="bash_profile">.bash_profile</h3>
-<p>Path: <code>~/.bash_profile</code></p>
 <div class="highlight" id="id-10"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -2969,8 +3082,6 @@
 </span><span class="lnt">65
 </span><span class="lnt">66
 </span><span class="lnt">67
-</span><span class="lnt">68
-</span><span class="lnt">69
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># -------------------------------------</span>
@@ -2990,11 +3101,6 @@
 </span></span><span class="line"><span class="cl"><span class="nb">alias</span> <span class="nv">mysqladmin</span><span class="o">=</span>/usr/local/mysql/bin/mysqladmin
 </span></span><span class="line"><span class="cl"><span class="nb">alias</span> <span class="nv">incr</span><span class="o">=</span><span class="s2">&#34;source </span><span class="nv">$WORKSPACE</span><span class="s2">/.shell/incr*.zsh&#34;</span>
 </span></span><span class="line"><span class="cl"><span class="nb">alias</span> <span class="nv">typora</span><span class="o">=</span><span class="s2">&#34;open -a typora&#34;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># nvm</span>
-</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">NVM_DIR</span><span class="o">=</span><span class="s2">&#34;</span><span class="nv">$HOME</span><span class="s2">/.nvm&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="o">[</span> -s <span class="s2">&#34;</span><span class="nv">$NVM_DIR</span><span class="s2">/nvm.sh&#34;</span> <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="se">\.</span> <span class="s2">&#34;</span><span class="nv">$NVM_DIR</span><span class="s2">/nvm.sh&#34;</span>  <span class="c1"># This loads nvm</span>
-</span></span><span class="line"><span class="cl"><span class="o">[</span> -s <span class="s2">&#34;</span><span class="nv">$NVM_DIR</span><span class="s2">/bash_completion&#34;</span> <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="se">\.</span> <span class="s2">&#34;</span><span class="nv">$NVM_DIR</span><span class="s2">/bash_completion&#34;</span>  <span class="c1"># This loads nvm bash_completion</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1"># maven</span>
 </span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">M2_HOME</span><span class="o">=</span><span class="nv">$HOME</span>/Applications/apache-maven-3.8.5
@@ -3041,12 +3147,86 @@
 </span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">GOPATH</span><span class="o">=</span><span class="nv">$HOME</span>/go
 </span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">GOPROXY</span><span class="o">=</span>https://goproxy.cn
 </span></span><span class="line"><span class="cl"><span class="c1"># Go work bin</span>
-</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="nv">$PATH</span>:<span class="nv">$GOPATH</span>/bin</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="nv">$PATH</span>:<span class="nv">$GOPATH</span>/bin
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># sass_embedded</span>
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="nv">$PATH</span>:<span class="nv">$HOME</span>/Applications/sass_embedded</span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="vimrc">.vimrc</h3>
-<p>Path: <code>~/.vimrc</code></p>
+</div><div class="highlight" id="id-11"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-zsh" data-lang="zsh"><span class="line"><span class="cl"><span class="c1"># https://github.com/nvm-sh/nvm#manual-install</span>
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">NVM_DIR</span><span class="o">=</span><span class="s2">&#34;</span><span class="nv">$HOME</span><span class="s2">/.nvm&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span> -s <span class="s2">&#34;</span><span class="nv">$NVM_DIR</span><span class="s2">/nvm.sh&#34;</span> <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="se">\.</span> <span class="s2">&#34;</span><span class="nv">$NVM_DIR</span><span class="s2">/nvm.sh&#34;</span>  <span class="c1"># This loads nvm</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span> -s <span class="s2">&#34;</span><span class="nv">$NVM_DIR</span><span class="s2">/bash_completion&#34;</span> <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="se">\.</span> <span class="s2">&#34;</span><span class="nv">$NVM_DIR</span><span class="s2">/bash_completion&#34;</span>  <span class="c1"># This loads nvm bash_completion</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># https://github.com/nvm-sh/nvm#deeper-shell-integration</span>
+</span></span><span class="line"><span class="cl">autoload -U add-zsh-hook
+</span></span><span class="line"><span class="cl">load-nvmrc<span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">local</span> <span class="nv">node_version</span><span class="o">=</span><span class="s2">&#34;</span><span class="k">$(</span>nvm version<span class="k">)</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">local</span> <span class="nv">nvmrc_path</span><span class="o">=</span><span class="s2">&#34;</span><span class="k">$(</span>nvm_find_nvmrc<span class="k">)</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="o">[</span> -n <span class="s2">&#34;</span><span class="nv">$nvmrc_path</span><span class="s2">&#34;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">local</span> <span class="nv">nvmrc_node_version</span><span class="o">=</span><span class="k">$(</span>nvm version <span class="s2">&#34;</span><span class="k">$(</span>cat <span class="s2">&#34;</span><span class="si">${</span><span class="nv">nvmrc_path</span><span class="si">}</span><span class="s2">&#34;</span><span class="k">)</span><span class="s2">&#34;</span><span class="k">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="o">[</span> <span class="s2">&#34;</span><span class="nv">$nvmrc_node_version</span><span class="s2">&#34;</span> <span class="o">=</span> <span class="s2">&#34;N/A&#34;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl">      nvm install
+</span></span><span class="line"><span class="cl">    <span class="k">elif</span> <span class="o">[</span> <span class="s2">&#34;</span><span class="nv">$nvmrc_node_version</span><span class="s2">&#34;</span> !<span class="o">=</span> <span class="s2">&#34;</span><span class="nv">$node_version</span><span class="s2">&#34;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl">      nvm use
+</span></span><span class="line"><span class="cl">    <span class="k">fi</span>
+</span></span><span class="line"><span class="cl">  <span class="k">elif</span> <span class="o">[</span> <span class="s2">&#34;</span><span class="nv">$node_version</span><span class="s2">&#34;</span> !<span class="o">=</span> <span class="s2">&#34;</span><span class="k">$(</span>nvm version default<span class="k">)</span><span class="s2">&#34;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">echo</span> <span class="s2">&#34;Reverting to nvm default version&#34;</span>
+</span></span><span class="line"><span class="cl">    nvm use default
+</span></span><span class="line"><span class="cl">  <span class="k">fi</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1"># fix husky hook</span>
+</span></span><span class="line"><span class="cl">  <span class="c1"># ref: https://github.com/typicode/husky/issues/390#issuecomment-762213421</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">echo</span> <span class="s2">&#34;export PATH=\&#34;</span><span class="k">$(</span>dirname <span class="k">$(</span>which node<span class="k">))</span><span class="s2">:\$PATH\&#34;&#34;</span> &gt; ~/.huskyrc
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">add-zsh-hook chpwd load-nvmrc
+</span></span><span class="line"><span class="cl">load-nvmrc
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># https://github.com/nvm-sh/nvm#use-a-mirror-of-node-binaries</span>
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">NVM_NODEJS_ORG_MIRROR</span><span class="o">=</span>https://mirrors.ustc.edu.cn/node/</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
 <p>先添加一些基础配置 <a href="https://github.com/amix/vimrc/blob/master/vimrcs/basic.vim"target="_blank" rel="external nofollow noopener noreferrer">basic.vim<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
-<div class="highlight" id="id-11"><div class="chroma">
+</blockquote>
+<div class="highlight" id="id-12"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -3678,99 +3858,4 @@ push 和 pull 命令时由于编码方式的不同会产生错误，因此需要
 </span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="mi">1</span><span class="nx">n</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="nx">n</span><span class="p">);</span> <span class="c1">// false
 </span></span></span></code></pre></td></tr></table>
 </div>
-</div><p><em>学无止境，与未来的自己共勉</em></p>]]></description></item><item><title>关于 CSS 和 Scss 变量运算那些事</title><link>https://lruihao.cn/posts/css-scss-var/</link><pubDate>Sat, 30 Apr 2022 22:04:29 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/css-scss-var/</guid><description><![CDATA[<h2 id="问题分析">问题分析</h2>
-<p>昨天在开发 FixIt 的时候，在 Scss 中写 <code>max(foo, bar)</code> 函数比较不同的单位变量时报错了，但是在 CSS 中使用 <code>max</code> 或者 <code>min</code> 函数函数比较不同的单位变量是没有问题的。</p>
-<p>造成这一问题的原因是，在 Scss 中，也实现了 <code>max</code> 和 <code>min</code> 函数，但是在 Scss 中，<strong>不同单位的变量是不能进行运算的</strong>，所以使得在 Scss 中直接使用 <code>max</code> 或者 <code>min</code> 函数会提示单位不同的报错。（同类 Less 中的变量运算是支持不同单位的）</p>
-<p>知道造成问题的原因后，解决这个问题就很简单了，有很多种方法，有些方法感觉像在卡 BUG，有点意思，记录一下。</p>
-<h2 id="奇思淫技">奇思淫技</h2>
-<ol>
-<li>
-<p>由于 <strong>Scss 区分大小写而 CSS 不区分</strong>，所以为了不让 Scss 中的函数覆盖 CSS 的函数，我们可以使用除了 <code>max</code> 以外的 2<sup>3</sup> - 1 种写法，这样就能使用原生 CSS 的 <code>max</code> 函数来比较了，就不会报错了。</p>
-<div class="highlight" id="id-1"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-scss" data-lang="scss"><span class="line"><span class="cl"><span class="nc">.foo</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="na">padding-left</span><span class="o">:</span> <span class="nf">MAX</span><span class="p">(</span><span class="mi">10</span><span class="kt">vh</span><span class="o">,</span> <span class="mi">3</span><span class="mf">.5</span><span class="kt">rem</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
-</div>
-</div></li>
-<li>
-<p>使用 Scss 没有的 CSS 函数 <a href="https://developer.mozilla.org/zh-CN/docs/web/css/clamp"target="_blank" rel="external nofollow noopener noreferrer"><code>clamp</code><i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>:</p>
-<p><code>clamp(MIN, VAL, MAX)</code> 其实就是表示 <code>max(MIN, min(VAL, MAX))</code></p>
-<div class="highlight" id="id-2"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-scss" data-lang="scss"><span class="line"><span class="cl"><span class="nc">.foo</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="na">padding-left</span><span class="o">:</span> <span class="nf">clamp</span><span class="p">(</span><span class="nv">$header-height</span><span class="o">,</span> <span class="mi">10</span><span class="kt">vh</span><span class="o">,</span> <span class="mi">10</span><span class="kt">vh</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
-</div>
-</div></li>
-<li>
-<p>使用 <code>unquote($string)</code> 函数让 Scss 删除字符串最前和最后的单引号或双引号</p>
-<div class="highlight" id="id-3"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-scss" data-lang="scss"><span class="line"><span class="cl"><span class="nc">.foo</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="na">padding-left</span><span class="o">:</span> <span class="nf">unquote</span><span class="p">(</span><span class="s1">&#39;max(10vh, </span><span class="si">#{</span><span class="nv">$header-height</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
-</div>
-</div></li>
-</ol>
-<h2 id="by-the-way">By the way</h2>
-<p>如果需要在 CSS 函数内部恢复 <code>Scss</code> 解析（引用 <code>Scss</code> 变量），只需用 <code>#{...}</code> 包围 Scss 代码。</p>
-<div class="highlight" id="id-4"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-scss" data-lang="scss"><span class="line"><span class="cl"><span class="nv">$header-height</span><span class="o">:</span> <span class="mi">3</span><span class="mf">.5</span><span class="kt">rem</span> <span class="k">!default</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nc">.foo</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="na">margin</span><span class="o">:</span> <span class="nf">calc</span><span class="p">(</span><span class="mi">10</span><span class="kt">vh</span> <span class="o">-</span> <span class="nv">$header-height</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
-</div>
-</div><p>上面的 Scss 将解析成 以下无效的 CSS 代码：</p>
-<div class="highlight" id="id-5"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-css" data-lang="css"><span class="line"><span class="cl"><span class="p">.</span><span class="nc">foo</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="k">margin</span><span class="p">:</span> <span class="nb">calc</span><span class="p">(</span><span class="mi">10</span><span class="kt">vh</span> <span class="o">-</span> <span class="err">$</span><span class="n">header</span><span class="o">-</span><span class="n">height</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
-</div>
-</div><p>用 <code>#{...}</code> 包围 Scss 变量</p>
-<div class="highlight" id="id-6"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-scss" data-lang="scss"><span class="line"><span class="cl"><span class="nv">$header-height</span><span class="o">:</span> <span class="mi">3</span><span class="mf">.5</span><span class="kt">rem</span> <span class="k">!default</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nc">.foo</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="na">margin</span><span class="o">:</span> <span class="nf">calc</span><span class="p">(</span><span class="mi">10</span><span class="kt">vh</span> <span class="o">-</span> <span class="si">#{</span><span class="nv">$header-height</span><span class="si">}</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
-</div>
-</div>]]></description></item></channel></rss>
+</div><p><em>学无止境，与未来的自己共勉</em></p>]]></description></item></channel></rss>

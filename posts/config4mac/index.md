@@ -14,6 +14,7 @@ Mac 上有很多配置文件都可以用来保存环境变量等配置，根据�
 # etc/.bash_profile  系统环境变量配置
 # ~/.bash_profile    个人环境变量配置
 # ~/.zshrc           zsh 的配置文件
+# $ZSH_CUSTOM/*.zsh  自定义 zsh 脚本，在 zsh 启动时会自动执行
 ```
 
 编辑最多的应该是 `~/.bash_profile` 和 `~/.zshrc`, 基本上建议所有的个人配置都放在 `~/.bash_profile` 中，然后在 `~/.zshrc` 最后执行 `source ~/.bash_profile`, 这样也方便将自己的个人环境变量配置备份。
@@ -133,6 +134,11 @@ ssh-add ~/.ssh/Lruihao-Github  # 私钥路径
 开机启动时系统会去自动读取 `id_rsa` 的私钥来启动 SSH 链接，若不是默认命令就会失败需要手动执行上诉命令启动，可添加到[开机自启动](#startup)。
 {{< /admonition >}}
 
+
+{{< admonition tip "SourceTree 相关文章" >}}
+- [解决 SourceTree 提交时候 husky 命令失败问题](/posts/sourcetree-husky/)
+{{< /admonition >}}
+
 ## Terminal
 
 - Terminal: 系统自带
@@ -164,11 +170,7 @@ source ~/.bash_profile # 每打开一个命令窗口，需要先让命令生效
 
 ## 备份
 
-### .bash_profile
-
-Path: `~/.bash_profile`
-
-```bash .bash_profile
+```bash {title="~/.bash_profile"}
 # -------------------------------------
 # This configuration is for Lruihao.
 # https://lruihao.cn/posts/config4mac/
@@ -186,11 +188,6 @@ alias mysql=/usr/local/mysql/bin/mysql
 alias mysqladmin=/usr/local/mysql/bin/mysqladmin
 alias incr="source $WORKSPACE/.shell/incr*.zsh"
 alias typora="open -a typora"
-
-# nvm
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 # maven
 export M2_HOME=$HOME/Applications/apache-maven-3.8.5
@@ -238,15 +235,50 @@ export GOPATH=$HOME/go
 export GOPROXY=https://goproxy.cn
 # Go work bin
 export PATH=$PATH:$GOPATH/bin
+
+# sass_embedded
+export PATH=$PATH:$HOME/Applications/sass_embedded
 ```
 
-### .vimrc
+```zsh {title="$ZSH_CUSTOM/nvm_custom.zsh"}
+# https://github.com/nvm-sh/nvm#manual-install
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-Path: `~/.vimrc`
+# https://github.com/nvm-sh/nvm#deeper-shell-integration
+autoload -U add-zsh-hook
+load-nvmrc() {
+  local node_version="$(nvm version)"
+  local nvmrc_path="$(nvm_find_nvmrc)"
 
-先添加一些基础配置 [basic.vim](https://github.com/amix/vimrc/blob/master/vimrcs/basic.vim)
+  if [ -n "$nvmrc_path" ]; then
+    local nvmrc_node_version=$(nvm version "$(cat "${nvmrc_path}")")
 
-```bash .vimrc
+    if [ "$nvmrc_node_version" = "N/A" ]; then
+      nvm install
+    elif [ "$nvmrc_node_version" != "$node_version" ]; then
+      nvm use
+    fi
+  elif [ "$node_version" != "$(nvm version default)" ]; then
+    echo "Reverting to nvm default version"
+    nvm use default
+  fi
+
+  # fix husky hook
+  # ref: https://github.com/typicode/husky/issues/390#issuecomment-762213421
+  echo "export PATH=\"$(dirname $(which node)):\$PATH\"" > ~/.huskyrc
+}
+add-zsh-hook chpwd load-nvmrc
+load-nvmrc
+
+# https://github.com/nvm-sh/nvm#use-a-mirror-of-node-binaries
+export NVM_NODEJS_ORG_MIRROR=https://mirrors.ustc.edu.cn/node/
+```
+
+> 先添加一些基础配置 [basic.vim](https://github.com/amix/vimrc/blob/master/vimrcs/basic.vim)
+
+```bash {title="~/.vimrc"}
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Custom config for Lruihao
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
