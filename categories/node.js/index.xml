@@ -1,0 +1,173 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Node.js - 分类 - 菠菜眾長</title><link>https://lruihao.cn/categories/node.js/</link><description>Node.js - 分类 - 菠菜眾長</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><lastBuildDate>Wed, 14 Jun 2023 00:11:17 +0800</lastBuildDate><atom:link href="https://lruihao.cn/categories/node.js/" rel="self" type="application/rss+xml"/><item><title>使用 Node 自动创建 Vue 的路由</title><link>https://lruihao.cn/posts/gen-router/</link><pubDate>Wed, 14 Jun 2023 00:11:17 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/gen-router/</guid><description><![CDATA[<p>最近在写一个 Vue 插件，需要在项目中创建一些测试页面，由于都是些静态路由，就想到之前看到过的一个项目就是用 Node.js 来自动生成路由的，于是就借鉴过来改了一下。</p>
+<h2 id="源码">源码</h2>
+<div class="highlight" id="id-1"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;fs&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">os</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;os&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">vueDir</span> <span class="o">=</span> <span class="s1">&#39;./src/views/&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">routerFile</span> <span class="o">=</span> <span class="s1">&#39;./src/router.js&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">fs</span><span class="p">.</span><span class="nx">readdir</span><span class="p">(</span><span class="nx">vueDir</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">files</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s1">&#39;❌ Could not list the directory.&#39;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">routes</span> <span class="o">=</span> <span class="p">[]</span>
+</span></span><span class="line"><span class="cl">  <span class="k">for</span> <span class="p">(</span><span class="kr">const</span> <span class="nx">filename</span> <span class="k">of</span> <span class="nx">files</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nx">filename</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">continue</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="p">[</span><span class="nx">name</span><span class="p">,</span> <span class="nx">ext</span><span class="p">]</span> <span class="o">=</span> <span class="nx">filename</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nx">ext</span> <span class="o">!==</span> <span class="s1">&#39;vue&#39;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">continue</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">routeName</span> <span class="o">=</span> <span class="nx">name</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/-([a-z])/g</span><span class="p">,</span> <span class="p">(</span><span class="nx">_</span><span class="p">,</span> <span class="nx">match</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nx">match</span><span class="p">.</span><span class="nx">toUpperCase</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">let</span> <span class="nx">routeDescription</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">contentFull</span> <span class="o">=</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">readFileSync</span><span class="p">(</span><span class="sb">`</span><span class="si">${</span><span class="nx">vueDir</span><span class="si">}${</span><span class="nx">filename</span><span class="si">}</span><span class="sb">`</span><span class="p">,</span> <span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// get route description from first line comment
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kr">const</span> <span class="nx">match</span> <span class="o">=</span> <span class="sr">/&lt;!--\s*(\S*)\s*--&gt;/g</span><span class="p">.</span><span class="nx">exec</span><span class="p">(</span><span class="nx">contentFull</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="nx">os</span><span class="p">.</span><span class="nx">EOL</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nx">match</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">routeDescription</span> <span class="o">=</span> <span class="nx">match</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">routes</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="sb">`  {
+</span></span></span><span class="line"><span class="cl"><span class="sb">    path: &#39;/</span><span class="si">${</span><span class="nx">name</span> <span class="o">===</span> <span class="s1">&#39;home&#39;</span> <span class="o">?</span> <span class="s1">&#39;&#39;</span> <span class="o">:</span> <span class="nx">name</span><span class="si">}</span><span class="sb">&#39;,
+</span></span></span><span class="line"><span class="cl"><span class="sb">    name: &#39;</span><span class="si">${</span><span class="nx">routeName</span><span class="si">}</span><span class="sb">&#39;,
+</span></span></span><span class="line"><span class="cl"><span class="sb">    </span><span class="si">${</span><span class="nx">routeDescription</span> <span class="o">?</span> <span class="sb">`description: &#39;</span><span class="si">${</span><span class="nx">routeDescription</span><span class="si">}</span><span class="sb">&#39;,`</span> <span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="si">}</span><span class="sb">
+</span></span></span><span class="line"><span class="cl"><span class="sb">    component: () =&gt; import(/* webpackChunkName: &#34;</span><span class="si">${</span><span class="nx">routeName</span><span class="si">}</span><span class="sb">&#34; */ &#39;@/views/</span><span class="si">${</span><span class="nx">filename</span><span class="si">}</span><span class="sb">&#39;),
+</span></span></span><span class="line"><span class="cl"><span class="sb">  },`</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">result</span> <span class="o">=</span>
+</span></span><span class="line"><span class="cl"><span class="sb">`// This file is automatically generated by gen-router.js, please do not modify it manually！
+</span></span></span><span class="line"><span class="cl"><span class="sb">import VueRouter from &#39;vue-router&#39;
+</span></span></span><span class="line"><span class="cl"><span class="sb">import Vue from &#39;vue&#39;
+</span></span></span><span class="line"><span class="cl"><span class="sb">
+</span></span></span><span class="line"><span class="cl"><span class="sb">Vue.use(VueRouter)
+</span></span></span><span class="line"><span class="cl"><span class="sb">
+</span></span></span><span class="line"><span class="cl"><span class="sb">const routes = [
+</span></span></span><span class="line"><span class="cl"><span class="sb"></span><span class="si">${</span><span class="nx">routes</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">os</span><span class="p">.</span><span class="nx">EOL</span><span class="p">)</span><span class="si">}</span><span class="sb">
+</span></span></span><span class="line"><span class="cl"><span class="sb">]
+</span></span></span><span class="line"><span class="cl"><span class="sb">
+</span></span></span><span class="line"><span class="cl"><span class="sb">const router = new VueRouter({
+</span></span></span><span class="line"><span class="cl"><span class="sb">  mode: &#39;hash&#39;,
+</span></span></span><span class="line"><span class="cl"><span class="sb">  routes,
+</span></span></span><span class="line"><span class="cl"><span class="sb">})
+</span></span></span><span class="line"><span class="cl"><span class="sb">
+</span></span></span><span class="line"><span class="cl"><span class="sb">export default router
+</span></span></span><span class="line"><span class="cl"><span class="sb">`</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">fs</span><span class="p">.</span><span class="nx">writeFile</span><span class="p">(</span><span class="nx">routerFile</span><span class="p">,</span> <span class="nx">result</span><span class="p">,</span> <span class="s1">&#39;utf-8&#39;</span><span class="p">,</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="k">throw</span> <span class="nx">err</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`✅ Router generated successfully in </span><span class="si">${</span><span class="nx">routerFile</span><span class="si">}</span><span class="sb">`</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">})</span>
+</span></span><span class="line"><span class="cl"><span class="p">})</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>生成效果如下：</p>
+<div class="highlight" id="id-2"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="c1">// This file is automatically generated by gen-router.js, please do not modify it manually！
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">import</span> <span class="nx">VueRouter</span> <span class="nx">from</span> <span class="s1">&#39;vue-router&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="nx">Vue</span> <span class="nx">from</span> <span class="s1">&#39;vue&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">Vue</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">VueRouter</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">routes</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">path</span><span class="o">:</span> <span class="s1">&#39;/&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;home&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">description</span><span class="o">:</span> <span class="s1">&#39;Home&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">component</span><span class="o">:</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="kr">import</span><span class="p">(</span><span class="cm">/* webpackChunkName: &#34;home&#34; */</span> <span class="s1">&#39;@/views/home.vue&#39;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl"><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">router</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">VueRouter</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">mode</span><span class="o">:</span> <span class="s1">&#39;hash&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">routes</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">})</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="k">default</span> <span class="nx">router</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="参考">参考</h2>
+<p><a href="https://github.com/sunzsh/vue-el-demo/blob/f5e9a2a9934c7040f4fa72663eb8c24b1e3b20c1/gen-router.js"target="_blank" rel="external nofollow noopener noreferrer">sunzsh/vue-el-demo<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>]]></description></item></channel></rss>

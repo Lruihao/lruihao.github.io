@@ -1,4 +1,176 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>JavaScript - 标签 - 菠菜眾長</title><link>https://lruihao.cn/tags/javascript/</link><description>JavaScript - 标签 - 菠菜眾長</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><lastBuildDate>Sun, 05 Feb 2023 21:02:52 +0800</lastBuildDate><atom:link href="https://lruihao.cn/tags/javascript/" rel="self" type="application/rss+xml"/><item><title>浏览器渲染原理</title><link>https://lruihao.cn/posts/browser-rendering/</link><pubDate>Sun, 05 Feb 2023 21:02:52 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/browser-rendering/</guid><description><![CDATA[<iframe src="files/browser-rendering.pdf" width="100%" height="550"></iframe>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>JavaScript - 标签 - 菠菜眾長</title><link>https://lruihao.cn/tags/javascript/</link><description>JavaScript - 标签 - 菠菜眾長</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><lastBuildDate>Wed, 14 Jun 2023 00:11:17 +0800</lastBuildDate><atom:link href="https://lruihao.cn/tags/javascript/" rel="self" type="application/rss+xml"/><item><title>使用 Node 自动创建 Vue 的路由</title><link>https://lruihao.cn/posts/gen-router/</link><pubDate>Wed, 14 Jun 2023 00:11:17 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/gen-router/</guid><description><![CDATA[<p>最近在写一个 Vue 插件，需要在项目中创建一些测试页面，由于都是些静态路由，就想到之前看到过的一个项目就是用 Node.js 来自动生成路由的，于是就借鉴过来改了一下。</p>
+<h2 id="源码">源码</h2>
+<div class="highlight" id="id-1"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;fs&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">os</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;os&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">vueDir</span> <span class="o">=</span> <span class="s1">&#39;./src/views/&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">routerFile</span> <span class="o">=</span> <span class="s1">&#39;./src/router.js&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">fs</span><span class="p">.</span><span class="nx">readdir</span><span class="p">(</span><span class="nx">vueDir</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">files</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s1">&#39;❌ Could not list the directory.&#39;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">routes</span> <span class="o">=</span> <span class="p">[]</span>
+</span></span><span class="line"><span class="cl">  <span class="k">for</span> <span class="p">(</span><span class="kr">const</span> <span class="nx">filename</span> <span class="k">of</span> <span class="nx">files</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nx">filename</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">continue</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="p">[</span><span class="nx">name</span><span class="p">,</span> <span class="nx">ext</span><span class="p">]</span> <span class="o">=</span> <span class="nx">filename</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nx">ext</span> <span class="o">!==</span> <span class="s1">&#39;vue&#39;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">continue</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">routeName</span> <span class="o">=</span> <span class="nx">name</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/-([a-z])/g</span><span class="p">,</span> <span class="p">(</span><span class="nx">_</span><span class="p">,</span> <span class="nx">match</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nx">match</span><span class="p">.</span><span class="nx">toUpperCase</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">let</span> <span class="nx">routeDescription</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">contentFull</span> <span class="o">=</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">readFileSync</span><span class="p">(</span><span class="sb">`</span><span class="si">${</span><span class="nx">vueDir</span><span class="si">}${</span><span class="nx">filename</span><span class="si">}</span><span class="sb">`</span><span class="p">,</span> <span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// get route description from first line comment
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kr">const</span> <span class="nx">match</span> <span class="o">=</span> <span class="sr">/&lt;!--\s*(\S*)\s*--&gt;/g</span><span class="p">.</span><span class="nx">exec</span><span class="p">(</span><span class="nx">contentFull</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="nx">os</span><span class="p">.</span><span class="nx">EOL</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nx">match</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">routeDescription</span> <span class="o">=</span> <span class="nx">match</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">routes</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="sb">`  {
+</span></span></span><span class="line"><span class="cl"><span class="sb">    path: &#39;/</span><span class="si">${</span><span class="nx">name</span> <span class="o">===</span> <span class="s1">&#39;home&#39;</span> <span class="o">?</span> <span class="s1">&#39;&#39;</span> <span class="o">:</span> <span class="nx">name</span><span class="si">}</span><span class="sb">&#39;,
+</span></span></span><span class="line"><span class="cl"><span class="sb">    name: &#39;</span><span class="si">${</span><span class="nx">routeName</span><span class="si">}</span><span class="sb">&#39;,
+</span></span></span><span class="line"><span class="cl"><span class="sb">    </span><span class="si">${</span><span class="nx">routeDescription</span> <span class="o">?</span> <span class="sb">`description: &#39;</span><span class="si">${</span><span class="nx">routeDescription</span><span class="si">}</span><span class="sb">&#39;,`</span> <span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="si">}</span><span class="sb">
+</span></span></span><span class="line"><span class="cl"><span class="sb">    component: () =&gt; import(/* webpackChunkName: &#34;</span><span class="si">${</span><span class="nx">routeName</span><span class="si">}</span><span class="sb">&#34; */ &#39;@/views/</span><span class="si">${</span><span class="nx">filename</span><span class="si">}</span><span class="sb">&#39;),
+</span></span></span><span class="line"><span class="cl"><span class="sb">  },`</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">result</span> <span class="o">=</span>
+</span></span><span class="line"><span class="cl"><span class="sb">`// This file is automatically generated by gen-router.js, please do not modify it manually！
+</span></span></span><span class="line"><span class="cl"><span class="sb">import VueRouter from &#39;vue-router&#39;
+</span></span></span><span class="line"><span class="cl"><span class="sb">import Vue from &#39;vue&#39;
+</span></span></span><span class="line"><span class="cl"><span class="sb">
+</span></span></span><span class="line"><span class="cl"><span class="sb">Vue.use(VueRouter)
+</span></span></span><span class="line"><span class="cl"><span class="sb">
+</span></span></span><span class="line"><span class="cl"><span class="sb">const routes = [
+</span></span></span><span class="line"><span class="cl"><span class="sb"></span><span class="si">${</span><span class="nx">routes</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">os</span><span class="p">.</span><span class="nx">EOL</span><span class="p">)</span><span class="si">}</span><span class="sb">
+</span></span></span><span class="line"><span class="cl"><span class="sb">]
+</span></span></span><span class="line"><span class="cl"><span class="sb">
+</span></span></span><span class="line"><span class="cl"><span class="sb">const router = new VueRouter({
+</span></span></span><span class="line"><span class="cl"><span class="sb">  mode: &#39;hash&#39;,
+</span></span></span><span class="line"><span class="cl"><span class="sb">  routes,
+</span></span></span><span class="line"><span class="cl"><span class="sb">})
+</span></span></span><span class="line"><span class="cl"><span class="sb">
+</span></span></span><span class="line"><span class="cl"><span class="sb">export default router
+</span></span></span><span class="line"><span class="cl"><span class="sb">`</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">fs</span><span class="p">.</span><span class="nx">writeFile</span><span class="p">(</span><span class="nx">routerFile</span><span class="p">,</span> <span class="nx">result</span><span class="p">,</span> <span class="s1">&#39;utf-8&#39;</span><span class="p">,</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="k">throw</span> <span class="nx">err</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`✅ Router generated successfully in </span><span class="si">${</span><span class="nx">routerFile</span><span class="si">}</span><span class="sb">`</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">})</span>
+</span></span><span class="line"><span class="cl"><span class="p">})</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>生成效果如下：</p>
+<div class="highlight" id="id-2"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="c1">// This file is automatically generated by gen-router.js, please do not modify it manually！
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">import</span> <span class="nx">VueRouter</span> <span class="nx">from</span> <span class="s1">&#39;vue-router&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="nx">Vue</span> <span class="nx">from</span> <span class="s1">&#39;vue&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">Vue</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">VueRouter</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">routes</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">path</span><span class="o">:</span> <span class="s1">&#39;/&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;home&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">description</span><span class="o">:</span> <span class="s1">&#39;Home&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">component</span><span class="o">:</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="kr">import</span><span class="p">(</span><span class="cm">/* webpackChunkName: &#34;home&#34; */</span> <span class="s1">&#39;@/views/home.vue&#39;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl"><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">router</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">VueRouter</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">mode</span><span class="o">:</span> <span class="s1">&#39;hash&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">routes</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">})</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="k">default</span> <span class="nx">router</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="参考">参考</h2>
+<p><a href="https://github.com/sunzsh/vue-el-demo/blob/f5e9a2a9934c7040f4fa72663eb8c24b1e3b20c1/gen-router.js"target="_blank" rel="external nofollow noopener noreferrer">sunzsh/vue-el-demo<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>]]></description></item><item><title>浏览器渲染原理</title><link>https://lruihao.cn/posts/browser-rendering/</link><pubDate>Sun, 05 Feb 2023 21:02:52 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/browser-rendering/</guid><description><![CDATA[<iframe src="files/browser-rendering.pdf" width="100%" height="550"></iframe>
 <h2 id="浏览器是如何渲染页面的">浏览器是如何渲染页面的？</h2>
 <p>当浏览器的网络线程收到 HTML 文档后，会产生一个渲染任务，并将其传递给渲染主线程的消息队列。</p>
 <p>在事件循环机制的作用下，渲染主线程取出消息队列中的渲染任务，开启渲染流程。</p>
@@ -3835,94 +4007,4 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 <li>Alt+X: 关闭</li>
 <li>Alt+↑: 增加亮度</li>
 <li>Alt+↓: 降低亮度</li>
-</ol>]]></description></item><item><title>网页离开时改变标题“崩溃欺骗”</title><link>https://lruihao.cn/posts/crash-cheat/</link><pubDate>Wed, 26 Sep 2018 16:36:08 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/crash-cheat/</guid><description><![CDATA[<blockquote>
-<p>从暑假到现在有好几个小伙伴问我博客的标题怎么变来变去的，不想再和每个人都说一遍了，耽误时间，索性写一下。</p>
-</blockquote>
-<h2 id="创建一个-js-文件">创建一个 js 文件</h2>
-<p>我们先创建一个 js 文件，我们用记事本就好了，然后改个文件名，不妨就叫<code>crash-cheat.js</code>吧，你们可以随意！<br>
-然后把文件放到 source 文件夹的 js 文件夹的 src 里面。（我用的 next 主题，放这里统一存放，其他主题随意）</p>
-<p>崩溃欺骗 (Jquery 版）</p>
-<div class="highlight" id="id-1"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">OriginTitle</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">title</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">titleTime</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="nb">document</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;visibilitychange&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">hidden</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;[rel=&#34;icon&#34;]&#39;</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;href&#39;</span><span class="p">,</span> <span class="s1">&#39;https://i.loli.net/2018/08/24/5b7fcb00ed9bf.png&#39;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="nb">document</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="s1">&#39;怎么回事╭(°A°`)╮&#39;</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">clearTimeout</span><span class="p">(</span><span class="nx">titleTime</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">$</span><span class="p">(</span><span class="s2">&#34;[rel=&#39;icon&#39;]&#34;</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;href&#39;</span><span class="p">,</span> <span class="s1">&#39;https://i.loli.net/2018/09/25/5baa4f21661e7.png&#39;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="nb">document</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="s1">&#39;小老弟 (ฅ&gt;ω&lt;*ฅ)&#39;</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">titleTime</span> <span class="o">=</span> <span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">      <span class="nb">document</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="nx">OriginTitle</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">      <span class="nx">$</span><span class="p">(</span><span class="s2">&#34;[rel=&#39;icon&#39;]&#34;</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;href&#39;</span><span class="p">,</span> <span class="s1">&#39;/images/favicon-32x32-next.png&#39;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="p">},</span> <span class="mi">2000</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">});</span></span></span></code></pre></td></tr></table>
-</div>
-</div><p>崩溃欺骗 (JS 版）</p>
-<div class="highlight" id="id-2"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">oldTitle</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">title</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">titleTime</span><span class="p">;</span> <span class="c1">//標題恢復計時器
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nb">document</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;visibilitychange&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">hidden</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">&#34;[rel=&#39;icon&#39;]&#34;</span><span class="p">).</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s1">&#39;href&#39;</span><span class="p">,</span> <span class="s1">&#39;/images/icons/favicon-32.png&#39;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="nb">document</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="s1">&#39;網站崩潰了！&#39;</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">clearTimeout</span><span class="p">(</span><span class="nx">titleTime</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nb">document</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="s1">&#39;其實並沒有！&#39;</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">&#34;[rel=&#39;icon&#39;]&#34;</span><span class="p">).</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s1">&#39;href&#39;</span><span class="p">,</span> <span class="s1">&#39;/images/icons/crash.png&#39;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">titleTime</span> <span class="o">=</span> <span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">      <span class="nb">document</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="nx">oldTitle</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="p">},</span> <span class="mi">1000</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">});</span></span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="使用">使用</h2>
-<p>在<code>hexo\themes\hexo-theme-next\layout</code>文件路径找到<code>layout.swig</code>文件，其他有些主题用的是<code>.ejs</code>后缀，一样的。<br>
-然后打开文件，在<code>&lt;body&gt;&lt;/body&gt;</code>之间加入调用刚刚的 js。</p>
-<div class="highlight" id="id-3"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/javascript&#34;</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;/js/src/crash-cheat.js&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span></span></span></code></pre></td></tr></table>
-</div>
-</div><p>重新部署博客就可以了。</p>]]></description></item></channel></rss>
+</ol>]]></description></item></channel></rss>
