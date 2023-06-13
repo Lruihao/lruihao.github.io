@@ -1,6 +1,355 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>所有文章 - 菠菜眾長</title><link>https://lruihao.cn/posts/</link><description>所有文章 | 菠菜眾長</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><lastBuildDate>Wed, 14 Jun 2023 00:11:17 +0800</lastBuildDate><atom:link href="https://lruihao.cn/posts/" rel="self" type="application/rss+xml"/><item><title>使用 Node 自动创建 Vue 的路由</title><link>https://lruihao.cn/posts/gen-router/</link><pubDate>Wed, 14 Jun 2023 00:11:17 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/gen-router/</guid><description><![CDATA[<p>最近在写一个 Vue 插件，需要在项目中创建一些测试页面，由于都是些静态路由，就想到之前看到过的一个项目就是用 Node.js 来自动生成路由的，于是就借鉴过来改了一下。</p>
-<h2 id="源码">源码</h2>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>所有文章 - 菠菜眾長</title><link>https://lruihao.cn/posts/</link><description>所有文章 | 菠菜眾長</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><lastBuildDate>Wed, 14 Jun 2023 00:11:17 +0800</lastBuildDate><atom:link href="https://lruihao.cn/posts/" rel="self" type="application/rss+xml"/><item><title>在 Android 上搭建 hexo 博客</title><link>https://lruihao.cn/posts/termux/</link><pubDate>Sat, 11 Aug 2018 16:59:05 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/termux/</guid><description><![CDATA[<blockquote>
+<p>暑假刚开始的时候放假回家没带电脑，只能玩手机，想折腾一下博客都没有条件，在一个发现一个 app, 卧槽 😱，termux 真的强大！（初始化需要科学上网）安卓手机上的 linux 简直了，在手机就可以搭了一个 hexo 博客，只要在 github 上实现分支管理就可以多终端同步更新了。恕我学疏才浅，还只想到这些！一开始想回校后，折腾一下 hexo-admin 实现类似动态博客一样的多终端管理（手动滑稽），现在发现 termux 这样子的操作也不错嘛，挺装哔 hhhhhh**<a href="https://lruihao.gitee.io"target="_blank" rel="external nofollow noopener noreferrer">部署后的效果<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>**</p>
+</blockquote>
+<h2 id="准备">准备</h2>
+<ul>
+<li>Termux</li>
+<li>文件管理器（RE,MT 文件管理器等高级一点的）</li>
+</ul>
+<h2 id="开始">开始</h2>
+<p>打开 Termux，输入$<code>pkg install nodejs</code>安装 Nodejs，在输入<code>pkg install git</code>安装 Git。<br>
+过程会出现一个提示，输入 y 回车确认即可。<br>
+按照 Hexo 官网提示安装 Hexo。</p>
 <div class="highlight" id="id-1"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">npm install hexo-cli -g
+</span></span><span class="line"><span class="cl">hexo init blog
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> blog</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>注意 ssh 配置先安装：</strong><code>pkg install openssh</code><br>
+然后按照基本操作配置 Hexo，GitHub 或者 gitee,coding 等连上，部署测试一次。<br>
+安装部署插件<code>npm install hexo-deployer-git --save</code>，部署<code>hexo d -g</code><br>
+没有问题的话进行下一步。</p>
+<h2 id="编辑">编辑</h2>
+<p>写文章的话创建 md 文件命令和电脑上一样，文件管理器打开<code>/data/data/com.termux/files/home/i/source/_posts/</code> 编辑文章 md 文件。这种方式需要 Root。<br>
+没有 Root 的话可以使用 Vim，网上很多教程。但是这种方式相对来说更麻烦。</p>
+<h2 id="参考">参考</h2>
+<ul>
+<li><a href="https://www.sqlsec.com/2018/05/termux.html?yyue=a21bo.50862.201879"target="_blank" rel="external nofollow noopener noreferrer">termux 高级终端安装使用配置教程<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+<li><a href="https://www.oyohyee.com/post/Note/Termux"target="_blank" rel="external nofollow noopener noreferrer">使用 Termux 在手机上运行 linux 黑科技<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+<li><a href="https://lruihao.cn/hexo%20&#43;%20github%20%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2.html"target="_blank" rel="external nofollow noopener noreferrer">hexo 搭建过程<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+<li><a href="https://my.oschina.net/ryaneLee/blog/638440"target="_blank" rel="external nofollow noopener noreferrer">超详细教程<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+</ul>
+<h2 id="效果图未连接-githubcoding-等">效果图（未连接 github，coding 等）</h2>
+<p><a href="https://wx1.sinaimg.cn/mw690/006vSs63gy1ft2a0jo3hmj30u01hcguh.jpg"target="_blank" rel="external nofollow noopener noreferrer">效果图 1<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a><br>
+<a href="https://wx4.sinaimg.cn/mw690/006vSs63gy1ft2a0kmm5xj30u01hcn2a.jpg"target="_blank" rel="external nofollow noopener noreferrer">效果图 2<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>
+<a href="https://wx3.sinaimg.cn/mw690/006vSs63gy1ft2a0lqt61j30u01hctla.jpg"target="_blank" rel="external nofollow noopener noreferrer">效果图 3<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a><br>
+<a href="https://wx2.sinaimg.cn/mw690/006vSs63gy1ft2a0mgkm6j30u01hc78l.jpg"target="_blank" rel="external nofollow noopener noreferrer">效果图 4<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>]]></description></item><item><title>ttf 字体压缩</title><link>https://lruihao.cn/posts/web-font/</link><pubDate>Wed, 17 Oct 2018 21:38:06 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/web-font/</guid><description><![CDATA[<h3 id="安装-nodejs">安装 nodeJs</h3>
+<p>这个不多说，都有。</p>
+<h3 id="安装字蛛">安装字蛛</h3>
+<p>输入命令</p>
+<div class="highlight" id="id-1"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">npm install font-spider -g</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="运行">运行</h3>
+<p>安装成功之后就开始压缩了
+</p>
+<p>我的 css</p>
+<div class="highlight" id="id-2"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-css" data-lang="css"><span class="line"><span class="cl"><span class="o">&lt;</span><span class="nt">style</span> <span class="nt">type</span><span class="o">=</span><span class="s2">&#34;text/css&#34;</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">@</span><span class="k">font-face</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">font-family</span><span class="o">:</span> <span class="nt">MMT</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">src</span><span class="o">:</span> <span class="nt">url</span><span class="o">(</span><span class="s2">&#34;font/MMT_579767_SOAJ0_0.ttf&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">&lt;/</span><span class="nt">style</span><span class="o">&gt;</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>生成新的字体库，命令行输入</p>
+<div class="highlight" id="id-3"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">font-spider C:\Users\李瑞豪、Desktop\love\index.html</span></span></code></pre></td></tr></table>
+</div>
+</div><p></p>
+<p><a href="http://font-spider.org"target="_blank" rel="external nofollow noopener noreferrer">官网<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
+]]></description></item><item><title>termux 基本使用教程</title><link>https://lruihao.cn/posts/termux1/</link><pubDate>Tue, 23 Oct 2018 22:16:02 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/termux1/</guid><description><![CDATA[<blockquote>
+<p>前面有一篇文章写到一些，<a href="https://lruihao.cn/posts/termux/"target="_blank" rel="external nofollow noopener noreferrer">在 Android 上搭建 hexo 博客<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>
+<strong>本文当初摘要自 <a href="https://www.sqlsec.com/2018/05/termux.html?yyue=a21bo.50862.201879"target="_blank" rel="external nofollow noopener noreferrer">国光个人博客<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></strong>
+如若作者博客 IP 被墙，可前往国光第三方博客诸如 csdn 等。<a href="https://www.freebuf.com/geek/170510.html"target="_blank" rel="external nofollow noopener noreferrer">备用<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
+</blockquote>
+<h3 id="初始化">初始化</h3>
+<p>下载并初始化 termux</p>
+<h4 id="安装-vim">安装 vim</h4>
+<p>安装编辑器 vim</p>
+<div class="highlight" id="id-1"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">pkg install vim</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="解决中文乱码问题">解决中文乱码问题</h4>
+<p>在 home 目录下，新建 <code>.vimrc</code> 文件</p>
+<div class="highlight" id="id-2"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">vim .vimrc</span></span></code></pre></td></tr></table>
+</div>
+</div><p>添加内容如下：</p>
+<div class="highlight" id="id-3"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">set fileencodings=utf-8,gb2312,gb18030,gbk,ucs-bom,cp936,latin1
+</span></span><span class="line"><span class="cl">set enc=utf8
+</span></span><span class="line"><span class="cl">set fencs=utf8,gbk,gb2312,gb18030</span></span></code></pre></td></tr></table>
+</div>
+</div><p>然后 source 下变量：</p>
+<div class="highlight" id="id-4"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">source .vimrc</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="修改启动问候语">修改启动问候语</h4>
+<div class="highlight" id="id-5"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">vim $PREFIX/etc/motd</span></span></code></pre></td></tr></table>
+</div>
+</div><p>按 i 然后编辑，比如</p>
+<div class="highlight" id="id-6"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">		www.lruihao.cn
+</span></span><span class="line"><span class="cl">		    李瑞豪</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Esc 然后：wq 退出</p>
+<h4 id="管理员权限">管理员权限</h4>
+<p>手机已经 root, 安装 tsu, 这是一个 su 的 termux 版本，用来在 termux 上替代 su:</p>
+<div class="highlight" id="id-7"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">pkg install tsu</span></span></code></pre></td></tr></table>
+</div>
+</div><p>然后终端下面输入：</p>
+<div class="highlight" id="id-8"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">tsu</span></span></code></pre></td></tr></table>
+</div>
+</div><p>即可切换 root 用户，这个时候会弹出 root 授权提示。在管理员身份下，输入 exit 可回到普通用户身份。</p>
+<h3 id="美化">美化</h3>
+<p><a href="https://github.com/Cabbagec/termux-ohmyzsh"target="_blank" rel="external nofollow noopener noreferrer">Termux-ohmyzsh<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
+<p>作用 ： 美化之外，主要使用了 zsh 来替代 bash 作为默认 shell。使用一键安装脚本来安装，一步到位，顺便启动了外置存储，可以直接访问 SD 卡下的目录，创建软文件夹。</p>
+<h4 id="使用">使用</h4>
+<div class="highlight" id="id-9"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">sh -c &#34;$(curl -fsSL https://github.com/Cabbagec/termux-ohmyzsh/raw/master/install.sh)&#34;</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="设置色彩样式">设置色彩样式：</h4>
+<p>运行 chcolor 更换色彩样式，或者：</p>
+<div class="highlight" id="id-10"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">~/.termux/colors.sh</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="设置字体">设置字体</h4>
+<p>运行 chfont 更换字体，或者：</p>
+<div class="highlight" id="id-11"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">~/.termux/fonts.sh</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="需要软件包">需要软件包：</h4>
+<ul>
+<li>curl</li>
+</ul>
+<h3 id="访问外置存储">访问外置存储</h3>
+<p>执行过上面的 zsh 一键配置脚本后，并且授予文件访问权限的话，会在家目录生成 storage 目录，并且生成若干目录，软连接都指向外置存储卡的相应目录<br>
+可以让从外置储存复制文件进 system 分区</p>
+<h4 id="创建-qq-文件夹软连接">创建 QQ 文件夹软连接</h4>
+<div class="highlight" id="id-12"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">ln -s /data/data/com.termux/files/home/storage/shared/tencent/QQfile_recv QQ</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="创建-blog2-文件夹软连接备份文件">创建 blog2 文件夹软连接备份文件</h4>
+<div class="highlight" id="id-13"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">ln -s /data/data/com.termux/files/home/storage/shared/blog2 blog2</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="安装-hexo">安装 hexo</h3>
+<h4 id="安装准备">安装准备</h4>
+<div class="highlight" id="id-14"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">pkg install nodejs
+</span></span><span class="line"><span class="cl">pkg install git
+</span></span><span class="line"><span class="cl">npm install hexo-cli -g
+</span></span><span class="line"><span class="cl">npm install hexo-deployer-git --save
+</span></span><span class="line"><span class="cl">pkg install openssh</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="初始化-hexo">初始化 hexo</h4>
+<div class="highlight" id="id-15"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">hexo init blog
+</span></span><span class="line"><span class="cl">cd blog
+</span></span><span class="line"><span class="cl">hexo g
+</span></span><span class="line"><span class="cl">hexo s</span></span></code></pre></td></tr></table>
+</div>
+</div><p>浏览器输入<code>127.0.0.1:4000</code>查看效果</p>
+<h4 id="链接-githubcodinggitee-等远程仓库">链接 github,coding,gitee 等远程仓库</h4>
+<div class="highlight" id="id-16"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">ssh-keygen -t rsa -C &#34;your_email@example.com&#34;
+</span></span><span class="line"><span class="cl">#这将按照你提供的邮箱地址，创建一对密钥（个人喜欢一路回车）</span></span></code></pre></td></tr></table>
+</div>
+</div><p>找到<code>~/.ssh/id_rsa.pub</code>这个文件复制里面的内容，到对应的平台生成 SSH 公钥</p>
+<h4 id="设置用户信息">设置用户信息</h4>
+<div class="highlight" id="id-17"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">git config --global user.name &#34;lruihao&#34;
+</span></span><span class="line"><span class="cl">git config --global user.email  &#34;1074627678@qq.com&#34;</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="测试链接">测试链接</h4>
+<div class="highlight" id="id-18"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">ssh -T git@github.com  #github
+</span></span><span class="line"><span class="cl">ssh -T git@coding.net   #coding
+</span></span><span class="line"><span class="cl">ssh -T git@gitee.com   #gitee</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>注意#注释部分不要的</strong></p>
+<h4 id="站点配置文件">站点配置文件</h4>
+<p>打开站点配置文件填写代码库</p>
+<p>例如我的</p>
+<div class="highlight" id="id-19"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">deploy:
+</span></span><span class="line"><span class="cl">- type: git
+</span></span><span class="line"><span class="cl">  repository:
+</span></span><span class="line"><span class="cl">    github: git@github.com:Lruihao/Lruihao.github.io.git,master
+</span></span><span class="line"><span class="cl">    coding: git@git.coding.net:liruihao/liruihao.git,master
+</span></span><span class="line"><span class="cl">  #message: &#34;日常更新&#34;</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="部署">部署</h4>
+<div class="highlight" id="id-20"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">hexo clean
+</span></span><span class="line"><span class="cl">hexo g -d</span></span></code></pre></td></tr></table>
+</div>
+</div><p>没出错就可以正常通过相应域名访问了。
+<a href="https://lruihao.github.io"target="_blank" rel="external nofollow noopener noreferrer">https://lruihao.github.io<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>
+<a href="https://liruihao.coding.me"target="_blank" rel="external nofollow noopener noreferrer">https://liruihao.coding.me<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>
+<a href="https://lruihao.gitee.io"target="_blank" rel="external nofollow noopener noreferrer">https://lruihao.gitee.io<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> <strong>//手机 hexo 效果展示</strong></p>
+<h3 id="ssh-连接电脑或者服务器">ssh 连接电脑或者服务器</h3>
+<div class="highlight" id="id-21"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">ssh root@118.24.217.167</span></span></code></pre></td></tr></table>
+</div>
+</div><p>会提示输入密码，linux 下输入密码是看不到的，大家都知道，小心点别输入错误。<br>
+之后就可以手机操作服务器了。</p>
+<h3 id="解决-npm-安装报错未验证">解决 npm 安装报错（未验证）</h3>
+<div class="highlight" id="id-22"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">vim $PREFIX/lib/node_modules/npm/node_modules/worker-farm/lib/farm.js</span></span></code></pre></td></tr></table>
+</div>
+</div><p>把里面的 length 改成 4，我默认的是 1。</p>
+<h3 id="nyancat-彩虹猫">nyancat 彩虹猫</h3>
+<p>彩虹貓（英语：Nyan Cat）是在 2011 年 4 月上传在 Youtube 的视频，并且迅速爆红于网络，並在 2011 年 YouTube 浏览量最高的视频中排名第五。</p>
+<div class="highlight" id="id-23"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">pkg install nyancat
+</span></span><span class="line"><span class="cl">nyancat</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>还有更多姿势这里就不写了，只写一下日常用到的，就这样 OK 睡觉！</p>
+</blockquote>
+<h3 id="termux-更多常用有趣命令适用于-linux">termux 更多常用有趣命令（适用于 linux）</h3>
+<div class="highlight" id="id-24"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -25,152 +374,51 @@
 </span><span class="lnt">21
 </span><span class="lnt">22
 </span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span><span class="lnt">37
-</span><span class="lnt">38
-</span><span class="lnt">39
-</span><span class="lnt">40
-</span><span class="lnt">41
-</span><span class="lnt">42
-</span><span class="lnt">43
-</span><span class="lnt">44
-</span><span class="lnt">45
-</span><span class="lnt">46
-</span><span class="lnt">47
-</span><span class="lnt">48
-</span><span class="lnt">49
-</span><span class="lnt">50
-</span><span class="lnt">51
-</span><span class="lnt">52
-</span><span class="lnt">53
-</span><span class="lnt">54
-</span><span class="lnt">55
-</span><span class="lnt">56
-</span><span class="lnt">57
-</span><span class="lnt">58
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;fs&#39;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">os</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;os&#39;</span><span class="p">)</span>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">vim $PREFIX/etc/motd
+</span></span><span class="line"><span class="cl">chcolor
+</span></span><span class="line"><span class="cl">chfont
+</span></span><span class="line"><span class="cl">~/.termux/colors.sh
+</span></span><span class="line"><span class="cl">~/.termux/fonts.sh
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">vueDir</span> <span class="o">=</span> <span class="s1">&#39;./src/views/&#39;</span>
-</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">routerFile</span> <span class="o">=</span> <span class="s1">&#39;./src/router.js&#39;</span>
+</span></span><span class="line"><span class="cl">echo &#34;https://www.lruihao.cn&#34; |curl -F-=\&lt;- qrenco.de
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nx">fs</span><span class="p">.</span><span class="nx">readdir</span><span class="p">(</span><span class="nx">vueDir</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">files</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s1">&#39;❌ Could not list the directory.&#39;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="k">return</span>
-</span></span><span class="line"><span class="cl">  <span class="p">}</span>
-</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">routes</span> <span class="o">=</span> <span class="p">[]</span>
-</span></span><span class="line"><span class="cl">  <span class="k">for</span> <span class="p">(</span><span class="kr">const</span> <span class="nx">filename</span> <span class="k">of</span> <span class="nx">files</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nx">filename</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">      <span class="k">continue</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="p">[</span><span class="nx">name</span><span class="p">,</span> <span class="nx">ext</span><span class="p">]</span> <span class="o">=</span> <span class="nx">filename</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nx">ext</span> <span class="o">!==</span> <span class="s1">&#39;vue&#39;</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">      <span class="k">continue</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">routeName</span> <span class="o">=</span> <span class="nx">name</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/-([a-z])/g</span><span class="p">,</span> <span class="p">(</span><span class="nx">_</span><span class="p">,</span> <span class="nx">match</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nx">match</span><span class="p">.</span><span class="nx">toUpperCase</span><span class="p">())</span>
-</span></span><span class="line"><span class="cl">    <span class="kd">let</span> <span class="nx">routeDescription</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
-</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">contentFull</span> <span class="o">=</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">readFileSync</span><span class="p">(</span><span class="sb">`</span><span class="si">${</span><span class="nx">vueDir</span><span class="si">}${</span><span class="nx">filename</span><span class="si">}</span><span class="sb">`</span><span class="p">,</span> <span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="c1">// get route description from first line comment
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kr">const</span> <span class="nx">match</span> <span class="o">=</span> <span class="sr">/&lt;!--\s*(\S*)\s*--&gt;/g</span><span class="p">.</span><span class="nx">exec</span><span class="p">(</span><span class="nx">contentFull</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="nx">os</span><span class="p">.</span><span class="nx">EOL</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
-</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nx">match</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">      <span class="nx">routeDescription</span> <span class="o">=</span> <span class="nx">match</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">routes</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="sb">`  {
-</span></span></span><span class="line"><span class="cl"><span class="sb">    path: &#39;/</span><span class="si">${</span><span class="nx">name</span> <span class="o">===</span> <span class="s1">&#39;home&#39;</span> <span class="o">?</span> <span class="s1">&#39;&#39;</span> <span class="o">:</span> <span class="nx">name</span><span class="si">}</span><span class="sb">&#39;,
-</span></span></span><span class="line"><span class="cl"><span class="sb">    name: &#39;</span><span class="si">${</span><span class="nx">routeName</span><span class="si">}</span><span class="sb">&#39;,
-</span></span></span><span class="line"><span class="cl"><span class="sb">    </span><span class="si">${</span><span class="nx">routeDescription</span> <span class="o">?</span> <span class="sb">`description: &#39;</span><span class="si">${</span><span class="nx">routeDescription</span><span class="si">}</span><span class="sb">&#39;,`</span> <span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="si">}</span><span class="sb">
-</span></span></span><span class="line"><span class="cl"><span class="sb">    component: () =&gt; import(/* webpackChunkName: &#34;</span><span class="si">${</span><span class="nx">routeName</span><span class="si">}</span><span class="sb">&#34; */ &#39;@/views/</span><span class="si">${</span><span class="nx">filename</span><span class="si">}</span><span class="sb">&#39;),
-</span></span></span><span class="line"><span class="cl"><span class="sb">  },`</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">  <span class="p">}</span>
-</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">result</span> <span class="o">=</span>
-</span></span><span class="line"><span class="cl"><span class="sb">`// This file is automatically generated by gen-router.js, please do not modify it manually！
-</span></span></span><span class="line"><span class="cl"><span class="sb">import VueRouter from &#39;vue-router&#39;
-</span></span></span><span class="line"><span class="cl"><span class="sb">import Vue from &#39;vue&#39;
-</span></span></span><span class="line"><span class="cl"><span class="sb">
-</span></span></span><span class="line"><span class="cl"><span class="sb">Vue.use(VueRouter)
-</span></span></span><span class="line"><span class="cl"><span class="sb">
-</span></span></span><span class="line"><span class="cl"><span class="sb">const routes = [
-</span></span></span><span class="line"><span class="cl"><span class="sb"></span><span class="si">${</span><span class="nx">routes</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">os</span><span class="p">.</span><span class="nx">EOL</span><span class="p">)</span><span class="si">}</span><span class="sb">
-</span></span></span><span class="line"><span class="cl"><span class="sb">]
-</span></span></span><span class="line"><span class="cl"><span class="sb">
-</span></span></span><span class="line"><span class="cl"><span class="sb">const router = new VueRouter({
-</span></span></span><span class="line"><span class="cl"><span class="sb">  mode: &#39;hash&#39;,
-</span></span></span><span class="line"><span class="cl"><span class="sb">  routes,
-</span></span></span><span class="line"><span class="cl"><span class="sb">})
-</span></span></span><span class="line"><span class="cl"><span class="sb">
-</span></span></span><span class="line"><span class="cl"><span class="sb">export default router
-</span></span></span><span class="line"><span class="cl"><span class="sb">`</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">fs</span><span class="p">.</span><span class="nx">writeFile</span><span class="p">(</span><span class="nx">routerFile</span><span class="p">,</span> <span class="nx">result</span><span class="p">,</span> <span class="s1">&#39;utf-8&#39;</span><span class="p">,</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="k">throw</span> <span class="nx">err</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`✅ Router generated successfully in </span><span class="si">${</span><span class="nx">routerFile</span><span class="si">}</span><span class="sb">`</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">  <span class="p">})</span>
-</span></span><span class="line"><span class="cl"><span class="p">})</span></span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl">pkg install nyancat
+</span></span><span class="line"><span class="cl">nyancat
+</span></span><span class="line"><span class="cl">pkg install sl
+</span></span><span class="line"><span class="cl">sl
+</span></span><span class="line"><span class="cl">pkg install figlet
+</span></span><span class="line"><span class="cl">figlet hello
+</span></span><span class="line"><span class="cl">pkg install toilet
+</span></span><span class="line"><span class="cl">toilet hello
+</span></span><span class="line"><span class="cl">toilet -f mono12 -F gay &#34;hello&#34;
+</span></span><span class="line"><span class="cl">pkg cowsay
+</span></span><span class="line"><span class="cl">cowsay &#34;hello&#34;
+</span></span><span class="line"><span class="cl">pkg install cmatrix
+</span></span><span class="line"><span class="cl">cmatrix
+</span></span><span class="line"><span class="cl">pkg install w3m
+</span></span><span class="line"><span class="cl">w3m www.lruihao.cn</span></span></code></pre></td></tr></table>
 </div>
-</div><p>生成效果如下：</p>
-<div class="highlight" id="id-2"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="c1">// This file is automatically generated by gen-router.js, please do not modify it manually！
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">import</span> <span class="nx">VueRouter</span> <span class="nx">from</span> <span class="s1">&#39;vue-router&#39;</span>
-</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="nx">Vue</span> <span class="nx">from</span> <span class="s1">&#39;vue&#39;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nx">Vue</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">VueRouter</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">routes</span> <span class="o">=</span> <span class="p">[</span>
-</span></span><span class="line"><span class="cl">  <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">path</span><span class="o">:</span> <span class="s1">&#39;/&#39;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;home&#39;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">description</span><span class="o">:</span> <span class="s1">&#39;Home&#39;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">component</span><span class="o">:</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="kr">import</span><span class="p">(</span><span class="cm">/* webpackChunkName: &#34;home&#34; */</span> <span class="s1">&#39;@/views/home.vue&#39;</span><span class="p">),</span>
-</span></span><span class="line"><span class="cl">  <span class="p">},</span>
-</span></span><span class="line"><span class="cl"><span class="p">]</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">router</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">VueRouter</span><span class="p">({</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">mode</span><span class="o">:</span> <span class="s1">&#39;hash&#39;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">routes</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl"><span class="p">})</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="k">default</span> <span class="nx">router</span></span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="参考">参考</h2>
-<p><a href="https://github.com/sunzsh/vue-el-demo/blob/f5e9a2a9934c7040f4fa72663eb8c24b1e3b20c1/gen-router.js"target="_blank" rel="external nofollow noopener noreferrer">sunzsh/vue-el-demo<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>]]></description></item><item><title>Mac 上的开发配置总结</title><link>https://lruihao.cn/posts/config4mac/</link><pubDate>Fri, 29 Jul 2022 20:22:44 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/config4mac/</guid><description><![CDATA[<p>记录一下使用 Mac 作为生产工具开发的一些基本配置和经验。</p>
+</div><pre><code>cmatrix 常用命令如下：
+cmatrix-a : 异步滚动（默认）
+cmatrix-b : 随机粗体
+cmatrix-B : 全部粗体
+cmatrix-o : 使用旧风格滚动
+cmatrix-x :X window 模式
+cmatrix-V : 显示版本信息
+cmatrix-u : 刷新频率，0-9，也就是滚动的快慢
+cmatrix-C : 显示的颜色，支持 green（默认）,red,blue,white,yellow,cyan,
+        magenta and black
+例如：使用红色
+cmatrix -b -C red
+使用蓝色
+cmatrix -b -C blue
+等等 ........
+主义：在运行状态下，使用 0-9 数字，可以改变运行速度快慢。
+</code></pre>
+<p>开启你的装逼之路把，骚年！</p>
+]]></description></item><item><title>Mac 上的开发配置总结</title><link>https://lruihao.cn/posts/config4mac/</link><pubDate>Fri, 29 Jul 2022 20:22:44 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/config4mac/</guid><description><![CDATA[<p>记录一下使用 Mac 作为生产工具开发的一些基本配置和经验。</p>
 <h2 id="配置文件">配置文件</h2>
 <p>Mac 上有很多配置文件都可以用来保存环境变量等配置，根据自己的理解记录了四个文件的用途：</p>
 <div class="highlight" id="id-1"><div class="chroma">
@@ -676,7 +924,334 @@
 </span></span><span class="line"><span class="cl"><span class="s2">&#34; Enable line-number
 </span></span></span><span class="line"><span class="cl"><span class="s2">set number</span></span></span></code></pre></td></tr></table>
 </div>
-</div>]]></description></item><item><title>解决 SourceTree 提交时候 husky 命令失败问题</title><link>https://lruihao.cn/posts/sourcetree-husky/</link><pubDate>Mon, 12 Jun 2023 10:58:44 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/sourcetree-husky/</guid><description><![CDATA[<h2 id="问题描述">问题描述</h2>
+</div>]]></description></item><item><title>Node.js + GitHub Actions 自动刷新 CDN</title><link>https://lruihao.cn/posts/qcloudcdn/</link><pubDate>Sun, 07 Aug 2022 14:40:33 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/qcloudcdn/</guid><description><![CDATA[<div class="details admonition question open">
+    <div class="details-summary admonition-title">
+      <i class="icon fa-solid fa-question-circle fa-fw" aria-hidden="true"></i>问题<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i>
+    </div>
+    <div class="details-content">
+      <div class="admonition-content">腾讯云云函数从 2022 年 6 月 1 日开始收费了，差不多每个月 12 块，对于可能几个月都用不上一次云函数刷新缓存的人来说，有点太贵了。
+使用 Node.js 和 GitHub Actions 刷新 CDN 的方式，可以节省不少钱。</div>
+    </div>
+  </div>
+<h2 id="安装依赖">安装依赖</h2>
+<div class="highlight" id="id-1"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">npm install qcloud-cdn-node-sdk</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="编写脚本">编写脚本</h2>
+<div class="highlight" id="id-2"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">vim .scripts/qcloudcdn.js</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight" id="id-3"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * Refresh Qcloud CDN cache
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @command `node qcloudcdn.js $SECRET_ID $SECRET_KEY`
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">qcloudSDK</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;qcloud-cdn-node-sdk&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Get the config from https://console.qcloud.com/capi
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">qcloudSDK</span><span class="p">.</span><span class="nx">config</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">secretId</span><span class="o">:</span> <span class="nx">process</span><span class="o">?</span><span class="p">.</span><span class="nx">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">secretKey</span><span class="o">:</span> <span class="nx">process</span><span class="o">?</span><span class="p">.</span><span class="nx">argv</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">qcloudSDK</span><span class="p">.</span><span class="nx">request</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">  <span class="s1">&#39;RefreshCdnDir&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// See https://cloud.tencent.com/document/api/228/3947
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="s1">&#39;dirs.0&#39;</span><span class="o">:</span> <span class="s1">&#39;https://lruihao.cn/&#39;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="p">(</span><span class="nx">res</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">res</span><span class="p">.</span><span class="nx">code</span> <span class="o">&amp;&amp;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">res</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">);</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="增加快捷指令">增加快捷指令</h2>
+<p>打开 <code>package.json</code> 增加 <code>scripts</code>:</p>
+<div class="highlight" id="id-4"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;scripts&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;qcloudcdn&#34;</span><span class="p">:</span> <span class="s2">&#34;node .scripts/qcloudcdn.js $SECRET_ID $SECRET_KEY&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>运行方式：</p>
+<div class="highlight" id="id-5"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nv">SECRET_ID</span><span class="o">=</span>&lt;secretId&gt; <span class="nv">SECRET_KEY</span><span class="o">=</span>&lt;secretKey&gt; npm run qcloudcdn</span></span></code></pre></td></tr></table>
+</div>
+</div><details>
+  <summary>Mac OS 环境变量配置（可选）</summary>
+  <div class="highlight" id="id-7"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">vim ~/.bash_profile</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight" id="id-8"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Qcloud secret key-value</span>
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">SECRET_ID</span><span class="o">=</span>&lt;secretId&gt;
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">SECRET_KEY</span><span class="o">=</span>&lt;secretKey&gt;</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight" id="id-9"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">source</span> ~/.bash_profile</span></span></code></pre></td></tr></table>
+</div>
+</div><p>然后，在本地可简化指令为 <code>npm run qcloudcdn</code> 或者 <code>yarn qcloudcdn</code>。<br>
+等同于 <code>SECRET_ID=$SECRET_ID SECRET_KEY=$SECRET_KEY npm run qcloudcdn</code></p>
+
+</details>
+<h2 id="配置-github-actions">配置 GitHub Actions</h2>
+<p>在原有 GitHub Actions 中部署后增加一个步骤：</p>
+<div class="highlight" id="id-6"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl">- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Refresh Qcloud CDN cache</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">env</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">SECRET_ID</span><span class="p">:</span><span class="w"> </span><span class="l">${{ secrets.SECRET_ID }}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">SECRET_KEY</span><span class="p">:</span><span class="w"> </span><span class="l">${{ secrets.SECRET_KEY }}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l">npm run qcloudcdn</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>在仓库 Settings &gt; Secrets &gt; Actions 中增加两个 Secret: <code>SECRET_ID</code> 和 <code>SECRET_KEY</code>，原来有配置过的就不用了，比如，我原来的叫 <code>COS_SECRET_ID</code> 和 <code>COS_SECRET_ID</code>，那修改上面配置 env 中的变量名即可。</p>
+<p>最后上传代码，以后更新仓库时就会自动刷新 CDN 缓存了。</p>
+<h2 id="参考资料">参考资料</h2>
+<ul>
+<li><a href="https://github.com/QCloudCDN/CDN_API_DEMO/tree/master/Qcloud_CDN_API/nodejs"target="_blank" rel="external nofollow noopener noreferrer">Qcloud_CDN_API/nodejs<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+</ul>
+<blockquote>
+<p>本方案使用的旧的 API 请求方式，如果失效，可以参考新的 API，见 <a href="https://cloud.tencent.com/document/sdk"target="_blank" rel="external nofollow noopener noreferrer">SDK 中心<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>。</p>
+</blockquote>]]></description></item><item><title>使用 Node.js 自动创建 Vue 的路由</title><link>https://lruihao.cn/posts/gen-router/</link><pubDate>Wed, 14 Jun 2023 00:11:17 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/gen-router/</guid><description><![CDATA[<p>最近在写一个 Vue 插件，需要在项目中创建一些测试页面，由于都是些静态路由，就想到之前看到过的一个项目就是用 Node.js 来自动生成路由的，于是就借鉴过来改了一下。</p>
+<h2 id="源码">源码</h2>
+<div class="highlight" id="id-1"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;fs&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">os</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;os&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">vueDir</span> <span class="o">=</span> <span class="s1">&#39;./src/views/&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">routerFile</span> <span class="o">=</span> <span class="s1">&#39;./src/router.js&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">fs</span><span class="p">.</span><span class="nx">readdir</span><span class="p">(</span><span class="nx">vueDir</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">files</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s1">&#39;❌ Could not list the directory.&#39;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">routes</span> <span class="o">=</span> <span class="p">[]</span>
+</span></span><span class="line"><span class="cl">  <span class="k">for</span> <span class="p">(</span><span class="kr">const</span> <span class="nx">filename</span> <span class="k">of</span> <span class="nx">files</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nx">filename</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">continue</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="p">[</span><span class="nx">name</span><span class="p">,</span> <span class="nx">ext</span><span class="p">]</span> <span class="o">=</span> <span class="nx">filename</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nx">ext</span> <span class="o">!==</span> <span class="s1">&#39;vue&#39;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">continue</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">routeName</span> <span class="o">=</span> <span class="nx">name</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/-([a-z])/g</span><span class="p">,</span> <span class="p">(</span><span class="nx">_</span><span class="p">,</span> <span class="nx">match</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nx">match</span><span class="p">.</span><span class="nx">toUpperCase</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">let</span> <span class="nx">routeDescription</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">contentFull</span> <span class="o">=</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">readFileSync</span><span class="p">(</span><span class="sb">`</span><span class="si">${</span><span class="nx">vueDir</span><span class="si">}${</span><span class="nx">filename</span><span class="si">}</span><span class="sb">`</span><span class="p">,</span> <span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// get route description from first line comment
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kr">const</span> <span class="nx">match</span> <span class="o">=</span> <span class="sr">/&lt;!--\s*(\S*)\s*--&gt;/g</span><span class="p">.</span><span class="nx">exec</span><span class="p">(</span><span class="nx">contentFull</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="nx">os</span><span class="p">.</span><span class="nx">EOL</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nx">match</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">routeDescription</span> <span class="o">=</span> <span class="nx">match</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">routes</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="sb">`  {
+</span></span></span><span class="line"><span class="cl"><span class="sb">    path: &#39;/</span><span class="si">${</span><span class="nx">name</span> <span class="o">===</span> <span class="s1">&#39;home&#39;</span> <span class="o">?</span> <span class="s1">&#39;&#39;</span> <span class="o">:</span> <span class="nx">name</span><span class="si">}</span><span class="sb">&#39;,
+</span></span></span><span class="line"><span class="cl"><span class="sb">    name: &#39;</span><span class="si">${</span><span class="nx">routeName</span><span class="si">}</span><span class="sb">&#39;,
+</span></span></span><span class="line"><span class="cl"><span class="sb">    </span><span class="si">${</span><span class="nx">routeDescription</span> <span class="o">?</span> <span class="sb">`description: &#39;</span><span class="si">${</span><span class="nx">routeDescription</span><span class="si">}</span><span class="sb">&#39;,`</span> <span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="si">}</span><span class="sb">
+</span></span></span><span class="line"><span class="cl"><span class="sb">    component: () =&gt; import(/* webpackChunkName: &#34;</span><span class="si">${</span><span class="nx">routeName</span><span class="si">}</span><span class="sb">&#34; */ &#39;@/views/</span><span class="si">${</span><span class="nx">filename</span><span class="si">}</span><span class="sb">&#39;),
+</span></span></span><span class="line"><span class="cl"><span class="sb">  },`</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">result</span> <span class="o">=</span>
+</span></span><span class="line"><span class="cl"><span class="sb">`// This file is automatically generated by gen-router.js, please do not modify it manually！
+</span></span></span><span class="line"><span class="cl"><span class="sb">import VueRouter from &#39;vue-router&#39;
+</span></span></span><span class="line"><span class="cl"><span class="sb">import Vue from &#39;vue&#39;
+</span></span></span><span class="line"><span class="cl"><span class="sb">
+</span></span></span><span class="line"><span class="cl"><span class="sb">Vue.use(VueRouter)
+</span></span></span><span class="line"><span class="cl"><span class="sb">
+</span></span></span><span class="line"><span class="cl"><span class="sb">const routes = [
+</span></span></span><span class="line"><span class="cl"><span class="sb"></span><span class="si">${</span><span class="nx">routes</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">os</span><span class="p">.</span><span class="nx">EOL</span><span class="p">)</span><span class="si">}</span><span class="sb">
+</span></span></span><span class="line"><span class="cl"><span class="sb">]
+</span></span></span><span class="line"><span class="cl"><span class="sb">
+</span></span></span><span class="line"><span class="cl"><span class="sb">const router = new VueRouter({
+</span></span></span><span class="line"><span class="cl"><span class="sb">  mode: &#39;hash&#39;,
+</span></span></span><span class="line"><span class="cl"><span class="sb">  routes,
+</span></span></span><span class="line"><span class="cl"><span class="sb">})
+</span></span></span><span class="line"><span class="cl"><span class="sb">
+</span></span></span><span class="line"><span class="cl"><span class="sb">export default router
+</span></span></span><span class="line"><span class="cl"><span class="sb">`</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">fs</span><span class="p">.</span><span class="nx">writeFile</span><span class="p">(</span><span class="nx">routerFile</span><span class="p">,</span> <span class="nx">result</span><span class="p">,</span> <span class="s1">&#39;utf-8&#39;</span><span class="p">,</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="k">throw</span> <span class="nx">err</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`✅ Router generated successfully in </span><span class="si">${</span><span class="nx">routerFile</span><span class="si">}</span><span class="sb">`</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">})</span>
+</span></span><span class="line"><span class="cl"><span class="p">})</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>生成效果如下：</p>
+<div class="highlight" id="id-2"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="c1">// This file is automatically generated by gen-router.js, please do not modify it manually！
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">import</span> <span class="nx">VueRouter</span> <span class="nx">from</span> <span class="s1">&#39;vue-router&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="nx">Vue</span> <span class="nx">from</span> <span class="s1">&#39;vue&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">Vue</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">VueRouter</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">routes</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">path</span><span class="o">:</span> <span class="s1">&#39;/&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;home&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">description</span><span class="o">:</span> <span class="s1">&#39;Home&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">component</span><span class="o">:</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="kr">import</span><span class="p">(</span><span class="cm">/* webpackChunkName: &#34;home&#34; */</span> <span class="s1">&#39;@/views/home.vue&#39;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl"><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">router</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">VueRouter</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">mode</span><span class="o">:</span> <span class="s1">&#39;hash&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">routes</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">})</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="k">default</span> <span class="nx">router</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="参考">参考</h2>
+<p><a href="https://github.com/sunzsh/vue-el-demo/blob/f5e9a2a9934c7040f4fa72663eb8c24b1e3b20c1/gen-router.js"target="_blank" rel="external nofollow noopener noreferrer">sunzsh/vue-el-demo<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>]]></description></item><item><title>解决 SourceTree 提交时候 husky 命令失败问题</title><link>https://lruihao.cn/posts/sourcetree-husky/</link><pubDate>Mon, 12 Jun 2023 10:58:44 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/sourcetree-husky/</guid><description><![CDATA[<h2 id="问题描述">问题描述</h2>
 <p>在使用 SourceTree 提交代码的时候，会出现 husky 命令失败的问题（通过命令行提交代码没有问题），如下图所示：</p>
 <p></p>
 <p>看错误，是一个 catch 参数的问题，在新版本的 Node 中，catch 参数是可以省略的，但是在旧版本中，catch 参数是必须的。</p>
@@ -948,7 +1523,7 @@
 </span></span><span class="line"><span class="cl">  <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">template</span><span class="p">&gt;</span></span></span></code></pre></td></tr></table>
 </div>
-</div>]]></description></item><item><title>使用 Node 自动创建 Vue 的路由</title><link>https://lruihao.cn/posts/gen-router/</link><pubDate>Wed, 14 Jun 2023 00:11:17 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/gen-router/</guid><description><![CDATA[<p>最近在写一个 Vue 插件，需要在项目中创建一些测试页面，由于都是些静态路由，就想到之前看到过的一个项目就是用 Node.js 来自动生成路由的，于是就借鉴过来改了一下。</p>
+</div>]]></description></item><item><title>使用 Node.js 自动创建 Vue 的路由</title><link>https://lruihao.cn/posts/gen-router/</link><pubDate>Wed, 14 Jun 2023 00:11:17 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/gen-router/</guid><description><![CDATA[<p>最近在写一个 Vue 插件，需要在项目中创建一些测试页面，由于都是些静态路由，就想到之前看到过的一个项目就是用 Node.js 来自动生成路由的，于是就借鉴过来改了一下。</p>
 <h2 id="源码">源码</h2>
 <div class="highlight" id="id-1"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">

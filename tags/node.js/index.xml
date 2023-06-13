@@ -1,4 +1,4 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Node.js - 标签 - 菠菜眾長</title><link>https://lruihao.cn/tags/node.js/</link><description>Node.js - 标签 - 菠菜眾長</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><lastBuildDate>Wed, 14 Jun 2023 00:11:17 +0800</lastBuildDate><atom:link href="https://lruihao.cn/tags/node.js/" rel="self" type="application/rss+xml"/><item><title>使用 Node 自动创建 Vue 的路由</title><link>https://lruihao.cn/posts/gen-router/</link><pubDate>Wed, 14 Jun 2023 00:11:17 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/gen-router/</guid><description><![CDATA[<p>最近在写一个 Vue 插件，需要在项目中创建一些测试页面，由于都是些静态路由，就想到之前看到过的一个项目就是用 Node.js 来自动生成路由的，于是就借鉴过来改了一下。</p>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Node.js - 标签 - 菠菜眾長</title><link>https://lruihao.cn/tags/node.js/</link><description>Node.js - 标签 - 菠菜眾長</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><lastBuildDate>Wed, 14 Jun 2023 00:11:17 +0800</lastBuildDate><atom:link href="https://lruihao.cn/tags/node.js/" rel="self" type="application/rss+xml"/><item><title>使用 Node.js 自动创建 Vue 的路由</title><link>https://lruihao.cn/posts/gen-router/</link><pubDate>Wed, 14 Jun 2023 00:11:17 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/gen-router/</guid><description><![CDATA[<p>最近在写一个 Vue 插件，需要在项目中创建一些测试页面，由于都是些静态路由，就想到之前看到过的一个项目就是用 Node.js 来自动生成路由的，于是就借鉴过来改了一下。</p>
 <h2 id="源码">源码</h2>
 <div class="highlight" id="id-1"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -170,4 +170,1419 @@
 </span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="k">default</span> <span class="nx">router</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="参考">参考</h2>
-<p><a href="https://github.com/sunzsh/vue-el-demo/blob/f5e9a2a9934c7040f4fa72663eb8c24b1e3b20c1/gen-router.js"target="_blank" rel="external nofollow noopener noreferrer">sunzsh/vue-el-demo<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>]]></description></item></channel></rss>
+<p><a href="https://github.com/sunzsh/vue-el-demo/blob/f5e9a2a9934c7040f4fa72663eb8c24b1e3b20c1/gen-router.js"target="_blank" rel="external nofollow noopener noreferrer">sunzsh/vue-el-demo<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>]]></description></item><item><title>Node.js + GitHub Actions 自动刷新 CDN</title><link>https://lruihao.cn/posts/qcloudcdn/</link><pubDate>Sun, 07 Aug 2022 14:40:33 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/qcloudcdn/</guid><description><![CDATA[<div class="details admonition question open">
+    <div class="details-summary admonition-title">
+      <i class="icon fa-solid fa-question-circle fa-fw" aria-hidden="true"></i>问题<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i>
+    </div>
+    <div class="details-content">
+      <div class="admonition-content">腾讯云云函数从 2022 年 6 月 1 日开始收费了，差不多每个月 12 块，对于可能几个月都用不上一次云函数刷新缓存的人来说，有点太贵了。
+使用 Node.js 和 GitHub Actions 刷新 CDN 的方式，可以节省不少钱。</div>
+    </div>
+  </div>
+<h2 id="安装依赖">安装依赖</h2>
+<div class="highlight" id="id-1"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">npm install qcloud-cdn-node-sdk</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="编写脚本">编写脚本</h2>
+<div class="highlight" id="id-2"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">vim .scripts/qcloudcdn.js</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight" id="id-3"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * Refresh Qcloud CDN cache
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @command `node qcloudcdn.js $SECRET_ID $SECRET_KEY`
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">qcloudSDK</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;qcloud-cdn-node-sdk&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Get the config from https://console.qcloud.com/capi
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">qcloudSDK</span><span class="p">.</span><span class="nx">config</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">secretId</span><span class="o">:</span> <span class="nx">process</span><span class="o">?</span><span class="p">.</span><span class="nx">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">secretKey</span><span class="o">:</span> <span class="nx">process</span><span class="o">?</span><span class="p">.</span><span class="nx">argv</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">qcloudSDK</span><span class="p">.</span><span class="nx">request</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">  <span class="s1">&#39;RefreshCdnDir&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// See https://cloud.tencent.com/document/api/228/3947
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="s1">&#39;dirs.0&#39;</span><span class="o">:</span> <span class="s1">&#39;https://lruihao.cn/&#39;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="p">(</span><span class="nx">res</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">res</span><span class="p">.</span><span class="nx">code</span> <span class="o">&amp;&amp;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">res</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">);</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="增加快捷指令">增加快捷指令</h2>
+<p>打开 <code>package.json</code> 增加 <code>scripts</code>:</p>
+<div class="highlight" id="id-4"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;scripts&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;qcloudcdn&#34;</span><span class="p">:</span> <span class="s2">&#34;node .scripts/qcloudcdn.js $SECRET_ID $SECRET_KEY&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>运行方式：</p>
+<div class="highlight" id="id-5"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nv">SECRET_ID</span><span class="o">=</span>&lt;secretId&gt; <span class="nv">SECRET_KEY</span><span class="o">=</span>&lt;secretKey&gt; npm run qcloudcdn</span></span></code></pre></td></tr></table>
+</div>
+</div><details>
+  <summary>Mac OS 环境变量配置（可选）</summary>
+  <div class="highlight" id="id-7"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">vim ~/.bash_profile</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight" id="id-8"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Qcloud secret key-value</span>
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">SECRET_ID</span><span class="o">=</span>&lt;secretId&gt;
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">SECRET_KEY</span><span class="o">=</span>&lt;secretKey&gt;</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight" id="id-9"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">source</span> ~/.bash_profile</span></span></code></pre></td></tr></table>
+</div>
+</div><p>然后，在本地可简化指令为 <code>npm run qcloudcdn</code> 或者 <code>yarn qcloudcdn</code>。<br>
+等同于 <code>SECRET_ID=$SECRET_ID SECRET_KEY=$SECRET_KEY npm run qcloudcdn</code></p>
+
+</details>
+<h2 id="配置-github-actions">配置 GitHub Actions</h2>
+<p>在原有 GitHub Actions 中部署后增加一个步骤：</p>
+<div class="highlight" id="id-6"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl">- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Refresh Qcloud CDN cache</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">env</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">SECRET_ID</span><span class="p">:</span><span class="w"> </span><span class="l">${{ secrets.SECRET_ID }}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">SECRET_KEY</span><span class="p">:</span><span class="w"> </span><span class="l">${{ secrets.SECRET_KEY }}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l">npm run qcloudcdn</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>在仓库 Settings &gt; Secrets &gt; Actions 中增加两个 Secret: <code>SECRET_ID</code> 和 <code>SECRET_KEY</code>，原来有配置过的就不用了，比如，我原来的叫 <code>COS_SECRET_ID</code> 和 <code>COS_SECRET_ID</code>，那修改上面配置 env 中的变量名即可。</p>
+<p>最后上传代码，以后更新仓库时就会自动刷新 CDN 缓存了。</p>
+<h2 id="参考资料">参考资料</h2>
+<ul>
+<li><a href="https://github.com/QCloudCDN/CDN_API_DEMO/tree/master/Qcloud_CDN_API/nodejs"target="_blank" rel="external nofollow noopener noreferrer">Qcloud_CDN_API/nodejs<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+</ul>
+<blockquote>
+<p>本方案使用的旧的 API 请求方式，如果失效，可以参考新的 API，见 <a href="https://cloud.tencent.com/document/sdk"target="_blank" rel="external nofollow noopener noreferrer">SDK 中心<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>。</p>
+</blockquote>]]></description></item><item><title>Mac 上的开发配置总结</title><link>https://lruihao.cn/posts/config4mac/</link><pubDate>Fri, 29 Jul 2022 20:22:44 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/config4mac/</guid><description><![CDATA[<p>记录一下使用 Mac 作为生产工具开发的一些基本配置和经验。</p>
+<h2 id="配置文件">配置文件</h2>
+<p>Mac 上有很多配置文件都可以用来保存环境变量等配置，根据自己的理解记录了四个文件的用途：</p>
+<div class="highlight" id="id-1"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># etc/profile        系统配置文件</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># etc/.bash_profile  系统环境变量配置</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ~/.bash_profile    个人环境变量配置</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ~/.zshrc           zsh 的配置文件</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># $ZSH_CUSTOM/*.zsh  自定义 zsh 脚本，在 zsh 启动时会自动执行</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>编辑最多的应该是 <code>~/.bash_profile</code> 和 <code>~/.zshrc</code>, 基本上建议所有的个人配置都放在 <code>~/.bash_profile</code> 中，然后在 <code>~/.zshrc</code> 最后执行 <code>source ~/.bash_profile</code>, 这样也方便将自己的个人环境变量配置备份。</p>
+<h2 id="常用命令">常用命令</h2>
+<div class="highlight" id="id-2"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 安装/卸载 homebrew install.sh/uninstall.sh</span>
+</span></span><span class="line"><span class="cl">/bin/bash -c <span class="s2">&#34;</span><span class="k">$(</span>curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh<span class="k">)</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 注意：安装 Homebrew 会下载 node, 请做好 node 环境被破坏的准备</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 显示隐藏文件 true/false or cmd+shift+.</span>
+</span></span><span class="line"><span class="cl">defaults write com.apple.finder AppleShowAllFiles -boolean <span class="nb">true</span> <span class="p">;</span> killall Finder
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 释放端口</span>
+</span></span><span class="line"><span class="cl">lsof -i:<span class="nv">$your_port</span>  <span class="c1"># 1. 查看使用端口进程</span>
+</span></span><span class="line"><span class="cl"><span class="nb">kill</span> -9 <span class="nv">$your_PID</span>   <span class="c1"># 2. 释放进程</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="node">Node</h2>
+<div class="highlight" id="id-3"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 设置阿里镜像</span>
+</span></span><span class="line"><span class="cl">npm config <span class="nb">set</span> <span class="nv">registry</span><span class="o">=</span>https://registry.npmmirror.com
+</span></span><span class="line"><span class="cl"><span class="c1"># npm config set registry https://registry.npmjs.org</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># GitHub 仓库下载地址前缀镜像</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># disturl=https://registry.npmmirror.com/-/binary/</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 全局安装的依赖</span>
+</span></span><span class="line"><span class="cl">npm install -g npm@8.13.1
+</span></span><span class="line"><span class="cl">npm install -g cnpm
+</span></span><span class="line"><span class="cl">npm install -g @vue/cli
+</span></span><span class="line"><span class="cl">npm install -g nvm
+</span></span><span class="line"><span class="cl">npm install -g nrm
+</span></span><span class="line"><span class="cl">npm install -g yarn
+</span></span><span class="line"><span class="cl">npm install -g yrm
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># npm 参数</span>
+</span></span><span class="line"><span class="cl">--ignore-scripts  <span class="c1"># 忽略脚本错误</span>
+</span></span><span class="line"><span class="cl">--force  <span class="c1"># 会无视冲突，并强制获取远端 npm 库资源，即使本地有资源也会覆盖掉</span>
+</span></span><span class="line"><span class="cl">--legacy-peer-deps  <span class="c1"># 安装时忽略所有 peerDependencies，忽视依赖冲突，采用 npm 版本 4 到版本 6 的样式去安装依赖，已有的依赖不会覆盖</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 清除缓存</span>
+</span></span><span class="line"><span class="cl">npm cache clean --force
+</span></span><span class="line"><span class="cl">rm -rf node_modules
+</span></span><span class="line"><span class="cl">rm -rf package-lock.json
+</span></span><span class="line"><span class="cl">npm install
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># nvm</span>
+</span></span><span class="line"><span class="cl">nvm <span class="nb">alias</span> default <span class="o">[</span>node_version<span class="o">]</span>  <span class="c1"># 设置默认版本</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 检查过时依赖</span>
+</span></span><span class="line"><span class="cl">npm outdated
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 安全更新</span>
+</span></span><span class="line"><span class="cl">npm update
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># ncu 更新检查工具</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># https://blog.51cto.com/u_13028258/5115637?b=totalstatistic</span>
+</span></span><span class="line"><span class="cl">npm install -g npm-check-updates
+</span></span><span class="line"><span class="cl"><span class="c1">## 检查</span>
+</span></span><span class="line"><span class="cl">ncu
+</span></span><span class="line"><span class="cl">ncu vue
+</span></span><span class="line"><span class="cl"><span class="c1">## 更新</span>
+</span></span><span class="line"><span class="cl">ncu -u
+</span></span><span class="line"><span class="cl">ncu -u vue</span></span></code></pre></td></tr></table>
+</div>
+</div><p>electron 相关配置</p>
+<div class="highlight" id="id-4"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 设置 electron 镜像仓库</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># https://registry.npmmirror.com/-/binary/electron</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 13.1.7 版本 下载链接可能会拼错导致 404，要设置成 https://registry.npmmirror.com/-/binary/electron/v</span>
+</span></span><span class="line"><span class="cl">npm config <span class="nb">set</span> <span class="nv">electron_mirror</span><span class="o">=</span>https://npmmirror.com/mirrors/electron/</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="sourcetree">SourceTree</h2>
+<p>Custom actions</p>
+<ul>
+<li>Script target: <code>/bin/bash</code></li>
+<li>Parameters: <code>/Users/liruihao/workspace/.shell/sync_tags.sh</code></li>
+</ul>
+<div class="details admonition tip open">
+    <div class="details-summary admonition-title">
+      <i class="icon fa-solid fa-lightbulb fa-fw" aria-hidden="true"></i>技巧<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i>
+    </div>
+    <div class="details-content">
+      <div class="admonition-content"><p>根据不同的 shell 程序选择不同的文件后缀名，并给文件增加可执行权限：</p>
+<ul>
+<li>zsh: <code>.zsh</code></li>
+<li>bash: <code>.sh</code></li>
+</ul>
+</div>
+    </div>
+  </div>
+<div class="highlight" id="id-5"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="cp">#! /bin/bash
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="c1"># 同步远程仓库标签分支脚本</span>
+</span></span><span class="line"><span class="cl">git tag -l <span class="p">|</span> xargs git tag -d
+</span></span><span class="line"><span class="cl"><span class="c1"># git fetch origin --prune</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># git fetch origin --tags</span>
+</span></span><span class="line"><span class="cl">git fetch origin --prune --prune-tags</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight" id="id-6"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="cp">#! /bin/bash
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="c1"># 同步所有子模组</span>
+</span></span><span class="line"><span class="cl">git submodule update --remote --merge</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight" id="id-7"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="cp">#! /bin/zsh
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="c1"># ssh 配置但无法连接时</span>
+</span></span><span class="line"><span class="cl">ssh-agent -s
+</span></span><span class="line"><span class="cl">ssh-add ~/.ssh/Lruihao-Github  <span class="c1"># 私钥路径</span></span></span></code></pre></td></tr></table>
+</div>
+</div><div class="details admonition tip open">
+    <div class="details-summary admonition-title">
+      <i class="icon fa-solid fa-lightbulb fa-fw" aria-hidden="true"></i>技巧<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i>
+    </div>
+    <div class="details-content">
+      <div class="admonition-content">开机启动时系统会去自动读取 <code>id_rsa</code> 的私钥来启动 SSH 链接，若不是默认命令就会失败需要手动执行上诉命令启动，可添加到<a href="#startup">开机自启动</a>。</div>
+    </div>
+  </div>
+<div class="details admonition tip open">
+    <div class="details-summary admonition-title">
+      <i class="icon fa-solid fa-lightbulb fa-fw" aria-hidden="true"></i>SourceTree 相关文章<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i>
+    </div>
+    <div class="details-content">
+      <div class="admonition-content"><ul>
+<li><a href="/posts/sourcetree-husky/">解决 SourceTree 提交时候 husky 命令失败问题</a></li>
+</ul>
+</div>
+    </div>
+  </div>
+<h2 id="terminal">Terminal</h2>
+<ul>
+<li>Terminal: 系统自带</li>
+<li>Shell: zsh</li>
+<li>美化: <a href="https://github.com/ohmyzsh/ohmyzsh"target="_blank" rel="external nofollow noopener noreferrer">ohmyzsh<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+</ul>
+<p>修改启动语</p>
+<div class="highlight" id="id-8"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">vim <span class="nv">$PREFIX</span>/etc/motd</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="sublime-text-3">sublime-text 3</h2>
+<div class="highlight" id="id-9"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Terminal 启用 sublime 别名 subl</span>
+</span></span><span class="line"><span class="cl"><span class="c1">## 1.设置软链（推荐）</span>
+</span></span><span class="line"><span class="cl">sudo ln -s <span class="s2">&#34;/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl&#34;</span> /usr/local/bin/subl
+</span></span><span class="line"><span class="cl"><span class="c1">## 2.设置别名</span>
+</span></span><span class="line"><span class="cl">vim ~/.bash_profile
+</span></span><span class="line"><span class="cl"><span class="nb">alias</span> <span class="nv">subl</span><span class="o">=</span><span class="s2">&#34;&#39;/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl&#39;&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">source</span> ~/.bash_profile <span class="c1"># 每打开一个命令窗口，需要先让命令生效</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="startup">开机自启动</h2>
+<ol>
+<li>系统偏好设置 -&gt; 用户与群组 -&gt; 登录项 -&gt; 增删可执行文件 (需配置默认启动软件)</li>
+<li>将 shell 命令添加到 <code>/System/Library/StartupItems/</code> 或 <code>/Library/StartupItems/</code> 文件夹（测试无效）</li>
+</ol>
+<h2 id="备份">备份</h2>
+<div class="highlight" id="id-10"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># -------------------------------------</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># This configuration is for Lruihao.</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># https://lruihao.cn/posts/config4mac/</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># -------------------------------------</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">LC_ALL</span><span class="o">=</span>en_US.UTF-8
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">LANG</span><span class="o">=</span>en_US.UTF-8
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># workspace</span>
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">WORKSPACE</span><span class="o">=</span><span class="s2">&#34;</span><span class="nv">$HOME</span><span class="s2">/workspace&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># alias</span>
+</span></span><span class="line"><span class="cl"><span class="nb">alias</span> <span class="nv">subl</span><span class="o">=</span><span class="s2">&#34;&#39;/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl&#39;&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">alias</span> <span class="nv">mysql</span><span class="o">=</span>/usr/local/mysql/bin/mysql
+</span></span><span class="line"><span class="cl"><span class="nb">alias</span> <span class="nv">mysqladmin</span><span class="o">=</span>/usr/local/mysql/bin/mysqladmin
+</span></span><span class="line"><span class="cl"><span class="nb">alias</span> <span class="nv">incr</span><span class="o">=</span><span class="s2">&#34;source </span><span class="nv">$WORKSPACE</span><span class="s2">/.shell/incr*.zsh&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">alias</span> <span class="nv">typora</span><span class="o">=</span><span class="s2">&#34;open -a typora&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># maven</span>
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">M2_HOME</span><span class="o">=</span><span class="nv">$HOME</span>/Applications/apache-maven-3.8.5
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="nv">$PATH</span>:<span class="nv">$M2_HOME</span>/bin
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># jenv</span>
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="s2">&#34;</span><span class="nv">$HOME</span><span class="s2">/.jenv/bin:</span><span class="nv">$PATH</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">eval</span> <span class="s2">&#34;</span><span class="k">$(</span>jenv init -<span class="k">)</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># java</span>
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">JAVA_8_HOME</span><span class="o">=</span>/Library/Java/JavaVirtualMachines/jdk1.8.0_321.jdk/Contents/Home
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">JAVA_17_HOME</span><span class="o">=</span>/Library/Java/JavaVirtualMachines/jdk-17.0.2.jdk/Contents/Home
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">JAVA_HOME</span><span class="o">=</span><span class="nv">$JAVA_8_HOME</span>  <span class="c1"># 设置一个中间变量，为了方便多个 JDK 版本时更换 JAVA_HOME</span>
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="nv">$JAVA_HOME</span>/bin:<span class="nv">$PATH</span>:.  <span class="c1"># 冒号前代表 JDK 目录下的 bin 目录，冒号后代表当前目录</span>
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">CLASSPATH</span><span class="o">=</span>.:<span class="nv">$JAVA_HOME</span>/lib/dt.jar:<span class="nv">$JAVA_HOME</span>/lib/tools.jar
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># jmeter</span>
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">JMETER_HOME</span><span class="o">=</span><span class="nv">$HOME</span>/jmeter/apache-jmeter-5.4.1
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="nv">$JAVA_HOME</span>/bin:<span class="nv">$PATH</span>:.:<span class="nv">$JMETER_HOME</span>/bin:<span class="nv">$PATH</span>
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">CLASSPATH</span><span class="o">=</span>.:<span class="nv">$JAVA_HOME</span>/lib/dt.jar:<span class="nv">$JAVA_HOME</span>/lib/tools.jar:<span class="nv">$JMETER_HOME</span>/lib/ext/ApacheJMeter_core.jar:<span class="nv">$JMETER_HOME</span>/lib/jorphan.jar:<span class="nv">$JMETER_HOME</span>/lib/logkit-2.0.jar
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># platform-tools of Android SDK</span>
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="nv">$PATH</span>:<span class="nv">$HOME</span>/Applications/platform-tools
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Electron-Mac app development</span>
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">CSC_LINK</span><span class="o">=</span><span class="nv">$WORKSPACE</span>/mac_app_dev/Mac.p12
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">CSC_KEY_PASSWORD</span><span class="o">=</span>xxxxxxxxx
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># yarn</span>
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="s2">&#34;</span><span class="nv">$HOME</span><span class="s2">/.yarn/bin:</span><span class="nv">$HOME</span><span class="s2">/.config/yarn/global/node_modules/.bin:</span><span class="nv">$PATH</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># zsh custom plugin</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># https://mimosa-pudica.net/zsh-incremental.html</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># source $WORKSPACE/.shell/incr*.zsh</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Qcloud secret key-value</span>
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">SECRET_ID</span><span class="o">=</span><span class="s2">&#34;&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">SECRET_KEY</span><span class="o">=</span><span class="s2">&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># golang</span>
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">GOROOT</span><span class="o">=</span>/usr/local/go
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">GOBIN</span><span class="o">=</span><span class="nv">$GOROOT</span>/bin
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="nv">$PATH</span>:<span class="nv">$GOBIN</span>
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">GOPATH</span><span class="o">=</span><span class="nv">$HOME</span>/go
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">GOPROXY</span><span class="o">=</span>https://goproxy.cn
+</span></span><span class="line"><span class="cl"><span class="c1"># Go work bin</span>
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="nv">$PATH</span>:<span class="nv">$GOPATH</span>/bin
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># sass_embedded</span>
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="nv">$PATH</span>:<span class="nv">$HOME</span>/Applications/sass_embedded</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight" id="id-11"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-zsh" data-lang="zsh"><span class="line"><span class="cl"><span class="c1"># https://github.com/nvm-sh/nvm#manual-install</span>
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">NVM_DIR</span><span class="o">=</span><span class="s2">&#34;</span><span class="nv">$HOME</span><span class="s2">/.nvm&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span> -s <span class="s2">&#34;</span><span class="nv">$NVM_DIR</span><span class="s2">/nvm.sh&#34;</span> <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="se">\.</span> <span class="s2">&#34;</span><span class="nv">$NVM_DIR</span><span class="s2">/nvm.sh&#34;</span>  <span class="c1"># This loads nvm</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span> -s <span class="s2">&#34;</span><span class="nv">$NVM_DIR</span><span class="s2">/bash_completion&#34;</span> <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="se">\.</span> <span class="s2">&#34;</span><span class="nv">$NVM_DIR</span><span class="s2">/bash_completion&#34;</span>  <span class="c1"># This loads nvm bash_completion</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># https://github.com/nvm-sh/nvm#deeper-shell-integration</span>
+</span></span><span class="line"><span class="cl">autoload -U add-zsh-hook
+</span></span><span class="line"><span class="cl">load-nvmrc<span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">local</span> <span class="nv">node_version</span><span class="o">=</span><span class="s2">&#34;</span><span class="k">$(</span>nvm version<span class="k">)</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">local</span> <span class="nv">nvmrc_path</span><span class="o">=</span><span class="s2">&#34;</span><span class="k">$(</span>nvm_find_nvmrc<span class="k">)</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="o">[</span> -n <span class="s2">&#34;</span><span class="nv">$nvmrc_path</span><span class="s2">&#34;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">local</span> <span class="nv">nvmrc_node_version</span><span class="o">=</span><span class="k">$(</span>nvm version <span class="s2">&#34;</span><span class="k">$(</span>cat <span class="s2">&#34;</span><span class="si">${</span><span class="nv">nvmrc_path</span><span class="si">}</span><span class="s2">&#34;</span><span class="k">)</span><span class="s2">&#34;</span><span class="k">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="o">[</span> <span class="s2">&#34;</span><span class="nv">$nvmrc_node_version</span><span class="s2">&#34;</span> <span class="o">=</span> <span class="s2">&#34;N/A&#34;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl">      nvm install
+</span></span><span class="line"><span class="cl">    <span class="k">elif</span> <span class="o">[</span> <span class="s2">&#34;</span><span class="nv">$nvmrc_node_version</span><span class="s2">&#34;</span> !<span class="o">=</span> <span class="s2">&#34;</span><span class="nv">$node_version</span><span class="s2">&#34;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl">      nvm use
+</span></span><span class="line"><span class="cl">    <span class="k">fi</span>
+</span></span><span class="line"><span class="cl">  <span class="k">elif</span> <span class="o">[</span> <span class="s2">&#34;</span><span class="nv">$node_version</span><span class="s2">&#34;</span> !<span class="o">=</span> <span class="s2">&#34;</span><span class="k">$(</span>nvm version default<span class="k">)</span><span class="s2">&#34;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">echo</span> <span class="s2">&#34;Reverting to nvm default version&#34;</span>
+</span></span><span class="line"><span class="cl">    nvm use default
+</span></span><span class="line"><span class="cl">  <span class="k">fi</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1"># fix husky hook</span>
+</span></span><span class="line"><span class="cl">  <span class="c1"># ref: https://github.com/typicode/husky/issues/390#issuecomment-762213421</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">echo</span> <span class="s2">&#34;export PATH=\&#34;</span><span class="k">$(</span>dirname <span class="k">$(</span>which node<span class="k">))</span><span class="s2">:\$PATH\&#34;&#34;</span> &gt; ~/.huskyrc
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">add-zsh-hook chpwd load-nvmrc
+</span></span><span class="line"><span class="cl">load-nvmrc
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># https://github.com/nvm-sh/nvm#use-a-mirror-of-node-binaries</span>
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">NVM_NODEJS_ORG_MIRROR</span><span class="o">=</span>https://mirrors.ustc.edu.cn/node/</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>先添加一些基础配置 <a href="https://github.com/amix/vimrc/blob/master/vimrcs/basic.vim"target="_blank" rel="external nofollow noopener noreferrer">basic.vim<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
+</blockquote>
+<div class="highlight" id="id-12"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="s2">&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s2">&#34;</span> <span class="o">=</span>&gt; Custom config <span class="k">for</span> Lruihao
+</span></span><span class="line"><span class="cl"><span class="s2">&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s2">&#34;</span> Enable mouse
+</span></span><span class="line"><span class="cl"><span class="nb">set</span> <span class="nv">mouse</span><span class="o">=</span>a
+</span></span><span class="line"><span class="cl"><span class="s2">&#34; Enable line-number
+</span></span></span><span class="line"><span class="cl"><span class="s2">set number</span></span></span></code></pre></td></tr></table>
+</div>
+</div>]]></description></item><item><title>hexo 博客源码备份</title><link>https://lruihao.cn/posts/blog-backup/</link><pubDate>Sat, 03 Nov 2018 12:49:28 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/blog-backup/</guid><description><![CDATA[<div class="featured-image">
+        <img src="/posts/blog-backup/images/1.png" referrerpolicy="no-referrer">
+      </div><h2 id="备份-hexo-博客">备份 hexo 博客</h2>
+<div class="highlight" id="id-1"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">//如果 themes/next（主题文件）下面有。git，请删除这个。git 文件夹。
+</span></span><span class="line"><span class="cl">cd hexo
+</span></span><span class="line"><span class="cl">git init  //初始化本地仓库
+</span></span><span class="line"><span class="cl">git add source themes scaffolds _config.yml package.json package-lock.json  //将必要的文件依次添加
+</span></span><span class="line"><span class="cl">git commit -m &#34;blog hexo&#34;
+</span></span><span class="line"><span class="cl">git branch hexo  //新建 hexo 分支
+</span></span><span class="line"><span class="cl">git checkout hexo  //切换到 hexo 分支上
+</span></span><span class="line"><span class="cl">git remote add origin git@github.com:username/username.github.io.git  //将本地与 Github 项目对接
+</span></span><span class="line"><span class="cl">git push origin hexo  //push 到 Github 项目的 hexo 分支上</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="在其他终端克隆和更新-hexo-博客">在其他终端克隆和更新 hexo 博客</h2>
+<blockquote>
+<p>nodejs,git,hexo 已经安装好，即搭建完成</p>
+</blockquote>
+<h3 id="克隆-hexo-博客备份">克隆 hexo 博客备份</h3>
+<div class="highlight" id="id-2"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">git clone -b hexo git@github.com:username/username.github.io.git  //将 Github 中 hexo 分支 clone 到本地
+</span></span><span class="line"><span class="cl">cd user.github.io
+</span></span><span class="line"><span class="cl">npm install  //注意，这里一定要切换到刚刚 clone 的文件夹内执行，安装必要的所需组件，不用再 init</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这样我们的备份文件就会原封不动的拷贝到本地。</p>
+<h3 id="写新文章并备份和部署备用操作">写新文章并备份和部署（备用操作）</h3>
+<blockquote>
+<p>其实源码拷下来了，这步不做我们也知道怎么做了，完全没必要按照教程死搬硬套。灵活一点就行了。</p>
+</blockquote>
+<div class="highlight" id="id-3"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">//进入 username.github.io 文件夹，应是 hexo 分支
+</span></span><span class="line"><span class="cl">git pull origin hexo //本地和远端的融合
+</span></span><span class="line"><span class="cl">hexo new post &#34;new post name&#34;  //写新文章
+</span></span><span class="line"><span class="cl">git add source
+</span></span><span class="line"><span class="cl">git commit -m &#34;xxx&#34;
+</span></span><span class="line"><span class="cl">git push origin hexo  //备份
+</span></span><span class="line"><span class="cl">hexo d -g  //部署</span></span></code></pre></td></tr></table>
+</div>
+</div><p><a href="https://blog.csdn.net/Monkey_LZL/article/details/60870891"target="_blank" rel="external nofollow noopener noreferrer">参考<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
+]]></description></item><item><title>termux 基本使用教程</title><link>https://lruihao.cn/posts/termux1/</link><pubDate>Tue, 23 Oct 2018 22:16:02 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/termux1/</guid><description><![CDATA[<blockquote>
+<p>前面有一篇文章写到一些，<a href="https://lruihao.cn/posts/termux/"target="_blank" rel="external nofollow noopener noreferrer">在 Android 上搭建 hexo 博客<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>
+<strong>本文当初摘要自 <a href="https://www.sqlsec.com/2018/05/termux.html?yyue=a21bo.50862.201879"target="_blank" rel="external nofollow noopener noreferrer">国光个人博客<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></strong>
+如若作者博客 IP 被墙，可前往国光第三方博客诸如 csdn 等。<a href="https://www.freebuf.com/geek/170510.html"target="_blank" rel="external nofollow noopener noreferrer">备用<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
+</blockquote>
+<h3 id="初始化">初始化</h3>
+<p>下载并初始化 termux</p>
+<h4 id="安装-vim">安装 vim</h4>
+<p>安装编辑器 vim</p>
+<div class="highlight" id="id-1"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">pkg install vim</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="解决中文乱码问题">解决中文乱码问题</h4>
+<p>在 home 目录下，新建 <code>.vimrc</code> 文件</p>
+<div class="highlight" id="id-2"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">vim .vimrc</span></span></code></pre></td></tr></table>
+</div>
+</div><p>添加内容如下：</p>
+<div class="highlight" id="id-3"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">set fileencodings=utf-8,gb2312,gb18030,gbk,ucs-bom,cp936,latin1
+</span></span><span class="line"><span class="cl">set enc=utf8
+</span></span><span class="line"><span class="cl">set fencs=utf8,gbk,gb2312,gb18030</span></span></code></pre></td></tr></table>
+</div>
+</div><p>然后 source 下变量：</p>
+<div class="highlight" id="id-4"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">source .vimrc</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="修改启动问候语">修改启动问候语</h4>
+<div class="highlight" id="id-5"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">vim $PREFIX/etc/motd</span></span></code></pre></td></tr></table>
+</div>
+</div><p>按 i 然后编辑，比如</p>
+<div class="highlight" id="id-6"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">		www.lruihao.cn
+</span></span><span class="line"><span class="cl">		    李瑞豪</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Esc 然后：wq 退出</p>
+<h4 id="管理员权限">管理员权限</h4>
+<p>手机已经 root, 安装 tsu, 这是一个 su 的 termux 版本，用来在 termux 上替代 su:</p>
+<div class="highlight" id="id-7"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">pkg install tsu</span></span></code></pre></td></tr></table>
+</div>
+</div><p>然后终端下面输入：</p>
+<div class="highlight" id="id-8"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">tsu</span></span></code></pre></td></tr></table>
+</div>
+</div><p>即可切换 root 用户，这个时候会弹出 root 授权提示。在管理员身份下，输入 exit 可回到普通用户身份。</p>
+<h3 id="美化">美化</h3>
+<p><a href="https://github.com/Cabbagec/termux-ohmyzsh"target="_blank" rel="external nofollow noopener noreferrer">Termux-ohmyzsh<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
+<p>作用 ： 美化之外，主要使用了 zsh 来替代 bash 作为默认 shell。使用一键安装脚本来安装，一步到位，顺便启动了外置存储，可以直接访问 SD 卡下的目录，创建软文件夹。</p>
+<h4 id="使用">使用</h4>
+<div class="highlight" id="id-9"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">sh -c &#34;$(curl -fsSL https://github.com/Cabbagec/termux-ohmyzsh/raw/master/install.sh)&#34;</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="设置色彩样式">设置色彩样式：</h4>
+<p>运行 chcolor 更换色彩样式，或者：</p>
+<div class="highlight" id="id-10"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">~/.termux/colors.sh</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="设置字体">设置字体</h4>
+<p>运行 chfont 更换字体，或者：</p>
+<div class="highlight" id="id-11"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">~/.termux/fonts.sh</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="需要软件包">需要软件包：</h4>
+<ul>
+<li>curl</li>
+</ul>
+<h3 id="访问外置存储">访问外置存储</h3>
+<p>执行过上面的 zsh 一键配置脚本后，并且授予文件访问权限的话，会在家目录生成 storage 目录，并且生成若干目录，软连接都指向外置存储卡的相应目录<br>
+可以让从外置储存复制文件进 system 分区</p>
+<h4 id="创建-qq-文件夹软连接">创建 QQ 文件夹软连接</h4>
+<div class="highlight" id="id-12"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">ln -s /data/data/com.termux/files/home/storage/shared/tencent/QQfile_recv QQ</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="创建-blog2-文件夹软连接备份文件">创建 blog2 文件夹软连接备份文件</h4>
+<div class="highlight" id="id-13"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">ln -s /data/data/com.termux/files/home/storage/shared/blog2 blog2</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="安装-hexo">安装 hexo</h3>
+<h4 id="安装准备">安装准备</h4>
+<div class="highlight" id="id-14"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">pkg install nodejs
+</span></span><span class="line"><span class="cl">pkg install git
+</span></span><span class="line"><span class="cl">npm install hexo-cli -g
+</span></span><span class="line"><span class="cl">npm install hexo-deployer-git --save
+</span></span><span class="line"><span class="cl">pkg install openssh</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="初始化-hexo">初始化 hexo</h4>
+<div class="highlight" id="id-15"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">hexo init blog
+</span></span><span class="line"><span class="cl">cd blog
+</span></span><span class="line"><span class="cl">hexo g
+</span></span><span class="line"><span class="cl">hexo s</span></span></code></pre></td></tr></table>
+</div>
+</div><p>浏览器输入<code>127.0.0.1:4000</code>查看效果</p>
+<h4 id="链接-githubcodinggitee-等远程仓库">链接 github,coding,gitee 等远程仓库</h4>
+<div class="highlight" id="id-16"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">ssh-keygen -t rsa -C &#34;your_email@example.com&#34;
+</span></span><span class="line"><span class="cl">#这将按照你提供的邮箱地址，创建一对密钥（个人喜欢一路回车）</span></span></code></pre></td></tr></table>
+</div>
+</div><p>找到<code>~/.ssh/id_rsa.pub</code>这个文件复制里面的内容，到对应的平台生成 SSH 公钥</p>
+<h4 id="设置用户信息">设置用户信息</h4>
+<div class="highlight" id="id-17"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">git config --global user.name &#34;lruihao&#34;
+</span></span><span class="line"><span class="cl">git config --global user.email  &#34;1074627678@qq.com&#34;</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="测试链接">测试链接</h4>
+<div class="highlight" id="id-18"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">ssh -T git@github.com  #github
+</span></span><span class="line"><span class="cl">ssh -T git@coding.net   #coding
+</span></span><span class="line"><span class="cl">ssh -T git@gitee.com   #gitee</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>注意#注释部分不要的</strong></p>
+<h4 id="站点配置文件">站点配置文件</h4>
+<p>打开站点配置文件填写代码库</p>
+<p>例如我的</p>
+<div class="highlight" id="id-19"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">deploy:
+</span></span><span class="line"><span class="cl">- type: git
+</span></span><span class="line"><span class="cl">  repository:
+</span></span><span class="line"><span class="cl">    github: git@github.com:Lruihao/Lruihao.github.io.git,master
+</span></span><span class="line"><span class="cl">    coding: git@git.coding.net:liruihao/liruihao.git,master
+</span></span><span class="line"><span class="cl">  #message: &#34;日常更新&#34;</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="部署">部署</h4>
+<div class="highlight" id="id-20"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">hexo clean
+</span></span><span class="line"><span class="cl">hexo g -d</span></span></code></pre></td></tr></table>
+</div>
+</div><p>没出错就可以正常通过相应域名访问了。
+<a href="https://lruihao.github.io"target="_blank" rel="external nofollow noopener noreferrer">https://lruihao.github.io<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>
+<a href="https://liruihao.coding.me"target="_blank" rel="external nofollow noopener noreferrer">https://liruihao.coding.me<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>
+<a href="https://lruihao.gitee.io"target="_blank" rel="external nofollow noopener noreferrer">https://lruihao.gitee.io<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> <strong>//手机 hexo 效果展示</strong></p>
+<h3 id="ssh-连接电脑或者服务器">ssh 连接电脑或者服务器</h3>
+<div class="highlight" id="id-21"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">ssh root@118.24.217.167</span></span></code></pre></td></tr></table>
+</div>
+</div><p>会提示输入密码，linux 下输入密码是看不到的，大家都知道，小心点别输入错误。<br>
+之后就可以手机操作服务器了。</p>
+<h3 id="解决-npm-安装报错未验证">解决 npm 安装报错（未验证）</h3>
+<div class="highlight" id="id-22"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">vim $PREFIX/lib/node_modules/npm/node_modules/worker-farm/lib/farm.js</span></span></code></pre></td></tr></table>
+</div>
+</div><p>把里面的 length 改成 4，我默认的是 1。</p>
+<h3 id="nyancat-彩虹猫">nyancat 彩虹猫</h3>
+<p>彩虹貓（英语：Nyan Cat）是在 2011 年 4 月上传在 Youtube 的视频，并且迅速爆红于网络，並在 2011 年 YouTube 浏览量最高的视频中排名第五。</p>
+<div class="highlight" id="id-23"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">pkg install nyancat
+</span></span><span class="line"><span class="cl">nyancat</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>还有更多姿势这里就不写了，只写一下日常用到的，就这样 OK 睡觉！</p>
+</blockquote>
+<h3 id="termux-更多常用有趣命令适用于-linux">termux 更多常用有趣命令（适用于 linux）</h3>
+<div class="highlight" id="id-24"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">vim $PREFIX/etc/motd
+</span></span><span class="line"><span class="cl">chcolor
+</span></span><span class="line"><span class="cl">chfont
+</span></span><span class="line"><span class="cl">~/.termux/colors.sh
+</span></span><span class="line"><span class="cl">~/.termux/fonts.sh
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">echo &#34;https://www.lruihao.cn&#34; |curl -F-=\&lt;- qrenco.de
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">pkg install nyancat
+</span></span><span class="line"><span class="cl">nyancat
+</span></span><span class="line"><span class="cl">pkg install sl
+</span></span><span class="line"><span class="cl">sl
+</span></span><span class="line"><span class="cl">pkg install figlet
+</span></span><span class="line"><span class="cl">figlet hello
+</span></span><span class="line"><span class="cl">pkg install toilet
+</span></span><span class="line"><span class="cl">toilet hello
+</span></span><span class="line"><span class="cl">toilet -f mono12 -F gay &#34;hello&#34;
+</span></span><span class="line"><span class="cl">pkg cowsay
+</span></span><span class="line"><span class="cl">cowsay &#34;hello&#34;
+</span></span><span class="line"><span class="cl">pkg install cmatrix
+</span></span><span class="line"><span class="cl">cmatrix
+</span></span><span class="line"><span class="cl">pkg install w3m
+</span></span><span class="line"><span class="cl">w3m www.lruihao.cn</span></span></code></pre></td></tr></table>
+</div>
+</div><pre><code>cmatrix 常用命令如下：
+cmatrix-a : 异步滚动（默认）
+cmatrix-b : 随机粗体
+cmatrix-B : 全部粗体
+cmatrix-o : 使用旧风格滚动
+cmatrix-x :X window 模式
+cmatrix-V : 显示版本信息
+cmatrix-u : 刷新频率，0-9，也就是滚动的快慢
+cmatrix-C : 显示的颜色，支持 green（默认）,red,blue,white,yellow,cyan,
+        magenta and black
+例如：使用红色
+cmatrix -b -C red
+使用蓝色
+cmatrix -b -C blue
+等等 ........
+主义：在运行状态下，使用 0-9 数字，可以改变运行速度快慢。
+</code></pre>
+<p>开启你的装逼之路把，骚年！</p>
+]]></description></item><item><title>ttf 字体压缩</title><link>https://lruihao.cn/posts/web-font/</link><pubDate>Wed, 17 Oct 2018 21:38:06 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/web-font/</guid><description><![CDATA[<h3 id="安装-nodejs">安装 nodeJs</h3>
+<p>这个不多说，都有。</p>
+<h3 id="安装字蛛">安装字蛛</h3>
+<p>输入命令</p>
+<div class="highlight" id="id-1"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">npm install font-spider -g</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="运行">运行</h3>
+<p>安装成功之后就开始压缩了
+</p>
+<p>我的 css</p>
+<div class="highlight" id="id-2"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-css" data-lang="css"><span class="line"><span class="cl"><span class="o">&lt;</span><span class="nt">style</span> <span class="nt">type</span><span class="o">=</span><span class="s2">&#34;text/css&#34;</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">@</span><span class="k">font-face</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">font-family</span><span class="o">:</span> <span class="nt">MMT</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">src</span><span class="o">:</span> <span class="nt">url</span><span class="o">(</span><span class="s2">&#34;font/MMT_579767_SOAJ0_0.ttf&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">&lt;/</span><span class="nt">style</span><span class="o">&gt;</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>生成新的字体库，命令行输入</p>
+<div class="highlight" id="id-3"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">font-spider C:\Users\李瑞豪、Desktop\love\index.html</span></span></code></pre></td></tr></table>
+</div>
+</div><p></p>
+<p><a href="http://font-spider.org"target="_blank" rel="external nofollow noopener noreferrer">官网<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
+]]></description></item><item><title>在 Android 上搭建 hexo 博客</title><link>https://lruihao.cn/posts/termux/</link><pubDate>Sat, 11 Aug 2018 16:59:05 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/termux/</guid><description><![CDATA[<blockquote>
+<p>暑假刚开始的时候放假回家没带电脑，只能玩手机，想折腾一下博客都没有条件，在一个发现一个 app, 卧槽 😱，termux 真的强大！（初始化需要科学上网）安卓手机上的 linux 简直了，在手机就可以搭了一个 hexo 博客，只要在 github 上实现分支管理就可以多终端同步更新了。恕我学疏才浅，还只想到这些！一开始想回校后，折腾一下 hexo-admin 实现类似动态博客一样的多终端管理（手动滑稽），现在发现 termux 这样子的操作也不错嘛，挺装哔 hhhhhh**<a href="https://lruihao.gitee.io"target="_blank" rel="external nofollow noopener noreferrer">部署后的效果<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>**</p>
+</blockquote>
+<h2 id="准备">准备</h2>
+<ul>
+<li>Termux</li>
+<li>文件管理器（RE,MT 文件管理器等高级一点的）</li>
+</ul>
+<h2 id="开始">开始</h2>
+<p>打开 Termux，输入$<code>pkg install nodejs</code>安装 Nodejs，在输入<code>pkg install git</code>安装 Git。<br>
+过程会出现一个提示，输入 y 回车确认即可。<br>
+按照 Hexo 官网提示安装 Hexo。</p>
+<div class="highlight" id="id-1"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">npm install hexo-cli -g
+</span></span><span class="line"><span class="cl">hexo init blog
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> blog</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>注意 ssh 配置先安装：</strong><code>pkg install openssh</code><br>
+然后按照基本操作配置 Hexo，GitHub 或者 gitee,coding 等连上，部署测试一次。<br>
+安装部署插件<code>npm install hexo-deployer-git --save</code>，部署<code>hexo d -g</code><br>
+没有问题的话进行下一步。</p>
+<h2 id="编辑">编辑</h2>
+<p>写文章的话创建 md 文件命令和电脑上一样，文件管理器打开<code>/data/data/com.termux/files/home/i/source/_posts/</code> 编辑文章 md 文件。这种方式需要 Root。<br>
+没有 Root 的话可以使用 Vim，网上很多教程。但是这种方式相对来说更麻烦。</p>
+<h2 id="参考">参考</h2>
+<ul>
+<li><a href="https://www.sqlsec.com/2018/05/termux.html?yyue=a21bo.50862.201879"target="_blank" rel="external nofollow noopener noreferrer">termux 高级终端安装使用配置教程<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+<li><a href="https://www.oyohyee.com/post/Note/Termux"target="_blank" rel="external nofollow noopener noreferrer">使用 Termux 在手机上运行 linux 黑科技<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+<li><a href="https://lruihao.cn/hexo%20&#43;%20github%20%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2.html"target="_blank" rel="external nofollow noopener noreferrer">hexo 搭建过程<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+<li><a href="https://my.oschina.net/ryaneLee/blog/638440"target="_blank" rel="external nofollow noopener noreferrer">超详细教程<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+</ul>
+<h2 id="效果图未连接-githubcoding-等">效果图（未连接 github，coding 等）</h2>
+<p><a href="https://wx1.sinaimg.cn/mw690/006vSs63gy1ft2a0jo3hmj30u01hcguh.jpg"target="_blank" rel="external nofollow noopener noreferrer">效果图 1<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a><br>
+<a href="https://wx4.sinaimg.cn/mw690/006vSs63gy1ft2a0kmm5xj30u01hcn2a.jpg"target="_blank" rel="external nofollow noopener noreferrer">效果图 2<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>
+<a href="https://wx3.sinaimg.cn/mw690/006vSs63gy1ft2a0lqt61j30u01hctla.jpg"target="_blank" rel="external nofollow noopener noreferrer">效果图 3<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a><br>
+<a href="https://wx2.sinaimg.cn/mw690/006vSs63gy1ft2a0mgkm6j30u01hc78l.jpg"target="_blank" rel="external nofollow noopener noreferrer">效果图 4<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>]]></description></item><item><title>hexo+github 搭建个人博客及美化</title><link>https://lruihao.cn/posts/hexobuild/</link><pubDate>Fri, 01 Jun 2018 14:34:23 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/hexobuild/</guid><description><![CDATA[<p><strong><a href="/categories/hexo/">更多关于 hexo</a></strong></p>
+<h2 id="首先">首先</h2>
+<p><a href="https://hexo.io/zh-cn/docs/index.html"target="_blank" rel="external nofollow noopener noreferrer">官方文档<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 是我们的第一手资料，也是最好的。
+安装 Hexo 相当简单。然而在安装前，您必须检查电脑中是否已安装下列应用程序：</p>
+<ul>
+<li><a href="https://nodejs.org/en/"target="_blank" rel="external nofollow noopener noreferrer">Node.js<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+<li><a href="https://git-scm.com/"target="_blank" rel="external nofollow noopener noreferrer">Git<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+</ul>
+<h2 id="hexo-安装">hexo 安装</h2>
+<p>如果您的电脑中已经安装上述必备程序，那么恭喜您！接下来只需要使用 npm 即可完成 Hexo 的安装。</p>
+<div class="highlight" id="id-1"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">npm install -g hexo-cli</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="建站">建站</h2>
+<p>安装 Hexo 完成后，请执行下列命令，Hexo 将会在指定文件夹中新建所需要的文件。</p>
+<div class="highlight" id="id-2"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">hexo init &lt;folder&gt;
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> &lt;folder&gt;
+</span></span><span class="line"><span class="cl">npm install</span></span></code></pre></td></tr></table>
+</div>
+</div><p><folder>为一个文件夹的名字
+新建完成后，指定文件夹的目录如下：</p>
+<div class="highlight" id="id-3"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">.
+</span></span><span class="line"><span class="cl">├── _config.yml
+</span></span><span class="line"><span class="cl">├── package.json
+</span></span><span class="line"><span class="cl">├── scaffolds
+</span></span><span class="line"><span class="cl">├── source
+</span></span><span class="line"><span class="cl">|   ├── _drafts
+</span></span><span class="line"><span class="cl">|   └── _posts
+</span></span><span class="line"><span class="cl">└── themes</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="安装-hexo-插件">安装 hexo 插件</h2>
+<p>全装上吧，没事。</p>
+<div class="highlight" id="id-4"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">npm install hexo-generator-index --save
+</span></span><span class="line"><span class="cl">npm install hexo-generator-archive --save
+</span></span><span class="line"><span class="cl">npm install hexo-generator-category --save
+</span></span><span class="line"><span class="cl">npm install hexo-generator-tag --save
+</span></span><span class="line"><span class="cl">npm install hexo-server --save
+</span></span><span class="line"><span class="cl">npm install hexo-deployer-git --save
+</span></span><span class="line"><span class="cl">npm install hexo-deployer-heroku --save
+</span></span><span class="line"><span class="cl">npm install hexo-deployer-rsync --save
+</span></span><span class="line"><span class="cl">npm install hexo-deployer-openshift --save
+</span></span><span class="line"><span class="cl">npm install hexo-renderer-marked@0.2 --save
+</span></span><span class="line"><span class="cl">npm install hexo-renderer-stylus@0.2 --save
+</span></span><span class="line"><span class="cl">npm install hexo-generator-feed@1 --save
+</span></span><span class="line"><span class="cl">npm install hexo-generator-sitemap@1 --save</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="本地查看效果">本地查看效果</h2>
+<p>执行下面语句，执行完再登录 localhost:4000 查看效果（执行完不要按 Ctrl+C，不然就停止了）</p>
+<div class="highlight" id="id-5"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">hexo g
+</span></span><span class="line"><span class="cl">hexo s</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>其他步骤在这里不赘述，参见 <a href="https://my.oschina.net/ryaneLee/blog/638440"target="_blank" rel="external nofollow noopener noreferrer">超详细教程<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></strong>
+<strong><a href="https://lruihao.cn/posts/termux/"target="_blank" rel="external nofollow noopener noreferrer">安卓上搭建 hexo 博客<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></strong></p>
+<h2 id="部署">部署</h2>
+<div class="highlight" id="id-6"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">hexo g -d</span></span></code></pre></td></tr></table>
+</div>
+</div><p>部署后我们可以浏览器搜 username.github.io 查看自己的博客效果，比如我的 <a href="https://lruihao.github.io/"target="_blank" rel="external nofollow noopener noreferrer">lruihao.github.io<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
+<h2 id="美化">美化</h2>
+<p><strong>这些美化都写的很详细，我建议你们自己好好看看吧，我也是在这里看到的，如果问我和这里说的是一样的。</strong></p>
+<ul>
+<li><a href="/categories/hexo/">hexo 个性化教程</a></li>
+<li><a href="http://www.zhaojun.im"target="_blank" rel="external nofollow noopener noreferrer">valine 特别鸣谢赵俊 👍<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+<li><a href="https://asdfv1929.github.io/tags/Hexo/"target="_blank" rel="external nofollow noopener noreferrer">asdfv1929<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+<li><a href="https://hexo.io/themes/"target="_blank" rel="external nofollow noopener noreferrer">hexo 官方主题集合<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>，<del>我用的是 aloha 主题</del>，该主题 <a href="https://github.com/henryhuang/hexo-theme-aloha/wiki/zh_CN"target="_blank" rel="external nofollow noopener noreferrer">官方文档<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>，<strong>后改用 next 主题 <a href="https://theme-next.iissnan.com/"target="_blank" rel="external nofollow noopener noreferrer">next 主题<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></strong></li>
+<li><a href="https://hexo.io/plugins"target="_blank" rel="external nofollow noopener noreferrer">hexo 官方插件<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>
+<del>说说我的主题遇到的一些问题，由于这个主题用的人少，所以作者优化的不是很好（next 使用最多），当然也可以反过来说，所以自己美化了一点</del></li>
+</ul>
+<h3 id="博文置顶">博文置顶</h3>
+<p>修改 <code>hero-generator-index</code> 插件，把文件：<code>node_modules/hexo-generator-index/lib/generator.js</code> 内的代码替换为：</p>
+<div class="highlight" id="id-7"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="err">&#39;</span><span class="n">use</span> <span class="n">strict</span><span class="err">&#39;</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">var</span> <span class="n">pagination</span> <span class="o">=</span> <span class="n">require</span><span class="o">(</span><span class="err">&#39;</span><span class="n">hexo</span><span class="o">-</span><span class="n">pagination</span><span class="err">&#39;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">module</span><span class="o">.</span><span class="na">exports</span> <span class="o">=</span> <span class="n">function</span><span class="o">(</span><span class="n">locals</span><span class="o">){</span>
+</span></span><span class="line"><span class="cl">  <span class="n">var</span> <span class="n">config</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="na">config</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">var</span> <span class="n">posts</span> <span class="o">=</span> <span class="n">locals</span><span class="o">.</span><span class="na">posts</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">posts</span><span class="o">.</span><span class="na">data</span> <span class="o">=</span> <span class="n">posts</span><span class="o">.</span><span class="na">data</span><span class="o">.</span><span class="na">sort</span><span class="o">(</span><span class="n">function</span><span class="o">(</span><span class="n">a</span><span class="o">,</span> <span class="n">b</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="o">(</span><span class="n">a</span><span class="o">.</span><span class="na">top</span> <span class="o">&amp;&amp;</span> <span class="n">b</span><span class="o">.</span><span class="na">top</span><span class="o">)</span> <span class="o">{</span> <span class="c1">// 两篇文章 top 都有定义
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="k">if</span><span class="o">(</span><span class="n">a</span><span class="o">.</span><span class="na">top</span> <span class="o">==</span> <span class="n">b</span><span class="o">.</span><span class="na">top</span><span class="o">)</span> <span class="k">return</span> <span class="n">b</span><span class="o">.</span><span class="na">date</span> <span class="o">-</span> <span class="n">a</span><span class="o">.</span><span class="na">date</span><span class="o">;</span> <span class="c1">// 若 top 值一样则按照文章日期降序排
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="k">else</span> <span class="k">return</span> <span class="n">b</span><span class="o">.</span><span class="na">top</span> <span class="o">-</span> <span class="n">a</span><span class="o">.</span><span class="na">top</span><span class="o">;</span> <span class="c1">// 否则按照 top 值降序排
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">else</span> <span class="k">if</span><span class="o">(</span><span class="n">a</span><span class="o">.</span><span class="na">top</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">b</span><span class="o">.</span><span class="na">top</span><span class="o">)</span> <span class="o">{</span> <span class="c1">// 以下是只有一篇文章 top 有定义，那么将有 top 的排在前面（这里用异或操作居然不行 233）
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">else</span> <span class="k">if</span><span class="o">(!</span><span class="n">a</span><span class="o">.</span><span class="na">top</span> <span class="o">&amp;&amp;</span> <span class="n">b</span><span class="o">.</span><span class="na">top</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="mi">1</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">else</span> <span class="k">return</span> <span class="n">b</span><span class="o">.</span><span class="na">date</span> <span class="o">-</span> <span class="n">a</span><span class="o">.</span><span class="na">date</span><span class="o">;</span> <span class="c1">// 都没定义按照文章日期降序排
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="o">});</span>
+</span></span><span class="line"><span class="cl">  <span class="n">var</span> <span class="n">paginationDir</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="na">pagination_dir</span> <span class="o">||</span> <span class="err">&#39;</span><span class="n">page</span><span class="err">&#39;</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="n">pagination</span><span class="o">(</span><span class="err">&#39;&#39;</span><span class="o">,</span> <span class="n">posts</span><span class="o">,</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">perPage</span><span class="o">:</span> <span class="n">config</span><span class="o">.</span><span class="na">index_generator</span><span class="o">.</span><span class="na">per_page</span><span class="o">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">layout</span><span class="o">:</span> <span class="o">[</span><span class="err">&#39;</span><span class="n">index</span><span class="err">&#39;</span><span class="o">,</span> <span class="err">&#39;</span><span class="n">archive</span><span class="err">&#39;</span><span class="o">],</span>
+</span></span><span class="line"><span class="cl">    <span class="n">format</span><span class="o">:</span> <span class="n">paginationDir</span> <span class="o">+</span> <span class="err">&#39;</span><span class="o">/%</span><span class="n">d</span><span class="o">/</span><span class="err">&#39;</span><span class="o">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">data</span><span class="o">:</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">      <span class="n">__index</span><span class="o">:</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">  <span class="o">});</span>
+</span></span><span class="line"><span class="cl"><span class="o">};</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="about-页面">about 页面</h3>
+<p>about 页面可以用 HTML 写，你想怎么写都行，我用的最简单的方法，直接<code>hexo n page &quot;about&quot;</code>后，会生成一个 md 文件，也就是后面说的文章，直接写文章就行了。</p>
+<h3 id="添加搜索评论分享">添加搜索，评论，分享</h3>
+<p>搜索功能真心好用，当文章多起来的时候，标签提供的作用已经很少了，只能简单索引，搜索却能精确查找，这里我用的依旧是最简单的本地站内搜索。
+安装<code>hexo-generator-searchdb</code></p>
+<p>在站点的根目录下执行以下命令：</p>
+<div class="highlight" id="id-8"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">npm install hexo-generator-searchdb --save</span></span></code></pre></td></tr></table>
+</div>
+</div><p>配置站点配置文件
+新增以下内容到任意位置：</p>
+<div class="highlight" id="id-9"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">search:
+</span></span><span class="line"><span class="cl">  path: search.xml
+</span></span><span class="line"><span class="cl">  field: post
+</span></span><span class="line"><span class="cl">  format: html
+</span></span><span class="line"><span class="cl">  limit: 10000</span></span></code></pre></td></tr></table>
+</div>
+</div><p>配置主题配置文件</p>
+<div class="highlight" id="id-10"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">## Local search
+</span></span><span class="line"><span class="cl">local_search:
+</span></span><span class="line"><span class="cl">  enable: true</span></span></code></pre></td></tr></table>
+</div>
+</div><p><a href="https://blog.naaln.com/2016/07/hexo-with-algolia/"target="_blank" rel="external nofollow noopener noreferrer">algolia 参考文件<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a><br>
+让搜索引擎找到你的博客，还是看到邱承佳学长博文有写到 <a href="https://blog.csdn.net/qq_26891045/article/details/51280470"target="_blank" rel="external nofollow noopener noreferrer">传送门<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
+<h3 id="添加访客数阅读量等">添加访客数，阅读量等</h3>
+<p>评论有多说（多说好像挂了），计数有不蒜，我用的不蒜子，还有其他的。</p>
+<h4 id="文章阅读量">文章阅读量</h4>
+<blockquote>
+<p>以下适合非 next 主题的部分主题，next 主题已经自带，到主题配置文件修改就好了。</p>
+</blockquote>
+<p>打开以下路径在你喜欢的地方添加代码，<code>\blog\hexo\themes\主题名字、layout\_partial</code>，找到 <code>article.ejs</code>文件</p>
+<div class="highlight" id="id-11"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">align</span><span class="o">=</span><span class="s">&#34;left&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">span</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;busuanzi_container_page_pv&#34;</span><span class="p">&gt;</span> 本文总阅读量<span class="p">&lt;</span><span class="nt">span</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;busuanzi_value_page_pv&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>次 <span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="站点访问量访客数">站点访问量，访客数</h4>
+<p>打开以下路径在你喜欢的地方添加代码，<code>\blog\hexo\themes\主题名字、layout\_partial</code>，找到 <code>footer.ejs</code>文件</p>
+<div class="highlight" id="id-12"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js&#34;</span> <span class="na">async</span> <span class="na">defer</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">span</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;busuanzi_container_page_pv&#34;</span><span class="p">&gt;</span> 本站总访问量<span class="p">&lt;</span><span class="nt">span</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;busuanzi_value_site_pv&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>次 | <span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">span</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;busuanzi_container_site_uv&#34;</span><span class="p">&gt;</span> 本站访客数<span class="p">&lt;</span><span class="nt">span</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;busuanzi_value_site_uv&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>人次 <span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>2018.10.08 更新
+不蒜子官网说七牛强制过期域名<del>dn-lbstatics.qbox.me</del>, 所以 js 文件位置发生改变，改为<code>busuanzi.ibruce.info</code></strong></p>
+<h2 id="写文章">写文章</h2>
+<p>hexo 文章用轻量型标签语言 Markdown 编写</p>
+<ul>
+<li><a href="https://sspai.com/post/25137"target="_blank" rel="external nofollow noopener noreferrer">markdown 入门<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+<li><a href="https://markdown.tw/"target="_blank" rel="external nofollow noopener noreferrer">繁体原始文件<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+<li><a href="https://github.com/othree/markdown-syntax-zhtw/blob/master/syntax.md"target="_blank" rel="external nofollow noopener noreferrer">繁体原始文件 github<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+</ul>
+]]></description></item></channel></rss>
