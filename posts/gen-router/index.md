@@ -32,14 +32,13 @@ fs.readdir(vueDir, function (err, files) {
     let routeDescription = ''
     const contentFull = fs.readFileSync(`${vueDir}${filename}`, 'utf-8')
     // get route description from first line comment
-    const match = /<!--\s*(\S*)\s*-->/g.exec(contentFull.split(os.EOL)[0])
+    const match = /<!--\s*(.*)\s*-->/g.exec(contentFull.split(os.EOL)[0])
     if (match) {
-      routeDescription = match[1]
+      routeDescription = match[1].trim()
     }
     routes.push(`  {
     path: '/${name === 'home' ? '' : name}',
-    name: '${routeName}',
-    ${routeDescription ? `description: '${routeDescription}',` : ''}
+    name: '${routeName}',${routeDescription ? `\n    description: '${routeDescription}',` : ''}
     component: () => import(/* webpackChunkName: "${routeName}" */ '@/views/${filename}'),
   },`)
   }
@@ -92,7 +91,6 @@ const router = new VueRouter({
 })
 
 export default router
-
 ```
 
 ## 参考
