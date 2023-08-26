@@ -7,6 +7,8 @@
 
 ## 源码
 
+> Gist: <https://gist.github.com/Lruihao/d8f2984525dc9e78dd6a49e15f49cf38>
+
 ```js {title="gen-router.js"}
 const fs = require('fs')
 const os = require('os')
@@ -38,7 +40,7 @@ fs.readdir(vueDir, function (err, files) {
     }
     routes.push(`  {
     path: '/${name === 'home' ? '' : name}',
-    name: '${routeName}',${routeDescription ? `\n    description: '${routeDescription}',` : ''}
+    name: '${routeName}',${routeDescription ? `\n    meta: { description: '${routeDescription}' },` : ''}
     component: () => import(/* webpackChunkName: "${routeName}" */ '@/views/${filename}'),
   },`)
   }
@@ -80,7 +82,7 @@ const routes = [
   {
     path: '/',
     name: 'home',
-    description: 'Home',
+    meta: { description: 'Home' },
     component: () => import(/* webpackChunkName: "home" */ '@/views/home.vue'),
   },
 ]

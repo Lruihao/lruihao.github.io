@@ -1,4 +1,206 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Memo - 分类 - 菠菜眾長</title><link>https://lruihao.cn/categories/memo/</link><description>Memo - 分类 - 菠菜眾長</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><lastBuildDate>Fri, 29 Jul 2022 20:22:44 +0800</lastBuildDate><atom:link href="https://lruihao.cn/categories/memo/" rel="self" type="application/rss+xml"/><item><title>Mac 上的开发配置总结</title><link>https://lruihao.cn/posts/config4mac/</link><pubDate>Fri, 29 Jul 2022 20:22:44 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/config4mac/</guid><description><![CDATA[<p>记录一下使用 Mac 作为生产工具开发的一些基本配置和经验。</p>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Memo - 分类 - 菠菜眾長</title><link>https://lruihao.cn/categories/memo/</link><description>Memo - 分类 - 菠菜眾長</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><lastBuildDate>Sat, 26 Aug 2023 17:22:57 +0800</lastBuildDate><atom:link href="https://lruihao.cn/categories/memo/" rel="self" type="application/rss+xml"/><item><title>将 Hugo 博客部署到亚马逊云服务器</title><link>https://lruihao.cn/posts/aws-ec2/</link><pubDate>Sat, 26 Aug 2023 17:22:57 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/aws-ec2/</guid><description><![CDATA[<p>本文将介绍如果将 Hugo 博客打包并部署到亚马逊云服务器上，并附上亚马逊云服务器的配置过程。</p>
+<h2 id="注册亚马逊云账户">注册亚马逊云账户</h2>
+<p>打开 <a href="https://aws.amazon.com/cn/free/?sc_channel=seo&amp;sc_campaign=blog0805"target="_blank" rel="external nofollow noopener noreferrer">亚马逊账号注册地址<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>，点击右上角创建 AWS 账户。</p>
+<p></p>
+<ol>
+<li>填写邮件地址和账号名称（支持使用国内的邮箱）
+</li>
+<li>验证邮件
+</li>
+<li>输入密码
+</li>
+<li>联系人信息
+</li>
+<li>付款信息（Visa）
+</li>
+<li>验证手机号（支持中国地区国内手机号）
+</li>
+<li>选择支持计划
+</li>
+<li>完成注册
+</li>
+<li>登录亚马逊云控制台，<a href="https://console.aws.amazon.com/console/home"target="_blank" rel="external nofollow noopener noreferrer">登录地址<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>，选择根用户输入电子邮件地址，点击下一步会让输入密码，输入密码后就可以完成登录了。</li>
+</ol>
+<h2 id="创建-ec2-服务实例">创建 EC2 服务实例</h2>
+<p>点击链接查看 <a href="https://aws.amazon.com/cn/free/?sc_channel=seo&amp;sc_campaign=blog0805"target="_blank" rel="external nofollow noopener noreferrer">亚马逊免费套餐<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>，找到云服务器 EC2，点击立即开始 12 个月免费使用。</p>
+<p></p>
+<p>进行 EC2 服务器主页后，点击页面<strong>创建实例</strong>按钮。</p>
+<p></p>
+<p>然后按照页面提示要求，依次填写或选择：</p>
+<ol>
+<li>实例的名称：随便填</li>
+<li>应用程序和操作系统映像 (Amazon Machine Image)：Amazon Linux 和 Amazon Linux 2023 AMI 免费套餐</li>
+<li>实例类型：选择免费套餐</li>
+<li>密钥对（登录）：这里要点击创建密钥对，输入密钥对名称，选择 RSA 点击创建密钥对会下载文件到本地，要妥善保存，登录时会用到</li>
+<li>网络设置：安全组把允许来自于 http 和 https 得都勾选上</li>
+<li>配置存储：默认是 8G，但免费的最多可以 30G，可以手动改成 30G</li>
+<li>然后点击右侧侧边栏启动实例，等待片刻实例就创建好了</li>
+</ol>
+<h2 id="连接实例">连接实例</h2>
+<p></p>
+<p>点击上面的实例 ID 进入实例的详情，再点击右上角的连接按钮。</p>
+<p></p>
+<p>连接成功后，页面会新打开一个窗口，这个窗口就是我们服务器的终端，可以在这里对服务器进行操作服务器。</p>
+<p></p>
+<h2 id="创建-root-用户角色">创建 root 用户角色</h2>
+<p>在终端中输入以下命令，创建 root 用户角色。</p>
+<div class="highlight" id="id-1"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 切换到 root 用户</span>
+</span></span><span class="line"><span class="cl">sudo -i
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 修改 sshd 配置文件</span>
+</span></span><span class="line"><span class="cl">vi /etc/ssh/sshd_config</span></span></code></pre></td></tr></table>
+</div>
+</div><p>修改如下两项</p>
+<div class="highlight" id="id-2"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">PermitRootLogin yes
+</span></span><span class="line"><span class="cl">PasswordAuthentication yes</span></span></code></pre></td></tr></table>
+</div>
+</div><p>设置 root 用户密码</p>
+<div class="highlight" id="id-3"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">passwd</span></span></code></pre></td></tr></table>
+</div>
+</div><p>会让输入两次密码，输入完成，重启一下 ssh 服务：</p>
+<div class="highlight" id="id-4"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">service sshd restart</span></span></code></pre></td></tr></table>
+</div>
+</div><p>重启后在电脑命令行就可以通过 ssh 协议加上用户名称+密码连接远程服务器了。</p>
+<div class="highlight" id="id-5"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">ssh root@3.85.xxx.xxx</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>后续操作尽量用 root 用户进行。</p>
+</blockquote>
+<h2 id="安装-nginx">安装 nginx</h2>
+<div class="highlight" id="id-6"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 安装 nginx</span>
+</span></span><span class="line"><span class="cl">yum install nginx
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 查看版本</span>
+</span></span><span class="line"><span class="cl">nginx -v
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 查看安装的位置和配置文件路径</span>
+</span></span><span class="line"><span class="cl">nginx -t
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 启动 nginx</span>
+</span></span><span class="line"><span class="cl">nginx</span></span></code></pre></td></tr></table>
+</div>
+</div><p>nginx 启动后，可以在浏览器中输入服务器的公网 IP 地址，就可以看到 nginx 的欢迎页面了。</p>
+<p></p>
+<h2 id="部署-hugo-博客">部署 Hugo 博客</h2>
+<p>Hugo 博客打包</p>
+<div class="highlight" id="id-7"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">hugo -v --gc --minify</span></span></code></pre></td></tr></table>
+</div>
+</div><p>将打包好的 <code>public</code> 文件夹上传到服务器的 <code>/root/hugo</code> 目录下，输入以下命令，等待上传完成。</p>
+<div class="highlight" id="id-8"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># ssh 断开连接</span>
+</span></span><span class="line"><span class="cl"><span class="nb">exit</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 上传文件（需要输入 root 用户密码）</span>
+</span></span><span class="line"><span class="cl">scp -r /path/to/public root@3.85.xxx.xxx:/root/hugo</span></span></code></pre></td></tr></table>
+</div>
+</div><p>创建 nginx 网站配置文件</p>
+<div class="highlight" id="id-9"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">vim /etc/nginx/hugo.conf</span></span></code></pre></td></tr></table>
+</div>
+</div><p>输入以下内容</p>
+<div class="highlight" id="id-10"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">server {
+</span></span><span class="line"><span class="cl">    listen       80;
+</span></span><span class="line"><span class="cl">    server_name  localhost;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    location / {
+</span></span><span class="line"><span class="cl">        root   /root/hugo/public;
+</span></span><span class="line"><span class="cl">        index  index.html index.htm;
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">}</span></span></code></pre></td></tr></table>
+</div>
+</div><p>重启 nginx</p>
+<div class="highlight" id="id-11"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">nginx -s reload</span></span></code></pre></td></tr></table>
+</div>
+</div><p>在浏览器中输入服务器的公网 IP 地址，就可以看到 Hugo 博客了。</p>
+<p></p>
+<h2 id="注意事项">注意事项</h2>
+<blockquote>
+<p>亚马逊的服务器每个月免费时长时 <strong>750</strong> 小时，一个月 31 天 x 24 = 744 小时，正常使用是不会超出免费的份额的，但切记不要同时开两个服务器实例，使用时长会累加，不注意可能会超出套餐额度。</p>
+<p>到期后，如果不想继续使用，一定要记得删除实例，不然会一直扣费的。在控制台选中实例，点击实例状态-&gt;终止实例。</p>
+</blockquote>
+<h2 id="总结">总结</h2>
+<p>有了一台海外服务器，我们还可以做很多事情，比如部署 chatgpt 等等，有了服务器一定要多去探索和学习，这么复杂的申请的流程，不要白白放着让过期了。</p>
+<p>保持探索欲，砥砺前行！</p>]]></description></item><item><title>Mac 上的开发配置总结</title><link>https://lruihao.cn/posts/config4mac/</link><pubDate>Fri, 29 Jul 2022 20:22:44 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/config4mac/</guid><description><![CDATA[<p>记录一下使用 Mac 作为生产工具开发的一些基本配置和经验。</p>
 <h2 id="配置文件">配置文件</h2>
 <p>Mac 上有很多配置文件都可以用来保存环境变量等配置，根据自己的理解记录了四个文件的用途：</p>
 <div class="highlight" id="id-1"><div class="chroma">
@@ -4237,14 +4439,14 @@ Ctrl+F 查找 <code>localhost</code><br>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nl">codeblock:</span>
 </span></span><span class="line"><span class="cl">  <span class="err">##</span> <span class="n">Manual</span> <span class="n">define</span> <span class="n">the</span> <span class="n">border</span> <span class="n">radius</span> <span class="n">in</span> <span class="n">codeblock</span>
-</span></span><span class="line"><span class="cl">  <span class="err">##</span> <span class="n">Leave</span> <span class="n">it</span> <span class="n">empty</span> <span class="k">for</span> <span class="n">the</span> <span class="k">default</span> <span class="mi">1</span>
-</span></span><span class="line"><span class="cl">  <span class="n">border_radius</span><span class="o">:</span> <span class="mi">5</span>
+</span></span><span class="line"><span class="cl">  <span class="err">##</span> <span class="n">Leave</span> <span class="n">it</span> <span class="n">empty</span> <span class="k">for</span> <span class="n">the</span> <span class="k">default</span> <span class="n">1</span>
+</span></span><span class="line"><span class="cl">  <span class="n">border_radius</span><span class="o">:</span> <span class="n">5</span>
 </span></span><span class="line"><span class="cl">  <span class="err">##</span> <span class="n">Add</span> <span class="n">copy</span> <span class="n">button</span> <span class="n">on</span> <span class="n">codeblock</span>
 </span></span><span class="line"><span class="cl">  <span class="n">copy_button</span><span class="o">:</span>
 </span></span><span class="line"><span class="cl">    <span class="n">enable</span><span class="o">:</span> <span class="kc">true</span>
 </span></span><span class="line"><span class="cl">    <span class="err">##</span> <span class="n">Show</span> <span class="n">text</span> <span class="n">copy</span> <span class="n">result</span>
 </span></span><span class="line"><span class="cl">    <span class="n">show_result</span><span class="o">:</span> <span class="kc">true</span>
-</span></span><span class="line"><span class="cl">    <span class="err">##</span> <span class="n">Style</span><span class="o">:</span> <span class="err">&#39;</span><span class="n">light</span><span class="o">,</span><span class="n">night</span><span class="o">,</span><span class="n">flat</span><span class="o">,</span><span class="mf">3d</span><span class="n">btn</span><span class="err">&#39;</span> <span class="n">is</span> <span class="n">currently</span> <span class="n">available</span><span class="o">,</span> <span class="n">leave</span> <span class="n">it</span> <span class="n">empty</span> <span class="n">or</span> <span class="n">light</span> <span class="n">is</span> <span class="k">default</span> <span class="n">theme</span>
+</span></span><span class="line"><span class="cl">    <span class="err">##</span> <span class="n">Style</span><span class="o">:</span> <span class="err">&#39;</span><span class="n">light</span><span class="o">,</span><span class="n">night</span><span class="o">,</span><span class="n">flat</span><span class="o">,</span><span class="n">3dbtn</span><span class="err">&#39;</span> <span class="n">is</span> <span class="n">currently</span> <span class="n">available</span><span class="o">,</span> <span class="n">leave</span> <span class="n">it</span> <span class="n">empty</span> <span class="n">or</span> <span class="n">light</span> <span class="n">is</span> <span class="k">default</span> <span class="n">theme</span>
 </span></span><span class="line"><span class="cl">    <span class="n">style</span><span class="o">:</span> <span class="n">night</span></span></span></code></pre></td></tr></table>
 </div>
 </div>]]></description></item><item><title>web 汇总</title><link>https://lruihao.cn/posts/webbiji/</link><pubDate>Mon, 18 Mar 2019 20:40:55 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/webbiji/</guid><description><![CDATA[<blockquote>
@@ -4568,21 +4770,21 @@ Ctrl+F 查找 <code>localhost</code><br>
 </span><span class="lnt">16
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nl">A:</span> <span class="err">程序的编译和运行的环境配置（如果你的</span> <span class="n">Eclipse</span> <span class="err">启动没有问题，就不要配置了）</span>
-</span></span><span class="line"><span class="cl"><span class="nl">B:</span> <span class="err">去掉默认注释（可以不用改）</span>
-</span></span><span class="line"><span class="cl"><span class="nl">C:</span> <span class="err">行号的显示和隐藏</span>
-</span></span><span class="line"><span class="cl">	<span class="err">显示：在代码区域的最左边的空白区域，右键</span> <span class="o">--</span> <span class="n">Show</span> <span class="n">Line</span> <span class="n">Numbers</span> <span class="err">即可。</span>
-</span></span><span class="line"><span class="cl">	<span class="err">隐藏：把上面的动作再做一次。</span>
-</span></span><span class="line"><span class="cl"><span class="nl">D:</span> <span class="err">字体大小及颜色</span>
-</span></span><span class="line"><span class="cl">	<span class="n">a</span><span class="o">:</span><span class="n">Java</span> <span class="err">代码区域的字体大小和颜色：</span>
-</span></span><span class="line"><span class="cl">		<span class="n">window</span> <span class="o">--</span> <span class="n">Preferences</span> <span class="o">--</span> <span class="n">General</span> <span class="o">--</span> <span class="n">Appearance</span> <span class="o">--</span> <span class="n">Colors</span> <span class="n">And</span> <span class="n">Fonts</span> <span class="o">--</span> <span class="n">Java</span> <span class="err">修改</span> <span class="o">--</span> <span class="n">Java</span> <span class="n">Edit</span> <span class="n">Text</span> <span class="n">Font</span>
-</span></span><span class="line"><span class="cl">	<span class="n">b</span><span class="o">:</span> <span class="err">控制台</span>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nl">A:</span> <span class="n">程序的编译和运行的环境配置</span><span class="err">（</span><span class="n">如果你的</span> <span class="n">Eclipse</span> <span class="n">启动没有问题</span><span class="err">，</span><span class="n">就不要配置了</span><span class="err">）</span>
+</span></span><span class="line"><span class="cl"><span class="nl">B:</span> <span class="n">去掉默认注释</span><span class="err">（</span><span class="n">可以不用改</span><span class="err">）</span>
+</span></span><span class="line"><span class="cl"><span class="nl">C:</span> <span class="n">行号的显示和隐藏</span>
+</span></span><span class="line"><span class="cl">	<span class="n">显示</span><span class="err">：</span><span class="n">在代码区域的最左边的空白区域</span><span class="err">，</span><span class="n">右键</span> <span class="o">--</span> <span class="n">Show</span> <span class="n">Line</span> <span class="n">Numbers</span> <span class="n">即可</span><span class="err">。</span>
+</span></span><span class="line"><span class="cl">	<span class="n">隐藏</span><span class="err">：</span><span class="n">把上面的动作再做一次</span><span class="err">。</span>
+</span></span><span class="line"><span class="cl"><span class="nl">D:</span> <span class="n">字体大小及颜色</span>
+</span></span><span class="line"><span class="cl">	<span class="n">a</span><span class="o">:</span><span class="n">Java</span> <span class="n">代码区域的字体大小和颜色</span><span class="err">：</span>
+</span></span><span class="line"><span class="cl">		<span class="n">window</span> <span class="o">--</span> <span class="n">Preferences</span> <span class="o">--</span> <span class="n">General</span> <span class="o">--</span> <span class="n">Appearance</span> <span class="o">--</span> <span class="n">Colors</span> <span class="n">And</span> <span class="n">Fonts</span> <span class="o">--</span> <span class="n">Java</span> <span class="n">修改</span> <span class="o">--</span> <span class="n">Java</span> <span class="n">Edit</span> <span class="n">Text</span> <span class="n">Font</span>
+</span></span><span class="line"><span class="cl">	<span class="n">b</span><span class="o">:</span> <span class="n">控制台</span>
 </span></span><span class="line"><span class="cl">		<span class="n">window</span> <span class="o">--</span> <span class="n">Preferences</span> <span class="o">--</span> <span class="n">General</span> <span class="o">--</span> <span class="n">Appearance</span> <span class="o">--</span> <span class="n">Colors</span> <span class="n">And</span> <span class="n">Fonts</span> <span class="o">--</span> <span class="n">Debug</span> <span class="o">--</span> <span class="n">Console</span> <span class="n">font</span>
-</span></span><span class="line"><span class="cl">	<span class="n">c</span><span class="o">:</span> <span class="err">其他文件</span>
+</span></span><span class="line"><span class="cl">	<span class="n">c</span><span class="o">:</span> <span class="n">其他文件</span>
 </span></span><span class="line"><span class="cl">		<span class="n">window</span> <span class="o">--</span> <span class="n">Preferences</span> <span class="o">--</span> <span class="n">General</span> <span class="o">--</span> <span class="n">Appearance</span> <span class="o">--</span> <span class="n">Colors</span> <span class="n">And</span> <span class="n">Fonts</span> <span class="o">--</span> <span class="n">Basic</span> <span class="o">--</span> <span class="n">Text</span> <span class="n">Font</span>
-</span></span><span class="line"><span class="cl"><span class="nl">E:</span> <span class="err">窗体给弄乱了，怎么办</span>
+</span></span><span class="line"><span class="cl"><span class="nl">E:</span> <span class="n">窗体给弄乱了</span><span class="err">，</span><span class="n">怎么办</span>
 </span></span><span class="line"><span class="cl">	<span class="n">window</span> <span class="o">--</span> <span class="n">Reset</span> <span class="n">Perspective</span>
-</span></span><span class="line"><span class="cl"><span class="nl">F:</span> <span class="err">控制台找不到了</span>
+</span></span><span class="line"><span class="cl"><span class="nl">F:</span> <span class="n">控制台找不到了</span>
 </span></span><span class="line"><span class="cl">	<span class="n">Window</span><span class="o">--</span><span class="n">Show</span> <span class="n">View</span><span class="err">—</span><span class="n">Console</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="快捷键的使用">快捷键的使用</h2>
@@ -4600,16 +4802,16 @@ Ctrl+F 查找 <code>localhost</code><br>
 </span><span class="lnt">10
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nl">A:</span> <span class="err">内容辅助键</span>
-</span></span><span class="line"><span class="cl">	<span class="n">Alt</span><span class="o">+/</span> <span class="err">起提示作用</span>
-</span></span><span class="line"><span class="cl">	<span class="n">main</span><span class="o">+</span><span class="n">alt</span><span class="o">+/,</span><span class="n">syso</span><span class="o">+</span><span class="n">alt</span><span class="o">+/,</span> <span class="err">给出其他提示</span>
-</span></span><span class="line"><span class="cl"><span class="nl">B:</span> <span class="err">快捷键</span>
-</span></span><span class="line"><span class="cl">	<span class="err">格式化</span>  <span class="n">ctrl</span><span class="o">+</span><span class="n">shift</span><span class="o">+</span><span class="n">f</span>
-</span></span><span class="line"><span class="cl">	<span class="err">导入包</span>  <span class="n">ctrl</span><span class="o">+</span><span class="n">shift</span><span class="o">+</span><span class="n">o</span>
-</span></span><span class="line"><span class="cl">	<span class="err">注释</span>	<span class="n">ctrl</span><span class="o">+/</span>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nl">A:</span> <span class="n">内容辅助键</span>
+</span></span><span class="line"><span class="cl">	<span class="n">Alt</span><span class="o">+/</span> <span class="n">起提示作用</span>
+</span></span><span class="line"><span class="cl">	<span class="n">main</span><span class="o">+</span><span class="n">alt</span><span class="o">+/,</span><span class="n">syso</span><span class="o">+</span><span class="n">alt</span><span class="o">+/,</span> <span class="n">给出其他提示</span>
+</span></span><span class="line"><span class="cl"><span class="nl">B:</span> <span class="n">快捷键</span>
+</span></span><span class="line"><span class="cl">	<span class="n">格式化</span>  <span class="n">ctrl</span><span class="o">+</span><span class="n">shift</span><span class="o">+</span><span class="n">f</span>
+</span></span><span class="line"><span class="cl">	<span class="n">导入包</span>  <span class="n">ctrl</span><span class="o">+</span><span class="n">shift</span><span class="o">+</span><span class="n">o</span>
+</span></span><span class="line"><span class="cl">	<span class="n">注释</span>	<span class="n">ctrl</span><span class="o">+/</span>
 </span></span><span class="line"><span class="cl">		<span class="n">ctrl</span><span class="o">+</span><span class="n">shift</span><span class="o">+/,</span><span class="n">ctrl</span><span class="o">+</span><span class="n">shift</span><span class="o">+</span><span class="err">\</span>
-</span></span><span class="line"><span class="cl">	<span class="err">代码上下移动</span> <span class="err">选中代码</span> <span class="n">alt</span><span class="o">+</span><span class="err">上</span><span class="o">/</span><span class="err">下箭头</span>
-</span></span><span class="line"><span class="cl">	<span class="err">查看源码</span>  <span class="err">选中类名</span> <span class="o">(</span><span class="n">F3</span> <span class="err">或者</span> <span class="n">Ctrl</span><span class="o">+</span><span class="err">鼠标点击）</span></span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl">	<span class="n">代码上下移动</span> <span class="n">选中代码</span> <span class="n">alt</span><span class="o">+</span><span class="n">上</span><span class="o">/</span><span class="n">下箭头</span>
+</span></span><span class="line"><span class="cl">	<span class="n">查看源码</span>  <span class="nf">选中类名</span> <span class="o">(</span><span class="n">F3</span> <span class="n">或者</span> <span class="n">Ctrl</span><span class="o">+</span><span class="n">鼠标点击</span><span class="err">）</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="eclipse-中如何提高开发效率">Eclipse 中如何提高开发效率</h2>
 <div class="highlight" id="id-4"><div class="chroma">
@@ -4621,294 +4823,10 @@ Ctrl+F 查找 <code>localhost</code><br>
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nl">A:</span> <span class="err">自动生成构造方法</span>
-</span></span><span class="line"><span class="cl">	<span class="n">a</span><span class="o">:</span> <span class="err">无参构造方法</span> <span class="err">在代码区域右键</span><span class="o">--</span><span class="n">source</span><span class="o">--</span><span class="n">Generate</span> <span class="n">Constructors</span> <span class="n">from</span> <span class="n">Superclass</span>
-</span></span><span class="line"><span class="cl">	<span class="n">b</span><span class="o">:</span> <span class="err">带参构造方法</span> <span class="err">在代码区域右键</span><span class="o">--</span><span class="n">source</span><span class="o">--</span><span class="n">Generate</span> <span class="n">Constructors</span> <span class="n">using</span> <span class="n">fields</span><span class="o">..</span> <span class="o">--</span> <span class="n">finish</span>
-</span></span><span class="line"><span class="cl"><span class="nl">B:</span> <span class="err">自动生成</span> <span class="n">get</span><span class="o">/</span><span class="n">set</span> <span class="err">方法</span>
-</span></span><span class="line"><span class="cl">	<span class="err">在代码区域右键</span><span class="o">--</span><span class="n">source</span><span class="o">--</span><span class="n">Generate</span> <span class="n">Getters</span> <span class="n">and</span> <span class="n">Setters</span><span class="o">...</span></span></span></code></pre></td></tr></table>
-</div>
-</div>]]></description></item><item><title>利用腾讯云对象存储 COS 桶托管 hexo 博客</title><link>https://lruihao.cn/posts/cos-hexo/</link><pubDate>Tue, 22 Jan 2019 14:57:08 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/cos-hexo/</guid><description><![CDATA[<blockquote>
-<p>本以为 coding pages 与腾讯云合作后会更好，没想到正是这种初期 bug 不断，速度也是非常慢。比 gitee, 甚至 github 都要慢很多了。所以决定放弃 coding 了，本想挂到云服务器上，但是这个云服务器只续费了半年，可能不会再续费，前几天看到用腾讯云的 cos 桶 xml 制作动态相册的文章，知道了对象存储这个玩意，腾讯云 COS 提供免费 50G 的存储空间，还有 CDN 加速服务，我觉得是个不错的选择，部署后发现速度还挺好。<br>
-适用于 hexo, hugo 等静态博客的部署。</p>
-</blockquote>
-<h2 id="创建存储桶">创建存储桶</h2>
-<p>打开腾讯云控制台&ndash;云产品&ndash;存储&ndash;对象存储，然后创建存储桶。<br>
-</p>
-<h2 id="开启静态网站设置">开启静态网站设置</h2>
-<p>在基础配置打开静态网站（关掉强制 https)<br>
-</p>
-<h2 id="绑定域名">绑定域名</h2>
-<p></p>
-<p>SSL 设置<br>
-</p>
-<h2 id="域名解析添加记录">域名解析，添加记录</h2>
-<p>去 dns 服务商添加域名解析记录 CNAME 指向上面的域名</p>
-<h2 id="hexo-设置">hexo 设置</h2>
-<ul>
-<li>安装插件</li>
-</ul>
-<div class="highlight" id="id-1"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">npm install hexo-deployer-cos --save</span></span></code></pre></td></tr></table>
-</div>
-</div><ul>
-<li>站点配置文件</li>
-</ul>
-<div class="highlight" id="id-2"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">deploy:
-</span></span><span class="line"><span class="cl">  type: cos
-</span></span><span class="line"><span class="cl">  bucket: yourBucketName #cos 桶名称
-</span></span><span class="line"><span class="cl">  appId: yourAppId #cos 桶名称后数字
-</span></span><span class="line"><span class="cl">  secretId: yourSecretId  #云 API 密钥
-</span></span><span class="line"><span class="cl">  secretKey: yourSecretKey #云 API 密钥
-</span></span><span class="line"><span class="cl">  region: yourRegion #所属地域</span></span></code></pre></td></tr></table>
-</div>
-</div><ul>
-<li>发布还是一样的</li>
-</ul>
-<div class="highlight" id="id-3"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">hexo clean
-</span></span><span class="line"><span class="cl">hexo g -d</span></span></code></pre></td></tr></table>
-</div>
-</div><p>结果类似于<br>
-</p>
-<h2 id="cdn-刷新">CDN 刷新</h2>
-<p>每次更新博客内容完后，都要登陆腾讯云 CDN&ndash;缓存刷新，手动刷新一下 CDN。</p>
-<p>用脚本在每次更新后刷新</p>
-<ul>
-<li>安装</li>
-</ul>
-<div class="highlight" id="id-4"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">npm install qcloud-cdn-node-sdk --save</span></span></code></pre></td></tr></table>
-</div>
-</div><ul>
-<li>创建<code>qcloudcdn.js</code>放入<code>script</code>文件夹</li>
-</ul>
-<div class="highlight" id="id-5"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">qcloudSDK</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;qcloud-cdn-node-sdk&#39;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nx">qcloudSDK</span><span class="p">.</span><span class="nx">config</span><span class="p">({</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">secretId</span><span class="o">:</span> <span class="s1">&#39;你的 ID&#39;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">secretKey</span><span class="o">:</span> <span class="s1">&#39;你的密钥&#39;</span>
-</span></span><span class="line"><span class="cl"><span class="p">});</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nx">qcloudSDK</span><span class="p">.</span><span class="nx">request</span><span class="p">(</span>
-</span></span><span class="line"><span class="cl">  <span class="s1">&#39;RefreshCdnDir&#39;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">  <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="s1">&#39;dirs.1&#39;</span><span class="o">:</span> <span class="s1">&#39;http://博客地址&#39;</span>
-</span></span><span class="line"><span class="cl">  <span class="p">},</span>
-</span></span><span class="line"><span class="cl">  <span class="p">(</span><span class="nx">res</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">res</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">);</span></span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="自动-cdn-刷新配置-推荐">自动 CDN 刷新配置 （推荐）</h2>
-<ol>
-<li>进入腾讯云，找到 函数计算 -&gt; CDN 缓存刷新函数 -&gt; 创建 CDN 缓存刷新函数</li>
-<li>修改 <code>index.js</code> 内容后重新部署</li>
-</ol>
-<div class="highlight" id="id-6"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span><span class="lnt">37
-</span><span class="lnt">38
-</span><span class="lnt">39
-</span><span class="lnt">40
-</span><span class="lnt">41
-</span><span class="lnt">42
-</span><span class="lnt">43
-</span><span class="lnt">44
-</span><span class="lnt">45
-</span><span class="lnt">46
-</span><span class="lnt">47
-</span><span class="lnt">48
-</span><span class="lnt">49
-</span><span class="lnt">50
-</span><span class="lnt">51
-</span><span class="lnt">52
-</span><span class="lnt">53
-</span><span class="lnt">54
-</span><span class="lnt">55
-</span><span class="lnt">56
-</span><span class="lnt">57
-</span><span class="lnt">58
-</span><span class="lnt">59
-</span><span class="lnt">60
-</span><span class="lnt">61
-</span><span class="lnt">62
-</span><span class="lnt">63
-</span><span class="lnt">64
-</span><span class="lnt">65
-</span><span class="lnt">66
-</span><span class="lnt">67
-</span><span class="lnt">68
-</span><span class="lnt">69
-</span><span class="lnt">70
-</span><span class="lnt">71
-</span><span class="lnt">72
-</span><span class="lnt">73
-</span><span class="lnt">74
-</span><span class="lnt">75
-</span><span class="lnt">76
-</span><span class="lnt">77
-</span><span class="lnt">78
-</span><span class="lnt">79
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="s1">&#39;use strict&#39;</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">CosSdk</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;cos-nodejs-sdk-v5&#39;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">CdnSdk</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./common/CdnSdk&#39;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">CdnRefreshTask</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./common/CdnRefreshTask&#39;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="p">{</span> <span class="nx">getParams</span><span class="p">,</span> <span class="nx">getObjectUrl</span><span class="p">,</span> <span class="nx">logger</span><span class="p">,</span> <span class="nx">getLogSummary</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./common/utils&#39;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nx">exports</span><span class="p">.</span><span class="nx">main_handler</span> <span class="o">=</span> <span class="kr">async</span> <span class="p">(</span><span class="nx">event</span><span class="p">,</span> <span class="nx">context</span><span class="p">,</span> <span class="nx">callback</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="cm">/**
-</span></span></span><span class="line"><span class="cl"><span class="cm">   * parse param from event and process.env
-</span></span></span><span class="line"><span class="cl"><span class="cm">   */</span>
-</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="p">{</span> <span class="nx">objects</span><span class="p">,</span> <span class="nx">cdnHosts</span><span class="p">,</span> <span class="nx">secretId</span><span class="p">,</span> <span class="nx">secretKey</span><span class="p">,</span> <span class="nx">token</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">getParams</span><span class="p">(</span><span class="nx">event</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">  <span class="nx">logger</span><span class="p">({</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;param is parsed success, param as follow: &#39;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">data</span><span class="o">:</span> <span class="p">{</span> <span class="nx">objects</span><span class="p">,</span> <span class="nx">cdnHosts</span><span class="p">,</span> <span class="nx">event</span> <span class="p">}</span>
-</span></span><span class="line"><span class="cl">  <span class="p">});</span>
-</span></span><span class="line"><span class="cl">  <span class="cm">/**
-</span></span></span><span class="line"><span class="cl"><span class="cm">   * init cos instance
-</span></span></span><span class="line"><span class="cl"><span class="cm">   */</span>
-</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">secretId</span> <span class="o">||</span> <span class="o">!</span><span class="nx">secretKey</span> <span class="o">||</span> <span class="o">!</span><span class="nx">token</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="sb">`secretId, secretKey or token is missing`</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">cdnSdkInstance</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">CdnSdk</span><span class="p">({</span> <span class="nx">secretId</span><span class="p">,</span> <span class="nx">secretKey</span><span class="p">,</span> <span class="nx">token</span> <span class="p">});</span>
-</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">cosInstance</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">CosSdk</span><span class="p">({</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">SecretId</span><span class="o">:</span> <span class="nx">secretId</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">SecretKey</span><span class="o">:</span> <span class="nx">secretKey</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">XCosSecurityToken</span><span class="o">:</span> <span class="nx">token</span>
-</span></span><span class="line"><span class="cl">  <span class="p">});</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">taskList</span> <span class="o">=</span> <span class="nx">objects</span><span class="p">.</span><span class="nx">map</span><span class="p">(({</span> <span class="nx">bucket</span><span class="p">,</span> <span class="nx">region</span><span class="p">,</span> <span class="nx">key</span> <span class="p">})</span> <span class="p">=&gt;</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="cm">/* 变更内容-START */</span>
-</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">purgeUrls</span> <span class="o">=</span> <span class="p">[];</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">cdnHosts</span><span class="p">.</span><span class="nx">forEach</span><span class="p">((</span><span class="nx">host</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">      <span class="kr">const</span> <span class="nx">tempUrl</span> <span class="o">=</span> <span class="nx">getObjectUrl</span><span class="p">({</span>
-</span></span><span class="line"><span class="cl">        <span class="nx">cosInstance</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">        <span class="nx">bucket</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">        <span class="nx">region</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">        <span class="nx">key</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">        <span class="nx">origin</span><span class="o">:</span> <span class="sb">`</span><span class="si">${</span><span class="o">/^</span><span class="p">(</span><span class="nx">http</span><span class="err">\</span><span class="o">:</span><span class="err">\</span><span class="o">/</span><span class="err">\</span><span class="o">/|</span><span class="nx">https</span><span class="err">\</span><span class="o">:</span><span class="err">\</span><span class="o">/</span><span class="err">\</span><span class="o">/</span><span class="p">)</span><span class="o">/</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="nx">host</span><span class="p">)</span> <span class="o">?</span> <span class="s1">&#39;&#39;</span> <span class="o">:</span> <span class="s1">&#39;https://&#39;</span><span class="si">}${</span><span class="nx">host</span><span class="si">}</span><span class="sb">`</span>
-</span></span><span class="line"><span class="cl">      <span class="p">});</span>
-</span></span><span class="line"><span class="cl">      <span class="nx">purgeUrls</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">tempUrl</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">      <span class="c1">// 如果以 /index.html 结尾，则增加目录首页/。
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="c1">// 例如 https://www.xxxx.com/index.html, 则增加 https://www.xxxx.com/。
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="k">if</span> <span class="p">(</span><span class="nx">tempUrl</span><span class="p">.</span><span class="nx">lastIndexOf</span><span class="p">(</span><span class="s1">&#39;/index.html&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="nx">tempUrl</span><span class="p">.</span><span class="nx">length</span> <span class="o">-</span> <span class="mi">11</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="nx">purgeUrls</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">tempUrl</span><span class="p">.</span><span class="nx">substr</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nx">tempUrl</span><span class="p">.</span><span class="nx">length</span> <span class="o">-</span> <span class="mi">10</span><span class="p">));</span>
-</span></span><span class="line"><span class="cl">      <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="p">});</span>
-</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="k">new</span> <span class="nx">CdnRefreshTask</span><span class="p">({</span>
-</span></span><span class="line"><span class="cl">      <span class="nx">cdnSdkInstance</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">      <span class="nx">urls</span><span class="o">:</span> <span class="nx">purgeUrls</span>
-</span></span><span class="line"><span class="cl">    <span class="p">});</span>
-</span></span><span class="line"><span class="cl">    <span class="cm">/* 变更内容-END */</span>
-</span></span><span class="line"><span class="cl">  <span class="p">});</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">taskResults</span> <span class="o">=</span> <span class="p">[];</span>
-</span></span><span class="line"><span class="cl">  <span class="k">for</span> <span class="p">(</span><span class="kr">const</span> <span class="nx">task</span> <span class="k">of</span> <span class="nx">taskList</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">results</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">task</span><span class="p">.</span><span class="nx">runPurgeTasks</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">taskResults</span><span class="p">.</span><span class="nx">push</span><span class="p">(...</span><span class="nx">results</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">  <span class="nx">logger</span><span class="p">({</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;cdn refresh full logs:&#39;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">data</span><span class="o">:</span> <span class="nx">taskResults</span>
-</span></span><span class="line"><span class="cl">  <span class="p">});</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="p">{</span> <span class="nx">status</span><span class="p">,</span> <span class="nx">messages</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">getLogSummary</span><span class="p">(</span><span class="nx">taskResults</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">  <span class="nx">logger</span><span class="p">({</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">messages</span><span class="o">:</span> <span class="nx">messages</span><span class="p">.</span><span class="nx">map</span><span class="p">((</span><span class="nx">item</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nx">item</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/\,\ /g</span><span class="p">,</span> <span class="s1">&#39;\n&#39;</span><span class="p">))</span>
-</span></span><span class="line"><span class="cl">  <span class="p">});</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="nx">status</span> <span class="o">===</span> <span class="s1">&#39;fail&#39;</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">throw</span> <span class="nx">messages</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="s1">&#39;; &#39;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">messages</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="s1">&#39;; &#39;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">};</span></span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nl">A:</span> <span class="n">自动生成构造方法</span>
+</span></span><span class="line"><span class="cl">	<span class="n">a</span><span class="o">:</span> <span class="n">无参构造方法</span> <span class="n">在代码区域右键</span><span class="o">--</span><span class="n">source</span><span class="o">--</span><span class="n">Generate</span> <span class="n">Constructors</span> <span class="n">from</span> <span class="n">Superclass</span>
+</span></span><span class="line"><span class="cl">	<span class="n">b</span><span class="o">:</span> <span class="n">带参构造方法</span> <span class="n">在代码区域右键</span><span class="o">--</span><span class="n">source</span><span class="o">--</span><span class="n">Generate</span> <span class="n">Constructors</span> <span class="n">using</span> <span class="n">fields</span><span class="o">..</span> <span class="o">--</span> <span class="n">finish</span>
+</span></span><span class="line"><span class="cl"><span class="nl">B:</span> <span class="n">自动生成</span> <span class="n">get</span><span class="o">/</span><span class="n">set</span> <span class="n">方法</span>
+</span></span><span class="line"><span class="cl">	<span class="n">在代码区域右键</span><span class="o">--</span><span class="n">source</span><span class="o">--</span><span class="n">Generate</span> <span class="n">Getters</span> <span class="n">and</span> <span class="n">Setters</span><span class="o">...</span></span></span></code></pre></td></tr></table>
 </div>
 </div>]]></description></item></channel></rss>

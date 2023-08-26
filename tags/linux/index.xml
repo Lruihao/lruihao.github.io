@@ -1,4 +1,206 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>linux - 标签 - 菠菜眾長</title><link>https://lruihao.cn/tags/linux/</link><description>linux - 标签 - 菠菜眾長</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><lastBuildDate>Sat, 30 Jul 2022 17:15:44 +0800</lastBuildDate><atom:link href="https://lruihao.cn/tags/linux/" rel="self" type="application/rss+xml"/><item><title>linux 文件权限</title><link>https://lruihao.cn/posts/linux-permission/</link><pubDate>Sat, 30 Jul 2022 17:15:44 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/linux-permission/</guid><description><![CDATA[<p>记录 linux 系统下文件权限相关的内容，Mac OS 下类似。</p>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>linux - 标签 - 菠菜眾長</title><link>https://lruihao.cn/tags/linux/</link><description>linux - 标签 - 菠菜眾長</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><lastBuildDate>Sat, 26 Aug 2023 17:22:57 +0800</lastBuildDate><atom:link href="https://lruihao.cn/tags/linux/" rel="self" type="application/rss+xml"/><item><title>将 Hugo 博客部署到亚马逊云服务器</title><link>https://lruihao.cn/posts/aws-ec2/</link><pubDate>Sat, 26 Aug 2023 17:22:57 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/aws-ec2/</guid><description><![CDATA[<p>本文将介绍如果将 Hugo 博客打包并部署到亚马逊云服务器上，并附上亚马逊云服务器的配置过程。</p>
+<h2 id="注册亚马逊云账户">注册亚马逊云账户</h2>
+<p>打开 <a href="https://aws.amazon.com/cn/free/?sc_channel=seo&amp;sc_campaign=blog0805"target="_blank" rel="external nofollow noopener noreferrer">亚马逊账号注册地址<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>，点击右上角创建 AWS 账户。</p>
+<p></p>
+<ol>
+<li>填写邮件地址和账号名称（支持使用国内的邮箱）
+</li>
+<li>验证邮件
+</li>
+<li>输入密码
+</li>
+<li>联系人信息
+</li>
+<li>付款信息（Visa）
+</li>
+<li>验证手机号（支持中国地区国内手机号）
+</li>
+<li>选择支持计划
+</li>
+<li>完成注册
+</li>
+<li>登录亚马逊云控制台，<a href="https://console.aws.amazon.com/console/home"target="_blank" rel="external nofollow noopener noreferrer">登录地址<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>，选择根用户输入电子邮件地址，点击下一步会让输入密码，输入密码后就可以完成登录了。</li>
+</ol>
+<h2 id="创建-ec2-服务实例">创建 EC2 服务实例</h2>
+<p>点击链接查看 <a href="https://aws.amazon.com/cn/free/?sc_channel=seo&amp;sc_campaign=blog0805"target="_blank" rel="external nofollow noopener noreferrer">亚马逊免费套餐<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>，找到云服务器 EC2，点击立即开始 12 个月免费使用。</p>
+<p></p>
+<p>进行 EC2 服务器主页后，点击页面<strong>创建实例</strong>按钮。</p>
+<p></p>
+<p>然后按照页面提示要求，依次填写或选择：</p>
+<ol>
+<li>实例的名称：随便填</li>
+<li>应用程序和操作系统映像 (Amazon Machine Image)：Amazon Linux 和 Amazon Linux 2023 AMI 免费套餐</li>
+<li>实例类型：选择免费套餐</li>
+<li>密钥对（登录）：这里要点击创建密钥对，输入密钥对名称，选择 RSA 点击创建密钥对会下载文件到本地，要妥善保存，登录时会用到</li>
+<li>网络设置：安全组把允许来自于 http 和 https 得都勾选上</li>
+<li>配置存储：默认是 8G，但免费的最多可以 30G，可以手动改成 30G</li>
+<li>然后点击右侧侧边栏启动实例，等待片刻实例就创建好了</li>
+</ol>
+<h2 id="连接实例">连接实例</h2>
+<p></p>
+<p>点击上面的实例 ID 进入实例的详情，再点击右上角的连接按钮。</p>
+<p></p>
+<p>连接成功后，页面会新打开一个窗口，这个窗口就是我们服务器的终端，可以在这里对服务器进行操作服务器。</p>
+<p></p>
+<h2 id="创建-root-用户角色">创建 root 用户角色</h2>
+<p>在终端中输入以下命令，创建 root 用户角色。</p>
+<div class="highlight" id="id-1"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 切换到 root 用户</span>
+</span></span><span class="line"><span class="cl">sudo -i
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 修改 sshd 配置文件</span>
+</span></span><span class="line"><span class="cl">vi /etc/ssh/sshd_config</span></span></code></pre></td></tr></table>
+</div>
+</div><p>修改如下两项</p>
+<div class="highlight" id="id-2"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">PermitRootLogin yes
+</span></span><span class="line"><span class="cl">PasswordAuthentication yes</span></span></code></pre></td></tr></table>
+</div>
+</div><p>设置 root 用户密码</p>
+<div class="highlight" id="id-3"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">passwd</span></span></code></pre></td></tr></table>
+</div>
+</div><p>会让输入两次密码，输入完成，重启一下 ssh 服务：</p>
+<div class="highlight" id="id-4"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">service sshd restart</span></span></code></pre></td></tr></table>
+</div>
+</div><p>重启后在电脑命令行就可以通过 ssh 协议加上用户名称+密码连接远程服务器了。</p>
+<div class="highlight" id="id-5"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">ssh root@3.85.xxx.xxx</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>后续操作尽量用 root 用户进行。</p>
+</blockquote>
+<h2 id="安装-nginx">安装 nginx</h2>
+<div class="highlight" id="id-6"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 安装 nginx</span>
+</span></span><span class="line"><span class="cl">yum install nginx
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 查看版本</span>
+</span></span><span class="line"><span class="cl">nginx -v
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 查看安装的位置和配置文件路径</span>
+</span></span><span class="line"><span class="cl">nginx -t
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 启动 nginx</span>
+</span></span><span class="line"><span class="cl">nginx</span></span></code></pre></td></tr></table>
+</div>
+</div><p>nginx 启动后，可以在浏览器中输入服务器的公网 IP 地址，就可以看到 nginx 的欢迎页面了。</p>
+<p></p>
+<h2 id="部署-hugo-博客">部署 Hugo 博客</h2>
+<p>Hugo 博客打包</p>
+<div class="highlight" id="id-7"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">hugo -v --gc --minify</span></span></code></pre></td></tr></table>
+</div>
+</div><p>将打包好的 <code>public</code> 文件夹上传到服务器的 <code>/root/hugo</code> 目录下，输入以下命令，等待上传完成。</p>
+<div class="highlight" id="id-8"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># ssh 断开连接</span>
+</span></span><span class="line"><span class="cl"><span class="nb">exit</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 上传文件（需要输入 root 用户密码）</span>
+</span></span><span class="line"><span class="cl">scp -r /path/to/public root@3.85.xxx.xxx:/root/hugo</span></span></code></pre></td></tr></table>
+</div>
+</div><p>创建 nginx 网站配置文件</p>
+<div class="highlight" id="id-9"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">vim /etc/nginx/hugo.conf</span></span></code></pre></td></tr></table>
+</div>
+</div><p>输入以下内容</p>
+<div class="highlight" id="id-10"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">server {
+</span></span><span class="line"><span class="cl">    listen       80;
+</span></span><span class="line"><span class="cl">    server_name  localhost;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    location / {
+</span></span><span class="line"><span class="cl">        root   /root/hugo/public;
+</span></span><span class="line"><span class="cl">        index  index.html index.htm;
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">}</span></span></code></pre></td></tr></table>
+</div>
+</div><p>重启 nginx</p>
+<div class="highlight" id="id-11"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">nginx -s reload</span></span></code></pre></td></tr></table>
+</div>
+</div><p>在浏览器中输入服务器的公网 IP 地址，就可以看到 Hugo 博客了。</p>
+<p></p>
+<h2 id="注意事项">注意事项</h2>
+<blockquote>
+<p>亚马逊的服务器每个月免费时长时 <strong>750</strong> 小时，一个月 31 天 x 24 = 744 小时，正常使用是不会超出免费的份额的，但切记不要同时开两个服务器实例，使用时长会累加，不注意可能会超出套餐额度。</p>
+<p>到期后，如果不想继续使用，一定要记得删除实例，不然会一直扣费的。在控制台选中实例，点击实例状态-&gt;终止实例。</p>
+</blockquote>
+<h2 id="总结">总结</h2>
+<p>有了一台海外服务器，我们还可以做很多事情，比如部署 chatgpt 等等，有了服务器一定要多去探索和学习，这么复杂的申请的流程，不要白白放着让过期了。</p>
+<p>保持探索欲，砥砺前行！</p>]]></description></item><item><title>linux 文件权限</title><link>https://lruihao.cn/posts/linux-permission/</link><pubDate>Sat, 30 Jul 2022 17:15:44 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/linux-permission/</guid><description><![CDATA[<p>记录 linux 系统下文件权限相关的内容，Mac OS 下类似。</p>
 <h2 id="查看文件权限">查看文件权限</h2>
 <p>查看 linux 系统下的文件权限，可以使用 <code>ll</code> 命令或者 <code>ls</code> 命令 带 <code>-l</code>（长列表选项）</p>
 <div class="highlight" id="id-1"><div class="chroma">

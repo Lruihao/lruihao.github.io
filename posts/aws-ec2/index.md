@@ -1,0 +1,188 @@
+# 将 Hugo 博客部署到亚马逊云服务器
+
+
+本文将介绍如果将 Hugo 博客打包并部署到亚马逊云服务器上，并附上亚马逊云服务器的配置过程。
+
+<!--more-->
+
+## 注册亚马逊云账户
+
+打开 [亚马逊账号注册地址](https://aws.amazon.com/cn/free/?sc_channel=seo&sc_campaign=blog0805)，点击右上角创建 AWS 账户。
+
+![创建 AWS 账户](images/23_1693042834.png)
+
+1. 填写邮件地址和账号名称（支持使用国内的邮箱）
+   ![login](images/23_1693043425.png)
+2. 验证邮件
+   ![valid](images/23_1693043626.png)
+3. 输入密码
+   ![password](images/23_1693043910.png)
+4. 联系人信息
+   ![contact](images/23_1693044220.png)
+5. 付款信息（Visa）
+   ![payment](images/23_1693044537.png)
+6. 验证手机号（支持中国地区国内手机号）
+   ![phone](images/23_1693044806.png)
+7. 选择支持计划
+   ![plan](images/23_1693045029.png)
+8. 完成注册
+   ![complete](images/23_1693045100.png)
+9. 登录亚马逊云控制台，[登录地址](https://console.aws.amazon.com/console/home)，选择根用户输入电子邮件地址，点击下一步会让输入密码，输入密码后就可以完成登录了。
+
+## 创建 EC2 服务实例
+
+点击链接查看 [亚马逊免费套餐](https://aws.amazon.com/cn/free/?sc_channel=seo&sc_campaign=blog0805)，找到云服务器 EC2，点击立即开始 12 个月免费使用。
+
+![EC2](images/23_1693045572.png)
+
+进行 EC2 服务器主页后，点击页面**创建实例**按钮。
+
+![start-EC2](images/23_1693045780.png)
+
+然后按照页面提示要求，依次填写或选择：
+
+1. 实例的名称：随便填
+2. 应用程序和操作系统映像 (Amazon Machine Image)：Amazon Linux 和 Amazon Linux 2023 AMI 免费套餐
+3. 实例类型：选择免费套餐
+4. 密钥对（登录）：这里要点击创建密钥对，输入密钥对名称，选择 RSA 点击创建密钥对会下载文件到本地，要妥善保存，登录时会用到
+5. 网络设置：安全组把允许来自于 http 和 https 得都勾选上
+6. 配置存储：默认是 8G，但免费的最多可以 30G，可以手动改成 30G
+7. 然后点击右侧侧边栏启动实例，等待片刻实例就创建好了
+
+## 连接实例
+
+![instance](images/23_1693046630.png)
+
+点击上面的实例 ID 进入实例的详情，再点击右上角的连接按钮。
+
+![connect](images/23_1693046822.png)
+
+连接成功后，页面会新打开一个窗口，这个窗口就是我们服务器的终端，可以在这里对服务器进行操作服务器。
+
+![cloudshell](images/23_1693046970.png)
+
+## 创建 root 用户角色
+
+在终端中输入以下命令，创建 root 用户角色。
+
+```bash
+# 切换到 root 用户
+sudo -i
+
+# 修改 sshd 配置文件
+vi /etc/ssh/sshd_config
+```
+
+修改如下两项
+
+```text
+PermitRootLogin yes
+PasswordAuthentication yes
+```
+
+设置 root 用户密码
+
+```bash
+passwd
+```
+
+会让输入两次密码，输入完成，重启一下 ssh 服务：
+
+```bash
+service sshd restart
+```
+
+重启后在电脑命令行就可以通过 ssh 协议加上用户名称+密码连接远程服务器了。
+
+```bash
+ssh root@3.85.xxx.xxx
+```
+
+> 后续操作尽量用 root 用户进行。
+
+## 安装 nginx
+
+```bash
+# 安装 nginx
+yum install nginx
+
+# 查看版本
+nginx -v
+
+# 查看安装的位置和配置文件路径
+nginx -t
+
+# 启动 nginx
+nginx
+```
+
+nginx 启动后，可以在浏览器中输入服务器的公网 IP 地址，就可以看到 nginx 的欢迎页面了。
+
+![nginx](images/23_1693048167.png)
+
+## 部署 Hugo 博客
+
+Hugo 博客打包
+
+```bash
+hugo -v --gc --minify
+```
+
+将打包好的 `public` 文件夹上传到服务器的 `/root/hugo` 目录下，输入以下命令，等待上传完成。
+
+```bash
+# ssh 断开连接
+exit
+
+# 上传文件（需要输入 root 用户密码）
+scp -r /path/to/public root@3.85.xxx.xxx:/root/hugo
+```
+
+创建 nginx 网站配置文件
+
+```bash
+vim /etc/nginx/hugo.conf
+```
+
+输入以下内容
+
+```text
+server {
+    listen       80;
+    server_name  localhost;
+
+    location / {
+        root   /root/hugo/public;
+        index  index.html index.htm;
+    }
+}
+```
+
+重启 nginx
+
+```bash
+nginx -s reload
+```
+
+在浏览器中输入服务器的公网 IP 地址，就可以看到 Hugo 博客了。
+
+![preview](images/23_1693050865.png)
+
+## 注意事项
+
+> 亚马逊的服务器每个月免费时长时 **750** 小时，一个月 31 天 x 24 = 744 小时，正常使用是不会超出免费的份额的，但切记不要同时开两个服务器实例，使用时长会累加，不注意可能会超出套餐额度。
+>
+> 到期后，如果不想继续使用，一定要记得删除实例，不然会一直扣费的。在控制台选中实例，点击实例状态->终止实例。
+
+## 总结
+
+有了一台海外服务器，我们还可以做很多事情，比如部署 chatgpt 等等，有了服务器一定要多去探索和学习，这么复杂的申请的流程，不要白白放着让过期了。
+
+保持探索欲，砥砺前行！
+
+
+---
+
+> 作者: [Lruihao](https://github.com/Lruihao)  
+> URL: https://lruihao.cn/posts/aws-ec2/  
+
