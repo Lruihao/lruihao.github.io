@@ -100,25 +100,17 @@ ssh root@3.85.xxx.xxx
 
 > 后续操作尽量用 root 用户进行。
 
-## 安装 nginx
+## 安装宝塔面板
+
+宝塔面板是一个服务器管理面板，可以通过宝塔面板来管理服务器，比如安装 nginx、mysql、php 等等。
 
 ```bash
-# 安装 nginx
-yum install nginx
-
-# 查看版本
-nginx -v
-
-# 查看安装的位置和配置文件路径
-nginx -t
-
-# 启动 nginx
-nginx
+yum install -y wget && wget -O install.sh https://download.bt.cn/install/install_6.0.sh && sh install.sh ed8484bec
 ```
 
-nginx 启动后，可以在浏览器中输入服务器的公网 IP 地址，就可以看到 nginx 的欢迎页面了。
-
-![nginx](images/23_1693048167.png)
+1. 在亚马逊服务器实例安全组中放行 TCP `19430` 端口
+2. 宝塔面板安装完后按照命令行提示打开宝塔面板，进入面板安装 `LAMP` 环境，其中包含了我们需要的 `nginx`
+3. 等待 `LAMP` 环境安装完毕
 
 ## 部署 Hugo 博客
 
@@ -128,41 +120,20 @@ Hugo 博客打包
 hugo -v --gc --minify
 ```
 
-将打包好的 `public` 文件夹上传到服务器的 `/root/hugo` 目录下，输入以下命令，等待上传完成。
+将打包好的 `public` 文件夹上传到服务器的 `/www/wwwroot/hugo` 目录下，输入以下命令，等待上传完成。
 
 ```bash
-# ssh 断开连接
-exit
-
 # 上传文件（需要输入 root 用户密码）
-scp -r /path/to/public root@3.85.xxx.xxx:/root/hugo
+scp -r /path/to/public root@3.85.xxx.xxx:/www/wwwroot/hugo
 ```
 
-创建 nginx 网站配置文件
+在宝塔面板中选择网站，点击添加站点：
 
-```bash
-vim /etc/nginx/hugo.conf
-```
-
-输入以下内容
-
-```text
-server {
-    listen       80;
-    server_name  localhost;
-
-    location / {
-        root   /root/hugo/public;
-        index  index.html index.htm;
-    }
-}
-```
-
-重启 nginx
-
-```bash
-nginx -s reload
-```
+1. 域名：填写你的公网 IP 或者域名
+2. 网站目录：选择 `/www/wwwroot/hugo`
+3. 站点备注：随便填
+4. FTP、数据库选择不创建，PHP 选择纯静态
+5. 点击提交
 
 在浏览器中输入服务器的公网 IP 地址，就可以看到 Hugo 博客了。
 
