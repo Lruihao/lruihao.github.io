@@ -1,4 +1,92 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>CSS - 标签 - 菠菜眾長</title><link>https://lruihao.cn/tags/css/</link><description>CSS - 标签 - 菠菜眾長</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><lastBuildDate>Sun, 05 Feb 2023 21:02:52 +0800</lastBuildDate><atom:link href="https://lruihao.cn/tags/css/" rel="self" type="application/rss+xml"/><item><title>浏览器渲染原理</title><link>https://lruihao.cn/posts/browser-rendering/</link><pubDate>Sun, 05 Feb 2023 21:02:52 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/browser-rendering/</guid><description><![CDATA[<iframe src="files/browser-rendering.pdf" width="100%" height="550"></iframe>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>CSS - 标签 - 菠菜眾長</title><link>https://lruihao.cn/tags/css/</link><description>CSS - 标签 - 菠菜眾長</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><lastBuildDate>Sat, 02 Sep 2023 10:05:44 +0800</lastBuildDate><atom:link href="https://lruihao.cn/tags/css/" rel="self" type="application/rss+xml"/><item><title>CSS 实现网格背景效果</title><link>https://lruihao.cn/posts/grid-bg-image/</link><pubDate>Sat, 02 Sep 2023 10:05:44 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/grid-bg-image/</guid><description><![CDATA[<p>本文将介绍如何使用 <code>linear-gradient</code> 、<code>background-size</code> 等属性来实现网格背景效果。</p>
+<h2 id="前言">前言</h2>
+<p>最近在开发一个拖拽式仪表盘时，需要在拖拽组件时添加网格辅助标线来帮助布局和对齐元素。</p>
+<p>最先想到的是使用 CSS 来实现这个效果，经过一番尝试，发现可以通过使用 CSS 的一些技术点，轻松实现不同类型的网格背景效果，包括实线网格和虚线网格。</p>
+<h2 id="前驱知识">前驱知识</h2>
+<p>在开始之前，我们需要了解一些必要的 CSS 属性和知识点。</p>
+<ul>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/gradient/linear-gradient"target="_blank" rel="external nofollow noopener noreferrer"><code>linear-gradient</code><i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>：CSS <strong><code>linear-gradient()</code></strong> 函数用于创建一个表示两种或多种颜色线性渐变的图片。其结果属于<a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/gradient"target="_blank" rel="external nofollow noopener noreferrer"><code>&lt;gradient&gt;</code><i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>数据类型，是一种特别的<a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/image"target="_blank" rel="external nofollow noopener noreferrer"><code>&lt;image&gt;</code><i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>数据类型。</li>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/gradient/radial-gradient"target="_blank" rel="external nofollow noopener noreferrer"><code>radial-gradient</code><i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>：<strong><code>radial-gradient()</code></strong> <a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS"target="_blank" rel="external nofollow noopener noreferrer">CSS<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> <a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/CSS_Functions"target="_blank" rel="external nofollow noopener noreferrer">函数<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>创建一个图像，该图像由从原点辐射的两种或多种颜色之间的渐进过渡组成。它的形状可以是圆形或椭圆形。函数的结果是 <a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/gradient"target="_blank" rel="external nofollow noopener noreferrer"><code>&lt;gradient&gt;</code><i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 数据类型的对象。这是一种特别的 <a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/image"target="_blank" rel="external nofollow noopener noreferrer"><code>&lt;image&gt;</code><i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>。</li>
+<li><code>background-size</code></li>
+<li><code>background-repeat</code></li>
+<li><code>background-position</code></li>
+<li><code>::before</code> 和 <code>::after</code> 伪元素</li>
+</ul>
+<h2 id="实线网格">实线网格</h2>
+<p>这个效果，我最初是在刷掘金的时候发现的，掘金文章内容区的背景一个实线网格，呈现出的效果类似一页学生时代的记事本，当时觉得很有意思，于是扒下来当作了现在博客文章内容的背景。</p>
+<p>实线网格的实现思路是使用 <code>linear-gradient</code> 来绘制横向和纵向的网格线，然后通过 <code>background-size</code> 来控制网格线的间距。</p>
+<p>具体代码如下：</p>
+<div class="highlight" id="id-1"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-css" data-lang="css"><span class="line"><span class="cl"><span class="p">.</span><span class="nc">grid</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">background-image</span><span class="p">:</span> <span class="nb">linear-gradient</span><span class="p">(</span><span class="kc">to</span> <span class="kc">right</span><span class="p">,</span> <span class="nb">rgba</span><span class="p">(</span><span class="mi">60</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mf">0.04</span><span class="p">)</span> <span class="mi">1</span><span class="kt">px</span><span class="p">,</span> <span class="kc">transparent</span> <span class="mi">0</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">linear-gradient</span><span class="p">(</span><span class="kc">to</span> <span class="kc">bottom</span><span class="p">,</span> <span class="nb">rgba</span><span class="p">(</span><span class="mi">60</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mf">0.04</span><span class="p">)</span> <span class="mi">1</span><span class="kt">px</span><span class="p">,</span> <span class="kc">transparent</span> <span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">background-size</span><span class="p">:</span> <span class="mi">20</span><span class="kt">px</span> <span class="mi">20</span><span class="kt">px</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面的代码中，<code>background-image</code> 属性使用了两个 <code>linear-gradient</code>，通过渐变颜色从 <code>rgba(60, 10, 30, 0.04)</code> 到 <code>transparent</code> 实现了横向和纵向的网格线。通过指定 <code>background-size</code> 为 <code>20px 20px</code>，设置了背景大小为 20px，由于 <code>background-repeat</code> 默认为 <code>repeat</code>，所以就实现了 20px 间距的网格线。</p>
+<h2 id="虚线网格">虚线网格</h2>
+<p>虚线网格的实现思路需要借助 <code>::before</code> 和 <code>::after</code> 伪元素，然后还是通过类似实线的思路实现网格线，然后两个伪元素叠加在一起，从而实现虚线网格。</p>
+<blockquote>
+<p>未做实例</p>
+</blockquote>
+<h2 id="点阵网格">点阵网格</h2>
+<p>这里把渐变修改为径向渐变就实现点点背景了，原理和前面说的都是一样的。</p>
+<div class="highlight" id="id-2"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-css" data-lang="css"><span class="line"><span class="cl"><span class="p">.</span><span class="nc">grid</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">background-image</span><span class="p">:</span> <span class="nb">radial-gradient</span><span class="p">(</span><span class="kc">circle</span> <span class="p">,</span> <span class="mh">#5a5a5a</span> <span class="mf">.5</span><span class="kt">px</span><span class="p">,</span> <span class="kc">transparent</span> <span class="mf">.5</span><span class="kt">px</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">background-size</span><span class="p">:</span> <span class="mi">20</span><span class="kt">px</span> <span class="mi">20</span><span class="kt">px</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="总结">总结</h2>
+<p>最后为了实现我在实际开发中的需求，我还需要控制网格宽度为容器的 1/24，这里就需要使用 <code>calc()</code> 函数来计算了。</p>
+<div class="highlight" id="id-3"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-css" data-lang="css"><span class="line"><span class="cl"><span class="c">/* 背景显示网格辅助线（宽：1/24 高：40+8px） */</span>
+</span></span><span class="line"><span class="cl"><span class="nt">background-image</span><span class="o">:</span> <span class="nt">linear-gradient</span><span class="o">(</span><span class="nt">90deg</span><span class="o">,</span> <span class="nt">rgba</span><span class="o">(</span><span class="nt">60</span><span class="o">,</span> <span class="nt">10</span><span class="o">,</span> <span class="nt">30</span><span class="o">,</span> <span class="nt">0</span><span class="p">.</span><span class="nc">04</span><span class="o">)</span> <span class="nt">1px</span><span class="o">,</span> <span class="nt">transparent</span> <span class="nt">0</span><span class="o">),</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">linear-gradient</span><span class="o">(</span><span class="nt">1turn</span><span class="o">,</span> <span class="nt">rgba</span><span class="o">(</span><span class="nt">60</span><span class="o">,</span> <span class="nt">10</span><span class="o">,</span> <span class="nt">30</span><span class="o">,</span> <span class="nt">0</span><span class="p">.</span><span class="nc">04</span><span class="o">)</span> <span class="nt">1px</span><span class="o">,</span> <span class="nt">transparent</span> <span class="nt">0</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl"><span class="nt">background-size</span><span class="o">:</span> <span class="nt">calc</span><span class="o">((</span><span class="nt">100</span><span class="o">%</span> <span class="nt">-</span> <span class="nt">8px</span><span class="o">)</span> <span class="o">/</span> <span class="nt">24</span><span class="o">)</span> <span class="nt">48px</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">background-position</span><span class="o">:</span> <span class="nt">4px</span> <span class="nt">4px</span><span class="o">;</span></span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight" id="id-4"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-css" data-lang="css"><span class="line"><span class="cl"><span class="c">/* 或者点阵网格辅助线（宽：1/24 高：40+8px） */</span>
+</span></span><span class="line"><span class="cl"><span class="nt">background-image</span><span class="o">:</span> <span class="nt">radial-gradient</span><span class="o">(</span><span class="nt">circle</span> <span class="o">,</span> <span class="p">#</span><span class="nn">5a5a5a</span> <span class="p">.</span><span class="nc">5px</span><span class="o">,</span> <span class="nt">transparent</span> <span class="p">.</span><span class="nc">5px</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl"><span class="nt">background-size</span><span class="o">:</span> <span class="nt">calc</span><span class="o">((</span><span class="nt">100</span><span class="o">%</span> <span class="nt">-</span> <span class="nt">8px</span><span class="o">)</span> <span class="o">/</span> <span class="nt">24</span><span class="o">)</span> <span class="nt">48px</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">background-position</span><span class="o">:</span> <span class="nt">24px</span> <span class="nt">24px</span><span class="o">;</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="参考">参考</h2>
+<ul>
+<li><a href="https://zhuanlan.zhihu.com/p/345973110"target="_blank" rel="external nofollow noopener noreferrer">CSS+HTML&lt;网格背景效果&gt;<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+</ul>
+]]></description></item><item><title>浏览器渲染原理</title><link>https://lruihao.cn/posts/browser-rendering/</link><pubDate>Sun, 05 Feb 2023 21:02:52 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/browser-rendering/</guid><description><![CDATA[<iframe src="files/browser-rendering.pdf" width="100%" height="550"></iframe>
 <h2 id="浏览器是如何渲染页面的">浏览器是如何渲染页面的？</h2>
 <p>当浏览器的网络线程收到 HTML 文档后，会产生一个渲染任务，并将其传递给渲染主线程的消息队列。</p>
 <p>在事件循环机制的作用下，渲染主线程取出消息队列中的渲染任务，开启渲染流程。</p>

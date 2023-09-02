@@ -1,4 +1,92 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>所有文章 - 菠菜眾長</title><link>https://lruihao.cn/posts/</link><description>所有文章 | 菠菜眾長</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><lastBuildDate>Sat, 26 Aug 2023 17:22:57 +0800</lastBuildDate><atom:link href="https://lruihao.cn/posts/" rel="self" type="application/rss+xml"/><item><title>将 Hugo 博客部署到亚马逊云服务器</title><link>https://lruihao.cn/posts/aws-ec2/</link><pubDate>Sat, 26 Aug 2023 17:22:57 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/aws-ec2/</guid><description><![CDATA[<p>本文将介绍如何将 Hugo 博客打包并部署到亚马逊云服务器上，并附上亚马逊云服务器的配置过程。</p>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>所有文章 - 菠菜眾長</title><link>https://lruihao.cn/posts/</link><description>所有文章 | 菠菜眾長</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><lastBuildDate>Sat, 02 Sep 2023 10:05:44 +0800</lastBuildDate><atom:link href="https://lruihao.cn/posts/" rel="self" type="application/rss+xml"/><item><title>CSS 实现网格背景效果</title><link>https://lruihao.cn/posts/grid-bg-image/</link><pubDate>Sat, 02 Sep 2023 10:05:44 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/grid-bg-image/</guid><description><![CDATA[<p>本文将介绍如何使用 <code>linear-gradient</code> 、<code>background-size</code> 等属性来实现网格背景效果。</p>
+<h2 id="前言">前言</h2>
+<p>最近在开发一个拖拽式仪表盘时，需要在拖拽组件时添加网格辅助标线来帮助布局和对齐元素。</p>
+<p>最先想到的是使用 CSS 来实现这个效果，经过一番尝试，发现可以通过使用 CSS 的一些技术点，轻松实现不同类型的网格背景效果，包括实线网格和虚线网格。</p>
+<h2 id="前驱知识">前驱知识</h2>
+<p>在开始之前，我们需要了解一些必要的 CSS 属性和知识点。</p>
+<ul>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/gradient/linear-gradient"target="_blank" rel="external nofollow noopener noreferrer"><code>linear-gradient</code><i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>：CSS <strong><code>linear-gradient()</code></strong> 函数用于创建一个表示两种或多种颜色线性渐变的图片。其结果属于<a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/gradient"target="_blank" rel="external nofollow noopener noreferrer"><code>&lt;gradient&gt;</code><i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>数据类型，是一种特别的<a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/image"target="_blank" rel="external nofollow noopener noreferrer"><code>&lt;image&gt;</code><i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>数据类型。</li>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/gradient/radial-gradient"target="_blank" rel="external nofollow noopener noreferrer"><code>radial-gradient</code><i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>：<strong><code>radial-gradient()</code></strong> <a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS"target="_blank" rel="external nofollow noopener noreferrer">CSS<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> <a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/CSS_Functions"target="_blank" rel="external nofollow noopener noreferrer">函数<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>创建一个图像，该图像由从原点辐射的两种或多种颜色之间的渐进过渡组成。它的形状可以是圆形或椭圆形。函数的结果是 <a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/gradient"target="_blank" rel="external nofollow noopener noreferrer"><code>&lt;gradient&gt;</code><i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 数据类型的对象。这是一种特别的 <a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/image"target="_blank" rel="external nofollow noopener noreferrer"><code>&lt;image&gt;</code><i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>。</li>
+<li><code>background-size</code></li>
+<li><code>background-repeat</code></li>
+<li><code>background-position</code></li>
+<li><code>::before</code> 和 <code>::after</code> 伪元素</li>
+</ul>
+<h2 id="实线网格">实线网格</h2>
+<p>这个效果，我最初是在刷掘金的时候发现的，掘金文章内容区的背景一个实线网格，呈现出的效果类似一页学生时代的记事本，当时觉得很有意思，于是扒下来当作了现在博客文章内容的背景。</p>
+<p>实线网格的实现思路是使用 <code>linear-gradient</code> 来绘制横向和纵向的网格线，然后通过 <code>background-size</code> 来控制网格线的间距。</p>
+<p>具体代码如下：</p>
+<div class="highlight" id="id-1"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-css" data-lang="css"><span class="line"><span class="cl"><span class="p">.</span><span class="nc">grid</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">background-image</span><span class="p">:</span> <span class="nb">linear-gradient</span><span class="p">(</span><span class="kc">to</span> <span class="kc">right</span><span class="p">,</span> <span class="nb">rgba</span><span class="p">(</span><span class="mi">60</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mf">0.04</span><span class="p">)</span> <span class="mi">1</span><span class="kt">px</span><span class="p">,</span> <span class="kc">transparent</span> <span class="mi">0</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">linear-gradient</span><span class="p">(</span><span class="kc">to</span> <span class="kc">bottom</span><span class="p">,</span> <span class="nb">rgba</span><span class="p">(</span><span class="mi">60</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mf">0.04</span><span class="p">)</span> <span class="mi">1</span><span class="kt">px</span><span class="p">,</span> <span class="kc">transparent</span> <span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">background-size</span><span class="p">:</span> <span class="mi">20</span><span class="kt">px</span> <span class="mi">20</span><span class="kt">px</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面的代码中，<code>background-image</code> 属性使用了两个 <code>linear-gradient</code>，通过渐变颜色从 <code>rgba(60, 10, 30, 0.04)</code> 到 <code>transparent</code> 实现了横向和纵向的网格线。通过指定 <code>background-size</code> 为 <code>20px 20px</code>，设置了背景大小为 20px，由于 <code>background-repeat</code> 默认为 <code>repeat</code>，所以就实现了 20px 间距的网格线。</p>
+<h2 id="虚线网格">虚线网格</h2>
+<p>虚线网格的实现思路需要借助 <code>::before</code> 和 <code>::after</code> 伪元素，然后还是通过类似实线的思路实现网格线，然后两个伪元素叠加在一起，从而实现虚线网格。</p>
+<blockquote>
+<p>未做实例</p>
+</blockquote>
+<h2 id="点阵网格">点阵网格</h2>
+<p>这里把渐变修改为径向渐变就实现点点背景了，原理和前面说的都是一样的。</p>
+<div class="highlight" id="id-2"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-css" data-lang="css"><span class="line"><span class="cl"><span class="p">.</span><span class="nc">grid</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">background-image</span><span class="p">:</span> <span class="nb">radial-gradient</span><span class="p">(</span><span class="kc">circle</span> <span class="p">,</span> <span class="mh">#5a5a5a</span> <span class="mf">.5</span><span class="kt">px</span><span class="p">,</span> <span class="kc">transparent</span> <span class="mf">.5</span><span class="kt">px</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">background-size</span><span class="p">:</span> <span class="mi">20</span><span class="kt">px</span> <span class="mi">20</span><span class="kt">px</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="总结">总结</h2>
+<p>最后为了实现我在实际开发中的需求，我还需要控制网格宽度为容器的 1/24，这里就需要使用 <code>calc()</code> 函数来计算了。</p>
+<div class="highlight" id="id-3"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-css" data-lang="css"><span class="line"><span class="cl"><span class="c">/* 背景显示网格辅助线（宽：1/24 高：40+8px） */</span>
+</span></span><span class="line"><span class="cl"><span class="nt">background-image</span><span class="o">:</span> <span class="nt">linear-gradient</span><span class="o">(</span><span class="nt">90deg</span><span class="o">,</span> <span class="nt">rgba</span><span class="o">(</span><span class="nt">60</span><span class="o">,</span> <span class="nt">10</span><span class="o">,</span> <span class="nt">30</span><span class="o">,</span> <span class="nt">0</span><span class="p">.</span><span class="nc">04</span><span class="o">)</span> <span class="nt">1px</span><span class="o">,</span> <span class="nt">transparent</span> <span class="nt">0</span><span class="o">),</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">linear-gradient</span><span class="o">(</span><span class="nt">1turn</span><span class="o">,</span> <span class="nt">rgba</span><span class="o">(</span><span class="nt">60</span><span class="o">,</span> <span class="nt">10</span><span class="o">,</span> <span class="nt">30</span><span class="o">,</span> <span class="nt">0</span><span class="p">.</span><span class="nc">04</span><span class="o">)</span> <span class="nt">1px</span><span class="o">,</span> <span class="nt">transparent</span> <span class="nt">0</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl"><span class="nt">background-size</span><span class="o">:</span> <span class="nt">calc</span><span class="o">((</span><span class="nt">100</span><span class="o">%</span> <span class="nt">-</span> <span class="nt">8px</span><span class="o">)</span> <span class="o">/</span> <span class="nt">24</span><span class="o">)</span> <span class="nt">48px</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">background-position</span><span class="o">:</span> <span class="nt">4px</span> <span class="nt">4px</span><span class="o">;</span></span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight" id="id-4"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-css" data-lang="css"><span class="line"><span class="cl"><span class="c">/* 或者点阵网格辅助线（宽：1/24 高：40+8px） */</span>
+</span></span><span class="line"><span class="cl"><span class="nt">background-image</span><span class="o">:</span> <span class="nt">radial-gradient</span><span class="o">(</span><span class="nt">circle</span> <span class="o">,</span> <span class="p">#</span><span class="nn">5a5a5a</span> <span class="p">.</span><span class="nc">5px</span><span class="o">,</span> <span class="nt">transparent</span> <span class="p">.</span><span class="nc">5px</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl"><span class="nt">background-size</span><span class="o">:</span> <span class="nt">calc</span><span class="o">((</span><span class="nt">100</span><span class="o">%</span> <span class="nt">-</span> <span class="nt">8px</span><span class="o">)</span> <span class="o">/</span> <span class="nt">24</span><span class="o">)</span> <span class="nt">48px</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">background-position</span><span class="o">:</span> <span class="nt">24px</span> <span class="nt">24px</span><span class="o">;</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="参考">参考</h2>
+<ul>
+<li><a href="https://zhuanlan.zhihu.com/p/345973110"target="_blank" rel="external nofollow noopener noreferrer">CSS+HTML&lt;网格背景效果&gt;<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+</ul>
+]]></description></item><item><title>将 Hugo 博客部署到亚马逊云服务器</title><link>https://lruihao.cn/posts/aws-ec2/</link><pubDate>Sat, 26 Aug 2023 17:22:57 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/aws-ec2/</guid><description><![CDATA[<p>本文将介绍如何将 Hugo 博客打包并部署到亚马逊云服务器上，并附上亚马逊云服务器的配置过程。</p>
 <h2 id="前言">前言</h2>
 <p>最近很长一段时间都是使用 Hugo 在写博客，也花了很多精力在 <a href="https://github.com/hugo-fixit/FixIt"target="_blank" rel="external nofollow noopener noreferrer">hugo-fixit<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 这个主题的开发上。也听到很多使用 Hugo 写博客的网友们问我，如何部署博客？部署到哪里？</p>
 <p>今天就介绍一种方式：<strong>把博客部署到云服务器上</strong>。</p>
@@ -150,7 +238,95 @@
 </blockquote>
 <h2 id="总结">总结</h2>
 <p>有了一台海外服务器，我们还可以做很多事情，比如部署 chatgpt 等等，有了服务器一定要多去探索和学习，这么复杂的申请的流程，不要白白放着让过期了。</p>
-<p>保持探索欲，砥砺前行！</p>]]></description></item><item><title>将 Hugo 博客部署到亚马逊云服务器</title><link>https://lruihao.cn/posts/aws-ec2/</link><pubDate>Sat, 26 Aug 2023 17:22:57 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/aws-ec2/</guid><description><![CDATA[<p>本文将介绍如何将 Hugo 博客打包并部署到亚马逊云服务器上，并附上亚马逊云服务器的配置过程。</p>
+<p>保持探索欲，砥砺前行！</p>]]></description></item><item><title>CSS 实现网格背景效果</title><link>https://lruihao.cn/posts/grid-bg-image/</link><pubDate>Sat, 02 Sep 2023 10:05:44 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/grid-bg-image/</guid><description><![CDATA[<p>本文将介绍如何使用 <code>linear-gradient</code> 、<code>background-size</code> 等属性来实现网格背景效果。</p>
+<h2 id="前言">前言</h2>
+<p>最近在开发一个拖拽式仪表盘时，需要在拖拽组件时添加网格辅助标线来帮助布局和对齐元素。</p>
+<p>最先想到的是使用 CSS 来实现这个效果，经过一番尝试，发现可以通过使用 CSS 的一些技术点，轻松实现不同类型的网格背景效果，包括实线网格和虚线网格。</p>
+<h2 id="前驱知识">前驱知识</h2>
+<p>在开始之前，我们需要了解一些必要的 CSS 属性和知识点。</p>
+<ul>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/gradient/linear-gradient"target="_blank" rel="external nofollow noopener noreferrer"><code>linear-gradient</code><i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>：CSS <strong><code>linear-gradient()</code></strong> 函数用于创建一个表示两种或多种颜色线性渐变的图片。其结果属于<a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/gradient"target="_blank" rel="external nofollow noopener noreferrer"><code>&lt;gradient&gt;</code><i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>数据类型，是一种特别的<a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/image"target="_blank" rel="external nofollow noopener noreferrer"><code>&lt;image&gt;</code><i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>数据类型。</li>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/gradient/radial-gradient"target="_blank" rel="external nofollow noopener noreferrer"><code>radial-gradient</code><i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>：<strong><code>radial-gradient()</code></strong> <a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS"target="_blank" rel="external nofollow noopener noreferrer">CSS<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> <a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/CSS_Functions"target="_blank" rel="external nofollow noopener noreferrer">函数<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>创建一个图像，该图像由从原点辐射的两种或多种颜色之间的渐进过渡组成。它的形状可以是圆形或椭圆形。函数的结果是 <a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/gradient"target="_blank" rel="external nofollow noopener noreferrer"><code>&lt;gradient&gt;</code><i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 数据类型的对象。这是一种特别的 <a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/image"target="_blank" rel="external nofollow noopener noreferrer"><code>&lt;image&gt;</code><i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>。</li>
+<li><code>background-size</code></li>
+<li><code>background-repeat</code></li>
+<li><code>background-position</code></li>
+<li><code>::before</code> 和 <code>::after</code> 伪元素</li>
+</ul>
+<h2 id="实线网格">实线网格</h2>
+<p>这个效果，我最初是在刷掘金的时候发现的，掘金文章内容区的背景一个实线网格，呈现出的效果类似一页学生时代的记事本，当时觉得很有意思，于是扒下来当作了现在博客文章内容的背景。</p>
+<p>实线网格的实现思路是使用 <code>linear-gradient</code> 来绘制横向和纵向的网格线，然后通过 <code>background-size</code> 来控制网格线的间距。</p>
+<p>具体代码如下：</p>
+<div class="highlight" id="id-1"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-css" data-lang="css"><span class="line"><span class="cl"><span class="p">.</span><span class="nc">grid</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">background-image</span><span class="p">:</span> <span class="nb">linear-gradient</span><span class="p">(</span><span class="kc">to</span> <span class="kc">right</span><span class="p">,</span> <span class="nb">rgba</span><span class="p">(</span><span class="mi">60</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mf">0.04</span><span class="p">)</span> <span class="mi">1</span><span class="kt">px</span><span class="p">,</span> <span class="kc">transparent</span> <span class="mi">0</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">linear-gradient</span><span class="p">(</span><span class="kc">to</span> <span class="kc">bottom</span><span class="p">,</span> <span class="nb">rgba</span><span class="p">(</span><span class="mi">60</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mf">0.04</span><span class="p">)</span> <span class="mi">1</span><span class="kt">px</span><span class="p">,</span> <span class="kc">transparent</span> <span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">background-size</span><span class="p">:</span> <span class="mi">20</span><span class="kt">px</span> <span class="mi">20</span><span class="kt">px</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面的代码中，<code>background-image</code> 属性使用了两个 <code>linear-gradient</code>，通过渐变颜色从 <code>rgba(60, 10, 30, 0.04)</code> 到 <code>transparent</code> 实现了横向和纵向的网格线。通过指定 <code>background-size</code> 为 <code>20px 20px</code>，设置了背景大小为 20px，由于 <code>background-repeat</code> 默认为 <code>repeat</code>，所以就实现了 20px 间距的网格线。</p>
+<h2 id="虚线网格">虚线网格</h2>
+<p>虚线网格的实现思路需要借助 <code>::before</code> 和 <code>::after</code> 伪元素，然后还是通过类似实线的思路实现网格线，然后两个伪元素叠加在一起，从而实现虚线网格。</p>
+<blockquote>
+<p>未做实例</p>
+</blockquote>
+<h2 id="点阵网格">点阵网格</h2>
+<p>这里把渐变修改为径向渐变就实现点点背景了，原理和前面说的都是一样的。</p>
+<div class="highlight" id="id-2"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-css" data-lang="css"><span class="line"><span class="cl"><span class="p">.</span><span class="nc">grid</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">background-image</span><span class="p">:</span> <span class="nb">radial-gradient</span><span class="p">(</span><span class="kc">circle</span> <span class="p">,</span> <span class="mh">#5a5a5a</span> <span class="mf">.5</span><span class="kt">px</span><span class="p">,</span> <span class="kc">transparent</span> <span class="mf">.5</span><span class="kt">px</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">background-size</span><span class="p">:</span> <span class="mi">20</span><span class="kt">px</span> <span class="mi">20</span><span class="kt">px</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="总结">总结</h2>
+<p>最后为了实现我在实际开发中的需求，我还需要控制网格宽度为容器的 1/24，这里就需要使用 <code>calc()</code> 函数来计算了。</p>
+<div class="highlight" id="id-3"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-css" data-lang="css"><span class="line"><span class="cl"><span class="c">/* 背景显示网格辅助线（宽：1/24 高：40+8px） */</span>
+</span></span><span class="line"><span class="cl"><span class="nt">background-image</span><span class="o">:</span> <span class="nt">linear-gradient</span><span class="o">(</span><span class="nt">90deg</span><span class="o">,</span> <span class="nt">rgba</span><span class="o">(</span><span class="nt">60</span><span class="o">,</span> <span class="nt">10</span><span class="o">,</span> <span class="nt">30</span><span class="o">,</span> <span class="nt">0</span><span class="p">.</span><span class="nc">04</span><span class="o">)</span> <span class="nt">1px</span><span class="o">,</span> <span class="nt">transparent</span> <span class="nt">0</span><span class="o">),</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">linear-gradient</span><span class="o">(</span><span class="nt">1turn</span><span class="o">,</span> <span class="nt">rgba</span><span class="o">(</span><span class="nt">60</span><span class="o">,</span> <span class="nt">10</span><span class="o">,</span> <span class="nt">30</span><span class="o">,</span> <span class="nt">0</span><span class="p">.</span><span class="nc">04</span><span class="o">)</span> <span class="nt">1px</span><span class="o">,</span> <span class="nt">transparent</span> <span class="nt">0</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl"><span class="nt">background-size</span><span class="o">:</span> <span class="nt">calc</span><span class="o">((</span><span class="nt">100</span><span class="o">%</span> <span class="nt">-</span> <span class="nt">8px</span><span class="o">)</span> <span class="o">/</span> <span class="nt">24</span><span class="o">)</span> <span class="nt">48px</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">background-position</span><span class="o">:</span> <span class="nt">4px</span> <span class="nt">4px</span><span class="o">;</span></span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight" id="id-4"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-css" data-lang="css"><span class="line"><span class="cl"><span class="c">/* 或者点阵网格辅助线（宽：1/24 高：40+8px） */</span>
+</span></span><span class="line"><span class="cl"><span class="nt">background-image</span><span class="o">:</span> <span class="nt">radial-gradient</span><span class="o">(</span><span class="nt">circle</span> <span class="o">,</span> <span class="p">#</span><span class="nn">5a5a5a</span> <span class="p">.</span><span class="nc">5px</span><span class="o">,</span> <span class="nt">transparent</span> <span class="p">.</span><span class="nc">5px</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl"><span class="nt">background-size</span><span class="o">:</span> <span class="nt">calc</span><span class="o">((</span><span class="nt">100</span><span class="o">%</span> <span class="nt">-</span> <span class="nt">8px</span><span class="o">)</span> <span class="o">/</span> <span class="nt">24</span><span class="o">)</span> <span class="nt">48px</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">background-position</span><span class="o">:</span> <span class="nt">24px</span> <span class="nt">24px</span><span class="o">;</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="参考">参考</h2>
+<ul>
+<li><a href="https://zhuanlan.zhihu.com/p/345973110"target="_blank" rel="external nofollow noopener noreferrer">CSS+HTML&lt;网格背景效果&gt;<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+</ul>
+]]></description></item><item><title>将 Hugo 博客部署到亚马逊云服务器</title><link>https://lruihao.cn/posts/aws-ec2/</link><pubDate>Sat, 26 Aug 2023 17:22:57 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/aws-ec2/</guid><description><![CDATA[<p>本文将介绍如何将 Hugo 博客打包并部署到亚马逊云服务器上，并附上亚马逊云服务器的配置过程。</p>
 <h2 id="前言">前言</h2>
 <p>最近很长一段时间都是使用 Hugo 在写博客，也花了很多精力在 <a href="https://github.com/hugo-fixit/FixIt"target="_blank" rel="external nofollow noopener noreferrer">hugo-fixit<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 这个主题的开发上。也听到很多使用 Hugo 写博客的网友们问我，如何部署博客？部署到哪里？</p>
 <p>今天就介绍一种方式：<strong>把博客部署到云服务器上</strong>。</p>
@@ -3416,510 +3592,4 @@
 </div><p><strong>d</strong>: 代表文件夹</p>
 <p><strong>rwx</strong>: 代表文件所有者 (u 表示）权限，这里是 liruihao，liruihao 对该文件拥有读写执行权限。</p>
 <p><strong>r-x</strong>: 代表所属（g 表示）的权限，这里同组用户拥有对该文件读和执行的权限。</p>
-<p><strong>r-x</strong>: 代表其他用户（o 表示）的权限，这里和上面权限一样。</p>]]></description></item><item><title>Mac 上的开发配置总结</title><link>https://lruihao.cn/posts/config4mac/</link><pubDate>Fri, 29 Jul 2022 20:22:44 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/config4mac/</guid><description><![CDATA[<p>记录一下使用 Mac 作为生产工具开发的一些基本配置和经验。</p>
-<h2 id="配置文件">配置文件</h2>
-<p>Mac 上有很多配置文件都可以用来保存环境变量等配置，根据自己的理解记录了四个文件的用途：</p>
-<div class="highlight" id="id-1"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># etc/profile        系统配置文件</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># etc/.bash_profile  系统环境变量配置</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># ~/.bash_profile    个人环境变量配置</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># ~/.zshrc           zsh 的配置文件</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># $ZSH_CUSTOM/*.zsh  自定义 zsh 脚本，在 zsh 启动时会自动执行</span></span></span></code></pre></td></tr></table>
-</div>
-</div><p>编辑最多的应该是 <code>~/.bash_profile</code> 和 <code>~/.zshrc</code>, 基本上建议所有的个人配置都放在 <code>~/.bash_profile</code> 中，然后在 <code>~/.zshrc</code> 最后执行 <code>source ~/.bash_profile</code>, 这样也方便将自己的个人环境变量配置备份。</p>
-<h2 id="常用命令">常用命令</h2>
-<div class="highlight" id="id-2"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 安装/卸载 homebrew install.sh/uninstall.sh</span>
-</span></span><span class="line"><span class="cl">/bin/bash -c <span class="s2">&#34;</span><span class="k">$(</span>curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh<span class="k">)</span><span class="s2">&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># 注意：安装 Homebrew 会下载 node, 请做好 node 环境被破坏的准备</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># 显示隐藏文件 true/false or cmd+shift+.</span>
-</span></span><span class="line"><span class="cl">defaults write com.apple.finder AppleShowAllFiles -boolean <span class="nb">true</span> <span class="p">;</span> killall Finder
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># 释放端口</span>
-</span></span><span class="line"><span class="cl">lsof -i:<span class="nv">$your_port</span>  <span class="c1"># 1. 查看使用端口进程</span>
-</span></span><span class="line"><span class="cl"><span class="nb">kill</span> -9 <span class="nv">$your_PID</span>   <span class="c1"># 2. 释放进程</span></span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="node">Node</h2>
-<div class="highlight" id="id-3"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span><span class="lnt">37
-</span><span class="lnt">38
-</span><span class="lnt">39
-</span><span class="lnt">40
-</span><span class="lnt">41
-</span><span class="lnt">42
-</span><span class="lnt">43
-</span><span class="lnt">44
-</span><span class="lnt">45
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 设置阿里镜像</span>
-</span></span><span class="line"><span class="cl">npm config <span class="nb">set</span> <span class="nv">registry</span><span class="o">=</span>https://registry.npmmirror.com
-</span></span><span class="line"><span class="cl"><span class="c1"># npm config set registry https://registry.npmjs.org</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># GitHub 仓库下载地址前缀镜像</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># disturl=https://registry.npmmirror.com/-/binary/</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># 全局安装的依赖</span>
-</span></span><span class="line"><span class="cl">npm install -g npm@8.13.1
-</span></span><span class="line"><span class="cl">npm install -g cnpm
-</span></span><span class="line"><span class="cl">npm install -g @vue/cli
-</span></span><span class="line"><span class="cl">npm install -g nvm
-</span></span><span class="line"><span class="cl">npm install -g nrm
-</span></span><span class="line"><span class="cl">npm install -g yarn
-</span></span><span class="line"><span class="cl">npm install -g yrm
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># npm 参数</span>
-</span></span><span class="line"><span class="cl">--ignore-scripts  <span class="c1"># 忽略脚本错误</span>
-</span></span><span class="line"><span class="cl">--force  <span class="c1"># 会无视冲突，并强制获取远端 npm 库资源，即使本地有资源也会覆盖掉</span>
-</span></span><span class="line"><span class="cl">--legacy-peer-deps  <span class="c1"># 安装时忽略所有 peerDependencies，忽视依赖冲突，采用 npm 版本 4 到版本 6 的样式去安装依赖，已有的依赖不会覆盖</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># 清除缓存</span>
-</span></span><span class="line"><span class="cl">npm cache clean --force
-</span></span><span class="line"><span class="cl">rm -rf node_modules
-</span></span><span class="line"><span class="cl">rm -rf package-lock.json
-</span></span><span class="line"><span class="cl">npm install
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># nvm</span>
-</span></span><span class="line"><span class="cl">nvm <span class="nb">alias</span> default <span class="o">[</span>node_version<span class="o">]</span>  <span class="c1"># 设置默认版本</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># 检查过时依赖</span>
-</span></span><span class="line"><span class="cl">npm outdated
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># 安全更新</span>
-</span></span><span class="line"><span class="cl">npm update
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># ncu 更新检查工具</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># https://blog.51cto.com/u_13028258/5115637?b=totalstatistic</span>
-</span></span><span class="line"><span class="cl">npm install -g npm-check-updates
-</span></span><span class="line"><span class="cl"><span class="c1">## 检查</span>
-</span></span><span class="line"><span class="cl">ncu
-</span></span><span class="line"><span class="cl">ncu vue
-</span></span><span class="line"><span class="cl"><span class="c1">## 更新</span>
-</span></span><span class="line"><span class="cl">ncu -u
-</span></span><span class="line"><span class="cl">ncu -u vue</span></span></code></pre></td></tr></table>
-</div>
-</div><p>electron 相关配置</p>
-<div class="highlight" id="id-4"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 设置 electron 镜像仓库</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># https://registry.npmmirror.com/-/binary/electron</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># 13.1.7 版本 下载链接可能会拼错导致 404，要设置成 https://registry.npmmirror.com/-/binary/electron/v</span>
-</span></span><span class="line"><span class="cl">npm config <span class="nb">set</span> <span class="nv">electron_mirror</span><span class="o">=</span>https://npmmirror.com/mirrors/electron/</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="sourcetree">SourceTree</h2>
-<p>Custom actions</p>
-<ul>
-<li>Script target: <code>/bin/bash</code></li>
-<li>Parameters: <code>/Users/liruihao/workspace/.shell/sync_tags.sh</code></li>
-</ul>
-<div class="details admonition tip open">
-    <div class="details-summary admonition-title">
-      <i class="icon fa-solid fa-lightbulb fa-fw" aria-hidden="true"></i>技巧<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i>
-    </div>
-    <div class="details-content">
-      <div class="admonition-content"><p>根据不同的 shell 程序选择不同的文件后缀名，并给文件增加可执行权限：</p>
-<ul>
-<li>zsh: <code>.zsh</code></li>
-<li>bash: <code>.sh</code></li>
-</ul>
-</div>
-    </div>
-  </div>
-<div class="highlight" id="id-5"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="cp">#! /bin/bash
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="c1"># 同步远程仓库标签分支脚本</span>
-</span></span><span class="line"><span class="cl">git tag -l <span class="p">|</span> xargs git tag -d
-</span></span><span class="line"><span class="cl"><span class="c1"># git fetch origin --prune</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># git fetch origin --tags</span>
-</span></span><span class="line"><span class="cl">git fetch origin --prune --prune-tags</span></span></code></pre></td></tr></table>
-</div>
-</div><div class="highlight" id="id-6"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="cp">#! /bin/bash
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="c1"># 同步所有子模组</span>
-</span></span><span class="line"><span class="cl">git submodule update --remote --merge</span></span></code></pre></td></tr></table>
-</div>
-</div><div class="highlight" id="id-7"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="cp">#! /bin/zsh
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="c1"># ssh 配置但无法连接时</span>
-</span></span><span class="line"><span class="cl">ssh-agent -s
-</span></span><span class="line"><span class="cl">ssh-add ~/.ssh/Lruihao-Github  <span class="c1"># 私钥路径</span></span></span></code></pre></td></tr></table>
-</div>
-</div><div class="details admonition tip open">
-    <div class="details-summary admonition-title">
-      <i class="icon fa-solid fa-lightbulb fa-fw" aria-hidden="true"></i>技巧<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i>
-    </div>
-    <div class="details-content">
-      <div class="admonition-content">开机启动时系统会去自动读取 <code>id_rsa</code> 的私钥来启动 SSH 链接，若不是默认命令就会失败需要手动执行上诉命令启动，可添加到<a href="#startup">开机自启动</a>。</div>
-    </div>
-  </div>
-<div class="details admonition tip open">
-    <div class="details-summary admonition-title">
-      <i class="icon fa-solid fa-lightbulb fa-fw" aria-hidden="true"></i>SourceTree 相关文章<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i>
-    </div>
-    <div class="details-content">
-      <div class="admonition-content"><ul>
-<li><a href="/posts/sourcetree-husky/">解决 SourceTree 提交时候 husky 命令失败问题</a></li>
-</ul>
-</div>
-    </div>
-  </div>
-<h2 id="terminal">Terminal</h2>
-<ul>
-<li>Terminal: 系统自带</li>
-<li>Shell: zsh</li>
-<li>美化: <a href="https://github.com/ohmyzsh/ohmyzsh"target="_blank" rel="external nofollow noopener noreferrer">ohmyzsh<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
-</ul>
-<p>修改启动语</p>
-<div class="highlight" id="id-8"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">vim <span class="nv">$PREFIX</span>/etc/motd</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="sublime-text-3">sublime-text 3</h2>
-<div class="highlight" id="id-9"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Terminal 启用 sublime 别名 subl</span>
-</span></span><span class="line"><span class="cl"><span class="c1">## 1.设置软链（推荐）</span>
-</span></span><span class="line"><span class="cl">sudo ln -s <span class="s2">&#34;/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl&#34;</span> /usr/local/bin/subl
-</span></span><span class="line"><span class="cl"><span class="c1">## 2.设置别名</span>
-</span></span><span class="line"><span class="cl">vim ~/.bash_profile
-</span></span><span class="line"><span class="cl"><span class="nb">alias</span> <span class="nv">subl</span><span class="o">=</span><span class="s2">&#34;&#39;/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl&#39;&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="nb">source</span> ~/.bash_profile <span class="c1"># 每打开一个命令窗口，需要先让命令生效</span></span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="startup">开机自启动</h2>
-<ol>
-<li>系统偏好设置 -&gt; 用户与群组 -&gt; 登录项 -&gt; 增删可执行文件 (需配置默认启动软件)</li>
-<li>将 shell 命令添加到 <code>/System/Library/StartupItems/</code> 或 <code>/Library/StartupItems/</code> 文件夹（测试无效）</li>
-</ol>
-<h2 id="备份">备份</h2>
-<div class="highlight" id="id-10"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span><span class="lnt">37
-</span><span class="lnt">38
-</span><span class="lnt">39
-</span><span class="lnt">40
-</span><span class="lnt">41
-</span><span class="lnt">42
-</span><span class="lnt">43
-</span><span class="lnt">44
-</span><span class="lnt">45
-</span><span class="lnt">46
-</span><span class="lnt">47
-</span><span class="lnt">48
-</span><span class="lnt">49
-</span><span class="lnt">50
-</span><span class="lnt">51
-</span><span class="lnt">52
-</span><span class="lnt">53
-</span><span class="lnt">54
-</span><span class="lnt">55
-</span><span class="lnt">56
-</span><span class="lnt">57
-</span><span class="lnt">58
-</span><span class="lnt">59
-</span><span class="lnt">60
-</span><span class="lnt">61
-</span><span class="lnt">62
-</span><span class="lnt">63
-</span><span class="lnt">64
-</span><span class="lnt">65
-</span><span class="lnt">66
-</span><span class="lnt">67
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># -------------------------------------</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># This configuration is for Lruihao.</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># https://lruihao.cn/posts/config4mac/</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># -------------------------------------</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">LC_ALL</span><span class="o">=</span>en_US.UTF-8
-</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">LANG</span><span class="o">=</span>en_US.UTF-8
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># workspace</span>
-</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">WORKSPACE</span><span class="o">=</span><span class="s2">&#34;</span><span class="nv">$HOME</span><span class="s2">/workspace&#34;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># alias</span>
-</span></span><span class="line"><span class="cl"><span class="nb">alias</span> <span class="nv">subl</span><span class="o">=</span><span class="s2">&#34;&#39;/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl&#39;&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="nb">alias</span> <span class="nv">mysql</span><span class="o">=</span>/usr/local/mysql/bin/mysql
-</span></span><span class="line"><span class="cl"><span class="nb">alias</span> <span class="nv">mysqladmin</span><span class="o">=</span>/usr/local/mysql/bin/mysqladmin
-</span></span><span class="line"><span class="cl"><span class="nb">alias</span> <span class="nv">incr</span><span class="o">=</span><span class="s2">&#34;source </span><span class="nv">$WORKSPACE</span><span class="s2">/.shell/incr*.zsh&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="nb">alias</span> <span class="nv">typora</span><span class="o">=</span><span class="s2">&#34;open -a typora&#34;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># maven</span>
-</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">M2_HOME</span><span class="o">=</span><span class="nv">$HOME</span>/Applications/apache-maven-3.8.5
-</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="nv">$PATH</span>:<span class="nv">$M2_HOME</span>/bin
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># jenv</span>
-</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="s2">&#34;</span><span class="nv">$HOME</span><span class="s2">/.jenv/bin:</span><span class="nv">$PATH</span><span class="s2">&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="nb">eval</span> <span class="s2">&#34;</span><span class="k">$(</span>jenv init -<span class="k">)</span><span class="s2">&#34;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># java</span>
-</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">JAVA_8_HOME</span><span class="o">=</span>/Library/Java/JavaVirtualMachines/jdk1.8.0_321.jdk/Contents/Home
-</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">JAVA_17_HOME</span><span class="o">=</span>/Library/Java/JavaVirtualMachines/jdk-17.0.2.jdk/Contents/Home
-</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">JAVA_HOME</span><span class="o">=</span><span class="nv">$JAVA_8_HOME</span>  <span class="c1"># 设置一个中间变量，为了方便多个 JDK 版本时更换 JAVA_HOME</span>
-</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="nv">$JAVA_HOME</span>/bin:<span class="nv">$PATH</span>:.  <span class="c1"># 冒号前代表 JDK 目录下的 bin 目录，冒号后代表当前目录</span>
-</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">CLASSPATH</span><span class="o">=</span>.:<span class="nv">$JAVA_HOME</span>/lib/dt.jar:<span class="nv">$JAVA_HOME</span>/lib/tools.jar
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># jmeter</span>
-</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">JMETER_HOME</span><span class="o">=</span><span class="nv">$HOME</span>/jmeter/apache-jmeter-5.4.1
-</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="nv">$JAVA_HOME</span>/bin:<span class="nv">$PATH</span>:.:<span class="nv">$JMETER_HOME</span>/bin:<span class="nv">$PATH</span>
-</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">CLASSPATH</span><span class="o">=</span>.:<span class="nv">$JAVA_HOME</span>/lib/dt.jar:<span class="nv">$JAVA_HOME</span>/lib/tools.jar:<span class="nv">$JMETER_HOME</span>/lib/ext/ApacheJMeter_core.jar:<span class="nv">$JMETER_HOME</span>/lib/jorphan.jar:<span class="nv">$JMETER_HOME</span>/lib/logkit-2.0.jar
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># platform-tools of Android SDK</span>
-</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="nv">$PATH</span>:<span class="nv">$HOME</span>/Applications/platform-tools
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># Electron-Mac app development</span>
-</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">CSC_LINK</span><span class="o">=</span><span class="nv">$WORKSPACE</span>/mac_app_dev/Mac.p12
-</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">CSC_KEY_PASSWORD</span><span class="o">=</span>xxxxxxxxx
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># yarn</span>
-</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="s2">&#34;</span><span class="nv">$HOME</span><span class="s2">/.yarn/bin:</span><span class="nv">$HOME</span><span class="s2">/.config/yarn/global/node_modules/.bin:</span><span class="nv">$PATH</span><span class="s2">&#34;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># zsh custom plugin</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># https://mimosa-pudica.net/zsh-incremental.html</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># source $WORKSPACE/.shell/incr*.zsh</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># Qcloud secret key-value</span>
-</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">SECRET_ID</span><span class="o">=</span><span class="s2">&#34;&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">SECRET_KEY</span><span class="o">=</span><span class="s2">&#34;&#34;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># golang</span>
-</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">GOROOT</span><span class="o">=</span>/usr/local/go
-</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">GOBIN</span><span class="o">=</span><span class="nv">$GOROOT</span>/bin
-</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="nv">$PATH</span>:<span class="nv">$GOBIN</span>
-</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">GOPATH</span><span class="o">=</span><span class="nv">$HOME</span>/go
-</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">GOPROXY</span><span class="o">=</span>https://goproxy.cn
-</span></span><span class="line"><span class="cl"><span class="c1"># Go work bin</span>
-</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="nv">$PATH</span>:<span class="nv">$GOPATH</span>/bin
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># sass_embedded</span>
-</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="nv">$PATH</span>:<span class="nv">$HOME</span>/Applications/sass_embedded</span></span></code></pre></td></tr></table>
-</div>
-</div><div class="highlight" id="id-11"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-zsh" data-lang="zsh"><span class="line"><span class="cl"><span class="c1"># https://github.com/nvm-sh/nvm#manual-install</span>
-</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">NVM_DIR</span><span class="o">=</span><span class="s2">&#34;</span><span class="nv">$HOME</span><span class="s2">/.nvm&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="o">[</span> -s <span class="s2">&#34;</span><span class="nv">$NVM_DIR</span><span class="s2">/nvm.sh&#34;</span> <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="se">\.</span> <span class="s2">&#34;</span><span class="nv">$NVM_DIR</span><span class="s2">/nvm.sh&#34;</span>  <span class="c1"># This loads nvm</span>
-</span></span><span class="line"><span class="cl"><span class="o">[</span> -s <span class="s2">&#34;</span><span class="nv">$NVM_DIR</span><span class="s2">/bash_completion&#34;</span> <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="se">\.</span> <span class="s2">&#34;</span><span class="nv">$NVM_DIR</span><span class="s2">/bash_completion&#34;</span>  <span class="c1"># This loads nvm bash_completion</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># https://github.com/nvm-sh/nvm#deeper-shell-integration</span>
-</span></span><span class="line"><span class="cl">autoload -U add-zsh-hook
-</span></span><span class="line"><span class="cl">load-nvmrc<span class="o">()</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">  <span class="nb">local</span> <span class="nv">node_version</span><span class="o">=</span><span class="s2">&#34;</span><span class="k">$(</span>nvm version<span class="k">)</span><span class="s2">&#34;</span>
-</span></span><span class="line"><span class="cl">  <span class="nb">local</span> <span class="nv">nvmrc_path</span><span class="o">=</span><span class="s2">&#34;</span><span class="k">$(</span>nvm_find_nvmrc<span class="k">)</span><span class="s2">&#34;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="o">[</span> -n <span class="s2">&#34;</span><span class="nv">$nvmrc_path</span><span class="s2">&#34;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
-</span></span><span class="line"><span class="cl">    <span class="nb">local</span> <span class="nv">nvmrc_node_version</span><span class="o">=</span><span class="k">$(</span>nvm version <span class="s2">&#34;</span><span class="k">$(</span>cat <span class="s2">&#34;</span><span class="si">${</span><span class="nv">nvmrc_path</span><span class="si">}</span><span class="s2">&#34;</span><span class="k">)</span><span class="s2">&#34;</span><span class="k">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="o">[</span> <span class="s2">&#34;</span><span class="nv">$nvmrc_node_version</span><span class="s2">&#34;</span> <span class="o">=</span> <span class="s2">&#34;N/A&#34;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
-</span></span><span class="line"><span class="cl">      nvm install
-</span></span><span class="line"><span class="cl">    <span class="k">elif</span> <span class="o">[</span> <span class="s2">&#34;</span><span class="nv">$nvmrc_node_version</span><span class="s2">&#34;</span> !<span class="o">=</span> <span class="s2">&#34;</span><span class="nv">$node_version</span><span class="s2">&#34;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
-</span></span><span class="line"><span class="cl">      nvm use
-</span></span><span class="line"><span class="cl">    <span class="k">fi</span>
-</span></span><span class="line"><span class="cl">  <span class="k">elif</span> <span class="o">[</span> <span class="s2">&#34;</span><span class="nv">$node_version</span><span class="s2">&#34;</span> !<span class="o">=</span> <span class="s2">&#34;</span><span class="k">$(</span>nvm version default<span class="k">)</span><span class="s2">&#34;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
-</span></span><span class="line"><span class="cl">    <span class="nb">echo</span> <span class="s2">&#34;Reverting to nvm default version&#34;</span>
-</span></span><span class="line"><span class="cl">    nvm use default
-</span></span><span class="line"><span class="cl">  <span class="k">fi</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">  <span class="c1"># fix husky hook</span>
-</span></span><span class="line"><span class="cl">  <span class="c1"># ref: https://github.com/typicode/husky/issues/390#issuecomment-762213421</span>
-</span></span><span class="line"><span class="cl">  <span class="nb">echo</span> <span class="s2">&#34;export PATH=\&#34;</span><span class="k">$(</span>dirname <span class="k">$(</span>which node<span class="k">))</span><span class="s2">:\$PATH\&#34;&#34;</span> &gt; ~/.huskyrc
-</span></span><span class="line"><span class="cl"><span class="o">}</span>
-</span></span><span class="line"><span class="cl">add-zsh-hook chpwd load-nvmrc
-</span></span><span class="line"><span class="cl">load-nvmrc
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># https://github.com/nvm-sh/nvm#use-a-mirror-of-node-binaries</span>
-</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">NVM_NODEJS_ORG_MIRROR</span><span class="o">=</span>https://mirrors.ustc.edu.cn/node/</span></span></code></pre></td></tr></table>
-</div>
-</div><blockquote>
-<p>先添加一些基础配置 <a href="https://github.com/amix/vimrc/blob/master/vimrcs/basic.vim"target="_blank" rel="external nofollow noopener noreferrer">basic.vim<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
-</blockquote>
-<div class="highlight" id="id-12"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="s2">&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;
-</span></span></span><span class="line"><span class="cl"><span class="s2">&#34;</span> <span class="o">=</span>&gt; Custom config <span class="k">for</span> Lruihao
-</span></span><span class="line"><span class="cl"><span class="s2">&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;
-</span></span></span><span class="line"><span class="cl"><span class="s2">&#34;</span> Enable mouse
-</span></span><span class="line"><span class="cl"><span class="nb">set</span> <span class="nv">mouse</span><span class="o">=</span>a
-</span></span><span class="line"><span class="cl"><span class="s2">&#34; Enable line-number
-</span></span></span><span class="line"><span class="cl"><span class="s2">set number</span></span></span></code></pre></td></tr></table>
-</div>
-</div>]]></description></item></channel></rss>
+<p><strong>r-x</strong>: 代表其他用户（o 表示）的权限，这里和上面权限一样。</p>]]></description></item></channel></rss>
