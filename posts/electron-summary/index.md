@@ -228,9 +228,9 @@ if (process.platform === 'darwin') {
 
 下载时，可能因为网络问题导致下载失败，可设置 GitHub 下载镜像。
 
-```
+```bash
 # GitHub 仓库下载地址前缀镜像
-# disturl=https://registry.npmmirror.com/-/binary/
+npm config set disturl=https://registry.npmmirror.com/-/binary/
 ```
 
 或者去 GitHub 手动下载，然后解压到缓存目录：

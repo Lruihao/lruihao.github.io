@@ -42,7 +42,7 @@ npm config set registry=https://registry.npmmirror.com
 # npm config set registry https://registry.npmjs.org
 
 # GitHub 仓库下载地址前缀镜像
-# disturl=https://registry.npmmirror.com/-/binary/
+npm config set disturl=https://registry.npmmirror.com/-/binary/
 
 # 全局安装的依赖
 npm install -g npm@8.13.1

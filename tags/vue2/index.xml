@@ -1,4 +1,271 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Vue - 标签 - 菠菜眾長</title><link>https://lruihao.cn/tags/vue/</link><description>Vue - 标签 - 菠菜眾長</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><lastBuildDate>Thu, 20 Jul 2023 11:08:18 +0800</lastBuildDate><atom:link href="https://lruihao.cn/tags/vue/" rel="self" type="application/rss+xml"/><item><title>用魔法打败魔法 - ElBacktop Fix</title><link>https://lruihao.cn/posts/el-backtop-fix/</link><pubDate>Thu, 20 Jul 2023 11:08:18 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/el-backtop-fix/</guid><description><![CDATA[<p>这篇文章主要是记录一下继承 <a href="https://element.eleme.cn/#/zh-CN/component/backtop"target="_blank" rel="external nofollow noopener noreferrer">ElBacktop<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 组件并修复了一些 bug 的过程。</p>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Vue2 - 标签 - 菠菜眾長</title><link>https://lruihao.cn/tags/vue2/</link><description>Vue2 - 标签 - 菠菜眾長</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><lastBuildDate>Thu, 14 Sep 2023 11:24:48 +0800</lastBuildDate><atom:link href="https://lruihao.cn/tags/vue2/" rel="self" type="application/rss+xml"/><item><title>在 Vue 项目中更优雅的使用 icon</title><link>https://lruihao.cn/posts/vue-svg-icon/</link><pubDate>Thu, 14 Sep 2023 11:24:48 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/vue-svg-icon/</guid><description><![CDATA[<h2 id="前言">前言</h2>
+<p>在 Web 开发中，我们经常会用到 icon，icon 的使用经历了从图片到字体，再到 svg 的演变过程，也产生出相应的 icon 库，如雪碧图、<a href="https://fontawesome.com/"target="_blank" rel="external nofollow noopener noreferrer">Font Awesome<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>、<a href="https://www.iconfont.cn/"target="_blank" rel="external nofollow noopener noreferrer">Iconfont<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 等等。</p>
+<p>随着前端的发展，icon 使用方案落在了 svg 上，svg 有着矢量图的优势，可以无限放大而不失真，而且 svg 本身就是一种 XML 文件，可以直接在 HTML 中使用，也可以通过 CSS 进行样式控制，但是在 Vue 项目中使用 svg 时，我们会遇到一些问题，本文将介绍如何在 Vue 项目中更优雅的使用 svg icon。</p>
+<h2 id="工具">工具</h2>
+<ul>
+<li><a href="https://github.com/JetBrains/svg-sprite-loader"target="_blank" rel="external nofollow noopener noreferrer">svg-sprite-loader<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+<li><a href="https://github.com/svg/svgo-loader"target="_blank" rel="external nofollow noopener noreferrer">svgo-loader<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+</ul>
+<p><code>svg-sprite-loader</code>用来打包 svg 图标，<code>svgo-loader</code> 来精简我们的 svg 内容。</p>
+<h2 id="封装组件">封装组件</h2>
+<p>在 <code>src/components</code> 目录下新建 <code>SvgIcon.vue</code> 组件：</p>
+<div class="highlight" id="id-1"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-vue" data-lang="vue"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">template</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">div</span> <span class="nt">v-if</span><span class="s">=&#34;isExternal&#34; :style=&#34;styleExternalIcon&#34; class=&#34;svg-external-icon svg-icon&#34; v-on=&#34;$listeners&#34; /&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s">  &lt;svg v-else class=&#34;svg-icon&#34; aria-hidden=&#34;true&#34; v-on=&#34;$listeners&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">use</span> <span class="nt">:href</span><span class="s">=&#34;iconName&#34;</span> <span class="p">/&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;/</span><span class="nt">svg</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">template</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="k">default</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;SvgIcon&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">props</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">iconClass</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">type</span><span class="o">:</span> <span class="nb">String</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">required</span><span class="o">:</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">className</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">type</span><span class="o">:</span> <span class="nb">String</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="k">default</span><span class="o">:</span> <span class="s1">&#39;&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">computed</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">isExternal</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">return</span> <span class="sr">/^(https?:\/\/|data:image)/</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">iconClass</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">iconName</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">return</span> <span class="sb">`#icon-</span><span class="si">${</span><span class="k">this</span><span class="p">.</span><span class="nx">iconClass</span><span class="si">}</span><span class="sb">`</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">styleExternalIcon</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">return</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">mask</span><span class="o">:</span> <span class="sb">`url(</span><span class="si">${</span><span class="k">this</span><span class="p">.</span><span class="nx">iconClass</span><span class="si">}</span><span class="sb">) no-repeat 50% 50%`</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;-webkit-mask&#39;</span><span class="o">:</span> <span class="sb">`url(</span><span class="si">${</span><span class="k">this</span><span class="p">.</span><span class="nx">iconClass</span><span class="si">}</span><span class="sb">) no-repeat 50% 50%`</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">style</span> <span class="na">scoped</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">.</span><span class="nx">svg</span><span class="o">-</span><span class="nx">icon</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">width</span><span class="o">:</span> <span class="mi">1</span><span class="nx">em</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">height</span><span class="o">:</span> <span class="mi">1</span><span class="nx">em</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">vertical</span><span class="o">-</span><span class="nx">align</span><span class="o">:</span> <span class="o">-</span><span class="mf">0.15</span><span class="nx">em</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">fill</span><span class="o">:</span> <span class="nx">currentColor</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">overflow</span><span class="o">:</span> <span class="nx">hidden</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">.</span><span class="nx">svg</span><span class="o">-</span><span class="nx">external</span><span class="o">-</span><span class="nx">icon</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">background</span><span class="o">-</span><span class="nx">color</span><span class="o">:</span> <span class="nx">currentColor</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">mask</span><span class="o">-</span><span class="nx">size</span><span class="o">:</span> <span class="nx">cover</span><span class="o">!</span><span class="nx">important</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">display</span><span class="o">:</span> <span class="nx">inline</span><span class="o">-</span><span class="nx">block</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="安装">安装</h2>
+<div class="highlight" id="id-2"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">npm install svg-sprite-loader svgo-loader -D
+</span></span><span class="line"><span class="cl"><span class="c1"># 或</span>
+</span></span><span class="line"><span class="cl">yarn add svg-sprite-loader svgo-loader -D</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="配置">配置</h2>
+<p>统一将所有的 icon 都以 svg 的形式都放在 <code>src/assets/icons</code> 目录中。</p>
+<p>然后在 <code>vue.config.js</code> 中添加如下配置：</p>
+<div class="highlight" id="id-3"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">const</span> <span class="p">{</span> <span class="nx">defineConfig</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;@vue/cli-service&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">path</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;path&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">resolve</span><span class="p">(</span><span class="nx">dir</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">,</span> <span class="nx">dir</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">defineConfig</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">chainWebpack</span><span class="o">:</span> <span class="p">(</span><span class="nx">config</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// set svg-sprite-loader
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kr">const</span> <span class="nx">svgPath</span> <span class="o">=</span> <span class="nx">resolve</span><span class="p">(</span><span class="s1">&#39;src/assets/icons&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">config</span><span class="p">.</span><span class="nx">module</span>
+</span></span><span class="line"><span class="cl">      <span class="p">.</span><span class="nx">rule</span><span class="p">(</span><span class="s1">&#39;svg&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="p">.</span><span class="nx">exclude</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="nx">svgPath</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="p">.</span><span class="nx">end</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">config</span><span class="p">.</span><span class="nx">module</span>
+</span></span><span class="line"><span class="cl">      <span class="p">.</span><span class="nx">rule</span><span class="p">(</span><span class="s1">&#39;svg-icon&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="sr">/.svg$/</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="p">.</span><span class="nx">include</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="nx">svgPath</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="p">.</span><span class="nx">end</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">      <span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="s1">&#39;svg-sprite-loader&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="p">.</span><span class="nx">loader</span><span class="p">(</span><span class="s1">&#39;svg-sprite-loader&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="p">.</span><span class="nx">options</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">symbolId</span><span class="o">:</span> <span class="s1">&#39;icon-[name]&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="p">})</span>
+</span></span><span class="line"><span class="cl">      <span class="p">.</span><span class="nx">end</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">      <span class="c1">// remove origin svg fill attr
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="s1">&#39;svgo-loader&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="p">.</span><span class="nx">loader</span><span class="p">(</span><span class="s1">&#39;svgo-loader&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="p">.</span><span class="nx">tap</span><span class="p">((</span><span class="nx">options</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">({</span>
+</span></span><span class="line"><span class="cl">        <span class="p">...</span><span class="nx">options</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// 删除 svg 中 fill 和 fill-rule
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nx">plugins</span><span class="o">:</span> <span class="p">[{</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;removeAttrs&#39;</span><span class="p">,</span> <span class="nx">params</span><span class="o">:</span> <span class="p">{</span> <span class="nx">attrs</span><span class="o">:</span> <span class="s1">&#39;fill|fill-rule&#39;</span> <span class="p">}</span> <span class="p">}],</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}))</span>
+</span></span><span class="line"><span class="cl">      <span class="p">.</span><span class="nx">end</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">})</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="自动引入">自动引入</h2>
+<p>自动引入 <code>src/assets/icons</code> 中的 icon，需要用到 webpack 中的 <a href="https://webpack.docschina.org/guides/dependency-management/"target="_blank" rel="external nofollow noopener noreferrer">require.context<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>。</p>
+<p>在 <code>src/main.js</code> 中引入所有的 svg 图标，之后可在文件夹自行添加或者删除图标，所以图标都会被自动导入，无需手动操作：</p>
+<div class="highlight" id="id-4"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">import</span> <span class="nx">Vue</span> <span class="nx">from</span> <span class="s1">&#39;vue&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="nx">SvgIcon</span> <span class="nx">from</span> <span class="s1">&#39;@/components/SvgIcon&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// register svg component globally 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">Vue</span><span class="p">.</span><span class="nx">component</span><span class="p">(</span><span class="s1">&#39;SvgIcon&#39;</span><span class="p">,</span> <span class="nx">SvgIcon</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// require all svg
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">requireAll</span> <span class="o">=</span> <span class="p">(</span><span class="nx">requireContext</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nx">requireContext</span><span class="p">.</span><span class="nx">keys</span><span class="p">().</span><span class="nx">map</span><span class="p">(</span><span class="nx">requireContext</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">req</span> <span class="o">=</span> <span class="nx">require</span><span class="p">.</span><span class="nx">context</span><span class="p">(</span><span class="s1">&#39;@/assets/icons&#39;</span><span class="p">,</span> <span class="kc">false</span><span class="p">,</span> <span class="sr">/\.svg$/</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nx">requireAll</span><span class="p">(</span><span class="nx">req</span><span class="p">)</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="使用-icon">使用 icon</h2>
+<div class="highlight" id="id-5"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">svg-icon</span> <span class="na">icon-class</span><span class="o">=</span><span class="s">&#34;fullscreen&#34;</span>  <span class="na">class</span><span class="o">=</span><span class="s">&#39;custom-class&#39;</span> <span class="p">/&gt;</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="颜色">颜色</h3>
+<p><code>svg-icon</code> 默认会读取其父级的 <code>color fill: currentColor;</code></p>
+<p>你可以改变父级的 <code>color</code> 或者直接改变 <code>fill</code> 的颜色即可。</p>
+<h3 id="大小">大小</h3>
+<p>图标可从 <a href="https://www.iconfont.cn/"target="_blank" rel="external nofollow noopener noreferrer">iconfont<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 项目中下载或者由 UI 切图，同一个项目中使用的 Svg Icon 图标建议统一大小规格，比如 <code>128*128</code>。</p>
+<h2 id="示例">示例</h2>
+<p>本文 <a href="https://lruihao.github.io/vue-el-demo/#/icons"target="_blank" rel="external nofollow noopener noreferrer">示例<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 代码已上传至 <a href="https://github.com/Lruihao/vue-el-demo"target="_blank" rel="external nofollow noopener noreferrer">vue-el-demo<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 项目中，可自行下载查看。</p>
+<h2 id="参考资料">参考资料</h2>
+<ul>
+<li><a href="https://juejin.cn/post/6844903517564436493"target="_blank" rel="external nofollow noopener noreferrer">手摸手，带你优雅的使用 icon<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+<li><a href="https://www.zhangxinxu.com/wordpress/2014/07/introduce-svg-sprite-technology/"target="_blank" rel="external nofollow noopener noreferrer">未来必热：SVG Sprites 技术介绍<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+<li><a href="https://www.zhangxinxu.com/wordpress/2016/02/svg-compress-tool-svgo-experience/"target="_blank" rel="external nofollow noopener noreferrer">SVG 精简压缩工具 svgo 简介和初体验<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+<li><a href="https://github.com/JetBrains/svg-sprite-loader"target="_blank" rel="external nofollow noopener noreferrer">svg-sprite-loader<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+<li><a href="https://github.com/svg/svgo"target="_blank" rel="external nofollow noopener noreferrer">svgo<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+<li><a href="https://github.com/svg/svgo-loader"target="_blank" rel="external nofollow noopener noreferrer">svgo-loader<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+</ul>]]></description></item><item><title>用魔法打败魔法 - ElBacktop Fix</title><link>https://lruihao.cn/posts/el-backtop-fix/</link><pubDate>Thu, 20 Jul 2023 11:08:18 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/el-backtop-fix/</guid><description><![CDATA[<p>这篇文章主要是记录一下继承 <a href="https://element.eleme.cn/#/zh-CN/component/backtop"target="_blank" rel="external nofollow noopener noreferrer">ElBacktop<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 组件并修复了一些 bug 的过程。</p>
 <h2 id="前言">前言</h2>
 <p>由于某些原因，我希望在路由切换时给每个页面的总容器都加上一个共同的 class <code>page-container</code>，然后我就在布局中里面加了这么一段代码：</p>
 <div class="highlight" id="id-1"><div class="chroma">
@@ -862,522 +1129,4 @@ valine 可以實現無後端，那我是不是也可以，leancloud 文檔走一
 然后衍生一下，什么过年斗地主，天炸，麻将，字牌记账系统那不也是同理可得嘛！</p>
 <p>over!</p>
 <p><figure><a class="lightgallery" href="/projects/bill-note/images/demo.jpg" data-thumbnail="/projects/bill-note/images/demo.jpg" data-sub-html="<h2>效果</h2><p>Demo</p>"></a><figcaption class="image-caption">效果</figcaption>
-  </figure></p>]]></description></item><item><title>Web 开发规则，代码规范</title><link>https://lruihao.cn/posts/dev-rules/</link><pubDate>Thu, 15 Aug 2019 18:30:31 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/dev-rules/</guid><description><![CDATA[<h2 id="精神">精神</h2>
-<ul>
-<li>绝不写死代码，硬编码</li>
-<li>不留不要用的、垃圾代码</li>
-</ul>
-<h2 id="git">Git</h2>
-<ul>
-<li>Master 的 BUG 必须最少且趋近于零，为最稳定的版本</li>
-<li>每次 Commit 信息应该准确填写。不可模棱两可，eg: 修复 BUG、增加功能</li>
-<li>禁止 Commit IDE 的 project data，e.g: .vscode</li>
-<li>禁止上传垃圾代码</li>
-</ul>
-<blockquote>
-<p>更多规则详见文档 <a href="/posts/commit-spec/">Commit 规范</a></p>
-</blockquote>
-<h3 id="分支branch">分支（Branch）</h3>
-<ul>
-<li>命名规则：应以此分支主要目的命名（修复什么 BUG，新增特定功能）</li>
-<li>合并后的分支应该删除</li>
-</ul>
-<h3 id="commit">commit</h3>
-<ul>
-<li>遵循一个功能一个 commit 的原则</li>
-</ul>
-<h2 id="restful">Restful</h2>
-<ul>
-<li>
-<p>资源名词站在 API 的角度思考</p>
-<ul>
-<li>
-<p>复数名词：可以复数笔数据，回传结果为 Array</p>
-<p>举例：GET/users 取得多笔使用者资料</p>
-<ul>
-<li>刪除，放在复数名词內，让 Router 保持一致性</li>
-<li>增加，放在复数名詞內，让 Router 保持一致性</li>
-</ul>
-</li>
-<li>
-<p>单数名词：仅取得单笔数据，必须指定 PK，两两一组，回传结果为 Object
-举例：GET/user/{accont} 取得单笔使用者资料，必须指定 PK</p>
-</li>
-</ul>
-</li>
-<li>
-<p>URL 中一律不带 id 参数</p>
-</li>
-</ul>
-<div class="highlight" id="id-1"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">正确范例： calendar_manager/calendar/29
-</span></span><span class="line"><span class="cl">错误范例： calendar_manager/calendar/29?id=29</span></span></code></pre></td></tr></table>
-</div>
-</div><blockquote>
-<p>更多规则详见文档 <a href="/posts/restful/">RESTful</a></p>
-</blockquote>
-<h2 id="命名">命名</h2>
-<ul>
-<li>命名应根据内容做有意义的命名，让后续维护人员可以顾名思义！</li>
-<li>即使不会发生错误，代码英文大小写也需明确区分。</li>
-</ul>
-<h3 id="语意">语意</h3>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">类型</th>
-<th style="text-align:left">命名规则</th>
-<th style="text-align:left">说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">属性 (Attribute, Property)</td>
-<td style="text-align:left">名词 user_name、userName</td>
-<td style="text-align:left"></td>
-</tr>
-<tr>
-<td style="text-align:left">方法 (Method, Function)</td>
-<td style="text-align:left">动词 + 名词 getUserName、get_user_name</td>
-<td style="text-align:left">常見的动词有：get、set、update、delete、remove</td>
-</tr>
-</tbody>
-</table>
-<h3 id="字母与分隔">字母与分隔</h3>
-<table>
-<thead>
-<tr>
-<th>语言</th>
-<th>变量 (Variable, Parameter, Argument)</th>
-<th>常量 (Constant)</th>
-<th>面向对象 - 类名 (Class Name)</th>
-<th>面向对象 - 成员 (mebmer)</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>HTML</td>
-<td>全部小写，不同单词以「-」分隔<br />e.g: user-id</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>CSS、SCSS</td>
-<td>全部小写，不同单词以「-」分隔，CSS 变量以「&ndash;」开头，SCSS 变量以「$」开头<br />e.g: .user-id、&ndash;header-height、$header-height</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>JavaScript</td>
-<td>驼峰式命名法<br />首字小写，不同单字「首字以大写」分隔<br /> e.g: userId</td>
-<td>全部大写，不同单字以「_」分隔 MAX_COUNT</td>
-<td>驼峰式命名法<br />首字大写，不同单字「首字以大写」分隔<br />一个文件放一个 Class, 文件名即为 Class Name <br />e.g: User</td>
-<td>驼峰式命名法<br />公有 (public) : 首字小写，不同单词「首字以大写」分隔<br />e.g: name, getName<br />私有 (private): _公有命名规则<br />e.g: _name,_getName</td>
-</tr>
-<tr>
-<td>Vue</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>Java</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>PHP</td>
-<td>全部小写，不同单词以「_」分隔<br />e.g: user_id</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>Python</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>SQL</td>
-<td>由使用者定义的：表名、字段名<br />全部小写，不同单词以「_」分隔</td>
-<td>SQL 语法、函数全部大写<br />e.g: SELECT、INSERT INTO</td>
-<td></td>
-<td></td>
-</tr>
-</tbody>
-</table>
-<h2 id="通用">通用</h2>
-<ul>
-<li>代码编写</li>
-<li><strong>每个函数应该使用块注释，注释应包含函数功能说明、参数说明</strong>。规则见：JSDoc、JavaDoc</li>
-<li>不必要的代码不要写，也应禁止放到注释里面！</li>
-<li>if-else 的 {} 严禁省略</li>
-<li>
-</li>
-<li>代码规范、代码排版等可通过 eslint 等工具做统一处理</li>
-</ul>
-<h3 id="正确写法">正确写法</h3>
-<div class="highlight" id="id-2"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">public</span> <span class="kd">function</span> <span class="nx">test</span> <span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="c1">// do something
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">if</span> <span class="p">(</span><span class="nx">a</span> <span class="o">===</span> <span class="nx">b</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="c1">// do something
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="错误写法">错误写法</h2>
-<div class="highlight" id="id-3"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span><span class="lnt">8
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">public</span> <span class="kd">function</span> <span class="nx">test</span> <span class="p">()</span>
-</span></span><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="c1">// do something
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">if</span> <span class="p">(</span><span class="nx">a</span> <span class="o">===</span> <span class="nx">b</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">  <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="c1">// do something
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
-</div>
-</div><ul>
-<li>代码排版
-<ul>
-<li>任何代码应该以 2 个 space 为一个缩进做好排版、不可使用 tab</li>
-</ul>
-</li>
-<li>函数 (Function, Methd)
-<ul>
-<li>函数声明时需在函数上方加上函数注释，注释应包含函数说明、参数内容（参数类型、参数英文名称、参数说明）、返回值内容（返回值类型、返回值说明）</li>
-</ul>
-</li>
-<li>类 (Class)
-<ul>
-<li>一个类（Class）的声明只能存在一个文件</li>
-<li>类（Class）的声明文件，文件名必须为类名</li>
-</ul>
-</li>
-<li>其他
-<ul>
-<li>连接本地任何其他资源（图片、文件、网站）皆使用相对路径，禁止使用绝对路径，非本地资源除外</li>
-</ul>
-</li>
-</ul>
-<h2 id="html">HTML</h2>
-<h3 id="代码编写">代码编写</h3>
-<ul>
-<li>禁止在 HTML 使用 <code>&lt;style&gt;</code>、<code>&lt;script&gt;</code>，一律使用外部档案引用方式引用 CSS、JavaScript 文件</li>
-<li>HTML 标签需成双成对，有头有尾</li>
-<li>块级标签：<code>&lt;tag&gt;&lt;/tag&gt;</code></li>
-<li>单标签：<code>&lt;tag /&gt;</code></li>
-<li>禁止使用已被 HTML 舍弃的旧标签、属性，如：</li>
-</ul>
-<div class="highlight" id="id-4"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="c">&lt;!-- html tag --&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">center</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">font</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">basefont</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">s</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">strike</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">u</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">listing</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">plaintext</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">xmp</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="c">&lt;!-- html attribute --&gt;</span>
-</span></span><span class="line"><span class="cl">align
-</span></span><span class="line"><span class="cl">bgcolor
-</span></span><span class="line"><span class="cl">color</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="css">CSS</h2>
-<blockquote>
-<p>CSS 的定义应该独立一个 CSS 文件，禁止使用 <code>&lt;style&gt;</code> 或 <code>style</code> 属性直接在 HTML 中定义样式。</p>
-</blockquote>
-<h2 id="javascript">JavaScript</h2>
-<blockquote>
-<p>禁止使用 HTML 字串，一律使用 Dom 产生 HTML, e.g: <code>document.createDocumentFragment()</code></p>
-</blockquote>
-<h3 id="注释">注释</h3>
-<p>JavaScript 注释应该遵循 JSDoc 的标准撰写</p>
-<h4 id="全局变量-global">全局变量 (Global)</h4>
-<div class="highlight" id="id-5"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="cm">/* global ZT */</span></span></span></code></pre></td></tr></table>
-</div>
-</div><h4 id="常量-constant">常量 (Constant)</h4>
-<div class="highlight" id="id-6"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="cm">/**
-</span></span></span><span class="line"><span class="cl"><span class="cm"> * 常量說明
-</span></span></span><span class="line"><span class="cl"><span class="cm"> * @type {常量类型}
-</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span></span></span></code></pre></td></tr></table>
-</div>
-</div><p><strong>Example</strong></p>
-<div class="highlight" id="id-7"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="cm">/**
-</span></span></span><span class="line"><span class="cl"><span class="cm"> * 请求地址
-</span></span></span><span class="line"><span class="cl"><span class="cm"> * @type {String}
-</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
-</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">REQUEST_URL</span> <span class="o">=</span> <span class="s1">&#39;http://localhost:8080&#39;</span><span class="p">;</span></span></span></code></pre></td></tr></table>
-</div>
-</div><h4 id="函數方法-function-method">函數、方法 (Function, Method)</h4>
-<div class="highlight" id="id-8"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="cm">/**
-</span></span></span><span class="line"><span class="cl"><span class="cm"> * 函数用途说明
-</span></span></span><span class="line"><span class="cl"><span class="cm"> * @param {参数类型} 参数名称参数说明
-</span></span></span><span class="line"><span class="cl"><span class="cm"> * @param {参数类型} [选择性参数名称] 参数说明
-</span></span></span><span class="line"><span class="cl"><span class="cm"> * @param {参数类型} [选择性参数名称=参数预设值] 参数说明
-</span></span></span><span class="line"><span class="cl"><span class="cm"> * @returns {返回值类型} 返回值说明
-</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span></span></span></code></pre></td></tr></table>
-</div>
-</div><p><strong>Example</strong></p>
-<div class="highlight" id="id-9"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="cm">/**
-</span></span></span><span class="line"><span class="cl"><span class="cm"> * 取得使用者
-</span></span></span><span class="line"><span class="cl"><span class="cm"> * @param {Int} userId 使用者 ID
-</span></span></span><span class="line"><span class="cl"><span class="cm"> * @param {Object} [options] 其他选项
-</span></span></span><span class="line"><span class="cl"><span class="cm"> * @param {String} [options.query=&#39;a&#39;] 查询关键词 默认为 &#39;a&#39;
-</span></span></span><span class="line"><span class="cl"><span class="cm"> * @returns {Object} 使用者资料
-</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
-</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">getUser</span><span class="p">(</span><span class="nx">userId</span><span class="p">,</span> <span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="c1">// do something
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">return</span> <span class="nx">user</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="vue">Vue</h2>
-<ul>
-<li><i class="fa-regular fa-square fa-fw" aria-hidden="true"></i> 待补充</li>
-</ul>
-<h2 id="java">Java</h2>
-<p>Java 注释应该遵循 JavaDoc 的标准撰写</p>
-<ul>
-<li><i class="fa-regular fa-square fa-fw" aria-hidden="true"></i> 待补充</li>
-</ul>
-<h2 id="php">PHP</h2>
-<h3 id="前端参数取得">前端参数取得</h3>
-<p>参数取得需通过 filter_input 函数取得，不得使用 _GET 、_POST</p>
-<h3 id="输出到前台">输出到前台</h3>
-<p>参数命名必须为：全部小写，不同单字以「_」分隔</p>
-<h3 id="注解">注解</h3>
-<p>PHP 注解应该遵循 PHPDoc 的标准撰写</p>
-<h3 id="成员变量-member">成员变量 (Member)</h3>
-<p>成员变量只的是 Class 内的成员变数，我们都会要求替成员变量增加注解说明。通常 Function 的变量除非太特别否则都不需要特别注解说明。</p>
-<div class="highlight" id="id-10"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="sd">/**
-</span></span></span><span class="line"><span class="cl"><span class="sd"> * 成员变量說明
-</span></span></span><span class="line"><span class="cl"><span class="sd"> * @type {类型}
-</span></span></span><span class="line"><span class="cl"><span class="sd"> */</span></span></span></code></pre></td></tr></table>
-</div>
-</div><p><strong>Example</strong></p>
-<div class="highlight" id="id-11"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="sd">/**
-</span></span></span><span class="line"><span class="cl"><span class="sd"> * 使用者 ID
-</span></span></span><span class="line"><span class="cl"><span class="sd"> * @type {String}
-</span></span></span><span class="line"><span class="cl"><span class="sd"> */</span>
-</span></span><span class="line"><span class="cl"><span class="nv">$userId</span> <span class="o">=</span> <span class="s1">&#39;Hello&#39;</span><span class="p">;</span></span></span></code></pre></td></tr></table>
-</div>
-</div><h3 id="函数方法-function-method">函数、方法 (Function, Method)</h3>
-<div class="highlight" id="id-12"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="sd">/**
-</span></span></span><span class="line"><span class="cl"><span class="sd"> * 函数用途说明
-</span></span></span><span class="line"><span class="cl"><span class="sd"> * @param 参数型态 参数名称 参数说明
-</span></span></span><span class="line"><span class="cl"><span class="sd"> * @option 参数选项类型 参数选项名称 参数选项说明
-</span></span></span><span class="line"><span class="cl"><span class="sd"> * @uses 全局变量 全域变数说明
-</span></span></span><span class="line"><span class="cl"><span class="sd"> * @returns 返回值类型 返回值说明
-</span></span></span><span class="line"><span class="cl"><span class="sd"> */</span></span></span></code></pre></td></tr></table>
-</div>
-</div><p><strong>Example</strong></p>
-<div class="highlight" id="id-13"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="sd">/**
-</span></span></span><span class="line"><span class="cl"><span class="sd"> * 取得使用者
-</span></span></span><span class="line"><span class="cl"><span class="sd"> * @param int userId 使用者 ID
-</span></span></span><span class="line"><span class="cl"><span class="sd"> * @param object options 其他选项
-</span></span></span><span class="line"><span class="cl"><span class="sd"> * @option string options[&#39;query&#39;] 查询关键字
-</span></span></span><span class="line"><span class="cl"><span class="sd"> * @uses $_POST[&#39;role_id&#39;] 从前端以 POST 取得角色 ID
-</span></span></span><span class="line"><span class="cl"><span class="sd"> * @returns object 使用者资料
-</span></span></span><span class="line"><span class="cl"><span class="sd"> */</span>
-</span></span><span class="line"><span class="cl"><span class="k">function</span> <span class="nf">getUser</span> <span class="p">(</span><span class="nv">$userId</span><span class="p">,</span> <span class="nv">$options</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="c1">// do something
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">return</span> <span class="nv">$user</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">};</span></span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="python">Python</h2>
-<ul>
-<li><i class="fa-regular fa-square fa-fw" aria-hidden="true"></i> 待补充</li>
-</ul>
-<h2 id="database">Database</h2>
-<ul>
-<li>禁止使用 Table Join。</li>
-<li>禁止使用 Oracle Trigger。</li>
-<li>禁止将查询数据库的 SQL 放在循环中查询</li>
-</ul>
-<h3 id="sql-撰写">SQL 撰写</h3>
-<ul>
-<li>属于 SQL 语法使用大写（SELECT，WHERE，INSERT etc..）</li>
-<li>属于使用者自己定义的使用小写（表名 table name，字段名 column name etc..）</li>
-<li>表名、字段名前后需加上 `</li>
-</ul>
-<p><strong>Example</strong></p>
-<div class="highlight" id="id-14"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="o">`</span><span class="k">user</span><span class="o">`</span><span class="w"> </span><span class="k">VALUES</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;b&#39;</span><span class="p">);</span></span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="统一用词">统一用词</h2>
-<blockquote>
-<p>系统中常用词，例如弹出框按钮、搜索框等，仅为举例，不限与此。</p>
-</blockquote>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">用词</th>
-<th style="text-align:left">统一</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">最后、最终</td>
-<td style="text-align:left">最后</td>
-</tr>
-<tr>
-<td style="text-align:left">关闭、Cancel、取消</td>
-<td style="text-align:left">取消</td>
-</tr>
-<tr>
-<td style="text-align:left">存储、保存、修改、OK、确定</td>
-<td style="text-align:left">确定</td>
-</tr>
-<tr>
-<td style="text-align:left">搜寻、查询、查找、搜索</td>
-<td style="text-align:left">搜索</td>
-</tr>
-</tbody>
-</table>
-]]></description></item></channel></rss>
+  </figure></p>]]></description></item></channel></rss>
