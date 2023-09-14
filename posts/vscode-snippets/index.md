@@ -36,7 +36,7 @@
 
 ### JavaScript
 
-```json {title=javaScript.json}
+```json {title=javascript.json}
 {
   "Print to console": {
     "prefix": "cl",

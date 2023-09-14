@@ -30,8 +30,8 @@ const site = new Blog('菠菜眾長', 'Lruihao', 'https://lruihao.cn');
 {.text-center style="font-size: 1.25rem;"}
 
 - 👨‍💻 一名前端開發工程師
-- 👨‍💼 [@hugo-fixit](https://github.com/hugo-fixit) 的創建者
-- 📝 我經常在 [菠菜眾長](https://lruihao.cn) 和 [FixIt](https://fixit.lruihao.cn) 上撰寫文章和文檔
+- 👨‍💼 [@hugo-fixit][hugo-fixit] 的創建者
+- 📝 我經常在 菠菜眾長[^1] 和 FixIt[^2] 上撰寫文章和文檔
 
 > **自我期許：** 用我所學，學我所用。保持謙遜，保持探索欲，砥礪前行。
 
@@ -51,6 +51,17 @@ const site = new Blog('菠菜眾長', 'Lruihao', 'https://lruihao.cn');
 {{< /details >}}
 
 {{< music url="https://cdn-1256932288.cos.ap-chengdu.myqcloud.com/files/nanjing.mp3" name="李志" artist="你离开了南京，从此没人和我说话" cover="https://p2.music.126.net/UuSe-Vc6rS7JtRJSQgDU2g==/2323268069553116.jpg?param=300x300" fixed=true >}}
+
+<!-- link reference definition -->
+[blog]: https://lruihao.cn
+[blog-repo]: https://github.com/Lruihao/hugo-blog
+[hugo-fixit]: https://github.com/hugo-fixit
+[fixit]: https://fixit.lruihao.cn
+[fixit-repo]: https://github.com/hugo-fixit/FixIt
+
+<!-- footnote reference definition -->
+[^1]: [菠菜眾長][blog] 的源码见 [Lruihao/hugo-blog][blog-repo]。
+[^2]: [FixIt][fixit] 的源码见 [hugo-fixit/FixIt][fixit-repo]。
 
 
 ---
