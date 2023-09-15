@@ -32,6 +32,8 @@
 }
 ```
 
+可以使用工具 [snippet-generator](https://snippet-generator.app/) 生成代码片段。
+
 ## 常用代码片段
 
 ### JavaScript

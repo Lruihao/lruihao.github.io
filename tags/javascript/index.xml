@@ -1,4 +1,157 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>JavaScript - 标签 - 菠菜眾長</title><link>https://lruihao.cn/tags/javascript/</link><description>JavaScript - 标签 - 菠菜眾長</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><lastBuildDate>Wed, 14 Jun 2023 00:11:17 +0800</lastBuildDate><atom:link href="https://lruihao.cn/tags/javascript/" rel="self" type="application/rss+xml"/><item><title>使用 Node.js 自动创建 Vue 的路由</title><link>https://lruihao.cn/posts/gen-router/</link><pubDate>Wed, 14 Jun 2023 00:11:17 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/gen-router/</guid><description><![CDATA[<p>最近在写一个 Vue 插件，需要在项目中创建一些测试页面，由于都是些静态路由，就想到之前看到过的一个项目就是用 Node.js 来自动生成路由的，于是就借鉴过来改了一下。</p>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>JavaScript - 标签 - 菠菜眾長</title><link>https://lruihao.cn/tags/javascript/</link><description>JavaScript - 标签 - 菠菜眾長</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><lastBuildDate>Fri, 15 Sep 2023 17:29:25 +0800</lastBuildDate><atom:link href="https://lruihao.cn/tags/javascript/" rel="self" type="application/rss+xml"/><item><title>JS 实现全屏和退出全屏</title><link>https://lruihao.cn/posts/js-fullscreen/</link><pubDate>Fri, 15 Sep 2023 17:29:25 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/js-fullscreen/</guid><description><![CDATA[<h2 id="背景">背景</h2>
+<p>在 Web 开发中，全屏模式可以提供更沉浸式的体验，特别适用于视频播放、游戏展示和演示等场景。通过 JavaScript 的 Fullscreen API，我们可以以编程方式控制元素的全屏状态。</p>
+<p>Fullscreen API 是一组用于控制全屏显示的方法和属性，它们允许我们将网页内容以全屏的方式展示给用户，并提供了相应的事件来监听全屏模式的变化。</p>
+<p>在本文中，我们将介绍如何判断浏览器是否支持全屏功能，如何实现进入全屏和退出全屏的功能，以及如何获取当前全屏元素和监听全屏模式的变化。</p>
+<blockquote>
+<p>注意：Fullscreen API 在不同浏览器之间可能存在差异，请在使用时进行兼容性测试和处理。</p>
+</blockquote>
+<h2 id="全屏是否可用">全屏是否可用</h2>
+<p>在使用 Fullscreen API 之前，我们需要先判断当前浏览器是否支持全屏功能。可以通过 <code>document.fullscreenEnabled</code> 属性来检查。</p>
+<p>以下是一个示例：</p>
+<div class="highlight" id="id-1"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">fullscreenEnabled</span> <span class="o">||</span> <span class="nb">document</span><span class="p">.</span><span class="nx">mozFullScreenEnabled</span> <span class="o">||</span> <span class="nb">document</span><span class="p">.</span><span class="nx">webkitFullscreenEnabled</span> <span class="o">||</span> <span class="nb">document</span><span class="p">.</span><span class="nx">msFullscreenEnabled</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;浏览器支持全屏功能&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;浏览器不支持全屏功能&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>详细的 API 说明可以参考 <a href="https://developer.mozilla.org/en-US/docs/Web/API/Fullscreen_API"target="_blank" rel="external nofollow noopener noreferrer">Fullscreen API - MDN Web Docs<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>。</p>
+<h2 id="实现全屏">实现全屏</h2>
+<p>要实现全屏，我们可以使用 <code>requestFullscreen()</code> 方法。该方法可用于 DOM 元素，使其进入全屏模式。</p>
+<p>以下是一个示例：</p>
+<div class="highlight" id="id-2"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">element</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;my-element&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="nx">element</span><span class="p">.</span><span class="nx">requestFullscreen</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">element</span><span class="p">.</span><span class="nx">requestFullscreen</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">element</span><span class="p">.</span><span class="nx">mozRequestFullScreen</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// Firefox
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">element</span><span class="p">.</span><span class="nx">mozRequestFullScreen</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">element</span><span class="p">.</span><span class="nx">webkitRequestFullscreen</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// Chrome, Safari and Opera
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">element</span><span class="p">.</span><span class="nx">webkitRequestFullscreen</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">element</span><span class="p">.</span><span class="nx">msRequestFullscreen</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// Internet Explorer and Edge
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">element</span><span class="p">.</span><span class="nx">msRequestFullscreen</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>详细的 API 说明可以参考 <a href="https://developer.mozilla.org/en-US/docs/Web/API/Element/requestFullscreen"target="_blank" rel="external nofollow noopener noreferrer">Element.requestFullscreen() - MDN Web Docs<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>。</p>
+<h2 id="退出全屏">退出全屏</h2>
+<p>当我们需要退出全屏时，可以使用 <code>exitFullscreen()</code> 方法。该方法可用于当前处于全屏状态的元素。</p>
+<p>以下是一个示例：</p>
+<div class="highlight" id="id-3"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">exitFullscreen</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">document</span><span class="p">.</span><span class="nx">exitFullscreen</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">mozCancelFullScreen</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// Firefox
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nb">document</span><span class="p">.</span><span class="nx">mozCancelFullScreen</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">webkitExitFullscreen</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// Chrome, Safari and Opera
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nb">document</span><span class="p">.</span><span class="nx">webkitExitFullscreen</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">msExitFullscreen</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// Internet Explorer and Edge
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nb">document</span><span class="p">.</span><span class="nx">msExitFullscreen</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>详细的 API 说明可以参考 <a href="https://developer.mozilla.org/en-US/docs/Web/API/Document/exitFullscreen"target="_blank" rel="external nofollow noopener noreferrer">Document.exitFullscreen() - MDN Web Docs<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>。</p>
+<h2 id="获取全屏元素">获取全屏元素</h2>
+<p>在全屏模式下，我们可能需要获取当前处于全屏状态的元素。可以使用<code>document.fullscreenElement</code>属性来获取。</p>
+<p>以下是一个示例：</p>
+<div class="highlight" id="id-4"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">fullscreenElement</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">fullscreenElement</span> <span class="o">||</span> <span class="nb">document</span><span class="p">.</span><span class="nx">mozFullScreenElement</span> <span class="o">||</span> <span class="nb">document</span><span class="p">.</span><span class="nx">webkitFullscreenElement</span> <span class="o">||</span> <span class="nb">document</span><span class="p">.</span><span class="nx">msFullscreenElement</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="nx">fullscreenElement</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;当前全屏元素：&#39;</span><span class="p">,</span> <span class="nx">fullscreenElement</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;没有全屏元素&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>详细的 API 说明可以参考 <a href="https://developer.mozilla.org/en-US/docs/Web/API/Document/fullscreenElement"target="_blank" rel="external nofollow noopener noreferrer">Document.fullscreenElement - MDN Web Docs<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>。</p>
+<h2 id="监听全屏模式变化">监听全屏模式变化</h2>
+<p>如果我们希望在全屏模式发生变化时得到通知，可以使用 Fullscreen API 提供的事件。</p>
+<p>以下是一个示例：</p>
+<div class="highlight" id="id-5"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="nb">document</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;fullscreenchange&#39;</span><span class="p">,</span> <span class="nx">handleFullscreenChange</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nb">document</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;mozfullscreenchange&#39;</span><span class="p">,</span> <span class="nx">handleFullscreenChange</span><span class="p">);</span> <span class="c1">// Firefox
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nb">document</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;webkitfullscreenchange&#39;</span><span class="p">,</span> <span class="nx">handleFullscreenChange</span><span class="p">);</span> <span class="c1">// Chrome, Safari and Opera
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nb">document</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;MSFullscreenChange&#39;</span><span class="p">,</span> <span class="nx">handleFullscreenChange</span><span class="p">);</span> <span class="c1">// Internet Explorer and Edge
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">handleFullscreenChange</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">fullscreenElement</span> <span class="o">||</span> <span class="nb">document</span><span class="p">.</span><span class="nx">mozFullScreenElement</span> <span class="o">||</span> <span class="nb">document</span><span class="p">.</span><span class="nx">webkitFullscreenElement</span> <span class="o">||</span> <span class="nb">document</span><span class="p">.</span><span class="nx">msFullscreenElement</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;进入全屏模式&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;退出全屏模式&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>通过添加相应的事件监听器，可以在全屏模式变化时执行自定义的处理函数。</p>
+<h2 id="相关插件">相关插件</h2>
+<p>了解以上 API 后本来已经准备开始写插件了，不过秉承不重复造轮子的思想，找到了以下两个库，基本满足开发需求了。</p>
+<ul>
+<li><a href="https://github.com/sindresorhus/screenfull"target="_blank" rel="external nofollow noopener noreferrer">screenfull<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+<li><a href="https://github.com/mirari/vue-fullscreen"target="_blank" rel="external nofollow noopener noreferrer">vue-fullscreen<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+</ul>
+<h2 id="小插曲">小插曲</h2>
+<p><code>document.fullscreen</code>、<code>document.fullscreenElement</code>、<code>document.fullscreenEnabled</code> 的 MDN 文档中文翻译已过时，然后顺手提了一个 PR <a href="https://github.com/mdn/translated-content/pull/15859"target="_blank" rel="external nofollow noopener noreferrer">mdn/translated-content#15859<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
+<h2 id="参考链接">参考链接</h2>
+<ul>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Fullscreen_API"target="_blank" rel="external nofollow noopener noreferrer">Fullscreen API - MDN Web Docs<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Element/requestFullscreen"target="_blank" rel="external nofollow noopener noreferrer">Element.requestFullscreen() - MDN Web Docs<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Document/exitFullscreen"target="_blank" rel="external nofollow noopener noreferrer">Document.exitFullscreen() - MDN Web Docs<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Document/fullscreenElement"target="_blank" rel="external nofollow noopener noreferrer">Document.fullscreenElement - MDN Web Docs<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+</ul>
+]]></description></item><item><title>使用 Node.js 自动创建 Vue 的路由</title><link>https://lruihao.cn/posts/gen-router/</link><pubDate>Wed, 14 Jun 2023 00:11:17 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/gen-router/</guid><description><![CDATA[<p>最近在写一个 Vue 插件，需要在项目中创建一些测试页面，由于都是些静态路由，就想到之前看到过的一个项目就是用 Node.js 来自动生成路由的，于是就借鉴过来改了一下。</p>
 <h2 id="源码">源码</h2>
 <blockquote>
 <p>Gist: <a href="https://gist.github.com/Lruihao/d8f2984525dc9e78dd6a49e15f49cf38"target="_blank" rel="external nofollow noopener noreferrer">https://gist.github.com/Lruihao/d8f2984525dc9e78dd6a49e15f49cf38<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
@@ -3902,110 +4055,4 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 </span></span><span class="line"><span class="cl">    <span class="o">}</span>
 </span></span><span class="line"><span class="cl"><span class="o">&lt;/</span><span class="n">script</span><span class="o">&gt;</span></span></span></code></pre></td></tr></table>
 </div>
-</div>]]></description></item><item><title>网页夜间效果</title><link>https://lruihao.cn/posts/night/</link><pubDate>Thu, 27 Sep 2018 13:13:31 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/night/</guid><description><![CDATA[<blockquote>
-<p>这几天看到别人的博客有开关灯效果，就想给自己的博客也加一个，其实以前就在想了。经过谷歌百度后这样实现了。<code>css+js</code></p>
-</blockquote>
-<p>如何给 Web 页面增加夜间模式功能？其实所谓的夜间模式就是在页面上增加一个透明的遮罩层，但是遮罩层会挡住页面元素， 解决方法是 添加 DIV，给 DIV 的 outline 属性一个很大的 outline-width 值，用 outline 的边框作为遮罩，这样既能正常点击页面元素，又能达到夜间模式的效果。</p>
-<h3 id="css-部分">css 部分</h3>
-<div class="highlight" id="id-1"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span><span class="lnt">8
-</span><span class="lnt">9
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-css" data-lang="css"><span class="line"><span class="cl"><span class="o">&lt;</span><span class="nt">style</span><span class="o">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="p">.</span><span class="nc">cover</span><span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">position</span><span class="p">:</span><span class="kc">fixed</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="k">top</span><span class="p">:</span> <span class="mi">0</span><span class="kt">px</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="k">left</span><span class="p">:</span> <span class="mi">0</span><span class="kt">px</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="k">outline</span><span class="p">:</span><span class="mi">5000</span><span class="kt">px</span> <span class="kc">solid</span> <span class="nb">rgba</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span><span class="err">//初始亮度</span>
-</span></span><span class="line"><span class="cl">    <span class="k">z-index</span><span class="p">:</span> <span class="mi">99999</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="o">&lt;/</span><span class="nt">style</span><span class="o">&gt;</span></span></span></code></pre></td></tr></table>
-</div>
-</div><h3 id="js-部分">js 部分</h3>
-<div class="highlight" id="id-2"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="o">&lt;</span><span class="nx">script</span><span class="o">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">brightness</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="c1">//显示遮罩
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">function</span> <span class="nx">cover</span><span class="p">(</span><span class="nx">brightness</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span><span class="p">(</span><span class="nx">div</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;undefined&#39;</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="nx">div</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;div&#39;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">        <span class="nx">div</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s1">&#39;style&#39;</span><span class="p">,</span> <span class="s1">&#39;position:fixed;top:0;left:0;outline:5000px solid;z-index:99999;&#39;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">        <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">div</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="nx">div</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">display</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">div</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">outlineColor</span> <span class="o">=</span> <span class="s1">&#39;rgba(0,0,0,&#39;</span> <span class="o">+</span> <span class="nx">brightness</span> <span class="o">+</span> <span class="s1">&#39;)&#39;</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="c1">//事件监听
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;keydown&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">altKey</span> <span class="o">&amp;&amp;</span> <span class="nx">e</span><span class="p">.</span><span class="nx">keyCode</span> <span class="o">==</span> <span class="mi">90</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="nx">cover</span><span class="p">(</span><span class="nx">brightness</span> <span class="o">=</span> <span class="mf">0.3</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">altKey</span> <span class="o">&amp;&amp;</span> <span class="nx">e</span><span class="p">.</span><span class="nx">keyCode</span> <span class="o">==</span> <span class="mi">88</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="nx">cover</span><span class="p">(</span><span class="nx">brightness</span> <span class="o">=</span> <span class="mi">0</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">altKey</span> <span class="o">&amp;&amp;</span> <span class="nx">e</span><span class="p">.</span><span class="nx">keyCode</span> <span class="o">==</span> <span class="mi">38</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="nx">brightness</span> <span class="o">-</span> <span class="mf">0.05</span> <span class="o">&gt;</span> <span class="mf">0.05</span><span class="p">)</span> <span class="nx">cover</span><span class="p">(</span><span class="nx">brightness</span> <span class="o">-=</span> <span class="mf">0.05</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">altKey</span> <span class="o">&amp;&amp;</span> <span class="nx">e</span><span class="p">.</span><span class="nx">keyCode</span> <span class="o">==</span> <span class="mi">40</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="nx">brightness</span> <span class="o">+</span> <span class="mf">0.05</span> <span class="o">&lt;</span> <span class="mf">0.95</span><span class="p">)</span> <span class="nx">cover</span><span class="p">(</span><span class="nx">brightness</span> <span class="o">+=</span> <span class="mf">0.05</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">},</span> <span class="kc">false</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="err">/script&gt;</span></span></span></code></pre></td></tr></table>
-</div>
-</div><h3 id="html-部分">html 部分</h3>
-<div class="highlight" id="id-3"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">&lt;div class=&#34;cover&#34;&gt;&lt;/div&gt;</span></span></code></pre></td></tr></table>
-</div>
-</div><h3 id="使用">使用</h3>
-<ol>
-<li>Alt+Z: 打开夜间模式</li>
-<li>Alt+X: 关闭</li>
-<li>Alt+↑: 增加亮度</li>
-<li>Alt+↓: 降低亮度</li>
-</ol>]]></description></item></channel></rss>
+</div>]]></description></item></channel></rss>

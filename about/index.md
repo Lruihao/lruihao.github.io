@@ -1,6 +1,8 @@
 # 關於
 
 
+<!-- markdownlint-disable-file -->
+
 {{< style "min-height: 230px;" >}}
 {{< typeit code=javascript >}}
 /**
@@ -26,7 +28,7 @@ const site = new Blog('菠菜眾長', 'Lruihao', 'https://lruihao.cn');
 不嗔不怒，不爭不棄，獨善其身
 {{< /center-quote >}}
 
-[![Follow me on GitHub](https://img.shields.io/github/followers/Lruihao.svg?style=social&label=Followers)](https://github.com/Lruihao)  [:(fa-brands fa-weibo fa-fw ms-1 text-warning):](https://weibo.com/liahao "在微博上關注我")
+[![Follow me on GitHub](https://img.shields.io/github/followers/Lruihao.svg?style=social&label=Followers)](https://github.com/Lruihao) [:(fa-brands fa-weibo fa-fw ms-1 text-warning):](https://weibo.com/liahao "在微博上關注我")
 {.text-center style="font-size: 1.25rem;"}
 
 - 👨‍💻 一名前端開發工程師

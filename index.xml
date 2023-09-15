@@ -1,4 +1,284 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>菠菜眾長</title><link>https://lruihao.cn/</link><description>Lruihao's Note 李瑞豪的博客：探索、分享、记录自己在工作生活学习到一些东西。人知道得越多，就就会发现无知的越多。有更广袤世界可以探索，真是莫大的快乐啊！</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><lastBuildDate>Thu, 14 Sep 2023 11:24:48 +0800</lastBuildDate><atom:link href="https://lruihao.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>在 Vue 项目中更优雅的使用 icon</title><link>https://lruihao.cn/posts/vue-svg-icon/</link><pubDate>Thu, 14 Sep 2023 11:24:48 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/vue-svg-icon/</guid><description><![CDATA[<h2 id="前言">前言</h2>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>菠菜眾長</title><link>https://lruihao.cn/</link><description>Lruihao's Note 李瑞豪的博客：探索、分享、记录自己在工作生活学习到一些东西。人知道得越多，就就会发现无知的越多。有更广袤世界可以探索，真是莫大的快乐啊！</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><lastBuildDate>Fri, 15 Sep 2023 17:29:25 +0800</lastBuildDate><atom:link href="https://lruihao.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>JS 实现全屏和退出全屏</title><link>https://lruihao.cn/posts/js-fullscreen/</link><pubDate>Fri, 15 Sep 2023 17:29:25 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/js-fullscreen/</guid><description><![CDATA[<h2 id="背景">背景</h2>
+<p>在 Web 开发中，全屏模式可以提供更沉浸式的体验，特别适用于视频播放、游戏展示和演示等场景。通过 JavaScript 的 Fullscreen API，我们可以以编程方式控制元素的全屏状态。</p>
+<p>Fullscreen API 是一组用于控制全屏显示的方法和属性，它们允许我们将网页内容以全屏的方式展示给用户，并提供了相应的事件来监听全屏模式的变化。</p>
+<p>在本文中，我们将介绍如何判断浏览器是否支持全屏功能，如何实现进入全屏和退出全屏的功能，以及如何获取当前全屏元素和监听全屏模式的变化。</p>
+<blockquote>
+<p>注意：Fullscreen API 在不同浏览器之间可能存在差异，请在使用时进行兼容性测试和处理。</p>
+</blockquote>
+<h2 id="全屏是否可用">全屏是否可用</h2>
+<p>在使用 Fullscreen API 之前，我们需要先判断当前浏览器是否支持全屏功能。可以通过 <code>document.fullscreenEnabled</code> 属性来检查。</p>
+<p>以下是一个示例：</p>
+<div class="highlight" id="id-1"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">fullscreenEnabled</span> <span class="o">||</span> <span class="nb">document</span><span class="p">.</span><span class="nx">mozFullScreenEnabled</span> <span class="o">||</span> <span class="nb">document</span><span class="p">.</span><span class="nx">webkitFullscreenEnabled</span> <span class="o">||</span> <span class="nb">document</span><span class="p">.</span><span class="nx">msFullscreenEnabled</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;浏览器支持全屏功能&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;浏览器不支持全屏功能&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>详细的 API 说明可以参考 <a href="https://developer.mozilla.org/en-US/docs/Web/API/Fullscreen_API"target="_blank" rel="external nofollow noopener noreferrer">Fullscreen API - MDN Web Docs<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>。</p>
+<h2 id="实现全屏">实现全屏</h2>
+<p>要实现全屏，我们可以使用 <code>requestFullscreen()</code> 方法。该方法可用于 DOM 元素，使其进入全屏模式。</p>
+<p>以下是一个示例：</p>
+<div class="highlight" id="id-2"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">element</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;my-element&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="nx">element</span><span class="p">.</span><span class="nx">requestFullscreen</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">element</span><span class="p">.</span><span class="nx">requestFullscreen</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">element</span><span class="p">.</span><span class="nx">mozRequestFullScreen</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// Firefox
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">element</span><span class="p">.</span><span class="nx">mozRequestFullScreen</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">element</span><span class="p">.</span><span class="nx">webkitRequestFullscreen</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// Chrome, Safari and Opera
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">element</span><span class="p">.</span><span class="nx">webkitRequestFullscreen</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">element</span><span class="p">.</span><span class="nx">msRequestFullscreen</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// Internet Explorer and Edge
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">element</span><span class="p">.</span><span class="nx">msRequestFullscreen</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>详细的 API 说明可以参考 <a href="https://developer.mozilla.org/en-US/docs/Web/API/Element/requestFullscreen"target="_blank" rel="external nofollow noopener noreferrer">Element.requestFullscreen() - MDN Web Docs<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>。</p>
+<h2 id="退出全屏">退出全屏</h2>
+<p>当我们需要退出全屏时，可以使用 <code>exitFullscreen()</code> 方法。该方法可用于当前处于全屏状态的元素。</p>
+<p>以下是一个示例：</p>
+<div class="highlight" id="id-3"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">exitFullscreen</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">document</span><span class="p">.</span><span class="nx">exitFullscreen</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">mozCancelFullScreen</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// Firefox
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nb">document</span><span class="p">.</span><span class="nx">mozCancelFullScreen</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">webkitExitFullscreen</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// Chrome, Safari and Opera
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nb">document</span><span class="p">.</span><span class="nx">webkitExitFullscreen</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">msExitFullscreen</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// Internet Explorer and Edge
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nb">document</span><span class="p">.</span><span class="nx">msExitFullscreen</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>详细的 API 说明可以参考 <a href="https://developer.mozilla.org/en-US/docs/Web/API/Document/exitFullscreen"target="_blank" rel="external nofollow noopener noreferrer">Document.exitFullscreen() - MDN Web Docs<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>。</p>
+<h2 id="获取全屏元素">获取全屏元素</h2>
+<p>在全屏模式下，我们可能需要获取当前处于全屏状态的元素。可以使用<code>document.fullscreenElement</code>属性来获取。</p>
+<p>以下是一个示例：</p>
+<div class="highlight" id="id-4"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">fullscreenElement</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">fullscreenElement</span> <span class="o">||</span> <span class="nb">document</span><span class="p">.</span><span class="nx">mozFullScreenElement</span> <span class="o">||</span> <span class="nb">document</span><span class="p">.</span><span class="nx">webkitFullscreenElement</span> <span class="o">||</span> <span class="nb">document</span><span class="p">.</span><span class="nx">msFullscreenElement</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="nx">fullscreenElement</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;当前全屏元素：&#39;</span><span class="p">,</span> <span class="nx">fullscreenElement</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;没有全屏元素&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>详细的 API 说明可以参考 <a href="https://developer.mozilla.org/en-US/docs/Web/API/Document/fullscreenElement"target="_blank" rel="external nofollow noopener noreferrer">Document.fullscreenElement - MDN Web Docs<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>。</p>
+<h2 id="监听全屏模式变化">监听全屏模式变化</h2>
+<p>如果我们希望在全屏模式发生变化时得到通知，可以使用 Fullscreen API 提供的事件。</p>
+<p>以下是一个示例：</p>
+<div class="highlight" id="id-5"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="nb">document</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;fullscreenchange&#39;</span><span class="p">,</span> <span class="nx">handleFullscreenChange</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nb">document</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;mozfullscreenchange&#39;</span><span class="p">,</span> <span class="nx">handleFullscreenChange</span><span class="p">);</span> <span class="c1">// Firefox
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nb">document</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;webkitfullscreenchange&#39;</span><span class="p">,</span> <span class="nx">handleFullscreenChange</span><span class="p">);</span> <span class="c1">// Chrome, Safari and Opera
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nb">document</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;MSFullscreenChange&#39;</span><span class="p">,</span> <span class="nx">handleFullscreenChange</span><span class="p">);</span> <span class="c1">// Internet Explorer and Edge
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">handleFullscreenChange</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">fullscreenElement</span> <span class="o">||</span> <span class="nb">document</span><span class="p">.</span><span class="nx">mozFullScreenElement</span> <span class="o">||</span> <span class="nb">document</span><span class="p">.</span><span class="nx">webkitFullscreenElement</span> <span class="o">||</span> <span class="nb">document</span><span class="p">.</span><span class="nx">msFullscreenElement</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;进入全屏模式&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;退出全屏模式&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>通过添加相应的事件监听器，可以在全屏模式变化时执行自定义的处理函数。</p>
+<h2 id="相关插件">相关插件</h2>
+<p>了解以上 API 后本来已经准备开始写插件了，不过秉承不重复造轮子的思想，找到了以下两个库，基本满足开发需求了。</p>
+<ul>
+<li><a href="https://github.com/sindresorhus/screenfull"target="_blank" rel="external nofollow noopener noreferrer">screenfull<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+<li><a href="https://github.com/mirari/vue-fullscreen"target="_blank" rel="external nofollow noopener noreferrer">vue-fullscreen<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+</ul>
+<h2 id="小插曲">小插曲</h2>
+<p><code>document.fullscreen</code>、<code>document.fullscreenElement</code>、<code>document.fullscreenEnabled</code> 的 MDN 文档中文翻译已过时，然后顺手提了一个 PR <a href="https://github.com/mdn/translated-content/pull/15859"target="_blank" rel="external nofollow noopener noreferrer">mdn/translated-content#15859<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
+<h2 id="参考链接">参考链接</h2>
+<ul>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Fullscreen_API"target="_blank" rel="external nofollow noopener noreferrer">Fullscreen API - MDN Web Docs<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Element/requestFullscreen"target="_blank" rel="external nofollow noopener noreferrer">Element.requestFullscreen() - MDN Web Docs<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Document/exitFullscreen"target="_blank" rel="external nofollow noopener noreferrer">Document.exitFullscreen() - MDN Web Docs<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Document/fullscreenElement"target="_blank" rel="external nofollow noopener noreferrer">Document.fullscreenElement - MDN Web Docs<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+</ul>
+]]></description></item><item><title>中文翻译的常见问题</title><link>https://lruihao.cn/posts/translation-guide/</link><pubDate>Fri, 15 Sep 2023 11:07:56 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/translation-guide/</guid><description><![CDATA[<blockquote>
+<p>以下内容截取自 <a href="https://github.com/mdn/translated-content/blob/main/docs/zh-cn/translation-guide.md"target="_blank" rel="external nofollow noopener noreferrer">针对 MDN 文档的本地化指南<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 的中文翻译的常见问题小节。</p>
+<p>其中翻译的规范也是中文写作的规范，更多详见之前写的 <a href="/posts/document-style-guide/">中文技术文档的写作规范</a>。</p>
+</blockquote>
+<p>为保证简体中文文档格式的一致性，翻译指南列出了部分规范。</p>
+<h2 id="标点符号">标点符号</h2>
+<p>除了代码中使用的符号以及一些特殊情况外，请将英文（半角）符号替换成中文（大部分为全角）符号。</p>
+<blockquote>
+<p>但请注意，请不要使用<strong>全角数字</strong>（特殊情况除外）。</p>
+</blockquote>
+<p>示例如下：</p>
+<ul>
+<li>正确：<code>我们可以学习 JavaScript——一种很酷的语言</code></li>
+<li>错误：<code>我们可以学习 JavaScript--一种很酷的语言</code></li>
+<li>正确：<code>以下示例是“可交互的”</code></li>
+<li>错误：<code>以下示例是&quot;可交互的&quot;</code></li>
+</ul>
+<p>另外，请注意并列的词语间应使用顿号而非逗号：</p>
+<ul>
+<li>原文：<code>a, b, and c</code></li>
+<li>宜：<code>a、b 和 c</code></li>
+<li>不宜：<code>a，b，和 c</code></li>
+</ul>
+<h3 id="常见中英文标点">常见中/英文标点</h3>
+<!-- markdownlint-disable search-replace -->
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>中文</th>
+<th>英文</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>括号</td>
+<td>（）</td>
+<td>()</td>
+</tr>
+<tr>
+<td>冒号</td>
+<td>：</td>
+<td>:</td>
+</tr>
+<tr>
+<td>引号</td>
+<td>“”</td>
+<td>&quot;&quot;</td>
+</tr>
+<tr>
+<td>破折号</td>
+<td>——</td>
+<td>&ndash; 、 —</td>
+</tr>
+</tbody>
+</table>
+<!-- markdownlint-enable search-replace -->
+<p>简体中文标点符号参考资源：</p>
+<ul>
+<li><a href="https://www.moe.gov.cn/ewebeditor/uploadfile/2015/01/13/20150113091548267.pdf"target="_blank" rel="external nofollow noopener noreferrer">教育部《标点符号用法》<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+<li><a href="https://zh.wikipedia.org/zh-cn/%e6%a0%87%e7%82%b9%e7%ac%a6%e5%8f%b7"target="_blank" rel="external nofollow noopener noreferrer">维基百科：标点符号<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+</ul>
+<h2 id="中文和拉丁语系文字间加空格">中文和拉丁语系文字间加空格</h2>
+<p>对于简体中文文档，请在中文和拉丁语系文字之间保留<strong>一个空格</strong>，但在拉丁语系文字和中文标点之间，则无需保留空格。</p>
+<p>示例如下：</p>
+<ul>
+<li>正确：<code>学习 Web 开发</code></li>
+<li>错误：<code>学习Web开发</code></li>
+<li>正确：<code>学习 JavaScript、HTML、CSS 等</code></li>
+<li>错误：<code>学习 JavaScript、 HTML、 CSS 等</code></li>
+<li>正确：<code>应用程序接口（API）</code></li>
+<li>错误：<code>应用程序接口（ API ）</code></li>
+</ul>
+<p>对于链接文字和非链接文字部分，同样适用此规则：</p>
+<ul>
+<li>正确：<code>它指向一个[示例](#示例)</code></li>
+<li>错误：<code>它指向一个 [示例](#示例)</code></li>
+<li>正确：<code>指向 [MDN 开发者文档](https://developer.mozilla.org/)的链接</code></li>
+<li>错误：<code>指向[MDN开发者文档](https://developer.mozilla.org/)的链接</code></li>
+</ul>
+<p>请注意，数字与中文之间也请保留空格：</p>
+<ul>
+<li>正确：<code>需 10 个小时完成</code></li>
+<li>错误：<code>需10个小时完成</code></li>
+</ul>
+<h2 id="排版">排版</h2>
+<p>英文文档中，对于较长的段落，会通过断行的形式截断，以方便维护文档。但在 Markdown 中，断行会引入空格，在简体中文翻译中，我们有如下约定：</p>
+<ul>
+<li>在段落不是特别长的情况下（200 个字符以内），请不要断行。</li>
+<li>若段落过长，也请在中文与拉丁语系文字、数字之间，或是句子末尾断行。</li>
+</ul>
+<p>例如：</p>
+<div class="highlight" id="id-1"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-md" data-lang="md"><span class="line"><span class="cl">This is an example.
+</span></span><span class="line"><span class="cl">We usually write a paragraph into multiple lines.
+</span></span><span class="line"><span class="cl">Like this.</span></span></code></pre></td></tr></table>
+</div>
+</div><p>而在中文文档中，应该使它们在同一行内：</p>
+<div class="highlight" id="id-2"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-md" data-lang="md"><span class="line"><span class="cl">这是一个示例。我们不应该断行写这一段话。就像这样。</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="词语翻译">词语翻译</h2>
+<h2 id="代名词">代名词</h2>
+<!-- markdownlint-disable search-replace -->
+<p>我们无需将“you”翻译为“您”，在文档正文部分的翻译中，请统一使用“你”。</p>
+<!-- markdownlint-enable search-replace -->
+<h2 id="复数形式">复数形式</h2>
+<p>英文文档中，为了使语句的语法正确，会使用大量的复数形式。在中文翻译中，则无需保留这些复数的形式（未翻译的英文名词也同理）。</p>
+<ul>
+<li>原文：<code>Application Programming Interfaces (APIs)</code></li>
+<li>宜：<code>应用程序接口（API）</code></li>
+<li>不宜：<code>应用程序接口（APIs）</code></li>
+<li>不宜：<code>应用程序接口们（APIs）</code></li>
+</ul>
+<h2 id="术语表">术语表</h2>
+<p>我们在仓库中维护了一个<a href="https://github.com/mdn/translated-content/blob/main/docs/zh-cn/glossary.md"target="_blank" rel="external nofollow noopener noreferrer">术语表<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>，旨在统一目前还未有明确中文翻译的术语。在翻译文档时，请尽量使用术语表中的术语，以保证文档的一致性。</p>
+<h2 id="常用标题">常用标题</h2>
+<p>英文文档中使用了一些常见标题，为了保持简体中文文档的一致性，请在翻译时参考术语表中的<a href="https://github.com/mdn/translated-content/blob/main/docs/zh-cn/glossary.md#%e6%a0%87%e9%a2%98%e8%a1%a8%e6%a0%bc"target="_blank" rel="external nofollow noopener noreferrer">标题和表格的翻译<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>。</p>]]></description></item><item><title>在 Vue 项目中更优雅的使用 icon</title><link>https://lruihao.cn/posts/vue-svg-icon/</link><pubDate>Thu, 14 Sep 2023 11:24:48 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/vue-svg-icon/</guid><description><![CDATA[<h2 id="前言">前言</h2>
 <p>在 Web 开发中，我们经常会用到 icon，icon 的使用经历了从图片到字体，再到 svg 的演变过程，也产生出相应的 icon 库，如雪碧图、<a href="https://fontawesome.com/"target="_blank" rel="external nofollow noopener noreferrer">Font Awesome<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>、<a href="https://www.iconfont.cn/"target="_blank" rel="external nofollow noopener noreferrer">Iconfont<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 等等。</p>
 <p>随着前端的发展，icon 使用方案落在了 svg 上，svg 有着矢量图的优势，可以无限放大而不失真，而且 svg 本身就是一种 XML 文件，可以直接在 HTML 中使用，也可以通过 CSS 进行样式控制，但是在 Vue 项目中使用 svg 时，我们会遇到一些问题，本文将介绍如何在 Vue 项目中更优雅的使用 svg icon。</p>
 <h2 id="工具">工具</h2>
@@ -304,7 +584,8 @@
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// }
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="常用代码片段">常用代码片段</h2>
+</div><p>可以使用工具 <a href="https://snippet-generator.app/"target="_blank" rel="external nofollow noopener noreferrer">snippet-generator<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 生成代码片段。</p>
+<h2 id="常用代码片段">常用代码片段</h2>
 <h3 id="javascript">JavaScript</h3>
 <div class="highlight" id="id-2"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -3418,190 +3699,4 @@
 <p>参考链接</p>
 <ul>
 <li><a href="https://www.jianshu.com/p/2e6811ad9f68"target="_blank" rel="external nofollow noopener noreferrer">Electron-Mac 应用的签名步骤说明<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
-</ul>]]></description></item><item><title>前端页面内容加密总结</title><link>https://lruihao.cn/posts/encryption-fe/</link><pubDate>Mon, 08 Aug 2022 13:49:22 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/encryption-fe/</guid><description><![CDATA[<p>记录一下前端实现页面加密的思路。</p>
-<h2 id="加密基础知识">加密基础知识</h2>
-<h3 id="双向加密">双向加密</h3>
-<p>可还原的加密算法，可以逆向解密。</p>
-<ol>
-<li>
-<p>对称加密（单密钥加密）</p>
-<p>采用单钥密码系统的加密方法，同一个密钥同时用作信息的加密和解密。</p>
-<p>密钥生成算法有 DES、3DES、AES。</p>
-</li>
-<li>
-<p>非对称加密（公开密钥系统）</p>
-<p>两个密钥：公开密钥（publickey）和私有密钥（privatekey）。</p>
-<p>公钥/私钥加密/签名，用私钥/公钥解密/验证签名。</p>
-<p>密钥生成算法有 RSA（公钥、私钥）、DSA（公钥、私钥、数字签名）。</p>
-</li>
-</ol>
-<h3 id="单向加密">单向加密</h3>
-<p>不可还原的加密算法（暴力撞库除外），常见的算法有：MD5、SHA1、SHA256、SHA512。</p>
-<h2 id="页面内容加密">页面内容加密</h2>
-<p><figure><a class="lightgallery" href="/posts/encryption-fe/images/algorithm.jpg" data-thumbnail="/posts/encryption-fe/images/algorithm.jpg" data-sub-html="<h2>内容加密算法</h2><p>内容加密算法</p>"></a><figcaption class="image-caption">内容加密算法</figcaption>
-  </figure></p>
-<ol>
-<li>通过比对密码和输入的 md5 值来判断密码是否输入正确</li>
-<li>密码验证通过后，开始解密内容
-<ol>
-<li>拿到正确的输入值的 sha256 值的部分内容</li>
-<li>然后按照加密规则解秘内容</li>
-</ol>
-</li>
-</ol>
-<p>这里利用 <code>Set</code> 进行事件管理，简单模拟了 <code>addEventListener</code> 和 <code>removeEventListener</code> 的操作。并提供了两个事件：<code>decrypted</code> 和 <code>reset</code>，详见 <a href="https://github.com/hugo-fixit/FixIt/blob/master/assets/js/fixit-decryptor.js"target="_blank" rel="external nofollow noopener noreferrer">fixit-decryptor.js<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>。</p>]]></description></item><item><title>Node.js + GitHub Actions 自动刷新 CDN</title><link>https://lruihao.cn/posts/qcloudcdn/</link><pubDate>Sun, 07 Aug 2022 14:40:33 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/qcloudcdn/</guid><description><![CDATA[<div class="details admonition question open">
-    <div class="details-summary admonition-title">
-      <i class="icon fa-solid fa-question-circle fa-fw" aria-hidden="true"></i>问题<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i>
-    </div>
-    <div class="details-content">
-      <div class="admonition-content">腾讯云云函数从 2022 年 6 月 1 日开始收费了，差不多每个月 12 块，对于可能几个月都用不上一次云函数刷新缓存的人来说，有点太贵了。
-使用 Node.js 和 GitHub Actions 刷新 CDN 的方式，可以节省不少钱。</div>
-    </div>
-  </div>
-<h2 id="安装依赖">安装依赖</h2>
-<div class="highlight" id="id-1"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">npm install qcloud-cdn-node-sdk</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="编写脚本">编写脚本</h2>
-<div class="highlight" id="id-2"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">vim .scripts/qcloudcdn.js</span></span></code></pre></td></tr></table>
-</div>
-</div><div class="highlight" id="id-3"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="cm">/**
-</span></span></span><span class="line"><span class="cl"><span class="cm"> * Refresh Qcloud CDN cache
-</span></span></span><span class="line"><span class="cl"><span class="cm"> * @command `node qcloudcdn.js $SECRET_ID $SECRET_KEY`
-</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
-</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">qcloudSDK</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;qcloud-cdn-node-sdk&#39;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">// Get the config from https://console.qcloud.com/capi
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">qcloudSDK</span><span class="p">.</span><span class="nx">config</span><span class="p">({</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">secretId</span><span class="o">:</span> <span class="nx">process</span><span class="o">?</span><span class="p">.</span><span class="nx">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">secretKey</span><span class="o">:</span> <span class="nx">process</span><span class="o">?</span><span class="p">.</span><span class="nx">argv</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl"><span class="p">});</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nx">qcloudSDK</span><span class="p">.</span><span class="nx">request</span><span class="p">(</span>
-</span></span><span class="line"><span class="cl">  <span class="s1">&#39;RefreshCdnDir&#39;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">  <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="c1">// See https://cloud.tencent.com/document/api/228/3947
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="s1">&#39;dirs.0&#39;</span><span class="o">:</span> <span class="s1">&#39;https://lruihao.cn/&#39;</span>
-</span></span><span class="line"><span class="cl">  <span class="p">},</span>
-</span></span><span class="line"><span class="cl">  <span class="p">(</span><span class="nx">res</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">res</span><span class="p">.</span><span class="nx">code</span> <span class="o">&amp;&amp;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">res</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">);</span></span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="增加快捷指令">增加快捷指令</h2>
-<p>打开 <code>package.json</code> 增加 <code>scripts</code>:</p>
-<div class="highlight" id="id-4"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="nt">&#34;scripts&#34;</span><span class="p">:</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nt">&#34;qcloudcdn&#34;</span><span class="p">:</span> <span class="s2">&#34;node .scripts/qcloudcdn.js $SECRET_ID $SECRET_KEY&#34;</span>
-</span></span><span class="line"><span class="cl">  <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
-</div>
-</div><p>运行方式：</p>
-<div class="highlight" id="id-5"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nv">SECRET_ID</span><span class="o">=</span>&lt;secretId&gt; <span class="nv">SECRET_KEY</span><span class="o">=</span>&lt;secretKey&gt; npm run qcloudcdn</span></span></code></pre></td></tr></table>
-</div>
-</div><details>
-  <summary>Mac OS 环境变量配置（可选）</summary>
-  <div class="highlight" id="id-7"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">vim ~/.bash_profile</span></span></code></pre></td></tr></table>
-</div>
-</div><div class="highlight" id="id-8"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Qcloud secret key-value</span>
-</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">SECRET_ID</span><span class="o">=</span>&lt;secretId&gt;
-</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">SECRET_KEY</span><span class="o">=</span>&lt;secretKey&gt;</span></span></code></pre></td></tr></table>
-</div>
-</div><div class="highlight" id="id-9"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">source</span> ~/.bash_profile</span></span></code></pre></td></tr></table>
-</div>
-</div><p>然后，在本地可简化指令为 <code>npm run qcloudcdn</code> 或者 <code>yarn qcloudcdn</code>。<br>
-等同于 <code>SECRET_ID=$SECRET_ID SECRET_KEY=$SECRET_KEY npm run qcloudcdn</code></p>
-
-</details>
-<h2 id="配置-github-actions">配置 GitHub Actions</h2>
-<p>在原有 GitHub Actions 中部署后增加一个步骤：</p>
-<div class="highlight" id="id-6"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl">- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Refresh Qcloud CDN cache</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">env</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">SECRET_ID</span><span class="p">:</span><span class="w"> </span><span class="l">${{ secrets.SECRET_ID }}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">SECRET_KEY</span><span class="p">:</span><span class="w"> </span><span class="l">${{ secrets.SECRET_KEY }}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l">npm run qcloudcdn</span></span></span></code></pre></td></tr></table>
-</div>
-</div><p>在仓库 Settings &gt; Secrets &gt; Actions 中增加两个 Secret: <code>SECRET_ID</code> 和 <code>SECRET_KEY</code>，原来有配置过的就不用了，比如，我原来的叫 <code>COS_SECRET_ID</code> 和 <code>COS_SECRET_ID</code>，那修改上面配置 env 中的变量名即可。</p>
-<p>最后上传代码，以后更新仓库时就会自动刷新 CDN 缓存了。</p>
-<h2 id="参考资料">参考资料</h2>
-<ul>
-<li><a href="https://github.com/QCloudCDN/CDN_API_DEMO/tree/master/Qcloud_CDN_API/nodejs"target="_blank" rel="external nofollow noopener noreferrer">Qcloud_CDN_API/nodejs<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
-</ul>
-<blockquote>
-<p>本方案使用的旧的 API 请求方式，如果失效，可以参考新的 API，见 <a href="https://cloud.tencent.com/document/sdk"target="_blank" rel="external nofollow noopener noreferrer">SDK 中心<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>。</p>
-</blockquote>]]></description></item></channel></rss>
+</ul>]]></description></item></channel></rss>
