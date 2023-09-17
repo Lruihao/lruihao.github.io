@@ -1,4 +1,292 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>菠菜眾長</title><link>https://lruihao.cn/</link><description>Lruihao's Note 李瑞豪的博客：探索、分享、记录自己在工作生活学习到一些东西。人知道得越多，就就会发现无知的越多。有更广袤世界可以探索，真是莫大的快乐啊！</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><copyright>本站内容采用知识共享署名-非商业性使用 4.0（CC BY-NC 4.0）国际许可协议。</copyright><lastBuildDate>Fri, 15 Sep 2023 17:29:25 +0800</lastBuildDate><atom:link href="https://lruihao.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>JS 实现全屏和退出全屏</title><link>https://lruihao.cn/posts/js-fullscreen/</link><pubDate>Fri, 15 Sep 2023 17:29:25 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/js-fullscreen/</guid><description><![CDATA[<h2 id="背景">背景</h2>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>菠菜眾長</title><link>https://lruihao.cn/</link><description>Lruihao's Note 李瑞豪的博客：探索、分享、记录自己在工作生活学习到一些东西。人知道得越多，就就会发现无知的越多。有更广袤世界可以探索，真是莫大的快乐啊！</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><copyright>本站内容采用知识共享署名-非商业性使用 4.0（CC BY-NC 4.0）国际许可协议。</copyright><lastBuildDate>Sun, 17 Sep 2023 19:44:07 +0800</lastBuildDate><atom:link href="https://lruihao.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>封装 Vue FullScreenToggler 组件</title><link>https://lruihao.cn/posts/vue-fullscreen-toggler/</link><pubDate>Sun, 17 Sep 2023 19:44:07 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/vue-fullscreen-toggler/</guid><description><![CDATA[<p>基于 <a href="https://github.com/mirari/vue-fullscreen"target="_blank" rel="external nofollow noopener noreferrer">vue-fullscreen<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 封装一个的 Vue 全屏/退出全屏切换组件。</p>
+<h2 id="简介">简介</h2>
+<p><a href="https://github.com/mirari/vue-fullscreen"target="_blank" rel="external nofollow noopener noreferrer">vue-fullscreen<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 是一个用于将任意页面元素进行全屏切换的 Vue 插件，基于 <a href="https://github.com/sindresorhus/screenfull"target="_blank" rel="external nofollow noopener noreferrer">screenfull<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>。这个插件本身提供了组件、指令以及 API 三种使用方式，具体的使用方法请参考 <a href="https://github.com/mirari/vue-fullscreen"target="_blank" rel="external nofollow noopener noreferrer">vue-fullscreen<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>。</p>
+<h2 id="在线演示httpslruihaogithubiovue-el-demofullscreen"><a href="https://lruihao.github.io/vue-el-demo/#/fullscreen"target="_blank" rel="external nofollow noopener noreferrer">在线演示<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></h2>
+<h3 id="-安装">## 安装</h3>
+<div class="highlight" id="id-1"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">npm install vue-fullscreen@^2.6.1
+</span></span><span class="line"><span class="cl"><span class="c1"># 或者</span>
+</span></span><span class="line"><span class="cl">yarn add vue-fullscreen@^2.6.1</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="封装组件">封装组件</h2>
+<p><code>vue-fullscreen</code> 有 Vue2 和 Vue3 两个版本，本文将基于其 Vue2 版本的指令使用方式再封装一层。</p>
+<p>这个组件会显示为一个切换按钮，通过绑定 <code>target</code> 属性来指定全屏的目标元素，通过 <code>bodyAgent</code> 属性来指定是否使用 <code>document.body</code> 代理全屏元素，目标元素则改为网页全屏，避免弹窗等元素在全屏模式下不可见的问题。</p>
+<div class="details admonition info open">
+    <div class="details-summary admonition-title">
+      <i class="icon fa-solid fa-info-circle fa-fw" aria-hidden="true"></i>信息<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i>
+    </div>
+    <div class="details-content">
+      <div class="admonition-content"><code>vue-fullscreen</code> 插件处理弹窗等元素在全屏模式下不可见问题的方案是通过 <code>teleport</code> 修饰符将目标元素移动到 <code>document.body</code> 下，从而避免层级遮挡问题。个人不太喜欢这种改变 DOM 结构的方式，所以封装的插件新增一个参数 <code>bodyAgent</code>，当设置为 <code>true</code> 时，会使用 <code>document.body</code> 代理全屏元素，目标元素则改为网页全屏，此时 <code>document.fullscreenElement</code> 为 <code>document.body</code> 而不是真实设置的 <code>target</code> 元素。</div>
+    </div>
+  </div>
+<div class="highlight" id="id-2"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span><span class="lnt">109
+</span><span class="lnt">110
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-vue" data-lang="vue"><span class="line"><span class="cl"><span class="c">&lt;!--</span> <span class="nx">全屏</span><span class="o">/</span><span class="nx">退出全屏切换组件</span><span class="err">，</span><span class="nx">浏览器不支持时</span><span class="err">，</span><span class="nx">打开网页内全屏</span> <span class="o">--&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">directive</span> <span class="nx">as</span> <span class="nx">fullscreen</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;vue-fullscreen&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="k">default</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;FullScreenToggler&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">directives</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">fullscreen</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">props</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">target</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">type</span><span class="o">:</span> <span class="nb">String</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="k">default</span><span class="o">:</span> <span class="s1">&#39;document.body&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * 是否使用 document.body 代理全屏元素，目标元素则改为网页全屏
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * 避免弹窗等元素在全屏模式下不可见的问题（推荐）
+</span></span></span><span class="line"><span class="cl"><span class="cm">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">bodyAgent</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">type</span><span class="o">:</span> <span class="nb">Boolean</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="k">default</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">fullscreenClass</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">type</span><span class="o">:</span> <span class="nb">String</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="k">default</span><span class="o">:</span> <span class="s1">&#39;is-fullscreen&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * 不调用全屏 API，而是将当前元素撑满网页
+</span></span></span><span class="line"><span class="cl"><span class="cm">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">pageOnly</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">type</span><span class="o">:</span> <span class="nb">Boolean</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="k">default</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * v-fullscreen 指令修饰符 teleport 进入全屏时目标元素会被移动到 document.body 下
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * vue-fullscreen 插件处理弹窗等元素在全屏模式下不可见问题的方案（不推荐）
+</span></span></span><span class="line"><span class="cl"><span class="cm">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">teleport</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">type</span><span class="o">:</span> <span class="nb">Boolean</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="k">default</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">data</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">isFullscreen</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">computed</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">options</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">return</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">target</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">bodyAgent</span> <span class="o">?</span> <span class="s1">&#39;document.body&#39;</span> <span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">target</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">callback</span><span class="o">:</span> <span class="p">(</span><span class="nx">isFullscreen</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="k">this</span><span class="p">.</span><span class="nx">isFullscreen</span> <span class="o">=</span> <span class="nx">isFullscreen</span>
+</span></span><span class="line"><span class="cl">          <span class="c1">// 网页全屏
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>          <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">bodyAgent</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="p">.</span><span class="nx">target</span> <span class="o">!==</span> <span class="s1">&#39;document.body&#39;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">target</span><span class="p">).</span><span class="nx">classList</span><span class="p">.</span><span class="nx">toggle</span><span class="p">(</span><span class="s1">&#39;is-fullscreen-fullpage&#39;</span><span class="p">,</span> <span class="nx">isFullscreen</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">          <span class="p">}</span>
+</span></span><span class="line"><span class="cl">          <span class="c1">// 触发事件传递给父组件
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>          <span class="k">this</span><span class="p">.</span><span class="nx">$emit</span><span class="p">(</span><span class="s1">&#39;change&#39;</span><span class="p">,</span> <span class="nx">isFullscreen</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">fullscreenClass</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">fullscreenClass</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">render</span><span class="p">(</span><span class="nx">h</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">h</span><span class="p">(</span><span class="s1">&#39;span&#39;</span><span class="p">,</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="kr">class</span><span class="o">:</span> <span class="s1">&#39;full-screen-toggler&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">attrs</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">title</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">isFullscreen</span> <span class="o">?</span> <span class="s1">&#39;退出全屏&#39;</span> <span class="o">:</span> <span class="s1">&#39;全屏&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="p">},</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">directives</span><span class="o">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;fullscreen&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nx">value</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nx">modifiers</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">pageOnly</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">pageOnly</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">teleport</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">teleport</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">      <span class="p">],</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">[</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">h</span><span class="p">(</span><span class="s1">&#39;svg-icon&#39;</span><span class="p">,</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">props</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="nx">iconClass</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">isFullscreen</span> <span class="o">?</span> <span class="s1">&#39;exit-fullscreen&#39;</span> <span class="o">:</span> <span class="s1">&#39;fullscreen&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}),</span>
+</span></span><span class="line"><span class="cl">    <span class="p">])</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">style</span> <span class="na">lang</span><span class="o">=</span><span class="s">&#34;scss&#34;</span> <span class="na">scoped</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">.</span><span class="nx">full</span><span class="o">-</span><span class="nx">screen</span><span class="o">-</span><span class="nx">toggler</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">cursor</span><span class="o">:</span> <span class="nx">pointer</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">style</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">.</span><span class="nx">is</span><span class="o">-</span><span class="nx">fullscreen</span><span class="o">-</span><span class="nx">fullpage</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">position</span><span class="o">:</span> <span class="nx">fixed</span> <span class="o">!</span><span class="nx">important</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">top</span><span class="o">:</span> <span class="mi">0</span><span class="nx">px</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">left</span><span class="o">:</span> <span class="mi">0</span><span class="nx">px</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">width</span><span class="o">:</span> <span class="mi">100</span><span class="o">%</span> <span class="o">!</span><span class="nx">important</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">height</span><span class="o">:</span> <span class="mi">100</span><span class="o">%</span> <span class="o">!</span><span class="nx">important</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">background</span><span class="o">:</span> <span class="nx">white</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">z</span><span class="o">-</span><span class="nx">index</span><span class="o">:</span> <span class="mi">2000</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">box</span><span class="o">-</span><span class="nx">sizing</span><span class="o">:</span> <span class="nx">border</span><span class="o">-</span><span class="nx">box</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>使用方式如下：</p>
+<div class="highlight" id="id-3"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-vue" data-lang="vue"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">template</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;page-container&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">full-screen-toggler</span> <span class="na">target</span><span class="o">=</span><span class="s">&#34;.page-container&#34;</span> <span class="p">/&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">template</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="nx">FullScreenToggler</span> <span class="nx">from</span> <span class="s1">&#39;@/components/FullScreenToggler&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="k">default</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">components</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">FullScreenToggler</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span></span></span></code></pre></td></tr></table>
+</div>
+</div>]]></description></item><item><title>JS 实现全屏和退出全屏</title><link>https://lruihao.cn/posts/js-fullscreen/</link><pubDate>Fri, 15 Sep 2023 17:29:25 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/js-fullscreen/</guid><description><![CDATA[<h2 id="背景">背景</h2>
 <p>在 Web 开发中，全屏模式可以提供更沉浸式的体验，特别适用于视频播放、游戏展示和演示等场景。通过 JavaScript 的 Fullscreen API，我们可以以编程方式控制元素的全屏状态。</p>
 <p>Fullscreen API 是一组用于控制全屏显示的方法和属性，它们允许我们将网页内容以全屏的方式展示给用户，并提供了相应的事件来监听全屏模式的变化。</p>
 <p>在本文中，我们将介绍如何判断浏览器是否支持全屏功能，如何实现进入全屏和退出全屏的功能，以及如何获取当前全屏元素和监听全屏模式的变化。</p>
@@ -3311,392 +3599,4 @@
 <td style="text-align:left">Changes in the construction process or auxiliary tools</td>
 </tr>
 </tbody>
-</table>]]></description></item><item><title>electron 踩坑总结</title><link>https://lruihao.cn/posts/electron-summary/</link><pubDate>Fri, 12 Aug 2022 11:22:01 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/electron-summary/</guid><description><![CDATA[<p>总结一下最近 electron 开发遇到的问题和一些重要知识点。</p>
-<h2 id="简介">简介</h2>
-<p>如果你可以建一个网站，你就可以建一个桌面应用程序。 <a href="https://www.electronjs.org/"target="_blank" rel="external nofollow noopener noreferrer">Electron<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 是一个使用 JavaScript, HTML 和 CSS 等 Web 技术创建原生程序的开源框架，它负责比较难搞的部分，你只需把精力放在你的应用的核心上即可。</p>
-<h2 id="知识点">知识点</h2>
-<h3 id="进程">进程</h3>
-<p>electron 由两种进程组成，包括<code>主进程</code>和 0 个或 n 个<code>渲染进程</code>。</p>
-<ol>
-<li><code>主进程</code>：承担应用的生命周期（包括启动，退出，准备，正在切换到后台，正在切换到前台等，还负责与原生操作系统 API 通信）</li>
-<li><code>渲染进程</code>：做 web 页面的 ui，渲染进程之间独立在各自的单线程，渲染进程之间相互隔离，不能直接访问操作系统，需要通信到主线程，在通过主线程操作访问操作形态，一个 BrowserWindow 实例即为一个渲染进程</li>
-</ol>
-<h3 id="技术栈">技术栈</h3>
-<p>electron 整合了 Node 和浏览器的所有能力，可以随意发挥这些技术栈的特点。由于固定浏览器内核，可以无需考虑兼容性地使用 html/js/css 新特性。</p>
-<h3 id="安装">安装</h3>
-<p>安装 electron 时，可能因为网络问题导致下载失败，需要使用镜像仓库来下载。</p>
-<div class="highlight" id="id-1"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 设置 electron 镜像仓库</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># https://registry.npmmirror.com/-/binary/electron</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># 13.1.7 版本 下载链接可能会拼错导致 404，要设置成 https://registry.npmmirror.com/-/binary/electron/v</span>
-</span></span><span class="line"><span class="cl">npm config <span class="nb">set</span> <span class="nv">electron_mirror</span><span class="o">=</span>https://npmmirror.com/mirrors/electron/</span></span></code></pre></td></tr></table>
-</div>
-</div><p>M1 Mac 安装较低版本 electron 时可能会报错，<code>Failed to find Electron v xxx for darwin-arm64</code>，因为这些版本的 electron 不支持 darwin-arm64 架构。Apple 针对未适配的 X64 应用提供了 Rosetta2 转换器，安装 darwin-x64 版本的 electron 在 Intel 模式下运行即可，<a href="https://www.jianshu.com/p/b1b3577fd373"target="_blank" rel="external nofollow noopener noreferrer">参考<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>。</p>
-<h3 id="remote">remote</h3>
-<blockquote>
-<p>不要频繁使用 remote, 更多应该手动进行和主进程之间的通信。</p>
-</blockquote>
-<p>使用时需在窗口创建时设置 <code>webPreferences.enableRemoteModule</code> 为 <code>true</code>。</p>
-<p>旧版本的 <code>electron.remote </code> 已经弃用，应该使用依赖 <code>electron/remote</code> 代替。</p>
-<p>使用了旧版本的 remote 时会有控制台警告信息：</p>
-<div class="highlight" id="id-2"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-v" data-lang="v"><span class="line"><span class="cl"><span class="p">(</span><span class="nv">electron</span><span class="p">)</span> <span class="nc">The</span> <span class="nv">remote</span> <span class="kn">module</span> <span class="k">is</span> <span class="nv">deprecated</span><span class="p">.</span> <span class="nc">Use</span> <span class="nv">https</span><span class="p">:</span><span class="c1">//github.com/electron/remote instead.
-</span></span></span></code></pre></td></tr></table>
-</div>
-</div><ul>
-<li>获取当前窗口：<code>remote.getCurrentWindow()</code></li>
-</ul>
-<h2 id="问题点">问题点</h2>
-<h3 id="打开外部浏览器">打开外部浏览器</h3>
-<p>electron 的 <code>shell</code> 模块，可以使用 <code>shell.openExternal(url)</code> 在默认浏览器打开链接。</p>
-<h3 id="防抖与节流">防抖与节流</h3>
-<p>防抖：短期内大量触发事件时，只执行最后一次。</p>
-<div class="highlight" id="id-3"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span><span class="lnt">8
-</span><span class="lnt">9
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">debounce</span><span class="p">(</span><span class="nx">fn</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="kd">let</span> <span class="nx">timer</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">clearTimeOut</span><span class="p">(</span><span class="nx">timer</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">timer</span> <span class="o">=</span> <span class="nx">setTimeOut</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">      <span class="nx">fn</span><span class="p">.</span><span class="nx">applay</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">arguments</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="p">},</span> <span class="mi">300</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="p">};</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
-</div>
-</div><p>节流：短期内大量触发事件时，只执行第一次。</p>
-<div class="highlight" id="id-4"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">throttle</span><span class="p">(</span><span class="nx">fn</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="kd">let</span> <span class="nx">timer</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nx">timer</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">timer</span> <span class="o">=</span> <span class="nx">setTimeOut</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">      <span class="nx">fn</span><span class="p">.</span><span class="nx">applay</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">arguments</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">      <span class="nx">timer</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="p">},</span> <span class="mi">300</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="p">};</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
-</div>
-</div><h3 id="devtools">devTools</h3>
-<p>初始化窗口时设置 <code>webPreferences.devTools</code> 为 <code>true</code>，然后通过 <code>mainWindow.webContents.openDevTools()</code> 打开开发者工具。</p>
-<p>如果只在开发环境启用开发者工具，则需要设置 <code>webPreferences.devTools</code> 为 <code>process.env.NODE_ENV === 'development'</code></p>
-<h3 id="启动白屏">启动白屏</h3>
-<p>在创建窗口时设置 <code>show: false</code>，在 <code>ready-to-show</code> 事件之后执行 <code>mainWindow.show()</code>，</p>
-<p>可见官方文档 <a href="https://www.electronjs.org/zh/docs/latest/api/browser-window#%e4%bc%98%e9%9b%85%e5%9c%b0%e6%98%be%e7%a4%ba%e7%aa%97%e5%8f%a3"target="_blank" rel="external nofollow noopener noreferrer">优雅地显示窗口<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>。</p>
-<h4 id="启动前-loading">启动前 loading</h4>
-<p>额外创建一个 loading 窗口，该窗口可设置为透明只包含 loading 图标和文字，在 <code>mainWindow.show()</code> 后关闭。</p>
-<h4 id="启动后-loading">启动后 loading</h4>
-<p>如果使用了 Vue 框架，在 Vue 初始化之前窗口虽然出现了，但是内容时空白的，可以在 Vue 实例 #app 里写一个 loading, Vue 加载完后会覆盖掉。</p>
-<div class="highlight" id="id-5"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span><span class="lnt">37
-</span><span class="lnt">38
-</span><span class="lnt">39
-</span><span class="lnt">40
-</span><span class="lnt">41
-</span><span class="lnt">42
-</span><span class="lnt">43
-</span><span class="lnt">44
-</span><span class="lnt">45
-</span><span class="lnt">46
-</span><span class="lnt">47
-</span><span class="lnt">48
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;app&#34;</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">  <span class="c">&lt;!-- Display the loading icon and text until Vue initialization is complete --&gt;</span>
-</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">style</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/css&#34;</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">    <span class="nt">html</span><span class="o">,</span>
-</span></span><span class="line"><span class="cl">    <span class="nt">body</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">      <span class="k">height</span><span class="p">:</span> <span class="mi">100</span><span class="kt">%</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">      <span class="k">margin</span><span class="p">:</span> <span class="mi">0</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="nt">body</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">      <span class="k">display</span><span class="p">:</span> <span class="kc">flex</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="p">#</span><span class="nn">app</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">      <span class="k">margin</span><span class="p">:</span> <span class="kc">auto</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">      <span class="k">display</span><span class="p">:</span> <span class="kc">flex</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">      <span class="k">align-items</span><span class="p">:</span> <span class="kc">center</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="p">@</span><span class="k">media</span> <span class="o">(</span><span class="nt">prefers-color-scheme</span><span class="o">:</span> <span class="nt">dark</span><span class="o">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">      <span class="nt">body</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="k">color</span><span class="p">:</span> <span class="mh">#fff</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">        <span class="k">background-color</span><span class="p">:</span> <span class="mh">#202124</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">      <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">  <span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">svg</span>
-</span></span><span class="line"><span class="cl">    <span class="na">xmlns</span><span class="o">=</span><span class="s">&#34;http://www.w3.org/2000/svg&#34;</span>
-</span></span><span class="line"><span class="cl">    <span class="na">style</span><span class="o">=</span><span class="s">&#34;margin:auto;background:0 0&#34;</span>
-</span></span><span class="line"><span class="cl">    <span class="na">width</span><span class="o">=</span><span class="s">&#34;60&#34;</span>
-</span></span><span class="line"><span class="cl">    <span class="na">height</span><span class="o">=</span><span class="s">&#34;60&#34;</span>
-</span></span><span class="line"><span class="cl">    <span class="na">viewBox</span><span class="o">=</span><span class="s">&#34;0 0 100 100&#34;</span>
-</span></span><span class="line"><span class="cl">    <span class="na">preserveAspectRatio</span><span class="o">=</span><span class="s">&#34;xMidYMid&#34;</span>
-</span></span><span class="line"><span class="cl">    <span class="na">display</span><span class="o">=</span><span class="s">&#34;block&#34;</span>
-</span></span><span class="line"><span class="cl">  <span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">circle</span>
-</span></span><span class="line"><span class="cl">      <span class="na">cx</span><span class="o">=</span><span class="s">&#34;50&#34;</span>
-</span></span><span class="line"><span class="cl">      <span class="na">cy</span><span class="o">=</span><span class="s">&#34;50&#34;</span>
-</span></span><span class="line"><span class="cl">      <span class="na">r</span><span class="o">=</span><span class="s">&#34;20&#34;</span>
-</span></span><span class="line"><span class="cl">      <span class="na">stroke-width</span><span class="o">=</span><span class="s">&#34;4&#34;</span>
-</span></span><span class="line"><span class="cl">      <span class="na">stroke</span><span class="o">=</span><span class="s">&#34;#a5a5a5&#34;</span>
-</span></span><span class="line"><span class="cl">      <span class="na">stroke-dasharray</span><span class="o">=</span><span class="s">&#34;31.416 31.416&#34;</span>
-</span></span><span class="line"><span class="cl">      <span class="na">fill</span><span class="o">=</span><span class="s">&#34;none&#34;</span>
-</span></span><span class="line"><span class="cl">      <span class="na">stroke-linecap</span><span class="o">=</span><span class="s">&#34;round&#34;</span>
-</span></span><span class="line"><span class="cl">      <span class="na">transform</span><span class="o">=</span><span class="s">&#34;rotate(67.21 50 50)&#34;</span>
-</span></span><span class="line"><span class="cl">    <span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">      <span class="p">&lt;</span><span class="nt">animateTransform</span> <span class="na">attributeName</span><span class="o">=</span><span class="s">&#34;transform&#34;</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;rotate&#34;</span> <span class="na">repeatCount</span><span class="o">=</span><span class="s">&#34;indefinite&#34;</span> <span class="na">dur</span><span class="o">=</span><span class="s">&#34;1s&#34;</span> <span class="na">keyTimes</span><span class="o">=</span><span class="s">&#34;0;1&#34;</span> <span class="na">values</span><span class="o">=</span><span class="s">&#34;0 50 50;360 50 50&#34;</span> <span class="p">/&gt;</span>
-</span></span><span class="line"><span class="cl">    <span class="p">&lt;/</span><span class="nt">circle</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">  <span class="p">&lt;/</span><span class="nt">svg</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">span</span><span class="p">&gt;</span>加载中 ...<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span></span></span></code></pre></td></tr></table>
-</div>
-</div><h3 id="阻止窗口关闭">阻止窗口关闭</h3>
-<p>可以在关闭前一些事件里做拦截，比如：<code>onbeforeunload</code> 等，详见 <a href="https://www.electronjs.org/zh/docs/latest/api/browser-window#%e5%ae%9e%e4%be%8b%e4%ba%8b%e4%bb%b6"target="_blank" rel="external nofollow noopener noreferrer">实例事件<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>。</p>
-<h3 id="手动关闭窗口">手动关闭窗口</h3>
-<p>当自定义关闭时，使用 <code>mainWindow.destroy()</code> 来关闭窗口，因为使用 <code>mainWindow.close()</code> 时，windows 系统打开开发者工具时会出现无法关闭窗口的情况。</p>
-<h3 id="全局快捷键">全局快捷键</h3>
-<p>当 electron 版本较低时，比如 <code>13.1.7</code>，会出现在 mac 系统上复制粘贴等常用快捷键失效的问题。可通过设置菜单并绑定快捷键的方式解决。</p>
-<div class="highlight" id="id-6"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span><span class="lnt">37
-</span><span class="lnt">38
-</span><span class="lnt">39
-</span><span class="lnt">40
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">main</span> <span class="o">=</span> <span class="p">[</span>
-</span></span><span class="line"><span class="cl">  <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">label</span><span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">submenu</span><span class="o">:</span> <span class="p">[</span>
-</span></span><span class="line"><span class="cl">      <span class="p">{</span> <span class="nx">label</span><span class="o">:</span> <span class="s1">&#39;关于&#39;</span><span class="p">,</span> <span class="nx">role</span><span class="o">:</span> <span class="s1">&#39;about&#39;</span> <span class="p">},</span>
-</span></span><span class="line"><span class="cl">      <span class="p">{</span> <span class="nx">label</span><span class="o">:</span> <span class="s1">&#39;关闭&#39;</span><span class="p">,</span> <span class="nx">role</span><span class="o">:</span> <span class="s1">&#39;close&#39;</span> <span class="p">},</span>
-</span></span><span class="line"><span class="cl">      <span class="p">{</span> <span class="nx">label</span><span class="o">:</span> <span class="s1">&#39;退出&#39;</span><span class="p">,</span> <span class="nx">role</span><span class="o">:</span> <span class="s1">&#39;quit&#39;</span> <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="p">]</span>
-</span></span><span class="line"><span class="cl">  <span class="p">},</span>
-</span></span><span class="line"><span class="cl">  <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">label</span><span class="o">:</span> <span class="s1">&#39;编辑&#39;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">submenu</span><span class="o">:</span> <span class="p">[</span>
-</span></span><span class="line"><span class="cl">      <span class="p">{</span> <span class="nx">label</span><span class="o">:</span> <span class="s1">&#39;撤销&#39;</span><span class="p">,</span> <span class="nx">role</span><span class="o">:</span> <span class="s1">&#39;undo&#39;</span> <span class="p">},</span>
-</span></span><span class="line"><span class="cl">      <span class="p">{</span> <span class="nx">label</span><span class="o">:</span> <span class="s1">&#39;恢复&#39;</span><span class="p">,</span> <span class="nx">role</span><span class="o">:</span> <span class="s1">&#39;redo&#39;</span> <span class="p">},</span>
-</span></span><span class="line"><span class="cl">      <span class="p">{</span> <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;separator&#39;</span> <span class="p">},</span>
-</span></span><span class="line"><span class="cl">      <span class="p">{</span> <span class="nx">label</span><span class="o">:</span> <span class="s1">&#39;剪切&#39;</span><span class="p">,</span> <span class="nx">role</span><span class="o">:</span> <span class="s1">&#39;cut&#39;</span> <span class="p">},</span>
-</span></span><span class="line"><span class="cl">      <span class="p">{</span> <span class="nx">label</span><span class="o">:</span> <span class="s1">&#39;复制&#39;</span><span class="p">,</span> <span class="nx">role</span><span class="o">:</span> <span class="s1">&#39;copy&#39;</span> <span class="p">},</span>
-</span></span><span class="line"><span class="cl">      <span class="p">{</span> <span class="nx">label</span><span class="o">:</span> <span class="s1">&#39;粘贴&#39;</span><span class="p">,</span> <span class="nx">role</span><span class="o">:</span> <span class="s1">&#39;paste&#39;</span> <span class="p">},</span>
-</span></span><span class="line"><span class="cl">      <span class="p">{</span> <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;separator&#39;</span> <span class="p">},</span>
-</span></span><span class="line"><span class="cl">      <span class="p">{</span> <span class="nx">label</span><span class="o">:</span> <span class="s1">&#39;全选&#39;</span><span class="p">,</span> <span class="nx">role</span><span class="o">:</span> <span class="s1">&#39;selectAll&#39;</span> <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="p">]</span>
-</span></span><span class="line"><span class="cl">  <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">];</span>
-</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">dev</span> <span class="o">=</span> <span class="p">[</span>
-</span></span><span class="line"><span class="cl">  <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">label</span><span class="o">:</span> <span class="s1">&#39;开发者&#39;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">submenu</span><span class="o">:</span> <span class="p">[</span>
-</span></span><span class="line"><span class="cl">      <span class="p">{</span> <span class="nx">label</span><span class="o">:</span> <span class="s1">&#39;刷新&#39;</span><span class="p">,</span> <span class="nx">role</span><span class="o">:</span> <span class="s1">&#39;reload&#39;</span> <span class="p">},</span>
-</span></span><span class="line"><span class="cl">      <span class="p">{</span> <span class="nx">label</span><span class="o">:</span> <span class="s1">&#39;强制刷新&#39;</span><span class="p">,</span> <span class="nx">role</span><span class="o">:</span> <span class="s1">&#39;forcereload&#39;</span> <span class="p">},</span>
-</span></span><span class="line"><span class="cl">      <span class="p">{</span> <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;separator&#39;</span> <span class="p">},</span>
-</span></span><span class="line"><span class="cl">      <span class="p">{</span> <span class="nx">label</span><span class="o">:</span> <span class="s1">&#39;开发者工具&#39;</span><span class="p">,</span> <span class="nx">role</span><span class="o">:</span> <span class="s1">&#39;toggledevtools&#39;</span> <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="p">]</span>
-</span></span><span class="line"><span class="cl">  <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">];</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">NODE_ENV</span> <span class="o">===</span> <span class="s1">&#39;development&#39;</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">main</span><span class="p">.</span><span class="nx">push</span><span class="p">(...</span><span class="nx">dev</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="k">default</span> <span class="nx">main</span><span class="p">;</span></span></span></code></pre></td></tr></table>
-</div>
-</div><div class="highlight" id="id-7"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">import</span> <span class="nx">memuConfig</span> <span class="nx">from</span> <span class="s1">&#39;./menu&#39;</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">Menu</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;electron&#39;</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">platform</span> <span class="o">===</span> <span class="s1">&#39;darwin&#39;</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">menu</span> <span class="o">=</span> <span class="nx">Menu</span><span class="p">.</span><span class="nx">buildFromTemplate</span><span class="p">(</span><span class="nx">memuConfig</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">Menu</span><span class="p">.</span><span class="nx">setApplicationMenu</span><span class="p">(</span><span class="nx">menu</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
-</div>
-</div><h3 id="electron-builder">electron-builder</h3>
-<p>下载时，可能因为网络问题导致下载失败，可设置 GitHub 下载镜像。</p>
-<div class="highlight" id="id-8"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># GitHub 仓库下载地址前缀镜像</span>
-</span></span><span class="line"><span class="cl">npm config <span class="nb">set</span> <span class="nv">disturl</span><span class="o">=</span>https://registry.npmmirror.com/-/binary/</span></span></code></pre></td></tr></table>
-</div>
-</div><p>或者去 GitHub 手动下载，然后解压到缓存目录：</p>
-<ul>
-<li>macOS: <code>~/Library/Caches/electron-builder/</code></li>
-<li>linux: <code>~/.cache/electron-builder/</code></li>
-<li>windows: <code>%LOCALAPPDATA%\electron-builder\cache\</code></li>
-</ul>
-<p>mac 上缓存目录如下，其他可 <a href="https://www.cnblogs.com/xueyoucd/p/8006610.html"target="_blank" rel="external nofollow noopener noreferrer">参考<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
-<div class="highlight" id="id-9"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">▸ nsis/
-</span></span><span class="line"><span class="cl">  ▸ nsis-resources-3.4.1/
-</span></span><span class="line"><span class="cl">  ▸ nsis-3.0.4.1/
-</span></span><span class="line"><span class="cl">▸ winCodeSign/
-</span></span><span class="line"><span class="cl">  ▸ winCodeSign-2.6.0/
-</span></span><span class="line"><span class="cl">▸ wine/
-</span></span><span class="line"><span class="cl">  ▸ wine-4.0.1-mac/</span></span></code></pre></td></tr></table>
-</div>
-</div><h4 id="windows-打包">windows 打包</h4>
-<p>windows 系统打包配置，当没有配置签名时，<code>sign</code> 字段应删除或者配置为 <code>null</code>，否则可能导致打包时报错。</p>
-<div class="highlight" id="id-10"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span><span class="lnt">8
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="nt">&#34;win&#34;</span><span class="p">:</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nt">&#34;icon&#34;</span><span class="p">:</span> <span class="s2">&#34;static/icons/icon.ico&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">    <span class="nt">&#34;verifyUpdateCodeSignature&#34;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">    <span class="nt">&#34;target&#34;</span><span class="p">:</span> <span class="s2">&#34;nsis&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">    <span class="nt">&#34;sign&#34;</span><span class="p">:</span> <span class="kc">null</span>
-</span></span><span class="line"><span class="cl">  <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
-</div>
-</div><p>注：win11 打包在 win10 上可能运行不了，最好使用 win10 打包或者 mac 打包指定系统和位数。</p>
-<h4 id="macos-打包">macOS 打包</h4>
-<p>问题：mac 升级之后 electron 打包报错 <code>Exit code: ENOENT. spawn /usr/bin/python ENOENT</code></p>
-<p>解决：网上搜到的下载 python 2.7 是治标不治本，正确做法是升级 <code>electron-builder</code> 到 <code>23.0.2</code> 或更高版本，参考 <a href="https://github.com/electron-userland/electron-builder/issues/6726"target="_blank" rel="external nofollow noopener noreferrer">electron-builder#6726<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
-<p>参考链接</p>
-<ul>
-<li><a href="https://www.jianshu.com/p/2e6811ad9f68"target="_blank" rel="external nofollow noopener noreferrer">Electron-Mac 应用的签名步骤说明<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
-</ul>]]></description></item></channel></rss>
+</table>]]></description></item></channel></rss>
