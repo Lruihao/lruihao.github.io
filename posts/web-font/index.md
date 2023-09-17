@@ -1,19 +1,19 @@
 # ttf 字体压缩
 
 
-### 安装 nodeJs
+## 安装 Node.js
 
-这个不多说，都有。
+font-spider 是 nodejs 的一个模块，所以需要安装 nodejs。
 
-### 安装字蛛
+## 安装字蛛
 
 输入命令
 
-```
+```bash
 npm install font-spider -g
 ```
 
-### 运行
+## 运行
 
 安装成功之后就开始压缩了
 ![文件结构](images/menu.png)
@@ -31,8 +31,8 @@ npm install font-spider -g
 
 生成新的字体库，命令行输入
 
-```
-font-spider C:\Users\李瑞豪、Desktop\love\index.html
+```bash
+font-spider C:\Users\李瑞豪\Desktop\xxx\index.html
 ```
 
 ![执行结果](images/jieguo.png)

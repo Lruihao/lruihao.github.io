@@ -37,7 +37,9 @@ const site = new Blog('菠菜眾長', 'Lruihao', 'https://lruihao.cn');
 
 > **自我期許：** 用我所學，學我所用。保持謙遜，保持探索欲，砥礪前行。
 
-{{< link href="https://github.com/users/Lruihao/projects/1" content="@Lruihao's Recent activity" card=true >}}
+## 近期計畫
+
+{{< link href="https://github.com/users/Lruihao/projects/1" content="@Lruihao's Recent Activities" card=true >}}
 
 ## 訂閱
 
