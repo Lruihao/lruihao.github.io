@@ -1,6 +1,8 @@
 # hexo-theme-next @modified LRH
 
 
+<!-- markdownlint-disable-file -->
+
 {{< admonition danger >}}
 <span style="color: #d9534f;font-size: 1.2em;">**如无必要，不再更新！（2019.09.13）**</span>  
 今晚我做出了一个慎重的决定，由于博主时间精力有限，需要更多的时间来工作和学习。所以我将**放弃对 next 的主题的自定义修改**，next 主题官方已经更新到了 7.0+的版本，喜欢 next 主题风格的朋友可以在 github 更新。  
@@ -50,7 +52,7 @@ git clone https://github.com/Lruihao/hexo-theme-next themes/next
 
 主题配置文件`_config.yml`, 选择主题
 
-```
+```text
 theme: next
 ```
 
