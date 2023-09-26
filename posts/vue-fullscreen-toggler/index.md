@@ -11,7 +11,7 @@
 
 ## [在线演示](https://lruihao.github.io/vue-el-demo/#/fullscreen)
 
-### ## 安装
+## 安装
 
 ```bash
 npm install vue-fullscreen@^2.6.1

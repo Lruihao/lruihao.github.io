@@ -1,8 +1,749 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>所有文章 - 菠菜眾長</title><link>https://lruihao.cn/posts/</link><description>所有文章 | 菠菜眾長</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><copyright>本站内容采用知识共享署名-非商业性使用 4.0（CC BY-NC 4.0）国际许可协议。</copyright><lastBuildDate>Sun, 17 Sep 2023 19:44:07 +0800</lastBuildDate><atom:link href="https://lruihao.cn/posts/" rel="self" type="application/rss+xml"/><item><title>封装 Vue FullScreenToggler 组件</title><link>https://lruihao.cn/posts/vue-fullscreen-toggler/</link><pubDate>Sun, 17 Sep 2023 19:44:07 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/vue-fullscreen-toggler/</guid><description><![CDATA[<p>基于 <a href="https://github.com/mirari/vue-fullscreen"target="_blank" rel="external nofollow noopener noreferrer">vue-fullscreen<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 封装一个的 Vue 全屏/退出全屏切换组件。</p>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>所有文章 - 菠菜眾長</title><link>https://lruihao.cn/posts/</link><description>所有文章 | 菠菜眾長</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><copyright>本站内容采用知识共享署名-非商业性使用 4.0（CC BY-NC 4.0）国际许可协议。</copyright><lastBuildDate>Sun, 17 Sep 2023 19:44:07 +0800</lastBuildDate><atom:link href="https://lruihao.cn/posts/" rel="self" type="application/rss+xml"/><item><title>安装 Homebrew 后导致系统中原有的 npm 和 npx 失效</title><link>https://lruihao.cn/posts/homebrew-npm/</link><pubDate>Thu, 15 Dec 2022 15:33:30 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/homebrew-npm/</guid><description><![CDATA[<div class="details admonition question open">
+    <div class="details-summary admonition-title">
+      <i class="icon fa-solid fa-question-circle fa-fw" aria-hidden="true"></i>问题<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i>
+    </div>
+    <div class="details-content">
+      <div class="admonition-content">前面一段时间，安装了 Homebrew, 但是今天切换 node 版本到 system version (8.10.0) 后，发现虽然 node 版本切换成功，但是 node 版本对应的 npm 和 npx 版本不相符，下面记录一下问题排查过程。</div>
+    </div>
+  </div>
+<h2 id="罪魁祸首">罪魁祸首</h2>
+<p>首先定位到这次问题的根本原因是安装 Homebrew 导致的，这点可以很快也很明确地定位到，因为以前安装 Homebrew 也遇到了这个问题，但是当时的做法是卸载 Homebrew 避免冲突。</p>
+<h2 id="why">Why</h2>
+<p>分析为啥会冲突，Homebrew 安装的工程中也会默认一部分依赖的二进制文件，npm 和 npx 也在其中，所以这导致了 Homebrew 的安装 npm 和 npx 覆盖了系统中 node 的 npm 和 npx 进而导致 node 和 npm 版本不一致，无法使用 npm 启动项目。</p>
+<h2 id="where">Where</h2>
+<p>找一下目前 npm 和 npx 的二进制文件在哪。</p>
+<div class="highlight" id="id-1"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">nvm use system
+</span></span><span class="line"><span class="cl">node -v           <span class="c1"># 8.10.0</span>
+</span></span><span class="line"><span class="cl">which npm         <span class="c1"># /opt/homebrew/bin/npm</span>
+</span></span><span class="line"><span class="cl">which npx         <span class="c1"># /opt/homebrew/bin/npx</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="how">How</h2>
+<p>很明显前面的猜测是对的，那就打开这个目录看看：</p>
+<div class="highlight" id="id-2"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">open /opt/homebrew/bin</span></span></code></pre></td></tr></table>
+</div>
+</div><p>找到 npm 和 npx，把他们重命名为 <code>npm-brew</code> 和 <code>npx-brew</code>, 这样通过别名也保留 Homebrew 的 npm 和 npx.</p>
+<p>修改完后，重启终端，再看看 npm 和 npx 是否生效：</p>
+<div class="highlight" id="id-3"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">nvm use system
+</span></span><span class="line"><span class="cl">node -v           <span class="c1"># 8.10.0</span>
+</span></span><span class="line"><span class="cl">which npm         <span class="c1"># /usr/local/bin/npm</span>
+</span></span><span class="line"><span class="cl">which npx         <span class="c1"># /usr/local/bin/npx</span>
+</span></span><span class="line"><span class="cl">npm -v
+</span></span><span class="line"><span class="cl">npx -v</span></span></code></pre></td></tr></table>
+</div>
+</div><p>一切正常了，可以用 npm 继续启动原来的项目了。</p>]]></description></item><item><title>Vue2 + tailwindcss 初始化</title><link>https://lruihao.cn/posts/v2-tailwind/</link><pubDate>Sat, 03 Jun 2023 17:38:44 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/v2-tailwind/</guid><description><![CDATA[<h2 id="新建-vue2-项目">新建 Vue2 项目</h2>
+<p>通过 <code>vue-cli</code> 创建一个叫 <code>v2-tailwind</code> 的项目：</p>
+<div class="highlight" id="id-1"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">vue create vue2-tailwind</span></span></code></pre></td></tr></table>
+</div>
+</div><p>根据需要选择其他的功能插件，例如：<code>Babel, Router, Vuex, CSS Pre-processors, Linter</code>。</p>
+<details>
+  <summary>关于 ESLint</summary>
+  当在 Vue 创建项目时，你可以根据自己的需求选择不同的 ESLint 配置。以下是一些常见的选项及其优缺点和注意事项：
+<ol>
+<li>
+<p><strong>ESLint with error prevention only</strong>:</p>
+<ul>
+<li>优点：这个配置只会帮助你防止代码中的错误，它的规则相对宽松。适用于刚开始使用 ESLint 或者希望避免太多约束的开发者。</li>
+<li>缺点：由于规则相对宽松，可能无法完全确保代码风格的一致性。</li>
+<li>注意事项：如果你想要更严格的代码检查，可以考虑其他配置。</li>
+</ul>
+</li>
+<li>
+<p><strong>ESLint + Airbnb config</strong>:</p>
+<ul>
+<li>优点：Airbnb 的配置非常严格，能够帮助你遵循最佳实践和编写高质量的代码。此外，它也包含了许多 ES6+ 的规则。</li>
+<li>缺点：由于其严格性，初学者可能需要花费更多时间来解决 ESLint 报告的问题。</li>
+<li>注意事项：在使用此配置时，请确保你理解并接受 Airbnb 的代码规范。</li>
+</ul>
+</li>
+<li>
+<p><strong>ESLint + Standard config</strong>:</p>
+<ul>
+<li>优点：Standard 的配置旨在提供一个相对简单、一致的代码风格，适合那些喜欢“零配置”的开发者。</li>
+<li>缺点：这个配置可能不适用于所有项目，因为它有自己的代码风格要求。</li>
+<li>注意事项：如果你的团队或项目已经有自己的编码规范，使用 Standard 配置可能会导致不一致。</li>
+</ul>
+</li>
+<li>
+<p><strong>ESLint + Prettier</strong>:</p>
+<ul>
+<li>优点：Prettier 是一个自动格式化工具，可以与 ESLint 结合使用，以确保代码风格的一致性。这可以提高代码可读性，并减少在代码审查过程中关注格式问题的时间。</li>
+<li>缺点：Prettier 可能会覆盖某些 ESLint 规则，所以需要花一些时间确保配置正确。</li>
+<li>注意事项：为了避免冲突，请确保 ESLint 和 Prettier 的规则正确配置。</li>
+</ul>
+</li>
+</ol>
+<p>总之，在选择 ESLint 配置时，需要根据你的团队、项目需求和个人偏好来权衡。选择适当的配置可以帮助你提高代码质量并保持一致的代码风格。</p>
+</details>
+<h2 id="安装-tailwindcss">安装 tailwindcss</h2>
+<p>打开项目，安装 <code>tailwindcss</code>：</p>
+<div class="highlight" id="id-2"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">cd</span> vue2-tailwind
+</span></span><span class="line"><span class="cl"><span class="c1"># 安装 tailwindcss 低版本及相关插件</span>
+</span></span><span class="line"><span class="cl">npm install tailwindcss@npm:@tailwindcss/postcss7-compat @tailwindcss/postcss7-compat postcss@^7 autoprefixer@^9</span></span></code></pre></td></tr></table>
+</div>
+</div><p>然后创建配置文件：</p>
+<div class="highlight" id="id-3"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 创建 postcss.config.js, tailwind.config.js</span>
+</span></span><span class="line"><span class="cl">npx tailwindcss init -p</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight" id="id-4"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">plugins</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">tailwindcss</span><span class="o">:</span> <span class="p">{},</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">autoprefixer</span><span class="o">:</span> <span class="p">{},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight" id="id-5"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">purge</span><span class="o">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;./src/App.vue&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;./src/views/**/*.{vue,js,ts,jsx,tsx}&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;./src/components/**/*.{vue,js,ts,jsx,tsx}&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="p">],</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">darkMode</span><span class="o">:</span> <span class="s1">&#39;class&#39;</span><span class="p">,</span> <span class="c1">// or &#39;media&#39; or &#39;class&#39;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">mode</span><span class="o">:</span> <span class="s1">&#39;jit&#39;</span><span class="p">,</span> <span class="c1">// 是否开启 jit 模式，开启以后编译会更快，当然，tailwindcss 版本需要在 2.1 以上
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">theme</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">extend</span><span class="o">:</span> <span class="p">{},</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">variants</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">extend</span><span class="o">:</span> <span class="p">{},</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">plugins</span><span class="o">:</span> <span class="p">[],</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>最后在 <code>main.js</code> 中引入 <code>tailwindcss</code></p>
+<div class="highlight" id="id-6"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">import</span> <span class="s2">&#34;tailwindcss/tailwind.css&#34;</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="启动项目">启动项目</h2>
+<p>启动项目，修改模板中的 class 进行测试。</p>
+<div class="highlight" id="id-7"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">npm run serve</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight" id="id-8"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-vue" data-lang="vue"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">template</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;app&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;bg-gray-100&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;container mx-auto&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;flex justify-center items-center h-screen&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">          <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;text-4xl text-gray-700&#34;</span><span class="p">&gt;</span><span class="nx">Hello</span> <span class="nx">Vue2</span> <span class="o">+</span> <span class="nx">tailwindcss</span><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">template</span><span class="p">&gt;</span></span></span></code></pre></td></tr></table>
+</div>
+</div>]]></description></item><item><title>用魔法打败魔法 - ElBacktop Fix</title><link>https://lruihao.cn/posts/el-backtop-fix/</link><pubDate>Thu, 20 Jul 2023 11:08:18 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/el-backtop-fix/</guid><description><![CDATA[<p>这篇文章主要是记录一下继承 <a href="https://element.eleme.cn/#/zh-CN/component/backtop"target="_blank" rel="external nofollow noopener noreferrer">ElBacktop<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 组件并修复了一些 bug 的过程。</p>
+<h2 id="前言">前言</h2>
+<p>由于某些原因，我希望在路由切换时给每个页面的总容器都加上一个共同的 class <code>page-container</code>，然后我就在布局中里面加了这么一段代码：</p>
+<div class="highlight" id="id-1"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-vue" data-lang="vue"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">template</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">div</span> <span class="nt">:class</span><span class="s">=&#34;classObj&#34;</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;app-wrapper&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;app-container&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">&lt;</span><span class="nt">topbar</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;header-container&#34;</span> <span class="p">/&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">&lt;</span><span class="nt">el-container</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;main-container&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">sidebar</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;aside-container&#34;</span> <span class="p">/&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">el-container</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;is-vertical minor-container&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">          <span class="p">&lt;</span><span class="nt">breadcrumb</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;breadcrumb-container&#34;</span> <span class="p">/&gt;</span>
+</span></span><span class="line"><span class="cl">          <span class="c">&lt;!--</span> <span class="nx">这一行</span> <span class="o">--&gt;</span>
+</span></span><span class="line"><span class="cl">          <span class="p">&lt;</span><span class="nt">page-container</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;page-container&#34;</span> <span class="p">/&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="o">&lt;</span><span class="err">/el-container&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="o">&lt;</span><span class="err">/el-container&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">el-backtop</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;app-b2t&#34;</span> <span class="na">target</span><span class="o">=</span><span class="s">&#34;.page-container&#34;</span> <span class="nt">:visibility-height</span><span class="s">=&#34;50&#34;</span> <span class="p">/&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="c">&lt;!--</span> <span class="p">&lt;</span><span class="nt">back-to-top</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;app-b2t&#34;</span> <span class="na">target</span><span class="o">=</span><span class="s">&#34;.page-container&#34;</span> <span class="nt">:visibility-height</span><span class="s">=&#34;50&#34;</span> <span class="p">/&gt;</span> <span class="o">--&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">template</span><span class="p">&gt;</span></span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight" id="id-2"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Vue" data-lang="Vue"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">template</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">transition</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;fade-transform&#34;</span> <span class="na">mode</span><span class="o">=</span><span class="s">&#34;out-in&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">keep-alive</span> <span class="nt">:include</span><span class="s">=&#34;cachedViews&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">&lt;</span><span class="nt">router-view</span> <span class="p">/&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">&lt;</span><span class="err">/keep-alive&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;/</span><span class="nt">transition</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">template</span><span class="p">&gt;</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>没错，相当于在 router-view 上直接加了一个 class <code>page-container</code>。</p>
+<h2 id="问题">问题</h2>
+<p>那么问题就来了，此时 el-backtop 的 target 设置为 <code>.page-container</code>，但是当我切换路由时，<code>.page-container</code> 会被移除再添加为新的页面，此时 el-backtop 就会失效。</p>
+<p>原意是想让 el-backtop 指向每一个包含 <code>.page-container</code> 的页面。</p>
+<h2 id="解决">解决</h2>
+<p>RTFSC，发现 el-backtop 的 target 属性只会在 mounted 时初始化一次，所以想办法在每次路由切换时重新初始化一下 el-backtop 的 target 属性就行了。</p>
+<ol>
+<li>创建 MutationObserver 实例来观察 target 的父元素的子元素变化已解决上述 bug</li>
+<li>增加 target 的 data-target 属性，用于指定 target 的子元素作为滚动容器</li>
+</ol>
+<p>最后代码如下：</p>
+<div class="highlight" id="id-3"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span><span class="lnt">79
+</span><span class="lnt">80
+</span><span class="lnt">81
+</span><span class="lnt">82
+</span><span class="lnt">83
+</span><span class="lnt">84
+</span><span class="lnt">85
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Vue" data-lang="Vue"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * BackToTop 继承 el-backtop
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 1. 修复 el-backtop 在 target 被移除后，无法重新初始化的问题
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 2. 增加 target 的 data-target 属性，用于指定 target 的子元素作为滚动容器。例如：&lt;div data-target=&#34;.list-pane&#34;&gt;&lt;/div&gt;
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">Backtop</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;element-ui&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="nx">throttle</span> <span class="nx">from</span> <span class="s1">&#39;throttle-debounce/throttle&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="k">default</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;BackToTop&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">extends</span><span class="o">:</span> <span class="nx">Backtop</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">data</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">el</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">container</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">visible</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">observer</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">mounted</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="p">.</span><span class="nx">init</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="p">.</span><span class="nx">observeTarget</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">beforeDestroy</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 清除事件监听
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">this</span><span class="p">.</span><span class="nx">container</span><span class="p">.</span><span class="nx">removeEventListener</span><span class="p">(</span><span class="s1">&#39;scroll&#39;</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">throttledScrollHandler</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 停止观察
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">this</span><span class="p">.</span><span class="nx">observer</span><span class="p">.</span><span class="nx">disconnect</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">methods</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">init</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">this</span><span class="p">.</span><span class="nx">container</span> <span class="o">=</span> <span class="nb">document</span>
+</span></span><span class="line"><span class="cl">      <span class="k">this</span><span class="p">.</span><span class="nx">el</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">documentElement</span>
+</span></span><span class="line"><span class="cl">      <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">target</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">this</span><span class="p">.</span><span class="nx">el</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">target</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">el</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="sb">`target is not existed: </span><span class="si">${</span><span class="k">this</span><span class="p">.</span><span class="nx">target</span><span class="si">}</span><span class="sb">`</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// 如果 this.el 有 data-target 属性，就使用 data-target 属性的值作为 target
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">el</span><span class="p">.</span><span class="nx">dataset</span><span class="p">.</span><span class="nx">target</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="kr">const</span> <span class="nx">subEl</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">el</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">el</span><span class="p">.</span><span class="nx">dataset</span><span class="p">.</span><span class="nx">target</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">          <span class="nx">subEl</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">el</span> <span class="o">=</span> <span class="nx">subEl</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">this</span><span class="p">.</span><span class="nx">container</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">el</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="k">this</span><span class="p">.</span><span class="nx">throttledScrollHandler</span> <span class="o">=</span> <span class="nx">throttle</span><span class="p">(</span><span class="mi">300</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">onScroll</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="k">this</span><span class="p">.</span><span class="nx">container</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;scroll&#39;</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">throttledScrollHandler</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * 观察 this.container 是否被移除或者新增
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * 注意 router-view 切换页面步骤：1. 新增 router-view -&gt; 2. 删除旧 router-view
+</span></span></span><span class="line"><span class="cl"><span class="cm">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">observeTarget</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="c1">// 创建 MutationObserver 实例并传入回调函数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="k">this</span><span class="p">.</span><span class="nx">observer</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">MutationObserver</span><span class="p">((</span><span class="nx">mutationsList</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="p">(</span><span class="kr">const</span> <span class="nx">mutation</span> <span class="k">of</span> <span class="nx">mutationsList</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="k">if</span> <span class="p">(</span><span class="nx">mutation</span><span class="p">.</span><span class="nx">type</span> <span class="o">===</span> <span class="s1">&#39;childList&#39;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">// 检测到删除节点
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="k">if</span> <span class="p">(</span><span class="nx">mutation</span><span class="p">.</span><span class="nx">removedNodes</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">              <span class="k">for</span> <span class="p">(</span><span class="kr">const</span> <span class="nx">node</span> <span class="k">of</span> <span class="nx">mutation</span><span class="p">.</span><span class="nx">removedNodes</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="k">if</span> <span class="p">(</span><span class="nx">node</span> <span class="o">===</span> <span class="k">this</span><span class="p">.</span><span class="nx">container</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                  <span class="c1">// 观察如果 this.container 从页面中被移除了，就清除事件监听
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                  <span class="k">this</span><span class="p">.</span><span class="nx">container</span><span class="p">.</span><span class="nx">removeEventListener</span><span class="p">(</span><span class="s1">&#39;scroll&#39;</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">throttledScrollHandler</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                  <span class="k">this</span><span class="p">.</span><span class="nx">visible</span> <span class="o">=</span> <span class="kc">false</span>
+</span></span><span class="line"><span class="cl">                  <span class="k">break</span>
+</span></span><span class="line"><span class="cl">                <span class="p">}</span>
+</span></span><span class="line"><span class="cl">              <span class="p">}</span>
+</span></span><span class="line"><span class="cl">              <span class="c1">// 检测删除前是否有新增节点
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>              <span class="k">if</span> <span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">target</span><span class="p">)</span> <span class="o">===</span> <span class="nx">mutation</span><span class="p">.</span><span class="nx">nextSibling</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="c1">// 观察如果 this.container 被删除前的下一个兄弟节点是 this.target，就重新初始化
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                <span class="k">this</span><span class="p">.</span><span class="nx">init</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">              <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">          <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="p">})</span>
+</span></span><span class="line"><span class="cl">      <span class="c1">// 观察 this.container 父元素的子元素变化
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="k">this</span><span class="p">.</span><span class="nx">observer</span><span class="p">.</span><span class="nx">observe</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">target</span><span class="p">).</span><span class="nx">parentNode</span><span class="p">,</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">childList</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="p">})</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span></span></span></code></pre></td></tr></table>
+</div>
+</div>]]></description></item><item><title>在 Vue 项目中更优雅地使用 icon</title><link>https://lruihao.cn/posts/vue-svg-icon/</link><pubDate>Thu, 14 Sep 2023 11:24:48 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/vue-svg-icon/</guid><description><![CDATA[<h2 id="前言">前言</h2>
+<p>在 Web 开发中，我们经常会用到 icon，icon 的使用经历了从图片到字体，再到 svg 的演变过程，也产生出相应的 icon 库，如雪碧图、<a href="https://fontawesome.com/"target="_blank" rel="external nofollow noopener noreferrer">Font Awesome<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>、<a href="https://www.iconfont.cn/"target="_blank" rel="external nofollow noopener noreferrer">Iconfont<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 等等。</p>
+<p>随着前端的发展，icon 使用方案落在了 svg 上，svg 有着矢量图的优势，可以无限放大而不失真，而且 svg 本身就是一种 XML 文件，可以直接在 HTML 中使用，也可以通过 CSS 进行样式控制，但是在 Vue 项目中使用 svg 时，我们会遇到一些问题，本文将介绍如何在 Vue 项目中更优雅的使用 svg icon。</p>
+<h2 id="工具">工具</h2>
+<ul>
+<li><a href="https://github.com/JetBrains/svg-sprite-loader"target="_blank" rel="external nofollow noopener noreferrer">svg-sprite-loader<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+<li><a href="https://github.com/svg/svgo-loader"target="_blank" rel="external nofollow noopener noreferrer">svgo-loader<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+</ul>
+<p><code>svg-sprite-loader</code>用来打包 svg 图标，<code>svgo-loader</code> 来精简我们的 svg 内容。</p>
+<h2 id="封装组件">封装组件</h2>
+<p>在 <code>src/components</code> 目录下新建 <code>SvgIcon.vue</code> 组件：</p>
+<div class="highlight" id="id-1"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-vue" data-lang="vue"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">template</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">div</span> <span class="nt">v-if</span><span class="s">=&#34;isExternal&#34; :style=&#34;styleExternalIcon&#34; class=&#34;svg-external-icon svg-icon&#34; v-on=&#34;$listeners&#34; /&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s">  &lt;svg v-else class=&#34;svg-icon&#34; aria-hidden=&#34;true&#34; v-on=&#34;$listeners&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">use</span> <span class="nt">:href</span><span class="s">=&#34;iconName&#34;</span> <span class="p">/&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;/</span><span class="nt">svg</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">template</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="k">default</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;SvgIcon&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">props</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">iconClass</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">type</span><span class="o">:</span> <span class="nb">String</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">required</span><span class="o">:</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">className</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">type</span><span class="o">:</span> <span class="nb">String</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="k">default</span><span class="o">:</span> <span class="s1">&#39;&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">computed</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">isExternal</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">return</span> <span class="sr">/^(https?:\/\/|data:image)/</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">iconClass</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">iconName</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">return</span> <span class="sb">`#icon-</span><span class="si">${</span><span class="k">this</span><span class="p">.</span><span class="nx">iconClass</span><span class="si">}</span><span class="sb">`</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">styleExternalIcon</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">return</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">mask</span><span class="o">:</span> <span class="sb">`url(</span><span class="si">${</span><span class="k">this</span><span class="p">.</span><span class="nx">iconClass</span><span class="si">}</span><span class="sb">) no-repeat 50% 50%`</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;-webkit-mask&#39;</span><span class="o">:</span> <span class="sb">`url(</span><span class="si">${</span><span class="k">this</span><span class="p">.</span><span class="nx">iconClass</span><span class="si">}</span><span class="sb">) no-repeat 50% 50%`</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">style</span> <span class="na">scoped</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">.</span><span class="nx">svg</span><span class="o">-</span><span class="nx">icon</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">width</span><span class="o">:</span> <span class="mi">1</span><span class="nx">em</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">height</span><span class="o">:</span> <span class="mi">1</span><span class="nx">em</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">vertical</span><span class="o">-</span><span class="nx">align</span><span class="o">:</span> <span class="o">-</span><span class="mf">0.15</span><span class="nx">em</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">fill</span><span class="o">:</span> <span class="nx">currentColor</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">overflow</span><span class="o">:</span> <span class="nx">hidden</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">.</span><span class="nx">svg</span><span class="o">-</span><span class="nx">external</span><span class="o">-</span><span class="nx">icon</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">background</span><span class="o">-</span><span class="nx">color</span><span class="o">:</span> <span class="nx">currentColor</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">mask</span><span class="o">-</span><span class="nx">size</span><span class="o">:</span> <span class="nx">cover</span><span class="o">!</span><span class="nx">important</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">display</span><span class="o">:</span> <span class="nx">inline</span><span class="o">-</span><span class="nx">block</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="安装">安装</h2>
+<div class="highlight" id="id-2"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">npm install svg-sprite-loader svgo-loader -D
+</span></span><span class="line"><span class="cl"><span class="c1"># 或</span>
+</span></span><span class="line"><span class="cl">yarn add svg-sprite-loader svgo-loader -D</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="配置">配置</h2>
+<p>统一将所有的 icon 都以 svg 的形式都放在 <code>src/assets/icons</code> 目录中。</p>
+<p>然后在 <code>vue.config.js</code> 中添加如下配置：</p>
+<div class="highlight" id="id-3"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">const</span> <span class="p">{</span> <span class="nx">defineConfig</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;@vue/cli-service&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">path</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;path&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">resolve</span><span class="p">(</span><span class="nx">dir</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">,</span> <span class="nx">dir</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">defineConfig</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">chainWebpack</span><span class="o">:</span> <span class="p">(</span><span class="nx">config</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// set svg-sprite-loader
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kr">const</span> <span class="nx">svgPath</span> <span class="o">=</span> <span class="nx">resolve</span><span class="p">(</span><span class="s1">&#39;src/assets/icons&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">config</span><span class="p">.</span><span class="nx">module</span>
+</span></span><span class="line"><span class="cl">      <span class="p">.</span><span class="nx">rule</span><span class="p">(</span><span class="s1">&#39;svg&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="p">.</span><span class="nx">exclude</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="nx">svgPath</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="p">.</span><span class="nx">end</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">config</span><span class="p">.</span><span class="nx">module</span>
+</span></span><span class="line"><span class="cl">      <span class="p">.</span><span class="nx">rule</span><span class="p">(</span><span class="s1">&#39;svg-icon&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="sr">/.svg$/</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="p">.</span><span class="nx">include</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="nx">svgPath</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="p">.</span><span class="nx">end</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">      <span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="s1">&#39;svg-sprite-loader&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="p">.</span><span class="nx">loader</span><span class="p">(</span><span class="s1">&#39;svg-sprite-loader&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="p">.</span><span class="nx">options</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">symbolId</span><span class="o">:</span> <span class="s1">&#39;icon-[name]&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="p">})</span>
+</span></span><span class="line"><span class="cl">      <span class="p">.</span><span class="nx">end</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">      <span class="c1">// remove origin svg fill attr
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="s1">&#39;svgo-loader&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="p">.</span><span class="nx">loader</span><span class="p">(</span><span class="s1">&#39;svgo-loader&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="p">.</span><span class="nx">tap</span><span class="p">((</span><span class="nx">options</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">({</span>
+</span></span><span class="line"><span class="cl">        <span class="p">...</span><span class="nx">options</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// 删除 svg 中 fill 和 fill-rule
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nx">plugins</span><span class="o">:</span> <span class="p">[{</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;removeAttrs&#39;</span><span class="p">,</span> <span class="nx">params</span><span class="o">:</span> <span class="p">{</span> <span class="nx">attrs</span><span class="o">:</span> <span class="s1">&#39;fill|fill-rule&#39;</span> <span class="p">}</span> <span class="p">}],</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}))</span>
+</span></span><span class="line"><span class="cl">      <span class="p">.</span><span class="nx">end</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">})</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="自动引入">自动引入</h2>
+<p>自动引入 <code>src/assets/icons</code> 中的 icon，需要用到 webpack 中的 <a href="https://webpack.docschina.org/guides/dependency-management/"target="_blank" rel="external nofollow noopener noreferrer">require.context<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>。</p>
+<p>在 <code>src/main.js</code> 中引入所有的 svg 图标，之后可在文件夹自行添加或者删除图标，所以图标都会被自动导入，无需手动操作：</p>
+<div class="highlight" id="id-4"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">import</span> <span class="nx">Vue</span> <span class="nx">from</span> <span class="s1">&#39;vue&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="nx">SvgIcon</span> <span class="nx">from</span> <span class="s1">&#39;@/components/SvgIcon&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// register svg component globally 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">Vue</span><span class="p">.</span><span class="nx">component</span><span class="p">(</span><span class="s1">&#39;SvgIcon&#39;</span><span class="p">,</span> <span class="nx">SvgIcon</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// require all svg
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">requireAll</span> <span class="o">=</span> <span class="p">(</span><span class="nx">requireContext</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nx">requireContext</span><span class="p">.</span><span class="nx">keys</span><span class="p">().</span><span class="nx">map</span><span class="p">(</span><span class="nx">requireContext</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">req</span> <span class="o">=</span> <span class="nx">require</span><span class="p">.</span><span class="nx">context</span><span class="p">(</span><span class="s1">&#39;@/assets/icons&#39;</span><span class="p">,</span> <span class="kc">false</span><span class="p">,</span> <span class="sr">/\.svg$/</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nx">requireAll</span><span class="p">(</span><span class="nx">req</span><span class="p">)</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="使用-icon">使用 icon</h2>
+<div class="highlight" id="id-5"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">svg-icon</span> <span class="na">icon-class</span><span class="o">=</span><span class="s">&#34;fullscreen&#34;</span>  <span class="na">class</span><span class="o">=</span><span class="s">&#39;custom-class&#39;</span> <span class="p">/&gt;</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="颜色">颜色</h3>
+<p><code>svg-icon</code> 默认会读取其父级的 <code>color fill: currentColor;</code></p>
+<p>你可以改变父级的 <code>color</code> 或者直接改变 <code>fill</code> 的颜色即可。</p>
+<h3 id="大小">大小</h3>
+<p>图标可从 <a href="https://www.iconfont.cn/"target="_blank" rel="external nofollow noopener noreferrer">iconfont<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 项目中下载或者由 UI 切图，同一个项目中使用的 Svg Icon 图标建议统一大小规格，比如 <code>128*128</code>。</p>
+<h2 id="示例">示例</h2>
+<p>本文 <a href="https://lruihao.github.io/vue-el-demo/#/icons"target="_blank" rel="external nofollow noopener noreferrer">示例<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 代码已上传至 <a href="https://github.com/Lruihao/vue-el-demo"target="_blank" rel="external nofollow noopener noreferrer">vue-el-demo<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 项目中，可自行下载查看。</p>
+<h2 id="参考资料">参考资料</h2>
+<ul>
+<li><a href="https://juejin.cn/post/6844903517564436493"target="_blank" rel="external nofollow noopener noreferrer">手摸手，带你优雅的使用 icon<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+<li><a href="https://www.zhangxinxu.com/wordpress/2014/07/introduce-svg-sprite-technology/"target="_blank" rel="external nofollow noopener noreferrer">未来必热：SVG Sprites 技术介绍<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+<li><a href="https://www.zhangxinxu.com/wordpress/2016/02/svg-compress-tool-svgo-experience/"target="_blank" rel="external nofollow noopener noreferrer">SVG 精简压缩工具 svgo 简介和初体验<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+<li><a href="https://github.com/JetBrains/svg-sprite-loader"target="_blank" rel="external nofollow noopener noreferrer">svg-sprite-loader<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+<li><a href="https://github.com/svg/svgo"target="_blank" rel="external nofollow noopener noreferrer">svgo<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+<li><a href="https://github.com/svg/svgo-loader"target="_blank" rel="external nofollow noopener noreferrer">svgo-loader<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+</ul>]]></description></item><item><title>封装 Vue FullScreenToggler 组件</title><link>https://lruihao.cn/posts/vue-fullscreen-toggler/</link><pubDate>Sun, 17 Sep 2023 19:44:07 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/vue-fullscreen-toggler/</guid><description><![CDATA[<p>基于 <a href="https://github.com/mirari/vue-fullscreen"target="_blank" rel="external nofollow noopener noreferrer">vue-fullscreen<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 封装一个的 Vue 全屏/退出全屏切换组件。</p>
 <h2 id="简介">简介</h2>
 <p><a href="https://github.com/mirari/vue-fullscreen"target="_blank" rel="external nofollow noopener noreferrer">vue-fullscreen<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 是一个用于将任意页面元素进行全屏切换的 Vue 插件，基于 <a href="https://github.com/sindresorhus/screenfull"target="_blank" rel="external nofollow noopener noreferrer">screenfull<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>。这个插件本身提供了组件、指令以及 API 三种使用方式，具体的使用方法请参考 <a href="https://github.com/mirari/vue-fullscreen"target="_blank" rel="external nofollow noopener noreferrer">vue-fullscreen<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>。</p>
 <h2 id="在线演示httpslruihaogithubiovue-el-demofullscreen"><a href="https://lruihao.github.io/vue-el-demo/#/fullscreen"target="_blank" rel="external nofollow noopener noreferrer">在线演示<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></h2>
-<h3 id="-安装">## 安装</h3>
+<h2 id="安装">安装</h2>
 <div class="highlight" id="id-1"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -874,177 +1615,7 @@ maths,physicsa（物理）,politics（政治）,classics,economics,Aids,SARs,dia
 <li>Github (collection, backup), Blog (summarize)</li>
 </ul>
 </li>
-</ul>]]></description></item><item><title>Vue2 + tailwindcss 初始化</title><link>https://lruihao.cn/posts/v2-tailwind/</link><pubDate>Sat, 03 Jun 2023 17:38:44 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/v2-tailwind/</guid><description><![CDATA[<h2 id="新建-vue2-项目">新建 Vue2 项目</h2>
-<p>通过 <code>vue-cli</code> 创建一个叫 <code>v2-tailwind</code> 的项目：</p>
-<div class="highlight" id="id-1"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">vue create vue2-tailwind</span></span></code></pre></td></tr></table>
-</div>
-</div><p>根据需要选择其他的功能插件，例如：<code>Babel, Router, Vuex, CSS Pre-processors, Linter</code>。</p>
-<details>
-  <summary>关于 ESLint</summary>
-  当在 Vue 创建项目时，你可以根据自己的需求选择不同的 ESLint 配置。以下是一些常见的选项及其优缺点和注意事项：
-<ol>
-<li>
-<p><strong>ESLint with error prevention only</strong>:</p>
-<ul>
-<li>优点：这个配置只会帮助你防止代码中的错误，它的规则相对宽松。适用于刚开始使用 ESLint 或者希望避免太多约束的开发者。</li>
-<li>缺点：由于规则相对宽松，可能无法完全确保代码风格的一致性。</li>
-<li>注意事项：如果你想要更严格的代码检查，可以考虑其他配置。</li>
-</ul>
-</li>
-<li>
-<p><strong>ESLint + Airbnb config</strong>:</p>
-<ul>
-<li>优点：Airbnb 的配置非常严格，能够帮助你遵循最佳实践和编写高质量的代码。此外，它也包含了许多 ES6+ 的规则。</li>
-<li>缺点：由于其严格性，初学者可能需要花费更多时间来解决 ESLint 报告的问题。</li>
-<li>注意事项：在使用此配置时，请确保你理解并接受 Airbnb 的代码规范。</li>
-</ul>
-</li>
-<li>
-<p><strong>ESLint + Standard config</strong>:</p>
-<ul>
-<li>优点：Standard 的配置旨在提供一个相对简单、一致的代码风格，适合那些喜欢“零配置”的开发者。</li>
-<li>缺点：这个配置可能不适用于所有项目，因为它有自己的代码风格要求。</li>
-<li>注意事项：如果你的团队或项目已经有自己的编码规范，使用 Standard 配置可能会导致不一致。</li>
-</ul>
-</li>
-<li>
-<p><strong>ESLint + Prettier</strong>:</p>
-<ul>
-<li>优点：Prettier 是一个自动格式化工具，可以与 ESLint 结合使用，以确保代码风格的一致性。这可以提高代码可读性，并减少在代码审查过程中关注格式问题的时间。</li>
-<li>缺点：Prettier 可能会覆盖某些 ESLint 规则，所以需要花一些时间确保配置正确。</li>
-<li>注意事项：为了避免冲突，请确保 ESLint 和 Prettier 的规则正确配置。</li>
-</ul>
-</li>
-</ol>
-<p>总之，在选择 ESLint 配置时，需要根据你的团队、项目需求和个人偏好来权衡。选择适当的配置可以帮助你提高代码质量并保持一致的代码风格。</p>
-</details>
-<h2 id="安装-tailwindcss">安装 tailwindcss</h2>
-<p>打开项目，安装 <code>tailwindcss</code>：</p>
-<div class="highlight" id="id-2"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">cd</span> vue2-tailwind
-</span></span><span class="line"><span class="cl"><span class="c1"># 安装 tailwindcss 低版本及相关插件</span>
-</span></span><span class="line"><span class="cl">npm install tailwindcss@npm:@tailwindcss/postcss7-compat @tailwindcss/postcss7-compat postcss@^7 autoprefixer@^9</span></span></code></pre></td></tr></table>
-</div>
-</div><p>然后创建配置文件：</p>
-<div class="highlight" id="id-3"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 创建 postcss.config.js, tailwind.config.js</span>
-</span></span><span class="line"><span class="cl">npx tailwindcss init -p</span></span></code></pre></td></tr></table>
-</div>
-</div><div class="highlight" id="id-4"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">plugins</span><span class="o">:</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">      <span class="nx">tailwindcss</span><span class="o">:</span> <span class="p">{},</span>
-</span></span><span class="line"><span class="cl">      <span class="nx">autoprefixer</span><span class="o">:</span> <span class="p">{},</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
-</div>
-</div><div class="highlight" id="id-5"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">purge</span><span class="o">:</span> <span class="p">[</span>
-</span></span><span class="line"><span class="cl">    <span class="s2">&#34;./src/App.vue&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">    <span class="s2">&#34;./src/views/**/*.{vue,js,ts,jsx,tsx}&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">    <span class="s2">&#34;./src/components/**/*.{vue,js,ts,jsx,tsx}&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">  <span class="p">],</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">darkMode</span><span class="o">:</span> <span class="s1">&#39;class&#39;</span><span class="p">,</span> <span class="c1">// or &#39;media&#39; or &#39;class&#39;
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">mode</span><span class="o">:</span> <span class="s1">&#39;jit&#39;</span><span class="p">,</span> <span class="c1">// 是否开启 jit 模式，开启以后编译会更快，当然，tailwindcss 版本需要在 2.1 以上
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">theme</span><span class="o">:</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">extend</span><span class="o">:</span> <span class="p">{},</span>
-</span></span><span class="line"><span class="cl">  <span class="p">},</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">variants</span><span class="o">:</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">extend</span><span class="o">:</span> <span class="p">{},</span>
-</span></span><span class="line"><span class="cl">  <span class="p">},</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">plugins</span><span class="o">:</span> <span class="p">[],</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
-</div>
-</div><p>最后在 <code>main.js</code> 中引入 <code>tailwindcss</code></p>
-<div class="highlight" id="id-6"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">import</span> <span class="s2">&#34;tailwindcss/tailwind.css&#34;</span></span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="启动项目">启动项目</h2>
-<p>启动项目，修改模板中的 class 进行测试。</p>
-<div class="highlight" id="id-7"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">npm run serve</span></span></code></pre></td></tr></table>
-</div>
-</div><div class="highlight" id="id-8"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-vue" data-lang="vue"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">template</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;app&#34;</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;bg-gray-100&#34;</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">      <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;container mx-auto&#34;</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;flex justify-center items-center h-screen&#34;</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">          <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;text-4xl text-gray-700&#34;</span><span class="p">&gt;</span><span class="nx">Hello</span> <span class="nx">Vue2</span> <span class="o">+</span> <span class="nx">tailwindcss</span><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">        <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">      <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">  <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">template</span><span class="p">&gt;</span></span></span></code></pre></td></tr></table>
-</div>
-</div>]]></description></item><item><title>Mac 上的开发配置总结</title><link>https://lruihao.cn/posts/config4mac/</link><pubDate>Fri, 29 Jul 2022 20:22:44 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/config4mac/</guid><description><![CDATA[<p>记录一下使用 Mac 作为生产工具开发的一些基本配置和经验。</p>
+</ul>]]></description></item><item><title>Mac 上的开发配置总结</title><link>https://lruihao.cn/posts/config4mac/</link><pubDate>Fri, 29 Jul 2022 20:22:44 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/config4mac/</guid><description><![CDATA[<p>记录一下使用 Mac 作为生产工具开发的一些基本配置和经验。</p>
 <h2 id="配置文件">配置文件</h2>
 <p>Mac 上有很多配置文件都可以用来保存环境变量等配置，根据自己的理解记录了四个文件的用途：</p>
 <div class="highlight" id="id-1"><div class="chroma">
@@ -1550,62 +2121,7 @@ maths,physicsa（物理）,politics（政治）,classics,economics,Aids,SARs,dia
 </span></span><span class="line"><span class="cl"><span class="s2">&#34; Enable line-number
 </span></span></span><span class="line"><span class="cl"><span class="s2">set number</span></span></span></code></pre></td></tr></table>
 </div>
-</div>]]></description></item><item><title>安装 Homebrew 后导致系统中原有的 npm 和 npx 失效</title><link>https://lruihao.cn/posts/homebrew-npm/</link><pubDate>Thu, 15 Dec 2022 15:33:30 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/homebrew-npm/</guid><description><![CDATA[<div class="details admonition question open">
-    <div class="details-summary admonition-title">
-      <i class="icon fa-solid fa-question-circle fa-fw" aria-hidden="true"></i>问题<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i>
-    </div>
-    <div class="details-content">
-      <div class="admonition-content">前面一段时间，安装了 Homebrew, 但是今天切换 node 版本到 system version (8.10.0) 后，发现虽然 node 版本切换成功，但是 node 版本对应的 npm 和 npx 版本不相符，下面记录一下问题排查过程。</div>
-    </div>
-  </div>
-<h2 id="罪魁祸首">罪魁祸首</h2>
-<p>首先定位到这次问题的根本原因是安装 Homebrew 导致的，这点可以很快也很明确地定位到，因为以前安装 Homebrew 也遇到了这个问题，但是当时的做法是卸载 Homebrew 避免冲突。</p>
-<h2 id="why">Why</h2>
-<p>分析为啥会冲突，Homebrew 安装的工程中也会默认一部分依赖的二进制文件，npm 和 npx 也在其中，所以这导致了 Homebrew 的安装 npm 和 npx 覆盖了系统中 node 的 npm 和 npx 进而导致 node 和 npm 版本不一致，无法使用 npm 启动项目。</p>
-<h2 id="where">Where</h2>
-<p>找一下目前 npm 和 npx 的二进制文件在哪。</p>
-<div class="highlight" id="id-1"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">nvm use system
-</span></span><span class="line"><span class="cl">node -v           <span class="c1"># 8.10.0</span>
-</span></span><span class="line"><span class="cl">which npm         <span class="c1"># /opt/homebrew/bin/npm</span>
-</span></span><span class="line"><span class="cl">which npx         <span class="c1"># /opt/homebrew/bin/npx</span></span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="how">How</h2>
-<p>很明显前面的猜测是对的，那就打开这个目录看看：</p>
-<div class="highlight" id="id-2"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">open /opt/homebrew/bin</span></span></code></pre></td></tr></table>
-</div>
-</div><p>找到 npm 和 npx，把他们重命名为 <code>npm-brew</code> 和 <code>npx-brew</code>, 这样通过别名也保留 Homebrew 的 npm 和 npx.</p>
-<p>修改完后，重启终端，再看看 npm 和 npx 是否生效：</p>
-<div class="highlight" id="id-3"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">nvm use system
-</span></span><span class="line"><span class="cl">node -v           <span class="c1"># 8.10.0</span>
-</span></span><span class="line"><span class="cl">which npm         <span class="c1"># /usr/local/bin/npm</span>
-</span></span><span class="line"><span class="cl">which npx         <span class="c1"># /usr/local/bin/npx</span>
-</span></span><span class="line"><span class="cl">npm -v
-</span></span><span class="line"><span class="cl">npx -v</span></span></code></pre></td></tr></table>
-</div>
-</div><p>一切正常了，可以用 npm 继续启动原来的项目了。</p>]]></description></item><item><title>解决 SourceTree 提交时候 husky 命令失败问题</title><link>https://lruihao.cn/posts/sourcetree-husky/</link><pubDate>Mon, 12 Jun 2023 10:58:44 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/sourcetree-husky/</guid><description><![CDATA[<h2 id="问题描述">问题描述</h2>
+</div>]]></description></item><item><title>解决 SourceTree 提交时候 husky 命令失败问题</title><link>https://lruihao.cn/posts/sourcetree-husky/</link><pubDate>Mon, 12 Jun 2023 10:58:44 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/sourcetree-husky/</guid><description><![CDATA[<h2 id="问题描述">问题描述</h2>
 <p>在使用 SourceTree 提交代码的时候，会出现 husky 命令失败的问题（通过命令行提交代码没有问题），如下图所示：</p>
 <p></p>
 <p>看错误，是一个 catch 参数的问题，在新版本的 Node 中，catch 参数是可以省略的，但是在旧版本中，catch 参数是必须的。</p>
@@ -1707,274 +2223,7 @@ maths,physicsa（物理）,politics（政治）,classics,economics,Aids,SARs,dia
 <li><a href="https://github.com/typicode/husky/issues/904#issuecomment-862184954"target="_blank" rel="external nofollow noopener noreferrer">https://github.com/typicode/husky/issues/904#issuecomment-862184954<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
 <li><a href="https://github.com/nvm-sh/nvm#deeper-shell-integration"target="_blank" rel="external nofollow noopener noreferrer">https://github.com/nvm-sh/nvm#deeper-shell-integration<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
 </ul>
-]]></description></item><item><title>在 Vue 项目中更优雅的使用 icon</title><link>https://lruihao.cn/posts/vue-svg-icon/</link><pubDate>Thu, 14 Sep 2023 11:24:48 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/vue-svg-icon/</guid><description><![CDATA[<h2 id="前言">前言</h2>
-<p>在 Web 开发中，我们经常会用到 icon，icon 的使用经历了从图片到字体，再到 svg 的演变过程，也产生出相应的 icon 库，如雪碧图、<a href="https://fontawesome.com/"target="_blank" rel="external nofollow noopener noreferrer">Font Awesome<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>、<a href="https://www.iconfont.cn/"target="_blank" rel="external nofollow noopener noreferrer">Iconfont<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 等等。</p>
-<p>随着前端的发展，icon 使用方案落在了 svg 上，svg 有着矢量图的优势，可以无限放大而不失真，而且 svg 本身就是一种 XML 文件，可以直接在 HTML 中使用，也可以通过 CSS 进行样式控制，但是在 Vue 项目中使用 svg 时，我们会遇到一些问题，本文将介绍如何在 Vue 项目中更优雅的使用 svg icon。</p>
-<h2 id="工具">工具</h2>
-<ul>
-<li><a href="https://github.com/JetBrains/svg-sprite-loader"target="_blank" rel="external nofollow noopener noreferrer">svg-sprite-loader<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
-<li><a href="https://github.com/svg/svgo-loader"target="_blank" rel="external nofollow noopener noreferrer">svgo-loader<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
-</ul>
-<p><code>svg-sprite-loader</code>用来打包 svg 图标，<code>svgo-loader</code> 来精简我们的 svg 内容。</p>
-<h2 id="封装组件">封装组件</h2>
-<p>在 <code>src/components</code> 目录下新建 <code>SvgIcon.vue</code> 组件：</p>
-<div class="highlight" id="id-1"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span><span class="lnt">37
-</span><span class="lnt">38
-</span><span class="lnt">39
-</span><span class="lnt">40
-</span><span class="lnt">41
-</span><span class="lnt">42
-</span><span class="lnt">43
-</span><span class="lnt">44
-</span><span class="lnt">45
-</span><span class="lnt">46
-</span><span class="lnt">47
-</span><span class="lnt">48
-</span><span class="lnt">49
-</span><span class="lnt">50
-</span><span class="lnt">51
-</span><span class="lnt">52
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-vue" data-lang="vue"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">template</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">div</span> <span class="nt">v-if</span><span class="s">=&#34;isExternal&#34; :style=&#34;styleExternalIcon&#34; class=&#34;svg-external-icon svg-icon&#34; v-on=&#34;$listeners&#34; /&gt;
-</span></span></span><span class="line"><span class="cl"><span class="s">  &lt;svg v-else class=&#34;svg-icon&#34; aria-hidden=&#34;true&#34; v-on=&#34;$listeners&#34;</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">use</span> <span class="nt">:href</span><span class="s">=&#34;iconName&#34;</span> <span class="p">/&gt;</span>
-</span></span><span class="line"><span class="cl">  <span class="p">&lt;/</span><span class="nt">svg</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">template</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="k">default</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;SvgIcon&#39;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">props</span><span class="o">:</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">iconClass</span><span class="o">:</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">      <span class="nx">type</span><span class="o">:</span> <span class="nb">String</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">      <span class="nx">required</span><span class="o">:</span> <span class="kc">true</span>
-</span></span><span class="line"><span class="cl">    <span class="p">},</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">className</span><span class="o">:</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">      <span class="nx">type</span><span class="o">:</span> <span class="nb">String</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">      <span class="k">default</span><span class="o">:</span> <span class="s1">&#39;&#39;</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">  <span class="p">},</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">computed</span><span class="o">:</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">isExternal</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">      <span class="k">return</span> <span class="sr">/^(https?:\/\/|data:image)/</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">iconClass</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="p">},</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">iconName</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">      <span class="k">return</span> <span class="sb">`#icon-</span><span class="si">${</span><span class="k">this</span><span class="p">.</span><span class="nx">iconClass</span><span class="si">}</span><span class="sb">`</span>
-</span></span><span class="line"><span class="cl">    <span class="p">},</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">styleExternalIcon</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">      <span class="k">return</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="nx">mask</span><span class="o">:</span> <span class="sb">`url(</span><span class="si">${</span><span class="k">this</span><span class="p">.</span><span class="nx">iconClass</span><span class="si">}</span><span class="sb">) no-repeat 50% 50%`</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">        <span class="s1">&#39;-webkit-mask&#39;</span><span class="o">:</span> <span class="sb">`url(</span><span class="si">${</span><span class="k">this</span><span class="p">.</span><span class="nx">iconClass</span><span class="si">}</span><span class="sb">) no-repeat 50% 50%`</span>
-</span></span><span class="line"><span class="cl">      <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">  <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">style</span> <span class="na">scoped</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="p">.</span><span class="nx">svg</span><span class="o">-</span><span class="nx">icon</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">width</span><span class="o">:</span> <span class="mi">1</span><span class="nx">em</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">height</span><span class="o">:</span> <span class="mi">1</span><span class="nx">em</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">vertical</span><span class="o">-</span><span class="nx">align</span><span class="o">:</span> <span class="o">-</span><span class="mf">0.15</span><span class="nx">em</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">fill</span><span class="o">:</span> <span class="nx">currentColor</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">overflow</span><span class="o">:</span> <span class="nx">hidden</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="p">.</span><span class="nx">svg</span><span class="o">-</span><span class="nx">external</span><span class="o">-</span><span class="nx">icon</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">background</span><span class="o">-</span><span class="nx">color</span><span class="o">:</span> <span class="nx">currentColor</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">mask</span><span class="o">-</span><span class="nx">size</span><span class="o">:</span> <span class="nx">cover</span><span class="o">!</span><span class="nx">important</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">display</span><span class="o">:</span> <span class="nx">inline</span><span class="o">-</span><span class="nx">block</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span></span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="安装">安装</h2>
-<div class="highlight" id="id-2"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">npm install svg-sprite-loader svgo-loader -D
-</span></span><span class="line"><span class="cl"><span class="c1"># 或</span>
-</span></span><span class="line"><span class="cl">yarn add svg-sprite-loader svgo-loader -D</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="配置">配置</h2>
-<p>统一将所有的 icon 都以 svg 的形式都放在 <code>src/assets/icons</code> 目录中。</p>
-<p>然后在 <code>vue.config.js</code> 中添加如下配置：</p>
-<div class="highlight" id="id-3"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span><span class="lnt">37
-</span><span class="lnt">38
-</span><span class="lnt">39
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">const</span> <span class="p">{</span> <span class="nx">defineConfig</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;@vue/cli-service&#39;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">path</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;path&#39;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">resolve</span><span class="p">(</span><span class="nx">dir</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">,</span> <span class="nx">dir</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">defineConfig</span><span class="p">({</span>
-</span></span><span class="line"><span class="cl">  <span class="c1">// ...
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">chainWebpack</span><span class="o">:</span> <span class="p">(</span><span class="nx">config</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="c1">// set svg-sprite-loader
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kr">const</span> <span class="nx">svgPath</span> <span class="o">=</span> <span class="nx">resolve</span><span class="p">(</span><span class="s1">&#39;src/assets/icons&#39;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">config</span><span class="p">.</span><span class="nx">module</span>
-</span></span><span class="line"><span class="cl">      <span class="p">.</span><span class="nx">rule</span><span class="p">(</span><span class="s1">&#39;svg&#39;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">      <span class="p">.</span><span class="nx">exclude</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="nx">svgPath</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">      <span class="p">.</span><span class="nx">end</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">config</span><span class="p">.</span><span class="nx">module</span>
-</span></span><span class="line"><span class="cl">      <span class="p">.</span><span class="nx">rule</span><span class="p">(</span><span class="s1">&#39;svg-icon&#39;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">      <span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="sr">/.svg$/</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">      <span class="p">.</span><span class="nx">include</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="nx">svgPath</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">      <span class="p">.</span><span class="nx">end</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">      <span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="s1">&#39;svg-sprite-loader&#39;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">      <span class="p">.</span><span class="nx">loader</span><span class="p">(</span><span class="s1">&#39;svg-sprite-loader&#39;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">      <span class="p">.</span><span class="nx">options</span><span class="p">({</span>
-</span></span><span class="line"><span class="cl">        <span class="nx">symbolId</span><span class="o">:</span> <span class="s1">&#39;icon-[name]&#39;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">      <span class="p">})</span>
-</span></span><span class="line"><span class="cl">      <span class="p">.</span><span class="nx">end</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">      <span class="c1">// remove origin svg fill attr
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="s1">&#39;svgo-loader&#39;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">      <span class="p">.</span><span class="nx">loader</span><span class="p">(</span><span class="s1">&#39;svgo-loader&#39;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">      <span class="p">.</span><span class="nx">tap</span><span class="p">((</span><span class="nx">options</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">({</span>
-</span></span><span class="line"><span class="cl">        <span class="p">...</span><span class="nx">options</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">        <span class="c1">// 删除 svg 中 fill 和 fill-rule
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nx">plugins</span><span class="o">:</span> <span class="p">[{</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;removeAttrs&#39;</span><span class="p">,</span> <span class="nx">params</span><span class="o">:</span> <span class="p">{</span> <span class="nx">attrs</span><span class="o">:</span> <span class="s1">&#39;fill|fill-rule&#39;</span> <span class="p">}</span> <span class="p">}],</span>
-</span></span><span class="line"><span class="cl">      <span class="p">}))</span>
-</span></span><span class="line"><span class="cl">      <span class="p">.</span><span class="nx">end</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">  <span class="p">},</span>
-</span></span><span class="line"><span class="cl">  <span class="c1">// ...
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">})</span></span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="自动引入">自动引入</h2>
-<p>自动引入 <code>src/assets/icons</code> 中的 icon，需要用到 webpack 中的 <a href="https://webpack.docschina.org/guides/dependency-management/"target="_blank" rel="external nofollow noopener noreferrer">require.context<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>。</p>
-<p>在 <code>src/main.js</code> 中引入所有的 svg 图标，之后可在文件夹自行添加或者删除图标，所以图标都会被自动导入，无需手动操作：</p>
-<div class="highlight" id="id-4"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span><span class="lnt">8
-</span><span class="lnt">9
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">import</span> <span class="nx">Vue</span> <span class="nx">from</span> <span class="s1">&#39;vue&#39;</span>
-</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="nx">SvgIcon</span> <span class="nx">from</span> <span class="s1">&#39;@/components/SvgIcon&#39;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">// register svg component globally 
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">Vue</span><span class="p">.</span><span class="nx">component</span><span class="p">(</span><span class="s1">&#39;SvgIcon&#39;</span><span class="p">,</span> <span class="nx">SvgIcon</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="c1">// require all svg
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">requireAll</span> <span class="o">=</span> <span class="p">(</span><span class="nx">requireContext</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nx">requireContext</span><span class="p">.</span><span class="nx">keys</span><span class="p">().</span><span class="nx">map</span><span class="p">(</span><span class="nx">requireContext</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">req</span> <span class="o">=</span> <span class="nx">require</span><span class="p">.</span><span class="nx">context</span><span class="p">(</span><span class="s1">&#39;@/assets/icons&#39;</span><span class="p">,</span> <span class="kc">false</span><span class="p">,</span> <span class="sr">/\.svg$/</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="nx">requireAll</span><span class="p">(</span><span class="nx">req</span><span class="p">)</span></span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="使用-icon">使用 icon</h2>
-<div class="highlight" id="id-5"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">svg-icon</span> <span class="na">icon-class</span><span class="o">=</span><span class="s">&#34;fullscreen&#34;</span>  <span class="na">class</span><span class="o">=</span><span class="s">&#39;custom-class&#39;</span> <span class="p">/&gt;</span></span></span></code></pre></td></tr></table>
-</div>
-</div><h3 id="颜色">颜色</h3>
-<p><code>svg-icon</code> 默认会读取其父级的 <code>color fill: currentColor;</code></p>
-<p>你可以改变父级的 <code>color</code> 或者直接改变 <code>fill</code> 的颜色即可。</p>
-<h3 id="大小">大小</h3>
-<p>图标可从 <a href="https://www.iconfont.cn/"target="_blank" rel="external nofollow noopener noreferrer">iconfont<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 项目中下载或者由 UI 切图，同一个项目中使用的 Svg Icon 图标建议统一大小规格，比如 <code>128*128</code>。</p>
-<h2 id="示例">示例</h2>
-<p>本文 <a href="https://lruihao.github.io/vue-el-demo/#/icons"target="_blank" rel="external nofollow noopener noreferrer">示例<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 代码已上传至 <a href="https://github.com/Lruihao/vue-el-demo"target="_blank" rel="external nofollow noopener noreferrer">vue-el-demo<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 项目中，可自行下载查看。</p>
-<h2 id="参考资料">参考资料</h2>
-<ul>
-<li><a href="https://juejin.cn/post/6844903517564436493"target="_blank" rel="external nofollow noopener noreferrer">手摸手，带你优雅的使用 icon<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
-<li><a href="https://www.zhangxinxu.com/wordpress/2014/07/introduce-svg-sprite-technology/"target="_blank" rel="external nofollow noopener noreferrer">未来必热：SVG Sprites 技术介绍<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
-<li><a href="https://www.zhangxinxu.com/wordpress/2016/02/svg-compress-tool-svgo-experience/"target="_blank" rel="external nofollow noopener noreferrer">SVG 精简压缩工具 svgo 简介和初体验<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
-<li><a href="https://github.com/JetBrains/svg-sprite-loader"target="_blank" rel="external nofollow noopener noreferrer">svg-sprite-loader<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
-<li><a href="https://github.com/svg/svgo"target="_blank" rel="external nofollow noopener noreferrer">svgo<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
-<li><a href="https://github.com/svg/svgo-loader"target="_blank" rel="external nofollow noopener noreferrer">svgo-loader<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
-</ul>]]></description></item><item><title>JS 实现全屏和退出全屏</title><link>https://lruihao.cn/posts/js-fullscreen/</link><pubDate>Fri, 15 Sep 2023 17:29:25 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/js-fullscreen/</guid><description><![CDATA[<h2 id="背景">背景</h2>
+]]></description></item><item><title>JS 实现全屏和退出全屏</title><link>https://lruihao.cn/posts/js-fullscreen/</link><pubDate>Fri, 15 Sep 2023 17:29:25 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/js-fullscreen/</guid><description><![CDATA[<h2 id="背景">背景</h2>
 <p>在 Web 开发中，全屏模式可以提供更沉浸式的体验，特别适用于视频播放、游戏展示和演示等场景。通过 JavaScript 的 Fullscreen API，我们可以以编程方式控制元素的全屏状态。</p>
 <p>Fullscreen API 是一组用于控制全屏显示的方法和属性，它们允许我们将网页内容以全屏的方式展示给用户，并提供了相应的事件来监听全屏模式的变化。</p>
 <p>在本文中，我们将介绍如何判断浏览器是否支持全屏功能，如何实现进入全屏和退出全屏的功能，以及如何获取当前全屏元素和监听全屏模式的变化。</p>
@@ -2959,256 +3208,7 @@ maths,physicsa（物理）,politics（政治）,classics,economics,Aids,SARs,dia
 </span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="k">default</span> <span class="nx">router</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="参考">参考</h2>
-<p><a href="https://github.com/sunzsh/vue-el-demo/blob/f5e9a2a9934c7040f4fa72663eb8c24b1e3b20c1/gen-router.js"target="_blank" rel="external nofollow noopener noreferrer">sunzsh/vue-el-demo<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>]]></description></item><item><title>用魔法打败魔法 - ElBacktop Fix</title><link>https://lruihao.cn/posts/el-backtop-fix/</link><pubDate>Thu, 20 Jul 2023 11:08:18 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/el-backtop-fix/</guid><description><![CDATA[<p>这篇文章主要是记录一下继承 <a href="https://element.eleme.cn/#/zh-CN/component/backtop"target="_blank" rel="external nofollow noopener noreferrer">ElBacktop<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 组件并修复了一些 bug 的过程。</p>
-<h2 id="前言">前言</h2>
-<p>由于某些原因，我希望在路由切换时给每个页面的总容器都加上一个共同的 class <code>page-container</code>，然后我就在布局中里面加了这么一段代码：</p>
-<div class="highlight" id="id-1"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-vue" data-lang="vue"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">template</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">div</span> <span class="nt">:class</span><span class="s">=&#34;classObj&#34;</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;app-wrapper&#34;</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;app-container&#34;</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">      <span class="p">&lt;</span><span class="nt">topbar</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;header-container&#34;</span> <span class="p">/&gt;</span>
-</span></span><span class="line"><span class="cl">      <span class="p">&lt;</span><span class="nt">el-container</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;main-container&#34;</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">sidebar</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;aside-container&#34;</span> <span class="p">/&gt;</span>
-</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">el-container</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;is-vertical minor-container&#34;</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">          <span class="p">&lt;</span><span class="nt">breadcrumb</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;breadcrumb-container&#34;</span> <span class="p">/&gt;</span>
-</span></span><span class="line"><span class="cl">          <span class="c">&lt;!--</span> <span class="nx">这一行</span> <span class="o">--&gt;</span>
-</span></span><span class="line"><span class="cl">          <span class="p">&lt;</span><span class="nt">page-container</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;page-container&#34;</span> <span class="p">/&gt;</span>
-</span></span><span class="line"><span class="cl">        <span class="o">&lt;</span><span class="err">/el-container&gt;</span>
-</span></span><span class="line"><span class="cl">      <span class="o">&lt;</span><span class="err">/el-container&gt;</span>
-</span></span><span class="line"><span class="cl">    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">el-backtop</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;app-b2t&#34;</span> <span class="na">target</span><span class="o">=</span><span class="s">&#34;.page-container&#34;</span> <span class="nt">:visibility-height</span><span class="s">=&#34;50&#34;</span> <span class="p">/&gt;</span>
-</span></span><span class="line"><span class="cl">    <span class="c">&lt;!--</span> <span class="p">&lt;</span><span class="nt">back-to-top</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;app-b2t&#34;</span> <span class="na">target</span><span class="o">=</span><span class="s">&#34;.page-container&#34;</span> <span class="nt">:visibility-height</span><span class="s">=&#34;50&#34;</span> <span class="p">/&gt;</span> <span class="o">--&gt;</span>
-</span></span><span class="line"><span class="cl">  <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">template</span><span class="p">&gt;</span></span></span></code></pre></td></tr></table>
-</div>
-</div><div class="highlight" id="id-2"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-Vue" data-lang="Vue"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">template</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">transition</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;fade-transform&#34;</span> <span class="na">mode</span><span class="o">=</span><span class="s">&#34;out-in&#34;</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">keep-alive</span> <span class="nt">:include</span><span class="s">=&#34;cachedViews&#34;</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">      <span class="p">&lt;</span><span class="nt">router-view</span> <span class="p">/&gt;</span>
-</span></span><span class="line"><span class="cl">    <span class="o">&lt;</span><span class="err">/keep-alive&gt;</span>
-</span></span><span class="line"><span class="cl">  <span class="p">&lt;/</span><span class="nt">transition</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">template</span><span class="p">&gt;</span></span></span></code></pre></td></tr></table>
-</div>
-</div><p>没错，相当于在 router-view 上直接加了一个 class <code>page-container</code>。</p>
-<h2 id="问题">问题</h2>
-<p>那么问题就来了，此时 el-backtop 的 target 设置为 <code>.page-container</code>，但是当我切换路由时，<code>.page-container</code> 会被移除再添加为新的页面，此时 el-backtop 就会失效。</p>
-<p>原意是想让 el-backtop 指向每一个包含 <code>.page-container</code> 的页面。</p>
-<h2 id="解决">解决</h2>
-<p>RTFSC，发现 el-backtop 的 target 属性只会在 mounted 时初始化一次，所以想办法在每次路由切换时重新初始化一下 el-backtop 的 target 属性就行了。</p>
-<ol>
-<li>创建 MutationObserver 实例来观察 target 的父元素的子元素变化已解决上述 bug</li>
-<li>增加 target 的 data-target 属性，用于指定 target 的子元素作为滚动容器</li>
-</ol>
-<p>最后代码如下：</p>
-<div class="highlight" id="id-3"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span><span class="lnt">37
-</span><span class="lnt">38
-</span><span class="lnt">39
-</span><span class="lnt">40
-</span><span class="lnt">41
-</span><span class="lnt">42
-</span><span class="lnt">43
-</span><span class="lnt">44
-</span><span class="lnt">45
-</span><span class="lnt">46
-</span><span class="lnt">47
-</span><span class="lnt">48
-</span><span class="lnt">49
-</span><span class="lnt">50
-</span><span class="lnt">51
-</span><span class="lnt">52
-</span><span class="lnt">53
-</span><span class="lnt">54
-</span><span class="lnt">55
-</span><span class="lnt">56
-</span><span class="lnt">57
-</span><span class="lnt">58
-</span><span class="lnt">59
-</span><span class="lnt">60
-</span><span class="lnt">61
-</span><span class="lnt">62
-</span><span class="lnt">63
-</span><span class="lnt">64
-</span><span class="lnt">65
-</span><span class="lnt">66
-</span><span class="lnt">67
-</span><span class="lnt">68
-</span><span class="lnt">69
-</span><span class="lnt">70
-</span><span class="lnt">71
-</span><span class="lnt">72
-</span><span class="lnt">73
-</span><span class="lnt">74
-</span><span class="lnt">75
-</span><span class="lnt">76
-</span><span class="lnt">77
-</span><span class="lnt">78
-</span><span class="lnt">79
-</span><span class="lnt">80
-</span><span class="lnt">81
-</span><span class="lnt">82
-</span><span class="lnt">83
-</span><span class="lnt">84
-</span><span class="lnt">85
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-Vue" data-lang="Vue"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="cm">/**
-</span></span></span><span class="line"><span class="cl"><span class="cm"> * BackToTop 继承 el-backtop
-</span></span></span><span class="line"><span class="cl"><span class="cm"> * 1. 修复 el-backtop 在 target 被移除后，无法重新初始化的问题
-</span></span></span><span class="line"><span class="cl"><span class="cm"> * 2. 增加 target 的 data-target 属性，用于指定 target 的子元素作为滚动容器。例如：&lt;div data-target=&#34;.list-pane&#34;&gt;&lt;/div&gt;
-</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
-</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">Backtop</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;element-ui&#39;</span>
-</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="nx">throttle</span> <span class="nx">from</span> <span class="s1">&#39;throttle-debounce/throttle&#39;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="k">default</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;BackToTop&#39;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">  <span class="kr">extends</span><span class="o">:</span> <span class="nx">Backtop</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">data</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">      <span class="nx">el</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">      <span class="nx">container</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">      <span class="nx">visible</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">      <span class="nx">observer</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">  <span class="p">},</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">mounted</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="p">.</span><span class="nx">init</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="p">.</span><span class="nx">observeTarget</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">  <span class="p">},</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">beforeDestroy</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="c1">// 清除事件监听
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">this</span><span class="p">.</span><span class="nx">container</span><span class="p">.</span><span class="nx">removeEventListener</span><span class="p">(</span><span class="s1">&#39;scroll&#39;</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">throttledScrollHandler</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="c1">// 停止观察
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">this</span><span class="p">.</span><span class="nx">observer</span><span class="p">.</span><span class="nx">disconnect</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">  <span class="p">},</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">methods</span><span class="o">:</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">init</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">      <span class="k">this</span><span class="p">.</span><span class="nx">container</span> <span class="o">=</span> <span class="nb">document</span>
-</span></span><span class="line"><span class="cl">      <span class="k">this</span><span class="p">.</span><span class="nx">el</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">documentElement</span>
-</span></span><span class="line"><span class="cl">      <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">target</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="k">this</span><span class="p">.</span><span class="nx">el</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">target</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">el</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">          <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="sb">`target is not existed: </span><span class="si">${</span><span class="k">this</span><span class="p">.</span><span class="nx">target</span><span class="si">}</span><span class="sb">`</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">        <span class="p">}</span>
-</span></span><span class="line"><span class="cl">        <span class="c1">// 如果 this.el 有 data-target 属性，就使用 data-target 属性的值作为 target
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">el</span><span class="p">.</span><span class="nx">dataset</span><span class="p">.</span><span class="nx">target</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">          <span class="kr">const</span> <span class="nx">subEl</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">el</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">el</span><span class="p">.</span><span class="nx">dataset</span><span class="p">.</span><span class="nx">target</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">          <span class="nx">subEl</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">el</span> <span class="o">=</span> <span class="nx">subEl</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">        <span class="p">}</span>
-</span></span><span class="line"><span class="cl">        <span class="k">this</span><span class="p">.</span><span class="nx">container</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">el</span>
-</span></span><span class="line"><span class="cl">      <span class="p">}</span>
-</span></span><span class="line"><span class="cl">      <span class="k">this</span><span class="p">.</span><span class="nx">throttledScrollHandler</span> <span class="o">=</span> <span class="nx">throttle</span><span class="p">(</span><span class="mi">300</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">onScroll</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">      <span class="k">this</span><span class="p">.</span><span class="nx">container</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;scroll&#39;</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">throttledScrollHandler</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="p">},</span>
-</span></span><span class="line"><span class="cl">    <span class="cm">/**
-</span></span></span><span class="line"><span class="cl"><span class="cm">     * 观察 this.container 是否被移除或者新增
-</span></span></span><span class="line"><span class="cl"><span class="cm">     * 注意 router-view 切换页面步骤：1. 新增 router-view -&gt; 2. 删除旧 router-view
-</span></span></span><span class="line"><span class="cl"><span class="cm">     */</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">observeTarget</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">      <span class="c1">// 创建 MutationObserver 实例并传入回调函数
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="k">this</span><span class="p">.</span><span class="nx">observer</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">MutationObserver</span><span class="p">((</span><span class="nx">mutationsList</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="p">(</span><span class="kr">const</span> <span class="nx">mutation</span> <span class="k">of</span> <span class="nx">mutationsList</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">          <span class="k">if</span> <span class="p">(</span><span class="nx">mutation</span><span class="p">.</span><span class="nx">type</span> <span class="o">===</span> <span class="s1">&#39;childList&#39;</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">            <span class="c1">// 检测到删除节点
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="k">if</span> <span class="p">(</span><span class="nx">mutation</span><span class="p">.</span><span class="nx">removedNodes</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">              <span class="k">for</span> <span class="p">(</span><span class="kr">const</span> <span class="nx">node</span> <span class="k">of</span> <span class="nx">mutation</span><span class="p">.</span><span class="nx">removedNodes</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">                <span class="k">if</span> <span class="p">(</span><span class="nx">node</span> <span class="o">===</span> <span class="k">this</span><span class="p">.</span><span class="nx">container</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">                  <span class="c1">// 观察如果 this.container 从页面中被移除了，就清除事件监听
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                  <span class="k">this</span><span class="p">.</span><span class="nx">container</span><span class="p">.</span><span class="nx">removeEventListener</span><span class="p">(</span><span class="s1">&#39;scroll&#39;</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">throttledScrollHandler</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">                  <span class="k">this</span><span class="p">.</span><span class="nx">visible</span> <span class="o">=</span> <span class="kc">false</span>
-</span></span><span class="line"><span class="cl">                  <span class="k">break</span>
-</span></span><span class="line"><span class="cl">                <span class="p">}</span>
-</span></span><span class="line"><span class="cl">              <span class="p">}</span>
-</span></span><span class="line"><span class="cl">              <span class="c1">// 检测删除前是否有新增节点
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>              <span class="k">if</span> <span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">target</span><span class="p">)</span> <span class="o">===</span> <span class="nx">mutation</span><span class="p">.</span><span class="nx">nextSibling</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">                <span class="c1">// 观察如果 this.container 被删除前的下一个兄弟节点是 this.target，就重新初始化
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                <span class="k">this</span><span class="p">.</span><span class="nx">init</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">              <span class="p">}</span>
-</span></span><span class="line"><span class="cl">            <span class="p">}</span>
-</span></span><span class="line"><span class="cl">          <span class="p">}</span>
-</span></span><span class="line"><span class="cl">        <span class="p">}</span>
-</span></span><span class="line"><span class="cl">      <span class="p">})</span>
-</span></span><span class="line"><span class="cl">      <span class="c1">// 观察 this.container 父元素的子元素变化
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="k">this</span><span class="p">.</span><span class="nx">observer</span><span class="p">.</span><span class="nx">observe</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">target</span><span class="p">).</span><span class="nx">parentNode</span><span class="p">,</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="nx">childList</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">      <span class="p">})</span>
-</span></span><span class="line"><span class="cl">    <span class="p">},</span>
-</span></span><span class="line"><span class="cl">  <span class="p">},</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span></span></span></code></pre></td></tr></table>
-</div>
-</div>]]></description></item><item><title>electron 踩坑总结</title><link>https://lruihao.cn/posts/electron-summary/</link><pubDate>Fri, 12 Aug 2022 11:22:01 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/electron-summary/</guid><description><![CDATA[<p>总结一下最近 electron 开发遇到的问题和一些重要知识点。</p>
+<p><a href="https://github.com/sunzsh/vue-el-demo/blob/f5e9a2a9934c7040f4fa72663eb8c24b1e3b20c1/gen-router.js"target="_blank" rel="external nofollow noopener noreferrer">sunzsh/vue-el-demo<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>]]></description></item><item><title>electron 踩坑总结</title><link>https://lruihao.cn/posts/electron-summary/</link><pubDate>Fri, 12 Aug 2022 11:22:01 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/electron-summary/</guid><description><![CDATA[<p>总结一下最近 electron 开发遇到的问题和一些重要知识点。</p>
 <h2 id="简介">简介</h2>
 <p>如果你可以建一个网站，你就可以建一个桌面应用程序。 <a href="https://www.electronjs.org/"target="_blank" rel="external nofollow noopener noreferrer">Electron<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 是一个使用 JavaScript, HTML 和 CSS 等 Web 技术创建原生程序的开源框架，它负责比较难搞的部分，你只需把精力放在你的应用的核心上即可。</p>
 <h2 id="知识点">知识点</h2>
@@ -3248,8 +3248,7 @@ maths,physicsa（物理）,politics（政治）,classics,economics,Aids,SARs,dia
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-v" data-lang="v"><span class="line"><span class="cl"><span class="p">(</span><span class="nv">electron</span><span class="p">)</span> <span class="nc">The</span> <span class="nv">remote</span> <span class="kn">module</span> <span class="k">is</span> <span class="nv">deprecated</span><span class="p">.</span> <span class="nc">Use</span> <span class="nv">https</span><span class="p">:</span><span class="c1">//github.com/electron/remote instead.
-</span></span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">(electron) The remote module is deprecated. Use https://github.com/electron/remote instead.</span></span></code></pre></td></tr></table>
 </div>
 </div><ul>
 <li>获取当前窗口：<code>remote.getCurrentWindow()</code></li>
@@ -3684,163 +3683,11 @@ maths,physicsa（物理）,politics（政治）,classics,economics,Aids,SARs,dia
 <ul>
 <li><a href="https://zhuanlan.zhihu.com/p/345973110"target="_blank" rel="external nofollow noopener noreferrer">CSS+HTML&lt;网格背景效果&gt;<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
 </ul>
-]]></description></item><item><title>将 Hugo 博客部署到亚马逊云服务器</title><link>https://lruihao.cn/posts/aws-ec2/</link><pubDate>Sat, 26 Aug 2023 17:22:57 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/aws-ec2/</guid><description><![CDATA[<p>本文将介绍如何将 Hugo 博客打包并部署到亚马逊云服务器上，并附上亚马逊云服务器的配置过程。</p>
-<h2 id="前言">前言</h2>
-<p>最近很长一段时间都是使用 Hugo 在写博客，也花了很多精力在 <a href="https://github.com/hugo-fixit/FixIt"target="_blank" rel="external nofollow noopener noreferrer">hugo-fixit<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 这个主题的开发上。也听到很多使用 Hugo 写博客的网友们问我，如何部署博客？部署到哪里？</p>
-<p>今天就介绍一种方式：<strong>把博客部署到云服务器上</strong>。</p>
-<p>但是国内的云服务器太贵了，而且还要备案，所以就想到了海外的云服务器，比如亚马逊云服务器，以下便是注册到部署的全过程。</p>
-<h2 id="注册亚马逊云账户">注册亚马逊云账户</h2>
-<p>打开 <a href="https://aws.amazon.com/cn/free/?sc_channel=seo&amp;sc_campaign=blog0805"target="_blank" rel="external nofollow noopener noreferrer">亚马逊账号注册地址<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>，点击右上角创建 AWS 账户。</p>
-<p></p>
-<ol>
-<li>填写邮件地址和账号名称（支持使用国内的邮箱）
-</li>
-<li>验证邮件
-</li>
-<li>输入密码
-</li>
-<li>联系人信息
-</li>
-<li>付款信息（Visa）
-</li>
-<li>验证手机号（支持中国地区国内手机号）
-</li>
-<li>选择支持计划
-</li>
-<li>完成注册
-</li>
-<li>登录亚马逊云控制台，<a href="https://console.aws.amazon.com/console/home"target="_blank" rel="external nofollow noopener noreferrer">登录地址<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>，选择根用户输入电子邮件地址，点击下一步会让输入密码，输入密码后就可以完成登录了。</li>
-</ol>
-<h2 id="创建-ec2-服务实例">创建 EC2 服务实例</h2>
-<p>点击链接查看 <a href="https://aws.amazon.com/cn/free/?sc_channel=seo&amp;sc_campaign=blog0805"target="_blank" rel="external nofollow noopener noreferrer">亚马逊免费套餐<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>，找到云服务器 EC2，点击立即开始 12 个月免费使用。</p>
-<p></p>
-<p>进行 EC2 服务器主页后，点击页面<strong>创建实例</strong>按钮。</p>
-<p></p>
-<p>然后按照页面提示要求，依次填写或选择：</p>
-<ol>
-<li>实例的名称：随便填</li>
-<li>应用程序和操作系统映像 (Amazon Machine Image)：Amazon Linux 和 Amazon Linux 2023 AMI 免费套餐</li>
-<li>实例类型：选择免费套餐</li>
-<li>密钥对（登录）：这里要点击创建密钥对，输入密钥对名称，选择 RSA 点击创建密钥对会下载文件到本地，要妥善保存，登录时会用到</li>
-<li>网络设置：安全组把允许来自于 http 和 https 得都勾选上</li>
-<li>配置存储：默认是 8G，但免费的最多可以 30G，可以手动改成 30G</li>
-<li>然后点击右侧侧边栏启动实例，等待片刻实例就创建好了</li>
-</ol>
-<h2 id="连接实例">连接实例</h2>
-<p></p>
-<p>点击上面的实例 ID 进入实例的详情，再点击右上角的连接按钮。</p>
-<p></p>
-<p>连接成功后，页面会新打开一个窗口，这个窗口就是我们服务器的终端，可以在这里对服务器进行操作。</p>
-<p></p>
-<h2 id="创建-root-用户角色">创建 root 用户角色</h2>
-<p>在终端中输入以下命令，创建 root 用户角色。</p>
-<div class="highlight" id="id-1"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 切换到 root 用户</span>
-</span></span><span class="line"><span class="cl">sudo -i
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># 修改 sshd 配置文件</span>
-</span></span><span class="line"><span class="cl">vi /etc/ssh/sshd_config</span></span></code></pre></td></tr></table>
-</div>
-</div><p>修改如下两项</p>
-<div class="highlight" id="id-2"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">PermitRootLogin yes
-</span></span><span class="line"><span class="cl">PasswordAuthentication yes</span></span></code></pre></td></tr></table>
-</div>
-</div><p>设置 root 用户密码</p>
-<div class="highlight" id="id-3"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">passwd</span></span></code></pre></td></tr></table>
-</div>
-</div><p>会让输入两次密码，输入完成，重启一下 ssh 服务：</p>
-<div class="highlight" id="id-4"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">service sshd restart</span></span></code></pre></td></tr></table>
-</div>
-</div><p>重启后在电脑命令行就可以通过 ssh 协议加上用户名称+密码连接远程服务器了。</p>
-<div class="highlight" id="id-5"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">ssh root@3.85.xxx.xxx</span></span></code></pre></td></tr></table>
-</div>
-</div><blockquote>
-<p>后续操作尽量用 root 用户进行。</p>
-</blockquote>
-<h2 id="安装宝塔面板">安装宝塔面板</h2>
-<p>宝塔面板是一个服务器管理面板，可以通过宝塔面板来管理服务器，比如安装 nginx、mysql、php 等等。</p>
-<div class="highlight" id="id-6"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">yum install -y wget <span class="o">&amp;&amp;</span> wget -O install.sh https://download.bt.cn/install/install_6.0.sh <span class="o">&amp;&amp;</span> sh install.sh ed8484bec</span></span></code></pre></td></tr></table>
-</div>
-</div><ol>
-<li>在亚马逊服务器实例安全组中放行 TCP <code>19430</code> 端口</li>
-<li>宝塔面板安装完后按照命令行提示打开宝塔面板，进入面板安装 <code>LAMP</code> 环境，其中包含了我们需要的 <code>nginx</code></li>
-<li>等待 <code>LAMP</code> 环境安装完毕</li>
-</ol>
-<h2 id="部署-hugo-博客">部署 Hugo 博客</h2>
-<p>Hugo 博客打包</p>
-<div class="highlight" id="id-7"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">hugo -v --gc --minify</span></span></code></pre></td></tr></table>
-</div>
-</div><p>将打包好的 <code>public</code> 文件夹上传到服务器的 <code>/www/wwwroot/hugo</code> 目录下，输入以下命令，等待上传完成。</p>
-<div class="highlight" id="id-8"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 上传文件（需要输入 root 用户密码）</span>
-</span></span><span class="line"><span class="cl">scp -r /path/to/public root@3.85.xxx.xxx:/www/wwwroot/hugo</span></span></code></pre></td></tr></table>
-</div>
-</div><p>在宝塔面板中选择网站，点击添加站点：</p>
-<ol>
-<li>域名：填写你的公网 IP 或者域名</li>
-<li>网站目录：选择 <code>/www/wwwroot/hugo</code></li>
-<li>站点备注：随便填</li>
-<li>FTP、数据库选择不创建，PHP 选择纯静态</li>
-<li>点击提交</li>
-</ol>
-<p>在浏览器中输入服务器的公网 IP 地址，就可以看到 Hugo 博客了。</p>
-<p></p>
-<h2 id="注意事项">注意事项</h2>
-<blockquote>
-<p>亚马逊的服务器每个月免费时长时 <strong>750</strong> 小时，一个月 31 天 x 24 = 744 小时，正常使用是不会超出免费的份额的，但切记不要同时开两个服务器实例，使用时长会累加，不注意可能会超出套餐额度。</p>
-<p>到期后，如果不想继续使用，一定要记得删除实例，不然会一直扣费的。在控制台选中实例，点击实例状态-&gt;终止实例。</p>
-</blockquote>
-<h2 id="总结">总结</h2>
-<p>有了一台海外服务器，我们还可以做很多事情，比如部署 chatgpt 等等，有了服务器一定要多去探索和学习，这么复杂的申请的流程，不要白白放着让过期了。</p>
-<p>保持探索欲，砥砺前行！</p>]]></description></item><item><title>封装 Vue FullScreenToggler 组件</title><link>https://lruihao.cn/posts/vue-fullscreen-toggler/</link><pubDate>Sun, 17 Sep 2023 19:44:07 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/vue-fullscreen-toggler/</guid><description><![CDATA[<p>基于 <a href="https://github.com/mirari/vue-fullscreen"target="_blank" rel="external nofollow noopener noreferrer">vue-fullscreen<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 封装一个的 Vue 全屏/退出全屏切换组件。</p>
+]]></description></item><item><title>封装 Vue FullScreenToggler 组件</title><link>https://lruihao.cn/posts/vue-fullscreen-toggler/</link><pubDate>Sun, 17 Sep 2023 19:44:07 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/vue-fullscreen-toggler/</guid><description><![CDATA[<p>基于 <a href="https://github.com/mirari/vue-fullscreen"target="_blank" rel="external nofollow noopener noreferrer">vue-fullscreen<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 封装一个的 Vue 全屏/退出全屏切换组件。</p>
 <h2 id="简介">简介</h2>
 <p><a href="https://github.com/mirari/vue-fullscreen"target="_blank" rel="external nofollow noopener noreferrer">vue-fullscreen<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 是一个用于将任意页面元素进行全屏切换的 Vue 插件，基于 <a href="https://github.com/sindresorhus/screenfull"target="_blank" rel="external nofollow noopener noreferrer">screenfull<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>。这个插件本身提供了组件、指令以及 API 三种使用方式，具体的使用方法请参考 <a href="https://github.com/mirari/vue-fullscreen"target="_blank" rel="external nofollow noopener noreferrer">vue-fullscreen<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>。</p>
 <h2 id="在线演示httpslruihaogithubiovue-el-demofullscreen"><a href="https://lruihao.github.io/vue-el-demo/#/fullscreen"target="_blank" rel="external nofollow noopener noreferrer">在线演示<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></h2>
-<h3 id="-安装">## 安装</h3>
+<h2 id="安装">安装</h2>
 <div class="highlight" id="id-1"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -4404,7 +4251,7 @@ maths,physicsa（物理）,politics（政治）,classics,economics,Aids,SARs,dia
 <h2 id="术语表">术语表</h2>
 <p>我们在仓库中维护了一个<a href="https://github.com/mdn/translated-content/blob/main/docs/zh-cn/glossary.md"target="_blank" rel="external nofollow noopener noreferrer">术语表<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>，旨在统一目前还未有明确中文翻译的术语。在翻译文档时，请尽量使用术语表中的术语，以保证文档的一致性。</p>
 <h2 id="常用标题">常用标题</h2>
-<p>英文文档中使用了一些常见标题，为了保持简体中文文档的一致性，请在翻译时参考术语表中的<a href="https://github.com/mdn/translated-content/blob/main/docs/zh-cn/glossary.md#%e6%a0%87%e9%a2%98%e8%a1%a8%e6%a0%bc"target="_blank" rel="external nofollow noopener noreferrer">标题和表格的翻译<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>。</p>]]></description></item><item><title>在 Vue 项目中更优雅的使用 icon</title><link>https://lruihao.cn/posts/vue-svg-icon/</link><pubDate>Thu, 14 Sep 2023 11:24:48 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/vue-svg-icon/</guid><description><![CDATA[<h2 id="前言">前言</h2>
+<p>英文文档中使用了一些常见标题，为了保持简体中文文档的一致性，请在翻译时参考术语表中的<a href="https://github.com/mdn/translated-content/blob/main/docs/zh-cn/glossary.md#%e6%a0%87%e9%a2%98%e8%a1%a8%e6%a0%bc"target="_blank" rel="external nofollow noopener noreferrer">标题和表格的翻译<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>。</p>]]></description></item><item><title>在 Vue 项目中更优雅地使用 icon</title><link>https://lruihao.cn/posts/vue-svg-icon/</link><pubDate>Thu, 14 Sep 2023 11:24:48 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/vue-svg-icon/</guid><description><![CDATA[<h2 id="前言">前言</h2>
 <p>在 Web 开发中，我们经常会用到 icon，icon 的使用经历了从图片到字体，再到 svg 的演变过程，也产生出相应的 icon 库，如雪碧图、<a href="https://fontawesome.com/"target="_blank" rel="external nofollow noopener noreferrer">Font Awesome<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>、<a href="https://www.iconfont.cn/"target="_blank" rel="external nofollow noopener noreferrer">Iconfont<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 等等。</p>
 <p>随着前端的发展，icon 使用方案落在了 svg 上，svg 有着矢量图的优势，可以无限放大而不失真，而且 svg 本身就是一种 XML 文件，可以直接在 HTML 中使用，也可以通过 CSS 进行样式控制，但是在 Vue 项目中使用 svg 时，我们会遇到一些问题，本文将介绍如何在 Vue 项目中更优雅的使用 svg icon。</p>
 <h2 id="工具">工具</h2>
@@ -7428,8 +7275,7 @@ maths,physicsa（物理）,politics（政治）,classics,economics,Aids,SARs,dia
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-v" data-lang="v"><span class="line"><span class="cl"><span class="p">(</span><span class="nv">electron</span><span class="p">)</span> <span class="nc">The</span> <span class="nv">remote</span> <span class="kn">module</span> <span class="k">is</span> <span class="nv">deprecated</span><span class="p">.</span> <span class="nc">Use</span> <span class="nv">https</span><span class="p">:</span><span class="c1">//github.com/electron/remote instead.
-</span></span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">(electron) The remote module is deprecated. Use https://github.com/electron/remote instead.</span></span></code></pre></td></tr></table>
 </div>
 </div><ul>
 <li>获取当前窗口：<code>remote.getCurrentWindow()</code></li>

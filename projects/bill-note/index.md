@@ -38,6 +38,7 @@ OK，一個簡單的初中方程式已經到位了，下一步，思考一下，
 主要就是存取數據這點，沒有服務器，數據庫怎麼實現？  
 valine 可以實現無後端，那我是不是也可以，leancloud 文檔走一波，然後“數據表”設計一下，其實是 leancloud-storage Object ，於是有了以下東西，源碼放在 Github
 
+<!-- markdownlint-disable-next-line MD034 -->
 {{< link href="http://github.com/Lruihao/bill-note" content="bill-note" card=true >}}
 
 ### 數據設計
