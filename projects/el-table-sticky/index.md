@@ -99,6 +99,8 @@ Non sunt multiplicanda entia sine necessitate
 
 但是通过造轮子，可以更好的学习和理解技术，也能体会到很多写业务代码不能感受到的快乐。
 
+学而不思则罔，思而不学则殆。
+
 <!-- footnote reference definition -->
 [^1]: *如有必要，以后版本需要替换 gemini-scrollbar 实现自定义滚动条的功能。*
 
