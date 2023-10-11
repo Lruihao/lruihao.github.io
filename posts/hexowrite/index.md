@@ -12,7 +12,7 @@
 
 ### 1.1 设置站点配置\_config.yml
 
-```
+```yml
 post_asset_folder: true
 ```
 
@@ -24,7 +24,7 @@ npm install https://github.com/CodeFalling/hexo-asset-image -- save
 
 ### 1.3 下次再运行 hexo n "xxxx"来生成 md 博文时，下路径
 
-```
+```plain
 /source/_posts
 ```
 
@@ -38,7 +38,7 @@ npm install https://github.com/CodeFalling/hexo-asset-image -- save
 
 相对路径添加（我被这个相对路径搞得要死，前面各种出错，大家可以对照我的来插入图片 ...）
 
-```
+```md
 #直接写图片名就好了，图片实例见下
 ![kyrie irving](294136.jpg)
 
@@ -46,7 +46,6 @@ npm install https://github.com/CodeFalling/hexo-asset-image -- save
 ![kyrie irving](hexo-添加图片，音乐，链接，视频/294136.jpg)
 #代码压缩后前面还要加一个/
 ![kyrie irving](/hexo-添加图片，音乐，链接，视频/294136.jpg)
-
 ```
 
 ![kyrie irving](images/294136.jpg)
@@ -57,7 +56,7 @@ npm install https://github.com/CodeFalling/hexo-asset-image -- save
 这种方式被很多人诟病，但有时候也不失一种好方式，简单快捷。  
 还有图片名字显示，不错的。
 
-```
+```md
 {% asset_img 297787.jpg kyrie irving %}
 ```
 
@@ -68,16 +67,18 @@ npm install https://github.com/CodeFalling/hexo-asset-image -- save
 大家可以看 [网易云音乐](https://music.163.com) 的官网，播放音乐可以生成外链，直接拿来用就行了。iframe 插件可以在代码中设置宽高等参数，auto 为自动播放。flash 不可以自己设置参数。看喜好，随便你。
 其他音乐，把插件中的链接替换成要播放的链接就可以了
 
-```
+```md
 #iframe 插件
 
 <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=66651&auto=0&height=66">
 </iframe>
 ```
 
+<!-- markdownlint-disable MD033 -->
+
 <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=66651&auto=0&height=66"></iframe>
 
-```
+```html
 #flash 插件
 
 <embed src="//music.163.com/style/swf/widget.swf?sid=40249713&type=2&auto=0&width=320&height=66" width="340" height="86"  allowNetworking="all">
@@ -86,7 +87,7 @@ npm install https://github.com/CodeFalling/hexo-asset-image -- save
 
 ## 4. 添加链接
 
-```
+```md
 [我的微博](https://weibo.com/liahao)
 {% link text url title %}
 ```
@@ -101,25 +102,25 @@ npm install https://github.com/CodeFalling/hexo-asset-image -- save
 
 > 实验室无聊拍的
 
-```
+```html
 <iframe
-	height=500 width=100%
-	src="https://player.youku.com/embed/XMzY0MzgxNDMyOA=="
-	frameborder=0 allowfullscreen>
+ height=500 width=100%
+ src="https://player.youku.com/embed/XMzY0MzgxNDMyOA=="
+ frameborder=0 allowfullscreen>
 </iframe>
 ```
 
-<iframe 
-	height=500 width=100% 
-	src="https://player.youku.com/embed/XMzY0MzgxNDMyOA==" 
-	frameborder=0 allowfullscreen>
+<iframe
+ height=500 width=100%
+ src="https://player.youku.com/embed/XMzY0MzgxNDMyOA=="
+ frameborder=0 allowfullscreen>
 </iframe>
 
 ## 工具集合
 
-[Picgo](https://picgo.github.io/PicGo-Doc/zh/)
-[马克飞象](https://maxiang.io/)、CSDN、简书
-[SM.MS 图床](https://sm.ms/)
+- [Picgo](https://picgo.github.io/PicGo-Doc/zh/)
+- [马克飞象](https://maxiang.io/)、CSDN、简书
+- [SM.MS 图床](https://sm.ms/)
 
 
 ---

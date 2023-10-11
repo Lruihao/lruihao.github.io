@@ -14,16 +14,16 @@
 创建表格
 */
 function createTable($rows,$cols,$bgcolor='pink',$content='x'){
-	$table = "<table border='1' bgcolor='{$bgcolor}' cellpadding='10' cellspacing='0' width='50%' >";
-	for($i=1;$i<=$rows;$i++){
-		$table.="<tr>";
-		for($j=1;$j<=$cols;$j++){
-			$table.="<td>{$content}</td>";
-		}
-		$table .="</tr>";
-	}
-	$table.="</table>";
-	return $table;
+  $table = "<table border='1' bgcolor='{$bgcolor}' cellpadding='10' cellspacing='0' width='50%' >";
+  for($i=1;$i<=$rows;$i++){
+    $table.="<tr>";
+    for($j=1;$j<=$cols;$j++){
+      $table.="<td>{$content}</td>";
+    }
+    $table .="</tr>";
+  }
+  $table.="</table>";
+  return $table;
 }
 echo createTable(5,5,'pink','hello lruihao');
 ?>

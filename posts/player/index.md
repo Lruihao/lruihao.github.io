@@ -22,14 +22,14 @@ test
 test123
 ```
 
-- https://player.ilt.me/
-- https://player.lruihao.cn/
+- <https://player.ilt.me/>
+- <https://player.lruihao.cn/>
 
 ## 安装
 
 ### 视频安装教程
 
-https://www.bilibili.com/video/av46476706
+<https://www.bilibili.com/video/av46476706>
 
 ### 依赖
 

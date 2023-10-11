@@ -18,18 +18,18 @@ print("Hello World!")
 
 ```python
 class zxm():
-	def __init__(self):
-		self.x=0
-		self.y=0
+  def __init__(self):
+    self.x=0
+    self.y=0
 
-	def move_up(self):
-		self.y +=1
+  def move_up(self):
+    self.y +=1
 
 my_zxm=zxm()
 print(my_zxm)
 ```
 
-```
+```plain
 <__main__.zxm object at 0x000001D99CFEF668>
 ```
 
@@ -72,7 +72,7 @@ x=[1,10]
 type(x)#判断元素类型
 ```
 
-```
+```py
 list
 ```
 
@@ -93,7 +93,7 @@ for letter in 'Python':
 print("Good bye!")
 ```
 
-```
+```plain
 当前字母 :P
 当前字母 :y
 当前字母 :t
@@ -115,7 +115,7 @@ print("整数转字符串"+str(x))
 import this
 ```
 
-```
+```plain
 The Zen of Python, by Tim Peters
 
 Beautiful is better than ugly.

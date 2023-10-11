@@ -3,12 +3,12 @@
 
 ## StringBuffer/StringBuilder（掌握）
 
-### StringBuffer 是线程安全的可变字符串。
+### StringBuffer 是线程安全的可变字符串
 
 StringBuilder 是线程不安全的可变字符串。  
  和 StringBuffer 的功能一样。就是效率高一些，但是不安全。
 
-### 构造方法：
+### 构造方法
 
 - StringBuffer sb = new StringBuffer();
 - StringBuffer sb = new StringBuffer(50);
@@ -30,7 +30,7 @@ StringBuilder 是线程不安全的可变字符串。
   public String substring(int start): 从指定索引到末尾的字符串  
   public String substring(int start,int end): 从指定索引开始到指定索引结束的字符串
 
-### 案例：
+### 案例
 
 - String 和 StringBuffer 的相互转换，通过构造即可。
 - 把数组转成指定的字符串格式
@@ -49,17 +49,17 @@ StringBuilder 是线程不安全的可变字符串。
 ![冒泡排序](images/1.png)
 
 ```java
-	public static void bubbleSort(int[] arr) {
-		for(int x=0; x<arr.length-1; x++) {
-			for(int y=0; y<arr.length-1-x; y++) {
-				if(arr[y]>arr[y+1]) {
-					int temp = arr[y];
-					arr[y] = arr[y+1];
-					arr[y+1] = temp;
-				}
-			}
-		}
-	}
+  public static void bubbleSort(int[] arr) {
+    for(int x=0; x<arr.length-1; x++) {
+      for(int y=0; y<arr.length-1-x; y++) {
+        if(arr[y]>arr[y+1]) {
+          int temp = arr[y];
+          arr[y] = arr[y+1];
+          arr[y+1] = temp;
+        }
+      }
+    }
+  }
 ```
 
 - 选择排序
@@ -68,17 +68,17 @@ StringBuilder 是线程不安全的可变字符串。
 ![选择排序 1](images/2.png)
 
 ```java
-	public static void selectSort(int[] arr) {
-		for(int x=0; x<arr.length-1; x++) {
-			for(int y=x+1; y<arr.length; y++) {
-				if(arr[y] < arr[x]) {
-					int temp = arr[x];
-					arr[x] = arr[y];
-					arr[y] = temp;
-				}
-			}
-		}
-	}
+  public static void selectSort(int[] arr) {
+    for(int x=0; x<arr.length-1; x++) {
+      for(int y=x+1; y<arr.length; y++) {
+        if(arr[y] < arr[x]) {
+          int temp = arr[x];
+          arr[x] = arr[y];
+          arr[y] = temp;
+        }
+      }
+    }
+  }
 ```
 
 ![选择排序 2](images/select.gif)
@@ -118,31 +118,33 @@ public static void selectSort(int[] a)
 
 ```java
 public static int getIndex(int[] arr,int value) {
-	int max = arr.length-1;
-	int min = 0;
-	int mid = (max+min)/2;
+  int max = arr.length-1;
+  int min = 0;
+  int mid = (max+min)/2;
 
-	while(arr[mid] != value) {
-		if(arr[mid] > value) {
-			max = mid - 1;
-		}else if(arr[mid] < value) {
-			min = mid + 1;
-		}
+  while(arr[mid] != value) {
+    if(arr[mid] > value) {
+      max = mid - 1;
+    }else if(arr[mid] < value) {
+      min = mid + 1;
+    }
 
-		if(max < min) {
-			return -1;
-		}
+    if(max < min) {
+      return -1;
+    }
 
-		mid = (max+min)/2;
-	}
+    mid = (max+min)/2;
+  }
 
-	return mid;
+  return mid;
 }
 ```
 
 ## Arrays 工具类（掌握）
 
 ### Arrays 是针对数组进行操作的工具类，提供了排序和查找等功能
+
+<!-- markdownlint-disable MD024 -->
 
 ### 成员方法：（自己补齐方法和意思）
 
@@ -153,26 +155,26 @@ public static int getIndex(int[] arr,int value) {
 - 二分查找
   public static int binarySearch(int[] arr,int key)
 
-### 案例：
+### 案例
 
 把字符串中的字符进行排序
 
 ## 基本类型包装类（掌握）
 
-### 为了让我们对基本类型进行更多的操作，java 针对每种基本类型提供了对应的包装类类型。
+### 为了让我们对基本类型进行更多的操作，java 针对每种基本类型提供了对应的包装类类型
 
 ### 分别是哪些呢？
 
-```
-	byte		Byte
-	short		Short
-	int		Integer
-	long		Long
-	float		Float
-	double		Double
-	char		Character
-	boolean		Boolean
-特殊：  void		Void
+```plain
+  byte    Byte
+  short    Short
+  int    Integer
+  long    Long
+  float    Float
+  double    Double
+  char    Character
+  boolean    Boolean
+特殊：  void    Void
 ```
 
 ### Integer
@@ -186,16 +188,16 @@ public static int getIndex(int[] arr,int value) {
     int->String: String.valueOf() 或 Integer.toString()
 - JDK5 的新特性
 
-```
+```plain
 自动装箱：
-	int --> Integer		//Integer.valueOf()
+  int --> Integer    //Integer.valueOf()
 自动拆箱：
-	Integer --> int		//Integer.intValue()
+  Integer --> int    //Integer.intValue()
 
 请解释：
-	Integer i = 100;
-	i+=200;
-	System.out.println(i);
+  Integer i = 100;
+  i+=200;
+  System.out.println(i);
 ```
 
 - byte 缓存池面试题  

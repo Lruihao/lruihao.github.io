@@ -1,5 +1,5 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>最短路 - 标签 - 菠菜眾長</title><link>https://lruihao.cn/tags/%E6%9C%80%E7%9F%AD%E8%B7%AF/</link><description>最短路 - 标签 - 菠菜眾長</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><copyright>本站内容采用知识共享署名-非商业性使用 4.0（CC BY-NC 4.0）国际许可协议。</copyright><lastBuildDate>Mon, 06 Aug 2018 09:42:11 +0000</lastBuildDate><atom:link href="https://lruihao.cn/tags/%E6%9C%80%E7%9F%AD%E8%B7%AF/" rel="self" type="application/rss+xml"/><item><title>Heavy Transportation-poj1797(dijkstra 或最大生成树）</title><link>https://lruihao.cn/posts/poj1797/</link><pubDate>Mon, 06 Aug 2018 09:42:11 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/poj1797/</guid><description><![CDATA[<p>题目链接](<a href="http://poj.org/problem?id=1797"target="_blank" rel="external nofollow noopener noreferrer">http://poj.org/problem?id=1797<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>)<br>
-大意：<br>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>最短路 - 标签 - 菠菜眾長</title><link>https://lruihao.cn/tags/%E6%9C%80%E7%9F%AD%E8%B7%AF/</link><description>最短路 - 标签 - 菠菜眾長</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><copyright>本站内容采用知识共享署名-非商业性使用 4.0（CC BY-NC 4.0）国际许可协议。</copyright><lastBuildDate>Mon, 06 Aug 2018 09:42:11 +0000</lastBuildDate><atom:link href="https://lruihao.cn/tags/%E6%9C%80%E7%9F%AD%E8%B7%AF/" rel="self" type="application/rss+xml"/><item><title>Heavy Transportation-poj1797(dijkstra 或最大生成树）</title><link>https://lruihao.cn/posts/poj1797/</link><pubDate>Mon, 06 Aug 2018 09:42:11 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/poj1797/</guid><description><![CDATA[<p><a href="http://poj.org/problem?id=1797"target="_blank" rel="external nofollow noopener noreferrer">题目链接<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
+<p>大意：<br>
 要从城市 1 到城市 N 运送货物，有 M 条道路，每条道路都有它的最大载重量，问从城市 1 到城市 N 运送最多的重量是多少。<br>
 其实题意很简单，就是找一条 1&ndash;&gt;N 的路径，在不超过每条路径的最大载重量的情况下，使得运送的货物最多。一条路径上的最大载重量为这个路径上权值最小的边；
 </p>
@@ -91,17 +91,17 @@
 </span></span><span class="line"><span class="cl">    <span class="n">scanf</span><span class="p">(</span><span class="s">&#34;%d&#34;</span><span class="p">,</span><span class="o">&amp;</span><span class="n">T</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="k">while</span><span class="p">(</span><span class="n">T</span><span class="o">--</span><span class="p">){</span>
 </span></span><span class="line"><span class="cl">        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;=</span><span class="n">n</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">			<span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">j</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">j</span><span class="o">&lt;=</span><span class="n">n</span><span class="p">;</span><span class="n">j</span><span class="o">++</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">				<span class="n">maps</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">j</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">j</span><span class="o">&lt;=</span><span class="n">n</span><span class="p">;</span><span class="n">j</span><span class="o">++</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                <span class="n">maps</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">        <span class="n">scanf</span><span class="p">(</span><span class="s">&#34;%d%d&#34;</span><span class="p">,</span><span class="o">&amp;</span><span class="n">n</span><span class="p">,</span><span class="o">&amp;</span><span class="n">m</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;=</span><span class="n">m</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;=</span><span class="n">m</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">            <span class="n">scanf</span><span class="p">(</span><span class="s">&#34;%d%d%d&#34;</span><span class="p">,</span><span class="o">&amp;</span><span class="n">a</span><span class="p">,</span><span class="o">&amp;</span><span class="n">b</span><span class="p">,</span><span class="o">&amp;</span><span class="n">w</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">            <span class="n">maps</span><span class="p">[</span><span class="n">a</span><span class="p">][</span><span class="n">b</span><span class="p">]</span><span class="o">=</span><span class="n">maps</span><span class="p">[</span><span class="n">b</span><span class="p">][</span><span class="n">a</span><span class="p">]</span><span class="o">=</span><span class="n">w</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">        <span class="p">}</span>
 </span></span><span class="line"><span class="cl">        <span class="n">printf</span><span class="p">(</span><span class="s">&#34;Scenario #%d:</span><span class="se">\n</span><span class="s">%d</span><span class="se">\n\n</span><span class="s">&#34;</span><span class="p">,</span><span class="n">ans</span><span class="o">++</span><span class="p">,</span><span class="n">dijkstra</span><span class="p">());</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
 </div>]]></description></item><item><title>Til the Cows Come Home-poj2387(dijkstra 判断重边）</title><link>https://lruihao.cn/posts/poj2387/</link><pubDate>Fri, 03 Aug 2018 21:40:33 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/poj2387/</guid><description><![CDATA[<p><a href="http://poj.org/problem?id=2387"target="_blank" rel="external nofollow noopener noreferrer">题目链接<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
@@ -221,14 +221,15 @@
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
-</div>]]></description></item><item><title>最短路入门</title><link>https://lruihao.cn/posts/zuiduanlu/</link><pubDate>Fri, 03 Aug 2018 16:27:16 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/zuiduanlu/</guid><description><![CDATA[<h2 id="dijkstra-算法">Dijkstra 算法</h2>
+</div>]]></description></item><item><title>最短路入门</title><link>https://lruihao.cn/posts/zuiduanlu/</link><pubDate>Fri, 03 Aug 2018 16:27:16 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/zuiduanlu/</guid><description><![CDATA[<!-- markdownlint-disable MD033 -->
+<h2 id="dijkstra-算法">Dijkstra 算法</h2>
 <h3 id="1-定义概览">1. 定义概览</h3>
 <p>Dijkstra（迪杰斯特拉）算法是典型的单源最短路径算法，用于计算一个节点到其他所有节点的最短路径。主要特点是以起始点为中心向外层层扩展，直到扩展到终点为止。Dijkstra 算法是很有代表性的最短路径算法，在很多专业课程中都作为基本内容有详细的介绍，如数据结构，图论，运筹学等等。注意该算法要求图中不存在负权边。</p>
 <p>问题描述：在无向图 G=(V,E) 中，假设每条边 E[i] 的长度为 w[i]，找到由顶点 V0 到其余各点的最短路径。（单源最短路径）</p>
 <h3 id="2-算法描述">2. 算法描述</h3>
-<h4 id="1-算法思想">1) 算法思想：</h4>
+<h4 id="算法思想">算法思想</h4>
 <p>设 G=(V,E) 是一个带权有向图，把图中顶点集合 V 分成两组，第一组为已求出最短路径的顶点集合（用 S 表示，初始时 S 中只有一个源点，以后每求得一条最短路径 , 就将加入到集合 S 中，直到全部顶点都加入到 S 中，算法就结束了），第二组为其余未确定最短路径的顶点集合（用 U 表示），按最短路径长度的递增次序依次把第二组的顶点加入 S 中。在加入的过程中，总保持从源点 v 到 S 中各顶点的最短路径长度不大于从源点 v 到 U 中任何顶点的最短路径长度。此外，每个顶点对应一个距离，S 中的顶点的距离就是从 v 到此顶点的最短路径长度，U 中的顶点的距离，是从 v 到此顶点只包括 S 中的顶点为中间顶点的当前最短路径长度。</p>
-<h4 id="2-算法步骤">2) 算法步骤：</h4>
+<h4 id="算法步骤">算法步骤</h4>
 <p>a. 初始时，S 只包含源点，即 S ＝{v}，v 的距离为 0。U 包含除 v 外的其他顶点，即：U={其余顶点}，若 v 与 U 中顶点 u 有边，则&lt;u,v&gt;正常有权值，若 u 不是 v 的出边邻接点，则&lt;u,v&gt;权值为 ∞。</p>
 <p>b. 从 U 中选取一个距离 v 最小的顶点 k，把 k，加入 S 中（该选定的距离就是 v 到 k 的最短路径长度）。</p>
 <p>c. 以 k 为新考虑的中间点，修改 U 中各顶点的距离；若从源点 v 到顶点 u 的距离（经过顶点 k）比原来距离（不经过顶点 k）短，则修改顶点 u 的距离值，修改后的距离值的顶点 k 的距离加上边上的权。</p>
@@ -253,7 +254,7 @@
 <p>松弛操作</p>
 </li>
 </ol>
-<h3 id="初始化">初始化：</h3>
+<h3 id="初始化">初始化</h3>
 <p>d 数组全部赋值为 INF（无穷大）；p 数组全部赋值为 s（即源点），或者赋值为-1，表示还没有知道前驱，然后 d[s]=0; 表示源点不用求最短路径，或者说最短路就是 0。将源点入队；
 （另外记住在整个算法中有顶点入队了要记得标记 vis 数组，有顶点出队了记得消除那个标记）</p>
 <h3 id="队列松弛操作">队列+松弛操作</h3>

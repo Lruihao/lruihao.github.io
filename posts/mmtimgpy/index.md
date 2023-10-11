@@ -13,7 +13,7 @@
 - 图片文件编号
 
 > 其中固定连接为`https://image.xiezixiansheng.com/users/2010/700/unzip/579767/`, 图片文件为`xxxxx.png@50q`，如果去掉@50q，获取到的图片就是透明背景的不然就是白色背景。然后发现编号大多是 5 位数的形式，但是还有一些是 4 位的，甚至还有 2-3 位的数字。仔细看看 127 前的编号都是一些国际符号诸如英文和数字等。比对一下发现正是 ASCII 码对应的命名方式。可想而知中文自然也是通过编码来命名的。一个标准的字库文件至少包含 6763 个汉字，也就是我书写的这个`GB2312-80`, 范围： `0xA1A1 - 0xFEFE`，其中汉字范围： `0xB0A1 - 0xF7FE`。两个 16 进制位对应一个字节，一个汉字至少由两个字节组成，这样理解，范围自然是 4 个 16 进制位。所以转换成 10 进制，范围大致在 65278 以下。要了解更加具体一点的范围还需要去查一下汉字编码的分区等。这里暂时不必了解，因为本来就打算暴力下载。
-
+>
 > **说了这么多，既然图片链接这么简单，所以我是想暴力遍历，搜索图片，判断链接状态码，然后下载图片。**
 
 ## 源码设计
@@ -53,41 +53,41 @@ def get_status(url):
     return r.status_code
 
 def main():
-	BASE_URL = "https://image.xiezixiansheng.com/users/2010/700/unzip/579767/"
-	n=33
-	total=0
-	print("正在爬取第 1 张图片！")
+  BASE_URL = "https://image.xiezixiansheng.com/users/2010/700/unzip/579767/"
+  n=33
+  total=0
+  print("正在爬取第 1 张图片！")
 
-	while n < 65510:
-		#分段爬取，不然会超时！！！## 33 ~ 126 ## 8212 ~ 8243 ## 12289 ~ 12305 ## 19968 ~ 40864 ## 65281 ~ 65509
-		if n == 127:
-			n = 8212
-			continue
-		elif n == 8244:
-			n = 12289
-			continue
-		elif n ==12306:
-			n = 19968
-			continue
-		elif n == 40865:
-			n = 65281
-			continue
+  while n < 65510:
+    #分段爬取，不然会超时！！！## 33 ~ 126 ## 8212 ~ 8243 ## 12289 ~ 12305 ## 19968 ~ 40864 ## 65281 ~ 65509
+    if n == 127:
+      n = 8212
+      continue
+    elif n == 8244:
+      n = 12289
+      continue
+    elif n ==12306:
+      n = 19968
+      continue
+    elif n == 40865:
+      n = 65281
+      continue
 
-	## for n in range(37341,40865):
-		num = str(n)
-		IMAGE_URL = BASE_URL+num+".png" ## xxx.png 是透明背景，xxx.png@50q 是白色背景，分别存放在 0，1 文件夹 p 是中小 w 是小图
-		if(get_status(IMAGE_URL)==200): ## 同时下载透明和白色背景的图片
-			total+=1
-			urllib_download(IMAGE_URL,"0\\"+num)
-			IMAGE_URL += "@50q"
-			urllib_download(IMAGE_URL,"1\\"+num)
-			print("Downloaded "+num+".png")
-			print("正在爬取第",total+1,"张图片！")
-		n+=1
+  ## for n in range(37341,40865):
+    num = str(n)
+    IMAGE_URL = BASE_URL+num+".png" ## xxx.png 是透明背景，xxx.png@50q 是白色背景，分别存放在 0，1 文件夹 p 是中小 w 是小图
+    if(get_status(IMAGE_URL)==200): ## 同时下载透明和白色背景的图片
+      total+=1
+      urllib_download(IMAGE_URL,"0\\"+num)
+      IMAGE_URL += "@50q"
+      urllib_download(IMAGE_URL,"1\\"+num)
+      print("Downloaded "+num+".png")
+      print("正在爬取第",total+1,"张图片！")
+    n+=1
 
-	print("\n 爬取完毕！共爬取",total,"张图片！")
-	print("图片存放路径："+path)
-	print("作者博客：lruihao.cn")
+  print("\n 爬取完毕！共爬取",total,"张图片！")
+  print("图片存放路径："+path)
+  print("作者博客：lruihao.cn")
 
 if __name__=="__main__":
     main();

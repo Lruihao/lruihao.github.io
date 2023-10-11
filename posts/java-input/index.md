@@ -1,7 +1,7 @@
 # java 录入数据
 
 
-### 记忆格式：
+## 记忆格式
 
 (1) 导包：  
  import java.util.Scanner;  
@@ -16,7 +16,7 @@
  C: 获取三个数据中较大的值  
  D: 比较两个数是否相等
 
-### 实例
+## 实例
 
 ```java
 package helloworld;
@@ -25,35 +25,35 @@ import java.util.Scanner;
 
 public class helloworld {
 
-	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
-		int i=sc.nextInt(),j=sc.nextInt(),k=sc.nextInt();
-		sc.close();
-		System.out.println(i+"+"+j+"="+(i+j));
-		System.out.println("MAXij="+Max(i,j));
-		System.out.println("MAXijk="+Max(i,j,k));
+  public static void main(String[] args) {
+    Scanner sc = new Scanner(System.in);
+    int i=sc.nextInt(),j=sc.nextInt(),k=sc.nextInt();
+    sc.close();
+    System.out.println(i+"+"+j+"="+(i+j));
+    System.out.println("MAXij="+Max(i,j));
+    System.out.println("MAXijk="+Max(i,j,k));
 
-	}
-	//Max() 方法重载
-	static int Max(int i,int j) {
-		return i>j?i:j;
-	}
-	static int Max(int i,int j,int k) {
-		if(i==j)
-			System.out.println("i 和 j 相等");
-		else if(i==k)
-			System.out.println("i 和 k 相等");
-		else if(j==k)
-			System.out.println("j 和 k 相等");
-		return  (i=i>j?i:j)>k?i:k;
-	}
+  }
+  //Max() 方法重载
+  static int Max(int i,int j) {
+    return i>j?i:j;
+  }
+  static int Max(int i,int j,int k) {
+    if(i==j)
+      System.out.println("i 和 j 相等");
+    else if(i==k)
+      System.out.println("i 和 k 相等");
+    else if(j==k)
+      System.out.println("j 和 k 相等");
+    return  (i=i>j?i:j)>k?i:k;
+  }
 
 }
 ```
 
 结果
 
-```
+```plain
 5 5 6
 5+5=10
 MAXij=5

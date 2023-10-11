@@ -1,6 +1,8 @@
 # Hugo 添加知乎卡片式链接 Shortcodes
 
 
+<!-- markdownlint-disable MD034 -->
+
 {{< link href="https://github.com/Lruihao/FixIt" content="卡片式链接已整合到 FixIt 主题" card=true >}}
 
 {{< admonition quote "回顧" >}}
@@ -25,13 +27,15 @@
 
 使用參數见 [FixIt 擴展 Shortcodes - Link](https://fixit.lruihao.cn/zh-cn/theme-documentation-extended-shortcodes/#2-link)
 
-```markdown
+<!-- markdownlint-disable MD046 -->
+
+```md
 {{</* cardlink href="https://github.com/Lruihao/hugo-blog/commit/089c303693e806bff855ecf3fee110baa62b870b" content="知乎卡片式链接 Git 記錄" */>}}
 ```
 
 > :bulb: 注：FixIt {{< version 0.2.12 changed >}} 已合併 shortcode cardlink 到 shortcode link，只需添加 `card=true`
 
-```
+```md
 {{</* link href="https://github.com/Lruihao/FixIt" content="卡片式链接已整合到 FixIt 主题" card=true */>}}
 ```
 

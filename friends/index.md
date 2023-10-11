@@ -6,6 +6,7 @@
 > Warn: 超過兩年為更新或長期挂掉的站點將被取消！
 -->
 
+<!-- markdownlint-disable-next-line no-bare-urls -->
 {{< link href="https://lruihao.cn/friends/opml.xml" content=":(far fa-star fa-fw): Subscribe ours" download="opml.xml" card=true >}}
 
 ## 基本資訊

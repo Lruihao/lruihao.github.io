@@ -7,9 +7,9 @@
 
 <!--more-->
 
-### hexo 插件
+## hexo 插件
 
-#### [hexo-lazyload-image](https://github.com/Troy-Yang/hexo-lazyload-image)
+### [hexo-lazyload-image](https://github.com/Troy-Yang/hexo-lazyload-image)
 
 ```bash 安装
 npm install hexo-lazyload-image --save
@@ -24,17 +24,18 @@ lazyload:
   loadingImg: # eg ./images/loading.gif
 ```
 
-#### hexo-ruby-marks
+### hexo-ruby-marks
 
 > 不支持`ruby`新标签的浏览器将显示`rp`中的内容。
 
 ```xml HTML5 写法
 <ruby>博採眾長<rp>（</rp> <rt>lruihao.cn</rt><rp>）</rp></ruby>
 ```
+<!-- markdownlint-disable MD033 -->
 
 <ruby>博採眾長<rp>（</rp> <rt>lruihao.cn</rt><rp>）</rp></ruby>
 
-**插件使用**
+插件使用
 
 ```bash 安装
 npm i hexo-ruby-marks
@@ -44,7 +45,7 @@ npm i hexo-ruby-marks
 {% ruby _**base**_|_**top text**_ %}
 ```
 
-#### [hexo-pwa](https://github.com/lavas-project/hexo-pwa)
+### [hexo-pwa](https://github.com/lavas-project/hexo-pwa)
 
 ```ball 安装
 npm install --save hexo-pwa
@@ -88,7 +89,7 @@ pwa:
   priority: 5
 ```
 
-#### hexo-tag-dplayer
+### hexo-tag-dplayer
 
 [hexo-tag-dplayer](https://github.com/MoePlayer/hexo-tag-dplayer)
 
@@ -102,7 +103,7 @@ npm install hexo-tag-dplayer --save
 
 key can be
 
-```
+```plain
 dplayer options:
     'autoplay', 'loop', 'screenshot', 'hotkey', 'mutex', 'dmunlimited' : bool options, use "yes" "y" "true" "1" "on" or just without value to enable
     'preload', 'theme', 'lang', 'logo', 'url', 'pic', 'thumbnails', 'vidtype', 'suburl', 'subtype', 'subbottom', 'subcolor', 'subcolor', 'id', 'api', 'token', 'addition', 'dmuser' : string arguments
@@ -117,7 +118,7 @@ other:
 {% dplayer "url=https://moeplayer.b0.upaiyun.com/dplayer/hikarunara.mp4" "addition=https://dplayer.daoapp.io/bilibili?aid=4157142" "api=https://api.prprpr.me/dplayer/" "pic=https://moeplayer.b0.upaiyun.com/dplayer/hikarunara.jpg" "id=9E2E3368B56CDBB4" "loop=yes" "theme=#FADFA3" "autoplay=false" "token=tokendemo" %}
 ```
 
-#### hexo-tag-aplayer
+### hexo-tag-aplayer
 
 [more](https://github.com/MoePlayer/hexo-tag-aplayer)
 
@@ -129,7 +130,7 @@ npm install --save hexo-tag-aplayer
 {% aplayer title author url [picture_url, narrow, autoplay, width:xxx, lrc:xxx] %}
 ```
 
-**标签参数**
+标签参数
 
 - `title` : 曲目标题
 - `author`: 曲目作者
@@ -142,19 +143,21 @@ npm install --save hexo-tag-aplayer
 
 当开启 Hexo 的 [文章资源文件夹](https://hexo.io/zh-cn/docs/asset-folders.html#%E6%96%87%E7%AB%A0%E8%B5%84%E6%BA%90%E6%96%87%E4%BB%B6%E5%A4%B9) 功能时，可以将图片、音乐文件、歌词文件放入与文章对应的资源文件夹中，然后直接引用：
 
-```
+```md
 {% aplayer "Caffeine" "Jeff Williams" "caffeine.mp3" "picture.jpg" "lrc:caffeine.txt" %}
 
 {% aplayer "你离开了南京，从此没人和我说话" "李志" "https://cdn-1256932288.cos.ap-chengdu.myqcloud.com/files/nanjing.mp3" "https://p2.music.126.net/UuSe-Vc6rS7JtRJSQgDU2g==/2323268069553116.jpg?param=300x300" %}
 ```
 
+<!-- markdownlint-disable MD034 -->
+
 {{< music url="https://cdn-1256932288.cos.ap-chengdu.myqcloud.com/files/nanjing.mp3" name="李志" artist="你离开了南京，从此没人和我说话" cover="https://p2.music.126.net/UuSe-Vc6rS7JtRJSQgDU2g==/2323268069553116.jpg?param=300x300" >}}
 
-#### hexo-pdf
+### hexo-pdf
 
 [pdf 传送门](https://lruihao.cn/posts/next-pdf/)
 
-#### hexo-filter-flowchart（流程图）
+### hexo-filter-flowchart（流程图）
 
 [语法](https://flowchart.js.org)
 
@@ -182,7 +185,7 @@ c2(no)->op2->e
 ```
 ````
 
-#### hexo-spoiler
+### hexo-spoiler
 
 ```bash Install
 npm install hexo-spoiler --save
@@ -212,18 +215,18 @@ When you writes:
 {% spoiler **hello welcome to 博採眾長！** %}
 ```
 
-### 宅音乐侧栏播放器插件
+## 宅音乐侧栏播放器插件
 
 [~~体验~~](https://player.lruihao.cn) [源码](https://github.com/Lruihao/zhai-music)
 
 > 目前在 next 中可能引起部分 css 冲突，建议在 next 中使用在单个页面中。  
 > 依赖于 jQuery，一行 js 可以引入播放器插件。
 
-### caniuse
+## caniuse
 
-#### 使用
+### 使用
 
-```
+```md
 {% caniuse feature @ periods %}
 <!-- Tag Alias -->
 {% can feature @ periods %}
@@ -233,59 +236,59 @@ periods : Select the browser versions to display. Supported values: past_1, past
 
 ```
 
-#### 栗子
+### 栗子
 
-**Caniuse without periods**
+Caniuse without periods
 
-```
+```md
 {% caniuse fetch %}
 ```
 
-**Caniuse with current period**
+Caniuse with current period
 
-```
+```md
 {% can sharedarraybuffer @ current %}
 ```
 
-**Caniuse with future periods**
+Caniuse with future periods
 
-```
+```md
 {% caniuse loading-lazy-attr @ future_3,future_2,future_1 %}
 ```
 
-**Caniuse with past periods**
+Caniuse with past periods
 
-```
+```md
 {% caniuse link-rel-modulepreload @ past_1,past_2,past_3,past_4,past_5 %}
 ```
 
-### Include Raw
+## Include Raw
 
 This tag include any raw content into your posts. Path is relative to your site source directory.
 
-```
+```md
 {% include_raw '_data/path/to/file.html' %}
 ```
 
 Let's create include-raw.html file in `_data` directory under site root directory with following content:
 
-```
+```md
 Any <strong>raw content</strong> may be included with this tag.
 ```
 
 Then in any post we can use this content with include_raw tag:
 
-```
+```md
 {% include_raw '_data/path/to/include-raw.html' %}
 ```
 
 Any **raw content** may be included with this tag.
 
-### button
+## button
 
 [more info](https://theme-next.org/docs/tag-plugins/button)
 
-```
+```md
 {% button url, text, icon [class], [title] %}
 <!-- Tag Alias -->
 {% btn url, text, icon [class], [title] %}
@@ -299,16 +302,17 @@ icon    : FontAwesome icon name (without 'fa-' at the begining). Required if no 
           Optional parameter.
 ```
 
-<div class="text-center">{% btn #, Text & Large Icon & Title, home fa-fw fa-lg, Title %}</div>
+```md
+{% btn #, Text & Large Icon & Title, home fa-fw fa-lg, Title %}
 ```
 
-### Mermaid
+## Mermaid
 
 [more info](https://theme-next.org/docs/tag-plugins/mermaid)
 
 example
 
-```
+```md
 {% mermaid gitGraph: %}
 options
 {
@@ -326,27 +330,27 @@ merge newbranch
 {% endmermaid %}
 ```
 
-### video
+## video
 
-#### Usage
+### Usage
 
 ```xml video.js
 {% video url %}
 ```
 
-#### Examples
+### Examples
 
-```
+```md
 {% video https://example.com/sample.mp4 %}
 {% video /path/to/your/video.mp4 %}
 ```
 
-### tab 选项卡
+## tab 选项卡
 
 > "tab"为选项卡的名称，可以自定义，数字是几表示从第几个选项卡开始。非必须，若数值为-1 则隐藏选项卡内容。
 > [查看更多](https://theme-next.org/docs/tag-plugins/tabs)
 
-```
+```md
 {% tabs Unique name, [index] %}
 <!-- tab [Tab caption] [@icon] -->
 Any content (support inline tags too).
@@ -370,7 +374,7 @@ Unique name   : Unique name of tabs block tag without comma.
                 Optional parameter.
 ```
 
-```
+```md
 {% tabs tab,2 %}
 <!-- tab -->
 this is tab1
@@ -386,7 +390,7 @@ this is tab3
 
 > 数值为-1
 
-```
+```md
 {% tabs 选项，-1 %}
 <!-- tab -->
 **选项 1**
@@ -402,7 +406,7 @@ this is tab3
 
 > 名字写在选项里面
 
-```
+```md
 {% tabs Fourth unique name %}
 <!-- tab Solution 1 -->
 **This is Tab 1.**
@@ -416,11 +420,11 @@ this is tab3
 {% endtabs %}
 ```
 
-### note 便签
+## note 便签
 
 > 主题配置文件搜索 note, 可设置风格和图标是否显示。
 
-```
+```md
 # Note tag (bs-callout).
 note:
   # Note tag style values:
@@ -438,89 +442,86 @@ note:
 
 写法
 
-```
 {% note default %}
-```
 
-#### default
+### default
 
 类型还有以下几种
+
 {% endnote %}
 {% note primary %}
 
-#### primary
+### primary
 
 内容
 {% endnote %}
 {% note success %}
 
-#### success
+### success
 
 内容
 {% endnote %}
 {% note info %}
 
-#### info
+### info
 
 内容
 {% endnote %}
 {% note warning %}
 
-#### warning
+### warning
 
 内容
 {% endnote %}
 {% note danger %}
 
-#### danger
+### danger
 
 内容
 {% endnote %}
 {% note %}
 
-#### 不填
+### 不填
 
 内容
 {% endnote %}
 {% note danger no-icon %}
 
-#### danger no-icon
+### danger no-icon
 
 内容
 {% endnote %}
 
-```
+## 引用（文本居中）
 
-### 引用（文本居中）
-
-```
-
+```md
 {% cq %}
 **there are test words**
 {% endcq %}
 
 ```
 
-### [Font Awesome 图标](https://www.runoob.com/font-awesome/fontawesome-tutorial.html)
+## [Font Awesome 图标](https://www.runoob.com/font-awesome/fontawesome-tutorial.html)
+
 > Font Awesome 是一套绝佳的图标字体库和 CSS 框架。
 > Font Awesome 字体为您提供可缩放矢量图标，它可以被定制大小、颜色、阴影以及任何可以用 CSS 的样式。
 > 要使用 Font Awesome 图标，请在 HTML 页面的 部分中添加以下行：
 
-#### 1、国内推荐 CDN
+### 1、国内推荐 CDN
 
-```
-
+```md
 <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css">
 ```
-#### 2、海外推荐 CDN
 
-```
+### 2、海外推荐 CDN
+
+```md
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 ```
 
 next 已经引用了，可以直接用，比如：
 
-```
+```html
 <i class="fa fa-car"></i>
 <i class="fa fa-car" style="font-size:48px;"></i>
 <i class="fa fa-car" style="font-size:60px;color:red;"></i>
@@ -535,7 +536,7 @@ next 已经引用了，可以直接用，比如：
 
 动态图标
 
-```
+```html
 <i class="fa fa-spinner fa-spin"></i>
 <i class="fa fa-circle-o-notch fa-spin"></i>
 <i class="fa fa-refresh fa-spin"></i>
@@ -545,7 +546,7 @@ next 已经引用了，可以直接用，比如：
 
 <i class="fa fa-spinner fa-spin"></i> <i class="fa fa-circle-o-notch fa-spin"></i> <i class="fa fa-refresh fa-spin"></i> <i class="fa fa-cog fa-spin"></i> <i class="fa fa-spinner fa-pulse"></i>
 
-### 代码块等
+## 代码块等
 
 ```cpp 三个点后面的参数 https://lruihao.cn lruihao.cn
 [language] [title] [url] [link text]
@@ -566,7 +567,7 @@ code snippet
 {% iframe url [width] [height] %}
 ```
 
-### Todo list
+## Todo list
 
 - <i class="fa fa-check-square"></i> 已完成
 - <i class="fa fa-square"></i> 未完成
@@ -583,24 +584,24 @@ code snippet
 - <i class="fa fa-square"></i> 未完成
 ```
 
-### Label
+## Label
 
 主题配置文件中打开
 
-```
+```md
 # Label tag.
 label: true
 ```
 
 `@`前面的是 label 的名字，后面的是要显示的文字
 
-```
+```md
 {% label default@default %}
 
 primary success info warning danger
 ```
 
-### [其他](http://www.mykernel.cn/my-hexo-next-1.html)
+## [其他](http://www.mykernel.cn/my-hexo-next-1.html)
 
 > 包括小色块、左侧色条、右侧色条、上方色条、数字色块（需要自定义样式）
 

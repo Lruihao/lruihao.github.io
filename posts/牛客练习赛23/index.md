@@ -42,9 +42,8 @@ int main(){
             cout<<" "<<c[i];
         cout<<endl;
     }
-	return 0;
+    return 0;
 }
-
 ```
 
 ## b
@@ -69,9 +68,8 @@ int main(){
             sum+=i-1;
         cout<<sum<<endl;
     }
-	return 0;
+    return 0;
 }
-
 ```
 
 

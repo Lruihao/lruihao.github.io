@@ -65,12 +65,14 @@ jobs:
 ### 配置 Github Pages 密鑰
 
 1. 為了讓 Lruihao/hugo-blog 提交代碼后自動部署到 Lruihao/lruihao.github.io, 需要生成一對 ssh key.
+
    ```bash
    ssh-keygen -t rsa -b 4096 -C "$(git config user.email)" -f gh-pages -N ""
    # You will get 2 files:
    # gh-pages.pub (public key)
    # gh-pages     (private key)
    ```
+
 2. 打開 Lruihao/hugo-blog 倉庫的 settings, 再点击 Secrets, 然後添加 private key, name 为 `GP_DEPLOY_KEY`
 3. 打開 Lruihao/lruihao.github.io, 点击 Deploy keys, 添加 public key, name 隨意，`Allow write access` 一定要勾上，否則無法提交
 

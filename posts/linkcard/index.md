@@ -41,9 +41,11 @@ window.onload = () => {
 
 html 链接写法，a 标签加上`class="card-link"`
 
-```
+```html
 <a href="https://github.com/Lruihao/lruihao.github.io" target="_blank" class="card-link">Lruihao 博客</a>
 ```
+
+<!-- markdownlint-disable MD034 -->
 
 {{< link href="https://github.com/Lruihao/lruihao.github.io" content="Lruihao 博客" card=true >}}
 

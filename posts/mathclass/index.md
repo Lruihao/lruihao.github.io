@@ -15,24 +15,24 @@
 
 ```java
 class MathDemo {
-	public static void main(String[] args) {
-		//获取随机数
-		//double d = Math.random();
-		//System.out.println(d);
+  public static void main(String[] args) {
+    //获取随机数
+    //double d = Math.random();
+    //System.out.println(d);
 
-		/*
-		for(int x=0; x<10; x++) {
-			//System.out.println(Math.random());
-			System.out.println(Math.random()*100);
-		}
-		*/
+    /*
+    for(int x=0; x<10; x++) {
+      //System.out.println(Math.random());
+      System.out.println(Math.random()*100);
+    }
+    */
 
-		//我们如何获取 1-100 之间的随机数呢？
-		for(int x=0; x<100; x++) {
-			int number = (int)(Math.random()*100)+1;
-			System.out.println(number);
-		}
-	}
+    //我们如何获取 1-100 之间的随机数呢？
+    for(int x=0; x<100; x++) {
+      int number = (int)(Math.random()*100)+1;
+      System.out.println(number);
+    }
+  }
 }
 ```
 
@@ -47,80 +47,80 @@ package caishuzi;
 import java.util.Scanner;
 
 class Num {
-	private int[] a= {0,0,0,0};
+  private int[] a= {0,0,0,0};
 
-	public Num() {}
+  public Num() {}
 
-	public void setx() {
-		/*for(int i=0;i<4;i++) {
-			a[i]=(int)(Math.random()*10);
-		}*/
-		//为了四个互不相同的随机数
-		a[0]=(int)Math.random()*10+1;
-		for(int i=1;i<4;i++) {
-			int t=(int)(Math.random()*10);
-			for(int j=0;j<i;j++) {
-				if(t==a[j]) {
-					t=(int)(Math.random()*10);
-					j=0;
-				}
-			}
-			a[i]=t;
-		}
-	}
-	public int[] getx() {
-		return a;
-	}
-	public void show() {
-		System.out.println();
-		for(int i=0;i<4;i++)
-			System.out.print(a[i]+" ");
-		System.out.println();
-	}
+  public void setx() {
+    /*for(int i=0;i<4;i++) {
+      a[i]=(int)(Math.random()*10);
+    }*/
+    //为了四个互不相同的随机数
+    a[0]=(int)Math.random()*10+1;
+    for(int i=1;i<4;i++) {
+      int t=(int)(Math.random()*10);
+      for(int j=0;j<i;j++) {
+        if(t==a[j]) {
+          t=(int)(Math.random()*10);
+          j=0;
+        }
+      }
+      a[i]=t;
+    }
+  }
+  public int[] getx() {
+    return a;
+  }
+  public void show() {
+    System.out.println();
+    for(int i=0;i<4;i++)
+      System.out.print(a[i]+" ");
+    System.out.println();
+  }
 
 }
 
 public class caishuzi {
 
-	public static void main(String agrs[]) {
-		int a[] = {0,0,0,0},b[] = {0,0,0,0};
-		System.out.println("* * * *\n 请输入 4 个数字！A 表示位置数字都正确，B 表示数字正确位置错误。");
-		Scanner sc=new Scanner(System.in);
-		Num n=new Num();
-		n.setx();
-		a=n.getx();
-		/*for(int i=0;i<4;i++)
-			System.out.print(a[i]+" ");
-		n.show();*/
-		for(int k=0;k<10;k++) {//猜测次数
-			int A=0,B=0,C=0;
-			for(int i=0;i<4;i++) {
-				b[i]=sc.nextInt();
-			}
-			sc.close();
-			for(int i=0;i<4;i++){
-				if (b[i]==a[i])A++;
-				for(int j=0;j<4;j++){
-					C=b[i]==a[j]?++C:C;//C 表示猜测数内和随机数中 A 类和 B 类数的数目
-					if (b[i]==a[j])break;
-				}
-			}
-			B=C-A;// 关键算法（感叹数学魅力）
-			if(A==4) {
-				System.out.println("恭喜猜对啦！");
-			}else {
-				System.out.println(A+"A"+B+"B");
-			}
-		}
+  public static void main(String agrs[]) {
+    int a[] = {0,0,0,0},b[] = {0,0,0,0};
+    System.out.println("* * * *\n 请输入 4 个数字！A 表示位置数字都正确，B 表示数字正确位置错误。");
+    Scanner sc=new Scanner(System.in);
+    Num n=new Num();
+    n.setx();
+    a=n.getx();
+    /*for(int i=0;i<4;i++)
+      System.out.print(a[i]+" ");
+    n.show();*/
+    for(int k=0;k<10;k++) {//猜测次数
+      int A=0,B=0,C=0;
+      for(int i=0;i<4;i++) {
+        b[i]=sc.nextInt();
+      }
+      sc.close();
+      for(int i=0;i<4;i++){
+        if (b[i]==a[i])A++;
+        for(int j=0;j<4;j++){
+          C=b[i]==a[j]?++C:C;//C 表示猜测数内和随机数中 A 类和 B 类数的数目
+          if (b[i]==a[j])break;
+        }
+      }
+      B=C-A;// 关键算法（感叹数学魅力）
+      if(A==4) {
+        System.out.println("恭喜猜对啦！");
+      }else {
+        System.out.println(A+"A"+B+"B");
+      }
+    }
 
-	}
+  }
 
 }
 ```
 
 ### 一次游戏过程
 
-```
+```plain
 * * * *
 请输入 4 个数字！A 表示位置数字都正确，B 表示数字正确位置错误。
 0 1 2 3

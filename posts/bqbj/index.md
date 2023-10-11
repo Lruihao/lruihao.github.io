@@ -33,7 +33,7 @@ int main(){
             printf("chick number:%d\n",z);
         }
     }
-	return 0;
+    return 0;
 }
 ```
 

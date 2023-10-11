@@ -1,6 +1,8 @@
 # 英语语法--主谓一致
 
 
+<!-- markdownlint-disable MD033 -->
+
 ## 常见情况
 
 ### 由 and 或 both and 连接的并列主语，谓语动词一般用复数
@@ -136,6 +138,8 @@ The Olympices is hold every four years. == The Olympic games are hold every four
 
 > family,class,group,team,army,public,crew,population
 
+<!-- markdownlint-disable MD033 -->
+
 1. The innovation experiment（革新实验） class consists of 24 students and enjoy chinese.
 2. Population in China is 1.4 billion <u>or so</u>(about) 20% (Population) have no access to clean water.
 
@@ -148,7 +152,7 @@ Many deer live on the African grassland.
 1. Among the crow stand his parents.
 2. On the wall hangs an alarm clock.
 
-## "of": of 表所属时，中心词在 of 之前，谓语动词由中心词决定，特例除外。
+## "of": of 表所属时，中心词在 of 之前，谓语动词由中心词决定，特例除外
 
 
 ---

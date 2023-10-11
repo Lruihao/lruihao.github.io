@@ -1,4 +1,416 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Memo - 分类 - 菠菜眾長</title><link>https://lruihao.cn/categories/memo/</link><description>Memo - 分类 - 菠菜眾長</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><copyright>本站内容采用知识共享署名-非商业性使用 4.0（CC BY-NC 4.0）国际许可协议。</copyright><lastBuildDate>Tue, 26 Sep 2023 15:17:52 +0800</lastBuildDate><atom:link href="https://lruihao.cn/categories/memo/" rel="self" type="application/rss+xml"/><item><title>写作技巧：如何搭建文章的框架结构？</title><link>https://lruihao.cn/posts/article-structure/</link><pubDate>Tue, 26 Sep 2023 15:17:52 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/article-structure/</guid><description><![CDATA[<p>最近读了张鑫旭大佬的掘金小册《技术写作指南》，学到了很多写作技巧，其中感触最深的就是“技巧：如何搭建文章的框架结构”这一小节，这篇文章就来分享一下。</p>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Memo - 分类 - 菠菜眾長</title><link>https://lruihao.cn/categories/memo/</link><description>Memo - 分类 - 菠菜眾長</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><copyright>本站内容采用知识共享署名-非商业性使用 4.0（CC BY-NC 4.0）国际许可协议。</copyright><lastBuildDate>Wed, 11 Oct 2023 14:26:48 +0800</lastBuildDate><atom:link href="https://lruihao.cn/categories/memo/" rel="self" type="application/rss+xml"/><item><title>给博客类项目添加 markdownlint 语法检查</title><link>https://lruihao.cn/posts/markdownlint/</link><pubDate>Wed, 11 Oct 2023 14:26:48 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/markdownlint/</guid><description><![CDATA[<p><a href="https://github.com/DavidAnson/markdownlint"target="_blank" rel="external nofollow noopener noreferrer">markdownlint<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 是一个 Markdown 语法检查工具，它可以检查 Markdown 文件中的语法错误，以及一些不规范的写法。</p>
+<h2 id="markdownlint-cli-历史">markdownlint cli 历史</h2>
+<p>根据 markdownlint 作者 <a href="https://github.com/DavidAnson"target="_blank" rel="external nofollow noopener noreferrer">David Anson<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 博客<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>得知，大概在 2015 年左右 <a href="https://github.com/igorshubovych"target="_blank" rel="external nofollow noopener noreferrer">Igor Shubovych<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 和他探讨了开发 CLI 工具的想法，当时作者还没做好准备，于是 Igor 独自开发了 <a href="https://github.com/igorshubovych/markdownlint-cli"target="_blank" rel="external nofollow noopener noreferrer">markdownlint-cli<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 这个 CLI 工具，然后经过两年的发展有了越来越多的人开始使用 markdownlint-cli，于是 David 开始给 markdownlint-cli 项目贡献代码添加新功能，并在之后三年里成为了主要的维护人员，直到2020年，David 觉得在别人的项目中，很多事情不太好改变（可能向后兼容的问题），于是他自己重新建立了一个名叫 <a href="https://github.com/DavidAnson/markdownlint-cli2"target="_blank" rel="external nofollow noopener noreferrer">markdownlint-cli2<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 的项目，在 markdownlint-cli 的优秀之上又做了新的改进，使其拥有更快的执行速度、更灵活的配置、更少的依赖等优点。</p>
+<p>目前两个工具都依然随着 markdownlint 的更新而更新，个人觉得旧项目如果使用的 markdownlint-cli 则无需更改以避免出现未知的问题，新引入的项目，可以考虑使用更强大的 markdownlint-cli2。</p>
+<h2 id="示例">示例</h2>
+<p>本博客源码已引入 markdownlint-cli2，可下载本博客源码查看配置。</p>
+<a href="http://github.com/Lruihao/hugo-blog"target="_blank" rel="external nofollow noopener noreferrer" class="card-link"><span class="cl-backdrop" style="--cl-bg-url: url(/fixit.min.svg);"></span>
+    <span class="cl-content">
+      <span class="cl-text">
+        <span class="cl-title">Lruihao/hugo-blog</span>
+        <span class="cl-meta">
+          <svg class="cl-icon-link" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" width="16" height="16"><path d="M574 665.4c-3.1-3.1-8.2-3.1-11.3 0L446.5 781.6c-53.8 53.8-144.6 59.5-204 0-59.5-59.5-53.8-150.2 0-204l116.2-116.2c3.1-3.1 3.1-8.2 0-11.3l-39.8-39.8c-3.1-3.1-8.2-3.1-11.3 0L191.4 526.5c-84.6 84.6-84.6 221.5 0 306s221.5 84.6 306 0l116.2-116.2c3.1-3.1 3.1-8.2 0-11.3L574 665.4zM832.6 191.4c-84.6-84.6-221.5-84.6-306 0L410.3 307.6c-3.1 3.1-3.1 8.2 0 11.3l39.7 39.7c3.1 3.1 8.2 3.1 11.3 0l116.2-116.2c53.8-53.8 144.6-59.5 204 0 59.5 59.5 53.8 150.2 0 204L665.3 562.6c-3.1 3.1-3.1 8.2 0 11.3l39.8 39.8c3.1 3.1 8.2 3.1 11.3 0l116.2-116.2c84.5-84.6 84.5-221.5 0-306.1z" fill="#a9a9b3"></path><path d="M610.1 372.3c-3.1-3.1-8.2-3.1-11.3 0L372.3 598.7c-3.1 3.1-3.1 8.2 0 11.3l39.6 39.6c3.1 3.1 8.2 3.1 11.3 0l226.4-226.4c3.1-3.1 3.1-8.2 0-11.3l-39.5-39.6z" fill="#a9a9b3"></path></svg>
+          <span class="cl-url">http://github.com/Lruihao/hugo-blog</span>
+        </span>
+      </span><svg class="cl-icon-globe" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" width="64" height="64"><path d="M960 512c0 249.408-203.2 448-448 448-244.778667 0-448-198.592-448-448S262.592 64 512 64s448 198.592 448 448" fill="#2196F3"></path><path d="M507.52 718.08c0-8.96-4.48-13.44-13.44-17.92-26.88-8.96-53.76-8.96-76.16-31.381333-4.48-8.96-4.48-17.92-8.96-26.88-8.96-8.96-31.36-13.44-44.8-17.92h-89.6c-13.44-4.48-22.4-22.4-31.36-35.84 0-4.48 0-13.461333-8.96-13.461334-8.96-4.458667-17.92 4.501333-26.88 0-4.48-4.458667-4.48-8.96-4.48-13.418666 0-13.461333 8.96-26.901333 17.92-35.861334 13.44-8.96 26.88 4.48 40.32 4.48 4.48 0 4.48 0 8.96 4.48 13.44 4.48 17.92 22.4 17.92 35.861334v8.96c0 4.48 4.48 4.48 8.96 4.48 4.48-22.4 4.48-44.821333 8.96-67.2 0-26.88 26.88-53.781333 49.28-62.72 8.96-4.458667 13.44 4.501333 22.4 0 26.88-8.96 94.08-35.84 80.64-71.658667-8.96-31.381333-35.84-62.698667-71.68-58.24-8.96 4.501333-13.44 8.96-22.4 13.461333-13.44 8.96-40.32 35.84-53.76 35.84-22.4-4.48-22.4-35.84-17.92-49.301333 4.48-17.92 44.8-76.138667 71.68-67.178667l17.92 17.92c8.96 4.48 22.4 4.48 35.84 4.48 4.48 0 8.96 0 13.44-4.48 4.48-4.48 4.48-4.48 4.48-8.96 0-13.44-13.44-26.901333-22.4-35.861333s-22.4-17.92-35.84-22.378667c-44.8-13.461333-116.48 4.458667-152.32 35.84-35.84 31.36-62.72 85.12-80.64 129.92-8.96 26.88-17.92 62.698667-22.4 94.08-4.48 22.4-8.96 40.32 4.48 62.698667 13.44 26.88 40.32 53.781333 67.2 71.68 17.92 13.44 53.76 13.44 71.68 35.84 13.44 17.941333 8.96 40.32 8.96 62.72 0 26.88 17.92 49.28 26.88 71.658667 4.48 13.461333 8.96 31.381333 13.44 44.821333 0 4.48 4.48 31.36 4.48 35.84 26.88 13.44 49.28 26.901333 80.64 35.861333 4.48 0 22.4-26.901333 22.4-31.381333 13.44-13.44 22.4-31.36 35.84-40.32 8.96-4.48 17.92-8.96 26.88-17.941333 8.96-8.96 13.44-26.88 17.92-40.32 4.48-8.938667 8.96-26.858667 4.48-40.298667M516.48 305.92c4.48 0 8.96-4.48 17.92-8.96 13.44-8.96 26.901333-22.4 40.32-31.36 13.461333-8.96 26.901333-22.4 35.861333-31.36 13.44-8.96 22.4-26.88 26.88-40.341333 4.48-8.96 17.941333-26.88 13.44-40.32-4.48-8.96-26.88-13.44-35.84-17.92C579.2 126.698667 547.84 122.24 512 122.24c-13.44 0-31.36 4.458667-35.84 17.92-4.48 22.4 13.44 17.92 31.36 22.4 0 0 4.48 35.84 4.48 40.32 4.48 22.421333-8.96 35.84-8.96 58.24 0 13.44 0 35.84 8.96 44.8h4.48zM892.8 619.52c4.501333-8.96 4.501333-22.4 8.96-31.36 4.501333-22.421333 4.501333-44.8 4.501333-67.2 0-44.8-4.501333-89.578667-17.92-129.92-8.96-13.44-13.461333-26.88-17.941333-40.341333-8.96-22.378667-22.4-44.8-40.32-62.698667-17.92-22.4-40.341333-85.12-80.64-67.2-13.44 4.501333-22.4 22.421333-31.36 31.381333l-26.88 40.32c-4.501333 4.48-8.96 13.44-4.501333 17.92 0 4.48 4.501333 4.48 8.96 4.48 8.96 4.501333 13.461333 4.501333 22.421333 8.96 4.48 0 8.96 4.501333 4.48 8.96 0 0 0 4.501333-4.48 4.501334-22.421333 22.4-44.8 40.32-67.2 62.698666-4.48 4.48-8.96 13.44-8.96 17.92s4.48 4.48 4.48 8.96c0 4.501333-4.48 4.501333-8.96 8.96-8.96 4.501333-17.92 8.96-22.4 13.461334-4.48 8.96 0 22.4-4.48 31.36-4.48 22.4-17.941333 40.32-26.901333 62.72-8.96 13.418667-13.418667 26.88-22.378667 40.32 0 17.92-4.501333 31.36 4.458667 44.8 22.421333 31.36 62.72 13.44 94.08 26.901333 8.96 4.458667 17.92 4.458667 22.421333 13.418667 13.418667 13.461333 13.418667 35.861333 17.92 49.301333 4.458667 17.92 8.96 35.84 17.92 53.76 4.48 22.421333 13.44 44.821333 17.92 62.72 40.341333-31.36 76.16-67.178667 103.04-112 26.88-31.424 40.341333-67.242667 53.76-103.104" fill="#CDDC39"></path></svg></span></a>
+<h2 id="安装-markdownlint-cli2">安装 markdownlint-cli2</h2>
+<p>vscode 中可以直接安装 <a href="https://marketplace.visualstudio.com/items?itemName=DavidAnson.vscode-markdownlint"target="_blank" rel="external nofollow noopener noreferrer">markdownlint 扩展<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>，本文主要讲在项目中如何安装使用。</p>
+<div class="highlight" id="id-1"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">npm install markdownlint-cli2 --save-dev</span></span></code></pre></td></tr></table>
+</div>
+</div><p>配置快捷命令</p>
+<div class="highlight" id="id-2"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;scripts&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;lint:md&#34;</span><span class="p">:</span> <span class="s2">&#34;markdownlint-cli2 \&#34;./content/**/*.md\&#34;&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;fix:md&#34;</span><span class="p">:</span> <span class="s2">&#34;npm run lint:md -- --fix&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>安装 <code>markdownlint-rule-search-replace</code> 插件<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup></p>
+<div class="highlight" id="id-3"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">npm install markdownlint-rule-search-replace --save-dev</span></span></code></pre></td></tr></table>
+</div>
+</div><p>在项目根目录下创建 <code>.markdownlint.jsonc</code> 文件，配置规则。</p>
+<div class="highlight" id="id-4"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span><span class="lnt">109
+</span><span class="lnt">110
+</span><span class="lnt">111
+</span><span class="lnt">112
+</span><span class="lnt">113
+</span><span class="lnt">114
+</span><span class="lnt">115
+</span><span class="lnt">116
+</span><span class="lnt">117
+</span><span class="lnt">118
+</span><span class="lnt">119
+</span><span class="lnt">120
+</span><span class="lnt">121
+</span><span class="lnt">122
+</span><span class="lnt">123
+</span><span class="lnt">124
+</span><span class="lnt">125
+</span><span class="lnt">126
+</span><span class="lnt">127
+</span><span class="lnt">128
+</span><span class="lnt">129
+</span><span class="lnt">130
+</span><span class="lnt">131
+</span><span class="lnt">132
+</span><span class="lnt">133
+</span><span class="lnt">134
+</span><span class="lnt">135
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="c1">// This file defines our configuration for Markdownlint. See
+</span></span></span><span class="line"><span class="cl"><span class="c1">// https://github.com/DavidAnson/markdownlint/blob/main/doc/Rules.md
+</span></span></span><span class="line"><span class="cl"><span class="c1">// for more details on each rule.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;default&#34;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;ul-style&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;style&#34;</span><span class="p">:</span> <span class="s2">&#34;dash&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;ul-indent&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;indent&#34;</span><span class="p">:</span> <span class="mi">2</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;no-hard-tabs&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;spaces_per_tab&#34;</span><span class="p">:</span> <span class="mi">2</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;line-length&#34;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;no-duplicate-header&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;allow_different_nesting&#34;</span><span class="p">:</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;single-title&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;front_matter_title&#34;</span><span class="p">:</span> <span class="s2">&#34;^\\s*title\\s*[:=]&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;no-trailing-punctuation&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;punctuation&#34;</span><span class="p">:</span> <span class="s2">&#34;.,;:&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// Consecutive Notes/Callouts currently don&#39;t conform with this rule
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nt">&#34;no-blanks-blockquote&#34;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// Force ordered numbering to catch accidental list ending from indenting
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nt">&#34;ol-prefix&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;style&#34;</span><span class="p">:</span> <span class="s2">&#34;ordered&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;no-inline-html&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;allowed_elements&#34;</span><span class="p">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;br&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;code&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;details&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;div&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;img&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;kbd&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;p&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;pre&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;sub&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;summary&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;sup&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;table&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;tbody&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;td&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;tfoot&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;th&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;thead&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;tr&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;ul&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;ol&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;var&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;ruby&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;rp&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;rt&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;i&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">]</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;no-bare-urls&#34;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// Produces too many false positives
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nt">&#34;fenced-code-language&#34;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;code-block-style&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;style&#34;</span><span class="p">:</span> <span class="s2">&#34;fenced&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;no-space-in-code&#34;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;emphasis-style&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;style&#34;</span><span class="p">:</span> <span class="s2">&#34;underscore&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;strong-style&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;style&#34;</span><span class="p">:</span> <span class="s2">&#34;asterisk&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// https://github.com/OnkarRuikar/markdownlint-rule-search-replace
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nt">&#34;search-replace&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;rules&#34;</span><span class="p">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">      <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;nbsp&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;message&#34;</span><span class="p">:</span> <span class="s2">&#34;Don&#39;t use no-break spaces&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;searchPattern&#34;</span><span class="p">:</span> <span class="s2">&#34;/ /g&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;replace&#34;</span><span class="p">:</span> <span class="s2">&#34; &#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;searchScope&#34;</span><span class="p">:</span> <span class="s2">&#34;all&#34;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">},</span>
+</span></span><span class="line"><span class="cl">      <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// zh-cn/zh-tw prefers double em-dash instead
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;em-dash&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;message&#34;</span><span class="p">:</span> <span class="s2">&#34;Don&#39;t use &#39;--&#39;. Use em-dash (—) instead&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;search&#34;</span><span class="p">:</span> <span class="s2">&#34; -- &#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;replace&#34;</span><span class="p">:</span> <span class="s2">&#34; — &#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;searchScope&#34;</span><span class="p">:</span> <span class="s2">&#34;text&#34;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">},</span>
+</span></span><span class="line"><span class="cl">      <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;trailing-spaces&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;message&#34;</span><span class="p">:</span> <span class="s2">&#34;Avoid trailing spaces&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;searchPattern&#34;</span><span class="p">:</span> <span class="s2">&#34;/  +$/gm&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;replace&#34;</span><span class="p">:</span> <span class="s2">&#34;&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;searchScope&#34;</span><span class="p">:</span> <span class="s2">&#34;all&#34;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">},</span>
+</span></span><span class="line"><span class="cl">      <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;double-spaces&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;message&#34;</span><span class="p">:</span> <span class="s2">&#34;Avoid double spaces&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;searchPattern&#34;</span><span class="p">:</span> <span class="s2">&#34;/([^\\s&gt;])  ([^\\s|])/g&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;replace&#34;</span><span class="p">:</span> <span class="s2">&#34;$1 $2&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;searchScope&#34;</span><span class="p">:</span> <span class="s2">&#34;text&#34;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">},</span>
+</span></span><span class="line"><span class="cl">      <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;stuck-definition&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;message&#34;</span><span class="p">:</span> <span class="s2">&#34;Character is stuck to definition description marker&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;searchPattern&#34;</span><span class="p">:</span> <span class="s2">&#34;/- :(\\w)/g&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;replace&#34;</span><span class="p">:</span> <span class="s2">&#34;- : $1&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;searchScope&#34;</span><span class="p">:</span> <span class="s2">&#34;text&#34;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">},</span>
+</span></span><span class="line"><span class="cl">      <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;localhost-links&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;message&#34;</span><span class="p">:</span> <span class="s2">&#34;Don&#39;t use localhost for links&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;searchPattern&#34;</span><span class="p">:</span> <span class="s2">&#34;/\\]\\(https?:\\/\\/localhost:\\d+\\//g&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;replace&#34;</span><span class="p">:</span> <span class="s2">&#34;](/&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;searchScope&#34;</span><span class="p">:</span> <span class="s2">&#34;text&#34;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">},</span>
+</span></span><span class="line"><span class="cl">      <span class="c1">// zh-cn prefers rules
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;double-em-dash&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;message&#34;</span><span class="p">:</span> <span class="s2">&#34;Don&#39;t use &#39;--&#39;. Use double em-dash (——) instead&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;search&#34;</span><span class="p">:</span> <span class="s2">&#34; -- &#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;replace&#34;</span><span class="p">:</span> <span class="s2">&#34;——&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;searchScope&#34;</span><span class="p">:</span> <span class="s2">&#34;text&#34;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">},</span>
+</span></span><span class="line"><span class="cl">      <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;force-pronoun&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;message&#34;</span><span class="p">:</span> <span class="s2">&#34;Consider using &#39;你&#39; instead of &#39;您&#39;&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;searchPattern&#34;</span><span class="p">:</span> <span class="s2">&#34;/您/g&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;searchScope&#34;</span><span class="p">:</span> <span class="s2">&#34;text&#34;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">]</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>在项目根目录下再创建 <code>.markdownlint-cli2.jsonc</code> 文件，配置规则。</p>
+<div class="highlight" id="id-5"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;config&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;extends&#34;</span><span class="p">:</span> <span class="s2">&#34;./.markdownlint.jsonc&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;customRules&#34;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&#34;markdownlint-rule-search-replace&#34;</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;ignores&#34;</span><span class="p">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;node_modules&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;.git&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;.github&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;**/conflicting/**&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;**/orphaned/**&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="安装-lint-staged">安装 lint-staged</h2>
+<div class="highlight" id="id-6"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">npm install lint-staged --save-dev</span></span></code></pre></td></tr></table>
+</div>
+</div><p>配置 <code>.lintstagedrc.json</code></p>
+<div class="highlight" id="id-7"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;./content/**/*.md&#34;</span><span class="p">:</span> <span class="s2">&#34;markdownlint-cli2 --fix&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="安装-husky">安装 husky</h2>
+<div class="highlight" id="id-8"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">npx husky-init <span class="o">&amp;&amp;</span> npm install</span></span></code></pre></td></tr></table>
+</div>
+</div><p>配置 <code>.husky/pre-commit</code></p>
+<div class="highlight" id="id-9"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="cp">#!/usr/bin/env sh
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>. <span class="s2">&#34;</span><span class="k">$(</span>dirname -- <span class="s2">&#34;</span><span class="nv">$0</span><span class="s2">&#34;</span><span class="k">)</span><span class="s2">/_/husky.sh&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">npx lint-staged</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这样每次提交代码时，就会自动检查并修复 content 目录下的所有 markdown 文件中的语法错误。</p>
+<!-- footnote reference definition -->
+<div class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1">
+<p><a href="https://dlaa.me/blog/post/markdownlintcli2"target="_blank" rel="external nofollow noopener noreferrer">If one is good, two must be better [markdownlint-cli2 is a new kind of command-line interface for markdownlint]<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:2">
+<p><a href="https://github.com/OnkarRuikar/markdownlint-rule-search-replace"target="_blank" rel="external nofollow noopener noreferrer">markdownlint-rule-search-replace<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 用于搜索和替换模式的自定义 markdownlint 规则&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</div>]]></description></item><item><title>写作技巧：如何搭建文章的框架结构？</title><link>https://lruihao.cn/posts/article-structure/</link><pubDate>Tue, 26 Sep 2023 15:17:52 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/article-structure/</guid><description><![CDATA[<p>最近读了张鑫旭大佬的掘金小册《技术写作指南》，学到了很多写作技巧，其中感触最深的就是“技巧：如何搭建文章的框架结构”这一小节，这篇文章就来分享一下。</p>
 <h2 id="方法论的作用">方法论的作用</h2>
 <p>所谓方法论，通俗点讲就是套路，虽然限制了天才的火花，但是保证了合格的下限。</p>
 <p>这个不难理解，拿武侠举例，每个门派都有剑招或者拳法，招式都是固定的，这个固定的招式就可以看成是方法论，而武功的最高境界是无招胜有招，讲求见招拆招，是不希望有固定的套路的。</p>
@@ -1045,7 +1457,8 @@ push 和 pull 命令时由于编码方式的不同会产生错误，因此需要
 <li>Github (collection, backup), Blog (summarize)</li>
 </ul>
 </li>
-</ul>]]></description></item><item><title>Sublime 剪贴板图片粘贴插件 —— Markdown 必备</title><link>https://lruihao.cn/posts/subl_imgpaste2/</link><pubDate>Tue, 05 Oct 2021 21:54:06 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/subl_imgpaste2/</guid><description><![CDATA[<a href="https://github.com/robinchenyu/imagepaste" title="插件地址"target="_blank" rel="external nofollow noopener noreferrer" class="card-link"><span class="cl-backdrop" style="--cl-bg-url: url(/fixit.min.svg);"></span>
+</ul>]]></description></item><item><title>Sublime 剪贴板图片粘贴插件 —— Markdown 必备</title><link>https://lruihao.cn/posts/subl_imgpaste2/</link><pubDate>Tue, 05 Oct 2021 21:54:06 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/subl_imgpaste2/</guid><description><![CDATA[<!-- markdownlint-disable MD034 -->
+<a href="https://github.com/robinchenyu/imagepaste" title="插件地址"target="_blank" rel="external nofollow noopener noreferrer" class="card-link"><span class="cl-backdrop" style="--cl-bg-url: url(/fixit.min.svg);"></span>
     <span class="cl-content">
       <span class="cl-text">
         <span class="cl-title">插件地址</span>
@@ -1063,8 +1476,11 @@ push 和 pull 命令时由于编码方式的不同会产生错误，因此需要
 </ul>
 <h2 id="食用说明">食用说明</h2>
 <ol>
-<li>首先下载 zip 到本地，放到 sublime 安装目录的 <code>xxx\sublime\Data\Packages</code> 中，注意不是 <code>xxx\sublime\Packages</code> 下哦。</li>
-<li>记得要把 subl_imgpaste2-master 的 <code>-master</code> 删除掉。接着重新打开 sublime, 选择 <code>Preferences-&gt;Package Settings-&gt;ImaPaste2-&gt;settings-Default</code> 输入如下内容：
+<li>
+<p>首先下载 zip 到本地，放到 sublime 安装目录的 <code>xxx\sublime\Data\Packages</code> 中，注意不是 <code>xxx\sublime\Packages</code> 下哦。</p>
+</li>
+<li>
+<p>记得要把 subl_imgpaste2-master 的 <code>-master</code> 删除掉。接着重新打开 sublime, 选择 <code>Preferences-&gt;Package Settings-&gt;ImaPaste2-&gt;settings-Default</code> 输入如下内容：</p>
 <div class="highlight" id="id-1"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -1074,16 +1490,18 @@ push 和 pull 命令时由于编码方式的不同会产生错误，因此需要
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">{
-</span></span><span class="line"><span class="cl">  &#34;caption&#34;: &#34;ImagePaste: Paste Image From Clipboard&#34;,
-</span></span><span class="line"><span class="cl">  &#34;command&#34;: &#34;image_paste&#34;,
-</span></span><span class="line"><span class="cl">  &#34;image_dir_name&#34;: &#34;images/&#34; # 图片保存目录
-</span></span><span class="line"><span class="cl">}</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;caption&#34;</span><span class="p">:</span> <span class="s2">&#34;ImagePaste: Paste Image From Clipboard&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;command&#34;</span><span class="p">:</span> <span class="s2">&#34;image_paste&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;image_dir_name&#34;</span><span class="p">:</span> <span class="s2">&#34;images/&#34;</span> <span class="err">#</span> <span class="err">图片保存目录</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
 </div></li>
-<li>然后就可以愉快的使用截图，然后在 sublime 里使用 <code>ctrl+shift+v</code> 粘贴 Markdown 格式的图片。默认会自动根据 md 文件名在同级目录下新建文件夹，图片就默认保存在那。如图：<br>
-<figure><a class="lightgallery" href="https://github.com/robinchenyu/imagepaste/raw/master/gif/imagepaste.gif" data-thumbnail="https://github.com/robinchenyu/imagepaste/raw/master/gif/imagepaste.gif" data-sub-html="<h2>https://github.com/robinchenyu/imagepaste/raw/master/gif/imagepaste.gif</h2><p>演示</p>"></a><figcaption class="image-caption"></figcaption>
-  </figure></li>
+<li>
+<p>然后就可以愉快的使用截图，然后在 sublime 里使用 <code>ctrl+shift+v</code> 粘贴 Markdown 格式的图片。默认会自动根据 md 文件名在同级目录下新建文件夹，图片就默认保存在那。如图：<br>
+<figure><a class="lightgallery" href="https://github.com/robinchenyu/imagepaste/raw/master/gif/imagepaste.gif" data-thumbnail="https://github.com/robinchenyu/imagepaste/raw/master/gif/imagepaste.gif" data-sub-html="<h2>演示</h2><p>使用演示</p>"></a><figcaption class="image-caption">演示</figcaption>
+  </figure></p>
+</li>
 </ol>
 <blockquote>
 <p>VScode 也有更好用的插件：Past Image</p>
@@ -1094,10 +1512,11 @@ push 和 pull 命令时由于编码方式的不同会产生错误，因此需要
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">&#34;pasteImage.defaultName&#34;: &#34;YY_X&#34;,
-</span></span><span class="line"><span class="cl">&#34;pasteImage.path&#34;: &#34;${currentFileDir}/images/&#34;</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="s2">&#34;pasteImage.defaultName&#34;</span><span class="err">:</span> <span class="s2">&#34;YY_X&#34;</span><span class="err">,</span>
+</span></span><span class="line"><span class="cl"><span class="s2">&#34;pasteImage.path&#34;</span><span class="err">:</span> <span class="s2">&#34;${currentFileDir}/images/&#34;</span></span></span></code></pre></td></tr></table>
 </div>
-</div>]]></description></item><item><title>Hugo 添加知乎卡片式链接 Shortcodes</title><link>https://lruihao.cn/posts/hugo-cardlink/</link><pubDate>Tue, 05 Oct 2021 19:33:13 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/hugo-cardlink/</guid><description><![CDATA[<a href="https://github.com/Lruihao/FixIt"target="_blank" rel="external nofollow noopener noreferrer" class="card-link"><span class="cl-backdrop" style="--cl-bg-url: url(/fixit.min.svg);"></span>
+</div>]]></description></item><item><title>Hugo 添加知乎卡片式链接 Shortcodes</title><link>https://lruihao.cn/posts/hugo-cardlink/</link><pubDate>Tue, 05 Oct 2021 19:33:13 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/hugo-cardlink/</guid><description><![CDATA[<!-- markdownlint-disable MD034 -->
+<a href="https://github.com/Lruihao/FixIt"target="_blank" rel="external nofollow noopener noreferrer" class="card-link"><span class="cl-backdrop" style="--cl-bg-url: url(/fixit.min.svg);"></span>
     <span class="cl-content">
       <span class="cl-text">
         <span class="cl-title">卡片式链接已整合到 FixIt 主题</span>
@@ -1126,12 +1545,13 @@ static/images/card-link-bg.jpg
 </code></pre>
 <h2 id="使用">使用</h2>
 <p>使用參數见 <a href="https://fixit.lruihao.cn/zh-cn/theme-documentation-extended-shortcodes/#2-link"target="_blank" rel="external nofollow noopener noreferrer">FixIt 擴展 Shortcodes - Link<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
+<!-- markdownlint-disable MD046 -->
 <div class="highlight" id="id-1"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-markdown" data-lang="markdown"><span class="line"><span class="cl">{{<span class="p">&lt;</span> <span class="nt">cardlink</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;https://github.com/Lruihao/hugo-blog/commit/089c303693e806bff855ecf3fee110baa62b870b&#34;</span> <span class="na">content</span><span class="o">=</span><span class="s">&#34;知乎卡片式链接 Git 記錄&#34;</span> <span class="p">&gt;</span>}}</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-md" data-lang="md"><span class="line"><span class="cl">{{<span class="p">&lt;</span> <span class="nt">cardlink</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;https://github.com/Lruihao/hugo-blog/commit/089c303693e806bff855ecf3fee110baa62b870b&#34;</span> <span class="na">content</span><span class="o">=</span><span class="s">&#34;知乎卡片式链接 Git 記錄&#34;</span> <span class="p">&gt;</span>}}</span></span></code></pre></td></tr></table>
 </div>
 </div><blockquote>
 <p>💡 注：FixIt <a href="https://github.com/hugo-fixit/FixIt/releases/tag/v0.2.12" rel="external nofollow noopener noreferrer" target="_blank"></a> 已合併 shortcode cardlink 到 shortcode link，只需添加 <code>card=true</code></p>
@@ -1141,7 +1561,7 @@ static/images/card-link-bg.jpg
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">{{&lt; link href=&#34;https://github.com/Lruihao/FixIt&#34; content=&#34;卡片式链接已整合到 FixIt 主题&#34; card=true &gt;}}</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-md" data-lang="md"><span class="line"><span class="cl">{{<span class="p">&lt;</span> <span class="nt">link</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;https://github.com/Lruihao/FixIt&#34;</span> <span class="na">content</span><span class="o">=</span><span class="s">&#34;卡片式链接已整合到 FixIt 主题&#34;</span> <span class="na">card</span><span class="o">=</span><span class="s">true</span> <span class="p">&gt;</span>}}</span></span></code></pre></td></tr></table>
 </div>
 </div><hr>
 <div class="details admonition info open">
@@ -1578,7 +1998,8 @@ static/images/card-link-bg.jpg
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-toml" data-lang="toml"><span class="line"><span class="cl"><span class="nx">defaultContentLanguage</span> <span class="p">=</span> <span class="s2">&#34;zh-tw&#34;</span></span></span></code></pre></td></tr></table>
 </div>
-</div>]]></description></item><item><title>Hugo 友情連結模板</title><link>https://lruihao.cn/posts/hugo-friends/</link><pubDate>Tue, 05 Oct 2021 14:14:10 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/hugo-friends/</guid><description><![CDATA[<div class="details admonition question open">
+</div>]]></description></item><item><title>Hugo 友情連結模板</title><link>https://lruihao.cn/posts/hugo-friends/</link><pubDate>Tue, 05 Oct 2021 14:14:10 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/hugo-friends/</guid><description><![CDATA[<!-- markdownlint-disable MD034 -->
+<div class="details admonition question open">
     <div class="details-summary admonition-title">
       <i class="icon fa-solid fa-question-circle fa-fw" aria-hidden="true"></i>過程<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i>
     </div>
@@ -1834,8 +2255,11 @@ static/images/card-link-bg.jpg
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">hugo new friends/index.md</span></span></code></pre></td></tr></table>
 </div>
 </div><ol>
-<li>將 <code>_friends.css</code> 放到 <code>content/friends/css/</code></li>
-<li>打開友鏈頁面 <code>content/friends/index.md</code>
+<li>
+<p>將 <code>_friends.css</code> 放到 <code>content/friends/css/</code></p>
+</li>
+<li>
+<p>打開友鏈頁面 <code>content/friends/index.md</code></p>
 <div class="highlight" id="id-4"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -2206,7 +2630,8 @@ static/images/card-link-bg.jpg
 </div>
 </div><h3 id="配置-github-pages-密鑰">配置 Github Pages 密鑰</h3>
 <ol>
-<li>為了讓 Lruihao/hugo-blog 提交代碼后自動部署到 Lruihao/lruihao.github.io, 需要生成一對 ssh key.
+<li>
+<p>為了讓 Lruihao/hugo-blog 提交代碼后自動部署到 Lruihao/lruihao.github.io, 需要生成一對 ssh key.</p>
 <div class="highlight" id="id-2"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -2221,8 +2646,12 @@ static/images/card-link-bg.jpg
 </span></span><span class="line"><span class="cl"><span class="c1"># gh-pages     (private key)</span></span></span></code></pre></td></tr></table>
 </div>
 </div></li>
-<li>打開 Lruihao/hugo-blog 倉庫的 settings, 再点击 Secrets, 然後添加 private key, name 为 <code>GP_DEPLOY_KEY</code></li>
-<li>打開 Lruihao/lruihao.github.io, 点击 Deploy keys, 添加 public key, name 隨意，<code>Allow write access</code> 一定要勾上，否則無法提交</li>
+<li>
+<p>打開 Lruihao/hugo-blog 倉庫的 settings, 再点击 Secrets, 然後添加 private key, name 为 <code>GP_DEPLOY_KEY</code></p>
+</li>
+<li>
+<p>打開 Lruihao/lruihao.github.io, 点击 Deploy keys, 添加 public key, name 隨意，<code>Allow write access</code> 一定要勾上，否則無法提交</p>
+</li>
 </ol>
 <h3 id="配置-cos-密鑰">配置 COS 密鑰</h3>
 <p>打開 Lruihao/hugo-blog 倉庫的 settings, 再点击 Secrets, 然後添加 COS 桶的 <code>secret_id</code> 和 <code>secret_key</code>:</p>
@@ -2276,6 +2705,7 @@ static/images/card-link-bg.jpg
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">hugo new site /path/to/site</span></span></code></pre></td></tr></table>
 </div>
 </div><p>站点目录结构：</p>
+<!-- markdownlint-disable MD046 -->
 <pre><code>▸ archetypes/    # 配置文章模板，相当于 hexo 的 scaffolds
 ▸ content/       # 文章页面内容，相当于 hexo 的 source
 ▸ data/          # 可存放一些 yaml, json, toml 格式的数据
@@ -2310,7 +2740,7 @@ static/images/card-link-bg.jpg
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">theme = &#34;FixIt&#34;</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-toml" data-lang="toml"><span class="line"><span class="cl"><span class="nx">theme</span> <span class="p">=</span> <span class="s2">&#34;FixIt&#34;</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="在本地启动网站">在本地启动网站</h3>
 <p>使用以下命令启动网站：</p>
@@ -2329,7 +2759,7 @@ static/images/card-link-bg.jpg
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">hugo --minify</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">hugo --minify</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="写作指北">写作指北</h2>
 <ul>
@@ -2339,6 +2769,7 @@ static/images/card-link-bg.jpg
 <li><a href="https://fixit.lruihao.cn/zh-cn/theme-documentation-extended-shortcodes/"target="_blank" rel="external nofollow noopener noreferrer">FixIt 主题文档 - 扩展 Shortcodes<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
 </ul>
 <h2 id="todo-list">Todo list</h2>
+<!-- markdownlint-disable MD034 -->
 <a href="https://github.com/Lruihao/hugo-blog"target="_blank" rel="external nofollow noopener noreferrer" class="card-link"><span class="cl-backdrop" style="--cl-bg-url: url(/fixit.min.svg);"></span>
     <span class="cl-content">
       <span class="cl-text">
@@ -2352,6 +2783,7 @@ static/images/card-link-bg.jpg
 <p>原来 hexo 做了大量的美化和扩展功能，迁移到 hugo 想尽可能多的保留。取之精华，去其糟粕。</p>
 </blockquote>
 <h3 id="base">Base</h3>
+<!-- markdownlint-disable MD033 -->
 <ul>
 <li>
 <p><i class="fa-regular fa-check-square fa-fw" aria-hidden="true"></i> 迁移 hexo 所有文章内容</p>
@@ -2415,7 +2847,7 @@ static/images/card-link-bg.jpg
 </ul>
 <hr>
 <p><a id="seo-ref"></a><code>[baidu_urls.txt]:</code><a href="#seo">↩︎</a></p>
-<p><em>生成百度链接集合小技巧，关掉归档分页，在归档页面控制台执行以下代码即可获得所有文章链接</em></p>
+<p>生成百度链接集合小技巧，关掉归档分页，在归档页面控制台执行以下代码即可获得所有文章链接</p>
 <div class="highlight" id="id-7"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -3353,7 +3785,7 @@ static/images/card-link-bg.jpg
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
-</span></span><span class="line"><span class="cl">	<span class="k">echo</span> <span class="s2">&#34;hello world&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">echo</span> <span class="s2">&#34;hello world&#34;</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="cp">?&gt;</span><span class="err">
 </span></span></span></code></pre></td></tr></table>
 </div>
@@ -3429,15 +3861,15 @@ static/images/card-link-bg.jpg
 </span><span class="lnt">15
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">...
+<pre tabindex="0" class="chroma"><code class="language-plain" data-lang="plain"><span class="line"><span class="cl">...
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">## For example:
 </span></span><span class="line"><span class="cl">#
 </span></span><span class="line"><span class="cl">## 102.54.94.97 rhino.acme.com ## source server
 </span></span><span class="line"><span class="cl">## 38.25.63.10 x.acme.com ## x client host
 </span></span><span class="line"><span class="cl">## localhost name resolution is handled within DNS itself.
-</span></span><span class="line"><span class="cl">#	127.0.0.1 localhost
-</span></span><span class="line"><span class="cl">#	::1 localhost
+</span></span><span class="line"><span class="cl">#  127.0.0.1 localhost
+</span></span><span class="line"><span class="cl">#  ::1 localhost
 </span></span><span class="line"><span class="cl">127.0.0.1 steamcommunity.com
 </span></span><span class="line"><span class="cl">192.168.28.1 windows10.microdone.cn
 </span></span><span class="line"><span class="cl">127.0.0.1 localhost
@@ -3448,9 +3880,9 @@ static/images/card-link-bg.jpg
 </div><h2 id="wampserver-自拟定端口">WAMPServer 自拟定端口</h2>
 <p>WAMP 服务我安装了好几次，每次因为修改配置文件搞崩了。第一次装的时候发现 80 端口被占用了，因为以前玩了一下 Windows 的 IIS，暂停 IIS 的网站，再使用命令或者直接在控制面板关掉就好了。</p>
 <ol>
-<li>如果不使用 80 多为默认端口，比如修改为 8080，还是在<code>httpd.conf</code>文件里修改。搜索<code>80</code>都改成<code>8080</code>然后，Ctrl+S 保存，重新启动 WampServer<br>
-在浏览器地址栏输入<code>localhost:8000</code></li>
-</ol>
+<li>
+<p>如果不使用 80 多为默认端口，比如修改为 8080，还是在<code>httpd.conf</code>文件里修改。搜索<code>80</code>都改成<code>8080</code>然后，Ctrl+S 保存，重新启动 WampServer<br>
+在浏览器地址栏输入<code>localhost:8000</code></p>
 <div class="highlight" id="id-4"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -3464,11 +3896,13 @@ static/images/card-link-bg.jpg
 </span></span><span class="line"><span class="cl">Listen [::0]:8080
 </span></span><span class="line"><span class="cl">ServerName localhost:8080</span></span></code></pre></td></tr></table>
 </div>
-</div><ol start="2">
-<li>使用 Notepad++打开 C:\wamp 目录下的 wampmanager.ini 和 wampmanager.tpl<br>
+</div></li>
+<li>
+<p>使用 Notepad++打开 C:\wamp 目录下的 wampmanager.ini 和 wampmanager.tpl<br>
 Ctrl+F 查找 <code>localhost</code><br>
 将其全部替换为<code>localhost:8000</code><br>
-然后，Ctrl+S 保存，重新启动 WampServer</li>
+然后，Ctrl+S 保存，重新启动 WampServer</p>
+</li>
 </ol>]]></description></item><item><title>HustOJ 基础搭建教程</title><link>https://lruihao.cn/posts/hustoj/</link><pubDate>Fri, 17 May 2019 23:08:04 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/hustoj/</guid><description><![CDATA[<blockquote>
 <p>目前 HustOj 在 GitHUb 地址是：<a href="https://github.com/zhblue/hustoj"target="_blank" rel="external nofollow noopener noreferrer">https://github.com/zhblue/hustoj<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a><br>
 <strong>安装时注意 ubuntu 版本</strong>，没条件的可以在自己 ubuntu 上尝试，或者虚拟机上（关注公众号回复<code>ubuntu16.04</code>获取 iso 镜像文件），也可以在云实验室的云服务器上做做实验。<br>
@@ -3522,331 +3956,4 @@ Ctrl+F 查找 <code>localhost</code><br>
 </span></span><span class="line"><span class="cl">/etc/php5/fpm/php.ini 或 /etc/php7.0/fpm/php.ini
 </span></span><span class="line"><span class="cl">/etc/nginx/sites-enabled/default</span></span></code></pre></td></tr></table>
 </div>
-</div>]]></description></item><item><title>前端面试题 - HTML+CSS</title><link>https://lruihao.cn/posts/ms-html-css/</link><pubDate>Sat, 30 Mar 2019 22:58:39 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/ms-html-css/</guid><description><![CDATA[<blockquote>
-<p><a href="https://github.com/ltadpoles/web-document/tree/master/Other"target="_blank" rel="external nofollow noopener noreferrer">原文链接<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a><br>
-“卓越班”到了大三突然掀起一股毕业慌，一部分人投身于考研的热潮中，一部分人选择了培训机构学习技术。而我出于种种原因既不考研也不培训，选择自学 java 和 web 相关的知识，也希望因此能在以后谋得一份心仪的工作。</p>
-</blockquote>
-<p>如果文章中有出现纰漏、错误之处，还请看到的小伙伴多多指教，先行谢过</p>
-<h2 id="html">HTML</h2>
-<h3 id="1-doctype-作用html5-为什么只需要写-doctype-html">1. Doctype 作用，HTML5 为什么只需要写 <!DOCTYPE HTML></h3>
-<blockquote>
-<p>doctype 是一种标准通用标记语言的文档类型声明，目的是告诉标准通用标记语言解析器要使用什么样的文档类型定义（DTD）来解析文档。<code>&lt;!DOCTYPE&gt;</code>声明必须是 HTML 文档的第一行，位于 html 标签之前</p>
-</blockquote>
-<blockquote>
-<p>HTML5 不基于 SGML，所以不需要引用 DTD。在 HTML5 中<!DOCTYPE>只有一种</p>
-</blockquote>
-<blockquote>
-<p>SGML: 标准通用标记语言，是现时常用的超文本格式的最高层次标准</p>
-</blockquote>
-<h3 id="2-行内元素有哪些块级元素有哪些空-void-元素有那些">2. 行内元素有哪些，块级元素有哪些，空 (void) 元素有那些</h3>
-<p>行内元素：<code>a</code> <code>span</code> <code>i</code> <code>img</code> <code>input</code> <code>select</code> <code>b</code> 等</p>
-<p>块级元素：<code>div</code> <code>ul</code> <code>ol</code> <code>li</code> <code>h1~h6</code> <code>p</code> <code>table</code> 等</p>
-<p>空元素：<code>br</code> <code>hr</code> <code>link</code> 等</p>
-<h3 id="3-简述一下你对-html-语义化的理解">3. 简述一下你对 HTML 语义化的理解</h3>
-<p>简单来说，就是合适的标签做合适的事情，这样具有以下好处：</p>
-<ul>
-<li>有助于构架良好的 HTML 结构，有利于搜索引擎的建立索引、抓取，利于 SEO</li>
-<li>有利于不同设备的解析</li>
-<li>有利于构建清晰的机构，有利于团队的开发、维护</li>
-</ul>
-<h3 id="4-常见的浏览器内核有哪些介绍一下你对浏览器内核的理解h5">4. 常见的浏览器内核有哪些，介绍一下你对浏览器内核的理解</h5></h3>
-<blockquote>
-<p>Trident 内核：IE</p>
-</blockquote>
-<blockquote>
-<p>Gecko 内核：NETSCAPE6 及以上版本，火狐</p>
-</blockquote>
-<blockquote>
-<p>Presto 内核：Opera7 及以上。[Opera 内核原为：Presto，现为：Blink;]</p>
-</blockquote>
-<blockquote>
-<p>Webkit 内核：Safari，Chrome 等。[Chrome 的：Blink（WebKit 的分支）]</p>
-</blockquote>
-<p>浏览器内核又可以分成两部分：<strong>渲染引擎和 JS 引擎。</strong> 渲染引擎主要负责取得网页的内容、整理讯息、计算网页的显示方式等，JS 引擎则是解析 Javascript 语言，执行 javascript 语言来实现网页的动态效果。</p>
-<h3 id="5-html5-有哪些新特性">5. html5 有哪些新特性</h3>
-<ul>
-<li>语义化标签：<code>header</code> <code>footer</code> <code>nav</code> <code>section</code> <code>article</code> <code>aside</code> 等</li>
-<li>增强型表单：<code>date</code>（从一个日期选择器选择一个日期） <code>email</code>（包含 e-mail 地址的输入域） <code>number</code>（数值的输入域） <code>range</code>（一定范围内数字值的输入域） <code>search</code>（用于搜索域） <code>tel</code>（定义输入电话号码字段） 等</li>
-<li>视频和音频：<code>audio</code> <code>video</code></li>
-<li>Canvas 绘图 SVG 绘图</li>
-<li>地理定位：<code>Geolocation</code></li>
-<li>拖放 API：<code>drag</code></li>
-<li>web worker：是运行在后台的 JavaScript，独立于其他脚本，不会影响页面的性能</li>
-<li>web storage: <code>localStorage</code> <code>sessionStorage</code></li>
-<li>WebSocket: HTML5 开始提供的一种在单个 TCP 连接上进行全双工通讯的协议</li>
-</ul>
-<h3 id="6-描述一下-cookiesessionstorage-和-localstorage-的区别">6. 描述一下 cookie，sessionStorage 和 localStorage 的区别</h3>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">特性</th>
-<th style="text-align:left">Cookie</th>
-<th style="text-align:left">localStorage</th>
-<th style="text-align:left">sessionStorage</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">生命周期</td>
-<td style="text-align:left">可设置失效时间，没有设置的话，默认是关闭浏览器后失效</td>
-<td style="text-align:left">除非被手动清除，否则将会永久保存</td>
-<td style="text-align:left">仅在当前网页会话下有效，关闭页面或浏览器后就会被清除</td>
-</tr>
-<tr>
-<td style="text-align:left">存放数据大小</td>
-<td style="text-align:left">4KB 左右</td>
-<td style="text-align:left">可以保存 5MB 的信息</td>
-<td style="text-align:left">可以保存 5MB 的信息</td>
-</tr>
-<tr>
-<td style="text-align:left">http 请求</td>
-<td style="text-align:left">每次都会携带在 HTTP 头中，如果使用 cookie 保存过多数据会带来性能问题</td>
-<td style="text-align:left">仅在客户端（即浏览器）中保存，不参与和服务器的通信</td>
-<td style="text-align:left">仅在客户端（即浏览器）中保存，不参与和服务器的通信</td>
-</tr>
-</tbody>
-</table>
-<h3 id="7-如何实现浏览器内多个标签页之间的通信">7. 如何实现浏览器内多个标签页之间的通信</h3>
-<ul>
-<li>使用 localStorage: <code>localStorage.setItem(key,value)</code>、<code>localStorage.getItem(key)</code></li>
-<li>websocket 协议</li>
-<li>webworker</li>
-</ul>
-<p><a href="https://juejin.im/post/5acdba01f265da23826e5633"target="_blank" rel="external nofollow noopener noreferrer">多个标签页之间的通信<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
-<h3 id="8-html5-的离线存储怎么使用解释一下工作原理">8. HTML5 的离线存储怎么使用，解释一下工作原理</h3>
-<p><a href="https://segmentfault.com/a/1190000006984353"target="_blank" rel="external nofollow noopener noreferrer">HTML5 的离线存储<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
-<h3 id="9-src-与-href-的区别">9. src 与 href 的区别</h3>
-<p>区别：src 用于替代这个元素，而 href 用于建立这个标签与外部资源之间的关系</p>
-<p><code>&lt;link href=&quot;style.css&quot; rel=&quot;stylesheet&quot; /&gt;</code>浏览器加载到这里的时候，html 的渲染和解析不会暂停，css 文件的加载是同时进行的</p>
-<p><code>&lt;script src=&quot;script.js&quot;&gt;&lt;/script&gt;</code>当浏览器解析到这句代码时，页面的加载和解析都会暂停直到浏览器拿到并执行完这个 js 文件</p>
-<h3 id="10-表单提交中-get-和-post-方式的区别">10. 表单提交中 Get 和 Post 方式的区别</h3>
-<ul>
-<li>Get 一般用于从服务器上获取数据，Post 向服务器传送数据</li>
-<li>Get 传输的数据是拼接在 Url 之后的，对用户是可见的；Post 的传输数据对用户是不可见的</li>
-<li>Get 传送的数据量较小，不能大于 2KB。Post 传送的数据量较大，一般被默认为不受限制</li>
-<li>Get 安全性非常低，Post 安全性较高</li>
-<li>在 FORM 提交的时候，如果不指定 Method，则默认为 Get 请求</li>
-</ul>
-<h2 id="css">CSS</h2>
-<h3 id="1-css-盒子模型box-sizing-属性的理解">1. css 盒子模型，box-sizing 属性的理解</h3>
-<p>css 的盒模型由 content（内容）、padding（内边距）、border（边框）、margin（外边距）组成。但盒子的大小由 content+padding+border 这几部分决定</p>
-<p>box-sizing 是一个 CSS3 属性，与盒子模型有着密切联系。即决定元素的宽高如何计算，box-sizing 有三个属性：</p>
-<div class="highlight" id="id-1"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-css" data-lang="css"><span class="line"><span class="cl"><span class="nt">box-sizing</span><span class="o">:</span> <span class="nt">content-box</span><span class="o">|</span><span class="nt">border-box</span><span class="o">|</span><span class="nt">inherit</span><span class="o">:</span></span></span></code></pre></td></tr></table>
-</div>
-</div><ul>
-<li>content-box 使得元素的宽高即为内容区的宽高（默认模式）</li>
-<li>border-box: 计算方式 content + padding + border = 本身元素大小，即缩小了 content 大小</li>
-<li>inherit 指定 box-sizing 属性的值，应该从父元素继承</li>
-</ul>
-<h3 id="2-清除浮动什么时候需要清除浮动清除浮动都有哪些方法">2. 清除浮动，什么时候需要清除浮动，清除浮动都有哪些方法</h3>
-<p>浮动的元素是脱离文档标准流的，如果我们不清楚浮动，那么就会造成<strong>父元素高度塌陷</strong>，影响页面布局。</p>
-<p>清除浮动的方式：</p>
-<ul>
-<li>为父元素设置高度</li>
-<li>为父元素添加<code>overflow:hidden</code></li>
-<li>伪元素</li>
-</ul>
-<div class="highlight" id="id-2"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-css" data-lang="css"><span class="line"><span class="cl"><span class="p">.</span><span class="nc">fix</span><span class="p">::</span><span class="nd">after</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="k">content</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">  <span class="k">display</span><span class="p">:</span> <span class="kc">block</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">  <span class="k">clear</span><span class="p">:</span> <span class="kc">both</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
-</div>
-</div><p>使用伪元素的好处：不增加冗余的 DOM 节点，符合语义化</p>
-<blockquote>
-<p>overflow:hidden 可以触发 BFC 机制。BFC：块级格式化上下文，创建了 BFC 的元素就是一个独立的盒子，它规定了内部如何布局，并且与这个独立盒子里的布局不受外部影响，当然它也不会影响到外面的元素，<strong>计算 BFC 的高度时，浮动元素也参与计算</strong></p>
-</blockquote>
-<h3 id="3-如何让一个不定宽高的盒子水平垂直居中">3. 如何让一个不定宽高的盒子水平垂直居中</h3>
-<blockquote>
-<p>定位的方式</p>
-</blockquote>
-<div class="highlight" id="id-3"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-css" data-lang="css"><span class="line"><span class="cl"><span class="p">.</span><span class="nc">father</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="k">position</span><span class="p">:</span> <span class="kc">relative</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">.</span><span class="nc">son</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="k">position</span><span class="p">:</span> <span class="kc">absolute</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">  <span class="k">top</span><span class="p">:</span> <span class="mi">0</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">  <span class="k">right</span><span class="p">:</span> <span class="mi">0</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">  <span class="k">bottom</span><span class="p">:</span> <span class="mi">0</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">  <span class="k">left</span><span class="p">:</span> <span class="mi">0</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">  <span class="k">margin</span><span class="p">:</span> <span class="kc">auto</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
-</div>
-</div><blockquote>
-<p>css3 属性</p>
-</blockquote>
-<div class="highlight" id="id-4"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span><span class="lnt">8
-</span><span class="lnt">9
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-css" data-lang="css"><span class="line"><span class="cl"><span class="p">.</span><span class="nc">father</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="k">position</span><span class="p">:</span> <span class="kc">relative</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">.</span><span class="nc">son</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="k">position</span><span class="p">:</span> <span class="kc">absolute</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">  <span class="k">top</span><span class="p">:</span> <span class="mi">50</span><span class="kt">%</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">  <span class="k">left</span><span class="p">:</span> <span class="mi">50</span><span class="kt">%</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">  <span class="k">transform</span><span class="p">:</span> <span class="nb">translate</span><span class="p">(</span><span class="mi">-50</span><span class="kt">%</span><span class="p">,</span> <span class="mi">-50</span><span class="kt">%</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
-</div>
-</div><blockquote>
-<p>flex 布局</p>
-</blockquote>
-<div class="highlight" id="id-5"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-css" data-lang="css"><span class="line"><span class="cl"><span class="p">.</span><span class="nc">father</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="k">display</span><span class="p">:</span> <span class="kc">flex</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">  <span class="k">justify-content</span><span class="p">:</span> <span class="kc">center</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">  <span class="k">align-items</span><span class="p">:</span> <span class="kc">center</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
-</div>
-</div><h3 id="4-px-和-em-和-rem-的区别">4. px 和 em 和 rem 的区别</h3>
-<blockquote>
-<p><code>px</code>: 像素，相对长度单位。像素<code>px</code>是相对于显示器屏幕分辨率而言的</p>
-</blockquote>
-<blockquote>
-<p><code>em</code>的值并不是固定的，会继承父级元素的字体大小，代表倍数</p>
-</blockquote>
-<blockquote>
-<p><code>rem</code>的值并不是固定的，始终是基于根元素 <code>&lt;html&gt;</code> 的，也代表倍数</p>
-</blockquote>
-<h3 id="5-position-的值有哪些">5. position 的值有哪些</h3>
-<blockquote>
-<p>static： 默认值。没有定位，元素出现在正常的流中</p>
-</blockquote>
-<blockquote>
-<p>relative（相对定位）：生成相对定位的元素，相对于其正常（原先本身）位置进行定位</p>
-</blockquote>
-<blockquote>
-<p>absolute（绝对定位）：生成绝对定位的元素，相对于 static 定位以外的第一个父元素进行定位</p>
-</blockquote>
-<blockquote>
-<p>fixed（固定定位）：生成绝对定位的元素，相对于浏览器窗口进行定位</p>
-</blockquote>
-<h3 id="6-displaynone-与-visibilityhidden-的区别">6. display:none 与 visibility：hidden 的区别</h3>
-<table>
-<thead>
-<tr>
-<th>区别</th>
-<th>display:none</th>
-<th>visibility：hidden 的</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>是否占据空间</td>
-<td>不占据任何空间，在文档渲染时，该元素如同不存在（但依然存在文档对象模型树中）</td>
-<td>该元素空间依旧存在</td>
-</tr>
-<tr>
-<td>是否渲染</td>
-<td>会触发 reflow（回流），进行渲染</td>
-<td>只会触发 repaint（重绘），因为没有发现位置变化，不进行渲染</td>
-</tr>
-<tr>
-<td>是否是继承属性</td>
-<td>不是继承属性，元素及其子元素都会消失</td>
-<td>是继承属性，若子元素使用了 visibility:visible，则不继承，这个子孙元素又会显现出</td>
-</tr>
-</tbody>
-</table>
-<h3 id="7-css-中-link-和import-的区别">7. CSS 中 link 和@import 的区别</h3>
-<blockquote>
-<p>link 属于 XHTML 标签，@import 完全是 CSS 提供的一种方式，只能加载 CSS</p>
-</blockquote>
-<blockquote>
-<p>加载顺序的差别，当一个页面被加载的时候，link 引用的 CSS 会同时被加载，而@import 引用的 CSS 会等到页面全部被下载完再被加载</p>
-</blockquote>
-<blockquote>
-<p>兼容性的差别。由于@import 是 CSS2.1 提出的所以老的浏览器不支持，而 link 标签无此问题</p>
-</blockquote>
-<blockquote>
-<p>当使用 javascript 控制 dom 去改变样式的时候，只能使用 link 标签，因为@import 不是 dom 可以控制的</p>
-</blockquote>
-<h3 id="8-什么是响应式设计响应式设计的基本原理是什么">8. 什么是响应式设计，响应式设计的基本原理是什么</h3>
-<blockquote>
-<p>响应式网站设计是一个网站能够兼容多个终端，而不是为每一个终端做一个特定的版本。基本原理是通过媒体查询检测不同的设备屏幕尺寸做处理</p>
-</blockquote>
-<h3 id="9-为什么要初始化-css-样式">9. 为什么要初始化 CSS 样式</h3>
-<blockquote>
-<p>因为浏览器的兼容问题，不同浏览器对有些标签的默认值是不同的，如果没对 CSS 初始化往往会出现浏览器之间的页面显示差异</p>
-</blockquote>
-<blockquote>
-<p>初始化样式会对 SEO 有一定的影响</p>
-</blockquote>
-<h3 id="10-css3-有哪些新特性">10. CSS3 有哪些新特性</h3>
-<ul>
-<li>实现圆角<code>border-radius</code>，阴影<code>box-shadow</code>，边框图片<code>border-image</code></li>
-<li>对文字加特效<code>text-shadow</code>，强制文本换行<code>word-wrap</code>，线性渐变<code>linear-gradient</code></li>
-<li>实现旋转<code>transform:rotate(90deg)</code>, 缩放<code>scale(0.85,0.90)</code>,<code>translate(0px,-30px)</code>定位，倾斜<code>skew(-9deg,0deg)</code>;</li>
-<li>增加了更多的 CSS 选择器、多背景、<code>rgba()</code></li>
-<li>唯一引入的伪元素是<code>::selection</code>；</li>
-<li>实现媒体查询<code>@media</code>，多栏布局<code>flex</code></li>
-<li>过渡<code>transition</code> 动画<code>animation</code></li>
-</ul>
-<h3 id="11-before-和-after-中双冒号和单冒号有什么区别解释一下这-2-个伪元素的作用">11. ::before 和 :after 中双冒号和单冒号有什么区别？解释一下这 2 个伪元素的作用</h3>
-<blockquote>
-<p>单冒号 (:) 用于 CSS3 伪类，双冒号 (::) 用于 CSS3 伪元素。（伪元素由双冒号和伪元素名称组成）, 双冒号是在当前规范中引入的，用于区分伪类和伪元素</p>
-</blockquote>
-<h3 id="12-css-优化提高性能的方法有哪些">12. CSS 优化、提高性能的方法有哪些</h3>
-<ul>
-<li>移除空的 css 规则（Remove empty rules）</li>
-<li>正确使用 display 的属性</li>
-<li>不滥用浮动、web 字体</li>
-<li>不声明过多的 font-size</li>
-<li>不在选择符中使用 ID 标识符</li>
-<li>遵守盒模型规则</li>
-<li>尽量减少页面重排、重绘</li>
-<li>抽象提取公共样式，减少代码量</li>
-</ul>
-<h3 id="13-重绘和回流">13. 重绘和回流</h3>
-<p><a href="https://juejin.im/post/5a9923e9518825558251c96a"target="_blank" rel="external nofollow noopener noreferrer">重绘和回流<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
-<h3 id="14-flex-布局">14. flex 布局</h3>
-<p><a href="http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html"target="_blank" rel="external nofollow noopener noreferrer">flex 布局教程&ndash;阮一峰<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
-<h3 id="15-css-预处理器">15. css 预处理器</h3>
-<p>提供了一种 css 的书写方式，常见的就是 <a href="http://sass.bootcss.com/docs/sass-reference/"target="_blank" rel="external nofollow noopener noreferrer">SAAS 文档<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 和 <a href="https://less.bootcss.com/"target="_blank" rel="external nofollow noopener noreferrer">LESS 文档<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>]]></description></item></channel></rss>
+</div>]]></description></item></channel></rss>

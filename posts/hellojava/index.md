@@ -9,7 +9,7 @@
 
 <!--more-->
 
-![](images/2.png)
+![hello](images/2.png)
 
 ## 编写 java
 
@@ -17,15 +17,15 @@
 
 ```java
 public class HelloWorld{
-	public static void main(String[] args){
-		System.out.println("Hello World!");
-	}
+  public static void main(String[] args){
+    System.out.println("Hello World!");
+  }
 }
 ```
 
 ## 打开 cmd
 
-![](images/1.png)
+![cmd](images/1.png)
 
 
 ---

@@ -14,31 +14,31 @@ import java.awt.event.*;
 import javax.swing.*;
 
 public class QFrame extends JFrame {
-	public QFrame() {
-		JButton jbtnew=new JButton("New");//新建按钮
-		JPanel panel=new JPanel();//面板容器
-		panel.add(jbtnew);//添加组件
-		add(panel);
-		jbtnew.addActionListener(new ActionListener() {
-			//新建一匿名类，并将该对应的事件监听器注册到“新建”按钮 就 jbtnew 上
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(null, "单击了新建按钮");
-				System.out.println("lruihao.cn");
+  public QFrame() {
+    JButton jbtnew=new JButton("New");//新建按钮
+    JPanel panel=new JPanel();//面板容器
+    panel.add(jbtnew);//添加组件
+    add(panel);
+    jbtnew.addActionListener(new ActionListener() {
+      //新建一匿名类，并将该对应的事件监听器注册到“新建”按钮 就 jbtnew 上
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        JOptionPane.showMessageDialog(null, "单击了新建按钮");
+        System.out.println("lruihao.cn");
 
-			}
-		});
-	}
+      }
+    });
+  }
 
-	public static void main(String[] args) {
-		JFrame frame=new QFrame();
-		frame.setTitle("QFrame");
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setLocationRelativeTo(null);
-		frame.pack();
-		frame.setVisible(true);
+  public static void main(String[] args) {
+    JFrame frame=new QFrame();
+    frame.setTitle("QFrame");
+    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    frame.setLocationRelativeTo(null);
+    frame.pack();
+    frame.setVisible(true);
 
-	}
+  }
 
 }
 ```
@@ -47,7 +47,7 @@ public class QFrame extends JFrame {
 
 ## 结果
 
-![](images/1.png)
+![结果](images/1.png)
 
 ## 参考
 

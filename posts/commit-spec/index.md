@@ -1,6 +1,8 @@
 # Commit Message Spec
 
 
+<!-- markdownlint-disable MD033 -->
+
 Commit messages are short descriptions of changes to a repository. We should follow certain standards to effectively describe changes, such as the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0-beta.4/) specification based on the [Angular convention](https://github.com/angular/angular/blob/68a6a07/CONTRIBUTING.md#commit) that is most used on GitHub, or each development team can simplify and formulate their own commit specification. This is not only conducive to the automatic generation of Changelog in the later stage, but more importantly, when a bug occurs, the entire warehouse can be quickly checked, the problem point can be accurately located, and the version can be reverted.
 
 <!--more-->
@@ -11,12 +13,12 @@ Commit messages are short descriptions of changes to a repository. We should fol
 
 example:
 
-- :tada: Feat: add shortcode fixit-encryptor shortcode (#123)
-- :arrow_up: Chore(libs): update Artalk from 2.2.12 to 2.3.4 (#150)
+- : tada: Feat: add shortcode fixit-encryptor shortcode (#123)
+- : arrow_up: Chore(libs): update Artalk from 2.2.12 to 2.3.4 (#150)
 
 ## Emoji
 
-- https://gitmoji.dev
+- <https://gitmoji.dev>
 - [vscode plugin](https://github.com/maixiaojie/git-emoji-zh.git)
 - utools plugin `GitEmoji`
 

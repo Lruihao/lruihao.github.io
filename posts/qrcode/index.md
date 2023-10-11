@@ -3,16 +3,18 @@
 
 > **Python 二维码生成器**是 github 上@sylnsfar 开源的一个 python 生成二维码工具。有 python, 网页及 exe 版本，详见 [sylnsfar/qrcode](https://github.com/sylnsfar/qrcode/)，本文主要介绍记录一下 python 版本使用。exe 可以去 [项目开源地址](https://github.com/sylnsfar/qrcode_win) 下载，公众号文章后台回复关键词“qrcode”获取链接。
 
-可生成*普通二维码*、_带图片的艺术二维码（黑白与彩色）_、_动态二维码（黑白与彩色）_。
+可生成*普通二维码*、*带图片的艺术二维码（黑白与彩色）*、*动态二维码（黑白与彩色）*。
 
 <!--more-->
 
 ## 示例
 
+<!-- markdownlint-disable MD033 -->
+
 <div class="text-center">
 
-![](images/1.gif)
-![](images/2.png)
+![1](images/1.gif)
+![2](images/2.png)
 
 </div>
 
@@ -60,19 +62,19 @@ pip(3) install myqr(or MyQR)
 
 ### 命令行方式
 
-_（**提示**：如果你尚未安装 [**MyQR**](https://pypi.python.org/pypi/MyQR) ，以下内容请使用`python(3) myqr.py` 而非`myqr` 。）_
+*（**提示**：如果你尚未安装 [**MyQR**](https://pypi.python.org/pypi/MyQR) ，以下内容请使用`python(3) myqr.py` 而非`myqr` 。）*
 
 ```python
 # 概括
-myqr 	Words
-		[-v {1,2,3,...,40}]
-		[-l {L,M,Q,H}]
+myqr   Words
+    [-v {1,2,3,...,40}]
+    [-l {L,M,Q,H}]
         [-n output-filename]
-		[-d output-directory]
-		[-p picture_file]
-		[-c]
-		[-con contrast]
-		[-bri brightness]
+    [-d output-directory]
+    [-p picture_file]
+    [-c]
+    [-con contrast]
+    [-bri brightness]
 ```
 
 - 普通二维码 介绍了 `Words`, `-v`, `-l`, `-n`, `-d`
@@ -99,9 +101,9 @@ myqr https://github.com -v 10 -l Q
 
 - **自定义**：如果想要控制边长和纠错水平就使用 `-v` 和 `-l` 参数。
 
-  `-v` 控制边长，范围是** 1 至 40**，数字越大边长越大；
+  `-v` 控制边长，范围是**1 至 40**，数字越大边长越大；
 
-  `-l` 控制纠错水平，范围是** L、M、Q、H**，从左到右依次升高。
+  `-l` 控制纠错水平，范围是**L、M、Q、H**，从左到右依次升高。
 
 ```markdown
 #3 -n, -d
@@ -151,7 +153,7 @@ myqr https://github.com -p github.jpg [-c] -con 1.5 -bri 1.6
 # 安装模块后
 from MyQR import myqr
 version, level, qr_name = myqr.run(
-	words,
+  words,
     version=1,
     level='H',
     picture=None,
@@ -160,10 +162,10 @@ version, level, qr_name = myqr.run(
     brightness=1.0,
     save_name=None,
     save_dir=os.getcwd()
-	)
+  )
 ```
 
-_以下各个参数已经在**上文命令行方式**有所介绍_
+*以下各个参数已经在**上文命令行方式**有所介绍*
 
 ```python
 # help(myqr)

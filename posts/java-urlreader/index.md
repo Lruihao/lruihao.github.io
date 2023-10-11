@@ -17,39 +17,39 @@ import java.net.URLConnection;
 
 public class URLReader {
 
-	public static void main(String[] args) throws Exception{
-		try {
-			URL lrh=new URL("https://www.lruihao.cn");
-			File file=new File("C:\\Users\\李瑞豪、\Desktop\\lrh.html");
-			FileWriter fout=new FileWriter(file);
-			BufferedReader in =new BufferedReader(new InputStreamReader(lrh.openStream()));//字节流转化成字符流，再构建缓冲字符流
-			String inputLine;
-			while((inputLine=in.readLine())!=null) {
-				System.out.println(inputLine);
-				fout.write(inputLine);
-			}
-			in.close();
-			fout.close();
+  public static void main(String[] args) throws Exception{
+    try {
+      URL lrh=new URL("https://www.lruihao.cn");
+      File file=new File("C:\\Users\\李瑞豪、\Desktop\\lrh.html");
+      FileWriter fout=new FileWriter(file);
+      BufferedReader in =new BufferedReader(new InputStreamReader(lrh.openStream()));//字节流转化成字符流，再构建缓冲字符流
+      String inputLine;
+      while((inputLine=in.readLine())!=null) {
+        System.out.println(inputLine);
+        fout.write(inputLine);
+      }
+      in.close();
+      fout.close();
 
-			//获取响应 header 信息
-			URLConnection conn=lrh.openConnection();
-			conn.connect();
-			System.out.println("获取到的响应长度："+conn.getContentLength());
-			System.out.println("响应类型："+conn.getContentType());
+      //获取响应 header 信息
+      URLConnection conn=lrh.openConnection();
+      conn.connect();
+      System.out.println("获取到的响应长度："+conn.getContentLength());
+      System.out.println("响应类型："+conn.getContentType());
 
-			//用 BufferedReader 读取 URL 的响应
-			in =new BufferedReader(new InputStreamReader(conn.getInputStream()));
-			String line;
-			String result=null;
-			while((line=in.readLine())!=null) {
-				result+=line;
-			}
-			System.out.println(result);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+      //用 BufferedReader 读取 URL 的响应
+      in =new BufferedReader(new InputStreamReader(conn.getInputStream()));
+      String line;
+      String result=null;
+      while((line=in.readLine())!=null) {
+        result+=line;
+      }
+      System.out.println(result);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
 
-	}
+  }
 
 }
 ```

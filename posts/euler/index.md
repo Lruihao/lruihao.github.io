@@ -1,18 +1,18 @@
 # 欧拉函数
 
 
-### **_欧拉函数是求小于 x 并且和 x[互质](https://baike.baidu.com/item/%E4%BA%92%E8%B4%A8/577412?fr=aladdin) 的数的个数_**
+## **_欧拉函数是求小于 x 并且和 x[互质](https://baike.baidu.com/item/%E4%BA%92%E8%B4%A8/577412?fr=aladdin) 的数的个数_**
 
 通式：φ(x)=x(1-1/p1)(1-1/p2)(1-1/p3)(1-1/p4)…..(1-1/pn)  
 **其中 p1, p2……pn 为 x 的所有质因数，x 是不为 0 的整数**  
 φ(1)=1（唯一和 1 互质的数就是 1 本身）【注意：每种质因数只一个。比如 12=2*2*3】
 
-### 定理：
+## 定理
 
 1. 若 n 是素数 p 的 k 次幂，φ(n)=p^k-p^(k-1)=(p-1)p^(k-1)，因为除了 p 的倍数外，其他数都跟 n 互质 ![IMG_20180808_170807.jpg](https://i.loli.net/2018/08/08/5b6ab31239225.jpg)
 2. 欧拉函数是积性函数——若 m,n 互质，φ(mn)=φ(m)φ(n)
 
-### 特殊性质：
+## 特殊性质
 
 1. 当 n 为奇数时，φ(2n)=φ(n)
 2. p 是素数，φ(p) = p - 1，φ(p) 称为 p 的欧拉值
@@ -20,26 +20,26 @@
 
 <!--more-->
 
-### 模板
+## 模板
 
 //直接法
 
 ```cpp
 int Euler(int n){
-	int res = n,i;
+  int res = n,i;
 
- 	//由于任何一个合数都至少有一个不大于根号 n 的素因子，所以只要遍历到根号 n 即可
-	for(i=2;i * i <= n;i++)
-	if(n%i == 0){  //第一次找到的必为素因子
-		n /=i ;
-		res = res - res/i;	//x(1-1/p1)
-		while(n % i ==0)
-			n/=i;  //将该素因子的倍数也全部筛掉
-	}
+   //由于任何一个合数都至少有一个不大于根号 n 的素因子，所以只要遍历到根号 n 即可
+  for(i=2;i * i <= n;i++)
+  if(n%i == 0){  //第一次找到的必为素因子
+    n /=i ;
+    res = res - res/i;  //x(1-1/p1)
+    while(n % i ==0)
+      n/=i;  //将该素因子的倍数也全部筛掉
+  }
 
-	if (n > 1)
-        res = res - res/n;
-   	return res;
+  if (n > 1)
+    res = res - res/n;
+  return res;
 }
 ```
 
@@ -86,22 +86,21 @@ int make()
 int  p[N]={1,1,0};
 
 void prime(){
-	for(int i=2;i<N;i++)
-		if(!p[i]){
-			for(int j=2*i;j<=N;j+=i)//筛掉 i 的倍数
-				p[j]=1;
-		}
-
+  for(int i=2;i<N;i++)
+    if(!p[i]){
+      for(int j=2*i;j<=N;j+=i)//筛掉 i 的倍数
+        p[j]=1;
+    }
 }
 ```
 
-### 例题
+## 例题
 
 [Bi-shoe and Phi-shoe](https://vjudge.net/contest/238979#problem/A) LightOJ - 1370
 
 > 题意：  
 > 给一些数 Ai（第 i 个数），Ai 这些数代表的是某个数欧拉函数的值，我们要求出数 Ni 的欧拉函数值不小于 Ai。而我们要求的就是这些 Ni 这些数字的和 sum，而且我们想要 sum 最小，求出 sum 最小多少。
-
+>
 > 解题思路：  
 > 要求和最小，我们可以让每个数都尽量小，那么我们最后得到的肯定就是一个最小值。  
 > 给定一个数的欧拉函数值 ψ(N)，我们怎么样才能求得最小的 N?  
@@ -140,7 +139,7 @@ int binary_search(int x){//二分查找
     }
     for(int i=max(r,0);;i++)
         if(p[i]>x)
-        return p[i];
+    return p[i];
 }
 
 int main(){
@@ -156,7 +155,7 @@ int main(){
         }
         printf("Case %d: %lld Xukha\n",cas++,sum);
     }
-	return 0;
+    return 0;
 }
 
 ```

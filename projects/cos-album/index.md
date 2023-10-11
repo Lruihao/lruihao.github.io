@@ -1,6 +1,8 @@
 # 利用腾讯云为静态页面添加“动态”相册
 
 
+<!-- markdownlint-disable MD033 -->
+
 {{< admonition info >}}
 cos 桶相册，终于！！终于来了！！，idea 来自 [兰州小红鸡 - 给 hexo 静态博客添加动态相册功能]，  
 **<span style="color: #428bca;">功能虽好，但是还是先友情提示！</span>**  
@@ -29,6 +31,8 @@ cos 桶相册，终于！！终于来了！！，idea 来自 [兰州小红鸡 - 
 - **PicGo** 图床上传工具 【第三方、推荐】
 
 ## 食用方式
+
+<!-- markdownlint-disable MD034 -->
 
 {{< link href="http://github.com/Lruihao/cos-album" content="cos album 相册源码下载地址，别忘点赞哈" card=true >}}
 

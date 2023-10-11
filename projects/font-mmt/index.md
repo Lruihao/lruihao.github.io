@@ -1,6 +1,8 @@
 # 沐目体
 
 
+<!-- markdownlint-disable MD033 -->
+
 <iframe class="manuscript" src="https://hw.xiezixiansheng.com/mobile.php?c=Grzkreader&a=fontshowPics&u=qbfRl8gPF2s-&z=Kqz%2FRroVGYc-" style="width: 100%;height: 370px;margin-top: .25rem;" frameborder="0" allowfullscreen></iframe>
 
 <!--more-->
@@ -27,13 +29,13 @@
 
 |   《富士山下》   |   《爱情转移》   |
 | :--------------: | :--------------: |
-|  前尘硬化像石头  |  阳光在身上流转  |
+| 前尘硬化像石头  | 阳光在身上流转  |
 | 随缘地抛下便逃走 | 等所有业障被原谅 |
 |    我绝不罕有    |    爱情不停站    |
-|  往街里绕过一周  |  想开往地老天荒  |
+| 往街里绕过一周  | 想开往地老天荒  |
 |    我便化乌有    |    需要多勇敢    |
 |    你还嫌不够    |    你不要失望    |
-|  我把这陈年风褛  |  荡气回肠是为了  |
+| 我把这陈年风褛  | 荡气回肠是为了  |
 |    送赠你解咒    |    最美的平凡    |
 
 </div>

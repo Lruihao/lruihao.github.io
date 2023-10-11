@@ -37,14 +37,14 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class RegexTest {
-	public static void main(String[] args) {
-		Pattern patter=Pattern.compile("^[1][3,4,5,7,8][0-9]{9}$");
-		Scanner sc=new Scanner(System.in);
-		String telnum=sc.nextLine();
-		sc.close();
-		Matcher matcher=patter.matcher(telnum);
-		System.out.println(telnum+"匹配结果： "+matcher.matches());
-	}
+  public static void main(String[] args) {
+    Pattern patter=Pattern.compile("^[1][3,4,5,7,8][0-9]{9}$");
+    Scanner sc=new Scanner(System.in);
+    String telnum=sc.nextLine();
+    sc.close();
+    Matcher matcher=patter.matcher(telnum);
+    System.out.println(telnum+"匹配结果： "+matcher.matches());
+  }
 }
 ```
 

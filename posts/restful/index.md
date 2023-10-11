@@ -16,6 +16,8 @@
 
 ## Http Method
 
+<!-- markdownlint-disable MD033 -->
+
 <table><tbody><tr><th>Method</th><th>Idempotent</th><th>Safe</th><th>CRUD</th><th>OO</th><th>生活动词</th><th>用途</th></tr><tr><td rowspan="2">GET</td><td rowspan="2" style="text-align: center;">Y</td><td rowspan="2" style="text-align: center;">Y</td><td rowspan="2"><b>R</b>ead</td><td rowspan="2">get</td><td>get</td><td>取得资料</td></tr><tr><td>list</td><td>列出资料</td></tr><tr><td rowspan="2">POST</td><td rowspan="2"></td><td rowspan="2"></td><td rowspan="2"><b>C</b>reate</td><td rowspan="2">add</td><td>create</td><td>建立一个可以完全独立存在的实体</td></tr><tr><td>add</td><td>增加一个必须依赖于某个实体的实体</td></tr><tr><td rowspan="2">PUT</td><td rowspan="2" style="text-align: center;">Y</td><td rowspan="2"></td><td rowspan="3"><b>U</b>pdate</td><td rowspan="3">set</td><td>replace</td><td>取代一个关系，已存在时先删除后建立，不存在时直接建立</td></tr><tr><td>add</td><td>附加唯一关系，两个关系实体可以互相独立存在，且已经存在</td></tr><tr><td>PATCH</td><td></td><td></td><td>edit</td><td>编辑某个实体</td></tr><tr><td>DELETE</td><td></td><td></td><td><b>D</b>elete</td><td>remove</td><td>remove<br>delete</td><td>删除某个实体</td></tr></tbody></table>
 
 - Safe：该操作不会改变伺服器端的资源状态（而且结果可以被 cache），属于 Safe 的操作必定属于 Idempotent
@@ -112,9 +114,9 @@
   Host: 127.0.0.1
 
   {
-  	"username": "李四",
-  	"age": "18",
-  	"gender": "male"
+    "username": "李四",
+    "age": "18",
+    "gender": "male"
   }
   ```
 

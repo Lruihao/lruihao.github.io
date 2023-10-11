@@ -31,6 +31,8 @@ hugo new site /path/to/site
 
 站点目录结构：
 
+<!-- markdownlint-disable MD046 -->
+
     ▸ archetypes/    # 配置文章模板，相当于 hexo 的 scaffolds
     ▸ content/       # 文章页面内容，相当于 hexo 的 source
     ▸ data/          # 可存放一些 yaml, json, toml 格式的数据
@@ -58,7 +60,7 @@ git submodule add https://github.com/Lruihao/FixIt.git themes/FixIt
 
 在 `config.toml` 添加 ~~theme = "LoveIt"~~
 
-```
+```toml
 theme = "FixIt"
 ```
 
@@ -76,7 +78,7 @@ hugo serve --disableFastRender
 
 使用以下命令生成静态文件，然后自己可手动选择部署到 github pages 或 COS 等服务器
 
-```
+```bash
 hugo --minify
 ```
 
@@ -89,11 +91,15 @@ hugo --minify
 
 ## Todo list
 
+<!-- markdownlint-disable MD034 -->
+
 {{< link href="https://github.com/Lruihao/hugo-blog" content="本站源码备份" card=true >}}
 
 > 原来 hexo 做了大量的美化和扩展功能，迁移到 hugo 想尽可能多的保留。取之精华，去其糟粕。
 
 ### Base
+
+<!-- markdownlint-disable MD033 -->
 
 - [x] 迁移 hexo 所有文章内容
 - <details>
@@ -137,7 +143,7 @@ hugo --minify
 
 <a id="seo-ref"></a>`[baidu_urls.txt]:`[↩︎](#seo)
 
-_生成百度链接集合小技巧，关掉归档分页，在归档页面控制台执行以下代码即可获得所有文章链接_
+生成百度链接集合小技巧，关掉归档分页，在归档页面控制台执行以下代码即可获得所有文章链接
 
 ```javascript
 let urls = [];

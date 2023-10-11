@@ -19,7 +19,7 @@
 
 <!--more-->
 
-### java 中的继承特点
+## java 中的继承特点
 
 > Java 只支持单继承，不支持多继承。Java 支持多层继承（继承体系）
 
@@ -38,13 +38,13 @@ class C extends B {
 }
 
 class ExtendsDemo {
-	public static void main(String[] args) {
+  public static void main(String[] args) {
 
-	}
+  }
 }
 ```
 
-### java 中的继承注意事项
+## java 中的继承注意事项
 
 1. 子类只能继承父类所有非私有的成员（成员方法和成员变量）
 2. 子类不能继承父类的构造方法，但是可以通过 super 关键字去访问父类构造方法。
@@ -54,13 +54,13 @@ class ExtendsDemo {
 继承中类之间体现的是：”is a”的关系。  
  如果两个类满足这个关系：xxx is a yyy，那么他们就可以使用继承。
 
-```
+```plain
 Student,Person  对
 Dog,Animal  对
 Dog,Pig  错
 ```
 
-### 继承
+## 继承
 
 > 继承间的构造方法关系：创建子类对象，会先去访问父类的构造方法。对父类的数据进行初始化。
 
@@ -68,35 +68,35 @@ Dog,Pig  错
 package jicheng;
 
 class Fu{
-	public int num = 10;
-	public Fu(){
-		System.out.println("父类");
-	}
+  public int num = 10;
+  public Fu(){
+    System.out.println("父类");
+  }
 }
 class Zi extends Fu{
-	public int num = 20;
-	public Zi(){
-		System.out.println("子类");
-	}
-	public void show(){
-		int num = 30;
-		System.out.println(num);//30
-		System.out.println(this.num);//20
-		System.out.println(super.num);//10
-	}
+  public int num = 20;
+  public Zi(){
+    System.out.println("子类");
+  }
+  public void show(){
+    int num = 30;
+    System.out.println(num);//30
+    System.out.println(this.num);//20
+    System.out.println(super.num);//10
+  }
 }
 
 public class test {
-	public static void main(String[] args) {
-		Zi z = new Zi();
-		z.show();
-	}
+  public static void main(String[] args) {
+    Zi z = new Zi();
+    z.show();
+  }
 }
 ```
 
 程序运行结果
 
-```
+```plain
 父类
 子类
 30
@@ -104,7 +104,7 @@ public class test {
 10
 ```
 
-### 代码块
+## 代码块
 
 > 代码块的执行顺序： 静态代码块 --> 构造代码块 --> 构造方法  
 > 代码的执行特点：静态代码块只执行一次，构造代码块每次调用构造方法都执行。
@@ -113,44 +113,44 @@ public class test {
 package jicheng;
 
 class Fu {
-	static {
-		System.out.println("父类静态代码块");
-	}
+  static {
+    System.out.println("父类静态代码块");
+  }
 
-	{
-		System.out.println("父类构造代码块");
-	}
+  {
+    System.out.println("父类构造代码块");
+  }
 
-	public Fu() {
-		System.out.println("父类构造方法");
-	}
+  public Fu() {
+    System.out.println("父类构造方法");
+  }
 }
 
 class Zi extends Fu {
-	static {
-		System.out.println("子类静态代码块");
-	}
+  static {
+    System.out.println("子类静态代码块");
+  }
 
-	{
-		System.out.println("子类构造代码块");
-	}
+  {
+    System.out.println("子类构造代码块");
+  }
 
-	public Zi() {
-		System.out.println("子类构造方法");
-	}
+  public Zi() {
+    System.out.println("子类构造方法");
+  }
 }
 
 public class test {
-	public static void main(String[] args) {
-		Zi z = new Zi();
-		Zi z2 = new Zi();
-	}
+  public static void main(String[] args) {
+    Zi z = new Zi();
+    Zi z2 = new Zi();
+  }
 }
 ```
 
 程序运行结果：
 
-```
+```plain
 父类静态代码块
 子类静态代码块
 父类构造代码块
@@ -163,7 +163,7 @@ public class test {
 子类构造方法
 ```
 
-### 继承间的成员关系
+## 继承间的成员关系
 
 - 成员方法
   不同名称： 非常简单，一看就知道调用谁  
@@ -178,7 +178,7 @@ public class test {
   > 如果想直接使用成员变量，加关键字：this 即可。  
   > 如果想直接使用父类的成员变量，加关键字：super 即可。
 
-### 注意事项
+## 注意事项
 
 **子类中所有的构造方法默认都会访问父类中空参数的构造方法。为什么呢？因为子类会继承父类中的数据，可能还会使用父类的数据。所以，子类初始化之前，一定要先完成父类数据的初始化。**
 

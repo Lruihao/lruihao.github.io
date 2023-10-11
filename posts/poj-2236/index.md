@@ -3,7 +3,7 @@
 
 ## 题目链接：[wireless network](http://poj.org/problem?id=2236)
 
-## 翻译：
+## 翻译
 
 <!--more-->
 
@@ -43,7 +43,9 @@
     FAIL
     SUCCESS
 
-### AC 代码：
+### AC 代码
+
+<!-- markdownlint-disable MD046 -->
 
 ```cpp
 #include "iostream"

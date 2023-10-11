@@ -75,11 +75,11 @@ m 奇 n 奇时，gcd(m, n)=gcd(n, m-n)</p>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">x</span><span class="o">/</span><span class="n">a</span><span class="o">*</span><span class="n">y</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
-</div>]]></description></item><item><title>The equation-SGU106（扩展欧几里得）</title><link>https://lruihao.cn/posts/euclid/</link><pubDate>Fri, 10 Aug 2018 10:32:39 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/euclid/</guid><description><![CDATA[<h3 id="题意">题意：</h3>
+</div>]]></description></item><item><title>The equation-SGU106（扩展欧几里得）</title><link>https://lruihao.cn/posts/euclid/</link><pubDate>Fri, 10 Aug 2018 10:32:39 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/euclid/</guid><description><![CDATA[<h2 id="题意">题意</h2>
 <p>给出 a,b,c,x1,x2,y1,y2，求满足 ax+by+c=0，且 x∈[x1,x2],y∈[y1,y2] 的整数解个数。</p>
-<h3 id="分析">分析：</h3>
+<h2 id="分析">分析</h2>
 <p>对于解二元一次不定方程，容易想到利用扩展欧几里得求出一组可行解后找到通解，下面来介绍一下欧几里得以及扩展欧几里得。</p>
-<h4 id="欧几里得">欧几里得：</h4>
+<h3 id="欧几里得">欧几里得</h3>
 <p>又名辗转相除法，是用来计算两个数的最大公约数，其中就是利用 gcd(a,b)=gcd(b,a mod b) 来求解。下证 gcd(a,b)=gcd(b,a mod b) 的正确性：</p>
 <p>设 a,b 的一个公约数为 d</p>
 <p>设 a mod b=r，则 a=kb+r(k 为整数），r=a-kb</p>
@@ -103,7 +103,7 @@ m 奇 n 奇时，gcd(m, n)=gcd(n, m-n)</p>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nf">gcd</span><span class="p">(</span><span class="n">b</span><span class="p">,</span><span class="n">a</span><span class="o">%</span><span class="n">b</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h4 id="扩展欧几里得">扩展欧几里得</h4>
+</div><h3 id="扩展欧几里得">扩展欧几里得</h3>
 <p>顾名思义，为上述欧几里得算法的扩展。欧几里得是用来求 a,b 的最大公约数，那么扩展欧几里得不仅能求出 a,b 的最大公约数，还能求出满足 ax+by=gcd(a,b) 的一组可行解。<br>
 求解过程中，扩展欧几里得比欧几里得多了一个赋值过程，具体证明如下：</p>
 <p>设 ax1+by1=gcd(a,b),bx2+(a mod b)y2=gcd(b,a mod b)</p>
@@ -118,7 +118,7 @@ m 奇 n 奇时，gcd(m, n)=gcd(n, m-n)</p>
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">ax1+by1=ay2+bx2-(a div b)*b*y2
+<pre tabindex="0" class="chroma"><code class="language-plain" data-lang="plain"><span class="line"><span class="cl">ax1+by1=ay2+bx2-(a div b)*b*y2
 </span></span><span class="line"><span class="cl">       =ay2+b[x2-(a div b)]y2</span></span></code></pre></td></tr></table>
 </div>
 </div><p>所以可得：
@@ -148,7 +148,7 @@ m 奇 n 奇时，gcd(m, n)=gcd(n, m-n)</p>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">t</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h4 id="关于求解二元一次不定方程-axbyc">关于求解二元一次不定方程 ax+by=c</h4>
+</div><h3 id="关于求解二元一次不定方程-axbyc">关于求解二元一次不定方程 ax+by=c</h3>
 <p>首先，如果 c 不是 gcd(a,b) 的倍数，方程显然无解。</p>
 <p>扩展欧几里得求解的是 ax+by=gcd(a,b)=1 的可行解，但是题目中并没有说 c 与 a,b 互质之类的条件，所以需要在开始时两边同时除以 gcd(a,b)。</p>
 <p>设 d=gcd(a,b)</p>
@@ -171,7 +171,7 @@ m 奇 n 奇时，gcd(m, n)=gcd(n, m-n)</p>
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">a*(x0+1*b)+b*(y0-1*a)=c
+<pre tabindex="0" class="chroma"><code class="language-plain" data-lang="plain"><span class="line"><span class="cl">a*(x0+1*b)+b*(y0-1*a)=c
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">a*(x0+2*b)+b*(y0-2*a)=c
 </span></span><span class="line"><span class="cl">
@@ -184,9 +184,9 @@ m 奇 n 奇时，gcd(m, n)=gcd(n, m-n)</p>
 <p><code>x=x0+k*b</code>
 <code>y=y0-k*a (k∈Z)</code></p>
 <p>这样，所有满足 ax+by=c 的可行解都可求出。</p>
-<h3 id="具体实现">具体实现</h3>
+<h2 id="具体实现">具体实现</h2>
 <p>有了主体算法，下面要谈到具体实现了。</p>
-<h4 id="先处理一下无解的情况">先处理一下无解的情况：</h4>
+<h3 id="先处理一下无解的情况">先处理一下无解的情况</h3>
 <ol>
 <li>
 <p>当 a=0 并且 b=0，而 c≠0 时，显然无解；<br>
@@ -205,7 +205,7 @@ m 奇 n 奇时，gcd(m, n)=gcd(n, m-n)</p>
 <p>若 c 不是 gcd(a,b) 的个数，方程显然无解。</p>
 </li>
 </ol>
-<h4 id="处理完了一些繁琐的细节后下面是具体的求解过程">处理完了一些繁琐的细节后，下面是具体的求解过程：</h4>
+<h3 id="处理完了一些繁琐的细节后下面是具体的求解过程">处理完了一些繁琐的细节后，下面是具体的求解过程</h3>
 <ol>
 <li>
 <p>扩展欧几里得求解的是 ax+by=c，而本题是 ax+by+c=0，需将 c 移项。</p>

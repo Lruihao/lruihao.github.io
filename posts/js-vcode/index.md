@@ -1,20 +1,24 @@
 # JS 验证码
 
 
+<!-- markdownlint-disable MD033 -->
+
 <style type="text/css">
-	#code{  
-        font-family:Arial;  
-        font-style:italic;  
-        font-weight:bold;  
-        border:2px solid #ddd;
-        letter-spacing:9px;  
-        color:blue;
-        font-size: 15px; 
-    }
+
+# code{  
+
+  font-family:Arial;  
+  font-style:italic;  
+  font-weight:bold;  
+  border:2px solid #ddd;
+  letter-spacing:9px;  
+  color:blue;
+  font-size: 15px;
+}
 </style>
 
 <script type="text/javascript">
-	//设置一个全局的变量，便于保存验证码
+    //设置一个全局的变量，便于保存验证码
     var code;
     function createCode(){
         //首先默认 code 为空字符串
@@ -29,7 +33,7 @@
             //设置随机数范围，这设置为 0 ~ 36
              var index = Math.floor(Math.random()*35);
              //字符串拼接 将每次随机的字符 进行拼接
-             code += random[index]; 
+             code += random[index];
         }
         //将拼接好的字符串赋值给展示的 Value
         codeV.value = code;
@@ -59,17 +63,17 @@
 </script>
 
 <div align="center">  
-    <input type = "text" id = "input" value="" /> <input type = "button" id="code" onclick="createCode()"/> <input class="btn" type = "button" value = "验证" onclick = "validate()"/> 
-    <br/>请点击验证码处：↑ 
+    <input type = "text" id = "input" value="" /> <input type = "button" id="code" onclick="createCode()"/> <input class="btn" type = "button" value = "验证" onclick = "validate()"/>
+    <br/>请点击验证码处：↑
 </div>
 
-## <!--more-->
+<!--more-->
 
 验证码 JS 来源互联网
 
 ```javascript 验证码 js
 <script type="text/javascript">
-	//设置一个全局的变量，便于保存验证码
+    //设置一个全局的变量，便于保存验证码
     var code;
     function createCode(){
         //首先默认 code 为空字符串

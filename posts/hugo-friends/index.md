@@ -1,5 +1,6 @@
 # Hugo 友情連結模板
 
+<!-- markdownlint-disable MD034 -->
 
 {{< admonition question "過程" >}}
 以前的 hexo 博客是自己寫的友鏈模板，換到 hugo 後想著在網上隨便找一個範本用著就好，然而並沒有自己想要的 layout, 幾乎都是使用 shortcodes 的，代碼風格有點問題且 shortcodes 作為友鏈添加的方式是真的麻煩。就只好自己寫羅。
@@ -138,6 +139,7 @@ hugo new friends/index.md
 
 1. 將 `_friends.css` 放到 `content/friends/css/`
 2. 打開友鏈頁面 `content/friends/index.md`
+
    ```md
    ---
    title: '友鏈'

@@ -6,6 +6,7 @@
 互联网的广大朋友们，欢迎光临我的小博客！欢迎留言！
 {{< /typeit >}}
 
+<!-- markdownlint-disable-next-line no-inline-html -->
 <small>_关于 [FixIt 主题](https://github.com/hugo-fixit/FixIt) 的问题，请移步 [FixIt 官网](https://fixit.lruihao.cn) 相关文章哦～_</small>
 {{< /admonition >}}
 

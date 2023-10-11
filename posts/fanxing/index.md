@@ -13,40 +13,40 @@ package code0507;
 
 public class WildCardTest {
 
-	public static void main(String[] args) {
-		Box<String>name=new Box<String>("hello");
-		Box<Integer>age=new Box<Integer>(12);
-		Box<Double>number=new Box<Double>(210.50);
-		Box<Integer>point=new Box<Integer>();
-		getData(name);
-		getData(age);
-		getData(number);
-		point.printpoint(520, 1314);
-		point.printpoint("me", "too");
-	}
+  public static void main(String[] args) {
+    Box<String>name=new Box<String>("hello");
+    Box<Integer>age=new Box<Integer>(12);
+    Box<Double>number=new Box<Double>(210.50);
+    Box<Integer>point=new Box<Integer>();
+    getData(name);
+    getData(age);
+    getData(number);
+    point.printpoint(520, 1314);
+    point.printpoint("me", "too");
+  }
 
-	public static void getData(Box<?>data){//类型通配符
-		System.out.println("data:"+data.getData());
-	}
+  public static void getData(Box<?>data){//类型通配符
+    System.out.println("data:"+data.getData());
+  }
 }
 class Box<T>{
-	private T data;
-	public Box() {}//构造方法重载
-	public Box(T data) {
-		setData(data);
-	}
-	public T getData() {
-		return data;
-	}
-	public void setData(T data) {
-		this.data = data;
-	}
-	//定义泛型方法
-	public<T1,T2>void printpoint(T1 x,T2 y){
-		T1 m=x;
-		T2 n=y;
-		System.out.println("This point is:"+m+","+n);
-	}
+  private T data;
+  public Box() {}//构造方法重载
+  public Box(T data) {
+    setData(data);
+  }
+  public T getData() {
+    return data;
+  }
+  public void setData(T data) {
+    this.data = data;
+  }
+  //定义泛型方法
+  public<T1,T2>void printpoint(T1 x,T2 y){
+    T1 m=x;
+    T2 n=y;
+    System.out.println("This point is:"+m+","+n);
+  }
 }
 ```
 

@@ -32,44 +32,44 @@
 package code0507;
 
 public class Demo {
-	public static void main(String[] args) {
+  public static void main(String[] args) {
 
-		Sub sub = new Sub();
-		System.out.println(sub);
+    Sub sub = new Sub();
+    System.out.println(sub);
 
-	}
+  }
 }
 
 class Super {
-	int a = 6;
+  int a = 6;
 
-	public Super() {
-		test();  //被子类同名函数覆盖，优先访问子类 test
-	}
-	int b=9;
+  public Super() {
+    test();  //被子类同名函数覆盖，优先访问子类 test
+  }
+  int b=9;
 
-	public void test() {
-		System.out.println(a);
-	}
+  public void test() {
+    System.out.println(a);
+  }
 }
 
 class Sub extends Super {
-	int a = 8;
+  int a = 8;
 
-	public Sub() {
-		test();
-	}
+  public Sub() {
+    test();
+  }
 
-	public void test() {
-		System.out.println(a);
-	}
+  public void test() {
+    System.out.println(a);
+  }
 }
 
 ```
 
 运行结果
 
-```
+```plain
 0
 8
 ```

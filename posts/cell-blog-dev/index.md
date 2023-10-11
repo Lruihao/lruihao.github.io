@@ -85,7 +85,7 @@ php artisan admin:install
 
 > 运行这个命令的时候，如果遇到了下面的错误：
 > `SQLSTATE[42000]: Syntax error or access violation: 1071 Specified key was too long; max key length is 1000 bytes (SQL: alter tableusersadd uniqueusers_email_unique(email))`  
-> 参考这个 issue 来解决 https://github.com/z-song/laravel-admin/issues/1541  
+> 参考这个 issue 来解决 <https://github.com/z-song/laravel-admin/issues/1541>  
 > 在`app\Providers\AppServiceProvider.php`添加默认值
 
 ```php
@@ -272,7 +272,7 @@ if (csrfToken) {
 
 ## markdown 转 HTML
 
-https://www.zhiqiexing.com/119.html
+<https://www.zhiqiexing.com/119.html>
 [Laravel Markdown 安装](https://github.com/GrahamCampbell/Laravel-Markdown)
 
 ```
@@ -351,7 +351,7 @@ php artisan make:controller PageController
 
 ## 后台 img 灯箱
 
-https://github.com/laravel-admin-extensions/grid-lightbox
+<https://github.com/laravel-admin-extensions/grid-lightbox>
 
 ```
 composer require laravel-admin-ext/grid-lightbox

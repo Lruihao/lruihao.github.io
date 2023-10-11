@@ -11,12 +11,12 @@
 
 ```java http2https
 <script>
-	var targetProtocol = "https:";
-	var host = "lruihao.cn";
-	if (window.location.host == host && window.location.protocol != targetProtocol){
- 		window.location.href = targetProtocol +
-  		window.location.href.substring(window.location.protocol.length);
-    }
+var targetProtocol = "https:";
+var host = "lruihao.cn";
+if (window.location.host == host && window.location.protocol != targetProtocol){
+  window.location.href = targetProtocol +
+    window.location.href.substring(window.location.protocol.length);
+}
 </script>
 ```
 

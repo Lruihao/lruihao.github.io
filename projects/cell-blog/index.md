@@ -29,8 +29,8 @@
 
 ## 截图
 
-![前台首页。png](https://i.loli.net/2020/05/11/vHeNRG4Qi7ljrM8.png)  
-![管理文章。png](https://i.loli.net/2020/05/11/tMEQe7WvYmw3jd4.png)  
+![前台首页。png](https://i.loli.net/2020/05/11/vHeNRG4Qi7ljrM8.png)
+![管理文章。png](https://i.loli.net/2020/05/11/tMEQe7WvYmw3jd4.png)
 ![编辑文章。png](https://i.loli.net/2020/05/11/DeOWyJ3zluLKvBn.png)
 
 ## 安装
@@ -39,13 +39,13 @@
 
 下载
 
-```
+```bash
 git clone https://github.com/Lruihao/cell-blog.git
 ```
 
 进入站点
 
-```
+```bash
 cd cell-blog
 ```
 
@@ -69,7 +69,7 @@ DB_PASSWORD= #数据库密码
 
 打开`app\Providers\AppServiceProvider.php`, 注释`SystemController:load()` 防止后续步骤报错
 
-```
+```php
     public function boot()
     {
         Schema::defaultStringLength(191);
@@ -85,16 +85,16 @@ composer install
 
 生成 key
 
-```
+```bash
 php artisan key:generate
 ```
 
 运行数据迁移和后台数据填充
 
-> `php artisan admin:install`已包含数据迁移命令`php artisan migrate`  
+> `php artisan admin:install`已包含数据迁移命令`php artisan migrate`
 > `G:\cell-blog\app\Admin directory already exists !`无需理会，继续执行剩下命令即可。
 
-```
+```bash
 php artisan admin:install
 
 php artisan admin:import media-manager
@@ -104,13 +104,13 @@ php artisan db:seed
 
 默认下使用了本地文件系统，创建 storage 目录在 public 的软链接
 
-```
+```bash
 php artisan storage:link
 ```
 
 打开`app\Providers\AppServiceProvider.php`, 取消注释`SystemController:load()`
 
-```
+```php
     public function boot()
     {
         Schema::defaultStringLength(191);
@@ -122,7 +122,7 @@ php artisan storage:link
 
 如果使用 Nginx，要设置伪静态
 
-```
+```Nginx
 location / {
     try_files $uri $uri/ /index.php?$query_string;
 }

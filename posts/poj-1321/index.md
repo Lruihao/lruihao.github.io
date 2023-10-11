@@ -6,22 +6,22 @@ Memory Limit: 10000K
 Total Submissions: 63659  
 Accepted: 30423
 
-### Description
+## Description
 
 在一个给定形状的棋盘（形状可能是不规则的）上面摆放棋子，棋子没有区别。要求摆放时任意的两个棋子不能放在棋盘中的同一行或者同一列，请编程求解对于给定形状和大小的棋盘，摆放 k 个棋子的所有可行的摆放方案 C。
 
-### Input
+## Input
 
 输入含有多组测试数据。  
 每组数据的第一行是两个正整数，n k，用一个空格隔开，表示了将在一个 n \* n 的矩阵内描述棋盘，以及摆放棋子的数目。 n <= 8 , k <= n  
 当为-1 -1 时表示输入结束。  
 随后的 n 行描述了棋盘的形状：每行有 n 个字符，其中 # 表示棋盘区域， . 表示空白区域（数据保证不出现多余的空白行或者空白列）。
 
-### Output
+## Output
 
 对于每一组数据，给出一行输出，输出摆放的方案数目 C （数据保证 C<2^31）。
 
-### Sample Input
+## Sample Input
 
     2 1
     #.
@@ -33,16 +33,16 @@ Accepted: 30423
     #...
     -1 -1
 
-### Sample Output
+## Sample Output
 
     2
     1
 
-### Source
+## Source
 
 蔡错@pku
 
-### 思路
+## 思路
 
 - 下子方案数就相当于遍历图的不同遍历数，用 dfs 变形。
 - 理解以下数据还有样例应该差不多了
@@ -59,7 +59,9 @@ Accepted: 30423
 `..#`
 `4`
 
-### AC 代码
+## AC 代码
+
+<!-- markdownlint-disable code-block-style -->
 
 ```cpp
 #include<iostream>
@@ -106,7 +108,6 @@ int main()
         cout<<r<<endl;
     }
 }
-
 ```
 
 [传送门](https://blog.csdn.net/hurmishine/article/details/49835913)

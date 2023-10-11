@@ -28,38 +28,38 @@ echo "请输入序号！"
 read i
 if test $i -eq 1
 then
-	echo "请输入网址！"
-	read s1
-       	echo $s1 |curl -F-=\<- qrenco.de
+  echo "请输入网址！"
+  read s1
+         echo $s1 |curl -F-=\<- qrenco.de
 fi
 if test $i -eq 2
 then
-	nyancat
+  nyancat
 fi
 if test $i -eq 3
 then
-	sl
+  sl
 fi
 if test $i -eq 4
 then
-	echo "请输入字符串！"
-	read s2
-	echo "选择样式："
-	echo "------样式 1-----"
-	echo "------样式 2-----"
-	read j
-	if test $j -eq 1
-	then
-		figlet $s2
-	else
-		toilet -f mono12 -F gay $s2
-	fi
+  echo "请输入字符串！"
+  read s2
+  echo "选择样式："
+  echo "------样式 1-----"
+  echo "------样式 2-----"
+  read j
+  if test $j -eq 1
+  then
+    figlet $s2
+  else
+    toilet -f mono12 -F gay $s2
+  fi
 fi
 if test $i -eq 5
 then
-	echo "请输入字符串！"
-	read s3
-	cowsay $s3
+  echo "请输入字符串！"
+  read s3
+  cowsay $s3
 fi
 echo "任意建继续！"
 read x
@@ -68,12 +68,12 @@ clear
 
 ```
 
-![](images/1.png)
-![](images/2.png)
-![](images/3.png)
-![](images/4.1.png)
-![](images/4.2.png)
-![](images/5.png)
+![1](images/1.png)
+![2](images/2.png)
+![3](images/3.png)
+![4.1](images/4.1.png)
+![4.2](images/4.2.png)
+![5](images/5.png)
 
 
 ---

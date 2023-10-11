@@ -1,11 +1,12 @@
 # Heavy Transportation-poj1797(dijkstra 或最大生成树）
 
 
-题目链接](http://poj.org/problem?id=1797)  
+[题目链接](http://poj.org/problem?id=1797)
+
 大意：  
 要从城市 1 到城市 N 运送货物，有 M 条道路，每条道路都有它的最大载重量，问从城市 1 到城市 N 运送最多的重量是多少。  
 其实题意很简单，就是找一条 1-->N 的路径，在不超过每条路径的最大载重量的情况下，使得运送的货物最多。一条路径上的最大载重量为这个路径上权值最小的边；
-![](images/更新。jpg)
+![更新](images/update.jpg)
 
 <!--more-->
 
@@ -46,17 +47,17 @@ int main(){
     scanf("%d",&T);
     while(T--){
         for(int i=0;i<=n;i++)
-			for(int j=0;j<=n;j++)
-				maps[i][j]=0;
+            for(int j=0;j<=n;j++)
+                maps[i][j]=0;
         scanf("%d%d",&n,&m);
-        for(int i=1;i<=m;i++){
+        for(int i=1;i<=m;i++) {
             scanf("%d%d%d",&a,&b,&w);
             maps[a][b]=maps[b][a]=w;
         }
         printf("Scenario #%d:\n%d\n\n",ans++,dijkstra());
 
     }
-	return 0;
+    return 0;
 }
 ```
 

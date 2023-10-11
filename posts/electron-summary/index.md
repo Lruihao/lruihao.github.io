@@ -41,11 +41,11 @@ M1 Mac 安装较低版本 electron 时可能会报错，`Failed to find Electron
 
 使用时需在窗口创建时设置 `webPreferences.enableRemoteModule` 为 `true`。
 
-旧版本的 `electron.remote ` 已经弃用，应该使用依赖 `electron/remote` 代替。
+旧版本的 `electron.remote` 已经弃用，应该使用依赖 `electron/remote` 代替。
 
 使用了旧版本的 remote 时会有控制台警告信息：
 
-```
+```plain
 (electron) The remote module is deprecated. Use https://github.com/electron/remote instead.
 ```
 
@@ -241,7 +241,7 @@ npm config set disturl=https://registry.npmmirror.com/-/binary/
 
 mac 上缓存目录如下，其他可 [参考](https://www.cnblogs.com/xueyoucd/p/8006610.html)
 
-```
+```plain
 ▸ nsis/
   ▸ nsis-resources-3.4.1/
   ▸ nsis-3.0.4.1/

@@ -31,7 +31,7 @@ int main(){
     if(i==n&&s==0)
         cout<<"0\n";
     else cout<<s<<endl;
-	return 0;
+    return 0;
 }
 
 ```

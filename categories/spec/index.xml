@@ -1441,13 +1441,14 @@
 <ul>
 <li><a href="https://semver.org/"target="_blank" rel="external nofollow noopener noreferrer">Semantic Versioning 2.0.0<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
 <li><a href="http://nodejs.cn/learn/semantic-versioning-using-npm"target="_blank" rel="external nofollow noopener noreferrer">使用 npm 的语义版本控制<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
-</ul>]]></description></item><item><title>Commit Message Spec</title><link>https://lruihao.cn/posts/commit-spec/</link><pubDate>Fri, 12 Aug 2022 15:37:44 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/commit-spec/</guid><description><![CDATA[<p>Commit messages are short descriptions of changes to a repository. We should follow certain standards to effectively describe changes, such as the <a href="https://www.conventionalcommits.org/en/v1.0.0-beta.4/"target="_blank" rel="external nofollow noopener noreferrer">Conventional Commits<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> specification based on the <a href="https://github.com/angular/angular/blob/68a6a07/CONTRIBUTING.md#commit"target="_blank" rel="external nofollow noopener noreferrer">Angular convention<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> that is most used on GitHub, or each development team can simplify and formulate their own commit specification. This is not only conducive to the automatic generation of Changelog in the later stage, but more importantly, when a bug occurs, the entire warehouse can be quickly checked, the problem point can be accurately located, and the version can be reverted.</p>
+</ul>]]></description></item><item><title>Commit Message Spec</title><link>https://lruihao.cn/posts/commit-spec/</link><pubDate>Fri, 12 Aug 2022 15:37:44 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/commit-spec/</guid><description><![CDATA[<!-- markdownlint-disable MD033 -->
+<p>Commit messages are short descriptions of changes to a repository. We should follow certain standards to effectively describe changes, such as the <a href="https://www.conventionalcommits.org/en/v1.0.0-beta.4/"target="_blank" rel="external nofollow noopener noreferrer">Conventional Commits<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> specification based on the <a href="https://github.com/angular/angular/blob/68a6a07/CONTRIBUTING.md#commit"target="_blank" rel="external nofollow noopener noreferrer">Angular convention<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> that is most used on GitHub, or each development team can simplify and formulate their own commit specification. This is not only conducive to the automatic generation of Changelog in the later stage, but more importantly, when a bug occurs, the entire warehouse can be quickly checked, the problem point can be accurately located, and the version can be reverted.</p>
 <h2 id="format">Format</h2>
 <p><code>[{emoji} ]{type}[({module})]: {subject within 50 words}[ (#{issue/pull request})]</code></p>
 <p>example:</p>
 <ul>
-<li>🎉 Feat: add shortcode fixit-encryptor shortcode (#123)</li>
-<li>⬆️ Chore(libs): update Artalk from 2.2.12 to 2.3.4 (#150)</li>
+<li>: tada: Feat: add shortcode fixit-encryptor shortcode (#123)</li>
+<li>: arrow_up: Chore(libs): update Artalk from 2.2.12 to 2.3.4 (#150)</li>
 </ul>
 <h2 id="emoji">Emoji</h2>
 <ul>
@@ -1540,6 +1541,7 @@
 例如：user 是指目前验证的使用者，使用者永远只能同时登入一个使用者</li>
 </ul>
 <h2 id="http-method">Http Method</h2>
+<!-- markdownlint-disable MD033 -->
 <table><tbody><tr><th>Method</th><th>Idempotent</th><th>Safe</th><th>CRUD</th><th>OO</th><th>生活动词</th><th>用途</th></tr><tr><td rowspan="2">GET</td><td rowspan="2" style="text-align: center;">Y</td><td rowspan="2" style="text-align: center;">Y</td><td rowspan="2"><b>R</b>ead</td><td rowspan="2">get</td><td>get</td><td>取得资料</td></tr><tr><td>list</td><td>列出资料</td></tr><tr><td rowspan="2">POST</td><td rowspan="2"></td><td rowspan="2"></td><td rowspan="2"><b>C</b>reate</td><td rowspan="2">add</td><td>create</td><td>建立一个可以完全独立存在的实体</td></tr><tr><td>add</td><td>增加一个必须依赖于某个实体的实体</td></tr><tr><td rowspan="2">PUT</td><td rowspan="2" style="text-align: center;">Y</td><td rowspan="2"></td><td rowspan="3"><b>U</b>pdate</td><td rowspan="3">set</td><td>replace</td><td>取代一个关系，已存在时先删除后建立，不存在时直接建立</td></tr><tr><td>add</td><td>附加唯一关系，两个关系实体可以互相独立存在，且已经存在</td></tr><tr><td>PATCH</td><td></td><td></td><td>edit</td><td>编辑某个实体</td></tr><tr><td>DELETE</td><td></td><td></td><td><b>D</b>elete</td><td>remove</td><td>remove<br>delete</td><td>删除某个实体</td></tr></tbody></table>
 <ul>
 <li>Safe：该操作不会改变伺服器端的资源状态（而且结果可以被 cache），属于 Safe 的操作必定属于 Idempotent</li>
@@ -1675,9 +1677,9 @@ Idempotent：每次执行操作时，GET 只有读取 Resource，不会改变到
 </span></span><span class="line"><span class="cl"><span class="n">Host</span><span class="o">:</span> <span class="l">127.0.0.1</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="g">{
-</span></span></span><span class="line"><span class="cl"><span class="g">	&#34;username&#34;: &#34;李四&#34;,
-</span></span></span><span class="line"><span class="cl"><span class="g">	&#34;age&#34;: &#34;18&#34;,
-</span></span></span><span class="line"><span class="cl"><span class="g">	&#34;gender&#34;: &#34;male&#34;
+</span></span></span><span class="line"><span class="cl"><span class="g">  &#34;username&#34;: &#34;李四&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="g">  &#34;age&#34;: &#34;18&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="g">  &#34;gender&#34;: &#34;male&#34;
 </span></span></span><span class="line"><span class="cl"><span class="g">}</span></span></span></code></pre></td></tr></table>
 </div>
 </div></li>
