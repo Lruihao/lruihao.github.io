@@ -1,4 +1,61 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>菠菜眾長</title><link>https://lruihao.cn/</link><description>Lruihao's Note 李瑞豪的博客：探索、分享、记录自己在工作生活学习到一些东西。人知道得越多，就就会发现无知的越多。有更广袤世界可以探索，真是莫大的快乐啊！</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><copyright>本站内容采用知识共享署名-非商业性使用 4.0（CC BY-NC 4.0）国际许可协议。</copyright><lastBuildDate>Wed, 11 Oct 2023 14:26:48 +0800</lastBuildDate><atom:link href="https://lruihao.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>给博客类项目添加 markdownlint 语法检查</title><link>https://lruihao.cn/posts/markdownlint/</link><pubDate>Wed, 11 Oct 2023 14:26:48 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/markdownlint/</guid><description><![CDATA[<p><a href="https://github.com/DavidAnson/markdownlint"target="_blank" rel="external nofollow noopener noreferrer">markdownlint<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 是一个 Markdown 语法检查工具，它可以检查 Markdown 文件中的语法错误，以及一些不规范的写法。</p>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>菠菜眾長</title><link>https://lruihao.cn/</link><description>Lruihao's Note 李瑞豪的博客：探索、分享、记录自己在工作生活学习到一些东西。人知道得越多，就就会发现无知的越多。有更广袤世界可以探索，真是莫大的快乐啊！</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><copyright>本站内容采用知识共享署名-非商业性使用 4.0（CC BY-NC 4.0）国际许可协议。</copyright><lastBuildDate>Thu, 12 Oct 2023 15:37:30 +0800</lastBuildDate><atom:link href="https://lruihao.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>拖拽式仪表盘功能需求分析</title><link>https://lruihao.cn/posts/dashboard-analysis/</link><pubDate>Thu, 12 Oct 2023 15:37:30 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/dashboard-analysis/</guid><description><![CDATA[<h2 id="仪表盘简介">仪表盘简介</h2>
+<p>仪表盘（dashboard）作为一种直观、灵活的数据可视化工具，正在越来越多地应用于各种领域，帮助用户实时监控和分析数据。常见于各类数据分析平台、数据可视化平台、数据大屏等场景。</p>
+<p>传统的仪表盘往往是开发者固定好的，用户只能使用，无法自定义。而拖拽式仪表盘则可以让用户自由地选择、拖拽、调整仪表盘中的各种组件，从而实现自定义的仪表盘。</p>
+<h2 id="功能需求">功能需求</h2>
+<p>由于本系列文章写作设计和开发之后，所以先一睹为快，看看最终的效果：<a href="https://lruihao.github.io/vue-el-demo/#/dashboard/index"target="_blank" rel="external nofollow noopener noreferrer">在线 Demo<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
+<p>技术背景是基于 Vue2 实现，功能需求大致如下：</p>
+<h3 id="布局需求">布局需求</h3>
+<p>仪表盘布局是拖拽式仪表盘的核心功能之一。布局应该是一个可复用的模板，因为对于一个中后台系统，往往会有多个仪表盘，所有基础功能应该提炼出来，以便于快速复用。</p>
+<ul>
+<li>组件拖放到布局容器中时，用户应能够自由拖拽、调整组件的大小和位置，也可以对组件进行排序、刷新、删除等操作</li>
+<li>允许创建、删除、复制布局，每个布局可以有不同的组件排列</li>
+</ul>
+<h3 id="组件需求">组件需求</h3>
+<ul>
+<li>统一的配置项（宽高、是否可调整大小、各种事件钩子等）</li>
+<li>组件分类</li>
+<li>自动加载组件列表</li>
+<li>组件独立（每个组件有自己完整的生命周期）</li>
+</ul>
+<p>每个组件应该拥有相同的配置项，以便于按照相同的规范限制进行后续的组件开发。</p>
+<p>组件统一存放在一个文件夹中，仪表盘模板自动加载这个文件夹中的所有组件到组件列表。</p>
+<p>组件列表中的组件可以通过拖拽或者点击添加到布局容器中。</p>
+<p>组件需要有分类，例如：模块 A 的组件、模块 B 的组件等。因为虽然系统中的每个模块的仪表盘只需要显示当前模块相关的图表组件，但是整个系统的仪表盘需要显示各个模块的图表统计数据，所以需要对组件进行分类。</p>
+<p>另外，应该有一个通用分类，用于存放所有模块都可以使用的组件。例如：便签、天气组件、时间组件等。</p>
+<h3 id="布局和组件交互">布局和组件交互</h3>
+<p>仪表盘布局内通常有多个组件，布局和组件之间可能需要进行交互，例如：</p>
+<ul>
+<li>点击总的刷新按钮，所有组件都刷新；点击某个组件的刷新按钮，只刷新当前组件</li>
+<li>点击某个组件的设置按钮，弹出设置框，设置当前组件的配置项保存到当前布局数据中</li>
+<li>点击某个组件的删除按钮，从当前布局数据中删除当前组件</li>
+<li>……</li>
+</ul>
+<h3 id="用户角色和权限管理需求">用户角色和权限管理需求</h3>
+<p>在拖拽式仪表盘中，不同用户角色可能具有不同的访问权限和操作权限。</p>
+<p>管理员拥有完整的权限：</p>
+<ul>
+<li>可以查看所有仪表盘</li>
+<li>可以编辑所有仪表盘</li>
+<li>可以删除除默认仪表盘之外的所有仪表盘</li>
+<li>可以拖拽、调整所有组件在仪表盘中的位置和大小</li>
+</ul>
+<p>普通用户只能永远部分权限：</p>
+<ul>
+<li>可以查看所有仪表盘</li>
+<li>工作台仪表盘可以新增、删除、编辑组织内可见的仪表盘布局</li>
+<li>工作台仪表盘可以拖拽、调整组件在非默认仪表盘布局中的位置和大小</li>
+<li>其他模块的仪表盘只能查看和刷新，不能编辑</li>
+</ul>
+<h2 id="总结">总结</h2>
+<p>通过分析，简单来说，拖拽式仪表盘的功能需求主要包括：</p>
+<ul>
+<li>布局需求</li>
+<li>组件需求</li>
+<li>布局和组件交互</li>
+<li>用户角色和权限管理需求</li>
+</ul>
+<p>了解清楚需求后，下一篇文章将探讨拖拽式仪表盘的布局模板设计。</p>
+]]></description></item><item><title>给博客类项目添加 markdownlint 语法检查</title><link>https://lruihao.cn/posts/markdownlint/</link><pubDate>Wed, 11 Oct 2023 14:26:48 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/markdownlint/</guid><description><![CDATA[<p><a href="https://github.com/DavidAnson/markdownlint"target="_blank" rel="external nofollow noopener noreferrer">markdownlint<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 是一个 Markdown 语法检查工具，它可以检查 Markdown 文件中的语法错误，以及一些不规范的写法。</p>
 <h2 id="markdownlint-cli-历史">markdownlint cli 历史</h2>
 <p>根据 markdownlint 作者 <a href="https://github.com/DavidAnson"target="_blank" rel="external nofollow noopener noreferrer">David Anson<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 博客<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>得知，大概在 2015 年左右 <a href="https://github.com/igorshubovych"target="_blank" rel="external nofollow noopener noreferrer">Igor Shubovych<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 和他探讨了开发 CLI 工具的想法，当时作者还没做好准备，于是 Igor 独自开发了 <a href="https://github.com/igorshubovych/markdownlint-cli"target="_blank" rel="external nofollow noopener noreferrer">markdownlint-cli<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 这个 CLI 工具，然后经过两年的发展有了越来越多的人开始使用 markdownlint-cli，于是 David 开始给 markdownlint-cli 项目贡献代码添加新功能，并在之后三年里成为了主要的维护人员，直到2020年，David 觉得在别人的项目中，很多事情不太好改变（可能向后兼容的问题），于是他自己重新建立了一个名叫 <a href="https://github.com/DavidAnson/markdownlint-cli2"target="_blank" rel="external nofollow noopener noreferrer">markdownlint-cli2<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 的项目，在 markdownlint-cli 的优秀之上又做了新的改进，使其拥有更快的执行速度、更灵活的配置、更少的依赖等优点。</p>
 <p>目前两个工具都依然随着 markdownlint 的更新而更新，个人觉得旧项目如果使用的 markdownlint-cli 则无需更改以避免出现未知的问题，新引入的项目，可以考虑使用更强大的 markdownlint-cli2。</p>
@@ -3884,53 +3941,4 @@
 </ol>
 </div>
     </div>
-  </div>]]></description></item><item><title>2022 年度总结</title><link>https://lruihao.cn/years/2022/</link><pubDate>Sat, 17 Dec 2022 01:01:30 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/years/2022/</guid><description><![CDATA[<blockquote class="blockquote-center">
-  虚度有时候才是人生的最高境界
-</blockquote>
-<h2 id="释然">释然</h2>
-<p>从第一眼看到这句话开始，便已决定这一年该怎么过了。</p>
-<p>过去两年中总觉得自己失去了许多东西了，因此而感到遗憾，或许失去的本就不属于自己呢？时间在这一年里让我学会了放下，放下执念，放下不切实际。我开始想念多年前的自己了。</p>
-<p>“先爱己后爱人，养好性格，足够优秀再大胆拥有”，于是乎，开始看书，看电影，free code, 做一些自己想做的事，放纵，吃喝，取悦自我。</p>
-<p>看了大概有三十多部电影吧，漫威的居多，还有些电视剧动漫等，看书的时间比较少，也只零散地看了一本神雕侠侣和部分 ES6 章节。 在开源项目 <a href="https://github.com/hugo-fixit/FixIt"target="_blank" rel="external nofollow noopener noreferrer">FixIt<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 上也花了许多时间，甚至肝到过凌晨四点，一年来收获了 160 多个 star, 下半年创的用户交流群也有 40 多个人了，总之，时间有了消耗，留给我胡思乱想的时间也就少了许多。</p>
-<p>“什么是永远，失去就是永远”</p>
-<p>解铃还须系铃人，一句“生日快乐”足矣，心结已然解开。印象中的爱情好像顶不住这时间，那些忘不掉的人和事，岁月都已替我轻描淡写，时间治好了我的内耗，我找回了我自己，因而误打误撞明白了一些道理：“你愿意支付代价，他未必照单全收，你可以翻山越岭，到达时也许落空，人人都一样，可以遗落一切，不要弄丢自己。“</p>
-<h2 id="期待">期待</h2>
-<p>进而不知从何时开始，又开始有了期待。</p>
-<p>国庆期间，回家了一趟，和胖子蒙镛小聚了一天。和胖子在酒店畅谈到凌晨三点，之后感悟很多，羡慕可以早早在小县城规划一生，这是多少人忙碌一生想要的结果。</p>
-<p>之后通过胖子和他女朋友认识了小龙，回深圳后去找了她，短暂几天相处，心动了，其实我一直不相信一见钟情的，但有些人，你见第一眼就已经决定了你会不会喜欢上她。后来她回长沙了，我竟会在梦里想起她，而后坦率地表达了自己的喜欢，她说希望我当面说这些，我也不想让她一直出现在我梦里，11 月底抽了个周末去长沙，然后我们在一起了。那天 11 月 26 日凌晨，隔了一层窗帘，挡住了我的紧张。早晨在她还没醒时，悄悄出门买了束花，还有她想吃的草莓。我和花店老板说帮我搭一束花吧，送给我女朋友，他说那就玫瑰吧，我说再加一支向日葵，其实我想表达的是希望向日葵代表我的真诚，玫瑰代表爱你的开始。</p>
-<p>曾想过以后要做一个被爱之人，在花店等待的那一刻钟，恍然大悟，爱与被爱一直都是相互的，不去爱又怎会收获爱呢？</p>
-<p>还是希望生活会有惊喜，喜欢能有回应。</p>
-<h2 id="工作">工作</h2>
-<p>之于工作，这一年工作强度下降许多，对于技术上的精进没有刚毕业那会感受那么明显，收获自然是有的，潜移默化，细水长流。唯一不满的就是，公司的开发规范问题，几乎没有统一的规范，“能用就行”的理念一开始让我很不适应，我也因此把这些想法写在了转正报告的建议中，虽然得到了<a href="/years/2022/images/23_1673958968.png">董事长，经理和主管的肯定</a>，然而随着工作的日常进行，该问题还是没有得到解决。</p>
-<p>我也意识到我不能像以前一样以一个领导者的身份去要求现在的同事甚至主管来严格按照某种规范完成开发，渐渐地，我忍住了我的代码强迫症，我能做的只是规范要求自己，看到同事们的 dirty hack 呢，有时间自己改过来就好。即便如此，我还是希望来年，可以通过极测知识库这个新开发的知识平台，分享一些开发上的规范供大家参考。</p>
-<h3 id="主要工作">主要工作</h3>
-<p>2022 年的一些主要工作：</p>
-<ol>
-<li>Testman 系统前端开发：优化整体布局，删除冗余代码；完成测试跟踪模块改版；完成新增性能测试模块和接口测试模块各功能开发；开发脑图编辑器插件 vue-minder-editor-extended 用于测试用例脑图编辑及展示；修复测试过程中反馈的 bug。</li>
-<li>ZtestMonkey 桌面端工具开发：根据 SD 和 UI 设计重构项目，完成新版本开发并发布若干个版本；规范打包流程遵循 Semver 规范；测试报告增加网状流程图；取得成效：增强软件使用体验，模块化代码增加代码可维护性。</li>
-<li>极测知识库开发：完成系统整体布局设计；完成知识库首页开发；完成各类型文档详情内容页面开发。年底整体开发完后完成上线。</li>
-</ol>
-<h3 id="工作目标">工作目标</h3>
-<p>年初入职的年度工作目标是尽快熟悉掌握项目开发需要的技术栈，并遵循行业相关规范在限定时间内完成工作中各项目需求开发。回头看，在一年工作中基本达成目标。</p>
-<h3 id="收获">收获</h3>
-<ul>
-<li>友声科技最佳新人奖</li>
-</ul>
-<h2 id="新冠末年">新冠末年</h2>
-<p>疫情笼罩的第三年，每日一检，已经成了习惯，随着中风险概念的取消，全民核酸点撤离，取消跨城市落地捡及报备，下线行程码，告别健康码也指日可待，这场始于 19 年底的大型纪录片，可以看到大结局的序章了。</p>
-<p>马放南山，刀枪入库，属于奥密克戎的新冠疫情后时代正在拉开帷幕，并迅速扩张，身边很多朋友都阳了。希望来年春暖花开时，我可以紧紧拥抱喜欢的人。</p>
-<p>充实而又平淡地过完这一年，纵然有所解脱，有所感悟，有所收获，找回自己，但是原来的自己显然已和这个年龄段不大相符。明年，得变得更好，开始自律，攒钱，珍惜拥有的一切并为之努力。</p>
-<p>Keep real, feel alive.</p>
-<hr>
-<blockquote>
-<p>2022.12.31</p>
-<p>圣诞节前两天，小龙阳了，我立马买了当天最早的高铁去长沙，5 点多就起床去深圳北。到长沙后，每天给小龙做饭，打扫卫生，烧水等，就这样过了 5 天，她也好多了不烧了，我就回深圳了。不出意外我也变成小 🐑 人了，回深圳测阳后第二天我又测了一遍转阴了。</p>
-<p>2020 年过去了，2022 年也马上要过去了，希望 23 年，会更好，好吗？好不好？<br>
-好的，拜拜 👋</p>
-</blockquote>
-<h2 id="flags-in-2023">flags in 2023</h2>
-<ul>
-<li>存钱</li>
-<li>打球</li>
-<li>学习</li>
-</ul>]]></description></item></channel></rss>
+  </div>]]></description></item></channel></rss>
