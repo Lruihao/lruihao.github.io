@@ -1,0 +1,266 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>widget - 标签 - 菠菜眾長</title><link>https://lruihao.cn/tags/widget/</link><description>widget - 标签 - 菠菜眾長</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><copyright>本站内容采用知识共享署名-非商业性使用 4.0（CC BY-NC 4.0）国际许可协议。</copyright><lastBuildDate>Thu, 12 Oct 2023 19:41:23 +0800</lastBuildDate><atom:link href="https://lruihao.cn/tags/widget/" rel="self" type="application/rss+xml"/><item><title>拖拽式仪表盘 - 组件配置文档</title><link>https://lruihao.cn/posts/dashborad-widget-docs/</link><pubDate>Thu, 12 Oct 2023 19:41:23 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/dashborad-widget-docs/</guid><description><![CDATA[<p>本文将对 Dashboard 组件的使用方法进行介绍。</p>
+<h2 id="a-note-on-terminology">A note on terminology</h2>
+<p>“Widget（小部件）” 和 “Component（组件）” 都是计算机科学中常见的术语，用于描述可重复使用的用户界面元素。Widget 通常更简单，具有预定义的样式和功能，而 Component 可以更灵活、可定制，并具有更丰富的行为和交互性。Widget 更倾向于描述独立的、自包含的小型组件，而 Component 则更倾向于描述较大规模的、可组合的用户界面元素。</p>
+<p>Vue 项目通常选用 Component，与之相比仪表盘组件功能更加局限，使用 Widget 来描述显然更符合实际情况。</p>
+<h2 id="widget-example">Widget Example</h2>
+<p>完整例子详见 <a href="https://github.com/Lruihao/vue-el-demo/blob/main/src/components/Dashboard/widgets/example.vue"target="_blank" rel="external nofollow noopener noreferrer"><code>@/components/Dashboard/widgets/example.vue</code><i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 组件。</p>
+<h2 id="inject">Inject</h2>
+<p>dashboard 组件及其后代组件可以通过注入 <code>$dashboard</code> 访问容器中的属性或方法。</p>
+<ul>
+<li><code>$dashboard</code> (Object): 当前 dashboard 容器实例</li>
+</ul>
+<p>例如：</p>
+<div class="highlight" id="id-1"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="k">default</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;ExampleWidget&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">widget</span><span class="o">:</span> <span class="p">{</span> <span class="cm">/* ... */</span> <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">inject</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;$dashboard&#39;</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">mounted</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 组件通过 this.$dashboard 访问容器中的属性或方法
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">this</span><span class="p">.</span><span class="nx">$dashboard</span><span class="p">.</span><span class="nx">notify</span><span class="p">(</span><span class="s1">&#39;example widget mounted&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="cm">/* ... */</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="props">Props</h2>
+<p>容器中的组件可以接收一些上层传递的参数，如下：</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>item</code></td>
+<td><code>Object</code></td>
+<td>组件实例数据</td>
+</tr>
+<tr>
+<td><code>params</code></td>
+<td><code>Object</code></td>
+<td>组件参数，用于接收用户已配置的参数，支持 <code>.sync</code> 修饰符</td>
+</tr>
+</tbody>
+</table>
+<h2 id="widget-properties">Widget Properties</h2>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>类型</th>
+<th style="text-align:center">必填</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>name</code></td>
+<td><code>String</code></td>
+<td style="text-align:center"><code>Y</code></td>
+<td>组件名称，必须且唯一（同 Vue 组件 <code>name</code> 属性）</td>
+</tr>
+<tr>
+<td><code>widget</code></td>
+<td><code>Object</code></td>
+<td style="text-align:center"><code>Y</code></td>
+<td>组件配置信息，<a href="https://jbaysolutions.github.io/vue-grid-layout/zh/guide/properties.html#griditem"target="_blank" rel="external nofollow noopener noreferrer">参考文档<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></td>
+</tr>
+</tbody>
+</table>
+<p><code>widget</code> 配置如下：</p>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>类型</th>
+<th style="text-align:center">必填</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>name</code></td>
+<td><code>String</code></td>
+<td style="text-align:center"><code>Y</code></td>
+<td>组件名称，用于在组件列表中显示组件名称</td>
+</tr>
+<tr>
+<td><code>icon</code></td>
+<td><code>String</code></td>
+<td style="text-align:center"><code>Y</code></td>
+<td>组件图标，用于在组件列表中显示组件图标，支持 <code>el-icon</code>、<code>iconfont</code> 和 <code>svg-icon</code></td>
+</tr>
+<tr>
+<td><code>params</code></td>
+<td><code>Object</code></td>
+<td style="text-align:center"><code>N</code></td>
+<td>组件参数，一般搭配 <code>setting</code> 钩子函数使用</td>
+</tr>
+<tr>
+<td><code>disabled</code></td>
+<td><code>Boolean</code></td>
+<td style="text-align:center"><code>N</code></td>
+<td>是否禁用组件，设置为 <code>true</code> 则不会被注册（组件弃用时可设置为 <code>true</code>）</td>
+</tr>
+<tr>
+<td><code>hidden</code></td>
+<td><code>Boolean</code></td>
+<td style="text-align:center"><code>N</code></td>
+<td>是否隐藏组件，设置为 <code>true</code> 则不会在组件列表中显示（组件即将弃用时可设置为 <code>true</code>）</td>
+</tr>
+<tr>
+<td><code>w</code></td>
+<td><code>Number</code></td>
+<td style="text-align:center"><code>Y</code></td>
+<td>组件宽度</td>
+</tr>
+<tr>
+<td><code>h</code></td>
+<td><code>Number</code></td>
+<td style="text-align:center"><code>Y</code></td>
+<td>组件高度</td>
+</tr>
+<tr>
+<td><code>minW</code></td>
+<td><code>Number</code></td>
+<td style="text-align:center"><code>N</code></td>
+<td>组件最小宽度</td>
+</tr>
+<tr>
+<td><code>minH</code></td>
+<td><code>Number</code></td>
+<td style="text-align:center"><code>N</code></td>
+<td>组件最小高度</td>
+</tr>
+<tr>
+<td><code>maxW</code></td>
+<td><code>Number</code></td>
+<td style="text-align:center"><code>N</code></td>
+<td>组件最大宽度</td>
+</tr>
+<tr>
+<td><code>maxH</code></td>
+<td><code>Number</code></td>
+<td style="text-align:center"><code>N</code></td>
+<td>组件最大高度</td>
+</tr>
+<tr>
+<td><code>isResizable</code></td>
+<td><code>Boolean</code></td>
+<td style="text-align:center"><code>N</code></td>
+<td>是否可调整大小</td>
+</tr>
+</tbody>
+</table>
+<h2 id="widget-events">Widget Events</h2>
+<table>
+<thead>
+<tr>
+<th>事件名</th>
+<th>类型</th>
+<th>说明</th>
+<th>回调参数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>refresh</code></td>
+<td><code>Function</code></td>
+<td>hook for refresh widget item</td>
+<td>item</td>
+</tr>
+<tr>
+<td><code>setting</code></td>
+<td><code>Function</code></td>
+<td>hook for setting widget item</td>
+<td>item</td>
+</tr>
+<tr>
+<td><code>move</code></td>
+<td><code>Function</code></td>
+<td>hook for moving widget item</td>
+<td>item, &hellip;args</td>
+</tr>
+<tr>
+<td><code>moved</code></td>
+<td><code>Function</code></td>
+<td>hook for moved widget item</td>
+<td>item, &hellip;args</td>
+</tr>
+<tr>
+<td><code>resize</code></td>
+<td><code>Function</code></td>
+<td>hook for resizing widget item</td>
+<td>item, &hellip;args</td>
+</tr>
+<tr>
+<td><code>resized</code></td>
+<td><code>Function</code></td>
+<td>hook for resized widget item</td>
+<td>item, &hellip;args</td>
+</tr>
+<tr>
+<td><code>containerResized</code></td>
+<td><code>Function</code></td>
+<td>hook for resized grid container</td>
+<td>item, &hellip;args</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>参数说明：</p>
+<ul>
+<li>item：<code>Object</code>，组件实例数据，<a href="https://jbaysolutions.github.io/vue-grid-layout/zh/guide/properties.html#griditem"target="_blank" rel="external nofollow noopener noreferrer">参考文档<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+<li>args：<code>Array</code>，传递给事件的其他参数，<a href="https://jbaysolutions.github.io/vue-grid-layout/zh/guide/events.html#griditem"target="_blank" rel="external nofollow noopener noreferrer">参考文档<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+</ul>
+</blockquote>
+<h2 id="widget-styles">Widget Styles</h2>
+<p>组件默认含有 <code>box-shadow</code>、<code>background-color</code> 等样式，可在组件根节点通过以下样式调整或根据实际情况自行覆盖。</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>shadow</code></td>
+<td><code>prop</code></td>
+<td>组件阴影，可选值：<code>always</code>、<code>hover</code>、<code>never</code>，默认值：<code>always</code></td>
+</tr>
+<tr>
+<td><code>.bg-transparent</code></td>
+<td><code>class</code></td>
+<td>组件背景透明</td>
+</tr>
+</tbody>
+</table>
+<h2 id="widget-directory">Widget Directory</h2>
+<p>dashboard 组件统一存放目录：</p>
+<ul>
+<li>通用组件：<code>@/components/Dashboard/widgets/</code></li>
+<li>模块组件：<code>@/views/{module_name}/widgets/</code></li>
+</ul>
+<!-- link reference definition -->]]></description></item></channel></rss>

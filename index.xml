@@ -1,8 +1,837 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>菠菜眾長</title><link>https://lruihao.cn/</link><description>Lruihao's Note 李瑞豪的博客：探索、分享、记录自己在工作生活学习到一些东西。人知道得越多，就就会发现无知的越多。有更广袤世界可以探索，真是莫大的快乐啊！</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><copyright>本站内容采用知识共享署名-非商业性使用 4.0（CC BY-NC 4.0）国际许可协议。</copyright><lastBuildDate>Thu, 12 Oct 2023 15:37:30 +0800</lastBuildDate><atom:link href="https://lruihao.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>拖拽式仪表盘功能需求分析</title><link>https://lruihao.cn/posts/dashboard-analysis/</link><pubDate>Thu, 12 Oct 2023 15:37:30 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/dashboard-analysis/</guid><description><![CDATA[<h2 id="仪表盘简介">仪表盘简介</h2>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>菠菜眾長</title><link>https://lruihao.cn/</link><description>Lruihao's Note 李瑞豪的博客：探索、分享、记录自己在工作生活学习到一些东西。人知道得越多，就就会发现无知的越多。有更广袤世界可以探索，真是莫大的快乐啊！</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><copyright>本站内容采用知识共享署名-非商业性使用 4.0（CC BY-NC 4.0）国际许可协议。</copyright><lastBuildDate>Thu, 12 Oct 2023 19:41:23 +0800</lastBuildDate><atom:link href="https://lruihao.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>拖拽式仪表盘 - 组件配置文档</title><link>https://lruihao.cn/posts/dashborad-widget-docs/</link><pubDate>Thu, 12 Oct 2023 19:41:23 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/dashborad-widget-docs/</guid><description><![CDATA[<p>本文将对 Dashboard 组件的使用方法进行介绍。</p>
+<h2 id="a-note-on-terminology">A note on terminology</h2>
+<p>“Widget（小部件）” 和 “Component（组件）” 都是计算机科学中常见的术语，用于描述可重复使用的用户界面元素。Widget 通常更简单，具有预定义的样式和功能，而 Component 可以更灵活、可定制，并具有更丰富的行为和交互性。Widget 更倾向于描述独立的、自包含的小型组件，而 Component 则更倾向于描述较大规模的、可组合的用户界面元素。</p>
+<p>Vue 项目通常选用 Component，与之相比仪表盘组件功能更加局限，使用 Widget 来描述显然更符合实际情况。</p>
+<h2 id="widget-example">Widget Example</h2>
+<p>完整例子详见 <a href="https://github.com/Lruihao/vue-el-demo/blob/main/src/components/Dashboard/widgets/example.vue"target="_blank" rel="external nofollow noopener noreferrer"><code>@/components/Dashboard/widgets/example.vue</code><i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 组件。</p>
+<h2 id="inject">Inject</h2>
+<p>dashboard 组件及其后代组件可以通过注入 <code>$dashboard</code> 访问容器中的属性或方法。</p>
+<ul>
+<li><code>$dashboard</code> (Object): 当前 dashboard 容器实例</li>
+</ul>
+<p>例如：</p>
+<div class="highlight" id="id-1"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="k">default</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;ExampleWidget&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">widget</span><span class="o">:</span> <span class="p">{</span> <span class="cm">/* ... */</span> <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">inject</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;$dashboard&#39;</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">mounted</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 组件通过 this.$dashboard 访问容器中的属性或方法
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">this</span><span class="p">.</span><span class="nx">$dashboard</span><span class="p">.</span><span class="nx">notify</span><span class="p">(</span><span class="s1">&#39;example widget mounted&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="cm">/* ... */</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="props">Props</h2>
+<p>容器中的组件可以接收一些上层传递的参数，如下：</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>item</code></td>
+<td><code>Object</code></td>
+<td>组件实例数据</td>
+</tr>
+<tr>
+<td><code>params</code></td>
+<td><code>Object</code></td>
+<td>组件参数，用于接收用户已配置的参数，支持 <code>.sync</code> 修饰符</td>
+</tr>
+</tbody>
+</table>
+<h2 id="widget-properties">Widget Properties</h2>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>类型</th>
+<th style="text-align:center">必填</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>name</code></td>
+<td><code>String</code></td>
+<td style="text-align:center"><code>Y</code></td>
+<td>组件名称，必须且唯一（同 Vue 组件 <code>name</code> 属性）</td>
+</tr>
+<tr>
+<td><code>widget</code></td>
+<td><code>Object</code></td>
+<td style="text-align:center"><code>Y</code></td>
+<td>组件配置信息，<a href="https://jbaysolutions.github.io/vue-grid-layout/zh/guide/properties.html#griditem"target="_blank" rel="external nofollow noopener noreferrer">参考文档<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></td>
+</tr>
+</tbody>
+</table>
+<p><code>widget</code> 配置如下：</p>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>类型</th>
+<th style="text-align:center">必填</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>name</code></td>
+<td><code>String</code></td>
+<td style="text-align:center"><code>Y</code></td>
+<td>组件名称，用于在组件列表中显示组件名称</td>
+</tr>
+<tr>
+<td><code>icon</code></td>
+<td><code>String</code></td>
+<td style="text-align:center"><code>Y</code></td>
+<td>组件图标，用于在组件列表中显示组件图标，支持 <code>el-icon</code>、<code>iconfont</code> 和 <code>svg-icon</code></td>
+</tr>
+<tr>
+<td><code>params</code></td>
+<td><code>Object</code></td>
+<td style="text-align:center"><code>N</code></td>
+<td>组件参数，一般搭配 <code>setting</code> 钩子函数使用</td>
+</tr>
+<tr>
+<td><code>disabled</code></td>
+<td><code>Boolean</code></td>
+<td style="text-align:center"><code>N</code></td>
+<td>是否禁用组件，设置为 <code>true</code> 则不会被注册（组件弃用时可设置为 <code>true</code>）</td>
+</tr>
+<tr>
+<td><code>hidden</code></td>
+<td><code>Boolean</code></td>
+<td style="text-align:center"><code>N</code></td>
+<td>是否隐藏组件，设置为 <code>true</code> 则不会在组件列表中显示（组件即将弃用时可设置为 <code>true</code>）</td>
+</tr>
+<tr>
+<td><code>w</code></td>
+<td><code>Number</code></td>
+<td style="text-align:center"><code>Y</code></td>
+<td>组件宽度</td>
+</tr>
+<tr>
+<td><code>h</code></td>
+<td><code>Number</code></td>
+<td style="text-align:center"><code>Y</code></td>
+<td>组件高度</td>
+</tr>
+<tr>
+<td><code>minW</code></td>
+<td><code>Number</code></td>
+<td style="text-align:center"><code>N</code></td>
+<td>组件最小宽度</td>
+</tr>
+<tr>
+<td><code>minH</code></td>
+<td><code>Number</code></td>
+<td style="text-align:center"><code>N</code></td>
+<td>组件最小高度</td>
+</tr>
+<tr>
+<td><code>maxW</code></td>
+<td><code>Number</code></td>
+<td style="text-align:center"><code>N</code></td>
+<td>组件最大宽度</td>
+</tr>
+<tr>
+<td><code>maxH</code></td>
+<td><code>Number</code></td>
+<td style="text-align:center"><code>N</code></td>
+<td>组件最大高度</td>
+</tr>
+<tr>
+<td><code>isResizable</code></td>
+<td><code>Boolean</code></td>
+<td style="text-align:center"><code>N</code></td>
+<td>是否可调整大小</td>
+</tr>
+</tbody>
+</table>
+<h2 id="widget-events">Widget Events</h2>
+<table>
+<thead>
+<tr>
+<th>事件名</th>
+<th>类型</th>
+<th>说明</th>
+<th>回调参数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>refresh</code></td>
+<td><code>Function</code></td>
+<td>hook for refresh widget item</td>
+<td>item</td>
+</tr>
+<tr>
+<td><code>setting</code></td>
+<td><code>Function</code></td>
+<td>hook for setting widget item</td>
+<td>item</td>
+</tr>
+<tr>
+<td><code>move</code></td>
+<td><code>Function</code></td>
+<td>hook for moving widget item</td>
+<td>item, &hellip;args</td>
+</tr>
+<tr>
+<td><code>moved</code></td>
+<td><code>Function</code></td>
+<td>hook for moved widget item</td>
+<td>item, &hellip;args</td>
+</tr>
+<tr>
+<td><code>resize</code></td>
+<td><code>Function</code></td>
+<td>hook for resizing widget item</td>
+<td>item, &hellip;args</td>
+</tr>
+<tr>
+<td><code>resized</code></td>
+<td><code>Function</code></td>
+<td>hook for resized widget item</td>
+<td>item, &hellip;args</td>
+</tr>
+<tr>
+<td><code>containerResized</code></td>
+<td><code>Function</code></td>
+<td>hook for resized grid container</td>
+<td>item, &hellip;args</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>参数说明：</p>
+<ul>
+<li>item：<code>Object</code>，组件实例数据，<a href="https://jbaysolutions.github.io/vue-grid-layout/zh/guide/properties.html#griditem"target="_blank" rel="external nofollow noopener noreferrer">参考文档<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+<li>args：<code>Array</code>，传递给事件的其他参数，<a href="https://jbaysolutions.github.io/vue-grid-layout/zh/guide/events.html#griditem"target="_blank" rel="external nofollow noopener noreferrer">参考文档<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+</ul>
+</blockquote>
+<h2 id="widget-styles">Widget Styles</h2>
+<p>组件默认含有 <code>box-shadow</code>、<code>background-color</code> 等样式，可在组件根节点通过以下样式调整或根据实际情况自行覆盖。</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>shadow</code></td>
+<td><code>prop</code></td>
+<td>组件阴影，可选值：<code>always</code>、<code>hover</code>、<code>never</code>，默认值：<code>always</code></td>
+</tr>
+<tr>
+<td><code>.bg-transparent</code></td>
+<td><code>class</code></td>
+<td>组件背景透明</td>
+</tr>
+</tbody>
+</table>
+<h2 id="widget-directory">Widget Directory</h2>
+<p>dashboard 组件统一存放目录：</p>
+<ul>
+<li>通用组件：<code>@/components/Dashboard/widgets/</code></li>
+<li>模块组件：<code>@/views/{module_name}/widgets/</code></li>
+</ul>
+<!-- link reference definition -->]]></description></item><item><title>拖拽式仪表盘 - 布局模板文档</title><link>https://lruihao.cn/posts/dashborad-template-docs/</link><pubDate>Thu, 12 Oct 2023 19:27:49 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/dashborad-template-docs/</guid><description><![CDATA[<p><code>Dashboard</code> 组件 <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> 是一个公共模板组件，用于快速创建 Dashboard 页面。</p>
+<h2 id="basic-usage">Basic Usage</h2>
+<ol>
+<li>
+<p>每个模块的 dashboard 页面可继承 <code>Dashboard</code> 组件，如：</p>
+<div class="highlight" id="id-1"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="nx">Dashboard</span> <span class="nx">from</span> <span class="s1">&#39;@/components/Dashboard&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="k">default</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Dashboard&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">extends</span><span class="o">:</span> <span class="nx">Dashboard</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span></span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>使用 <code>registerComponents</code> 函数注册组件，通用组件模板中默认已导入，模块组件需要自行导入，如：</p>
+<div class="highlight" id="id-2"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="nx">Dashboard</span><span class="p">,</span> <span class="p">{</span> <span class="nx">registerComponents</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@/components/Dashboard&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 加载 widgets 目录下所有组件
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">requireComponents</span> <span class="o">=</span> <span class="nx">require</span><span class="p">.</span><span class="nx">context</span><span class="p">(</span><span class="s1">&#39;./widgets&#39;</span><span class="p">,</span> <span class="kc">true</span><span class="p">,</span> <span class="sr">/\.vue$/</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">components</span> <span class="o">=</span> <span class="nx">registerComponents</span><span class="p">(</span><span class="nx">requireComponents</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="k">default</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Dashboard&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">extends</span><span class="o">:</span> <span class="nx">Dashboard</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">created</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 加载组件列表
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">this</span><span class="p">.</span><span class="nx">addComponents</span><span class="p">(</span><span class="s1">&#39;组件分类&#39;</span><span class="p">,</span> <span class="nx">components</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span></span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>设置默认布局</p>
+<div class="highlight" id="id-3"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="nx">Dashboard</span><span class="p">,</span> <span class="p">{</span> <span class="nx">registerComponents</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@/components/Dashboard&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="k">default</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Dashboard&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">extends</span><span class="o">:</span> <span class="nx">Dashboard</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">data</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="c1">// 设置默认布局
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="nx">defaultLayout</span><span class="o">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span> <span class="nx">i</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">component</span><span class="o">:</span> <span class="s1">&#39;ExampleWidget&#39;</span><span class="p">,</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;便利贴&#39;</span><span class="p">,</span> <span class="nx">x</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">y</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">w</span><span class="o">:</span> <span class="mi">8</span><span class="p">,</span> <span class="nx">h</span><span class="o">:</span> <span class="mi">8</span><span class="p">,</span> <span class="nx">params</span><span class="o">:</span> <span class="p">{</span> <span class="nx">content</span><span class="o">:</span> <span class="s1">&#39;hello world!&#39;</span> <span class="p">}},</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="p">],</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span></span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ol>
+<blockquote>
+<p>完整例子详见 <a href="https://github.com/Lruihao/vue-el-demo/blob/main/src/views/dashboard/index.vue"target="_blank" rel="external nofollow noopener noreferrer"><code>@/views/dashboard/index.vue</code><i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 页面。</p>
+</blockquote>
+<h2 id="export">Export</h2>
+<ul>
+<li><code>registerComponents</code> (Function): 注册组件（widget.disabled 为 true 的组件不注册）
+<ul>
+<li>param <code>requireComponents</code> (Function): require.context 函数</li>
+<li>return (Array) 已注册的组件列表</li>
+</ul>
+</li>
+</ul>
+<h2 id="provide">Provide</h2>
+<p>提供当前 dashboard 实例给后代组件注入，用于后代组件访问容器内的属性或方法。</p>
+<ul>
+<li><code>$dashboard</code> (Object): 当前 dashboard 容器实例</li>
+</ul>
+<h2 id="data-properties">Data Properties</h2>
+<ul>
+<li><code>componentsList</code> (Array): 组件列表 e.g. [{ category: &lsquo;分类名称&rsquo;, components: [组件列表] }]</li>
+<li><code>isCollapse</code> (Boolean): 是否折叠侧边栏</li>
+<li><code>colNum</code> (Number): 栅格列数</li>
+<li><code>rowHeight</code> (Number): 栅格行高</li>
+<li><code>gaps</code> (Array): 栅格间隙 [水平间隙, 垂直间隙] e.g. [8, 8]</li>
+<li><code>dashboardGrid</code> (Element): 可接收拖放的栅格容器</li>
+<li><code>dashboardList</code> (Array): 仪表盘列表</li>
+<li><code>dashboard</code> (Object): 仪表盘数据
+<ul>
+<li><code>id</code> (Number): 仪表盘 ID</li>
+<li><code>route</code> (String): 路由名称</li>
+<li><code>name</code> (String): 仪表盘名称</li>
+<li><code>layout</code> (Array): 组件布局数据</li>
+<li><code>aside</code> (String): 侧边栏位置（left 或 right）</li>
+<li><code>compact</code> (Boolean): 是否垂直压缩布局</li>
+<li><code>isDefault</code> (Boolean): 是否默认布局</li>
+</ul>
+</li>
+<li><code>responsive</code> (Boolean): 是否响应式布局</li>
+<li><code>loading</code> (Boolean): 是否正在加载/保存布局数据</li>
+<li><code>defaultLayout</code> (Array): 默认布局组件数据</li>
+<li><code>hasEditPermission</code> (Boolean): 是否有编辑权限</li>
+<li><code>selectedCategory</code> (String): 已选中的组件分类</li>
+<li><code>menuCollapse</code> (Boolean): 是否折叠组件分类菜单</li>
+</ul>
+<h2 id="computed-properties">Computed Properties</h2>
+<ul>
+<li><code>selectedDashboardId</code> (Number): 已选中的仪表盘 ID</li>
+<li><code>components</code> (Array): 所有已注册组件，用于 dashboard 布局中的组件渲染，包含 <code>hidden</code> 为 <code>true</code> 的组件</li>
+<li><code>componentsListAvailable</code> (Array): 过滤后的组件列表，用于组件列表显示，过滤 <code>hidden</code> 为 <code>true</code> 的组件，过滤组件列表为空的分类</li>
+<li><code>componentsByCategory</code> (Array): 根据 selectedCategory 获取对应的组件列表</li>
+</ul>
+<h2 id="methods">Methods</h2>
+<h3 id="notifymessage-type--success">notify(message, type = &lsquo;success&rsquo;)</h3>
+<p>dashboard 显示通知</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>message</td>
+<td><code>String</code></td>
+<td>通知内容</td>
+</tr>
+<tr>
+<td>type</td>
+<td><code>String</code></td>
+<td>通知类型，可选值：<code>success</code>、<code>warning</code>、<code>info</code>、<code>error</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="addcomponentscategory-components-isprepend--false">addComponents(category, components, isPrepend = false)</h3>
+<p>添加组件列表及分类</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>category</td>
+<td><code>String</code></td>
+<td>组件分类</td>
+</tr>
+<tr>
+<td>components</td>
+<td><code>Array</code></td>
+<td>组件列表</td>
+</tr>
+<tr>
+<td>isPrepend</td>
+<td><code>Boolean</code></td>
+<td>是否追加到组件列表开头</td>
+</tr>
+</tbody>
+</table>
+<h3 id="selectcategorycategory">selectCategory(category)</h3>
+<p>选中组件分类时显示对应的组件列表</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>category</td>
+<td><code>String</code></td>
+<td>组件分类</td>
+</tr>
+</tbody>
+</table>
+<h3 id="switchdashboardid">switchDashboard(id)</h3>
+<p>切换仪表盘</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td><code>Number/String</code></td>
+<td>仪表盘 ID 或者 &rsquo;new’</td>
+</tr>
+</tbody>
+</table>
+<h3 id="handlecommandtype">handleCommand(type)</h3>
+<p>处理仪表盘操作</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>type</td>
+<td><code>String</code></td>
+<td>操作类型，可选值：<code>copy</code>、<code>edit</code>、<code>delete</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="guide">guide()</h3>
+<p>打开新手引导</p>
+<h3 id="refreshallitems">refreshAllItems()</h3>
+<p>刷新容器内所有组件的数据</p>
+<h3 id="clearlayout">clearLayout()</h3>
+<p>清空布局</p>
+<h3 id="idincrement">idIncrement()</h3>
+<p>生成一个自增的 id，用于组件的唯一标识 i</p>
+<h3 id="sortitems">sortItems()</h3>
+<p>对 layout 数据进行排序，按照 y 坐标从小到大，x 坐标从小到大的顺序</p>
+<h3 id="additemcomponent-widget">addItem(component, widget)</h3>
+<p>添加组件到 layout 中</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>component</td>
+<td><code>String</code></td>
+<td>组件名称，对应组件的 name 属性</td>
+</tr>
+<tr>
+<td>widget</td>
+<td><code>Object</code></td>
+<td>组件配置对象，对应组件的 widget 属性</td>
+</tr>
+</tbody>
+</table>
+<h3 id="removeitemi-save--true">removeItem(i, save = true)</h3>
+<p>从 layout 中移除组件</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>i</td>
+<td><code>String</code></td>
+<td>组件的唯一标识</td>
+</tr>
+<tr>
+<td>save</td>
+<td><code>Boolean</code></td>
+<td>是否立即保存布局数据</td>
+</tr>
+</tbody>
+</table>
+<h3 id="confirmremoveitemi">confirmRemoveItem(i)</h3>
+<p>用户删除组件双重确认</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>i</td>
+<td><code>String</code></td>
+<td>组件的唯一标识</td>
+</tr>
+</tbody>
+</table>
+<h3 id="hashookcomponent-hook">hasHook(component, hook)</h3>
+<p>判断组件是否有配置对应的 hook</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>component</td>
+<td><code>String</code></td>
+<td>组件名称，对应组件的 name 属性</td>
+</tr>
+<tr>
+<td>hook</td>
+<td><code>String</code></td>
+<td>需要判断的 hook 名称</td>
+</tr>
+</tbody>
+</table>
+<h3 id="triggerhookitem-hook-args---save--false">triggerHook(item, hook, args = [], save = false)</h3>
+<p>容器内的组件触发对应的 hook</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>item</td>
+<td><code>Object</code></td>
+<td>组件实例数据，<a href="https://jbaysolutions.github.io/vue-grid-layout/zh/guide/properties.html#griditem"target="_blank" rel="external nofollow noopener noreferrer">参考文档<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></td>
+</tr>
+<tr>
+<td>hook</td>
+<td><code>String</code></td>
+<td>需要触发的 hook 名称</td>
+</tr>
+<tr>
+<td>args</td>
+<td><code>Array</code></td>
+<td>传递给 hook 的其他参数</td>
+</tr>
+<tr>
+<td>save</td>
+<td><code>Boolean</code></td>
+<td>触发 hook 后是否立即保存布局数据</td>
+</tr>
+</tbody>
+</table>
+<h3 id="mouseingridx-y">mouseInGrid(x, y)</h3>
+<p>判断鼠标是否在容器内</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>x</td>
+<td><code>Number</code></td>
+<td>鼠标 x 坐标</td>
+</tr>
+<tr>
+<td>y</td>
+<td><code>Number</code></td>
+<td>鼠标 y 坐标</td>
+</tr>
+</tbody>
+</table>
+<h3 id="removeunexistitemsfromlayout">removeUnExistItems(fromLayout)</h3>
+<p>移除 layout 中不存在于所有已注册组件的组件</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>fromLayout</td>
+<td><code>Object</code></td>
+<td>layout 数据</td>
+</tr>
+</tbody>
+</table>
+<h3 id="dragstarte">dragStart(e)</h3>
+<p>开始拖动 组件/侧栏 时，设置拖动来源</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>e</td>
+<td><code>Event</code></td>
+<td>event</td>
+</tr>
+</tbody>
+</table>
+<h3 id="dragende">dragEnd(e)</h3>
+<p>结束拖动 组件/侧栏 时，清空拖动来源</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>e</td>
+<td><code>Event</code></td>
+<td>event</td>
+</tr>
+</tbody>
+</table>
+<h3 id="dragcomponent-widget-e">drag(component, widget, e)</h3>
+<p>拖动组件时，记录拖动的组件信息和显示拖动轨迹</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>component</td>
+<td><code>String</code></td>
+<td>组件名称，对应组件的 name 属性</td>
+</tr>
+<tr>
+<td>widget</td>
+<td><code>Object</code></td>
+<td>组件配置对象，对应组件的 widget 属性</td>
+</tr>
+<tr>
+<td>e</td>
+<td><code>Event</code></td>
+<td>event</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ondragoverdashboarde">onDragoverDashboard(e)</h3>
+<p>拖动组件经过容器时，阻止默认事件</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>e</td>
+<td><code>Event</code></td>
+<td>event</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ondropdashboarde">onDropDashboard(e)</h3>
+<p>拖动 组件/侧栏 放置到容器内时的拖放事件</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>e</td>
+<td><code>Event</code></td>
+<td>event</td>
+</tr>
+</tbody>
+</table>
+<h3 id="getdashboard">getDashboard()</h3>
+<p>通过 route 获取 dashboard 数组（后端自动获取组织 ID）</p>
+<h3 id="savedashboard">saveDashboard()</h3>
+<p>保存 dashboard</p>
+<h3 id="adddashboard">addDashboard()</h3>
+<p>新增 dashboard</p>
+<h3 id="updatedashboard">updateDashboard()</h3>
+<p>更新 dashboard</p>
+<h3 id="deletedashboard">deleteDashboard()</h3>
+<p>删除 dashboard</p>
+<!-- link reference definition -->
+<!-- footnote reference definition -->
+<div class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1">
+<p>基于 Vue2 和 <a href="https://jbaysolutions.github.io/vue-grid-layout/zh/"target="_blank" rel="external nofollow noopener noreferrer">vue-grid-layout<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 开发的拖拽式 Dashboard 模板，<a href="https://github.com/Lruihao/vue-el-demo/tree/main/src/components/Dashboard"target="_blank" rel="external nofollow noopener noreferrer">查看源码<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>。&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</div>
+]]></description></item><item><title>拖拽式仪表盘 - 功能需求分析</title><link>https://lruihao.cn/posts/dashboard-analysis/</link><pubDate>Thu, 12 Oct 2023 15:37:30 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/dashboard-analysis/</guid><description><![CDATA[<h2 id="仪表盘简介">仪表盘简介</h2>
 <p>仪表盘（dashboard）作为一种直观、灵活的数据可视化工具，正在越来越多地应用于各种领域，帮助用户实时监控和分析数据。常见于各类数据分析平台、数据可视化平台、数据大屏等场景。</p>
 <p>传统的仪表盘往往是开发者固定好的，用户只能使用，无法自定义。而拖拽式仪表盘则可以让用户自由地选择、拖拽、调整仪表盘中的各种组件，从而实现自定义的仪表盘。</p>
 <h2 id="功能需求">功能需求</h2>
-<p>由于本系列文章写作设计和开发之后，所以先一睹为快，看看最终的效果：<a href="https://lruihao.github.io/vue-el-demo/#/dashboard/index"target="_blank" rel="external nofollow noopener noreferrer">在线 Demo<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
+<p>由于本系列文章写作在设计和开发之后，所以先一睹为快，看看最终的效果：<a href="https://lruihao.github.io/vue-el-demo/#/dashboard/index"target="_blank" rel="external nofollow noopener noreferrer">在线 Demo<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
 <p>技术背景是基于 Vue2 实现，功能需求大致如下：</p>
 <h3 id="布局需求">布局需求</h3>
 <p>仪表盘布局是拖拽式仪表盘的核心功能之一。布局应该是一个可复用的模板，因为对于一个中后台系统，往往会有多个仪表盘，所有基础功能应该提炼出来，以便于快速复用。</p>
@@ -2930,1015 +3759,4 @@
 <h2 id="为什么-transform-的效率高">为什么 transform 的效率高？</h2>
 <p>因为 transform 既不会影响布局也不会影响绘制指令，它影响的只是渲染流程的最后一个「draw」阶段</p>
 <p>由于 draw 阶段在合成线程中，所以 transform 的变化几乎不会影响渲染主线程。反之，渲染主线程无论如何忙碌，也不会影响 transform 的变化。</p>
-]]></description></item><item><title>中文技术文档的写作规范</title><link>https://lruihao.cn/posts/document-style-guide/</link><pubDate>Sat, 04 Feb 2023 16:04:42 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/document-style-guide/</guid><description><![CDATA[<blockquote>
-<p>以下参考来源：阮一峰的 <a href="https://github.com/ruanyf/document-style-guide"target="_blank" rel="external nofollow noopener noreferrer">中文技术文档的写作规范<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
-</blockquote>
-<p>英语世界里，文档非常受重视，许多公司和组织都有自己的文档规范，清楚地规定写作要求，比如<a href="https://www.microsoftpressstore.com/store/microsoft-manual-of-style-9780735648715"target="_blank" rel="external nofollow noopener noreferrer">微软<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>、<a href="http://styleguide.mailchimp.com/"target="_blank" rel="external nofollow noopener noreferrer">MailChimp<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>、<a href="https://help.apple.com/asg/mac/2013/ASG_2013.pdf"target="_blank" rel="external nofollow noopener noreferrer">Apple<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>、<a href="https://www.amazon.com/dp/B003P8QDFU/ref=dp-kindle-redirect?_encoding=UTF8&amp;btkr=1"target="_blank" rel="external nofollow noopener noreferrer">Yahoo<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>、<a href="https://docs.docker.com/opensource/doc-style/"target="_blank" rel="external nofollow noopener noreferrer">docker<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>、<a href="https://struts.apache.org/docs/documentation-style-guide.html"target="_blank" rel="external nofollow noopener noreferrer">Struts<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 等等（维基百科有一份完整的<a href="https://en.wikipedia.org/wiki/List_of_style_guides"target="_blank" rel="external nofollow noopener noreferrer">清单<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>）。<a href="https://github.com/ruanyf/document-style-guide/blob/master/docs/reference.md"target="_blank" rel="external nofollow noopener noreferrer">中文的<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>也有不少，但都不令人满意，要么太简单，要么不太适用。</p>
-<p>对于开发者来说，在工作中也需要适当地产出一些技术文档，但是很多人都不知道怎么写文档，都是凭着感觉写。</p>
-<p>对于开发的系统、软件而言，系统用词的准确性和统一性也显得十分重要。</p>
-<p>参考上面的规范，于是有了下面一份中文技术文档的写作规范。</p>
-<h2 id="标题">标题</h2>
-<h3 id="层级">层级</h3>
-<p>标题分为四级。</p>
-<ul>
-<li>一级标题：文章的标题</li>
-<li>二级标题：文章主要部分的大标题</li>
-<li>三级标题：二级标题下面一级的小标题</li>
-<li>四级标题：三级标题下面某一方面的小标题</li>
-</ul>
-<p>下面是示例。</p>
-<div class="highlight" id="id-1"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-markdown" data-lang="markdown"><span class="line"><span class="cl"><span class="gh"># 一级标题
-</span></span></span><span class="line"><span class="cl"><span class="gh"></span>
-</span></span><span class="line"><span class="cl"><span class="gu">## 二级标题
-</span></span></span><span class="line"><span class="cl"><span class="gu"></span>
-</span></span><span class="line"><span class="cl"><span class="gu">### 三级标题
-</span></span></span><span class="line"><span class="cl"><span class="gu"></span>
-</span></span><span class="line"><span class="cl">#### 四级标题</span></span></code></pre></td></tr></table>
-</div>
-</div><blockquote>
-<p>注：最多支持六级，但是同论文写作一样，层级太深，会使得整体显得杂乱无章，当确实需要更深层级时，应另起新篇单独论述。</p>
-</blockquote>
-<h3 id="原则">原则</h3>
-<p>（1）一级标题下，不能直接出现三级标题。</p>
-<p>示例：下面的文章结构，缺少二级标题。</p>
-<div class="highlight" id="id-2"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-markdown" data-lang="markdown"><span class="line"><span class="cl"><span class="gh"># 一级标题
-</span></span></span><span class="line"><span class="cl"><span class="gh"></span>
-</span></span><span class="line"><span class="cl">### 三级标题</span></span></code></pre></td></tr></table>
-</div>
-</div><p>（2）标题要避免孤立编号（即同级标题只有一个）。</p>
-<p>示例：下面的文章结构，<code>二级标题 A</code>只包含一个三级标题，完全可以省略<code>三级标题 A</code>。</p>
-<div class="highlight" id="id-3"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-markdown" data-lang="markdown"><span class="line"><span class="cl"><span class="gu">## 二级标题 A
-</span></span></span><span class="line"><span class="cl"><span class="gu"></span>
-</span></span><span class="line"><span class="cl"><span class="gu">### 三级标题 A
-</span></span></span><span class="line"><span class="cl"><span class="gu"></span>
-</span></span><span class="line"><span class="cl">## 二级标题 B</span></span></code></pre></td></tr></table>
-</div>
-</div><p>（3）下级标题不重复上一级标题的名字。</p>
-<p>示例：下面的文章结构，二级标题与下属的三级标题同名，建议避免。</p>
-<div class="highlight" id="id-4"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-markdown" data-lang="markdown"><span class="line"><span class="cl"><span class="gu">## 概述
-</span></span></span><span class="line"><span class="cl"><span class="gu"></span>
-</span></span><span class="line"><span class="cl">### 概述</span></span></code></pre></td></tr></table>
-</div>
-</div><p>（4）谨慎使用四级标题，尽量避免出现，保持层级的简单，防止出现过于复杂的章节。</p>
-<p>如果三级标题下有并列性的内容，建议只使用项目列表（Item list）。</p>
-<p>示例：下面的结构二要好于结构一。结构一适用的场景，主要是较长篇幅的内容。</p>
-<div class="highlight" id="id-5"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-markdown" data-lang="markdown"><span class="line"><span class="cl">结构一
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="gu">### 三级标题
-</span></span></span><span class="line"><span class="cl"><span class="gu"></span>
-</span></span><span class="line"><span class="cl"><span class="gu">#### 四级标题 A
-</span></span></span><span class="line"><span class="cl"><span class="gu"></span>
-</span></span><span class="line"><span class="cl"><span class="gu">#### 四级标题 B
-</span></span></span><span class="line"><span class="cl"><span class="gu"></span>
-</span></span><span class="line"><span class="cl"><span class="gu">#### 四级标题 C
-</span></span></span><span class="line"><span class="cl"><span class="gu"></span>
-</span></span><span class="line"><span class="cl">结构二
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="gu">### 三级标题
-</span></span></span><span class="line"><span class="cl"><span class="gu"></span>
-</span></span><span class="line"><span class="cl"><span class="ge">**</span>（1）A**
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="ge">**</span>（2）B**
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="ge">**</span>（3）C**</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="文本">文本</h2>
-<h3 id="字间距">字间距</h3>
-<p>（1）全角中文字符与半角英文字符之间，应有一个半角空格。</p>
-<div class="highlight" id="id-6"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">错误：本文介绍如何快速启动Windows系统。
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">正确：本文介绍如何快速启动 Windows 系统。</span></span></code></pre></td></tr></table>
-</div>
-</div><p>（2）全角中文字符与半角阿拉伯数字之间，有没有半角空格都可，但必须保证风格统一，不能两种风格混杂。</p>
-<div class="highlight" id="id-7"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">正确：2011年5月15日，我订购了5台笔记本电脑与10台平板电脑。
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">正确：2011 年 5 月 15 日，我订购了 5 台笔记本电脑与 10 台平板电脑。</span></span></code></pre></td></tr></table>
-</div>
-</div><p>半角的百分号，视同阿拉伯数字。</p>
-<div class="highlight" id="id-8"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">正确：今年我国经济增长率是6.5%。
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">正确：今年我国经济增长率是 6.5%。</span></span></code></pre></td></tr></table>
-</div>
-</div><p>（3）英文单位若不翻译，单位前的阿拉伯数字与单位符号之间，应留出适当的空隙。</p>
-<div class="highlight" id="id-9"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">例1：一部容量为 16 GB 的智能手机
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">例2：1 h = 60 min = 3,600 s</span></span></code></pre></td></tr></table>
-</div>
-</div><p>（4）半角英文字符和半角阿拉伯数字，与全角标点符号之间不留空格。</p>
-<div class="highlight" id="id-10"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">错误：他的电脑是 MacBook Air 。
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">正确：他的电脑是 MacBook Air。</span></span></code></pre></td></tr></table>
-</div>
-</div><h3 id="句子">句子</h3>
-<p>（1）避免使用长句。</p>
-<p>不包含任何标点符号的单个句子，或者以逗号分隔的句子构件，长度尽量保持在 20 个字以内；20 ～ 29 个字的句子，可以接受；30 ～ 39 个字的句子，语义必须明确，才能接受；多于 40 个字的句子，任何情况下都不能接受。</p>
-<div class="highlight" id="id-11"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">错误：本产品适用于从由一台服务器进行动作控制的单一节点结构到由多台服务器进行动作控制的并行处理程序结构等多种体系结构。
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">正确：本产品适用于多种体系结构。无论是由一台服务器（单一节点结构），还是由多台服务器（并行处理结构）进行动作控制，均可以使用本产品。</span></span></code></pre></td></tr></table>
-</div>
-</div><p>逗号分割的长句，总长度不应该超过 100 字或者正文的 3 行。</p>
-<p>（2）尽量使用简单句和并列句，避免使用复合句。</p>
-<div class="highlight" id="id-12"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">并列句：他昨天生病了，没有参加会议。
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">复合句：那个昨天生病的人没有参加会议。</span></span></code></pre></td></tr></table>
-</div>
-</div><p>（3）同样一个意思，尽量使用肯定句表达，不使用否定句表达。</p>
-<div class="highlight" id="id-13"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">错误：请确认没有接通装置的电源。
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">正确：请确认装置的电源已关闭。</span></span></code></pre></td></tr></table>
-</div>
-</div><p>（4）避免使用双重否定句。</p>
-<div class="highlight" id="id-14"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">错误：没有删除权限的用户，不能删除此文件。
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">正确：用户必须拥有删除权限，才能删除此文件。</span></span></code></pre></td></tr></table>
-</div>
-</div><h3 id="写作风格">写作风格</h3>
-<p>（1）尽量不使用被动语态，改为使用主动语态。</p>
-<div class="highlight" id="id-15"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">错误：假如此软件尚未被安装，
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">正确：假如尚未安装这个软件，</span></span></code></pre></td></tr></table>
-</div>
-</div><p>（2）不使用非正式的语言风格。</p>
-<div class="highlight" id="id-16"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">错误：Lady Gaga 的演唱会真是酷毙了，从没看过这么给力的表演！！！
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">正确：无法参加本次活动，我深感遗憾。</span></span></code></pre></td></tr></table>
-</div>
-</div><p>（3）不使用冷僻、生造或者文言文的词语，而要使用现代汉语的常用表达方式。</p>
-<div class="highlight" id="id-17"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">错误：这是唯二的快速启动的方法。
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">正确：这是仅有的两种快速启动的方法。</span></span></code></pre></td></tr></table>
-</div>
-</div><p>（4）用对“的”、“地”、“得”。</p>
-<div class="highlight" id="id-18"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span><span class="lnt">8
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">她露出了开心的笑容。
-</span></span><span class="line"><span class="cl">（形容词＋的＋名词）
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">她开心地笑了。
-</span></span><span class="line"><span class="cl">（副词＋地＋动词）
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">她笑得很开心。
-</span></span><span class="line"><span class="cl">（动词＋得＋副词）</span></span></code></pre></td></tr></table>
-</div>
-</div><p>（5）使用代词时（比如“其”、“该”、“此”、“这”等词），必须明确指代的内容，保证只有一个含义。</p>
-<div class="highlight" id="id-19"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">错误：从管理系统可以监视中继系统和受其直接控制的分配系统。
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">正确：从管理系统可以监视两个系统：中继系统和受中继系统直接控制的分配系统。</span></span></code></pre></td></tr></table>
-</div>
-</div><p>（6）名词前不要使用过多的形容词。</p>
-<div class="highlight" id="id-20"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">错误：此设备的使用必须在接受过本公司举办的正式的设备培训的技师的指导下进行。
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">正确：此设备必须在技师的指导下使用，且指导技师必须接受过由本公司举办的正式设备培训。</span></span></code></pre></td></tr></table>
-</div>
-</div><h3 id="英文处理">英文处理</h3>
-<p>（1）英文原文如果使用了复数形式，翻译成中文时，应该将其还原为单数形式。</p>
-<div class="highlight" id="id-21"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">英文：...information stored in random access memory (RAMs)...
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">中文：⋯⋯存储在随机存取存储器（RAM）里的信息⋯⋯</span></span></code></pre></td></tr></table>
-</div>
-</div><p>（2）外文缩写可以使用半角圆点(<code>.</code>)表示缩写。</p>
-<div class="highlight" id="id-22"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">U.S.A.
-</span></span><span class="line"><span class="cl">Apple, Inc.</span></span></code></pre></td></tr></table>
-</div>
-</div><p>（3）表示中文时，英文省略号（<code>...</code>）应改为中文省略号（<code>⋯⋯</code>）。</p>
-<div class="highlight" id="id-23"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">英文：5 minutes later...
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">中文：5 分钟过去了⋯⋯</span></span></code></pre></td></tr></table>
-</div>
-</div><p>（4）英文书名或电影名改用中文表达时，双引号应改为书名号。</p>
-<div class="highlight" id="id-24"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">英文：He published an article entitled &#34;The Future of the Aviation&#34;.
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">中文：他发表了一篇名为《航空业的未来》的文章。</span></span></code></pre></td></tr></table>
-</div>
-</div><p>（5）第一次出现英文词汇时，在括号中给出中文标注。此后再次出现时，直接使用英文缩写即可。</p>
-<div class="highlight" id="id-25"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">IOC（International Olympic Committee，国际奥林匹克委员会）。这样定义后，便可以直接使用“IOC”了。</span></span></code></pre></td></tr></table>
-</div>
-</div><p>（6）专有名词中每个词第一个字母均应大写，非专有名词则不需要大写。</p>
-<div class="highlight" id="id-26"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">“American Association of Physicists in Medicine”（美国医学物理学家协会）是专有名词，需要大写。
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">“online transaction processing”（在线事务处理）不是专有名词，不应大写。</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="段落">段落</h2>
-<h3 id="原则-1">原则</h3>
-<ul>
-<li>一个段落只能有一个主题，或一个中心句子。</li>
-<li>段落的中心句子放在段首，对全段内容进行概述。后面陈述的句子为中心句子服务。</li>
-<li>一个段落的长度不能超过七行，最佳段落长度小于等于四行。</li>
-<li>段落的句子语气要使用陈述和肯定语气，避免使用感叹语气。</li>
-<li>段落之间使用一个空行隔开。</li>
-<li>段落开头不要留出空白字符。</li>
-</ul>
-<h3 id="引用">引用</h3>
-<p>引用第三方内容时，应注明出处。</p>
-<div class="highlight" id="id-27"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">One man’s constant is another man’s variable. — Alan Perlis</span></span></code></pre></td></tr></table>
-</div>
-</div><p>如果是全篇转载，请在全文开头显著位置注明作者和出处，并链接至原文。</p>
-<div class="highlight" id="id-28"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">本文转载自 WikiQuote</span></span></code></pre></td></tr></table>
-</div>
-</div><p>使用外部图片时，必须在图片下方或文末标明来源。</p>
-<div class="highlight" id="id-29"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">本文部分图片来自 Wikipedia</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="数值">数值</h2>
-<h3 id="半角数字">半角数字</h3>
-<p>阿拉伯数字一律使用半角形式，不得使用全角形式。</p>
-<div class="highlight" id="id-30"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">错误：这件商品的价格是１０００元。
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">正确：这件商品的价格是 1000 元。</span></span></code></pre></td></tr></table>
-</div>
-</div><h3 id="千分号">千分号</h3>
-<p>数值为千位以上，应添加千分号（半角逗号）。</p>
-<div class="highlight" id="id-31"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">XXX 公司的实收资本为 ￥1,258,000 人民币。</span></span></code></pre></td></tr></table>
-</div>
-</div><p>对于 4 位的数值，千分号是选用的，比如<code>1000</code>和<code>1,000</code>都可以接受。对于 4 位以上的数值，应添加千分号。</p>
-<h3 id="货币">货币</h3>
-<p>货币应为阿拉伯数字，并在数字前写出货币符号，或在数字后写出货币中文名称。</p>
-<div class="highlight" id="id-32"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">$1,000
-</span></span><span class="line"><span class="cl">1,000 美元</span></span></code></pre></td></tr></table>
-</div>
-</div><p>英文的货币名称，建议参考国际标准 <a href="https://en.wikipedia.org/wiki/ISO_4217"target="_blank" rel="external nofollow noopener noreferrer">ISO 4217<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>。</p>
-<h3 id="数值范围">数值范围</h3>
-<p>表示数值范围时，用波浪线（<code>～</code>）或一字线（<code>—</code>）连接。参见《标点符号》一节的“连接号”部分。</p>
-<p>带有单位或百分号时，两个数字建议都要加上单位或百分号。</p>
-<div class="highlight" id="id-33"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">132 kg～234 kg
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">67%～89%</span></span></code></pre></td></tr></table>
-</div>
-</div><h3 id="变化程度的表示法">变化程度的表示法</h3>
-<p>数字的增加要使用“增加了”、“增加到”。“了”表示增量，“到”表示定量。</p>
-<div class="highlight" id="id-34"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">增加到过去的两倍
-</span></span><span class="line"><span class="cl">（过去为一，现在为二）
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">增加了两倍
-</span></span><span class="line"><span class="cl">（过去为一，现在为三）</span></span></code></pre></td></tr></table>
-</div>
-</div><p>数字的减少要使用“降低了”、“降低到”。“了”表示增量，“到”表示定量。</p>
-<div class="highlight" id="id-35"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">降低到百分之八十
-</span></span><span class="line"><span class="cl">（定额是一百，现在是八十）
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">降低了百分之八十
-</span></span><span class="line"><span class="cl">（原来是一百，现在是二十）</span></span></code></pre></td></tr></table>
-</div>
-</div><p>不能用“降低 N 倍”或“减少 N 倍”的表示法，要用“降低百分之几”或“减少百分之几”。因为减少（或降低）一倍表示数值原来为一百，现在等于零。</p>
-<h2 id="标点符号">标点符号</h2>
-<h3 id="原则-2">原则</h3>
-<p>（1）中文语句的标点符号，均应该采取全角符号，这样可以与全角文字保持视觉的一致。</p>
-<p>（2）如果整句为英文，则该句使用英文/半角标点。</p>
-<p>（3）句号、问号、叹号、逗号、顿号、分号和冒号不得出现在一行之首。</p>
-<p>（4）点号（句号、逗号、顿号、分号、冒号）不得出现在标题的末尾，而标号（引号、括号、破折号、省略号、书名号、着重号、间隔号、叹号、问号）可以。</p>
-<h3 id="句号">句号</h3>
-<p>（1）中文语句的结尾处应该用全角句号（<code>。</code>）。</p>
-<p>（2）句子末尾用括号加注时，句号应在括号之外。</p>
-<div class="highlight" id="id-36"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">错误：关于文件的输出，请参照第 1.3 节（见第 26 页。）
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">正确：关于文件的输出，请参照第 1.3 节（见第 26 页）。</span></span></code></pre></td></tr></table>
-</div>
-</div><h3 id="逗号">逗号</h3>
-<p>（1）逗号（<code>，</code>）表示句子内部的一般性停顿。</p>
-<p>（2）注意避免“一逗到底”，即整个段落除了结尾，全部停顿都使用逗号。</p>
-<h3 id="顿号">顿号</h3>
-<p>（1）句子内部的并列词，应该用全角顿号(<code>、</code>) 分隔，而不用逗号，即使并列词是英语也是如此。</p>
-<div class="highlight" id="id-37"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">错误：我最欣赏的科技公司有 Google, Facebook, 腾讯, 阿里和百度等。
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">正确：我最欣赏的科技公司有 Google、Facebook、腾讯、阿里和百度等。</span></span></code></pre></td></tr></table>
-</div>
-</div><p>（2）英文句子中，并列词语之间使用半角逗号（<code>,</code>）分隔。</p>
-<div class="highlight" id="id-38"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">例句：Microsoft Office includes Word, Excel, PowerPoint, Outlook and other components.</span></span></code></pre></td></tr></table>
-</div>
-</div><p>（3）中文句子内部的并列词，最后一个尽量使用（<code>和</code>）来连接，使句子读起来更加连贯，下面两个句子都可以，第二个更优。</p>
-<div class="highlight" id="id-39"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">正确：我最欣赏的科技公司有 Google、Facebook、腾讯、阿里，以及百度等。
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">正确：我最欣赏的科技公司有 Google、Facebook、腾讯、阿里和百度等。</span></span></code></pre></td></tr></table>
-</div>
-</div><h3 id="分号">分号</h3>
-<p>（1）分号（<code>；</code>）表示复句内部并列分句之间的停顿。</p>
-<h3 id="引号">引号</h3>
-<p>（1）引用时，应该使用全角双引号（<code>“ ”</code>），注意前后双引号不同。</p>
-<div class="highlight" id="id-40"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">例句：许多人都认为客户服务的核心是“友好”和“专业”。</span></span></code></pre></td></tr></table>
-</div>
-</div><p>（2）引号里面还要用引号时，外面一层用双引号，里面一层用单引号（<code>‘ ’</code>），注意前后单引号不同。</p>
-<div class="highlight" id="id-41"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">例句：鲍勃解释道：“我要放音乐，可萨利说，‘不行！’。”</span></span></code></pre></td></tr></table>
-</div>
-</div><h3 id="括号">括号</h3>
-<p>（1）补充说明时，使用全角圆括号（<code>（）</code>），括号前后不加空格。</p>
-<div class="highlight" id="id-42"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">例句：请确认所有的连接（电缆和接插件）均安装牢固。</span></span></code></pre></td></tr></table>
-</div>
-</div><p>（2）几种括号的中英文名称。</p>
-<table>
-<thead>
-<tr>
-<th></th>
-<th style="text-align:center">英文</th>
-<th style="text-align:center">中文</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>{ }</code></td>
-<td style="text-align:center">braces 或 curly brackets</td>
-<td style="text-align:center">大括号</td>
-</tr>
-<tr>
-<td><code>[ ]</code></td>
-<td style="text-align:center">square brackets 或 brackets</td>
-<td style="text-align:center">方括号</td>
-</tr>
-<tr>
-<td><code>&lt; &gt;</code></td>
-<td style="text-align:center">angled brackets</td>
-<td style="text-align:center">尖括号</td>
-</tr>
-<tr>
-<td><code>( )</code></td>
-<td style="text-align:center">parentheses</td>
-<td style="text-align:center">圆括号</td>
-</tr>
-</tbody>
-</table>
-<h3 id="冒号">冒号</h3>
-<p>（1）全角冒号（<code>：</code>）常用在需要解释的词语后边，引出解释和说明。</p>
-<div class="highlight" id="id-43"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">例句：请确认以下几项内容：时间、地点、活动名称和来宾数量。</span></span></code></pre></td></tr></table>
-</div>
-</div><p>（2）表示时间时，应使用半角冒号（<code>:</code>）。</p>
-<div class="highlight" id="id-44"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">例句：早上 8:00</span></span></code></pre></td></tr></table>
-</div>
-</div><h3 id="省略号">省略号</h3>
-<p>（1）省略号（<code>⋯⋯</code>）表示语句未完、或者语气的不连续。</p>
-<p>（2）省略号占两个汉字空间、包含六个省略点，不要使用<code>。。。</code>或<code>...</code>等非标准形式。</p>
-<p>（3）省略号不应与“等”这个词一起使用。</p>
-<div class="highlight" id="id-45"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">错误：我们为会餐准备了香蕉、苹果、梨…等各色水果。
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">正确：我们为会餐准备了各色水果，有香蕉、苹果、梨⋯⋯
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">正确：我们为会餐准备了香蕉、苹果、梨等各色水果。</span></span></code></pre></td></tr></table>
-</div>
-</div><h3 id="感叹号">感叹号</h3>
-<p>（1）应该使用平静的语气叙述，尽量避免使用感叹号（<code>！</code>）。</p>
-<p>（2）不得多个感叹号连用，比如<code>！！</code>和<code>!!!</code>。</p>
-<h3 id="破折号">破折号</h3>
-<p>（1）破折号<code>————</code>一般用于进一步解释。</p>
-<p>（2）破折号应占两个汉字的位置。如果破折号本身只占一个汉字的位置，那么前后应该留出一个半角空格。</p>
-<div class="highlight" id="id-46"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">例句：直觉————尽管它并不总是可靠的————告诉我，这事可能出了些问题。
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">例句：直觉 —— 尽管它并不总是可靠的 —— 告诉我，这事可能出了些问题。</span></span></code></pre></td></tr></table>
-</div>
-</div><h3 id="连接号">连接号</h3>
-<p>（1）连接号用于连接两个类似的词。</p>
-<p>（2）以下场合应该使用直线连接号（<code>-</code>），占一个半角字符的位置。</p>
-<ul>
-<li>两个名词的复合</li>
-<li>图表编号</li>
-</ul>
-<div class="highlight" id="id-47"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">例句：氧化-还原反应
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">例句：图 1-1</span></span></code></pre></td></tr></table>
-</div>
-</div><p>（3）数值范围（例如日期、时间或数字）应该使用波浪连接号（<code>～</code>）或一字号（<code>—</code>），占一个全角字符的位置。</p>
-<div class="highlight" id="id-48"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">例句：2009 年～2011 年</span></span></code></pre></td></tr></table>
-</div>
-</div><p>注意，波浪连接号前后两个值都建议加上单位。</p>
-<p>（4）波浪连接号也可以用汉字“至”代替。</p>
-<div class="highlight" id="id-49"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">例句：周围温度：-20 °C 至 -10 °C</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="文档体系">文档体系</h2>
-<h3 id="结构">结构</h3>
-<p>软件手册是一部完整的书，建议采用下面的结构。</p>
-<ul>
-<li><strong>简介</strong>（Introduction）：[必备] [文件] 提供对产品和文档本身的总体的、扼要的说明</li>
-<li><strong>快速上手</strong>（Getting Started）：[可选] [文件] 如何最快速地使用产品</li>
-<li><strong>入门篇</strong>（Basics）：[必备] [目录] 又称“使用篇”，提供初级的使用教程
-<ul>
-<li><strong>环境准备</strong>（Prerequisite）：[必备] [文件] 软件使用需要满足的前置条件</li>
-<li><strong>安装</strong>（Installation）：[可选] [文件] 软件的安装方法</li>
-<li><strong>设置</strong>（Configuration）：[必备] [文件] 软件的设置</li>
-</ul>
-</li>
-<li><strong>进阶篇</strong>（Advanced)：[可选] [目录] 又称“开发篇”，提供中高级的开发教程</li>
-<li><strong>API</strong>（Reference）：[可选] [目录|文件] 软件 API 的逐一介绍</li>
-<li><strong>FAQ</strong>：[可选] [文件] 常见问题解答</li>
-<li><strong>附录</strong>（Appendix）：[可选] [目录] 不属于教程本身、但对阅读教程有帮助的内容
-<ul>
-<li><strong>Glossary</strong>：[可选] [文件] 名词解释</li>
-<li><strong>Recipes</strong>：[可选] [文件] 最佳实践</li>
-<li><strong>Troubleshooting</strong>：[可选] [文件] 故障处理</li>
-<li><strong>ChangeLog</strong>：[可选] [文件] 版本说明</li>
-<li><strong>Feedback</strong>：[可选] [文件] 反馈方式</li>
-</ul>
-</li>
-</ul>
-<p>下面是两个真实范例，可参考。</p>
-<ul>
-<li><a href="https://redux.js.org/introduction/getting-started"target="_blank" rel="external nofollow noopener noreferrer">Redux 手册<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
-<li><a href="http://flight-manual.atom.io/"target="_blank" rel="external nofollow noopener noreferrer">Atom 手册<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
-</ul>
-<h3 id="文件名">文件名</h3>
-<p>文档的文件名不得含有空格。</p>
-<p>文件名必须使用半角字符，不得使用全角字符。这也意味着，中文不能用于文件名。</p>
-<div class="highlight" id="id-50"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">错误：名词解释.md
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">正确：glossary.md</span></span></code></pre></td></tr></table>
-</div>
-</div><p>文件名建议只使用小写字母，不使用大写字母。</p>
-<div class="highlight" id="id-51"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">错误：TroubleShooting.md
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">正确：troubleshooting.md</span></span></code></pre></td></tr></table>
-</div>
-</div><p>为了醒目，某些说明文件的文件名，可以使用大写字母，比如<code>README</code>、<code>LICENSE</code>。</p>
-<p>文件名包含多个单词时，单词之间建议使用半角的连词线（<code>-</code>）分隔。</p>
-<div class="highlight" id="id-52"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">不佳：advanced_usage.md
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">正确：advanced-usage.md</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="参考链接">参考链接</h2>
-<ul>
-<li><a href="https://www.taodocs.com/p-51273.html"target="_blank" rel="external nofollow noopener noreferrer">产品手册中文写作规范<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>, by 华为</li>
-<li><a href="http://guide.daocloud.io/dcs/%e5%86%99%e4%bd%9c%e8%a7%84%e8%8c%83%e5%92%8c%e6%a0%bc%e5%bc%8f%e8%a7%84%e8%8c%83-9153803.html"target="_blank" rel="external nofollow noopener noreferrer">写作规范和格式规范<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>, by DaoCloud</li>
-<li><a href="http://www.hitachi-tc.co.jp/company/thesis/thesis.pdf"target="_blank" rel="external nofollow noopener noreferrer">技术写作技巧在日汉翻译中的应用<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>, by 刘方</li>
-<li><a href="https://www.lengoo.de/documents/styleguides/lengoo_styleguide_ZH.pdf"target="_blank" rel="external nofollow noopener noreferrer">简体中文规范指南<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>, by lengoo</li>
-<li><a href="https://open.leancloud.cn/copywriting-style-guide.html"target="_blank" rel="external nofollow noopener noreferrer">文档风格指南<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>, by LeanCloud</li>
-<li><a href="https://docs.google.com/document/d/1R8lMCPf6zCD5KEA8ekZ5knK77iw9J-vJ6vEopPemqZM/edit"target="_blank" rel="external nofollow noopener noreferrer">豌豆荚文案风格指南<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>, by 豌豆荚</li>
-<li><a href="https://github.com/sparanoid/chinese-copywriting-guidelines"target="_blank" rel="external nofollow noopener noreferrer">中文文案排版指北<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>, by sparanoid</li>
-<li><a href="http://w3c.github.io/clreq/"target="_blank" rel="external nofollow noopener noreferrer">中文排版需求<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>, by W3C</li>
-<li><a href="http://www.ruanyifeng.com/blog/2017/02/filename-should-be-lowercase.html"target="_blank" rel="external nofollow noopener noreferrer">为什么文件名要小写？<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>, by 阮一峰</li>
-<li><a href="https://developers.google.com/style/"target="_blank" rel="external nofollow noopener noreferrer">Google Developer Documentation Style Guide<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>, by Google</li>
-<li><a href="http://www.moe.gov.cn/ewebeditor/uploadfile/2015/01/13/20150113091154536.pdf"target="_blank" rel="external nofollow noopener noreferrer">出版物上数字用法的规定（国家标准 GBT15835－2011）<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
-<li><a href="https://zh.wikisource.org/zh-hans/GB_3100-1993_%e5%9b%bd%e9%99%85%e5%8d%95%e4%bd%8d%e5%88%b6%e5%8f%8a%e5%85%b6%e5%ba%94%e7%94%a8"target="_blank" rel="external nofollow noopener noreferrer">GB 3100-1993 国际单位制及其应用<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
-<li><a href="https://github.com/DavidAnson/vscode-markdownlint"target="_blank" rel="external nofollow noopener noreferrer">markdownlint<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>, VSCode 插件</li>
-<li><a href="https://github.com/vinta/pangu.js"target="_blank" rel="external nofollow noopener noreferrer">pangu.js<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>, 盘古之白系列插件</li>
-</ul>]]></description></item><item><title>浏览器原理 - 事件循环</title><link>https://lruihao.cn/posts/event-loop/</link><pubDate>Wed, 11 Jan 2023 11:16:02 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/event-loop/</guid><description><![CDATA[<div class="featured-image">
-        <img src="/images/202208092131410.png" referrerpolicy="no-referrer">
-      </div><p>最近在抖音上刷到很多次 <a href="http://yuanjin.tech/"target="_blank" rel="external nofollow noopener noreferrer">袁进老师<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 的前端视频，然后就听了一下他的前端大师课，感觉了解一些浏览器原理后，原来工作中的一些疑问也自然解开了。</p>
-<h2 id="浏览器的进程模型">浏览器的进程模型</h2>
-<h3 id="何为进程">何为进程？</h3>
-<p>程序运行需要有它自己专属的内存空间，可以把这块内存空间简单的理解为进程</p>
-<p><figure><a class="lightgallery" href="/posts/event-loop/images/202208092057573.png" data-thumbnail="/posts/event-loop/images/202208092057573.png" data-sub-html="<h2>进程</h2><p>进程可以简单理解为单独的内存空间</p>"></a><figcaption class="image-caption">进程</figcaption>
-  </figure></p>
-<p>每个应用至少有一个进程，进程之间相互独立，即使要通信，也需要双方同意。</p>
-<h3 id="何为线程">何为线程？</h3>
-<p>有了进程后，就可以运行程序的代码了。</p>
-<p>运行代码的「人」称之为「线程」。</p>
-<p>一个进程至少有一个线程，所以在进程开启后会自动创建一个线程来运行代码，该线程称之为主线程。</p>
-<p>如果程序需要同时执行多块代码，主线程就会启动更多的线程来执行代码，所以一个进程中可以包含多个线程。</p>
-<p><figure><a class="lightgallery" href="/posts/event-loop/images/202208092108499.png" data-thumbnail="/posts/event-loop/images/202208092108499.png" data-sub-html="<h2>线程</h2><p>一个进程可以有 N 个线程</p>"></a><figcaption class="image-caption">线程</figcaption>
-  </figure></p>
-<h3 id="浏览器有哪些进程和线程">浏览器有哪些进程和线程？</h3>
-<p><strong>浏览器是一个多进程多线程的应用程序</strong>，浏览器内部工作极其复杂。</p>
-<p>为了避免相互影响，为了减少连环崩溃的几率，当启动浏览器后，它会自动启动多个进程。</p>
-<p><figure><a class="lightgallery" href="/posts/event-loop/images/202208092131410.png" data-thumbnail="/posts/event-loop/images/202208092131410.png" data-sub-html="<h2>浏览器进程</h2><p>浏览器进程</p>"></a><figcaption class="image-caption">浏览器进程</figcaption>
-  </figure></p>
-<blockquote>
-<p>可以在浏览器的任务管理器中查看当前的所有进程</p>
-</blockquote>
-<p>其中，最主要的进程有：</p>
-<ol>
-<li>
-<p>浏览器进程</p>
-<p>主要负责界面显示、用户交互、子进程管理等。浏览器进程内部会启动多个线程处理不同的任务。</p>
-</li>
-<li>
-<p>网络进程</p>
-<p>负责加载网络资源。网络进程内部会启动多个线程来处理不同的网络任务。</p>
-</li>
-<li>
-<p><strong>渲染进程</strong>（本篇重点讲解的进程）</p>
-<p>渲染进程启动后，会开启一个<strong>渲染主线程</strong>，主线程负责执行 HTML、CSS、JS 代码。</p>
-<p>默认情况下，浏览器会为每个标签页开启一个新的渲染进程，以保证不同的标签页之间不相互影响。</p>
-<blockquote>
-<p>将来该默认模式可能会有所改变，有兴趣的同学可参见 <a href="https://chromium.googlesource.com/chromium/src/&#43;/main/docs/process_model_and_site_isolation.md#Modes-and-Availability"target="_blank" rel="external nofollow noopener noreferrer">chrome 官方说明文档<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
-</blockquote>
-</li>
-</ol>
-<h2 id="渲染主线程是如何工作的">渲染主线程是如何工作的？</h2>
-<p>渲染主线程是浏览器中最繁忙的线程，需要它处理的任务包括但不限于：</p>
-<ul>
-<li>解析 HTML</li>
-<li>解析 CSS</li>
-<li>计算样式</li>
-<li>布局</li>
-<li>处理图层</li>
-<li>每秒把页面画 60 次</li>
-<li>执行全局 JS 代码</li>
-<li>执行事件处理函数</li>
-<li>执行计时器的回调函数</li>
-<li>&hellip;&hellip;</li>
-</ul>
-<blockquote>
-<p>思考题：为什么渲染进程不适用多个线程来处理这些事情？</p>
-</blockquote>
-<p>要处理这么多的任务，主线程遇到了一个前所未有的难题：如何调度任务？</p>
-<p>比如：</p>
-<ul>
-<li>我正在执行一个 JS 函数，执行到一半的时候用户点击了按钮，我该立即去执行点击事件的处理函数吗？</li>
-<li>我正在执行一个 JS 函数，执行到一半的时候某个计时器到达了时间，我该立即去执行它的回调吗？</li>
-<li>浏览器进程通知我“用户点击了按钮”，与此同时，某个计时器也到达了时间，我应该处理哪一个呢？</li>
-<li>&hellip;&hellip;</li>
-</ul>
-<p>渲染主线程想出了一个绝妙的主意来处理这个问题：排队</p>
-<p><figure><a class="lightgallery" href="/posts/event-loop/images/202208092230847.png" data-thumbnail="/posts/event-loop/images/202208092230847.png" data-sub-html="<h2>消息队列</h2><p>所有要执行的任务都要排队，FIFO</p>"></a><figcaption class="image-caption">消息队列</figcaption>
-  </figure></p>
-<ol>
-<li>在最开始的时候，渲染主线程会进入一个无限循环</li>
-<li>每一次循环会检查消息队列中是否有任务存在。如果有，就取出第一个任务执行，执行完一个后进入下一次循环；如果没有，则进入休眠状态。</li>
-<li>其他所有线程（包括其他进程的线程）可以随时向消息队列添加任务。新任务会加到消息队列的末尾。在添加新任务时，如果主线程是休眠状态，则会将其唤醒以继续循环拿取任务</li>
-</ol>
-<p>这样一来，就可以让每个任务有条不紊的、持续的进行下去了。<strong>整个过程，被称之为事件循环（消息循环）</strong>。</p>
-<h2 id="若干解释">若干解释</h2>
-<h3 id="何为异步">何为异步？</h3>
-<p>代码在执行过程中，会遇到一些无法立即处理的任务，比如：</p>
-<ul>
-<li>计时完成后需要执行的任务 —— <code>setTimeout</code>、<code>setInterval</code></li>
-<li>网络通信完成后需要执行的任务 &ndash; <code>XHR</code>、<code>Fetch</code></li>
-<li>用户操作后需要执行的任务 &ndash; <code>addEventListener</code></li>
-</ul>
-<p>如果让渲染主线程等待这些任务的时机达到，就会导致主线程长期处于「阻塞」的状态，从而导致浏览器「卡死」</p>
-<p><figure><a class="lightgallery" href="/posts/event-loop/images/202208101043348.png" data-thumbnail="/posts/event-loop/images/202208101043348.png" data-sub-html="<h2>同步策略</h2><p>同步策略会导致卡死</p>"></a><figcaption class="image-caption">同步策略</figcaption>
-  </figure></p>
-<p><strong>渲染主线程承担着极其重要的工作，无论如何都不能阻塞！</strong></p>
-<p>因此，浏览器选择<strong>异步</strong>来解决这个问题</p>
-<p><figure><a class="lightgallery" href="/posts/event-loop/images/202208101048899.png" data-thumbnail="/posts/event-loop/images/202208101048899.png" data-sub-html="<h2>异步策略</h2><p>异步策略，渲染主线程永不阻塞</p>"></a><figcaption class="image-caption">异步策略</figcaption>
-  </figure></p>
-<p>使用异步的方式，<strong>渲染主线程永不阻塞</strong></p>
-<div class="details admonition question">
-    <div class="details-summary admonition-title">
-      <i class="icon fa-solid fa-question-circle fa-fw" aria-hidden="true"></i>面试题：如何理解 JS 的异步？<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i>
-    </div>
-    <div class="details-content">
-      <div class="admonition-content"><p>参考答案：</p>
-<p>JS 是一门单线程的语言，这是因为它运行在浏览器的渲染主线程中，而渲染主线程只有一个。</p>
-<p>而渲染主线程承担着诸多的工作，渲染页面、执行 JS 都在其中运行。</p>
-<p>如果使用同步的方式，就极有可能导致主线程产生阻塞，从而导致消息队列中的很多其他任务无法得到执行。这样一来，一方面会导致繁忙的主线程白白的消耗时间，另一方面导致页面无法及时更新，给用户造成卡死现象。</p>
-<p>所以浏览器采用异步的方式来避免。具体做法是当某些任务发生时，比如计时器、网络、事件监听，主线程将任务交给其他线程去处理，自身立即结束任务的执行，转而执行后续代码。当其他线程完成时，将事先传递的回调函数包装成任务，加入到消息队列的末尾排队，等待主线程调度执行。</p>
-<p>在这种异步模式下，浏览器永不阻塞，从而最大限度的保证了单线程的流畅运行。</p>
-</div>
-    </div>
-  </div>
-<h3 id="js-为何会阻碍渲染">JS 为何会阻碍渲染？</h3>
-<p>先看代码</p>
-<div class="highlight" id="id-1"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>Mr.Yuan is awesome!<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">button</span><span class="p">&gt;</span>change<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">  <span class="kd">var</span> <span class="nx">h1</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s1">&#39;h1&#39;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="kd">var</span> <span class="nx">btn</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s1">&#39;button&#39;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">  <span class="c1">// 死循环指定的时间
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kd">function</span> <span class="nx">delay</span><span class="p">(</span><span class="nx">duration</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">start</span> <span class="o">=</span> <span class="nb">Date</span><span class="p">.</span><span class="nx">now</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl">    <span class="k">while</span> <span class="p">(</span><span class="nb">Date</span><span class="p">.</span><span class="nx">now</span><span class="p">()</span> <span class="o">-</span> <span class="nx">start</span> <span class="o">&lt;</span> <span class="nx">duration</span><span class="p">)</span> <span class="p">{}</span>
-</span></span><span class="line"><span class="cl">  <span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">  <span class="nx">btn</span><span class="p">.</span><span class="nx">onclick</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">h1</span><span class="p">.</span><span class="nx">textContent</span> <span class="o">=</span> <span class="s1">&#39;袁老师很帅！&#39;</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">delay</span><span class="p">(</span><span class="mi">3000</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="p">};</span>
-</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span></span></span></code></pre></td></tr></table>
-</div>
-</div><p>点击按钮后，会发生什么呢？</p>
-<p>&lt;复制代码自行演示&gt;</p>
-<h3 id="任务有优先级吗">任务有优先级吗？</h3>
-<p>任务没有优先级，在消息队列中先进先出</p>
-<p>但<strong>消息队列是有优先级的</strong></p>
-<p>根据 W3C 的最新解释：</p>
-<ul>
-<li>每个任务都有一个任务类型，同一个类型的任务必须在一个队列，不同类型的任务可以分属于不同的队列。
-在一次事件循环中，浏览器可以根据实际情况从不同的队列中取出任务执行。</li>
-<li>浏览器必须准备好一个微队列，微队列中的任务优先所有其他任务执行
-<a href="https://html.spec.whatwg.org/multipage/webappapis.html#perform-a-microtask-checkpoint"target="_blank" rel="external nofollow noopener noreferrer">https://html.spec.whatwg.org/multipage/webappapis.html#perform-a-microtask-checkpoint<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
-</ul>
-<blockquote>
-<p>随着浏览器的复杂度急剧提升，W3C 不再使用宏队列的说法</p>
-</blockquote>
-<p>在目前 chrome 的实现中，至少包含了下面的队列：</p>
-<ul>
-<li>微队列：用户存放需要最快执行的任务，优先级「最高」</li>
-<li>延时队列：用于存放计时器到达后的回调任务，优先级「中」</li>
-<li>交互队列：用于存放用户操作后产生的事件处理任务，优先级「高」</li>
-</ul>
-<p><figure><a class="lightgallery" href="/posts/event-loop/images/multiple-queues.png" data-thumbnail="/posts/event-loop/images/multiple-queues.png" data-sub-html="<h2>多队列演示图</h2><p>微队列、延时队列、交互队列</p>"></a><figcaption class="image-caption">多队列演示图</figcaption>
-  </figure></p>
-<p>添加任务到微队列的主要方式主要是使用 Promise、MutationObserver，例如：</p>
-<div class="highlight" id="id-2"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="c1">// 立即把一个函数添加到微队列
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nb">Promise</span><span class="p">.</span><span class="nx">resolve</span><span class="p">().</span><span class="nx">then</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{});</span></span></span></code></pre></td></tr></table>
-</div>
-</div><p>浏览器还有很多其他的队列，由于和我们开发关系不大，不作考虑。</p>
-<div class="details admonition question">
-    <div class="details-summary admonition-title">
-      <i class="icon fa-solid fa-question-circle fa-fw" aria-hidden="true"></i>面试题：阐述一下 JS 的事件循环<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i>
-    </div>
-    <div class="details-content">
-      <div class="admonition-content"><p>参考答案：</p>
-<p>事件循环又叫做消息循环，是浏览器渲染主线程的工作方式。</p>
-<p>在 Chrome 的源码中，它开启一个不会结束的 for 循环，每次循环从消息队列中取出第一个任务执行，而其他线程只需要在合适的时候将任务加入到队列末尾即可。</p>
-<p>过去把消息队列简单分为宏队列和微队列，这种说法目前已无法满足复杂的浏览器环境，取而代之的是一种更加灵活多变的处理方式。</p>
-<p>根据 W3C 官方的解释，每个任务有不同的类型，同类型的任务必须在同一个队列，不同的任务可以属于不同的队列。不同任务队列有不同的优先级，在一次事件循环中，由浏览器自行决定取哪一个队列的任务。但浏览器必须有一个微队列，微队列的任务一定具有最高的优先级，必须优先调度执行。</p>
-</div>
-    </div>
-  </div>
-<div class="details admonition question">
-    <div class="details-summary admonition-title">
-      <i class="icon fa-solid fa-question-circle fa-fw" aria-hidden="true"></i>面试题：JS 中的计时器能做到精确计时吗？为什么？<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i>
-    </div>
-    <div class="details-content">
-      <div class="admonition-content"><p>参考答案：</p>
-<p>不行，因为：</p>
-<ol>
-<li>计算机硬件没有原子钟，无法做到精确计时</li>
-<li>操作系统的计时函数本身就有少量偏差，由于 JS 的计时器最终调用的是操作系统的函数，也就携带了这些偏差</li>
-<li>按照 W3C 的标准，浏览器实现计时器时，如果嵌套层级超过 5 层，则会带有 4 毫秒的最少时间，这样在计时时间少于 4 毫秒时又带来了偏差</li>
-<li>受事件循环的影响，计时器的回调函数只能在主线程空闲时运行，因此又带来了偏差</li>
-</ol>
-</div>
-    </div>
-  </div>]]></description></item></channel></rss>
+]]></description></item></channel></rss>
