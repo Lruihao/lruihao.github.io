@@ -1,4 +1,186 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>debug - 标签 - 菠菜眾長</title><link>https://lruihao.cn/tags/debug/</link><description>debug - 标签 - 菠菜眾長</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><copyright>本站内容采用知识共享署名-非商业性使用 4.0（CC BY-NC 4.0）国际许可协议。</copyright><lastBuildDate>Thu, 15 Dec 2022 15:33:30 +0800</lastBuildDate><atom:link href="https://lruihao.cn/tags/debug/" rel="self" type="application/rss+xml"/><item><title>安装 Homebrew 后导致系统中原有的 npm 和 npx 失效</title><link>https://lruihao.cn/posts/homebrew-npm/</link><pubDate>Thu, 15 Dec 2022 15:33:30 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/homebrew-npm/</guid><description><![CDATA[<div class="details admonition question open">
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>debug - 标签 - 菠菜眾長</title><link>https://lruihao.cn/tags/debug/</link><description>debug - 标签 - 菠菜眾長</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><copyright>本站内容采用知识共享署名-非商业性使用 4.0（CC BY-NC 4.0）国际许可协议。</copyright><lastBuildDate>Thu, 12 Oct 2023 22:37:56 +0800</lastBuildDate><atom:link href="https://lruihao.cn/tags/debug/" rel="self" type="application/rss+xml"/><item><title>如何给 npm 包打补丁？</title><link>https://lruihao.cn/posts/patch-package/</link><pubDate>Thu, 12 Oct 2023 22:37:56 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/patch-package/</guid><description><![CDATA[<div class="featured-image">
+        <img src="/images/featured-image.png" referrerpolicy="no-referrer">
+      </div><h2 id="背景">背景</h2>
+<p>今天鬼事神差想起去年写的一段 dirty hack 代码，当时是在 <a href="https://github.com/Lruihao/vue-minder-editor-extended"target="_blank" rel="external nofollow noopener noreferrer">vue-minder-editor-extended<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 这个项目为了解决百度开源的 <a href="https://github.com/fex-team/kityminder-core"target="_blank" rel="external nofollow noopener noreferrer">@7polo/kityminder-core<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> npm 包的 bug，但是百度早在 17-18 年就停止更新了，我又不想自己 fork 一份源码然后重新发包，于是当时直接从 node_modules 里面复制出了打包后的源码进行修改，然后放到了项目中 <code>src/script/patch/kityminder.core.js</code>，并因修改了引入：</p>
+<div class="highlight" id="id-1"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-diff" data-lang="diff"><span class="line"><span class="cl"><span class="gd">- require(&#39;@7polo/kityminder-core&#39;);
+</span></span></span><span class="line"><span class="cl"><span class="gd"></span><span class="gi">+ require(&#39;./script/patch/kityminder.core&#39;);
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>但是今天刷抖音看到类似的问题，回想起来这种做法真的是太蠢了，于是就想着有没有更好的办法，于是就一番搜索有了这篇文章。</p>
+<h2 id="安装-patch-package">安装 patch-package</h2>
+<div class="highlight" id="id-2"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">npm i patch-package --save-dev</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="修改源码">修改源码</h2>
+<p>在 <code>node_modules</code> 目录下找到需要打补丁的包，然后修改源码，比如我这里修改了 <code>node_modules/@7polo/kityminder-core/dist/kityminder.core.js</code>，修改后直接保存。</p>
+<h2 id="生成补丁">生成补丁</h2>
+<div class="highlight" id="id-3"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">npx patch-package @7polo/kityminder-core</span></span></code></pre></td></tr></table>
+</div>
+</div><p>此时在根目录下会得到如下文件：</p>
+<div class="highlight" id="id-4"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">├── patches
+</span></span><span class="line"><span class="cl">│   └── @7polo-kityminder-core+1.4.53.patch
+</span></span><span class="line"><span class="cl">└── package.json</span></span></code></pre></td></tr></table>
+</div>
+</div><p>想看看这个补丁文件里面是什么东西，打开 <code>patches/@7polo-kityminder-core+1.4.53.patch</code>，内容如下：</p>
+<div class="highlight" id="id-5"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-diff" data-lang="diff"><span class="line"><span class="cl"><span class="gh">diff --git a/node_modules/@7polo/kityminder-core/.DS_Store b/node_modules/@7polo/kityminder-core/.DS_Store
+</span></span></span><span class="line"><span class="cl"><span class="gh"></span>new file mode 100644
+</span></span><span class="line"><span class="cl"><span class="gh">index 0000000..c88a062
+</span></span></span><span class="line"><span class="cl"><span class="gh"></span>Binary files /dev/null and b/node_modules/@7polo/kityminder-core/.DS_Store differ
+</span></span><span class="line"><span class="cl"><span class="gh">diff --git a/node_modules/@7polo/kityminder-core/dist/kityminder.core.js b/node_modules/@7polo/kityminder-core/dist/kityminder.core.js
+</span></span></span><span class="line"><span class="cl"><span class="gh">index 78dfbaf..32f276d 100644
+</span></span></span><span class="line"><span class="cl"><span class="gh"></span><span class="gd">--- a/node_modules/@7polo/kityminder-core/dist/kityminder.core.js
+</span></span></span><span class="line"><span class="cl"><span class="gd"></span><span class="gi">+++ b/node_modules/@7polo/kityminder-core/dist/kityminder.core.js
+</span></span></span><span class="line"><span class="cl"><span class="gi"></span><span class="gu">@@ -513,6 +513,8 @@ _p[9] = {
+</span></span></span><span class="line"><span class="cl"><span class="gu"></span>          *
+</span></span><span class="line"><span class="cl">          * @param {string} name 要执行的命令名称
+</span></span><span class="line"><span class="cl">          * @param {argument} args 要传递给命令的其它参数
+</span></span><span class="line"><span class="cl"><span class="gi">+         * 
+</span></span></span><span class="line"><span class="cl"><span class="gi">+         * @patch 2022.10.19 @Lruihao 修复缺少 afterExecCommand hook
+</span></span></span><span class="line"><span class="cl"><span class="gi"></span>          */
+</span></span><span class="line"><span class="cl">             execCommand: function(name) {
+</span></span><span class="line"><span class="cl">                 if (!name) return null;
+</span></span><span class="line"><span class="cl"><span class="gu">@@ -547,6 +549,8 @@ _p[9] = {
+</span></span></span><span class="line"><span class="cl"><span class="gu"></span>                         this._interactChange();
+</span></span><span class="line"><span class="cl">                     }
+</span></span><span class="line"><span class="cl">                 }
+</span></span><span class="line"><span class="cl"><span class="gi">+                // Fix: afterExecCommand hook
+</span></span></span><span class="line"><span class="cl"><span class="gi">+                this._fire(new MinderEvent(&#34;afterExecCommand&#34;, eventParams, false));
+</span></span></span><span class="line"><span class="cl"><span class="gi"></span>                 return result === undefined ? null : result;
+</span></span><span class="line"><span class="cl">             }
+</span></span><span class="line"><span class="cl">         });
+</span></span><span class="line"><span class="cl"><span class="gu">@@ -1254,6 +1258,22 @@ _p[13] = {
+</span></span></span><span class="line"><span class="cl"><span class="gu"></span>                 });
+</span></span><span class="line"><span class="cl">                 return this;
+</span></span><span class="line"><span class="cl">             },
+</span></span><span class="line"><span class="cl"><span class="gi">+            /**
+</span></span></span><span class="line"><span class="cl"><span class="gi">+             * @patch 2022.10.26 @Lruihao 修复缺少 once 侦听指定事件一次
+</span></span></span><span class="line"><span class="cl"><span class="gi">+             * @param {String} name 
+</span></span></span><span class="line"><span class="cl"><span class="gi">+             * @param {Function} callback 
+</span></span></span><span class="line"><span class="cl"><span class="gi">+             */
+</span></span></span><span class="line"><span class="cl"><span class="gi">+            once: function(name, callback) {
+</span></span></span><span class="line"><span class="cl"><span class="gi">+                var km = this;
+</span></span></span><span class="line"><span class="cl"><span class="gi">+                name.split(/\s+/).forEach(function(n) {
+</span></span></span><span class="line"><span class="cl"><span class="gi">+                    const tmpCallback = (e) =&gt; {
+</span></span></span><span class="line"><span class="cl"><span class="gi">+                      callback(e);
+</span></span></span><span class="line"><span class="cl"><span class="gi">+                      km.off(n.toLowerCase(), tmpCallback)
+</span></span></span><span class="line"><span class="cl"><span class="gi">+                    };
+</span></span></span><span class="line"><span class="cl"><span class="gi">+                    km._listen(n.toLowerCase(), tmpCallback);
+</span></span></span><span class="line"><span class="cl"><span class="gi">+                });
+</span></span></span><span class="line"><span class="cl"><span class="gi">+                return this;
+</span></span></span><span class="line"><span class="cl"><span class="gi">+            },
+</span></span></span><span class="line"><span class="cl"><span class="gi"></span>             off: function(name, callback) {
+</span></span><span class="line"><span class="cl">                 var types = name.split(/\s+/);
+</span></span><span class="line"><span class="cl">                 var i, j, callbacks, removeIndex;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>发现其实就是一个 diff 文件，这个文件里面记录了修改的内容，以及修改的位置，这样就可以在安装依赖的时候自动执行补丁了。</p>
+<h2 id="使用补丁">使用补丁</h2>
+<p>在 <code>package.json</code> 中添加如下内容：</p>
+<div class="highlight" id="id-6"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;scripts&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;postinstall&#34;</span><span class="p">:</span> <span class="s2">&#34;patch-package&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="提交补丁">提交补丁</h2>
+<div class="highlight" id="id-7"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git add .
+</span></span><span class="line"><span class="cl">git commit -m <span class="s2">&#34;Chore: patch @7polo/kityminder-core&#34;</span>
+</span></span><span class="line"><span class="cl">git push</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="测试">测试</h2>
+<p>执行一次完整的依赖安装 =&gt; 构建发布，一切符合预期，大功告成~</p>
+]]></description></item><item><title>安装 Homebrew 后导致系统中原有的 npm 和 npx 失效</title><link>https://lruihao.cn/posts/homebrew-npm/</link><pubDate>Thu, 15 Dec 2022 15:33:30 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/homebrew-npm/</guid><description><![CDATA[<div class="details admonition question open">
     <div class="details-summary admonition-title">
       <i class="icon fa-solid fa-question-circle fa-fw" aria-hidden="true"></i>问题<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i>
     </div>
