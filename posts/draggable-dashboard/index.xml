@@ -1,4 +1,439 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>所有拖拽式仪表盘的设计与开发 - 菠菜眾長</title><link>https://lruihao.cn/posts/draggable-dashboard/</link><description>所有拖拽式仪表盘的设计与开发 | 菠菜眾長</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><copyright>本站内容采用知识共享署名-非商业性使用 4.0（CC BY-NC 4.0）国际许可协议。</copyright><lastBuildDate>Thu, 12 Oct 2023 15:16:48 +0800</lastBuildDate><atom:link href="https://lruihao.cn/posts/draggable-dashboard/" rel="self" type="application/rss+xml"/><item><title>拖拽式仪表盘 - 模板使用</title><link>https://lruihao.cn/posts/dashborad-template-usage/</link><pubDate>Thu, 12 Oct 2023 20:07:20 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/dashborad-template-usage/</guid><description><![CDATA[<p>本文将通过一个简单的例子，介绍如何使用仪表盘模板。</p>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>所有拖拽式仪表盘的设计与开发 - 菠菜眾長</title><link>https://lruihao.cn/posts/draggable-dashboard/</link><description>所有拖拽式仪表盘的设计与开发 | 菠菜眾長</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><copyright>本站内容采用知识共享署名-非商业性使用 4.0（CC BY-NC 4.0）国际许可协议。</copyright><lastBuildDate>Thu, 12 Oct 2023 15:16:48 +0800</lastBuildDate><atom:link href="https://lruihao.cn/posts/draggable-dashboard/" rel="self" type="application/rss+xml"/><item><title>拖拽式仪表盘 - 组件开发</title><link>https://lruihao.cn/posts/dashborad-widget-usage/</link><pubDate>Thu, 12 Oct 2023 20:07:56 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/dashborad-widget-usage/</guid><description><![CDATA[<p>本文将通过一个简单的便利贴组件为例，介绍如何开发一个仪表盘组件。</p>
+<p>Talk is cheap. Show you the code.</p>
+<h2 id="代码">代码</h2>
+<div class="highlight" id="id-1"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span><span class="lnt">109
+</span><span class="lnt">110
+</span><span class="lnt">111
+</span><span class="lnt">112
+</span><span class="lnt">113
+</span><span class="lnt">114
+</span><span class="lnt">115
+</span><span class="lnt">116
+</span><span class="lnt">117
+</span><span class="lnt">118
+</span><span class="lnt">119
+</span><span class="lnt">120
+</span><span class="lnt">121
+</span><span class="lnt">122
+</span><span class="lnt">123
+</span><span class="lnt">124
+</span><span class="lnt">125
+</span><span class="lnt">126
+</span><span class="lnt">127
+</span><span class="lnt">128
+</span><span class="lnt">129
+</span><span class="lnt">130
+</span><span class="lnt">131
+</span><span class="lnt">132
+</span><span class="lnt">133
+</span><span class="lnt">134
+</span><span class="lnt">135
+</span><span class="lnt">136
+</span><span class="lnt">137
+</span><span class="lnt">138
+</span><span class="lnt">139
+</span><span class="lnt">140
+</span><span class="lnt">141
+</span><span class="lnt">142
+</span><span class="lnt">143
+</span><span class="lnt">144
+</span><span class="lnt">145
+</span><span class="lnt">146
+</span><span class="lnt">147
+</span><span class="lnt">148
+</span><span class="lnt">149
+</span><span class="lnt">150
+</span><span class="lnt">151
+</span><span class="lnt">152
+</span><span class="lnt">153
+</span><span class="lnt">154
+</span><span class="lnt">155
+</span><span class="lnt">156
+</span><span class="lnt">157
+</span><span class="lnt">158
+</span><span class="lnt">159
+</span><span class="lnt">160
+</span><span class="lnt">161
+</span><span class="lnt">162
+</span><span class="lnt">163
+</span><span class="lnt">164
+</span><span class="lnt">165
+</span><span class="lnt">166
+</span><span class="lnt">167
+</span><span class="lnt">168
+</span><span class="lnt">169
+</span><span class="lnt">170
+</span><span class="lnt">171
+</span><span class="lnt">172
+</span><span class="lnt">173
+</span><span class="lnt">174
+</span><span class="lnt">175
+</span><span class="lnt">176
+</span><span class="lnt">177
+</span><span class="lnt">178
+</span><span class="lnt">179
+</span><span class="lnt">180
+</span><span class="lnt">181
+</span><span class="lnt">182
+</span><span class="lnt">183
+</span><span class="lnt">184
+</span><span class="lnt">185
+</span><span class="lnt">186
+</span><span class="lnt">187
+</span><span class="lnt">188
+</span><span class="lnt">189
+</span><span class="lnt">190
+</span><span class="lnt">191
+</span><span class="lnt">192
+</span><span class="lnt">193
+</span><span class="lnt">194
+</span><span class="lnt">195
+</span><span class="lnt">196
+</span><span class="lnt">197
+</span><span class="lnt">198
+</span><span class="lnt">199
+</span><span class="lnt">200
+</span><span class="lnt">201
+</span><span class="lnt">202
+</span><span class="lnt">203
+</span><span class="lnt">204
+</span><span class="lnt">205
+</span><span class="lnt">206
+</span><span class="lnt">207
+</span><span class="lnt">208
+</span><span class="lnt">209
+</span><span class="lnt">210
+</span><span class="lnt">211
+</span><span class="lnt">212
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-vue" data-lang="vue"><span class="line"><span class="cl"><span class="c">&lt;!--</span> <span class="nx">便利贴组件</span><span class="err">（</span><span class="nx">dashboard</span> <span class="nx">示例组件</span><span class="err">）</span> <span class="o">--&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">template</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">el-card</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;note-content&#34;</span><span class="p">&gt;{{</span> <span class="nx">params</span><span class="p">.</span><span class="nx">content</span> <span class="p">}}&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">el-popover</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">v-model</span><span class="s">=&#34;formVisible&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s">      trigger=&#34;manual&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s">      popper-class=&#34;form-popover&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s">    &gt;
+</span></span></span><span class="line"><span class="cl"><span class="s">      &lt;el-form
+</span></span></span><span class="line"><span class="cl"><span class="s">        ref=&#34;form&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s">        label-width=&#34;80px&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s">        label-position=&#34;top&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s">        :model=&#34;form&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s">        :rules=&#34;rules&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s">      &gt;
+</span></span></span><span class="line"><span class="cl"><span class="s">        &lt;el-form-item label=&#34;便利贴&#34; prop=&#34;content&#34;&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s">          &lt;el-input v-model=&#34;form.content&#34; type=&#34;textarea&#34; :autosize=&#34;{ minRows: 2, maxRows: 4 }&#34; /&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s">        &lt;/el-form-item&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s">      &lt;/el-form&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s">      &lt;div class=&#34;text-right&#34;&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s">        &lt;el-button type=&#34;text&#34; size=&#34;mini&#34; @click=&#34;formVisible = false&#34;&gt;取消&lt;/el-button&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s">        &lt;el-button type=&#34;primary&#34; size=&#34;mini&#34; @click=&#34;save&#34;</span><span class="p">&gt;</span><span class="na">保存</span><span class="err">&lt;/</span><span class="na">el</span><span class="nt">-button</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">&lt;</span><span class="err">/el-popover&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="o">&lt;</span><span class="err">/el-card&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">template</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="k">default</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">   * 组件名称，必须且唯一
+</span></span></span><span class="line"><span class="cl"><span class="cm">   */</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;ExampleWidget&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">   * 组件配置对象
+</span></span></span><span class="line"><span class="cl"><span class="cm">   * @property {String} name 组件名称，用于在组件列表中显示组件名称
+</span></span></span><span class="line"><span class="cl"><span class="cm">   * @property {String} [icon=&#39;el-icon-postcard&#39;] 组件图标，用于在组件列表中显示组件图标，支持 el-icon、iconfont 和 svg-icon
+</span></span></span><span class="line"><span class="cl"><span class="cm">   * @property {Object} [params] 组件参数，一般搭配 setting 钩子函数使用
+</span></span></span><span class="line"><span class="cl"><span class="cm">   * @property {Boolean} [disabled] 是否禁用组件，设置为 true 则不会被注册（组件弃用时可设置为 true）
+</span></span></span><span class="line"><span class="cl"><span class="cm">   * @property {Boolean} [hidden] 是否隐藏组件，设置为 true 则不会在组件列表中显示（组件即将弃用时可设置为 true）
+</span></span></span><span class="line"><span class="cl"><span class="cm">   * 以下参数参考 https://jbaysolutions.github.io/vue-grid-layout/zh/guide/properties.html#griditem
+</span></span></span><span class="line"><span class="cl"><span class="cm">   * @property {Number} w 组件宽度
+</span></span></span><span class="line"><span class="cl"><span class="cm">   * @property {Number} h 组件高度
+</span></span></span><span class="line"><span class="cl"><span class="cm">   * @property {Number} [minW] 组件最小宽度
+</span></span></span><span class="line"><span class="cl"><span class="cm">   * @property {Number} [minH] 组件最小高度
+</span></span></span><span class="line"><span class="cl"><span class="cm">   * @property {Number} [maxW] 组件最大宽度
+</span></span></span><span class="line"><span class="cl"><span class="cm">   * @property {Number} [maxH] 组件最大高度
+</span></span></span><span class="line"><span class="cl"><span class="cm">   * @property {Boolean} [isResizable=false] 是否可调整大小
+</span></span></span><span class="line"><span class="cl"><span class="cm">   */</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">widget</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;便利贴&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">icon</span><span class="o">:</span> <span class="s1">&#39;el-icon-postcard&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">params</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">content</span><span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">disabled</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">hidden</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">w</span><span class="o">:</span> <span class="mi">8</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">h</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">minW</span><span class="o">:</span> <span class="mi">8</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">minH</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">maxW</span><span class="o">:</span> <span class="mi">24</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">maxH</span><span class="o">:</span> <span class="mi">6</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">isResizable</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">inject</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;$dashboard&#39;</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">props</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * 组件实例数据
+</span></span></span><span class="line"><span class="cl"><span class="cm">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">item</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">type</span><span class="o">:</span> <span class="nb">Object</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="k">default</span><span class="o">:</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">({}),</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * 组件参数，用于接收用户已配置的参数，支持 `.sync` 修饰符
+</span></span></span><span class="line"><span class="cl"><span class="cm">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">params</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">type</span><span class="o">:</span> <span class="nb">Object</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="k">default</span><span class="o">:</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">({}),</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">data</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">formVisible</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">form</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">content</span><span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="p">},</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">rules</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">content</span><span class="o">:</span> <span class="p">[{</span> <span class="nx">required</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span> <span class="nx">message</span><span class="o">:</span> <span class="s1">&#39;请输入便利贴内容&#39;</span><span class="p">,</span> <span class="nx">trigger</span><span class="o">:</span> <span class="s1">&#39;change&#39;</span> <span class="p">}],</span>
+</span></span><span class="line"><span class="cl">      <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">watch</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;$dashboard.isCollapse&#39;</span><span class="p">(</span><span class="nx">val</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="c1">// 当侧栏组件列表折叠时，关闭配置弹窗
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="k">if</span> <span class="p">(</span><span class="nx">val</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">this</span><span class="p">.</span><span class="nx">formVisible</span> <span class="o">=</span> <span class="kc">false</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;params.content&#39;</span><span class="p">(</span><span class="nx">val</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="c1">// 当用户修改了参数，更新表单中对应的参数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="k">this</span><span class="p">.</span><span class="nx">form</span><span class="p">.</span><span class="nx">content</span> <span class="o">=</span> <span class="nx">val</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">mounted</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="p">.</span><span class="nx">form</span> <span class="o">=</span> <span class="p">{</span> <span class="p">...</span><span class="k">this</span><span class="p">.</span><span class="nx">params</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">   * hook for refresh widget item
+</span></span></span><span class="line"><span class="cl"><span class="cm">   * 点击刷新组件按钮时触发，一般用于刷新组件数据
+</span></span></span><span class="line"><span class="cl"><span class="cm">   * @param {Object} item 组件实例数据
+</span></span></span><span class="line"><span class="cl"><span class="cm">   */</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">refresh</span><span class="p">(</span><span class="nx">item</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// to refresh widget data
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">   * hook for setting widget item
+</span></span></span><span class="line"><span class="cl"><span class="cm">   * 点击配置组件按钮时触发，一般搭配 widget.params 使用
+</span></span></span><span class="line"><span class="cl"><span class="cm">   * @param {Object} item 组件实例数据
+</span></span></span><span class="line"><span class="cl"><span class="cm">   */</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">setting</span><span class="p">(</span><span class="nx">item</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="p">.</span><span class="nx">formVisible</span> <span class="o">=</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">   * hook for moving widget item
+</span></span></span><span class="line"><span class="cl"><span class="cm">   * @param {Object} item item config data
+</span></span></span><span class="line"><span class="cl"><span class="cm">   * @param {Number} i the item id/index
+</span></span></span><span class="line"><span class="cl"><span class="cm">   * @param {Number} newX new x position in grid rows
+</span></span></span><span class="line"><span class="cl"><span class="cm">   * @param {Number} newY new y position in grid columns
+</span></span></span><span class="line"><span class="cl"><span class="cm">   */</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">move</span><span class="p">(</span><span class="nx">item</span><span class="p">,</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">newX</span><span class="p">,</span> <span class="nx">newY</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// to do something when widget item moving
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">   * hook for moved widget item
+</span></span></span><span class="line"><span class="cl"><span class="cm">   * @param {Object} item item config data
+</span></span></span><span class="line"><span class="cl"><span class="cm">   * @param {Number} i the item id/index
+</span></span></span><span class="line"><span class="cl"><span class="cm">   * @param {Number} newX new x position in grid rows
+</span></span></span><span class="line"><span class="cl"><span class="cm">   * @param {Number} newY new y position in grid columns
+</span></span></span><span class="line"><span class="cl"><span class="cm">   */</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">moved</span><span class="p">(</span><span class="nx">item</span><span class="p">,</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">newX</span><span class="p">,</span> <span class="nx">newY</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// to do something when widget item moved
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">   * hook for resizing widget item
+</span></span></span><span class="line"><span class="cl"><span class="cm">   * @param {Object} item item config data
+</span></span></span><span class="line"><span class="cl"><span class="cm">   * @param {Number} i the item id/index
+</span></span></span><span class="line"><span class="cl"><span class="cm">   * @param {Number} newH new height in grid rows
+</span></span></span><span class="line"><span class="cl"><span class="cm">   * @param {Number} newW new width in grid columns
+</span></span></span><span class="line"><span class="cl"><span class="cm">   * @param {String} newHPx new height in pixels
+</span></span></span><span class="line"><span class="cl"><span class="cm">   * @param {String} newWPx new width in pixels
+</span></span></span><span class="line"><span class="cl"><span class="cm">   */</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">resize</span><span class="p">(</span><span class="nx">item</span><span class="p">,</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">newH</span><span class="p">,</span> <span class="nx">newW</span><span class="p">,</span> <span class="nx">newHPx</span><span class="p">,</span> <span class="nx">newWPx</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// to do something when widget item resizing
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">   * hook for resized widget item
+</span></span></span><span class="line"><span class="cl"><span class="cm">   * @param {Object} item item config data
+</span></span></span><span class="line"><span class="cl"><span class="cm">   * @param {Number} i the item id/index
+</span></span></span><span class="line"><span class="cl"><span class="cm">   * @param {Number} newH new height in grid rows
+</span></span></span><span class="line"><span class="cl"><span class="cm">   * @param {Number} newW new width in grid columns
+</span></span></span><span class="line"><span class="cl"><span class="cm">   * @param {String} newHPx new height in pixels
+</span></span></span><span class="line"><span class="cl"><span class="cm">   * @param {String} newWPx new width in pixels
+</span></span></span><span class="line"><span class="cl"><span class="cm">   */</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">resized</span><span class="p">(</span><span class="nx">item</span><span class="p">,</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">newH</span><span class="p">,</span> <span class="nx">newW</span><span class="p">,</span> <span class="nx">newHPx</span><span class="p">,</span> <span class="nx">newWPx</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// to do something when widget item resized
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">   * hook for container resized
+</span></span></span><span class="line"><span class="cl"><span class="cm">   * @param {Object} item item config data
+</span></span></span><span class="line"><span class="cl"><span class="cm">   * @param {Number} i the item id/index
+</span></span></span><span class="line"><span class="cl"><span class="cm">   * @param {Number} newH new height in grid rows
+</span></span></span><span class="line"><span class="cl"><span class="cm">   * @param {Number} newW new width in grid columns
+</span></span></span><span class="line"><span class="cl"><span class="cm">   * @param {String} newHPx new height in pixels
+</span></span></span><span class="line"><span class="cl"><span class="cm">   * @param {String} newWPx new width in pixels
+</span></span></span><span class="line"><span class="cl"><span class="cm">   */</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">containerResized</span><span class="p">(</span><span class="nx">item</span><span class="p">,</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">newH</span><span class="p">,</span> <span class="nx">newW</span><span class="p">,</span> <span class="nx">newHPx</span><span class="p">,</span> <span class="nx">newWPx</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// to do something when container resized
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">methods</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * 保存配置
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * 通过 update:params 事件将配置传递给父组件
+</span></span></span><span class="line"><span class="cl"><span class="cm">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">save</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">this</span><span class="p">.</span><span class="nx">$refs</span><span class="p">.</span><span class="nx">form</span><span class="p">.</span><span class="nx">validate</span><span class="p">(</span><span class="nx">valid</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="nx">valid</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="k">this</span><span class="p">.</span><span class="nx">formVisible</span> <span class="o">=</span> <span class="kc">false</span>
+</span></span><span class="line"><span class="cl">          <span class="k">this</span><span class="p">.</span><span class="nx">$emit</span><span class="p">(</span><span class="s1">&#39;update:params&#39;</span><span class="p">,</span> <span class="p">{</span> <span class="p">...</span><span class="k">this</span><span class="p">.</span><span class="nx">form</span> <span class="p">})</span>
+</span></span><span class="line"><span class="cl">          <span class="k">this</span><span class="p">.</span><span class="nx">$dashboard</span><span class="p">.</span><span class="nx">notify</span><span class="p">(</span><span class="s1">&#39;便利贴保存成功！&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="p">})</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">style</span> <span class="na">lang</span><span class="o">=</span><span class="s">&#34;scss&#34;</span> <span class="na">scoped</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">.</span><span class="nx">note</span><span class="o">-</span><span class="nx">content</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">white</span><span class="o">-</span><span class="nx">space</span><span class="o">:</span> <span class="nx">pre</span><span class="o">-</span><span class="nx">wrap</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">color</span><span class="o">:</span> <span class="err">#</span><span class="mi">606266</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">font</span><span class="o">-</span><span class="nx">size</span><span class="o">:</span> <span class="mi">14</span><span class="nx">px</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">::</span><span class="nx">v</span><span class="o">-</span><span class="nx">deep</span> <span class="p">.</span><span class="nx">form</span><span class="o">-</span><span class="nx">popover</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">width</span><span class="o">:</span> <span class="mi">80</span><span class="o">%</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">top</span><span class="o">:</span> <span class="mi">50</span><span class="o">%</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">left</span><span class="o">:</span> <span class="mi">50</span><span class="o">%</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">transform</span><span class="o">:</span> <span class="nx">translate</span><span class="p">(</span><span class="o">-</span><span class="mi">50</span><span class="o">%</span><span class="p">,</span> <span class="o">-</span><span class="mi">50</span><span class="o">%</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="说明">说明</h2>
+<p>可以看出仪表盘组件和一个普通的 Vue 组件并没有太大区别，只是多了一个 <code>widget</code> 配置对象，该对象用于在组件列表中显示组件名称和图标，以及配置组件的默认参数、宽高等信息。代码中备注已经写得很清楚了，这里就不再赘述。</p>
+<p>组件中注入了 <code>$dashboard</code> 对象，用于在组件中调用仪表盘的方法。另外，组件中还提供了一些钩子函数，用于在组件移动、调整大小、刷新、配置等操作时触发，这些钩子函数可以用于组件的数据更新、保存等操作。</p>
+<p>最后，通过 <code>update:params</code> 事件将用户配置的参数传递给仪表盘，仪表盘会将参数保存到数据库中，下次加载仪表盘时会将参数传递给组件。</p>]]></description></item><item><title>拖拽式仪表盘 - 模板使用</title><link>https://lruihao.cn/posts/dashborad-template-usage/</link><pubDate>Thu, 12 Oct 2023 20:07:20 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/dashborad-template-usage/</guid><description><![CDATA[<p>本文将通过一个简单的例子，介绍如何使用仪表盘模板。</p>
 <p>Talk is cheap. Show you the code.</p>
 <h2 id="代码">代码</h2>
 <div class="highlight" id="id-1"><div class="chroma">
@@ -998,7 +1433,442 @@
 <li>通用组件：<code>@/components/Dashboard/widgets/</code></li>
 <li>模块组件：<code>@/views/{module_name}/widgets/</code></li>
 </ul>
-<!-- link reference definition -->]]></description></item><item><title>拖拽式仪表盘 - 模板使用</title><link>https://lruihao.cn/posts/dashborad-template-usage/</link><pubDate>Thu, 12 Oct 2023 20:07:20 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/dashborad-template-usage/</guid><description><![CDATA[<p>本文将通过一个简单的例子，介绍如何使用仪表盘模板。</p>
+<!-- link reference definition -->]]></description></item><item><title>拖拽式仪表盘 - 组件开发</title><link>https://lruihao.cn/posts/dashborad-widget-usage/</link><pubDate>Thu, 12 Oct 2023 20:07:56 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/dashborad-widget-usage/</guid><description><![CDATA[<p>本文将通过一个简单的便利贴组件为例，介绍如何开发一个仪表盘组件。</p>
+<p>Talk is cheap. Show you the code.</p>
+<h2 id="代码">代码</h2>
+<div class="highlight" id="id-1"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span><span class="lnt">109
+</span><span class="lnt">110
+</span><span class="lnt">111
+</span><span class="lnt">112
+</span><span class="lnt">113
+</span><span class="lnt">114
+</span><span class="lnt">115
+</span><span class="lnt">116
+</span><span class="lnt">117
+</span><span class="lnt">118
+</span><span class="lnt">119
+</span><span class="lnt">120
+</span><span class="lnt">121
+</span><span class="lnt">122
+</span><span class="lnt">123
+</span><span class="lnt">124
+</span><span class="lnt">125
+</span><span class="lnt">126
+</span><span class="lnt">127
+</span><span class="lnt">128
+</span><span class="lnt">129
+</span><span class="lnt">130
+</span><span class="lnt">131
+</span><span class="lnt">132
+</span><span class="lnt">133
+</span><span class="lnt">134
+</span><span class="lnt">135
+</span><span class="lnt">136
+</span><span class="lnt">137
+</span><span class="lnt">138
+</span><span class="lnt">139
+</span><span class="lnt">140
+</span><span class="lnt">141
+</span><span class="lnt">142
+</span><span class="lnt">143
+</span><span class="lnt">144
+</span><span class="lnt">145
+</span><span class="lnt">146
+</span><span class="lnt">147
+</span><span class="lnt">148
+</span><span class="lnt">149
+</span><span class="lnt">150
+</span><span class="lnt">151
+</span><span class="lnt">152
+</span><span class="lnt">153
+</span><span class="lnt">154
+</span><span class="lnt">155
+</span><span class="lnt">156
+</span><span class="lnt">157
+</span><span class="lnt">158
+</span><span class="lnt">159
+</span><span class="lnt">160
+</span><span class="lnt">161
+</span><span class="lnt">162
+</span><span class="lnt">163
+</span><span class="lnt">164
+</span><span class="lnt">165
+</span><span class="lnt">166
+</span><span class="lnt">167
+</span><span class="lnt">168
+</span><span class="lnt">169
+</span><span class="lnt">170
+</span><span class="lnt">171
+</span><span class="lnt">172
+</span><span class="lnt">173
+</span><span class="lnt">174
+</span><span class="lnt">175
+</span><span class="lnt">176
+</span><span class="lnt">177
+</span><span class="lnt">178
+</span><span class="lnt">179
+</span><span class="lnt">180
+</span><span class="lnt">181
+</span><span class="lnt">182
+</span><span class="lnt">183
+</span><span class="lnt">184
+</span><span class="lnt">185
+</span><span class="lnt">186
+</span><span class="lnt">187
+</span><span class="lnt">188
+</span><span class="lnt">189
+</span><span class="lnt">190
+</span><span class="lnt">191
+</span><span class="lnt">192
+</span><span class="lnt">193
+</span><span class="lnt">194
+</span><span class="lnt">195
+</span><span class="lnt">196
+</span><span class="lnt">197
+</span><span class="lnt">198
+</span><span class="lnt">199
+</span><span class="lnt">200
+</span><span class="lnt">201
+</span><span class="lnt">202
+</span><span class="lnt">203
+</span><span class="lnt">204
+</span><span class="lnt">205
+</span><span class="lnt">206
+</span><span class="lnt">207
+</span><span class="lnt">208
+</span><span class="lnt">209
+</span><span class="lnt">210
+</span><span class="lnt">211
+</span><span class="lnt">212
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-vue" data-lang="vue"><span class="line"><span class="cl"><span class="c">&lt;!--</span> <span class="nx">便利贴组件</span><span class="err">（</span><span class="nx">dashboard</span> <span class="nx">示例组件</span><span class="err">）</span> <span class="o">--&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">template</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">el-card</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;note-content&#34;</span><span class="p">&gt;{{</span> <span class="nx">params</span><span class="p">.</span><span class="nx">content</span> <span class="p">}}&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">el-popover</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">v-model</span><span class="s">=&#34;formVisible&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s">      trigger=&#34;manual&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s">      popper-class=&#34;form-popover&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s">    &gt;
+</span></span></span><span class="line"><span class="cl"><span class="s">      &lt;el-form
+</span></span></span><span class="line"><span class="cl"><span class="s">        ref=&#34;form&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s">        label-width=&#34;80px&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s">        label-position=&#34;top&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s">        :model=&#34;form&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s">        :rules=&#34;rules&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s">      &gt;
+</span></span></span><span class="line"><span class="cl"><span class="s">        &lt;el-form-item label=&#34;便利贴&#34; prop=&#34;content&#34;&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s">          &lt;el-input v-model=&#34;form.content&#34; type=&#34;textarea&#34; :autosize=&#34;{ minRows: 2, maxRows: 4 }&#34; /&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s">        &lt;/el-form-item&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s">      &lt;/el-form&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s">      &lt;div class=&#34;text-right&#34;&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s">        &lt;el-button type=&#34;text&#34; size=&#34;mini&#34; @click=&#34;formVisible = false&#34;&gt;取消&lt;/el-button&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s">        &lt;el-button type=&#34;primary&#34; size=&#34;mini&#34; @click=&#34;save&#34;</span><span class="p">&gt;</span><span class="na">保存</span><span class="err">&lt;/</span><span class="na">el</span><span class="nt">-button</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">&lt;</span><span class="err">/el-popover&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="o">&lt;</span><span class="err">/el-card&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">template</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="k">default</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">   * 组件名称，必须且唯一
+</span></span></span><span class="line"><span class="cl"><span class="cm">   */</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;ExampleWidget&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">   * 组件配置对象
+</span></span></span><span class="line"><span class="cl"><span class="cm">   * @property {String} name 组件名称，用于在组件列表中显示组件名称
+</span></span></span><span class="line"><span class="cl"><span class="cm">   * @property {String} [icon=&#39;el-icon-postcard&#39;] 组件图标，用于在组件列表中显示组件图标，支持 el-icon、iconfont 和 svg-icon
+</span></span></span><span class="line"><span class="cl"><span class="cm">   * @property {Object} [params] 组件参数，一般搭配 setting 钩子函数使用
+</span></span></span><span class="line"><span class="cl"><span class="cm">   * @property {Boolean} [disabled] 是否禁用组件，设置为 true 则不会被注册（组件弃用时可设置为 true）
+</span></span></span><span class="line"><span class="cl"><span class="cm">   * @property {Boolean} [hidden] 是否隐藏组件，设置为 true 则不会在组件列表中显示（组件即将弃用时可设置为 true）
+</span></span></span><span class="line"><span class="cl"><span class="cm">   * 以下参数参考 https://jbaysolutions.github.io/vue-grid-layout/zh/guide/properties.html#griditem
+</span></span></span><span class="line"><span class="cl"><span class="cm">   * @property {Number} w 组件宽度
+</span></span></span><span class="line"><span class="cl"><span class="cm">   * @property {Number} h 组件高度
+</span></span></span><span class="line"><span class="cl"><span class="cm">   * @property {Number} [minW] 组件最小宽度
+</span></span></span><span class="line"><span class="cl"><span class="cm">   * @property {Number} [minH] 组件最小高度
+</span></span></span><span class="line"><span class="cl"><span class="cm">   * @property {Number} [maxW] 组件最大宽度
+</span></span></span><span class="line"><span class="cl"><span class="cm">   * @property {Number} [maxH] 组件最大高度
+</span></span></span><span class="line"><span class="cl"><span class="cm">   * @property {Boolean} [isResizable=false] 是否可调整大小
+</span></span></span><span class="line"><span class="cl"><span class="cm">   */</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">widget</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;便利贴&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">icon</span><span class="o">:</span> <span class="s1">&#39;el-icon-postcard&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">params</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">content</span><span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">disabled</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">hidden</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">w</span><span class="o">:</span> <span class="mi">8</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">h</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">minW</span><span class="o">:</span> <span class="mi">8</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">minH</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">maxW</span><span class="o">:</span> <span class="mi">24</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">maxH</span><span class="o">:</span> <span class="mi">6</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">isResizable</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">inject</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;$dashboard&#39;</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">props</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * 组件实例数据
+</span></span></span><span class="line"><span class="cl"><span class="cm">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">item</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">type</span><span class="o">:</span> <span class="nb">Object</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="k">default</span><span class="o">:</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">({}),</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * 组件参数，用于接收用户已配置的参数，支持 `.sync` 修饰符
+</span></span></span><span class="line"><span class="cl"><span class="cm">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">params</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">type</span><span class="o">:</span> <span class="nb">Object</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="k">default</span><span class="o">:</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">({}),</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">data</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">formVisible</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">form</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">content</span><span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="p">},</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">rules</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">content</span><span class="o">:</span> <span class="p">[{</span> <span class="nx">required</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span> <span class="nx">message</span><span class="o">:</span> <span class="s1">&#39;请输入便利贴内容&#39;</span><span class="p">,</span> <span class="nx">trigger</span><span class="o">:</span> <span class="s1">&#39;change&#39;</span> <span class="p">}],</span>
+</span></span><span class="line"><span class="cl">      <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">watch</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;$dashboard.isCollapse&#39;</span><span class="p">(</span><span class="nx">val</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="c1">// 当侧栏组件列表折叠时，关闭配置弹窗
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="k">if</span> <span class="p">(</span><span class="nx">val</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">this</span><span class="p">.</span><span class="nx">formVisible</span> <span class="o">=</span> <span class="kc">false</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;params.content&#39;</span><span class="p">(</span><span class="nx">val</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="c1">// 当用户修改了参数，更新表单中对应的参数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="k">this</span><span class="p">.</span><span class="nx">form</span><span class="p">.</span><span class="nx">content</span> <span class="o">=</span> <span class="nx">val</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">mounted</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="p">.</span><span class="nx">form</span> <span class="o">=</span> <span class="p">{</span> <span class="p">...</span><span class="k">this</span><span class="p">.</span><span class="nx">params</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">   * hook for refresh widget item
+</span></span></span><span class="line"><span class="cl"><span class="cm">   * 点击刷新组件按钮时触发，一般用于刷新组件数据
+</span></span></span><span class="line"><span class="cl"><span class="cm">   * @param {Object} item 组件实例数据
+</span></span></span><span class="line"><span class="cl"><span class="cm">   */</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">refresh</span><span class="p">(</span><span class="nx">item</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// to refresh widget data
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">   * hook for setting widget item
+</span></span></span><span class="line"><span class="cl"><span class="cm">   * 点击配置组件按钮时触发，一般搭配 widget.params 使用
+</span></span></span><span class="line"><span class="cl"><span class="cm">   * @param {Object} item 组件实例数据
+</span></span></span><span class="line"><span class="cl"><span class="cm">   */</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">setting</span><span class="p">(</span><span class="nx">item</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="p">.</span><span class="nx">formVisible</span> <span class="o">=</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">   * hook for moving widget item
+</span></span></span><span class="line"><span class="cl"><span class="cm">   * @param {Object} item item config data
+</span></span></span><span class="line"><span class="cl"><span class="cm">   * @param {Number} i the item id/index
+</span></span></span><span class="line"><span class="cl"><span class="cm">   * @param {Number} newX new x position in grid rows
+</span></span></span><span class="line"><span class="cl"><span class="cm">   * @param {Number} newY new y position in grid columns
+</span></span></span><span class="line"><span class="cl"><span class="cm">   */</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">move</span><span class="p">(</span><span class="nx">item</span><span class="p">,</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">newX</span><span class="p">,</span> <span class="nx">newY</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// to do something when widget item moving
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">   * hook for moved widget item
+</span></span></span><span class="line"><span class="cl"><span class="cm">   * @param {Object} item item config data
+</span></span></span><span class="line"><span class="cl"><span class="cm">   * @param {Number} i the item id/index
+</span></span></span><span class="line"><span class="cl"><span class="cm">   * @param {Number} newX new x position in grid rows
+</span></span></span><span class="line"><span class="cl"><span class="cm">   * @param {Number} newY new y position in grid columns
+</span></span></span><span class="line"><span class="cl"><span class="cm">   */</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">moved</span><span class="p">(</span><span class="nx">item</span><span class="p">,</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">newX</span><span class="p">,</span> <span class="nx">newY</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// to do something when widget item moved
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">   * hook for resizing widget item
+</span></span></span><span class="line"><span class="cl"><span class="cm">   * @param {Object} item item config data
+</span></span></span><span class="line"><span class="cl"><span class="cm">   * @param {Number} i the item id/index
+</span></span></span><span class="line"><span class="cl"><span class="cm">   * @param {Number} newH new height in grid rows
+</span></span></span><span class="line"><span class="cl"><span class="cm">   * @param {Number} newW new width in grid columns
+</span></span></span><span class="line"><span class="cl"><span class="cm">   * @param {String} newHPx new height in pixels
+</span></span></span><span class="line"><span class="cl"><span class="cm">   * @param {String} newWPx new width in pixels
+</span></span></span><span class="line"><span class="cl"><span class="cm">   */</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">resize</span><span class="p">(</span><span class="nx">item</span><span class="p">,</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">newH</span><span class="p">,</span> <span class="nx">newW</span><span class="p">,</span> <span class="nx">newHPx</span><span class="p">,</span> <span class="nx">newWPx</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// to do something when widget item resizing
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">   * hook for resized widget item
+</span></span></span><span class="line"><span class="cl"><span class="cm">   * @param {Object} item item config data
+</span></span></span><span class="line"><span class="cl"><span class="cm">   * @param {Number} i the item id/index
+</span></span></span><span class="line"><span class="cl"><span class="cm">   * @param {Number} newH new height in grid rows
+</span></span></span><span class="line"><span class="cl"><span class="cm">   * @param {Number} newW new width in grid columns
+</span></span></span><span class="line"><span class="cl"><span class="cm">   * @param {String} newHPx new height in pixels
+</span></span></span><span class="line"><span class="cl"><span class="cm">   * @param {String} newWPx new width in pixels
+</span></span></span><span class="line"><span class="cl"><span class="cm">   */</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">resized</span><span class="p">(</span><span class="nx">item</span><span class="p">,</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">newH</span><span class="p">,</span> <span class="nx">newW</span><span class="p">,</span> <span class="nx">newHPx</span><span class="p">,</span> <span class="nx">newWPx</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// to do something when widget item resized
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">   * hook for container resized
+</span></span></span><span class="line"><span class="cl"><span class="cm">   * @param {Object} item item config data
+</span></span></span><span class="line"><span class="cl"><span class="cm">   * @param {Number} i the item id/index
+</span></span></span><span class="line"><span class="cl"><span class="cm">   * @param {Number} newH new height in grid rows
+</span></span></span><span class="line"><span class="cl"><span class="cm">   * @param {Number} newW new width in grid columns
+</span></span></span><span class="line"><span class="cl"><span class="cm">   * @param {String} newHPx new height in pixels
+</span></span></span><span class="line"><span class="cl"><span class="cm">   * @param {String} newWPx new width in pixels
+</span></span></span><span class="line"><span class="cl"><span class="cm">   */</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">containerResized</span><span class="p">(</span><span class="nx">item</span><span class="p">,</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">newH</span><span class="p">,</span> <span class="nx">newW</span><span class="p">,</span> <span class="nx">newHPx</span><span class="p">,</span> <span class="nx">newWPx</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// to do something when container resized
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">methods</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * 保存配置
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * 通过 update:params 事件将配置传递给父组件
+</span></span></span><span class="line"><span class="cl"><span class="cm">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">save</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">this</span><span class="p">.</span><span class="nx">$refs</span><span class="p">.</span><span class="nx">form</span><span class="p">.</span><span class="nx">validate</span><span class="p">(</span><span class="nx">valid</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="nx">valid</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="k">this</span><span class="p">.</span><span class="nx">formVisible</span> <span class="o">=</span> <span class="kc">false</span>
+</span></span><span class="line"><span class="cl">          <span class="k">this</span><span class="p">.</span><span class="nx">$emit</span><span class="p">(</span><span class="s1">&#39;update:params&#39;</span><span class="p">,</span> <span class="p">{</span> <span class="p">...</span><span class="k">this</span><span class="p">.</span><span class="nx">form</span> <span class="p">})</span>
+</span></span><span class="line"><span class="cl">          <span class="k">this</span><span class="p">.</span><span class="nx">$dashboard</span><span class="p">.</span><span class="nx">notify</span><span class="p">(</span><span class="s1">&#39;便利贴保存成功！&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="p">})</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">style</span> <span class="na">lang</span><span class="o">=</span><span class="s">&#34;scss&#34;</span> <span class="na">scoped</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">.</span><span class="nx">note</span><span class="o">-</span><span class="nx">content</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">white</span><span class="o">-</span><span class="nx">space</span><span class="o">:</span> <span class="nx">pre</span><span class="o">-</span><span class="nx">wrap</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">color</span><span class="o">:</span> <span class="err">#</span><span class="mi">606266</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">font</span><span class="o">-</span><span class="nx">size</span><span class="o">:</span> <span class="mi">14</span><span class="nx">px</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">::</span><span class="nx">v</span><span class="o">-</span><span class="nx">deep</span> <span class="p">.</span><span class="nx">form</span><span class="o">-</span><span class="nx">popover</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">width</span><span class="o">:</span> <span class="mi">80</span><span class="o">%</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">top</span><span class="o">:</span> <span class="mi">50</span><span class="o">%</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">left</span><span class="o">:</span> <span class="mi">50</span><span class="o">%</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">transform</span><span class="o">:</span> <span class="nx">translate</span><span class="p">(</span><span class="o">-</span><span class="mi">50</span><span class="o">%</span><span class="p">,</span> <span class="o">-</span><span class="mi">50</span><span class="o">%</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="说明">说明</h2>
+<p>可以看出仪表盘组件和一个普通的 Vue 组件并没有太大区别，只是多了一个 <code>widget</code> 配置对象，该对象用于在组件列表中显示组件名称和图标，以及配置组件的默认参数、宽高等信息。代码中备注已经写得很清楚了，这里就不再赘述。</p>
+<p>组件中注入了 <code>$dashboard</code> 对象，用于在组件中调用仪表盘的方法。另外，组件中还提供了一些钩子函数，用于在组件移动、调整大小、刷新、配置等操作时触发，这些钩子函数可以用于组件的数据更新、保存等操作。</p>
+<p>最后，通过 <code>update:params</code> 事件将用户配置的参数传递给仪表盘，仪表盘会将参数保存到数据库中，下次加载仪表盘时会将参数传递给组件。</p>]]></description></item><item><title>拖拽式仪表盘 - 模板使用</title><link>https://lruihao.cn/posts/dashborad-template-usage/</link><pubDate>Thu, 12 Oct 2023 20:07:20 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/dashborad-template-usage/</guid><description><![CDATA[<p>本文将通过一个简单的例子，介绍如何使用仪表盘模板。</p>
 <p>Talk is cheap. Show you the code.</p>
 <h2 id="代码">代码</h2>
 <div class="highlight" id="id-1"><div class="chroma">
