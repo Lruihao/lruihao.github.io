@@ -306,7 +306,7 @@ dashboard 显示通知
 | 字段名          | 字段类型     | 字段说明   |
 | --------------- | ------------ | ---------- |
 | id              | int          | 仪表盘 ID  |
-| route           | varchar(150) | 仪表盘名称 |
+| route           | varchar(150) | 仪表盘路由 |
 | layout          | longtext     | 仪表盘布局 |
 | organization_id | bigint       | 组织 ID    |
 | create_time     | datetime     | 创建时间   |
