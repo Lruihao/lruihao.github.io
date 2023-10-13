@@ -299,6 +299,42 @@ dashboard 显示通知
 
 删除 dashboard
 
+## Appendix A: Data Dictionary
+
+仅供参考
+
+| 字段名          | 字段类型     | 字段说明   |
+| --------------- | ------------ | ---------- |
+| id              | int          | 仪表盘 ID  |
+| route           | varchar(150) | 仪表盘名称 |
+| layout          | longtext     | 仪表盘布局 |
+| organization_id | bigint       | 组织 ID    |
+| create_time     | datetime     | 创建时间   |
+| update_time     | datetime     | 更新时间   |
+| aside           | varchar(15)  | 侧栏位置   |
+| compact         | varchar(5)   | 压缩布局   |
+| name            | varchar(250) | 仪表盘名称 |
+
+```sql {title="dashboard 表结构"}
+CREATE TABLE `dashboard` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `route` varchar(150) NOT NULL DEFAULT '' COMMENT 'dashborad名称',
+  `layout` longtext COMMENT 'dashborad布局JSON',
+  `organization_id` bigint(11) DEFAULT '0' COMMENT '组织id',
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
+  `aside` varchar(15) DEFAULT NULL COMMENT '侧栏位置',
+  `compact` varchar(5) NOT NULL DEFAULT 'false' COMMENT '压缩布局',
+  `name` varchar(250) DEFAULT NULL COMMENT '仪表盘名称',
+  PRIMARY KEY (`id`),
+  KEY `name` (`route`)
+) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8 COMMENT='Dashboard组件布局数据';
+```
+
+## Appendix B: API Reference
+
+详见 [dashboard.js](https://github.com/Lruihao/vue-el-demo/blob/main/src/api/dashboard.js)
+
 <!-- link reference definition -->
 [dashboard-template]: <https://github.com/Lruihao/vue-el-demo/tree/main/src/components/Dashboard>
 [dashboard-usage]: <https://github.com/Lruihao/vue-el-demo/blob/main/src/views/dashboard/index.vue>
