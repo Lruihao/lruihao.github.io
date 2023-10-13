@@ -1,4 +1,118 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Vue2 - 标签 - 菠菜眾長</title><link>https://lruihao.cn/tags/vue2/</link><description>Vue2 - 标签 - 菠菜眾長</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><copyright>本站内容采用知识共享署名-非商业性使用 4.0（CC BY-NC 4.0）国际许可协议。</copyright><lastBuildDate>Thu, 12 Oct 2023 19:41:23 +0800</lastBuildDate><atom:link href="https://lruihao.cn/tags/vue2/" rel="self" type="application/rss+xml"/><item><title>拖拽式仪表盘 - 组件配置文档</title><link>https://lruihao.cn/posts/dashborad-widget-docs/</link><pubDate>Thu, 12 Oct 2023 19:41:23 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/dashborad-widget-docs/</guid><description><![CDATA[<p>本文将对 Dashboard 组件的使用方法进行介绍。</p>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Vue2 - 标签 - 菠菜眾長</title><link>https://lruihao.cn/tags/vue2/</link><description>Vue2 - 标签 - 菠菜眾長</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><copyright>本站内容采用知识共享署名-非商业性使用 4.0（CC BY-NC 4.0）国际许可协议。</copyright><lastBuildDate>Thu, 12 Oct 2023 20:07:20 +0800</lastBuildDate><atom:link href="https://lruihao.cn/tags/vue2/" rel="self" type="application/rss+xml"/><item><title>拖拽式仪表盘 - 模板使用</title><link>https://lruihao.cn/posts/dashborad-template-usage/</link><pubDate>Thu, 12 Oct 2023 20:07:20 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/dashborad-template-usage/</guid><description><![CDATA[<p>本文将通过一个简单的例子，介绍如何使用仪表盘模板。</p>
+<p>Talk is cheap. Show you the code.</p>
+<h2 id="代码">代码</h2>
+<div class="highlight" id="id-1"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-vue" data-lang="vue"><span class="line"><span class="cl"><span class="c">&lt;!--</span> <span class="nx">首页</span> <span class="nx">dashboard</span> <span class="nx">页面布局</span> <span class="o">--&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="nx">Dashboard</span><span class="p">,</span> <span class="p">{</span> <span class="nx">registerComponents</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@/components/Dashboard&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 加载测试跟踪 widgets 目录下所有组件
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">requireTrackingComponents</span> <span class="o">=</span> <span class="nx">require</span><span class="p">.</span><span class="nx">context</span><span class="p">(</span><span class="s1">&#39;@/views/tracking/dashboard/widgets&#39;</span><span class="p">,</span> <span class="kc">true</span><span class="p">,</span> <span class="sr">/\.vue$/</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">trackingComponents</span> <span class="o">=</span> <span class="nx">registerComponents</span><span class="p">(</span><span class="nx">requireTrackingComponents</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 加载接口测试 widgets 目录下所有组件
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">requireInterfaceComponents</span> <span class="o">=</span> <span class="nx">require</span><span class="p">.</span><span class="nx">context</span><span class="p">(</span><span class="s1">&#39;@/views/interface/dashboard/widgets&#39;</span><span class="p">,</span> <span class="kc">true</span><span class="p">,</span> <span class="sr">/\.vue$/</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">interfaceComponents</span> <span class="o">=</span> <span class="nx">registerComponents</span><span class="p">(</span><span class="nx">requireInterfaceComponents</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 加载 WebUI 测试 widgets 目录下所有组件
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">requireWebUIComponents</span> <span class="o">=</span> <span class="nx">require</span><span class="p">.</span><span class="nx">context</span><span class="p">(</span><span class="s1">&#39;@/views/webui/dashboard/widgets&#39;</span><span class="p">,</span> <span class="kc">true</span><span class="p">,</span> <span class="sr">/\.vue$/</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">webuiComponents</span> <span class="o">=</span> <span class="nx">registerComponents</span><span class="p">(</span><span class="nx">requireWebUIComponents</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 加载 App 测试 widgets 目录下所有组件
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">requireAppComponents</span> <span class="o">=</span> <span class="nx">require</span><span class="p">.</span><span class="nx">context</span><span class="p">(</span><span class="s1">&#39;@/views/app/dashboard/widgets&#39;</span><span class="p">,</span> <span class="kc">true</span><span class="p">,</span> <span class="sr">/\.vue$/</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">appComponents</span> <span class="o">=</span> <span class="nx">registerComponents</span><span class="p">(</span><span class="nx">requireAppComponents</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="k">default</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;HomeDashboard&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">extends</span><span class="o">:</span> <span class="nx">Dashboard</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">data</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="c1">// 设置默认布局
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="nx">defaultLayout</span><span class="o">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span> <span class="nx">i</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">component</span><span class="o">:</span> <span class="s1">&#39;TrackingCountsWidget&#39;</span><span class="p">,</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;总数统计&#39;</span><span class="p">,</span> <span class="nx">x</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">y</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">w</span><span class="o">:</span> <span class="mi">6</span><span class="p">,</span> <span class="nx">h</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span> <span class="nx">params</span><span class="o">:</span> <span class="p">{</span> <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;product&#39;</span> <span class="p">}},</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span> <span class="nx">i</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span> <span class="nx">component</span><span class="o">:</span> <span class="s1">&#39;TrackingCountsWidget&#39;</span><span class="p">,</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;总数统计&#39;</span><span class="p">,</span> <span class="nx">x</span><span class="o">:</span> <span class="mi">6</span><span class="p">,</span> <span class="nx">y</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">w</span><span class="o">:</span> <span class="mi">6</span><span class="p">,</span> <span class="nx">h</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span> <span class="nx">params</span><span class="o">:</span> <span class="p">{</span> <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;case&#39;</span> <span class="p">}},</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span> <span class="nx">i</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span> <span class="nx">component</span><span class="o">:</span> <span class="s1">&#39;TrackingCountsWidget&#39;</span><span class="p">,</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;总数统计&#39;</span><span class="p">,</span> <span class="nx">x</span><span class="o">:</span> <span class="mi">12</span><span class="p">,</span> <span class="nx">y</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">w</span><span class="o">:</span> <span class="mi">6</span><span class="p">,</span> <span class="nx">h</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span> <span class="nx">params</span><span class="o">:</span> <span class="p">{</span> <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;testplan&#39;</span> <span class="p">}},</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span> <span class="nx">i</span><span class="o">:</span> <span class="mi">4</span><span class="p">,</span> <span class="nx">component</span><span class="o">:</span> <span class="s1">&#39;TrackingCountsWidget&#39;</span><span class="p">,</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;总数统计&#39;</span><span class="p">,</span> <span class="nx">x</span><span class="o">:</span> <span class="mi">18</span><span class="p">,</span> <span class="nx">y</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">w</span><span class="o">:</span> <span class="mi">6</span><span class="p">,</span> <span class="nx">h</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span> <span class="nx">params</span><span class="o">:</span> <span class="p">{</span> <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;report&#39;</span> <span class="p">}},</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span> <span class="nx">i</span><span class="o">:</span> <span class="mi">5</span><span class="p">,</span> <span class="nx">component</span><span class="o">:</span> <span class="s1">&#39;InterfaceCountsWidget&#39;</span><span class="p">,</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;总数统计&#39;</span><span class="p">,</span> <span class="nx">x</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">y</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span> <span class="nx">w</span><span class="o">:</span> <span class="mi">6</span><span class="p">,</span> <span class="nx">h</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span> <span class="nx">params</span><span class="o">:</span> <span class="p">{</span> <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;task&#39;</span> <span class="p">}},</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span> <span class="nx">i</span><span class="o">:</span> <span class="mi">6</span><span class="p">,</span> <span class="nx">component</span><span class="o">:</span> <span class="s1">&#39;InterfaceCountsWidget&#39;</span><span class="p">,</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;总数统计&#39;</span><span class="p">,</span> <span class="nx">x</span><span class="o">:</span> <span class="mi">6</span><span class="p">,</span> <span class="nx">y</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span> <span class="nx">w</span><span class="o">:</span> <span class="mi">6</span><span class="p">,</span> <span class="nx">h</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span> <span class="nx">params</span><span class="o">:</span> <span class="p">{</span> <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;api&#39;</span> <span class="p">}},</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span> <span class="nx">i</span><span class="o">:</span> <span class="mi">7</span><span class="p">,</span> <span class="nx">component</span><span class="o">:</span> <span class="s1">&#39;InterfaceCountsWidget&#39;</span><span class="p">,</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;总数统计&#39;</span><span class="p">,</span> <span class="nx">x</span><span class="o">:</span> <span class="mi">12</span><span class="p">,</span> <span class="nx">y</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span> <span class="nx">w</span><span class="o">:</span> <span class="mi">6</span><span class="p">,</span> <span class="nx">h</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span> <span class="nx">params</span><span class="o">:</span> <span class="p">{</span> <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;case&#39;</span> <span class="p">}},</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span> <span class="nx">i</span><span class="o">:</span> <span class="mi">8</span><span class="p">,</span> <span class="nx">component</span><span class="o">:</span> <span class="s1">&#39;InterfaceCountsWidget&#39;</span><span class="p">,</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;总数统计&#39;</span><span class="p">,</span> <span class="nx">x</span><span class="o">:</span> <span class="mi">18</span><span class="p">,</span> <span class="nx">y</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span> <span class="nx">w</span><span class="o">:</span> <span class="mi">6</span><span class="p">,</span> <span class="nx">h</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span> <span class="nx">params</span><span class="o">:</span> <span class="p">{</span> <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;device&#39;</span> <span class="p">}},</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span> <span class="nx">i</span><span class="o">:</span> <span class="mi">9</span><span class="p">,</span> <span class="nx">component</span><span class="o">:</span> <span class="s1">&#39;MyTestplan&#39;</span><span class="p">,</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;我的测试计划&#39;</span><span class="p">,</span> <span class="nx">x</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">y</span><span class="o">:</span> <span class="mi">4</span><span class="p">,</span> <span class="nx">w</span><span class="o">:</span> <span class="mi">12</span><span class="p">,</span> <span class="nx">h</span><span class="o">:</span> <span class="mi">6</span><span class="p">,</span> <span class="nx">minW</span><span class="o">:</span> <span class="mi">8</span><span class="p">,</span> <span class="nx">minH</span><span class="o">:</span> <span class="mi">6</span><span class="p">,</span> <span class="nx">maxW</span><span class="o">:</span> <span class="mi">24</span><span class="p">,</span> <span class="nx">maxH</span><span class="o">:</span> <span class="mi">6</span><span class="p">,</span> <span class="nx">isResizable</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span> <span class="nx">params</span><span class="o">:</span> <span class="p">{</span> <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;myAttend&#39;</span> <span class="p">}},</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span> <span class="nx">i</span><span class="o">:</span> <span class="mi">10</span><span class="p">,</span> <span class="nx">component</span><span class="o">:</span> <span class="s1">&#39;MyInterfaceTask&#39;</span><span class="p">,</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;我创建的测试&#39;</span><span class="p">,</span> <span class="nx">x</span><span class="o">:</span> <span class="mi">12</span><span class="p">,</span> <span class="nx">y</span><span class="o">:</span> <span class="mi">4</span><span class="p">,</span> <span class="nx">w</span><span class="o">:</span> <span class="mi">12</span><span class="p">,</span> <span class="nx">h</span><span class="o">:</span> <span class="mi">6</span><span class="p">,</span> <span class="nx">minW</span><span class="o">:</span> <span class="mi">12</span><span class="p">,</span> <span class="nx">minH</span><span class="o">:</span> <span class="mi">6</span><span class="p">,</span> <span class="nx">maxW</span><span class="o">:</span> <span class="mi">24</span><span class="p">,</span> <span class="nx">maxH</span><span class="o">:</span> <span class="mi">6</span><span class="p">,</span> <span class="nx">isResizable</span><span class="o">:</span> <span class="kc">true</span> <span class="p">},</span>
+</span></span><span class="line"><span class="cl">      <span class="p">],</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">created</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 加载组件列表
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">this</span><span class="p">.</span><span class="nx">addComponents</span><span class="p">(</span><span class="s1">&#39;测试跟踪&#39;</span><span class="p">,</span> <span class="nx">trackingComponents</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="p">.</span><span class="nx">addComponents</span><span class="p">(</span><span class="s1">&#39;接口测试&#39;</span><span class="p">,</span> <span class="nx">interfaceComponents</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="p">.</span><span class="nx">addComponents</span><span class="p">(</span><span class="s1">&#39;WebUI测试&#39;</span><span class="p">,</span> <span class="nx">webuiComponents</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="p">.</span><span class="nx">addComponents</span><span class="p">(</span><span class="s1">&#39;App测试&#39;</span><span class="p">,</span> <span class="nx">appComponents</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// 设置权限
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">this</span><span class="p">.</span><span class="nx">hasEditPermission</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">checkPermission</span><span class="p">([</span><span class="s1">&#39;admin&#39;</span><span class="p">])</span> <span class="o">||</span> <span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">dashboard</span><span class="p">.</span><span class="nx">isDefault</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="效果">效果</h2>
+<p><figure><a class="lightgallery" href="/posts/dashborad-template-usage/images/dashboard-demo.gif" data-thumbnail="/posts/dashborad-template-usage/images/dashboard-demo.gif" data-sub-html="<h2>工作台仪表盘动画</h2><p>画质感人，讲究看吧～</p>"></a><figcaption class="image-caption">工作台仪表盘动画</figcaption>
+  </figure></p>]]></description></item><item><title>拖拽式仪表盘 - 组件配置文档</title><link>https://lruihao.cn/posts/dashborad-widget-docs/</link><pubDate>Thu, 12 Oct 2023 19:41:23 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/dashborad-widget-docs/</guid><description><![CDATA[<p>本文将对 Dashboard 组件的使用方法进行介绍。</p>
 <h2 id="a-note-on-terminology">A note on terminology</h2>
 <p>“Widget（小部件）” 和 “Component（组件）” 都是计算机科学中常见的术语，用于描述可重复使用的用户界面元素。Widget 通常更简单，具有预定义的样式和功能，而 Component 可以更灵活、可定制，并具有更丰富的行为和交互性。Widget 更倾向于描述独立的、自包含的小型组件，而 Component 则更倾向于描述较大规模的、可组合的用户界面元素。</p>
 <p>Vue 项目通常选用 Component，与之相比仪表盘组件功能更加局限，使用 Widget 来描述显然更符合实际情况。</p>
@@ -2150,7 +2264,7 @@
 <p>作為一個程序猿，怎麼能接受這麼麻煩的記賬方式呢，拿起筆就開始畫，於是有了下面這張圖的公式。簡單說明一下就是：<br>
 設前面說的四種組合為：<code>X1, X2, X3, X4</code>，個人實際付款總額為：<code>Y1, Y2, Y3</code>，那麼帶入未知數，我們就可以算出每個人最後結算時的錢：<code>S1, S2, S3</code>，<br>
 綜上所述，很好理解，當 <code>S &gt;= 0</code> 時，收紅包，當 <code>S &lt; 0</code> 時，發紅包。</p>
-<p></p>
+<p><a class="lightgallery" href="/projects/bill-note/images/gs.jpg" data-thumbnail="/projects/bill-note/images/gs.jpg" data-sub-html="<h2>计算公式</h2>"></a></p>
 <p>OK，一個簡單的初中方程式已經到位了，下一步，思考一下，用什麼來運作這個這個方程。來，先跑個題，春節期間，不是每天都要在騰訊文檔上填表記錄活動軌跡嗎？ 再回來，那不如就用 excel 實現吧，三個人都可以在手機上編輯。好的，說做就做。</p>
 <p>一頓操作，10 minutes later&hellip;<br>
 只新建了一個 excel 文件，O.o! 不會 excel，果斷放棄，另尋他路。</p>
