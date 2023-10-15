@@ -343,13 +343,9 @@ textRules:
   一二三,四五六.七八九: 0
 ```
 
-## 配置 GitHub Actions
+## 总结
 
-- [ ] TODO 未完成
-
-```yaml
-name: Markdown Lint
-```
+本文主要介绍了 markdownlint-cli2 和 AutoCorrect 两个工具，前者用于检查 Markdown 语法和风格，后者用于自动补齐中英文之间的「盘古之白」。这两个工具都可以在项目中集成，方便统一规范、团队协作。
 
 <!-- footnote reference definition -->
 [^1]: [If one is good, two must be better [markdownlint-cli2 is a new kind of command-line interface for markdownlint]](https://dlaa.me/blog/post/markdownlintcli2)
