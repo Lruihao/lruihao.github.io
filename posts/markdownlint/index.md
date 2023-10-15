@@ -322,6 +322,27 @@ npm install autocorrect-node --save-dev
 }
 ```
 
+新增 `.autocorrectignore`：
+
+```bash
+# AutoCorrect Link ignore rules.
+# https://github.com/huacnlee/autocorrect
+#
+# Like `.gitignore`, this file to tell AutoCorrect which files need to check, some need to ignore.
+node_modules/
+build/
+public/
+resources/
+```
+
+执行 `npx autocorrect init` 拉取默认 `.autocorrectrc` 配置，然后添加一条规则：
+
+```yml
+textRules:
+  # sorted by `LC_ALL=C sort` command
+  一二三,四五六.七八九: 0
+```
+
 ## 配置 GitHub Actions
 
 - [ ] TODO 未完成
