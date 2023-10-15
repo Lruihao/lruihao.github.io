@@ -1,230 +1,11 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>所有文章 - 菠菜眾長</title><link>https://lruihao.cn/posts/</link><description>所有文章 | 菠菜眾長</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><copyright>本站内容采用知识共享署名-非商业性使用 4.0（CC BY-NC 4.0）国际许可协议。</copyright><atom:link href="https://lruihao.cn/posts/" rel="self" type="application/rss+xml"/><item><title>如何给 npm 包打补丁？</title><link>https://lruihao.cn/posts/patch-package/</link><pubDate>Thu, 12 Oct 2023 22:37:56 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/patch-package/</guid><description><![CDATA[<div class="featured-image">
-        <img src="/images/featured-image.png" referrerpolicy="no-referrer">
-      </div><h2 id="背景">背景</h2>
-<p>今天鬼事神差想起去年写的一段 dirty hack 代码，当时是在 <a href="https://github.com/Lruihao/vue-minder-editor-extended"target="_blank" rel="external nofollow noopener noreferrer">vue-minder-editor-extended<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 这个项目为了解决百度开源的 <a href="https://github.com/fex-team/kityminder-core"target="_blank" rel="external nofollow noopener noreferrer">@7polo/kityminder-core<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> npm 包的 bug，但是百度早在 17-18 年就停止更新了，我又不想自己 fork 一份源码然后重新发包，于是当时直接从 node_modules 里面复制出了打包后的源码进行修改，然后放到了项目中 <code>src/script/patch/kityminder.core.js</code>，并因修改了引入：</p>
-<div class="highlight" id="id-1"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-diff" data-lang="diff"><span class="line"><span class="cl"><span class="gd">- require(&#39;@7polo/kityminder-core&#39;);
-</span></span></span><span class="line"><span class="cl"><span class="gd"></span><span class="gi">+ require(&#39;./script/patch/kityminder.core&#39;);
-</span></span></span></code></pre></td></tr></table>
-</div>
-</div><p>但是今天刷抖音看到类似的问题，回想起来这种做法真的是太蠢了，于是就想着有没有更好的办法，于是就一番搜索有了这篇文章。</p>
-<h2 id="安装-patch-package">安装 patch-package</h2>
-<div class="highlight" id="id-2"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">npm i patch-package --save-dev</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="修改源码">修改源码</h2>
-<p>在 <code>node_modules</code> 目录下找到需要打补丁的包，然后修改源码，比如我这里修改了 <code>node_modules/@7polo/kityminder-core/dist/kityminder.core.js</code>，修改后直接保存。</p>
-<h2 id="生成补丁">生成补丁</h2>
-<div class="highlight" id="id-3"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">npx patch-package @7polo/kityminder-core</span></span></code></pre></td></tr></table>
-</div>
-</div><p>此时在根目录下会得到如下文件：</p>
-<div class="highlight" id="id-4"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">├── patches
-</span></span><span class="line"><span class="cl">│   └── @7polo-kityminder-core+1.4.53.patch
-</span></span><span class="line"><span class="cl">└── package.json</span></span></code></pre></td></tr></table>
-</div>
-</div><p>想看看这个补丁文件里面是什么东西，打开 <code>patches/@7polo-kityminder-core+1.4.53.patch</code>，内容如下：</p>
-<div class="highlight" id="id-5"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span><span class="lnt">37
-</span><span class="lnt">38
-</span><span class="lnt">39
-</span><span class="lnt">40
-</span><span class="lnt">41
-</span><span class="lnt">42
-</span><span class="lnt">43
-</span><span class="lnt">44
-</span><span class="lnt">45
-</span><span class="lnt">46
-</span><span class="lnt">47
-</span><span class="lnt">48
-</span><span class="lnt">49
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-diff" data-lang="diff"><span class="line"><span class="cl"><span class="gh">diff --git a/node_modules/@7polo/kityminder-core/.DS_Store b/node_modules/@7polo/kityminder-core/.DS_Store
-</span></span></span><span class="line"><span class="cl"><span class="gh"></span>new file mode 100644
-</span></span><span class="line"><span class="cl"><span class="gh">index 0000000..c88a062
-</span></span></span><span class="line"><span class="cl"><span class="gh"></span>Binary files /dev/null and b/node_modules/@7polo/kityminder-core/.DS_Store differ
-</span></span><span class="line"><span class="cl"><span class="gh">diff --git a/node_modules/@7polo/kityminder-core/dist/kityminder.core.js b/node_modules/@7polo/kityminder-core/dist/kityminder.core.js
-</span></span></span><span class="line"><span class="cl"><span class="gh">index 78dfbaf..32f276d 100644
-</span></span></span><span class="line"><span class="cl"><span class="gh"></span><span class="gd">--- a/node_modules/@7polo/kityminder-core/dist/kityminder.core.js
-</span></span></span><span class="line"><span class="cl"><span class="gd"></span><span class="gi">+++ b/node_modules/@7polo/kityminder-core/dist/kityminder.core.js
-</span></span></span><span class="line"><span class="cl"><span class="gi"></span><span class="gu">@@ -513,6 +513,8 @@ _p[9] = {
-</span></span></span><span class="line"><span class="cl"><span class="gu"></span>          *
-</span></span><span class="line"><span class="cl">          * @param {string} name 要执行的命令名称
-</span></span><span class="line"><span class="cl">          * @param {argument} args 要传递给命令的其它参数
-</span></span><span class="line"><span class="cl"><span class="gi">+         * 
-</span></span></span><span class="line"><span class="cl"><span class="gi">+         * @patch 2022.10.19 @Lruihao 修复缺少 afterExecCommand hook
-</span></span></span><span class="line"><span class="cl"><span class="gi"></span>          */
-</span></span><span class="line"><span class="cl">             execCommand: function(name) {
-</span></span><span class="line"><span class="cl">                 if (!name) return null;
-</span></span><span class="line"><span class="cl"><span class="gu">@@ -547,6 +549,8 @@ _p[9] = {
-</span></span></span><span class="line"><span class="cl"><span class="gu"></span>                         this._interactChange();
-</span></span><span class="line"><span class="cl">                     }
-</span></span><span class="line"><span class="cl">                 }
-</span></span><span class="line"><span class="cl"><span class="gi">+                // Fix: afterExecCommand hook
-</span></span></span><span class="line"><span class="cl"><span class="gi">+                this._fire(new MinderEvent(&#34;afterExecCommand&#34;, eventParams, false));
-</span></span></span><span class="line"><span class="cl"><span class="gi"></span>                 return result === undefined ? null : result;
-</span></span><span class="line"><span class="cl">             }
-</span></span><span class="line"><span class="cl">         });
-</span></span><span class="line"><span class="cl"><span class="gu">@@ -1254,6 +1258,22 @@ _p[13] = {
-</span></span></span><span class="line"><span class="cl"><span class="gu"></span>                 });
-</span></span><span class="line"><span class="cl">                 return this;
-</span></span><span class="line"><span class="cl">             },
-</span></span><span class="line"><span class="cl"><span class="gi">+            /**
-</span></span></span><span class="line"><span class="cl"><span class="gi">+             * @patch 2022.10.26 @Lruihao 修复缺少 once 侦听指定事件一次
-</span></span></span><span class="line"><span class="cl"><span class="gi">+             * @param {String} name 
-</span></span></span><span class="line"><span class="cl"><span class="gi">+             * @param {Function} callback 
-</span></span></span><span class="line"><span class="cl"><span class="gi">+             */
-</span></span></span><span class="line"><span class="cl"><span class="gi">+            once: function(name, callback) {
-</span></span></span><span class="line"><span class="cl"><span class="gi">+                var km = this;
-</span></span></span><span class="line"><span class="cl"><span class="gi">+                name.split(/\s+/).forEach(function(n) {
-</span></span></span><span class="line"><span class="cl"><span class="gi">+                    const tmpCallback = (e) =&gt; {
-</span></span></span><span class="line"><span class="cl"><span class="gi">+                      callback(e);
-</span></span></span><span class="line"><span class="cl"><span class="gi">+                      km.off(n.toLowerCase(), tmpCallback)
-</span></span></span><span class="line"><span class="cl"><span class="gi">+                    };
-</span></span></span><span class="line"><span class="cl"><span class="gi">+                    km._listen(n.toLowerCase(), tmpCallback);
-</span></span></span><span class="line"><span class="cl"><span class="gi">+                });
-</span></span></span><span class="line"><span class="cl"><span class="gi">+                return this;
-</span></span></span><span class="line"><span class="cl"><span class="gi">+            },
-</span></span></span><span class="line"><span class="cl"><span class="gi"></span>             off: function(name, callback) {
-</span></span><span class="line"><span class="cl">                 var types = name.split(/\s+/);
-</span></span><span class="line"><span class="cl">                 var i, j, callbacks, removeIndex;
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>发现其实就是一个 diff 文件，这个文件里面记录了修改的内容，以及修改的位置，这样就可以在安装依赖的时候自动执行补丁了。</p>
-<h2 id="使用补丁">使用补丁</h2>
-<p>在 <code>package.json</code> 中添加如下内容：</p>
-<div class="highlight" id="id-6"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="nt">&#34;scripts&#34;</span><span class="p">:</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nt">&#34;postinstall&#34;</span><span class="p">:</span> <span class="s2">&#34;patch-package&#34;</span>
-</span></span><span class="line"><span class="cl">  <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="提交补丁">提交补丁</h2>
-<div class="highlight" id="id-7"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git add .
-</span></span><span class="line"><span class="cl">git commit -m <span class="s2">&#34;Chore: patch @7polo/kityminder-core&#34;</span>
-</span></span><span class="line"><span class="cl">git push</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="测试">测试</h2>
-<p>执行一次完整的依赖安装 =&gt; 构建发布，一切符合预期，大功告成~</p>
-]]></description></item><item><title>Hello World</title><link>https://lruihao.cn/posts/hello-world/</link><pubDate>Mon, 28 May 2018 20:01:01 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/hello-world/</guid><description><![CDATA[<blockquote>
-<p>“每天早晨叫醒你的不是鬧鐘，而是你的夢想。”</p>
-</blockquote>
-<p>我有過靠著這種信念撐下來的日子，我見過自己努力的樣子，至於現在的自己配不配得上當初努力的自己，<br>
-其實也不重要了，還望披荊斬棘，不改初心。</p>
-<p>不怕萬人阻擋，只怕自己投降。你如何回憶，決定你是一個怎樣的人！</p>
-<p>從大一伊始，打 ACM 比賽，訓練刷題，再到毅然決然離開實驗室，選擇陌生的 Web 開發，從工作前的一無所知到，到前端開發，後端開發，到教實習生，到面試新人，到開始乏味。這一路走來，好奇心，探索欲，瞎擇騰，或許還有愛意，都是支撐我的動力。</p>
-<p>時間並不會因為你的迷茫和遲疑而停留，就像你在看到這篇博客的時候，不知道有多少人正風雨兼程趕赴夢想。沒有誰生來就是神牛，千裏之行，始於足下！比自己優秀的人有很多，永遠不要感動自己，保持謙遜，沉澱自己，感謝每一個曾經努力的自己。不必執著於過去，也不必過度擔憂未來，望披荊斬棘，不忘初心。</p>
-<p>最開始寫博客，是在打 ACM 的時候，深受一個學長的博客影響，他的博客是 hexo 搭建的，ID 是 [<code>戎碼一生</code>]，所以我也照葫蘆畫瓢用 hexo 搭建了一個，一用就是 3 年，博客名字原 “<code>博採眾長</code>” 改为 “<code>菠菜眾長</code>”，因為不能用成語作為網站名字，就這個原因。</p>
-<p>直到 21 年下半年，升級 windows 11, 系統出了 BUG, 整理磁盤不小心把代碼刪掉了，就乾脆換成 hugo 了。</p>
-<p><figure><a class="lightgallery" href="/posts/hello-world/images/lunyu.jpg" data-thumbnail="/posts/hello-world/images/lunyu.jpg" data-sub-html="<h2>現在並沒有刀槍入庫，馬放南山，衹是在奔赴另一片山海</h2><p>逝者如斯乎，不舍昼夜</p>"></a><figcaption class="image-caption">現在並沒有刀槍入庫，馬放南山，衹是在奔赴另一片山海</figcaption>
-  </figure></p>
-]]></description></item><item><title>网站备案之旅</title><link>https://lruihao.cn/posts/beian/</link><pubDate>Mon, 29 Oct 2018 23:16:26 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/beian/</guid><description><![CDATA[<div class="details admonition success open">
-    <div class="details-summary admonition-title">
-      <i class="icon fa-solid fa-check-circle fa-fw" aria-hidden="true"></i>备案<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i>
-    </div>
-    <div class="details-content">
-      <div class="admonition-content">经过时间长达 20 多天的备案之旅今天终于结束了，也闭馆了 20 多天，也按相关要求把 ICP 备案号和公安备案号加载了网站和博客底部。只是今天去岳塘分局签网络安全告知书的时候不小心把身份证落在那个办公室了。亏我走之前一秒还在提醒自己，唉！不过那个办公室的大姐姐挺好的，前面跟我说好星期一来，我还今天上午提前给她打了电话，她还下楼给我开办公楼楼道的门禁，还有我身份证落在那里她说先帮我收着，有时间再去拿！总之，这个姐姐的服务态度五星好评！手动@岳塘分局 B204 的姐姐。<br>
-备案完成也算放下一块提着的石头，可以睡个好觉了！ZzZzzzz</div>
-    </div>
-  </div>]]></description></item><item><title>第一次面试经历</title><link>https://lruihao.cn/posts/1thintervivew/</link><pubDate>Wed, 24 Apr 2019 21:23:22 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/1thintervivew/</guid><description><![CDATA[<blockquote>
-<p>时间过得真快，一下从大一到了大三，马上就要实习毕业等等了。</p>
-</blockquote>
-<div class="details admonition success open">
-    <div class="details-summary admonition-title">
-      <i class="icon fa-solid fa-check-circle fa-fw" aria-hidden="true"></i>Success<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i>
-    </div>
-    <div class="details-content">
-      <div class="admonition-content"><p>富士康在学校有一个春招的机会，我和朋友抱着侥幸的心理去试了试。
-虽然深知自己还身有很多缺点，但是不面试不知道，一面试都暴露出来了，以下记录一下自己的不足之处：</p>
-<ul>
-<li>php 和 sql 的经典组合虽然有所接触了解，但是确实什么都会，得花时间学</li>
-<li>html/css 等虽然平时折腾博客这些应用的比较多，但是今天竟然紧张地忘记了 margin 和 padding 都不会写了</li>
-<li>如上一条，公众表现能力有待加强。正如当今“酒香也怕巷子深”，何况“不香”。</li>
-</ul>
-<p>惊喜的事说来就来，本来知道自己这么多缺点，这么菜后，觉得这个实习的 offer 是没戏了，没想到下午技术主管微信发来消息，说录用了。当场懵逼，受宠若惊的感觉！非常谢谢面试官老师！<br>
-无论生活还是学习，希望以后的自己一定要保持一颗谦逊爱学的心，早日实现全栈工程师的梦想，还有早点存钱把大学学费的贷款还掉！</p>
-</div>
-    </div>
-  </div>]]></description></item><item><title>拖拽式仪表盘的设计与开发</title><link>https://lruihao.cn/posts/draggable-dashboard/</link><pubDate>Thu, 12 Oct 2023 15:16:48 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/draggable-dashboard/</guid><description></description></item><item><title>给博客类项目添加 markdownlint 语法检查</title><link>https://lruihao.cn/posts/markdownlint/</link><pubDate>Wed, 11 Oct 2023 14:26:48 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/markdownlint/</guid><description><![CDATA[<p><a href="https://github.com/DavidAnson/markdownlint"target="_blank" rel="external nofollow noopener noreferrer">markdownlint<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 是一个 Markdown 语法检查工具，它可以检查 Markdown 文件中的语法错误，以及一些不规范的写法。</p>
-<h2 id="markdownlint-cli-历史">markdownlint cli 历史</h2>
-<p>根据 markdownlint 作者 <a href="https://github.com/DavidAnson"target="_blank" rel="external nofollow noopener noreferrer">David Anson<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 博客<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>得知，大概在 2015 年左右 <a href="https://github.com/igorshubovych"target="_blank" rel="external nofollow noopener noreferrer">Igor Shubovych<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 和他探讨了开发 CLI 工具的想法，当时作者还没做好准备，于是 Igor 独自开发了 <a href="https://github.com/igorshubovych/markdownlint-cli"target="_blank" rel="external nofollow noopener noreferrer">markdownlint-cli<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 这个 CLI 工具，然后经过两年的发展有了越来越多的人开始使用 markdownlint-cli，于是 David 开始给 markdownlint-cli 项目贡献代码添加新功能，并在之后三年里成为了主要的维护人员，直到2020年，David 觉得在别人的项目中，很多事情不太好改变（可能向后兼容的问题），于是他自己重新建立了一个名叫 <a href="https://github.com/DavidAnson/markdownlint-cli2"target="_blank" rel="external nofollow noopener noreferrer">markdownlint-cli2<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 的项目，在 markdownlint-cli 的优秀之上又做了新的改进，使其拥有更快的执行速度、更灵活的配置、更少的依赖等优点。</p>
-<p>目前两个工具都依然随着 markdownlint 的更新而更新，个人觉得旧项目如果使用的 markdownlint-cli 则无需更改以避免出现未知的问题，新引入的项目，可以考虑使用更强大的 markdownlint-cli2。</p>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>所有文章 - 菠菜眾長</title><link>https://lruihao.cn/posts/</link><description>所有文章 | 菠菜眾長</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><copyright>本站内容采用知识共享署名-非商业性使用 4.0（CC BY-NC 4.0）国际许可协议。</copyright><atom:link href="https://lruihao.cn/posts/" rel="self" type="application/rss+xml"/><item><title>给你的 Markdown 挑挑刺</title><link>https://lruihao.cn/posts/markdownlint/</link><pubDate>Wed, 11 Oct 2023 14:26:48 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/markdownlint/</guid><description><![CDATA[<p>会写 Markdown 的人很多，但写得好 Markdown 的人却很少。有没有什么工具能充当「秘书」，检查文件中的 Markdown 语法和风格，并且提出解决方案、自动修复问题，甚至自动补齐中英文之间的「盘古之白」呢？本文介绍的 Markdown 语法检查器就能做到。</p>
+<h2 id="引言">引言</h2>
+<p><strong>会写</strong> Markdown 的人很多，但<strong>写得好</strong> Markdown 的人却很少。这一方面是 Markdown 生态系统自身的问题：<a href="https://www.w3.org/community/markdown/wiki/MarkdownImplementations"target="_blank" rel="external nofollow noopener noreferrer">语法变种和实现方式<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 五花八门，互不兼容甚至相互矛盾。</p>
+<p>另一方面，也鲜有人愿意花时间去仔细阅读 Markdown 的技术规范；大多数人都只是读了一两篇「速成」，就自我批准出师了，对于一些细节问题并未关注；如果在写作中遇到，也是凭想象和直觉随意判断。</p>
+<p>由此，就产生了大量语法天马行空、版面张牙舞爪，让读者和排版软件都困惑不已的 Markdown 文件。</p>
+<p>既然 JavaScript 有 ESLint，Python 有 PyLint，是不是 Markdown 也有 markdownlint 呢？答案是肯定的！</p>
 <h2 id="示例">示例</h2>
-<p>本博客源码已引入 markdownlint-cli2，可下载本博客源码查看配置。</p>
+<p>本博客源码已引入 markdownlint 规范，可下载本博客源码查看配置。</p>
 <a href="http://github.com/Lruihao/hugo-blog"target="_blank" rel="external nofollow noopener noreferrer" class="card-link"><span class="cl-backdrop" style="--cl-bg-url: url(/fixit.min.svg);"></span>
     <span class="cl-content">
       <span class="cl-text">
@@ -234,8 +15,21 @@
           <span class="cl-url">http://github.com/Lruihao/hugo-blog</span>
         </span>
       </span><svg class="cl-icon-globe" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" width="64" height="64"><path d="M960 512c0 249.408-203.2 448-448 448-244.778667 0-448-198.592-448-448S262.592 64 512 64s448 198.592 448 448" fill="#2196F3"></path><path d="M507.52 718.08c0-8.96-4.48-13.44-13.44-17.92-26.88-8.96-53.76-8.96-76.16-31.381333-4.48-8.96-4.48-17.92-8.96-26.88-8.96-8.96-31.36-13.44-44.8-17.92h-89.6c-13.44-4.48-22.4-22.4-31.36-35.84 0-4.48 0-13.461333-8.96-13.461334-8.96-4.458667-17.92 4.501333-26.88 0-4.48-4.458667-4.48-8.96-4.48-13.418666 0-13.461333 8.96-26.901333 17.92-35.861334 13.44-8.96 26.88 4.48 40.32 4.48 4.48 0 4.48 0 8.96 4.48 13.44 4.48 17.92 22.4 17.92 35.861334v8.96c0 4.48 4.48 4.48 8.96 4.48 4.48-22.4 4.48-44.821333 8.96-67.2 0-26.88 26.88-53.781333 49.28-62.72 8.96-4.458667 13.44 4.501333 22.4 0 26.88-8.96 94.08-35.84 80.64-71.658667-8.96-31.381333-35.84-62.698667-71.68-58.24-8.96 4.501333-13.44 8.96-22.4 13.461333-13.44 8.96-40.32 35.84-53.76 35.84-22.4-4.48-22.4-35.84-17.92-49.301333 4.48-17.92 44.8-76.138667 71.68-67.178667l17.92 17.92c8.96 4.48 22.4 4.48 35.84 4.48 4.48 0 8.96 0 13.44-4.48 4.48-4.48 4.48-4.48 4.48-8.96 0-13.44-13.44-26.901333-22.4-35.861333s-22.4-17.92-35.84-22.378667c-44.8-13.461333-116.48 4.458667-152.32 35.84-35.84 31.36-62.72 85.12-80.64 129.92-8.96 26.88-17.92 62.698667-22.4 94.08-4.48 22.4-8.96 40.32 4.48 62.698667 13.44 26.88 40.32 53.781333 67.2 71.68 17.92 13.44 53.76 13.44 71.68 35.84 13.44 17.941333 8.96 40.32 8.96 62.72 0 26.88 17.92 49.28 26.88 71.658667 4.48 13.461333 8.96 31.381333 13.44 44.821333 0 4.48 4.48 31.36 4.48 35.84 26.88 13.44 49.28 26.901333 80.64 35.861333 4.48 0 22.4-26.901333 22.4-31.381333 13.44-13.44 22.4-31.36 35.84-40.32 8.96-4.48 17.92-8.96 26.88-17.941333 8.96-8.96 13.44-26.88 17.92-40.32 4.48-8.938667 8.96-26.858667 4.48-40.298667M516.48 305.92c4.48 0 8.96-4.48 17.92-8.96 13.44-8.96 26.901333-22.4 40.32-31.36 13.461333-8.96 26.901333-22.4 35.861333-31.36 13.44-8.96 22.4-26.88 26.88-40.341333 4.48-8.96 17.941333-26.88 13.44-40.32-4.48-8.96-26.88-13.44-35.84-17.92C579.2 126.698667 547.84 122.24 512 122.24c-13.44 0-31.36 4.458667-35.84 17.92-4.48 22.4 13.44 17.92 31.36 22.4 0 0 4.48 35.84 4.48 40.32 4.48 22.421333-8.96 35.84-8.96 58.24 0 13.44 0 35.84 8.96 44.8h4.48zM892.8 619.52c4.501333-8.96 4.501333-22.4 8.96-31.36 4.501333-22.421333 4.501333-44.8 4.501333-67.2 0-44.8-4.501333-89.578667-17.92-129.92-8.96-13.44-13.461333-26.88-17.941333-40.341333-8.96-22.378667-22.4-44.8-40.32-62.698667-17.92-22.4-40.341333-85.12-80.64-67.2-13.44 4.501333-22.4 22.421333-31.36 31.381333l-26.88 40.32c-4.501333 4.48-8.96 13.44-4.501333 17.92 0 4.48 4.501333 4.48 8.96 4.48 8.96 4.501333 13.461333 4.501333 22.421333 8.96 4.48 0 8.96 4.501333 4.48 8.96 0 0 0 4.501333-4.48 4.501334-22.421333 22.4-44.8 40.32-67.2 62.698666-4.48 4.48-8.96 13.44-8.96 17.92s4.48 4.48 4.48 8.96c0 4.501333-4.48 4.501333-8.96 8.96-8.96 4.501333-17.92 8.96-22.4 13.461334-4.48 8.96 0 22.4-4.48 31.36-4.48 22.4-17.941333 40.32-26.901333 62.72-8.96 13.418667-13.418667 26.88-22.378667 40.32 0 17.92-4.501333 31.36 4.458667 44.8 22.421333 31.36 62.72 13.44 94.08 26.901333 8.96 4.458667 17.92 4.458667 22.421333 13.418667 13.418667 13.461333 13.418667 35.861333 17.92 49.301333 4.458667 17.92 8.96 35.84 17.92 53.76 4.48 22.421333 13.44 44.821333 17.92 62.72 40.341333-31.36 76.16-67.178667 103.04-112 26.88-31.424 40.341333-67.242667 53.76-103.104" fill="#CDDC39"></path></svg></span></a>
-<h2 id="安装-markdownlint-cli2">安装 markdownlint-cli2</h2>
-<p>vscode 中可以直接安装 <a href="https://marketplace.visualstudio.com/items?itemName=DavidAnson.vscode-markdownlint"target="_blank" rel="external nofollow noopener noreferrer">markdownlint 扩展<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>，本文主要讲在项目中如何安装使用。</p>
+<h2 id="引入-markdownlint">引入 markdownlint</h2>
+<p>markdownlint 是一个 Markdown 语法检查工具，它可以检查 Markdown 文件中的语法错误，以及一些不规范的写法，让 Markdown 干净又卫生。</p>
+<p>markdownlint 有两个版本，分别是 <a href="https://github.com/mivok"target="_blank" rel="external nofollow noopener noreferrer">Mark Harrison<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 基于 Ruby 的 <a href="https://github.com/markdownlint/markdownlint"target="_blank" rel="external nofollow noopener noreferrer">原版<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 和 <a href="https://github.com/DavidAnson"target="_blank" rel="external nofollow noopener noreferrer">David Anson<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 基于 Node.js 的 <a href="https://github.com/DavidAnson/markdownlint"target="_blank" rel="external nofollow noopener noreferrer">移植版<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>。Node.js 版在人气和活跃程度上后来居上，本文也以 Node.js 版为例。</p>
+<p>markdownlint 可以在多个场景下使用，包括：</p>
+<ul>
+<li><a href="https://dlaa.me/markdownlint/"target="_blank" rel="external nofollow noopener noreferrer">在线版<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+<li><a href="https://marketplace.visualstudio.com/items?itemName=DavidAnson.vscode-markdownlint"target="_blank" rel="external nofollow noopener noreferrer">VSCode 扩展<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+<li><a href="https://github.com/igorshubovych/markdownlint-cli"target="_blank" rel="external nofollow noopener noreferrer">markdownlint-cli<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 和 <a href="https://github.com/DavidAnson/markdownlint-cli2"target="_blank" rel="external nofollow noopener noreferrer">markdownlint-cli2<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+</ul>
+<p>本文主要的目的是介绍 markdownlint-cli2 的使用，因为它可以在项目中集成，方便团队协作。</p>
+<h3 id="markdownlint-cli-历史">markdownlint cli 历史</h3>
+<p>根据 David 的博客<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>，在大约 2015 年左右 <a href="https://github.com/igorshubovych"target="_blank" rel="external nofollow noopener noreferrer">Igor Shubovych<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 和他探讨了开发 CLI 工具的想法，当时，David 还没做好准备，所以 Igor 独自开发了 <a href="https://github.com/igorshubovych/markdownlint-cli"target="_blank" rel="external nofollow noopener noreferrer">markdownlint-cli<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 这个 CLI 工具。</p>
+<p>经过两年的发展，越来越多的人开始使用 markdownlint-cli，于是 David 开始给 markdownlint-cli 项目贡献代码，添加新功能，并在之后三年里成为了主要的维护人员。直到 2020 年，David 觉得在别人的项目中，很难改变一些事情（可能涉及向后兼容性的问题），因此他重新建立了一个名叫 <a href="https://github.com/DavidAnson/markdownlint-cli2"target="_blank" rel="external nofollow noopener noreferrer">markdownlint-cli2<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 的项目，在 markdownlint-cli 的基础上进行了改进，使其具有更快的执行速度、更灵活的配置和更少的依赖等优点。</p>
+<p>目前，这两个工具仍然随着 markdownlint 的更新而更新。如果已经在使用 markdownlint-cli 的旧项目，可以继续使用它，以避免出现未知的问题。而对于新引入的项目，可以考虑使用更强大的 markdownlint-cli2。</p>
+<h3 id="安装-markdownlint-cli2">安装 markdownlint-cli2</h3>
 <div class="highlight" id="id-1"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -243,7 +37,7 @@
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">npm install markdownlint-cli2 --save-dev</span></span></code></pre></td></tr></table>
 </div>
-</div><p>配置快捷命令</p>
+</div><p>配置快捷命令：</p>
 <div class="highlight" id="id-2"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -256,12 +50,12 @@
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="nt">&#34;scripts&#34;</span><span class="p">:</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nt">&#34;lint:md&#34;</span><span class="p">:</span> <span class="s2">&#34;markdownlint-cli2 \&#34;./content/**/*.md\&#34;&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;lint:md&#34;</span><span class="p">:</span> <span class="s2">&#34;markdownlint-cli2 \&#34;content/**/*.md\&#34;&#34;</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">    <span class="nt">&#34;fix:md&#34;</span><span class="p">:</span> <span class="s2">&#34;npm run lint:md -- --fix&#34;</span>
 </span></span><span class="line"><span class="cl">  <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
-</div><p>安装 <code>markdownlint-rule-search-replace</code> 插件<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup></p>
+</div><p>安装 <code>markdownlint-rule-search-replace</code> 插件<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>：</p>
 <div class="highlight" id="id-3"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -269,7 +63,7 @@
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">npm install markdownlint-rule-search-replace --save-dev</span></span></code></pre></td></tr></table>
 </div>
-</div><p>在项目根目录下创建 <code>.markdownlint.jsonc</code> 文件，配置规则。</p>
+</div><p>在项目根目录下创建 <code>.markdownlint.jsonc</code> 文件，配置规则：</p>
 <div class="highlight" id="id-4"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">  1
@@ -545,7 +339,7 @@
 </span></span><span class="line"><span class="cl">  <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
-</div><p>在项目根目录下再创建 <code>.markdownlint-cli2.jsonc</code> 文件，配置规则。</p>
+</div><p>在项目根目录下再创建 <code>.markdownlint-cli2.jsonc</code> 文件，配置规则：</p>
 <div class="highlight" id="id-5"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -577,7 +371,7 @@
 </span></span><span class="line"><span class="cl">  <span class="p">]</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="安装-lint-staged">安装 lint-staged</h2>
+</div><h3 id="安装-lint-staged">安装 lint-staged</h3>
 <div class="highlight" id="id-6"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -585,7 +379,7 @@
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">npm install lint-staged --save-dev</span></span></code></pre></td></tr></table>
 </div>
-</div><p>配置 <code>.lintstagedrc.json</code></p>
+</div><p>配置 <code>.lintstagedrc.json</code>：</p>
 <div class="highlight" id="id-7"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -594,10 +388,10 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="nt">&#34;./content/**/*.md&#34;</span><span class="p">:</span> <span class="s2">&#34;markdownlint-cli2 --fix&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;content/**/*.md&#34;</span><span class="p">:</span> <span class="s2">&#34;markdownlint-cli2 --fix&#34;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="安装-husky">安装 husky</h2>
+</div><h3 id="安装-husky">安装 husky</h3>
 <div class="highlight" id="id-8"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -620,7 +414,105 @@
 </span></span><span class="line"><span class="cl">npx lint-staged</span></span></code></pre></td></tr></table>
 </div>
 </div><p>这样每次提交代码时，就会自动检查并修复 content 目录下的所有 markdown 文件中的语法错误。</p>
-<!-- footnote reference definition -->
+<h2 id="引入-autocorrect">引入 AutoCorrect</h2>
+<h3 id="盘古之白">盘古之白</h3>
+<p>在很多中文社区，中英文之间要手动加空格，俗称「盘古之白」，都是不成文的风格要求。这项要求是否合理、又该如何满足，是很有价值的话题，但超出了本文的讨论范围<sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup>。</p>
+<p>这里，只简单概括通说：中英文之间加入空隙，是为了实现视觉上的区隔，更加美观和易读。理想情况下，这种「空隙」应当由排版引擎自动加入，宽度宜为 1/4 个全角空格（em）。但由于数字排版环境复杂多变，在大多数时候（包括最常见的网页环境）不能指望排版引擎有这种能力，因此只能退而求其次，手动插入一个半角空格（因其宽度<strong>通常</strong>接近于 1/4 em），达到类似效果。</p>
+<p>如果想要在中英文之间手动加空格，有什么自动检查和补全的方法吗？</p>
+<p>答案是当然有，而且选择也不止一个。</p>
+<h3 id="pangujs">pangu.js</h3>
+<p>其中，最著名的可能是 <a href="https://github.com/vinta/pangu.js/"target="_blank" rel="external nofollow noopener noreferrer">pangu.js<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 项目。如果你用过一个叫做「<a href="https://chrome.google.com/webstore/detail/%e7%82%ba%e4%bb%80%e9%ba%bc%e4%bd%a0%e5%80%91%e5%b0%b1%e6%98%af%e4%b8%8d%e8%83%bd%e5%8a%a0%e5%80%8b%e7%a9%ba%e6%a0%bc%e5%91%a2%ef%bc%9f/paphcfdffjnbcgkokihcdjliihicmbpd?hl=zh-CN"target="_blank" rel="external nofollow noopener noreferrer">为什么你们就是不能加个空格呢？<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>」的浏览器插件，那你也就用过 pangu.js —— 它正是出自同一位作者之手、以 pangu.js 为底层支撑的。Hugo FixIt 主题也内置了 pangu.js 以自动优化博客文章内容中西混排。</p>
+<h3 id="autocorrect">AutoCorrect</h3>
+<p>另一个选择是 <a href="https://github.com/huacnlee/autocorrect"target="_blank" rel="external nofollow noopener noreferrer">AutoCorrect<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>。与主要关注文本内容的 pangu.js 相比，AutoCorrect 出生于 Ruby 语言的中文社区，因此从一开始就考虑到了编程代码中的中英混排场景（可以参见该项目的 <a href="https://github.com/huacnlee/autocorrect/tree/main/tests/fixtures"target="_blank" rel="external nofollow noopener noreferrer">测试文件<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>），通用性更强。</p>
+<p>pangu.js 和 AutoCorrect 的对比：</p>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>在线版</th>
+<th>VSCode 扩展</th>
+<th>命令行工具</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>pangu.js</td>
+<td>❌</td>
+<td>❌</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>AutoCorrect</td>
+<td><a href="https://huacnlee.github.io/autocorrect/editor"target="_blank" rel="external nofollow noopener noreferrer">AutoCorrect Editor<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></td>
+<td><a href="https://marketplace.visualstudio.com/items?itemName=huacnlee.autocorrect"target="_blank" rel="external nofollow noopener noreferrer">AutoCorrect<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></td>
+<td>✅</td>
+</tr>
+</tbody>
+</table>
+<!-- link reference definition -->
+<ul>
+<li>pangu.js 没有官方 VSCode 插件，使用较多的是 xlthu 开发的 <a href="https://marketplace.visualstudio.com/items?itemName=xlthu.Pangu-Markdown"target="_blank" rel="external nofollow noopener noreferrer">Pangu-Markdown<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 第三方移植版</li>
+<li>pangu.js 的命令行工具受限于 Node.js，需要通过 npm 安装：<code>npm i pangu</code></li>
+<li>AutoCorrect 的命令行工具则可独立安装，同时也有 Rust、Node.js 等更多<a href="https://github.com/huacnlee/autocorrect#use-for-programming"target="_blank" rel="external nofollow noopener noreferrer">语言版本<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+</ul>
+<p>我在博客、VSCode、浏览器插件中都使用了 pangu.js，长期以来，就会发现很多问题，它的便捷同时也带来了“暴力”，处理规则不可控，这一直让我很头疼，所以本文尝试使用 AutoCorrect 替代 pangu.js。事实上，AutoCorrect 的效果确实更好。</p>
+<h3 id="use-autocorrect-in-npm">Use AutoCorrect in NPM</h3>
+<p>安装 <code>autocorrect-node</code>：</p>
+<div class="highlight" id="id-10"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">npm install autocorrect-node --save-dev</span></span></code></pre></td></tr></table>
+</div>
+</div><p>修改快捷命令：</p>
+<div class="highlight" id="id-11"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;scripts&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;lint:md&#34;</span><span class="p">:</span> <span class="s2">&#34;markdownlint-cli2 \&#34;content/**/*.md\&#34; &amp;&amp; autocorrect \&#34;content/**/*.md\&#34; --lint&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;fix:md&#34;</span><span class="p">:</span> <span class="s2">&#34;markdownlint-cli2 \&#34;content/**/*.md\&#34; --fix &amp;&amp; autocorrect \&#34;content/**/*.md\&#34; --fix&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>修改 <code>.lintstagedrc.json</code>：</p>
+<div class="highlight" id="id-12"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;content/**/*.md&#34;</span><span class="p">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;markdownlint-cli2 --fix&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;autocorrect --fix&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="配置-github-actions">配置 GitHub Actions</h2>
+<ul>
+<li><i class="fa-regular fa-square fa-fw" aria-hidden="true"></i> TODO 未完成</li>
+</ul>
+<div class="highlight" id="id-13"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Markdown Lint</span></span></span></code></pre></td></tr></table>
+</div>
+</div><!-- footnote reference definition -->
 <div class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
@@ -630,8 +522,232 @@
 <li id="fn:2">
 <p><a href="https://github.com/OnkarRuikar/markdownlint-rule-search-replace"target="_blank" rel="external nofollow noopener noreferrer">markdownlint-rule-search-replace<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 用于搜索和替换模式的自定义 markdownlint 规则&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
+<li id="fn:3">
+<p>如果有进一步兴趣，请阅读知乎讨论「<a href="https://www.zhihu.com/question/19587406"target="_blank" rel="external nofollow noopener noreferrer">中英文混排时中文与英文之间是否要有空格？<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>」，W3C 标准草案《中文排版需求》<a href="https://www.w3.org/TR/clreq/#mixed_text_composition_in_horizontal_writing_mode"target="_blank" rel="external nofollow noopener noreferrer">§3.2.2<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>，以及收听《字谈字畅》播客 <a href="https://www.thetype.com/typechat/ep-014/"target="_blank" rel="external nofollow noopener noreferrer">第 14 期<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>。&#160;<a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
 </ol>
-</div>]]></description></item><item><title>ubuntu + windows 双系统默认启动项设置</title><link>https://lruihao.cn/posts/windefault/</link><pubDate>Thu, 21 Mar 2019 12:48:30 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/windefault/</guid><description><![CDATA[<div class="featured-image">
+</div>]]></description></item><item><title>如何给 npm 包打补丁？</title><link>https://lruihao.cn/posts/patch-package/</link><pubDate>Thu, 12 Oct 2023 22:37:56 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/patch-package/</guid><description><![CDATA[<div class="featured-image">
+        <img src="/images/featured-image.png" referrerpolicy="no-referrer">
+      </div><h2 id="背景">背景</h2>
+<p>今天鬼事神差想起去年写的一段 dirty hack 代码，当时是在 <a href="https://github.com/Lruihao/vue-minder-editor-extended"target="_blank" rel="external nofollow noopener noreferrer">vue-minder-editor-extended<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 这个项目为了解决百度开源的 <a href="https://github.com/fex-team/kityminder-core"target="_blank" rel="external nofollow noopener noreferrer">@7polo/kityminder-core<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> npm 包的 bug，但是百度早在 17-18 年就停止更新了，我又不想自己 fork 一份源码然后重新发包，于是当时直接从 node_modules 里面复制出了打包后的源码进行修改，然后放到了项目中 <code>src/script/patch/kityminder.core.js</code>，并因修改了引入：</p>
+<div class="highlight" id="id-1"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-diff" data-lang="diff"><span class="line"><span class="cl"><span class="gd">- require(&#39;@7polo/kityminder-core&#39;);
+</span></span></span><span class="line"><span class="cl"><span class="gd"></span><span class="gi">+ require(&#39;./script/patch/kityminder.core&#39;);
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>但是今天刷抖音看到类似的问题，回想起来这种做法真的是太蠢了，于是就想着有没有更好的办法，于是就一番搜索有了这篇文章。</p>
+<h2 id="安装-patch-package">安装 patch-package</h2>
+<div class="highlight" id="id-2"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">npm i patch-package --save-dev</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="修改源码">修改源码</h2>
+<p>在 <code>node_modules</code> 目录下找到需要打补丁的包，然后修改源码，比如我这里修改了 <code>node_modules/@7polo/kityminder-core/dist/kityminder.core.js</code>，修改后直接保存。</p>
+<h2 id="生成补丁">生成补丁</h2>
+<div class="highlight" id="id-3"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">npx patch-package @7polo/kityminder-core</span></span></code></pre></td></tr></table>
+</div>
+</div><p>此时在根目录下会得到如下文件：</p>
+<div class="highlight" id="id-4"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">├── patches
+</span></span><span class="line"><span class="cl">│   └── @7polo-kityminder-core+1.4.53.patch
+</span></span><span class="line"><span class="cl">└── package.json</span></span></code></pre></td></tr></table>
+</div>
+</div><p>想看看这个补丁文件里面是什么东西，打开 <code>patches/@7polo-kityminder-core+1.4.53.patch</code>，内容如下：</p>
+<div class="highlight" id="id-5"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-diff" data-lang="diff"><span class="line"><span class="cl"><span class="gh">diff --git a/node_modules/@7polo/kityminder-core/.DS_Store b/node_modules/@7polo/kityminder-core/.DS_Store
+</span></span></span><span class="line"><span class="cl"><span class="gh"></span>new file mode 100644
+</span></span><span class="line"><span class="cl"><span class="gh">index 0000000..c88a062
+</span></span></span><span class="line"><span class="cl"><span class="gh"></span>Binary files /dev/null and b/node_modules/@7polo/kityminder-core/.DS_Store differ
+</span></span><span class="line"><span class="cl"><span class="gh">diff --git a/node_modules/@7polo/kityminder-core/dist/kityminder.core.js b/node_modules/@7polo/kityminder-core/dist/kityminder.core.js
+</span></span></span><span class="line"><span class="cl"><span class="gh">index 78dfbaf..32f276d 100644
+</span></span></span><span class="line"><span class="cl"><span class="gh"></span><span class="gd">--- a/node_modules/@7polo/kityminder-core/dist/kityminder.core.js
+</span></span></span><span class="line"><span class="cl"><span class="gd"></span><span class="gi">+++ b/node_modules/@7polo/kityminder-core/dist/kityminder.core.js
+</span></span></span><span class="line"><span class="cl"><span class="gi"></span><span class="gu">@@ -513,6 +513,8 @@ _p[9] = {
+</span></span></span><span class="line"><span class="cl"><span class="gu"></span>          *
+</span></span><span class="line"><span class="cl">          * @param {string} name 要执行的命令名称
+</span></span><span class="line"><span class="cl">          * @param {argument} args 要传递给命令的其它参数
+</span></span><span class="line"><span class="cl"><span class="gi">+         * 
+</span></span></span><span class="line"><span class="cl"><span class="gi">+         * @patch 2022.10.19 @Lruihao 修复缺少 afterExecCommand hook
+</span></span></span><span class="line"><span class="cl"><span class="gi"></span>          */
+</span></span><span class="line"><span class="cl">             execCommand: function(name) {
+</span></span><span class="line"><span class="cl">                 if (!name) return null;
+</span></span><span class="line"><span class="cl"><span class="gu">@@ -547,6 +549,8 @@ _p[9] = {
+</span></span></span><span class="line"><span class="cl"><span class="gu"></span>                         this._interactChange();
+</span></span><span class="line"><span class="cl">                     }
+</span></span><span class="line"><span class="cl">                 }
+</span></span><span class="line"><span class="cl"><span class="gi">+                // Fix: afterExecCommand hook
+</span></span></span><span class="line"><span class="cl"><span class="gi">+                this._fire(new MinderEvent(&#34;afterExecCommand&#34;, eventParams, false));
+</span></span></span><span class="line"><span class="cl"><span class="gi"></span>                 return result === undefined ? null : result;
+</span></span><span class="line"><span class="cl">             }
+</span></span><span class="line"><span class="cl">         });
+</span></span><span class="line"><span class="cl"><span class="gu">@@ -1254,6 +1258,22 @@ _p[13] = {
+</span></span></span><span class="line"><span class="cl"><span class="gu"></span>                 });
+</span></span><span class="line"><span class="cl">                 return this;
+</span></span><span class="line"><span class="cl">             },
+</span></span><span class="line"><span class="cl"><span class="gi">+            /**
+</span></span></span><span class="line"><span class="cl"><span class="gi">+             * @patch 2022.10.26 @Lruihao 修复缺少 once 侦听指定事件一次
+</span></span></span><span class="line"><span class="cl"><span class="gi">+             * @param {String} name 
+</span></span></span><span class="line"><span class="cl"><span class="gi">+             * @param {Function} callback 
+</span></span></span><span class="line"><span class="cl"><span class="gi">+             */
+</span></span></span><span class="line"><span class="cl"><span class="gi">+            once: function(name, callback) {
+</span></span></span><span class="line"><span class="cl"><span class="gi">+                var km = this;
+</span></span></span><span class="line"><span class="cl"><span class="gi">+                name.split(/\s+/).forEach(function(n) {
+</span></span></span><span class="line"><span class="cl"><span class="gi">+                    const tmpCallback = (e) =&gt; {
+</span></span></span><span class="line"><span class="cl"><span class="gi">+                      callback(e);
+</span></span></span><span class="line"><span class="cl"><span class="gi">+                      km.off(n.toLowerCase(), tmpCallback)
+</span></span></span><span class="line"><span class="cl"><span class="gi">+                    };
+</span></span></span><span class="line"><span class="cl"><span class="gi">+                    km._listen(n.toLowerCase(), tmpCallback);
+</span></span></span><span class="line"><span class="cl"><span class="gi">+                });
+</span></span></span><span class="line"><span class="cl"><span class="gi">+                return this;
+</span></span></span><span class="line"><span class="cl"><span class="gi">+            },
+</span></span></span><span class="line"><span class="cl"><span class="gi"></span>             off: function(name, callback) {
+</span></span><span class="line"><span class="cl">                 var types = name.split(/\s+/);
+</span></span><span class="line"><span class="cl">                 var i, j, callbacks, removeIndex;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>发现其实就是一个 diff 文件，这个文件里面记录了修改的内容，以及修改的位置，这样就可以在安装依赖的时候自动执行补丁了。</p>
+<h2 id="使用补丁">使用补丁</h2>
+<p>在 <code>package.json</code> 中添加如下内容：</p>
+<div class="highlight" id="id-6"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;scripts&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;postinstall&#34;</span><span class="p">:</span> <span class="s2">&#34;patch-package&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="提交补丁">提交补丁</h2>
+<div class="highlight" id="id-7"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git add .
+</span></span><span class="line"><span class="cl">git commit -m <span class="s2">&#34;Chore: patch @7polo/kityminder-core&#34;</span>
+</span></span><span class="line"><span class="cl">git push</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="测试">测试</h2>
+<p>执行一次完整的依赖安装 =&gt; 构建发布，一切符合预期，大功告成~</p>
+]]></description></item><item><title>Hello World</title><link>https://lruihao.cn/posts/hello-world/</link><pubDate>Mon, 28 May 2018 20:01:01 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/hello-world/</guid><description><![CDATA[<blockquote>
+<p>“每天早晨叫醒你的不是鬧鐘，而是你的夢想。”</p>
+</blockquote>
+<p>我有過靠著這種信念撐下來的日子，我見過自己努力的樣子，至於現在的自己配不配得上當初努力的自己，<br>
+其實也不重要了，還望披荊斬棘，不改初心。</p>
+<p>不怕萬人阻擋，只怕自己投降。你如何回憶，決定你是一個怎樣的人！</p>
+<p>從大一伊始，打 ACM 比賽，訓練刷題，再到毅然決然離開實驗室，選擇陌生的 Web 開發，從工作前的一無所知到，到前端開發，後端開發，到教實習生，到面試新人，到開始乏味。這一路走來，好奇心，探索欲，瞎擇騰，或許還有愛意，都是支撐我的動力。</p>
+<p>時間並不會因為你的迷茫和遲疑而停留，就像你在看到這篇博客的時候，不知道有多少人正風雨兼程趕赴夢想。沒有誰生來就是神牛，千裏之行，始於足下！比自己優秀的人有很多，永遠不要感動自己，保持謙遜，沉澱自己，感謝每一個曾經努力的自己。不必執著於過去，也不必過度擔憂未來，望披荊斬棘，不忘初心。</p>
+<p>最開始寫博客，是在打 ACM 的時候，深受一個學長的博客影響，他的博客是 hexo 搭建的，ID 是 [<code>戎碼一生</code>]，所以我也照葫蘆畫瓢用 hexo 搭建了一個，一用就是 3 年，博客名字原 “<code>博採眾長</code>” 改为 “<code>菠菜眾長</code>”，因為不能用成語作為網站名字，就這個原因。</p>
+<p>直到 21 年下半年，升級 windows 11, 系統出了 BUG, 整理磁盤不小心把代碼刪掉了，就乾脆換成 hugo 了。</p>
+<p><figure><a class="lightgallery" href="/posts/hello-world/images/lunyu.jpg" data-thumbnail="/posts/hello-world/images/lunyu.jpg" data-sub-html="<h2>現在並沒有刀槍入庫，馬放南山，衹是在奔赴另一片山海</h2><p>逝者如斯乎，不舍昼夜</p>"></a><figcaption class="image-caption">現在並沒有刀槍入庫，馬放南山，衹是在奔赴另一片山海</figcaption>
+  </figure></p>
+]]></description></item><item><title>网站备案之旅</title><link>https://lruihao.cn/posts/beian/</link><pubDate>Mon, 29 Oct 2018 23:16:26 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/beian/</guid><description><![CDATA[<div class="details admonition success open">
+    <div class="details-summary admonition-title">
+      <i class="icon fa-solid fa-check-circle fa-fw" aria-hidden="true"></i>备案<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i>
+    </div>
+    <div class="details-content">
+      <div class="admonition-content">经过时间长达 20 多天的备案之旅今天终于结束了，也闭馆了 20 多天，也按相关要求把 ICP 备案号和公安备案号加载了网站和博客底部。只是今天去岳塘分局签网络安全告知书的时候不小心把身份证落在那个办公室了。亏我走之前一秒还在提醒自己，唉！不过那个办公室的大姐姐挺好的，前面跟我说好星期一来，我还今天上午提前给她打了电话，她还下楼给我开办公楼楼道的门禁，还有我身份证落在那里她说先帮我收着，有时间再去拿！总之，这个姐姐的服务态度五星好评！手动@岳塘分局 B204 的姐姐。<br>
+备案完成也算放下一块提着的石头，可以睡个好觉了！ZzZzzzz</div>
+    </div>
+  </div>]]></description></item><item><title>第一次面试经历</title><link>https://lruihao.cn/posts/1thintervivew/</link><pubDate>Wed, 24 Apr 2019 21:23:22 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/1thintervivew/</guid><description><![CDATA[<blockquote>
+<p>时间过得真快，一下从大一到了大三，马上就要实习毕业等等了。</p>
+</blockquote>
+<div class="details admonition success open">
+    <div class="details-summary admonition-title">
+      <i class="icon fa-solid fa-check-circle fa-fw" aria-hidden="true"></i>Success<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i>
+    </div>
+    <div class="details-content">
+      <div class="admonition-content"><p>富士康在学校有一个春招的机会，我和朋友抱着侥幸的心理去试了试。
+虽然深知自己还身有很多缺点，但是不面试不知道，一面试都暴露出来了，以下记录一下自己的不足之处：</p>
+<ul>
+<li>php 和 sql 的经典组合虽然有所接触了解，但是确实什么都会，得花时间学</li>
+<li>html/css 等虽然平时折腾博客这些应用的比较多，但是今天竟然紧张地忘记了 margin 和 padding 都不会写了</li>
+<li>如上一条，公众表现能力有待加强。正如当今“酒香也怕巷子深”，何况“不香”。</li>
+</ul>
+<p>惊喜的事说来就来，本来知道自己这么多缺点，这么菜后，觉得这个实习的 offer 是没戏了，没想到下午技术主管微信发来消息，说录用了。当场懵逼，受宠若惊的感觉！非常谢谢面试官老师！<br>
+无论生活还是学习，希望以后的自己一定要保持一颗谦逊爱学的心，早日实现全栈工程师的梦想，还有早点存钱把大学学费的贷款还掉！</p>
+</div>
+    </div>
+  </div>]]></description></item><item><title>拖拽式仪表盘的设计与开发</title><link>https://lruihao.cn/posts/draggable-dashboard/</link><pubDate>Thu, 12 Oct 2023 15:16:48 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/draggable-dashboard/</guid><description></description></item><item><title>ubuntu + windows 双系统默认启动项设置</title><link>https://lruihao.cn/posts/windefault/</link><pubDate>Thu, 21 Mar 2019 12:48:30 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/windefault/</guid><description><![CDATA[<div class="featured-image">
         <img src="/posts/windefault/images/1.png" referrerpolicy="no-referrer">
       </div><blockquote>
 <p>双系统默认启动项是 Ubuntu，而日常使用最多的还是 Windows，所以说很不方便，一不小心就开机到 Ubuntu 去了。今天来设置一下。</p>
@@ -16299,698 +16415,7 @@ However <u>difficult(adj.)</u> the problem is,we must work it out today.</li>
 </span></span><span class="line"><span class="cl">  <span class="p">},</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
-</div>]]></description></item><item><title>Web 开发规则，代码规范</title><link>https://lruihao.cn/posts/dev-rules/</link><pubDate>Thu, 15 Aug 2019 18:30:31 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/dev-rules/</guid><description><![CDATA[<h2 id="精神">精神</h2>
-<ul>
-<li>绝不写死代码，硬编码</li>
-<li>不留不要用的、垃圾代码</li>
-</ul>
-<h2 id="git">Git</h2>
-<ul>
-<li>Master 的 BUG 必须最少且趋近于零，为最稳定的版本</li>
-<li>每次 Commit 信息应该准确填写。不可模棱两可，eg: 修复 BUG、增加功能</li>
-<li>禁止 Commit IDE 的 project data，e.g: .vscode</li>
-<li>禁止上传垃圾代码</li>
-</ul>
-<blockquote>
-<p>更多规则详见文档 <a href="/posts/commit-spec/">Commit 规范</a></p>
-</blockquote>
-<h3 id="分支branch">分支（Branch）</h3>
-<ul>
-<li>命名规则：应以此分支主要目的命名（修复什么 BUG，新增特定功能）</li>
-<li>合并后的分支应该删除</li>
-</ul>
-<h3 id="commit">commit</h3>
-<ul>
-<li>遵循一个功能一个 commit 的原则</li>
-</ul>
-<h2 id="restful">Restful</h2>
-<ul>
-<li>
-<p>资源名词站在 API 的角度思考</p>
-<ul>
-<li>
-<p>复数名词：可以复数笔数据，回传结果为 Array</p>
-<p>举例：GET/users 取得多笔使用者资料</p>
-<ul>
-<li>刪除，放在复数名词內，让 Router 保持一致性</li>
-<li>增加，放在复数名詞內，让 Router 保持一致性</li>
-</ul>
-</li>
-<li>
-<p>单数名词：仅取得单笔数据，必须指定 PK，两两一组，回传结果为 Object
-举例：GET/user/{accont} 取得单笔使用者资料，必须指定 PK</p>
-</li>
-</ul>
-</li>
-<li>
-<p>URL 中一律不带 id 参数</p>
-</li>
-</ul>
-<div class="highlight" id="id-1"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">正确范例： calendar_manager/calendar/29
-</span></span><span class="line"><span class="cl">错误范例： calendar_manager/calendar/29?id=29</span></span></code></pre></td></tr></table>
-</div>
-</div><blockquote>
-<p>更多规则详见文档 <a href="/posts/restful/">RESTful</a></p>
-</blockquote>
-<h2 id="命名">命名</h2>
-<ul>
-<li>命名应根据内容做有意义的命名，让后续维护人员可以顾名思义！</li>
-<li>即使不会发生错误，代码英文大小写也需明确区分。</li>
-</ul>
-<h3 id="语意">语意</h3>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">类型</th>
-<th style="text-align:left">命名规则</th>
-<th style="text-align:left">说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">属性 (Attribute, Property)</td>
-<td style="text-align:left">名词 user_name、userName</td>
-<td style="text-align:left"></td>
-</tr>
-<tr>
-<td style="text-align:left">方法 (Method, Function)</td>
-<td style="text-align:left">动词 + 名词 getUserName、get_user_name</td>
-<td style="text-align:left">常見的动词有：get、set、update、delete、remove</td>
-</tr>
-</tbody>
-</table>
-<h3 id="字母与分隔">字母与分隔</h3>
-<table>
-<thead>
-<tr>
-<th>语言</th>
-<th>变量 (Variable, Parameter, Argument)</th>
-<th>常量 (Constant)</th>
-<th>面向对象 - 类名 (Class Name)</th>
-<th>面向对象 - 成员 (mebmer)</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>HTML</td>
-<td>全部小写，不同单词以「-」分隔<br />e.g: user-id</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>CSS、SCSS</td>
-<td>全部小写，不同单词以「-」分隔，CSS 变量以「&ndash;」开头，SCSS 变量以「$」开头<br />e.g: .user-id、&ndash;header-height、$header-height</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>JavaScript</td>
-<td>驼峰式命名法<br />首字小写，不同单字「首字以大写」分隔<br /> e.g: userId</td>
-<td>全部大写，不同单字以「_」分隔 MAX_COUNT</td>
-<td>驼峰式命名法<br />首字大写，不同单字「首字以大写」分隔<br />一个文件放一个 Class, 文件名即为 Class Name <br />e.g: User</td>
-<td>驼峰式命名法<br />公有 (public) : 首字小写，不同单词「首字以大写」分隔<br />e.g: name, getName<br />私有 (private): _公有命名规则<br />e.g: _name,_getName</td>
-</tr>
-<tr>
-<td>Vue</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>Java</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>PHP</td>
-<td>全部小写，不同单词以「_」分隔<br />e.g: user_id</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>Python</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>SQL</td>
-<td>由使用者定义的：表名、字段名<br />全部小写，不同单词以「_」分隔</td>
-<td>SQL 语法、函数全部大写<br />e.g: SELECT、INSERT INTO</td>
-<td></td>
-<td></td>
-</tr>
-</tbody>
-</table>
-<h2 id="通用">通用</h2>
-<ul>
-<li>代码编写</li>
-<li><strong>每个函数应该使用块注释，注释应包含函数功能说明、参数说明</strong>。规则见：JSDoc、JavaDoc</li>
-<li>不必要的代码不要写，也应禁止放到注释里面！</li>
-<li>if-else 的 {} 严禁省略</li>
-<li>
-</li>
-<li>代码规范、代码排版等可通过 eslint 等工具做统一处理</li>
-</ul>
-<h3 id="正确写法">正确写法</h3>
-<div class="highlight" id="id-2"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">public</span> <span class="kd">function</span> <span class="nx">test</span> <span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="c1">// do something
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">if</span> <span class="p">(</span><span class="nx">a</span> <span class="o">===</span> <span class="nx">b</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="c1">// do something
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="错误写法">错误写法</h2>
-<div class="highlight" id="id-3"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span><span class="lnt">8
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">public</span> <span class="kd">function</span> <span class="nx">test</span> <span class="p">()</span>
-</span></span><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="c1">// do something
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">if</span> <span class="p">(</span><span class="nx">a</span> <span class="o">===</span> <span class="nx">b</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">  <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="c1">// do something
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
-</div>
-</div><ul>
-<li>代码排版
-<ul>
-<li>任何代码应该以 2 个 space 为一个缩进做好排版、不可使用 tab</li>
-</ul>
-</li>
-<li>函数 (Function, Methd)
-<ul>
-<li>函数声明时需在函数上方加上函数注释，注释应包含函数说明、参数内容（参数类型、参数英文名称、参数说明）、返回值内容（返回值类型、返回值说明）</li>
-</ul>
-</li>
-<li>类 (Class)
-<ul>
-<li>一个类（Class）的声明只能存在一个文件</li>
-<li>类（Class）的声明文件，文件名必须为类名</li>
-</ul>
-</li>
-<li>其他
-<ul>
-<li>连接本地任何其他资源（图片、文件、网站）皆使用相对路径，禁止使用绝对路径，非本地资源除外</li>
-</ul>
-</li>
-</ul>
-<h2 id="html">HTML</h2>
-<h3 id="代码编写">代码编写</h3>
-<ul>
-<li>禁止在 HTML 使用 <code>&lt;style&gt;</code>、<code>&lt;script&gt;</code>，一律使用外部档案引用方式引用 CSS、JavaScript 文件</li>
-<li>HTML 标签需成双成对，有头有尾</li>
-<li>块级标签：<code>&lt;tag&gt;&lt;/tag&gt;</code></li>
-<li>单标签：<code>&lt;tag /&gt;</code></li>
-<li>禁止使用已被 HTML 舍弃的旧标签、属性，如：</li>
-</ul>
-<div class="highlight" id="id-4"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="c">&lt;!-- html tag --&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">center</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">font</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">basefont</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">s</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">strike</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">u</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">listing</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">plaintext</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">xmp</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="c">&lt;!-- html attribute --&gt;</span>
-</span></span><span class="line"><span class="cl">align
-</span></span><span class="line"><span class="cl">bgcolor
-</span></span><span class="line"><span class="cl">color</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="css">CSS</h2>
-<blockquote>
-<p>CSS 的定义应该独立一个 CSS 文件，禁止使用 <code>&lt;style&gt;</code> 或 <code>style</code> 属性直接在 HTML 中定义样式。</p>
-</blockquote>
-<h2 id="javascript">JavaScript</h2>
-<blockquote>
-<p>禁止使用 HTML 字串，一律使用 Dom 产生 HTML, e.g: <code>document.createDocumentFragment()</code></p>
-</blockquote>
-<h3 id="注释">注释</h3>
-<p>JavaScript 注释应该遵循 JSDoc 的标准撰写</p>
-<h4 id="全局变量-global">全局变量 (Global)</h4>
-<div class="highlight" id="id-5"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="cm">/* global ZT */</span></span></span></code></pre></td></tr></table>
-</div>
-</div><h4 id="常量-constant">常量 (Constant)</h4>
-<div class="highlight" id="id-6"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="cm">/**
-</span></span></span><span class="line"><span class="cl"><span class="cm"> * 常量說明
-</span></span></span><span class="line"><span class="cl"><span class="cm"> * @type {常量类型}
-</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span></span></span></code></pre></td></tr></table>
-</div>
-</div><p><strong>Example</strong></p>
-<div class="highlight" id="id-7"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="cm">/**
-</span></span></span><span class="line"><span class="cl"><span class="cm"> * 请求地址
-</span></span></span><span class="line"><span class="cl"><span class="cm"> * @type {String}
-</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
-</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">REQUEST_URL</span> <span class="o">=</span> <span class="s1">&#39;http://localhost:8080&#39;</span><span class="p">;</span></span></span></code></pre></td></tr></table>
-</div>
-</div><h4 id="函數方法-function-method">函數、方法 (Function, Method)</h4>
-<div class="highlight" id="id-8"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="cm">/**
-</span></span></span><span class="line"><span class="cl"><span class="cm"> * 函数用途说明
-</span></span></span><span class="line"><span class="cl"><span class="cm"> * @param {参数类型} 参数名称参数说明
-</span></span></span><span class="line"><span class="cl"><span class="cm"> * @param {参数类型} [选择性参数名称] 参数说明
-</span></span></span><span class="line"><span class="cl"><span class="cm"> * @param {参数类型} [选择性参数名称=参数预设值] 参数说明
-</span></span></span><span class="line"><span class="cl"><span class="cm"> * @returns {返回值类型} 返回值说明
-</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span></span></span></code></pre></td></tr></table>
-</div>
-</div><p><strong>Example</strong></p>
-<div class="highlight" id="id-9"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="cm">/**
-</span></span></span><span class="line"><span class="cl"><span class="cm"> * 取得使用者
-</span></span></span><span class="line"><span class="cl"><span class="cm"> * @param {Int} userId 使用者 ID
-</span></span></span><span class="line"><span class="cl"><span class="cm"> * @param {Object} [options] 其他选项
-</span></span></span><span class="line"><span class="cl"><span class="cm"> * @param {String} [options.query=&#39;a&#39;] 查询关键词 默认为 &#39;a&#39;
-</span></span></span><span class="line"><span class="cl"><span class="cm"> * @returns {Object} 使用者资料
-</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
-</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">getUser</span><span class="p">(</span><span class="nx">userId</span><span class="p">,</span> <span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="c1">// do something
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">return</span> <span class="nx">user</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="vue">Vue</h2>
-<ul>
-<li><i class="fa-regular fa-square fa-fw" aria-hidden="true"></i> 待补充</li>
-</ul>
-<h2 id="java">Java</h2>
-<p>Java 注释应该遵循 JavaDoc 的标准撰写</p>
-<ul>
-<li><i class="fa-regular fa-square fa-fw" aria-hidden="true"></i> 待补充</li>
-</ul>
-<h2 id="php">PHP</h2>
-<h3 id="前端参数取得">前端参数取得</h3>
-<p>参数取得需通过 filter_input 函数取得，不得使用 _GET 、_POST</p>
-<h3 id="输出到前台">输出到前台</h3>
-<p>参数命名必须为：全部小写，不同单字以「_」分隔</p>
-<h3 id="注解">注解</h3>
-<p>PHP 注解应该遵循 PHPDoc 的标准撰写</p>
-<h3 id="成员变量-member">成员变量 (Member)</h3>
-<p>成员变量只的是 Class 内的成员变数，我们都会要求替成员变量增加注解说明。通常 Function 的变量除非太特别否则都不需要特别注解说明。</p>
-<div class="highlight" id="id-10"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="sd">/**
-</span></span></span><span class="line"><span class="cl"><span class="sd"> * 成员变量說明
-</span></span></span><span class="line"><span class="cl"><span class="sd"> * @type {类型}
-</span></span></span><span class="line"><span class="cl"><span class="sd"> */</span></span></span></code></pre></td></tr></table>
-</div>
-</div><p><strong>Example</strong></p>
-<div class="highlight" id="id-11"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="sd">/**
-</span></span></span><span class="line"><span class="cl"><span class="sd"> * 使用者 ID
-</span></span></span><span class="line"><span class="cl"><span class="sd"> * @type {String}
-</span></span></span><span class="line"><span class="cl"><span class="sd"> */</span>
-</span></span><span class="line"><span class="cl"><span class="nv">$userId</span> <span class="o">=</span> <span class="s1">&#39;Hello&#39;</span><span class="p">;</span></span></span></code></pre></td></tr></table>
-</div>
-</div><h3 id="函数方法-function-method">函数、方法 (Function, Method)</h3>
-<div class="highlight" id="id-12"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="sd">/**
-</span></span></span><span class="line"><span class="cl"><span class="sd"> * 函数用途说明
-</span></span></span><span class="line"><span class="cl"><span class="sd"> * @param 参数型态 参数名称 参数说明
-</span></span></span><span class="line"><span class="cl"><span class="sd"> * @option 参数选项类型 参数选项名称 参数选项说明
-</span></span></span><span class="line"><span class="cl"><span class="sd"> * @uses 全局变量 全域变数说明
-</span></span></span><span class="line"><span class="cl"><span class="sd"> * @returns 返回值类型 返回值说明
-</span></span></span><span class="line"><span class="cl"><span class="sd"> */</span></span></span></code></pre></td></tr></table>
-</div>
-</div><p><strong>Example</strong></p>
-<div class="highlight" id="id-13"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="sd">/**
-</span></span></span><span class="line"><span class="cl"><span class="sd"> * 取得使用者
-</span></span></span><span class="line"><span class="cl"><span class="sd"> * @param int userId 使用者 ID
-</span></span></span><span class="line"><span class="cl"><span class="sd"> * @param object options 其他选项
-</span></span></span><span class="line"><span class="cl"><span class="sd"> * @option string options[&#39;query&#39;] 查询关键字
-</span></span></span><span class="line"><span class="cl"><span class="sd"> * @uses $_POST[&#39;role_id&#39;] 从前端以 POST 取得角色 ID
-</span></span></span><span class="line"><span class="cl"><span class="sd"> * @returns object 使用者资料
-</span></span></span><span class="line"><span class="cl"><span class="sd"> */</span>
-</span></span><span class="line"><span class="cl"><span class="k">function</span> <span class="nf">getUser</span> <span class="p">(</span><span class="nv">$userId</span><span class="p">,</span> <span class="nv">$options</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="c1">// do something
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">return</span> <span class="nv">$user</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">};</span></span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="python">Python</h2>
-<ul>
-<li><i class="fa-regular fa-square fa-fw" aria-hidden="true"></i> 待补充</li>
-</ul>
-<h2 id="database">Database</h2>
-<ul>
-<li>禁止使用 Table Join。</li>
-<li>禁止使用 Oracle Trigger。</li>
-<li>禁止将查询数据库的 SQL 放在循环中查询</li>
-</ul>
-<h3 id="sql-撰写">SQL 撰写</h3>
-<ul>
-<li>属于 SQL 语法使用大写（SELECT，WHERE，INSERT etc..）</li>
-<li>属于使用者自己定义的使用小写（表名 table name，字段名 column name etc..）</li>
-<li>表名、字段名前后需加上 `</li>
-</ul>
-<p><strong>Example</strong></p>
-<div class="highlight" id="id-14"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="o">`</span><span class="k">user</span><span class="o">`</span><span class="w"> </span><span class="k">VALUES</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;b&#39;</span><span class="p">);</span></span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="统一用词">统一用词</h2>
-<blockquote>
-<p>系统中常用词，例如弹出框按钮、搜索框等，仅为举例，不限与此。</p>
-</blockquote>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">用词</th>
-<th style="text-align:left">统一</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">最后、最终</td>
-<td style="text-align:left">最后</td>
-</tr>
-<tr>
-<td style="text-align:left">关闭、Cancel、取消</td>
-<td style="text-align:left">取消</td>
-</tr>
-<tr>
-<td style="text-align:left">存储、保存、修改、OK、确定</td>
-<td style="text-align:left">确定</td>
-</tr>
-<tr>
-<td style="text-align:left">搜寻、查询、查找、搜索</td>
-<td style="text-align:left">搜索</td>
-</tr>
-</tbody>
-</table>
-]]></description></item><item><title>使用 Node.js 自动创建 Vue 的路由</title><link>https://lruihao.cn/posts/gen-router/</link><pubDate>Wed, 14 Jun 2023 00:11:17 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/gen-router/</guid><description><![CDATA[<p>最近在写一个 Vue 插件，需要在项目中创建一些测试页面，由于都是些静态路由，就想到之前看到过的一个项目就是用 Node.js 来自动生成路由的，于是就借鉴过来改了一下。</p>
-<h2 id="源码">源码</h2>
-<blockquote>
-<p>Gist: <a href="https://gist.github.com/Lruihao/d8f2984525dc9e78dd6a49e15f49cf38"target="_blank" rel="external nofollow noopener noreferrer">https://gist.github.com/Lruihao/d8f2984525dc9e78dd6a49e15f49cf38<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
-</blockquote>
-<div class="highlight" id="id-1"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span><span class="lnt">37
-</span><span class="lnt">38
-</span><span class="lnt">39
-</span><span class="lnt">40
-</span><span class="lnt">41
-</span><span class="lnt">42
-</span><span class="lnt">43
-</span><span class="lnt">44
-</span><span class="lnt">45
-</span><span class="lnt">46
-</span><span class="lnt">47
-</span><span class="lnt">48
-</span><span class="lnt">49
-</span><span class="lnt">50
-</span><span class="lnt">51
-</span><span class="lnt">52
-</span><span class="lnt">53
-</span><span class="lnt">54
-</span><span class="lnt">55
-</span><span class="lnt">56
-</span><span class="lnt">57
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;fs&#39;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">os</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;os&#39;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">vueDir</span> <span class="o">=</span> <span class="s1">&#39;./src/views/&#39;</span>
-</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">routerFile</span> <span class="o">=</span> <span class="s1">&#39;./src/router.js&#39;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nx">fs</span><span class="p">.</span><span class="nx">readdir</span><span class="p">(</span><span class="nx">vueDir</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">files</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s1">&#39;❌ Could not list the directory.&#39;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="k">return</span>
-</span></span><span class="line"><span class="cl">  <span class="p">}</span>
-</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">routes</span> <span class="o">=</span> <span class="p">[]</span>
-</span></span><span class="line"><span class="cl">  <span class="k">for</span> <span class="p">(</span><span class="kr">const</span> <span class="nx">filename</span> <span class="k">of</span> <span class="nx">files</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nx">filename</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">      <span class="k">continue</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="p">[</span><span class="nx">name</span><span class="p">,</span> <span class="nx">ext</span><span class="p">]</span> <span class="o">=</span> <span class="nx">filename</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nx">ext</span> <span class="o">!==</span> <span class="s1">&#39;vue&#39;</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">      <span class="k">continue</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">routeName</span> <span class="o">=</span> <span class="nx">name</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/-([a-z])/g</span><span class="p">,</span> <span class="p">(</span><span class="nx">_</span><span class="p">,</span> <span class="nx">match</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nx">match</span><span class="p">.</span><span class="nx">toUpperCase</span><span class="p">())</span>
-</span></span><span class="line"><span class="cl">    <span class="kd">let</span> <span class="nx">routeDescription</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
-</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">contentFull</span> <span class="o">=</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">readFileSync</span><span class="p">(</span><span class="sb">`</span><span class="si">${</span><span class="nx">vueDir</span><span class="si">}${</span><span class="nx">filename</span><span class="si">}</span><span class="sb">`</span><span class="p">,</span> <span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="c1">// get route description from first line comment
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kr">const</span> <span class="nx">match</span> <span class="o">=</span> <span class="sr">/&lt;!--\s*(.*)\s*--&gt;/g</span><span class="p">.</span><span class="nx">exec</span><span class="p">(</span><span class="nx">contentFull</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="nx">os</span><span class="p">.</span><span class="nx">EOL</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
-</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nx">match</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">      <span class="nx">routeDescription</span> <span class="o">=</span> <span class="nx">match</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="nx">trim</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">routes</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="sb">`  {
-</span></span></span><span class="line"><span class="cl"><span class="sb">    path: &#39;/</span><span class="si">${</span><span class="nx">name</span> <span class="o">===</span> <span class="s1">&#39;home&#39;</span> <span class="o">?</span> <span class="s1">&#39;&#39;</span> <span class="o">:</span> <span class="nx">name</span><span class="si">}</span><span class="sb">&#39;,
-</span></span></span><span class="line"><span class="cl"><span class="sb">    name: &#39;</span><span class="si">${</span><span class="nx">routeName</span><span class="si">}</span><span class="sb">&#39;,</span><span class="si">${</span><span class="nx">routeDescription</span> <span class="o">?</span> <span class="sb">`\n    meta: { description: &#39;</span><span class="si">${</span><span class="nx">routeDescription</span><span class="si">}</span><span class="sb">&#39; },`</span> <span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="si">}</span><span class="sb">
-</span></span></span><span class="line"><span class="cl"><span class="sb">    component: () =&gt; import(/* webpackChunkName: &#34;</span><span class="si">${</span><span class="nx">routeName</span><span class="si">}</span><span class="sb">&#34; */ &#39;@/views/</span><span class="si">${</span><span class="nx">filename</span><span class="si">}</span><span class="sb">&#39;),
-</span></span></span><span class="line"><span class="cl"><span class="sb">  },`</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">  <span class="p">}</span>
-</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">result</span> <span class="o">=</span>
-</span></span><span class="line"><span class="cl"><span class="sb">`// This file is automatically generated by gen-router.js, please do not modify it manually！
-</span></span></span><span class="line"><span class="cl"><span class="sb">import VueRouter from &#39;vue-router&#39;
-</span></span></span><span class="line"><span class="cl"><span class="sb">import Vue from &#39;vue&#39;
-</span></span></span><span class="line"><span class="cl"><span class="sb">
-</span></span></span><span class="line"><span class="cl"><span class="sb">Vue.use(VueRouter)
-</span></span></span><span class="line"><span class="cl"><span class="sb">
-</span></span></span><span class="line"><span class="cl"><span class="sb">const routes = [
-</span></span></span><span class="line"><span class="cl"><span class="sb"></span><span class="si">${</span><span class="nx">routes</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">os</span><span class="p">.</span><span class="nx">EOL</span><span class="p">)</span><span class="si">}</span><span class="sb">
-</span></span></span><span class="line"><span class="cl"><span class="sb">]
-</span></span></span><span class="line"><span class="cl"><span class="sb">
-</span></span></span><span class="line"><span class="cl"><span class="sb">const router = new VueRouter({
-</span></span></span><span class="line"><span class="cl"><span class="sb">  mode: &#39;hash&#39;,
-</span></span></span><span class="line"><span class="cl"><span class="sb">  routes,
-</span></span></span><span class="line"><span class="cl"><span class="sb">})
-</span></span></span><span class="line"><span class="cl"><span class="sb">
-</span></span></span><span class="line"><span class="cl"><span class="sb">export default router
-</span></span></span><span class="line"><span class="cl"><span class="sb">`</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">fs</span><span class="p">.</span><span class="nx">writeFile</span><span class="p">(</span><span class="nx">routerFile</span><span class="p">,</span> <span class="nx">result</span><span class="p">,</span> <span class="s1">&#39;utf-8&#39;</span><span class="p">,</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="k">throw</span> <span class="nx">err</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`✅ Router generated successfully in </span><span class="si">${</span><span class="nx">routerFile</span><span class="si">}</span><span class="sb">`</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">  <span class="p">})</span>
-</span></span><span class="line"><span class="cl"><span class="p">})</span></span></span></code></pre></td></tr></table>
-</div>
-</div><p>生成效果如下：</p>
-<div class="highlight" id="id-2"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="c1">// This file is automatically generated by gen-router.js, please do not modify it manually！
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">import</span> <span class="nx">VueRouter</span> <span class="nx">from</span> <span class="s1">&#39;vue-router&#39;</span>
-</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="nx">Vue</span> <span class="nx">from</span> <span class="s1">&#39;vue&#39;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nx">Vue</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">VueRouter</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">routes</span> <span class="o">=</span> <span class="p">[</span>
-</span></span><span class="line"><span class="cl">  <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">path</span><span class="o">:</span> <span class="s1">&#39;/&#39;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;home&#39;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">meta</span><span class="o">:</span> <span class="p">{</span> <span class="nx">description</span><span class="o">:</span> <span class="s1">&#39;Home&#39;</span> <span class="p">},</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">component</span><span class="o">:</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="kr">import</span><span class="p">(</span><span class="cm">/* webpackChunkName: &#34;home&#34; */</span> <span class="s1">&#39;@/views/home.vue&#39;</span><span class="p">),</span>
-</span></span><span class="line"><span class="cl">  <span class="p">},</span>
-</span></span><span class="line"><span class="cl"><span class="p">]</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">router</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">VueRouter</span><span class="p">({</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">mode</span><span class="o">:</span> <span class="s1">&#39;hash&#39;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">routes</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl"><span class="p">})</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="k">default</span> <span class="nx">router</span></span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="参考">参考</h2>
-<p><a href="https://github.com/sunzsh/vue-el-demo/blob/f5e9a2a9934c7040f4fa72663eb8c24b1e3b20c1/gen-router.js"target="_blank" rel="external nofollow noopener noreferrer">sunzsh/vue-el-demo<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>]]></description></item><item><title>如何给 npm 包打补丁？</title><link>https://lruihao.cn/posts/patch-package/</link><pubDate>Thu, 12 Oct 2023 22:37:56 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/patch-package/</guid><description><![CDATA[<div class="featured-image">
+</div>]]></description></item><item><title>如何给 npm 包打补丁？</title><link>https://lruihao.cn/posts/patch-package/</link><pubDate>Thu, 12 Oct 2023 22:37:56 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/patch-package/</guid><description><![CDATA[<div class="featured-image">
         <img src="/images/featured-image.png" referrerpolicy="no-referrer">
       </div><h2 id="背景">背景</h2>
 <p>今天鬼事神差想起去年写的一段 dirty hack 代码，当时是在 <a href="https://github.com/Lruihao/vue-minder-editor-extended"target="_blank" rel="external nofollow noopener noreferrer">vue-minder-editor-extended<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 这个项目为了解决百度开源的 <a href="https://github.com/fex-team/kityminder-core"target="_blank" rel="external nofollow noopener noreferrer">@7polo/kityminder-core<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> npm 包的 bug，但是百度早在 17-18 年就停止更新了，我又不想自己 fork 一份源码然后重新发包，于是当时直接从 node_modules 里面复制出了打包后的源码进行修改，然后放到了项目中 <code>src/script/patch/kityminder.core.js</code>，并因修改了引入：</p>
@@ -17172,12 +16597,14 @@ However <u>difficult(adj.)</u> the problem is,we must work it out today.</li>
 </div>
 </div><h2 id="测试">测试</h2>
 <p>执行一次完整的依赖安装 =&gt; 构建发布，一切符合预期，大功告成~</p>
-]]></description></item><item><title>拖拽式仪表盘的设计与开发</title><link>https://lruihao.cn/posts/draggable-dashboard/</link><pubDate>Thu, 12 Oct 2023 15:16:48 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/draggable-dashboard/</guid><description></description></item><item><title>给博客类项目添加 markdownlint 语法检查</title><link>https://lruihao.cn/posts/markdownlint/</link><pubDate>Wed, 11 Oct 2023 14:26:48 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/markdownlint/</guid><description><![CDATA[<p><a href="https://github.com/DavidAnson/markdownlint"target="_blank" rel="external nofollow noopener noreferrer">markdownlint<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 是一个 Markdown 语法检查工具，它可以检查 Markdown 文件中的语法错误，以及一些不规范的写法。</p>
-<h2 id="markdownlint-cli-历史">markdownlint cli 历史</h2>
-<p>根据 markdownlint 作者 <a href="https://github.com/DavidAnson"target="_blank" rel="external nofollow noopener noreferrer">David Anson<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 博客<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>得知，大概在 2015 年左右 <a href="https://github.com/igorshubovych"target="_blank" rel="external nofollow noopener noreferrer">Igor Shubovych<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 和他探讨了开发 CLI 工具的想法，当时作者还没做好准备，于是 Igor 独自开发了 <a href="https://github.com/igorshubovych/markdownlint-cli"target="_blank" rel="external nofollow noopener noreferrer">markdownlint-cli<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 这个 CLI 工具，然后经过两年的发展有了越来越多的人开始使用 markdownlint-cli，于是 David 开始给 markdownlint-cli 项目贡献代码添加新功能，并在之后三年里成为了主要的维护人员，直到2020年，David 觉得在别人的项目中，很多事情不太好改变（可能向后兼容的问题），于是他自己重新建立了一个名叫 <a href="https://github.com/DavidAnson/markdownlint-cli2"target="_blank" rel="external nofollow noopener noreferrer">markdownlint-cli2<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 的项目，在 markdownlint-cli 的优秀之上又做了新的改进，使其拥有更快的执行速度、更灵活的配置、更少的依赖等优点。</p>
-<p>目前两个工具都依然随着 markdownlint 的更新而更新，个人觉得旧项目如果使用的 markdownlint-cli 则无需更改以避免出现未知的问题，新引入的项目，可以考虑使用更强大的 markdownlint-cli2。</p>
+]]></description></item><item><title>拖拽式仪表盘的设计与开发</title><link>https://lruihao.cn/posts/draggable-dashboard/</link><pubDate>Thu, 12 Oct 2023 15:16:48 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/draggable-dashboard/</guid><description></description></item><item><title>给你的 Markdown 挑挑刺</title><link>https://lruihao.cn/posts/markdownlint/</link><pubDate>Wed, 11 Oct 2023 14:26:48 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/markdownlint/</guid><description><![CDATA[<p>会写 Markdown 的人很多，但写得好 Markdown 的人却很少。有没有什么工具能充当「秘书」，检查文件中的 Markdown 语法和风格，并且提出解决方案、自动修复问题，甚至自动补齐中英文之间的「盘古之白」呢？本文介绍的 Markdown 语法检查器就能做到。</p>
+<h2 id="引言">引言</h2>
+<p><strong>会写</strong> Markdown 的人很多，但<strong>写得好</strong> Markdown 的人却很少。这一方面是 Markdown 生态系统自身的问题：<a href="https://www.w3.org/community/markdown/wiki/MarkdownImplementations"target="_blank" rel="external nofollow noopener noreferrer">语法变种和实现方式<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 五花八门，互不兼容甚至相互矛盾。</p>
+<p>另一方面，也鲜有人愿意花时间去仔细阅读 Markdown 的技术规范；大多数人都只是读了一两篇「速成」，就自我批准出师了，对于一些细节问题并未关注；如果在写作中遇到，也是凭想象和直觉随意判断。</p>
+<p>由此，就产生了大量语法天马行空、版面张牙舞爪，让读者和排版软件都困惑不已的 Markdown 文件。</p>
+<p>既然 JavaScript 有 ESLint，Python 有 PyLint，是不是 Markdown 也有 markdownlint 呢？答案是肯定的！</p>
 <h2 id="示例">示例</h2>
-<p>本博客源码已引入 markdownlint-cli2，可下载本博客源码查看配置。</p>
+<p>本博客源码已引入 markdownlint 规范，可下载本博客源码查看配置。</p>
 <a href="http://github.com/Lruihao/hugo-blog"target="_blank" rel="external nofollow noopener noreferrer" class="card-link"><span class="cl-backdrop" style="--cl-bg-url: url(/fixit.min.svg);"></span>
     <span class="cl-content">
       <span class="cl-text">
@@ -17187,8 +16614,21 @@ However <u>difficult(adj.)</u> the problem is,we must work it out today.</li>
           <span class="cl-url">http://github.com/Lruihao/hugo-blog</span>
         </span>
       </span><svg class="cl-icon-globe" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" width="64" height="64"><path d="M960 512c0 249.408-203.2 448-448 448-244.778667 0-448-198.592-448-448S262.592 64 512 64s448 198.592 448 448" fill="#2196F3"></path><path d="M507.52 718.08c0-8.96-4.48-13.44-13.44-17.92-26.88-8.96-53.76-8.96-76.16-31.381333-4.48-8.96-4.48-17.92-8.96-26.88-8.96-8.96-31.36-13.44-44.8-17.92h-89.6c-13.44-4.48-22.4-22.4-31.36-35.84 0-4.48 0-13.461333-8.96-13.461334-8.96-4.458667-17.92 4.501333-26.88 0-4.48-4.458667-4.48-8.96-4.48-13.418666 0-13.461333 8.96-26.901333 17.92-35.861334 13.44-8.96 26.88 4.48 40.32 4.48 4.48 0 4.48 0 8.96 4.48 13.44 4.48 17.92 22.4 17.92 35.861334v8.96c0 4.48 4.48 4.48 8.96 4.48 4.48-22.4 4.48-44.821333 8.96-67.2 0-26.88 26.88-53.781333 49.28-62.72 8.96-4.458667 13.44 4.501333 22.4 0 26.88-8.96 94.08-35.84 80.64-71.658667-8.96-31.381333-35.84-62.698667-71.68-58.24-8.96 4.501333-13.44 8.96-22.4 13.461333-13.44 8.96-40.32 35.84-53.76 35.84-22.4-4.48-22.4-35.84-17.92-49.301333 4.48-17.92 44.8-76.138667 71.68-67.178667l17.92 17.92c8.96 4.48 22.4 4.48 35.84 4.48 4.48 0 8.96 0 13.44-4.48 4.48-4.48 4.48-4.48 4.48-8.96 0-13.44-13.44-26.901333-22.4-35.861333s-22.4-17.92-35.84-22.378667c-44.8-13.461333-116.48 4.458667-152.32 35.84-35.84 31.36-62.72 85.12-80.64 129.92-8.96 26.88-17.92 62.698667-22.4 94.08-4.48 22.4-8.96 40.32 4.48 62.698667 13.44 26.88 40.32 53.781333 67.2 71.68 17.92 13.44 53.76 13.44 71.68 35.84 13.44 17.941333 8.96 40.32 8.96 62.72 0 26.88 17.92 49.28 26.88 71.658667 4.48 13.461333 8.96 31.381333 13.44 44.821333 0 4.48 4.48 31.36 4.48 35.84 26.88 13.44 49.28 26.901333 80.64 35.861333 4.48 0 22.4-26.901333 22.4-31.381333 13.44-13.44 22.4-31.36 35.84-40.32 8.96-4.48 17.92-8.96 26.88-17.941333 8.96-8.96 13.44-26.88 17.92-40.32 4.48-8.938667 8.96-26.858667 4.48-40.298667M516.48 305.92c4.48 0 8.96-4.48 17.92-8.96 13.44-8.96 26.901333-22.4 40.32-31.36 13.461333-8.96 26.901333-22.4 35.861333-31.36 13.44-8.96 22.4-26.88 26.88-40.341333 4.48-8.96 17.941333-26.88 13.44-40.32-4.48-8.96-26.88-13.44-35.84-17.92C579.2 126.698667 547.84 122.24 512 122.24c-13.44 0-31.36 4.458667-35.84 17.92-4.48 22.4 13.44 17.92 31.36 22.4 0 0 4.48 35.84 4.48 40.32 4.48 22.421333-8.96 35.84-8.96 58.24 0 13.44 0 35.84 8.96 44.8h4.48zM892.8 619.52c4.501333-8.96 4.501333-22.4 8.96-31.36 4.501333-22.421333 4.501333-44.8 4.501333-67.2 0-44.8-4.501333-89.578667-17.92-129.92-8.96-13.44-13.461333-26.88-17.941333-40.341333-8.96-22.378667-22.4-44.8-40.32-62.698667-17.92-22.4-40.341333-85.12-80.64-67.2-13.44 4.501333-22.4 22.421333-31.36 31.381333l-26.88 40.32c-4.501333 4.48-8.96 13.44-4.501333 17.92 0 4.48 4.501333 4.48 8.96 4.48 8.96 4.501333 13.461333 4.501333 22.421333 8.96 4.48 0 8.96 4.501333 4.48 8.96 0 0 0 4.501333-4.48 4.501334-22.421333 22.4-44.8 40.32-67.2 62.698666-4.48 4.48-8.96 13.44-8.96 17.92s4.48 4.48 4.48 8.96c0 4.501333-4.48 4.501333-8.96 8.96-8.96 4.501333-17.92 8.96-22.4 13.461334-4.48 8.96 0 22.4-4.48 31.36-4.48 22.4-17.941333 40.32-26.901333 62.72-8.96 13.418667-13.418667 26.88-22.378667 40.32 0 17.92-4.501333 31.36 4.458667 44.8 22.421333 31.36 62.72 13.44 94.08 26.901333 8.96 4.458667 17.92 4.458667 22.421333 13.418667 13.418667 13.461333 13.418667 35.861333 17.92 49.301333 4.458667 17.92 8.96 35.84 17.92 53.76 4.48 22.421333 13.44 44.821333 17.92 62.72 40.341333-31.36 76.16-67.178667 103.04-112 26.88-31.424 40.341333-67.242667 53.76-103.104" fill="#CDDC39"></path></svg></span></a>
-<h2 id="安装-markdownlint-cli2">安装 markdownlint-cli2</h2>
-<p>vscode 中可以直接安装 <a href="https://marketplace.visualstudio.com/items?itemName=DavidAnson.vscode-markdownlint"target="_blank" rel="external nofollow noopener noreferrer">markdownlint 扩展<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>，本文主要讲在项目中如何安装使用。</p>
+<h2 id="引入-markdownlint">引入 markdownlint</h2>
+<p>markdownlint 是一个 Markdown 语法检查工具，它可以检查 Markdown 文件中的语法错误，以及一些不规范的写法，让 Markdown 干净又卫生。</p>
+<p>markdownlint 有两个版本，分别是 <a href="https://github.com/mivok"target="_blank" rel="external nofollow noopener noreferrer">Mark Harrison<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 基于 Ruby 的 <a href="https://github.com/markdownlint/markdownlint"target="_blank" rel="external nofollow noopener noreferrer">原版<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 和 <a href="https://github.com/DavidAnson"target="_blank" rel="external nofollow noopener noreferrer">David Anson<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 基于 Node.js 的 <a href="https://github.com/DavidAnson/markdownlint"target="_blank" rel="external nofollow noopener noreferrer">移植版<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>。Node.js 版在人气和活跃程度上后来居上，本文也以 Node.js 版为例。</p>
+<p>markdownlint 可以在多个场景下使用，包括：</p>
+<ul>
+<li><a href="https://dlaa.me/markdownlint/"target="_blank" rel="external nofollow noopener noreferrer">在线版<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+<li><a href="https://marketplace.visualstudio.com/items?itemName=DavidAnson.vscode-markdownlint"target="_blank" rel="external nofollow noopener noreferrer">VSCode 扩展<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+<li><a href="https://github.com/igorshubovych/markdownlint-cli"target="_blank" rel="external nofollow noopener noreferrer">markdownlint-cli<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 和 <a href="https://github.com/DavidAnson/markdownlint-cli2"target="_blank" rel="external nofollow noopener noreferrer">markdownlint-cli2<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+</ul>
+<p>本文主要的目的是介绍 markdownlint-cli2 的使用，因为它可以在项目中集成，方便团队协作。</p>
+<h3 id="markdownlint-cli-历史">markdownlint cli 历史</h3>
+<p>根据 David 的博客<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>，在大约 2015 年左右 <a href="https://github.com/igorshubovych"target="_blank" rel="external nofollow noopener noreferrer">Igor Shubovych<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 和他探讨了开发 CLI 工具的想法，当时，David 还没做好准备，所以 Igor 独自开发了 <a href="https://github.com/igorshubovych/markdownlint-cli"target="_blank" rel="external nofollow noopener noreferrer">markdownlint-cli<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 这个 CLI 工具。</p>
+<p>经过两年的发展，越来越多的人开始使用 markdownlint-cli，于是 David 开始给 markdownlint-cli 项目贡献代码，添加新功能，并在之后三年里成为了主要的维护人员。直到 2020 年，David 觉得在别人的项目中，很难改变一些事情（可能涉及向后兼容性的问题），因此他重新建立了一个名叫 <a href="https://github.com/DavidAnson/markdownlint-cli2"target="_blank" rel="external nofollow noopener noreferrer">markdownlint-cli2<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 的项目，在 markdownlint-cli 的基础上进行了改进，使其具有更快的执行速度、更灵活的配置和更少的依赖等优点。</p>
+<p>目前，这两个工具仍然随着 markdownlint 的更新而更新。如果已经在使用 markdownlint-cli 的旧项目，可以继续使用它，以避免出现未知的问题。而对于新引入的项目，可以考虑使用更强大的 markdownlint-cli2。</p>
+<h3 id="安装-markdownlint-cli2">安装 markdownlint-cli2</h3>
 <div class="highlight" id="id-1"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -17196,7 +16636,7 @@ However <u>difficult(adj.)</u> the problem is,we must work it out today.</li>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">npm install markdownlint-cli2 --save-dev</span></span></code></pre></td></tr></table>
 </div>
-</div><p>配置快捷命令</p>
+</div><p>配置快捷命令：</p>
 <div class="highlight" id="id-2"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -17209,12 +16649,12 @@ However <u>difficult(adj.)</u> the problem is,we must work it out today.</li>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="nt">&#34;scripts&#34;</span><span class="p">:</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nt">&#34;lint:md&#34;</span><span class="p">:</span> <span class="s2">&#34;markdownlint-cli2 \&#34;./content/**/*.md\&#34;&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;lint:md&#34;</span><span class="p">:</span> <span class="s2">&#34;markdownlint-cli2 \&#34;content/**/*.md\&#34;&#34;</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">    <span class="nt">&#34;fix:md&#34;</span><span class="p">:</span> <span class="s2">&#34;npm run lint:md -- --fix&#34;</span>
 </span></span><span class="line"><span class="cl">  <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
-</div><p>安装 <code>markdownlint-rule-search-replace</code> 插件<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup></p>
+</div><p>安装 <code>markdownlint-rule-search-replace</code> 插件<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>：</p>
 <div class="highlight" id="id-3"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -17222,7 +16662,7 @@ However <u>difficult(adj.)</u> the problem is,we must work it out today.</li>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">npm install markdownlint-rule-search-replace --save-dev</span></span></code></pre></td></tr></table>
 </div>
-</div><p>在项目根目录下创建 <code>.markdownlint.jsonc</code> 文件，配置规则。</p>
+</div><p>在项目根目录下创建 <code>.markdownlint.jsonc</code> 文件，配置规则：</p>
 <div class="highlight" id="id-4"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">  1
@@ -17498,7 +16938,7 @@ However <u>difficult(adj.)</u> the problem is,we must work it out today.</li>
 </span></span><span class="line"><span class="cl">  <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
-</div><p>在项目根目录下再创建 <code>.markdownlint-cli2.jsonc</code> 文件，配置规则。</p>
+</div><p>在项目根目录下再创建 <code>.markdownlint-cli2.jsonc</code> 文件，配置规则：</p>
 <div class="highlight" id="id-5"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -17530,7 +16970,7 @@ However <u>difficult(adj.)</u> the problem is,we must work it out today.</li>
 </span></span><span class="line"><span class="cl">  <span class="p">]</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="安装-lint-staged">安装 lint-staged</h2>
+</div><h3 id="安装-lint-staged">安装 lint-staged</h3>
 <div class="highlight" id="id-6"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -17538,7 +16978,7 @@ However <u>difficult(adj.)</u> the problem is,we must work it out today.</li>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">npm install lint-staged --save-dev</span></span></code></pre></td></tr></table>
 </div>
-</div><p>配置 <code>.lintstagedrc.json</code></p>
+</div><p>配置 <code>.lintstagedrc.json</code>：</p>
 <div class="highlight" id="id-7"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -17547,10 +16987,10 @@ However <u>difficult(adj.)</u> the problem is,we must work it out today.</li>
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="nt">&#34;./content/**/*.md&#34;</span><span class="p">:</span> <span class="s2">&#34;markdownlint-cli2 --fix&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;content/**/*.md&#34;</span><span class="p">:</span> <span class="s2">&#34;markdownlint-cli2 --fix&#34;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="安装-husky">安装 husky</h2>
+</div><h3 id="安装-husky">安装 husky</h3>
 <div class="highlight" id="id-8"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -17573,7 +17013,105 @@ However <u>difficult(adj.)</u> the problem is,we must work it out today.</li>
 </span></span><span class="line"><span class="cl">npx lint-staged</span></span></code></pre></td></tr></table>
 </div>
 </div><p>这样每次提交代码时，就会自动检查并修复 content 目录下的所有 markdown 文件中的语法错误。</p>
-<!-- footnote reference definition -->
+<h2 id="引入-autocorrect">引入 AutoCorrect</h2>
+<h3 id="盘古之白">盘古之白</h3>
+<p>在很多中文社区，中英文之间要手动加空格，俗称「盘古之白」，都是不成文的风格要求。这项要求是否合理、又该如何满足，是很有价值的话题，但超出了本文的讨论范围<sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup>。</p>
+<p>这里，只简单概括通说：中英文之间加入空隙，是为了实现视觉上的区隔，更加美观和易读。理想情况下，这种「空隙」应当由排版引擎自动加入，宽度宜为 1/4 个全角空格（em）。但由于数字排版环境复杂多变，在大多数时候（包括最常见的网页环境）不能指望排版引擎有这种能力，因此只能退而求其次，手动插入一个半角空格（因其宽度<strong>通常</strong>接近于 1/4 em），达到类似效果。</p>
+<p>如果想要在中英文之间手动加空格，有什么自动检查和补全的方法吗？</p>
+<p>答案是当然有，而且选择也不止一个。</p>
+<h3 id="pangujs">pangu.js</h3>
+<p>其中，最著名的可能是 <a href="https://github.com/vinta/pangu.js/"target="_blank" rel="external nofollow noopener noreferrer">pangu.js<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 项目。如果你用过一个叫做「<a href="https://chrome.google.com/webstore/detail/%e7%82%ba%e4%bb%80%e9%ba%bc%e4%bd%a0%e5%80%91%e5%b0%b1%e6%98%af%e4%b8%8d%e8%83%bd%e5%8a%a0%e5%80%8b%e7%a9%ba%e6%a0%bc%e5%91%a2%ef%bc%9f/paphcfdffjnbcgkokihcdjliihicmbpd?hl=zh-CN"target="_blank" rel="external nofollow noopener noreferrer">为什么你们就是不能加个空格呢？<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>」的浏览器插件，那你也就用过 pangu.js —— 它正是出自同一位作者之手、以 pangu.js 为底层支撑的。Hugo FixIt 主题也内置了 pangu.js 以自动优化博客文章内容中西混排。</p>
+<h3 id="autocorrect">AutoCorrect</h3>
+<p>另一个选择是 <a href="https://github.com/huacnlee/autocorrect"target="_blank" rel="external nofollow noopener noreferrer">AutoCorrect<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>。与主要关注文本内容的 pangu.js 相比，AutoCorrect 出生于 Ruby 语言的中文社区，因此从一开始就考虑到了编程代码中的中英混排场景（可以参见该项目的 <a href="https://github.com/huacnlee/autocorrect/tree/main/tests/fixtures"target="_blank" rel="external nofollow noopener noreferrer">测试文件<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>），通用性更强。</p>
+<p>pangu.js 和 AutoCorrect 的对比：</p>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>在线版</th>
+<th>VSCode 扩展</th>
+<th>命令行工具</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>pangu.js</td>
+<td>❌</td>
+<td>❌</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>AutoCorrect</td>
+<td><a href="https://huacnlee.github.io/autocorrect/editor"target="_blank" rel="external nofollow noopener noreferrer">AutoCorrect Editor<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></td>
+<td><a href="https://marketplace.visualstudio.com/items?itemName=huacnlee.autocorrect"target="_blank" rel="external nofollow noopener noreferrer">AutoCorrect<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></td>
+<td>✅</td>
+</tr>
+</tbody>
+</table>
+<!-- link reference definition -->
+<ul>
+<li>pangu.js 没有官方 VSCode 插件，使用较多的是 xlthu 开发的 <a href="https://marketplace.visualstudio.com/items?itemName=xlthu.Pangu-Markdown"target="_blank" rel="external nofollow noopener noreferrer">Pangu-Markdown<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 第三方移植版</li>
+<li>pangu.js 的命令行工具受限于 Node.js，需要通过 npm 安装：<code>npm i pangu</code></li>
+<li>AutoCorrect 的命令行工具则可独立安装，同时也有 Rust、Node.js 等更多<a href="https://github.com/huacnlee/autocorrect#use-for-programming"target="_blank" rel="external nofollow noopener noreferrer">语言版本<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+</ul>
+<p>我在博客、VSCode、浏览器插件中都使用了 pangu.js，长期以来，就会发现很多问题，它的便捷同时也带来了“暴力”，处理规则不可控，这一直让我很头疼，所以本文尝试使用 AutoCorrect 替代 pangu.js。事实上，AutoCorrect 的效果确实更好。</p>
+<h3 id="use-autocorrect-in-npm">Use AutoCorrect in NPM</h3>
+<p>安装 <code>autocorrect-node</code>：</p>
+<div class="highlight" id="id-10"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">npm install autocorrect-node --save-dev</span></span></code></pre></td></tr></table>
+</div>
+</div><p>修改快捷命令：</p>
+<div class="highlight" id="id-11"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;scripts&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;lint:md&#34;</span><span class="p">:</span> <span class="s2">&#34;markdownlint-cli2 \&#34;content/**/*.md\&#34; &amp;&amp; autocorrect \&#34;content/**/*.md\&#34; --lint&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;fix:md&#34;</span><span class="p">:</span> <span class="s2">&#34;markdownlint-cli2 \&#34;content/**/*.md\&#34; --fix &amp;&amp; autocorrect \&#34;content/**/*.md\&#34; --fix&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>修改 <code>.lintstagedrc.json</code>：</p>
+<div class="highlight" id="id-12"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;content/**/*.md&#34;</span><span class="p">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;markdownlint-cli2 --fix&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;autocorrect --fix&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="配置-github-actions">配置 GitHub Actions</h2>
+<ul>
+<li><i class="fa-regular fa-square fa-fw" aria-hidden="true"></i> TODO 未完成</li>
+</ul>
+<div class="highlight" id="id-13"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Markdown Lint</span></span></span></code></pre></td></tr></table>
+</div>
+</div><!-- footnote reference definition -->
 <div class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
@@ -17582,6 +17120,9 @@ However <u>difficult(adj.)</u> the problem is,we must work it out today.</li>
 </li>
 <li id="fn:2">
 <p><a href="https://github.com/OnkarRuikar/markdownlint-rule-search-replace"target="_blank" rel="external nofollow noopener noreferrer">markdownlint-rule-search-replace<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 用于搜索和替换模式的自定义 markdownlint 规则&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:3">
+<p>如果有进一步兴趣，请阅读知乎讨论「<a href="https://www.zhihu.com/question/19587406"target="_blank" rel="external nofollow noopener noreferrer">中英文混排时中文与英文之间是否要有空格？<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>」，W3C 标准草案《中文排版需求》<a href="https://www.w3.org/TR/clreq/#mixed_text_composition_in_horizontal_writing_mode"target="_blank" rel="external nofollow noopener noreferrer">§3.2.2<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>，以及收听《字谈字畅》播客 <a href="https://www.thetype.com/typechat/ep-014/"target="_blank" rel="external nofollow noopener noreferrer">第 14 期<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>。&#160;<a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
 </div>]]></description></item><item><title>认知复杂度（Cognitive Complexity）</title><link>https://lruihao.cn/posts/cognitive-complexity/</link><pubDate>Sun, 08 Oct 2023 09:52:44 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/cognitive-complexity/</guid><description><![CDATA[<h2 id="摘要">摘要</h2>
