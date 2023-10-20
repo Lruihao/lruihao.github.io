@@ -74,9 +74,10 @@
 <li><a href="https://github.com/mauricius/vue-draggable-resizable"target="_blank" rel="external nofollow noopener noreferrer">vue-draggable-resizable<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
 </ul>
 <p>总的来说，拖拽式仪表盘这个功能还是很有趣的，这也使得我孜孜不倦地去开发完善。</p>
-]]></description></item><item><title>拖拽式仪表盘 - 组件开发</title><link>https://lruihao.cn/posts/dashborad-widget-usage/</link><pubDate>Thu, 12 Oct 2023 20:07:56 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/dashborad-widget-usage/</guid><description><![CDATA[<p>本文将通过一个简单的便利贴组件为例，介绍如何开发一个仪表盘组件。</p>
+]]></description></item><item><title>拖拽式仪表盘 - 组件开发</title><link>https://lruihao.cn/posts/dashborad-widget-usage/</link><pubDate>Thu, 12 Oct 2023 20:07:56 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/dashborad-widget-usage/</guid><description><![CDATA[<p>本文介绍将如何开发一个仪表盘组件，以及组件开发的灵感来源。</p>
+<h2 id="第一个组件">第一个组件</h2>
+<p>先通过一个简单的便利贴组件为例，介绍如何开发一个仪表盘组件。</p>
 <p>Talk is cheap. Show you the code.</p>
-<h2 id="代码">代码</h2>
 <div class="highlight" id="id-1"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">  1
@@ -290,11 +291,9 @@
 </span><span class="lnt">209
 </span><span class="lnt">210
 </span><span class="lnt">211
-</span><span class="lnt">212
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-vue" data-lang="vue"><span class="line"><span class="cl"><span class="c">&lt;!--</span> <span class="nx">便利贴组件</span><span class="err">（</span><span class="nx">dashboard</span> <span class="nx">示例组件</span><span class="err">）</span> <span class="o">--&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">template</span><span class="p">&gt;</span>
+<pre tabindex="0" class="chroma"><code class="language-vue" data-lang="vue"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">template</span><span class="p">&gt;</span>
 </span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">el-card</span><span class="p">&gt;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;note-content&#34;</span><span class="p">&gt;{{</span> <span class="nx">params</span><span class="p">.</span><span class="nx">content</span> <span class="p">}}&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">el-popover</span>
@@ -506,10 +505,31 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="说明">说明</h2>
-<p>可以看出仪表盘组件和一个普通的 Vue 组件并没有太大区别，只是多了一个 <code>widget</code> 配置对象，该对象用于在组件列表中显示组件名称和图标，以及配置组件的默认参数、宽高等信息。代码中备注已经写得很清楚了，这里就不再赘述。</p>
-<p>组件中注入了 <code>$dashboard</code> 对象，用于在组件中调用仪表盘的方法。另外，组件中还提供了一些钩子函数，用于在组件移动、调整大小、刷新、配置等操作时触发，这些钩子函数可以用于组件的数据更新、保存等操作。</p>
-<p>最后，通过 <code>update:params</code> 事件将用户配置的参数传递给仪表盘，仪表盘会将参数保存到数据库中，下次加载仪表盘时会将参数传递给组件。</p>]]></description></item><item><title>拖拽式仪表盘 - 模板使用</title><link>https://lruihao.cn/posts/dashborad-template-usage/</link><pubDate>Thu, 12 Oct 2023 20:07:20 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/dashborad-template-usage/</guid><description><![CDATA[<p>本文将通过一个简单的例子，介绍如何使用仪表盘模板。</p>
+</div><p>可以看出仪表盘组件和一个普通的 Vue 组件并没有太大区别，只是多了一个 <code>widget</code> 配置对象和一些钩子函数。</p>
+<p><code>widget</code> 配置对象用于在组件列表中显示组件名称和图标，以及配置组件的默认参数、宽高等信息。代码中备注已经写得很清楚了，这里就不再赘述。</p>
+<p>钩子函数，会在组件移动、调整大小、刷新、配置等操作时触发，这些钩子函数可以用于组件的数据更新、保存等操作。</p>
+<p>组件中注入了 <code>$dashboard</code> 对象，用于在组件中调用仪表盘的方法。</p>
+<p>最后，通过 <code>update:params</code> 事件将用户配置的参数传递给仪表盘，仪表盘会将参数保存到数据库中，下次加载仪表盘时会将参数回传给组件。</p>
+<h2 id="万物皆组件">万物皆组件</h2>
+<p>系统中的仪表盘，除了承载业务组件外，还可以承载一些系统级别的组件，发挥想象力，将任何 idea 开发成为仪表盘的组件，比如：</p>
+<ul>
+<li>时钟</li>
+<li>天气</li>
+<li>便利贴</li>
+<li>倒计时</li>
+<li>……</li>
+</ul>
+<p>等等，只要你想得到，就可以开发成为仪表盘的组件，灵感可以来自于手机平板桌面、浏览器网址导航等。</p>
+<p>又例如，我在 <a href="https://itab.link/"target="_blank" rel="external nofollow noopener noreferrer">iTab 新标签页<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 网址导航中，看到了一个“一言组件”觉得很有意思。</p>
+<p>于是乎，我也开发了一个“一言组件”，<a href="https://lruihao.github.io/vue-el-demo/#/dashboard/index"target="_blank" rel="external nofollow noopener noreferrer">在线 demo<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>，<a href="https://github.com/Lruihao/vue-el-demo/blob/main/src/views/dashboard/widgets/daily/hitokoto.vue"target="_blank" rel="external nofollow noopener noreferrer">组件源码 <code>hitokoto.vue</code><i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>，功能如下：</p>
+<ul>
+<li>点击左键复制，右键切换</li>
+<li>支持自定义一言类型、长度</li>
+<li>一键百度搜索当前一言内容</li>
+</ul>
+<p>效果如下：</p>
+<p><figure><a class="lightgallery" href="/posts/dashborad-widget-usage/images/hitokoto.gif" data-thumbnail="/posts/dashborad-widget-usage/images/hitokoto.gif" data-sub-html="<h2>hitokoto widget</h2><p>一言组件局部动画</p>"></a><figcaption class="image-caption">hitokoto widget</figcaption>
+  </figure></p>]]></description></item><item><title>拖拽式仪表盘 - 模板使用</title><link>https://lruihao.cn/posts/dashborad-template-usage/</link><pubDate>Thu, 12 Oct 2023 20:07:20 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/dashborad-template-usage/</guid><description><![CDATA[<p>本文将通过一个简单的例子，介绍如何使用仪表盘模板。</p>
 <p>Talk is cheap. Show you the code.</p>
 <h2 id="代码">代码</h2>
 <div class="highlight" id="id-1"><div class="chroma">
