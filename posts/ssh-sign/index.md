@@ -51,7 +51,7 @@ git commit -S -m "YOUR_COMMIT_MESSAGE"
 若要将 Git 客户端配置为默认对本地存储库的提交进行签名，请在 Git 版本 2.0.0 及更高版本中，运行：
 
 ```bash
- git config commit.gpgsign true
+git config commit.gpgsign true
 ```
 
 要在计算机上的任何本地存储库中默认对所有提交进行签名，请运行：
@@ -77,6 +77,14 @@ git config --global commit.gpgsign true
    # Verifies the signed tag
    git tag -v MYTAG
    ```
+
+或者，可以将 `gpgsign` 设置为 `true`，以便在创建标记时自动对其进行签名：
+
+```bash
+git config tag.gpgsign true
+# 或者
+git config --global tag.gpgsign true
+```
 
 
 ---

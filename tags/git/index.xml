@@ -58,7 +58,7 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"> git config commit.gpgsign true</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git config commit.gpgsign true</span></span></code></pre></td></tr></table>
 </div>
 </div><p>要在计算机上的任何本地存储库中默认对所有提交进行签名，请运行：</p>
 <div class="highlight" id="id-5"><div class="chroma">
@@ -95,7 +95,20 @@
 </span></span><span class="line"><span class="cl">git tag -v MYTAG</span></span></code></pre></td></tr></table>
 </div>
 </div></li>
-</ol>]]></description></item><item><title>解决 SourceTree 提交时候 husky 命令失败问题</title><link>https://lruihao.cn/posts/sourcetree-husky/</link><pubDate>Mon, 12 Jun 2023 10:58:44 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/sourcetree-husky/</guid><description><![CDATA[<h2 id="问题描述">问题描述</h2>
+</ol>
+<p>或者，可以将 <code>gpgsign</code> 设置为 <code>true</code>，以便在创建标记时自动对其进行签名：</p>
+<div class="highlight" id="id-8"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git config tag.gpgsign <span class="nb">true</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 或者</span>
+</span></span><span class="line"><span class="cl">git config --global tag.gpgsign true</span></span></code></pre></td></tr></table>
+</div>
+</div>]]></description></item><item><title>解决 SourceTree 提交时候 husky 命令失败问题</title><link>https://lruihao.cn/posts/sourcetree-husky/</link><pubDate>Mon, 12 Jun 2023 10:58:44 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/sourcetree-husky/</guid><description><![CDATA[<h2 id="问题描述">问题描述</h2>
 <p>在使用 SourceTree 提交代码的时候，会出现 husky 命令失败的问题（通过命令行提交代码没有问题），如下图所示：</p>
 <p><a class="lightgallery" href="/posts/sourcetree-husky/images/23_1686538807.png" data-thumbnail="/posts/sourcetree-husky/images/23_1686538807.png" data-sub-html="<h2>/posts/sourcetree-husky/images/23_1686538807.png</h2>"></a></p>
 <p>看错误，是一个 catch 参数的问题，在新版本的 Node 中，catch 参数是可以省略的，但是在旧版本中，catch 参数是必须的。</p>
