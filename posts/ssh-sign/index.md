@@ -128,19 +128,19 @@ git config --global commit.gpgsign true
 
 ## 对标记签名
 
-1. 若要对标记进行签名，请将 `-s` 添加到 `git tag` 命令。
+若要对标记进行签名，请将 `-s` 添加到 `git tag` 命令。
 
-   ```bash
-   # Creates a signed tag
-   git tag -s MYTAG
-   ```
+```bash
+# Creates a signed tag
+git tag -s MYTAG
+```
 
-2. 通过运行 `git tag -v [tag-name]` 验证已签名的标记。
+通过运行 `git tag -v [tag-name]` 验证已签名的标记。
 
-   ```bash
-   # Verifies the signed tag
-   git tag -v MYTAG
-   ```
+```bash
+# Verifies the signed tag
+git tag -v MYTAG
+```
 
 或者，可以将 `gpgsign` 设置为 `true`，以便在创建标记时自动对其进行签名：
 
@@ -162,7 +162,7 @@ touch ~/.config/git/allowed_signers
 可信公钥列表文件内容格式如下，每个公钥占一行：
 
 ```plain
-公钥的标识符 公钥内容
+公钥的身份 公钥内容
 ```
 
 例如，可以将 `~/.ssh/id_ed25519.pub` 公钥复制然后粘贴：
@@ -173,7 +173,7 @@ open ~/.config/git/allowed_signers
 ```
 
 ```plain
-ssh-ed25519_local ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIE5bRSsXZ5HnUkMMEWS5/jxEQaqbLb+i6xjMyC6qiXsb xxx@xxx.com
+Cell ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIE5bRSsXZ5HnUkMMEWS5/jxEQaqbLb+i6xjMyC6qiXsb xxx@xxx.com
 ```
 
 将可信公钥列表文件路径添加到 Git 配置中：
