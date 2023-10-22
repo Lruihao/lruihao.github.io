@@ -150,6 +150,44 @@ git config tag.gpgsign true
 git config --global tag.gpgsign true
 ```
 
+## 其他
+
+创建可信公钥列表文件：
+
+```bash
+mkdir -p ~/.config/git
+touch ~/.config/git/allowed_signers
+```
+
+可信公钥列表文件内容格式如下，每个公钥占一行：
+
+```plain
+公钥的标识符 公钥内容
+```
+
+例如，可以将 `~/.ssh/id_ed25519.pub` 公钥复制然后粘贴：
+
+```bash
+pbcopy < ~/.ssh/id_ed25519.pub
+open ~/.config/git/allowed_signers
+```
+
+```plain
+ssh-ed25519_local ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIE5bRSsXZ5HnUkMMEWS5/jxEQaqbLb+i6xjMyC6qiXsb xxx@xxx.com
+```
+
+将可信公钥列表文件路径添加到 Git 配置中：
+
+```bash
+git config --global gpg.ssh.allowedSignersFile "~/.config/git/allowed_signers"
+```
+
+本地查看提交日志签名状况：
+
+```bash
+git log --show-signature
+```
+
 
 ---
 
