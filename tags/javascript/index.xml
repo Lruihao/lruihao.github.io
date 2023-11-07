@@ -1,5 +1,5 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>JavaScript - 标签 - 菠菜眾長</title><link>https://lruihao.cn/tags/javascript/</link><description>JavaScript - 标签 - 菠菜眾長</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><copyright>本站内容采用知识共享署名-非商业性使用 4.0（CC BY-NC 4.0）国际许可协议。</copyright><lastBuildDate>Thu, 12 Oct 2023 22:37:56 +0800</lastBuildDate><atom:link href="https://lruihao.cn/tags/javascript/" rel="self" type="application/rss+xml"/><item><title>如何给 npm 包打补丁？</title><link>https://lruihao.cn/posts/patch-package/</link><pubDate>Thu, 12 Oct 2023 22:37:56 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/patch-package/</guid><description><![CDATA[<div class="featured-image">
-        <img src="/images/featured-image.png" referrerpolicy="no-referrer">
+        <img src="images/featured-image.png" referrerpolicy="no-referrer">
       </div><h2 id="背景">背景</h2>
 <p>今天鬼事神差想起去年写的一段 dirty hack 代码，当时是在 <a href="https://github.com/Lruihao/vue-minder-editor-extended"target="_blank" rel="external nofollow noopener noreferrer">vue-minder-editor-extended<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 这个项目为了解决百度开源的 <a href="https://github.com/fex-team/kityminder-core"target="_blank" rel="external nofollow noopener noreferrer">@7polo/kityminder-core<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> npm 包的 bug，但是百度早在 17-18 年就停止更新了，我又不想自己 fork 一份源码然后重新发包，于是当时直接从 node_modules 里面复制出了打包后的源码进行修改，然后放到了项目中 <code>src/script/patch/kityminder.core.js</code>，并因修改了引入：</p>
 <div class="highlight" id="id-1"><div class="chroma">
@@ -855,12 +855,12 @@
 <p>因为 transform 既不会影响布局也不会影响绘制指令，它影响的只是渲染流程的最后一个「draw」阶段</p>
 <p>由于 draw 阶段在合成线程中，所以 transform 的变化几乎不会影响渲染主线程。反之，渲染主线程无论如何忙碌，也不会影响 transform 的变化。</p>
 ]]></description></item><item><title>浏览器原理 - 事件循环</title><link>https://lruihao.cn/posts/event-loop/</link><pubDate>Wed, 11 Jan 2023 11:16:02 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/event-loop/</guid><description><![CDATA[<div class="featured-image">
-        <img src="/images/202208092131410.png" referrerpolicy="no-referrer">
+        <img src="images/202208092131410.png" referrerpolicy="no-referrer">
       </div><p>最近在抖音上刷到很多次 <a href="http://yuanjin.tech/"target="_blank" rel="external nofollow noopener noreferrer">袁进老师<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 的前端视频，然后就听了一下他的前端大师课，感觉了解一些浏览器原理后，原来工作中的一些疑问也自然解开了。</p>
 <h2 id="浏览器的进程模型">浏览器的进程模型</h2>
 <h3 id="何为进程">何为进程？</h3>
 <p>程序运行需要有它自己专属的内存空间，可以把这块内存空间简单的理解为进程</p>
-<p><figure><a class="lightgallery" href="/posts/event-loop/images/202208092057573.png?size=large" data-thumbnail="/posts/event-loop/images/202208092057573.png?size=small" data-sub-html="<h2>进程</h2><p>进程可以简单理解为单独的内存空间</p>"></a><figcaption class="image-caption">进程</figcaption>
+<p><figure><a class="lightgallery" href="/posts/event-loop/images/202208092057573.png?size=large" data-thumbnail="/posts/event-loop/images/202208092057573.png?size=small" data-sub-html="<h2>进程</h2><p>进程可以简单理解为单独的内存空间</p>"><img loading="lazy" src="/posts/event-loop/images/202208092057573.png" srcset="/posts/event-loop/images/202208092057573.png?size=small, /posts/event-loop/images/202208092057573.png?size=medium 1.5x, /posts/event-loop/images/202208092057573.png?size=large 2x" sizes="auto" data-title="进程可以简单理解为单独的内存空间" data-alt="进程" style="--width: 1364px;--aspect-ratio: 1364 / 970;background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}"/></a><figcaption class="image-caption">进程</figcaption>
   </figure></p>
 <p>每个应用至少有一个进程，进程之间相互独立，即使要通信，也需要双方同意。</p>
 <h3 id="何为线程">何为线程？</h3>
@@ -868,12 +868,12 @@
 <p>运行代码的「人」称之为「线程」。</p>
 <p>一个进程至少有一个线程，所以在进程开启后会自动创建一个线程来运行代码，该线程称之为主线程。</p>
 <p>如果程序需要同时执行多块代码，主线程就会启动更多的线程来执行代码，所以一个进程中可以包含多个线程。</p>
-<p><figure><a class="lightgallery" href="/posts/event-loop/images/202208092108499.png?size=large" data-thumbnail="/posts/event-loop/images/202208092108499.png?size=small" data-sub-html="<h2>线程</h2><p>一个进程可以有 N 个线程</p>"></a><figcaption class="image-caption">线程</figcaption>
+<p><figure><a class="lightgallery" href="/posts/event-loop/images/202208092108499.png?size=large" data-thumbnail="/posts/event-loop/images/202208092108499.png?size=small" data-sub-html="<h2>线程</h2><p>一个进程可以有 N 个线程</p>"><img loading="lazy" src="/posts/event-loop/images/202208092108499.png" srcset="/posts/event-loop/images/202208092108499.png?size=small, /posts/event-loop/images/202208092108499.png?size=medium 1.5x, /posts/event-loop/images/202208092108499.png?size=large 2x" sizes="auto" data-title="一个进程可以有 N 个线程" data-alt="线程" style="--width: 1704px;--aspect-ratio: 1704 / 992;background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}"/></a><figcaption class="image-caption">线程</figcaption>
   </figure></p>
 <h3 id="浏览器有哪些进程和线程">浏览器有哪些进程和线程？</h3>
 <p><strong>浏览器是一个多进程多线程的应用程序</strong>，浏览器内部工作极其复杂。</p>
 <p>为了避免相互影响，为了减少连环崩溃的几率，当启动浏览器后，它会自动启动多个进程。</p>
-<p><figure><a class="lightgallery" href="/posts/event-loop/images/202208092131410.png?size=large" data-thumbnail="/posts/event-loop/images/202208092131410.png?size=small" data-sub-html="<h2>浏览器进程</h2><p>浏览器进程</p>"></a><figcaption class="image-caption">浏览器进程</figcaption>
+<p><figure><a class="lightgallery" href="/posts/event-loop/images/202208092131410.png?size=large" data-thumbnail="/posts/event-loop/images/202208092131410.png?size=small" data-sub-html="<h2>浏览器进程</h2><p>浏览器进程</p>"><img loading="lazy" src="/posts/event-loop/images/202208092131410.png" srcset="/posts/event-loop/images/202208092131410.png?size=small, /posts/event-loop/images/202208092131410.png?size=medium 1.5x, /posts/event-loop/images/202208092131410.png?size=large 2x" sizes="auto" data-title="浏览器进程" data-alt="浏览器进程" style="--width: 1518px;--aspect-ratio: 1518 / 1022;background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}"/></a><figcaption class="image-caption">浏览器进程</figcaption>
   </figure></p>
 <blockquote>
 <p>可以在浏览器的任务管理器中查看当前的所有进程</p>
@@ -923,7 +923,7 @@
 <li>&hellip;&hellip;</li>
 </ul>
 <p>渲染主线程想出了一个绝妙的主意来处理这个问题：排队</p>
-<p><figure><a class="lightgallery" href="/posts/event-loop/images/202208092230847.png?size=large" data-thumbnail="/posts/event-loop/images/202208092230847.png?size=small" data-sub-html="<h2>消息队列</h2><p>所有要执行的任务都要排队，FIFO</p>"></a><figcaption class="image-caption">消息队列</figcaption>
+<p><figure><a class="lightgallery" href="/posts/event-loop/images/202208092230847.png?size=large" data-thumbnail="/posts/event-loop/images/202208092230847.png?size=small" data-sub-html="<h2>消息队列</h2><p>所有要执行的任务都要排队，FIFO</p>"><img loading="lazy" src="/posts/event-loop/images/202208092230847.png" srcset="/posts/event-loop/images/202208092230847.png?size=small, /posts/event-loop/images/202208092230847.png?size=medium 1.5x, /posts/event-loop/images/202208092230847.png?size=large 2x" sizes="auto" data-title="所有要执行的任务都要排队，FIFO" data-alt="消息队列" style="--width: 1570px;--aspect-ratio: 1570 / 886;background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}"/></a><figcaption class="image-caption">消息队列</figcaption>
   </figure></p>
 <ol>
 <li>在最开始的时候，渲染主线程会进入一个无限循环</li>
@@ -940,11 +940,11 @@
 <li>用户操作后需要执行的任务 &ndash; <code>addEventListener</code></li>
 </ul>
 <p>如果让渲染主线程等待这些任务的时机达到，就会导致主线程长期处于「阻塞」的状态，从而导致浏览器「卡死」</p>
-<p><figure><a class="lightgallery" href="/posts/event-loop/images/202208101043348.png?size=large" data-thumbnail="/posts/event-loop/images/202208101043348.png?size=small" data-sub-html="<h2>同步策略</h2><p>同步策略会导致卡死</p>"></a><figcaption class="image-caption">同步策略</figcaption>
+<p><figure><a class="lightgallery" href="/posts/event-loop/images/202208101043348.png?size=large" data-thumbnail="/posts/event-loop/images/202208101043348.png?size=small" data-sub-html="<h2>同步策略</h2><p>同步策略会导致卡死</p>"><img loading="lazy" src="/posts/event-loop/images/202208101043348.png" srcset="/posts/event-loop/images/202208101043348.png?size=small, /posts/event-loop/images/202208101043348.png?size=medium 1.5x, /posts/event-loop/images/202208101043348.png?size=large 2x" sizes="auto" data-title="同步策略会导致卡死" data-alt="同步策略" style="--width: 1712px;--aspect-ratio: 1712 / 790;background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}"/></a><figcaption class="image-caption">同步策略</figcaption>
   </figure></p>
 <p><strong>渲染主线程承担着极其重要的工作，无论如何都不能阻塞！</strong></p>
 <p>因此，浏览器选择<strong>异步</strong>来解决这个问题</p>
-<p><figure><a class="lightgallery" href="/posts/event-loop/images/202208101048899.png?size=large" data-thumbnail="/posts/event-loop/images/202208101048899.png?size=small" data-sub-html="<h2>异步策略</h2><p>异步策略，渲染主线程永不阻塞</p>"></a><figcaption class="image-caption">异步策略</figcaption>
+<p><figure><a class="lightgallery" href="/posts/event-loop/images/202208101048899.png?size=large" data-thumbnail="/posts/event-loop/images/202208101048899.png?size=small" data-sub-html="<h2>异步策略</h2><p>异步策略，渲染主线程永不阻塞</p>"><img loading="lazy" src="/posts/event-loop/images/202208101048899.png" srcset="/posts/event-loop/images/202208101048899.png?size=small, /posts/event-loop/images/202208101048899.png?size=medium 1.5x, /posts/event-loop/images/202208101048899.png?size=large 2x" sizes="auto" data-title="异步策略，渲染主线程永不阻塞" data-alt="异步策略" style="--width: 1740px;--aspect-ratio: 1740 / 848;background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}"/></a><figcaption class="image-caption">异步策略</figcaption>
   </figure></p>
 <p>使用异步的方式，<strong>渲染主线程永不阻塞</strong></p>
 <div class="details admonition question">
@@ -1023,7 +1023,7 @@
 <li>延时队列：用于存放计时器到达后的回调任务，优先级「中」</li>
 <li>交互队列：用于存放用户操作后产生的事件处理任务，优先级「高」</li>
 </ul>
-<p><figure><a class="lightgallery" href="/posts/event-loop/images/multiple-queues.png?size=large" data-thumbnail="/posts/event-loop/images/multiple-queues.png?size=small" data-sub-html="<h2>多队列演示图</h2><p>微队列、延时队列、交互队列</p>"></a><figcaption class="image-caption">多队列演示图</figcaption>
+<p><figure><a class="lightgallery" href="/posts/event-loop/images/multiple-queues.png?size=large" data-thumbnail="/posts/event-loop/images/multiple-queues.png?size=small" data-sub-html="<h2>多队列演示图</h2><p>微队列、延时队列、交互队列</p>"><img loading="lazy" src="/posts/event-loop/images/multiple-queues.png" srcset="/posts/event-loop/images/multiple-queues.png?size=small, /posts/event-loop/images/multiple-queues.png?size=medium 1.5x, /posts/event-loop/images/multiple-queues.png?size=large 2x" sizes="auto" data-title="微队列、延时队列、交互队列" data-alt="多队列演示图" style="--width: 1232px;--aspect-ratio: 1232 / 676;background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}"/></a><figcaption class="image-caption">多队列演示图</figcaption>
   </figure></p>
 <p>添加任务到微队列的主要方式主要是使用 Promise、MutationObserver，例如：</p>
 <div class="highlight" id="id-2"><div class="chroma">
@@ -1064,7 +1064,9 @@
 </ol>
 </div>
     </div>
-  </div>]]></description></item><item><title>前端页面内容加密总结</title><link>https://lruihao.cn/posts/encryption-fe/</link><pubDate>Mon, 08 Aug 2022 13:49:22 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/encryption-fe/</guid><description><![CDATA[<p>记录一下前端实现页面加密的思路。</p>
+  </div>]]></description></item><item><title>前端页面内容加密总结</title><link>https://lruihao.cn/posts/encryption-fe/</link><pubDate>Mon, 08 Aug 2022 13:49:22 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/encryption-fe/</guid><description><![CDATA[<div class="featured-image">
+        <img src="https://lruihao.cn/posts/encryption-fe/images/featured-image.png" referrerpolicy="no-referrer">
+      </div><p>记录一下前端实现页面加密的思路。</p>
 <h2 id="加密基础知识">加密基础知识</h2>
 <h3 id="双向加密">双向加密</h3>
 <p>可还原的加密算法，可以逆向解密。</p>
@@ -1084,7 +1086,7 @@
 <h3 id="单向加密">单向加密</h3>
 <p>不可还原的加密算法（暴力撞库除外），常见的算法有：MD5、SHA1、SHA256、SHA512。</p>
 <h2 id="页面内容加密">页面内容加密</h2>
-<p><figure><a class="lightgallery" href="/posts/encryption-fe/images/algorithm.jpg?size=large" data-thumbnail="/posts/encryption-fe/images/algorithm.jpg?size=small" data-sub-html="<h2>内容加密算法</h2><p>内容加密算法</p>"></a><figcaption class="image-caption">内容加密算法</figcaption>
+<p><figure><a class="lightgallery" href="/posts/encryption-fe/images/algorithm.jpg?size=large" data-thumbnail="/posts/encryption-fe/images/algorithm.jpg?size=small" data-sub-html="<h2>内容加密算法</h2><p>内容加密算法</p>"><img loading="lazy" src="/posts/encryption-fe/images/algorithm.jpg" srcset="/posts/encryption-fe/images/algorithm.jpg?size=small, /posts/encryption-fe/images/algorithm.jpg?size=medium 1.5x, /posts/encryption-fe/images/algorithm.jpg?size=large 2x" sizes="auto" data-title="内容加密算法" data-alt="内容加密算法" style="--width: 1024px;--aspect-ratio: 1024 / 768;background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}"/></a><figcaption class="image-caption">内容加密算法</figcaption>
   </figure></p>
 <ol>
 <li>通过比对密码和输入的 md5 值来判断密码是否输入正确</li>
@@ -2335,7 +2337,7 @@ jQuery lightbox script for displaying images, videos and more. Touch enabled, re
 <p>作為一個程序猿，怎麼能接受這麼麻煩的記賬方式呢，拿起筆就開始畫，於是有了下面這張圖的公式。簡單說明一下就是：<br>
 設前面說的四種組合為：<code>X1, X2, X3, X4</code>，個人實際付款總額為：<code>Y1, Y2, Y3</code>，那麼帶入未知數，我們就可以算出每個人最後結算時的錢：<code>S1, S2, S3</code>，<br>
 綜上所述，很好理解，當 <code>S &gt;= 0</code> 時，收紅包，當 <code>S &lt; 0</code> 時，發紅包。</p>
-<p><a class="lightgallery" href="/projects/bill-note/images/gs.jpg?size=large" data-thumbnail="/projects/bill-note/images/gs.jpg?size=small" data-sub-html="<h2>计算公式</h2>"></a></p>
+<p><a class="lightgallery" href="/projects/bill-note/images/gs.jpg?size=large" data-thumbnail="/projects/bill-note/images/gs.jpg?size=small" data-sub-html="<h2>计算公式</h2>"><img loading="lazy" src="/projects/bill-note/images/gs.jpg" srcset="/projects/bill-note/images/gs.jpg?size=small, /projects/bill-note/images/gs.jpg?size=medium 1.5x, /projects/bill-note/images/gs.jpg?size=large 2x" sizes="auto" data-title="计算公式" data-alt="计算公式" style="--width: 4000px;--aspect-ratio: 4000 / 3000;background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}"/></a></p>
 <p>OK，一個簡單的初中方程式已經到位了，下一步，思考一下，用什麼來運作這個這個方程。來，先跑個題，春節期間，不是每天都要在騰訊文檔上填表記錄活動軌跡嗎？ 再回來，那不如就用 excel 實現吧，三個人都可以在手機上編輯。好的，說做就做。</p>
 <p>一頓操作，10 minutes later&hellip;<br>
 只新建了一個 excel 文件，O.o! 不會 excel，果斷放棄，另尋他路。</p>
@@ -2591,7 +2593,7 @@ valine 可以實現無後端，那我是不是也可以，leancloud 文檔走一
 <p>簡單總結一下，登录功能不做，安不安全自己说了算。删除修改功能也不做，直接上 leancloud 操作，css 美化的样式也不写，干净又卫生！<br>
 然后衍生一下，什么过年斗地主，天炸，麻将，字牌记账系统那不也是同理可得嘛！</p>
 <p>over!</p>
-<p><figure><a class="lightgallery" href="/projects/bill-note/images/demo.jpg?size=large" data-thumbnail="/projects/bill-note/images/demo.jpg?size=small" data-sub-html="<h2>效果</h2><p>Demo</p>"></a><figcaption class="image-caption">效果</figcaption>
+<p><figure><a class="lightgallery" href="/projects/bill-note/images/demo.jpg?size=large" data-thumbnail="/projects/bill-note/images/demo.jpg?size=small" data-sub-html="<h2>效果</h2><p>Demo</p>"><img loading="lazy" src="/projects/bill-note/images/demo.jpg" srcset="/projects/bill-note/images/demo.jpg?size=small, /projects/bill-note/images/demo.jpg?size=medium 1.5x, /projects/bill-note/images/demo.jpg?size=large 2x" sizes="auto" data-title="Demo" data-alt="效果" style="--width: 1080px;--aspect-ratio: 1080 / 6005;background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}"/></a><figcaption class="image-caption">效果</figcaption>
   </figure></p>]]></description></item><item><title>利用腾讯云为静态页面添加“动态”相册</title><link>https://lruihao.cn/projects/cos-album/</link><pubDate>Sun, 24 Nov 2019 10:52:34 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/projects/cos-album/</guid><description><![CDATA[<div class="featured-image">
         <img src="/projects/cos-album/images/view.png" referrerpolicy="no-referrer">
       </div><!-- markdownlint-disable MD033 -->
@@ -2768,8 +2770,8 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 </span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p><a href="https://img.lruihao.cn" target="_blank" class="LinkCard">cos-album demo</a></p>
-<p><a class="lightgallery" href="/projects/cos-album/images/view.png?size=large" data-thumbnail="/projects/cos-album/images/view.png?size=small" data-sub-html="<h2>大屏显示</h2>"></a>
-<div id="id-4"><a class="lightgallery" href="/projects/cos-album/images/mobile.png?size=large" data-thumbnail="/projects/cos-album/images/mobile.png?size=small" data-sub-html="<h2>手机显示</h2>"></a></div></p>
+<p><a class="lightgallery" href="/projects/cos-album/images/view.png?size=large" data-thumbnail="/projects/cos-album/images/view.png?size=small" data-sub-html="<h2>大屏显示</h2>"><img loading="lazy" src="/projects/cos-album/images/view.png" srcset="/projects/cos-album/images/view.png?size=small, /projects/cos-album/images/view.png?size=medium 1.5x, /projects/cos-album/images/view.png?size=large 2x" sizes="auto" data-title="大屏显示" data-alt="大屏显示" style="--width: 1898px;--aspect-ratio: 1898 / 900;background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}"/></a>
+<div id="id-4"><a class="lightgallery" href="/projects/cos-album/images/mobile.png?size=large" data-thumbnail="/projects/cos-album/images/mobile.png?size=small" data-sub-html="<h2>手机显示</h2>"><img loading="lazy" src="/projects/cos-album/images/mobile.png" srcset="/projects/cos-album/images/mobile.png?size=small, /projects/cos-album/images/mobile.png?size=medium 1.5x, /projects/cos-album/images/mobile.png?size=large 2x" sizes="auto" data-title="手机显示" data-alt="手机显示" style="--width: 438px;--aspect-ratio: 438 / 776;background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}"/></a></div></p>
 <h2 id="changelog">changelog</h2>
 <ul>
 <li>2020-9-28 22:46
@@ -3492,8 +3494,8 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 <blockquote>
 <p>这个博客后来是转到了腾讯云的 cos 桶存储。当时在桶内静态网站设置的时候，设置强制 https 发现会出错。而且还接入了 CDN，所以今天在 CDN 设置那里也看到了 https 的设置，打开强制 https 就 OK 了。这天在三丰云撸了一个免费的主机，搭了一个 WordPress（想试试 wp 的感觉），然后 vps 的 SSL 问题现在也很简单了，第一步，到腾讯云申请免费证书；第二步，配置 CDN，按步骤来，其中接入方式选择自有源站；第三步，强制 https（可选）。</p>
 </blockquote>
-<p><a class="lightgallery" href="/posts/http2https/images/1.png?size=large" data-thumbnail="/posts/http2https/images/1.png?size=small" data-sub-html="<h2>Cellvps&amp;ndash;WordPress</h2>"></a></p>
-<p><a class="lightgallery" href="/posts/http2https/images/2.png?size=large" data-thumbnail="/posts/http2https/images/2.png?size=small" data-sub-html="<h2>CDN 域名管理</h2>"></a></p>]]></description></item><item><title>web 汇总</title><link>https://lruihao.cn/posts/webbiji/</link><pubDate>Mon, 18 Mar 2019 20:40:55 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/webbiji/</guid><description><![CDATA[<blockquote>
+<p><a class="lightgallery" href="/posts/http2https/images/1.png?size=large" data-thumbnail="/posts/http2https/images/1.png?size=small" data-sub-html="<h2>Cellvps&amp;ndash;WordPress</h2>"><img loading="lazy" src="/posts/http2https/images/1.png" srcset="/posts/http2https/images/1.png?size=small, /posts/http2https/images/1.png?size=medium 1.5x, /posts/http2https/images/1.png?size=large 2x" sizes="auto" data-title="Cellvps&amp;ndash;WordPress" data-alt="Cellvps&amp;ndash;WordPress" style="--width: 1899px;--aspect-ratio: 1899 / 904;background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}"/></a></p>
+<p><a class="lightgallery" href="/posts/http2https/images/2.png?size=large" data-thumbnail="/posts/http2https/images/2.png?size=small" data-sub-html="<h2>CDN 域名管理</h2>"><img loading="lazy" src="/posts/http2https/images/2.png" srcset="/posts/http2https/images/2.png?size=small, /posts/http2https/images/2.png?size=medium 1.5x, /posts/http2https/images/2.png?size=large 2x" sizes="auto" data-title="CDN 域名管理" data-alt="CDN 域名管理" style="--width: 1644px;--aspect-ratio: 1644 / 487;background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}"/></a></p>]]></description></item><item><title>web 汇总</title><link>https://lruihao.cn/posts/webbiji/</link><pubDate>Mon, 18 Mar 2019 20:40:55 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/webbiji/</guid><description><![CDATA[<blockquote>
 <p>下面一些 web 开发的一些总结，还有一些常用到的代码，脚本等！</p>
 </blockquote>
 <h2 id="front-end">front-end</h2>
@@ -3521,7 +3523,7 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 </span></span><span class="line"><span class="cl">&lt;a href=&#34;#&#34; title=&#34;第一排&amp;#13; 第二排&amp;#13; 第三排&#34;&gt;使用`&amp;#13;`&lt;/a&gt;</span></span></code></pre></td></tr></table>
 </div>
 </div><h4 id="图片类型选择">图片类型选择</h4>
-<p><figure><a class="lightgallery" href="/posts/webbiji/images/imgType.jpg?size=large" data-thumbnail="/posts/webbiji/images/imgType.jpg?size=small" data-sub-html="<h2>图片类型选择</h2><p>图片类型选择</p>"></a><figcaption class="image-caption">图片类型选择</figcaption>
+<p><figure><a class="lightgallery" href="/posts/webbiji/images/imgType.jpg?size=large" data-thumbnail="/posts/webbiji/images/imgType.jpg?size=small" data-sub-html="<h2>图片类型选择</h2><p>图片类型选择</p>"><img loading="lazy" src="/posts/webbiji/images/imgType.jpg" srcset="/posts/webbiji/images/imgType.jpg?size=small, /posts/webbiji/images/imgType.jpg?size=medium 1.5x, /posts/webbiji/images/imgType.jpg?size=large 2x" sizes="auto" data-title="图片类型选择" data-alt="图片类型选择" style="--width: 800px;--aspect-ratio: 800 / 525;background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}"/></a><figcaption class="image-caption">图片类型选择</figcaption>
   </figure></p>
 <h3 id="css">css</h3>
 <h4 id="flexbox">flexbox</h4>
@@ -3709,7 +3711,7 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">&lt;a target=&#34;_blank&#34; href=&#34;https://wpa.qq.com/msgrd?v=3&amp;uin=1074627678&amp;site=qq&amp;menu=yes&#34;&gt;&lt;img border=&#34;0&#34; src=&#34;http://wpa.qq.com/pa?p=2:1074627678:51&#34; alt=&#34;点击这里给我发消息&#34; title=&#34;点击这里给我发消息&#34;/&gt;&lt;/a&gt;</span></span></code></pre></td></tr></table>
 </div>
-</div><p><a target="_blank" href="https://wpa.qq.com/msgrd?v=3&uin=1074627678&site=qq&menu=yes"></a></p>
+</div><p><a target="_blank" href="https://wpa.qq.com/msgrd?v=3&uin=1074627678&site=qq&menu=yes"><img border="0" src="https://wpa.qq.com/pa?p=2:1074627678:51" alt="点击这里给我发消息" title="点击这里给我发消息"/></a></p>
 <h3 id="google-fonts">Google fonts</h3>
 <div class="highlight" id="id-11"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -3984,9 +3986,9 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="demo">demo</h2>
-<p><figure><a class="lightgallery" href="/posts/qqxml/images/1.png?size=large" data-thumbnail="/posts/qqxml/images/1.png?size=small" data-sub-html="<h2>线上 demo 仅做参考请自行下载</h2><p>线上 demo 仅做参考请自行下载</p>"></a><figcaption class="image-caption">线上 demo 仅做参考请自行下载</figcaption>
+<p><figure><a class="lightgallery" href="/posts/qqxml/images/1.png?size=large" data-thumbnail="/posts/qqxml/images/1.png?size=small" data-sub-html="<h2>线上 demo 仅做参考请自行下载</h2><p>线上 demo 仅做参考请自行下载</p>"><img loading="lazy" src="/posts/qqxml/images/1.png" srcset="/posts/qqxml/images/1.png?size=small, /posts/qqxml/images/1.png?size=medium 1.5x, /posts/qqxml/images/1.png?size=large 2x" sizes="auto" data-title="线上 demo 仅做参考请自行下载" data-alt="线上 demo 仅做参考请自行下载" style="--width: 1319px;--aspect-ratio: 1319 / 584;background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}"/></a><figcaption class="image-caption">线上 demo 仅做参考请自行下载</figcaption>
   </figure><br>
-<figure><a class="lightgallery" href="/posts/qqxml/images/2.png?size=large" data-thumbnail="/posts/qqxml/images/2.png?size=small" data-sub-html="<h2>效果</h2><p>效果</p>"></a><figcaption class="image-caption">效果</figcaption>
+<figure><a class="lightgallery" href="/posts/qqxml/images/2.png?size=large" data-thumbnail="/posts/qqxml/images/2.png?size=small" data-sub-html="<h2>效果</h2><p>效果</p>"><img loading="lazy" src="/posts/qqxml/images/2.png" srcset="/posts/qqxml/images/2.png?size=small, /posts/qqxml/images/2.png?size=medium 1.5x, /posts/qqxml/images/2.png?size=large 2x" sizes="auto" data-title="效果" data-alt="效果" style="--width: 306px;--aspect-ratio: 306 / 412;background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}"/></a><figcaption class="image-caption">效果</figcaption>
   </figure></p>]]></description></item><item><title>JS 验证码</title><link>https://lruihao.cn/posts/js-vcode/</link><pubDate>Mon, 04 Mar 2019 20:53:09 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/js-vcode/</guid><description><![CDATA[<!-- markdownlint-disable MD033 -->
 <style type="text/css">
 
