@@ -45,7 +45,7 @@ const site = new Blog('菠菜眾長', 'Lruihao', 'https://lruihao.cn');
 
 - [RSS](http://lruihao.cn/index.xml)
 - [GitHub](https://github.com/Lruihao/hugo-blog)
-- [云+社区](https://cloud.tencent.com/developer/column/94521)
+- [云 + 社区](https://cloud.tencent.com/developer/column/94521)
 
 ## 致謝
 
