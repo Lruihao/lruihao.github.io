@@ -14,7 +14,7 @@
 
 ## 设置伪静态
 
-如果您宝塔面板安装的 Apache 则不需要再设置伪静态，直接跳过这个步骤，如果使用的 Nginx 环境，请继续往下看。
+如果你宝塔面板安装的 Apache 则不需要再设置伪静态，直接跳过这个步骤，如果使用的 Nginx 环境，请继续往下看。
 
 找到对应的站点 - 点击后面设置按钮 - 伪静态 - 添加下面的伪静态规则
 
@@ -34,13 +34,13 @@ location ~* ^/(temp|upload|imgs|data|application|static|system)/.*.(php|php5)$ {
 
 ## 安装 fileinfo & imagemagick
 
-在宝塔后台 - 软件管理 - 找到您站点对应的 PHP 版本 - 设置 PHP - 安装扩展 - 勾选`fileinfo`和`imagemagick`，如下截图。
+在宝塔后台 - 软件管理 - 找到你站点对应的 PHP 版本 - 设置 PHP - 安装扩展 - 勾选`fileinfo`和`imagemagick`，如下截图。
 
 ![](images/3.png)
 
 ## 安装 ImgURL 2.x
 
-其它所需扩展宝塔默认已经支持，重点是安装`fileinfo`和`imagemagick`，扩展安装完毕后就可以访问您自己的域名安装 ImgURL 了，如果正常会看到 ImgURL 安装界面。
+其它所需扩展宝塔默认已经支持，重点是安装`fileinfo`和`imagemagick`，扩展安装完毕后就可以访问你自己的域名安装 ImgURL 了，如果正常会看到 ImgURL 安装界面。
 
 ![](images/4.png)  
 ![](images/5.png)

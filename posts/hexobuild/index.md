@@ -6,14 +6,14 @@
 ## 首先
 
 [官方文档](https://hexo.io/zh-cn/docs/index.html) 是我们的第一手资料，也是最好的。
-安装 Hexo 相当简单。然而在安装前，您必须检查电脑中是否已安装下列应用程序：
+安装 Hexo 相当简单。然而在安装前，你必须检查电脑中是否已安装下列应用程序：
 
 - [Node.js](https://nodejs.org/en/)
 - [Git](https://git-scm.com/)
 
 ## hexo 安装
 
-如果您的电脑中已经安装上述必备程序，那么恭喜您！接下来只需要使用 npm 即可完成 Hexo 的安装。
+如果你的电脑中已经安装上述必备程序，那么恭喜你！接下来只需要使用 npm 即可完成 Hexo 的安装。
 
 ```bash
 npm install -g hexo-cli

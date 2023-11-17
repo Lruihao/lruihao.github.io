@@ -504,7 +504,7 @@ note:
 ## [Font Awesome 图标](https://www.runoob.com/font-awesome/fontawesome-tutorial.html)
 
 > Font Awesome 是一套绝佳的图标字体库和 CSS 框架。
-> Font Awesome 字体为您提供可缩放矢量图标，它可以被定制大小、颜色、阴影以及任何可以用 CSS 的样式。
+> Font Awesome 字体为你提供可缩放矢量图标，它可以被定制大小、颜色、阴影以及任何可以用 CSS 的样式。
 > 要使用 Font Awesome 图标，请在 HTML 页面的 部分中添加以下行：
 
 ### 1、国内推荐 CDN

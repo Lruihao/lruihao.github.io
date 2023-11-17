@@ -161,7 +161,7 @@ if (a                   // +1 for `if`
 
 ### 高于方法级别的有价值的指标
 
-此外，由于认知复杂度不会针对方法结构增加增量，聚合的数值变得有用起来。现在，通过比较它们的度量值，您可以轻松区分一个包含大量简单的 `getter` 和 `setter` 的领域类和一个包含复杂控制流的类。因此，认知复杂度成为衡量类和应用程序相对可理解性的工具。
+此外，由于认知复杂度不会针对方法结构增加增量，聚合的数值变得有用起来。现在，通过比较它们的度量值，你可以轻松区分一个包含大量简单的 `getter` 和 `setter` 的领域类和一个包含复杂控制流的类。因此，认知复杂度成为衡量类和应用程序相对可理解性的工具。
 
 ## 结论
 
@@ -173,7 +173,7 @@ if (a                   // +1 for `if`
 
 ## 参考文献
 
-本文翻译自 G. Ann Campbell 的文章 “{Cognitive Complexity} a new way of measuring understandability”[^2]，原文发表于 2023 年 8 月 29 日，版本号为 1.7。
+本文翻译自 G. Ann Campbell 的文章“{Cognitive Complexity} a new way of measuring understandability”[^2]，原文发表于 2023 年 8 月 29 日，版本号为 1.7。
 
 [^1]: Thomas J. McCabe, "A Complexity Measure", IEEE Transactions on Software Engineering, Vol. SE-2, No. 4, December 1976
 [^2]: G. Ann Campbell, "[Cognitive Complexity - a new way of measuring understandability](https://www.sonarsource.com/docs/CognitiveComplexity.pdf)", [Sonar](https://www.sonarsource.com/), 29 August 2023, Version 1.7
