@@ -3,7 +3,7 @@
 
 > 以下内容截取自 [针对 MDN 文档的本地化指南](https://github.com/mdn/translated-content/blob/main/docs/zh-cn/translation-guide.md) 的中文翻译的常见问题小节。
 >
-> 其中翻译的规范也是中文写作的规范，更多详见之前写的 [中文技术文档的写作规范]({{< relref path="/posts/document-style-guide" >}})。
+> 其中翻译的规范也是中文写作的规范，更多详见之前写的 [中文技术文档的写作规范](/posts/document-style-guide/)。
 
 为保证简体中文文档格式的一致性，翻译指南列出了部分规范。
 

@@ -1873,6 +1873,80 @@
 8 位二进制，除去符号位还有 7 位，7 个 1 为最大数，相当于 8 个 1 减 1，也就是 2^7-1, 所以范围就算出来了。</p>
 <h3 id="浮点数运算">浮点数运算</h3>
 <p><strong>对阶（小阶对大阶）+ 尾数计算（科学计数法）+ 结果规格化（科学技术法）</strong></p>
+]]></description></item><item><title>linux/centos 下的安装 git</title><link>https://lruihao.cn/posts/linux-git/</link><pubDate>Sat, 22 Sep 2018 22:28:45 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/linux-git/</guid><description><![CDATA[<h3 id="下载-git">下载 git</h3>
+<div class="highlight" id="id-1"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">wget https://github.com/git/git/archive/v2.14.1.zip</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="安装依赖">安装依赖</h3>
+<div class="highlight" id="id-2"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">sudo yum -y install zlib-devel openssl-devel cpio expat-devel gettext-devel curl-devel perl-ExtUtils-CBuilder perl-ExtUtils-MakeMaker</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="解压-git">解压 git</h3>
+<div class="highlight" id="id-3"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">unzip v2.14.1.zip</span></span></code></pre></td></tr></table>
+</div>
+</div><p>注：
+unzip 命令用不了，具体步骤如下：</p>
+<div class="highlight" id="id-4"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">#yum list | grep zip/unzip 
+</span></span><span class="line"><span class="cl">#yum install zip
+</span></span><span class="line"><span class="cl">#yum install unzip</span></span></code></pre></td></tr></table>
+</div>
+</div><p>基本完成，如果在编译的时候出现错误：<code>gcc : error trying to exec 'cc1plus': execvp : No sunch file or directory</code><br>
+可以用<code>gcc -v/g++ -v</code> 来查看 gcc 版本，会发现没有安装。安装如下：</p>
+<div class="highlight" id="id-5"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">#yum list | grep gcc
+</span></span><span class="line"><span class="cl">#yum install gcc-c++
+</span></span><span class="line"><span class="cl">#yum install unzip</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="将-git-安装到usrlocal-上">将 git 安装到/usr/local 上</h3>
+<p>先进入 git 文件夹<br>
+编译<br>
+安装</p>
+<div class="highlight" id="id-6"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">cd git-2.14.1
+</span></span><span class="line"><span class="cl">make prefix=/usr/local all
+</span></span><span class="line"><span class="cl">make prefix=/usr/local install</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="验证是否安装完成">验证是否安装完成</h3>
+<div class="highlight" id="id-7"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">git --version</span></span></code></pre></td></tr></table>
+</div>
+</div><p>&hellip;</p>
 ]]></description></item><item><title>在线离线算法</title><link>https://lruihao.cn/posts/%E5%9C%A8%E7%BA%BF%E7%A6%BB%E7%BA%BF%E7%AE%97%E6%B3%95/</link><pubDate>Thu, 26 Jul 2018 09:57:32 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/%E5%9C%A8%E7%BA%BF%E7%A6%BB%E7%BA%BF%E7%AE%97%E6%B3%95/</guid><description><![CDATA[<h2 id="在线算法httpsbaikebaiducomiteme59ca8e7babfe7ae97e6b3954449947"><a href="https://baike.baidu.com/item/%E5%9C%A8%E7%BA%BF%E7%AE%97%E6%B3%95/4449947"target="_blank" rel="external nofollow noopener noreferrer">在线算法<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></h2>
 <p>在线算法是指它可以以序列化的方式一个个的处理输入，也就是说在开始时并不需要已经知道所有的输入。</p>
 <p>在计算机科学中，一个在线算法是指它可以以序列化的方式一个个的处理输入，也就是说在开始时并不需要已经知道所有的输入。相对的，对于一个离线算法，在开始时就需要知道问题的所有输入数据，而且在解决一个问题后就要立即输出结果。例如，选择排序在排序前就需要知道所有待排序元素，然而插入排序就不必。<br>

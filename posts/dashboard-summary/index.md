@@ -59,9 +59,9 @@
 
 一步步完善每个小功能的过程中，也写下了几篇前驱文章：
 
-- [CSS 实现网格背景效果]({{< relref path="/posts/grid-bg-image" >}})
-- [在 Vue 项目中更优雅地使用 icon]({{< relref path="/posts/vue-svg-icon" >}})
-- [封装 Vue FullScreenToggler 组件]({{< relref path="/posts/vue-fullscreen-toggler" >}})
+- [CSS 实现网格背景效果](/posts/grid-bg-image/)
+- [在 Vue 项目中更优雅地使用 icon](/posts/vue-svg-icon/)
+- [封装 Vue FullScreenToggler 组件](/posts/vue-fullscreen-toggler/)
 
 另外，我还收集了一些拖拽式相关的库：
 
