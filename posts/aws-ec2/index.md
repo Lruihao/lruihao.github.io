@@ -100,7 +100,7 @@ passwd
 service sshd restart
 ```
 
-重启后在电脑命令行就可以通过 ssh 协议加上用户名称+密码连接远程服务器了。
+重启后在电脑命令行就可以通过 ssh 协议加上用户名称 + 密码连接远程服务器了。
 
 ```bash
 ssh root@3.85.xxx.xxx
