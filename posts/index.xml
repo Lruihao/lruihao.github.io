@@ -1,4 +1,207 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>所有文章 - 菠菜眾長</title><link>https://lruihao.cn/posts/</link><description>所有文章 | 菠菜眾長</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><copyright>本站内容采用 CC BY-NC-SA 4.0 国际许可协议。</copyright><atom:link href="https://lruihao.cn/posts/" rel="self" type="application/rss+xml"/><item><title>中文翻译的常见问题</title><link>https://lruihao.cn/posts/translation-guide/</link><pubDate>Fri, 15 Sep 2023 11:07:56 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/translation-guide/</guid><description><![CDATA[<blockquote>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>所有文章 - 菠菜眾長</title><link>https://lruihao.cn/posts/</link><description>所有文章 | 菠菜眾長</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><copyright>本站内容采用 CC BY-NC-SA 4.0 国际许可协议。</copyright><atom:link href="https://lruihao.cn/posts/" rel="self" type="application/rss+xml"/><item><title>将 Hugo 博客部署到亚马逊云服务器</title><link>https://lruihao.cn/posts/aws-ec2/</link><pubDate>Sat, 26 Aug 2023 17:22:57 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/aws-ec2/</guid><description><![CDATA[<div class="featured-image"><img loading="eager" src="https://lruihao.cn/posts/aws-ec2/images/featured-image.png" title="将 Hugo 博客部署到亚马逊云服务器" alt="将 Hugo 博客部署到亚马逊云服务器" referrerpolicy="no-referrer"/></div><p>本文将介绍如何将 Hugo 博客打包并部署到亚马逊云服务器上，并附上亚马逊云服务器的配置过程。</p>
+<h2 id="前言">前言</h2>
+<p>最近很长一段时间都是使用 Hugo 在写博客，也花了很多精力在 <a href="https://github.com/hugo-fixit/FixIt"target="_blank" rel="external nofollow noopener noreferrer">hugo-fixit<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 这个主题的开发上。也听到很多使用 Hugo 写博客的网友们问我，如何部署博客？部署到哪里？</p>
+<p>今天就介绍一种方式：<strong>把博客部署到云服务器上</strong>。</p>
+<p>但是国内的云服务器太贵了，而且还要备案，所以就想到了海外的云服务器，比如亚马逊云服务器，以下便是注册到部署的全过程。</p>
+<h2 id="注册亚马逊云账户">注册亚马逊云账户</h2>
+<p>打开 <a href="https://aws.amazon.com/cn/free/?sc_channel=seo&amp;sc_campaign=blog0805"target="_blank" rel="external nofollow noopener noreferrer">亚马逊账号注册地址<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>，点击右上角创建 AWS 账户。</p>
+<p><a class="lightgallery" href="/posts/aws-ec2/images/23_1693042834.png?size=large" data-thumbnail="/posts/aws-ec2/images/23_1693042834.png?size=small" data-sub-html="<h2>创建 AWS 账户</h2>"><img loading="lazy" src="/posts/aws-ec2/images/23_1693042834.png" srcset="/posts/aws-ec2/images/23_1693042834.png?size=small, /posts/aws-ec2/images/23_1693042834.png?size=medium 1.5x, /posts/aws-ec2/images/23_1693042834.png?size=large 2x" sizes="auto" data-title="创建 AWS 账户" data-alt="创建 AWS 账户" style="--width: 1100px;--aspect-ratio: 1100 / 190;background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}"/></a></p>
+<ol>
+<li>填写邮件地址和账号名称（支持使用国内的邮箱）
+<a class="lightgallery" href="/posts/aws-ec2/images/23_1693043425.png?size=large" data-thumbnail="/posts/aws-ec2/images/23_1693043425.png?size=small" data-sub-html="<h2>login</h2>"><img loading="lazy" src="/posts/aws-ec2/images/23_1693043425.png" srcset="/posts/aws-ec2/images/23_1693043425.png?size=small, /posts/aws-ec2/images/23_1693043425.png?size=medium 1.5x, /posts/aws-ec2/images/23_1693043425.png?size=large 2x" sizes="auto" data-title="login" data-alt="login" style="--width: 1754px;--aspect-ratio: 1754 / 1058;background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}"/></a></li>
+<li>验证邮件
+<a class="lightgallery" href="/posts/aws-ec2/images/23_1693043626.png?size=large" data-thumbnail="/posts/aws-ec2/images/23_1693043626.png?size=small" data-sub-html="<h2>valid</h2>"><img loading="lazy" src="/posts/aws-ec2/images/23_1693043626.png" srcset="/posts/aws-ec2/images/23_1693043626.png?size=small, /posts/aws-ec2/images/23_1693043626.png?size=medium 1.5x, /posts/aws-ec2/images/23_1693043626.png?size=large 2x" sizes="auto" data-title="valid" data-alt="valid" style="--width: 1603px;--aspect-ratio: 1603 / 841;background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}"/></a></li>
+<li>输入密码
+<a class="lightgallery" href="/posts/aws-ec2/images/23_1693043910.png?size=large" data-thumbnail="/posts/aws-ec2/images/23_1693043910.png?size=small" data-sub-html="<h2>password</h2>"><img loading="lazy" src="/posts/aws-ec2/images/23_1693043910.png" srcset="/posts/aws-ec2/images/23_1693043910.png?size=small, /posts/aws-ec2/images/23_1693043910.png?size=medium 1.5x, /posts/aws-ec2/images/23_1693043910.png?size=large 2x" sizes="auto" data-title="password" data-alt="password" style="--width: 1490px;--aspect-ratio: 1490 / 1002;background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}"/></a></li>
+<li>联系人信息
+<a class="lightgallery" href="/posts/aws-ec2/images/23_1693044220.png?size=large" data-thumbnail="/posts/aws-ec2/images/23_1693044220.png?size=small" data-sub-html="<h2>contact</h2>"><img loading="lazy" src="/posts/aws-ec2/images/23_1693044220.png" srcset="/posts/aws-ec2/images/23_1693044220.png?size=small, /posts/aws-ec2/images/23_1693044220.png?size=medium 1.5x, /posts/aws-ec2/images/23_1693044220.png?size=large 2x" sizes="auto" data-title="contact" data-alt="contact" style="--width: 938px;--aspect-ratio: 938 / 1204;background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}"/></a></li>
+<li>付款信息（Visa）
+<a class="lightgallery" href="/posts/aws-ec2/images/23_1693044537.png?size=large" data-thumbnail="/posts/aws-ec2/images/23_1693044537.png?size=small" data-sub-html="<h2>payment</h2>"><img loading="lazy" src="/posts/aws-ec2/images/23_1693044537.png" srcset="/posts/aws-ec2/images/23_1693044537.png?size=small, /posts/aws-ec2/images/23_1693044537.png?size=medium 1.5x, /posts/aws-ec2/images/23_1693044537.png?size=large 2x" sizes="auto" data-title="payment" data-alt="payment" style="--width: 1454px;--aspect-ratio: 1454 / 1180;background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}"/></a></li>
+<li>验证手机号（支持中国地区国内手机号）
+<a class="lightgallery" href="/posts/aws-ec2/images/23_1693044806.png?size=large" data-thumbnail="/posts/aws-ec2/images/23_1693044806.png?size=small" data-sub-html="<h2>phone</h2>"><img loading="lazy" src="/posts/aws-ec2/images/23_1693044806.png" srcset="/posts/aws-ec2/images/23_1693044806.png?size=small, /posts/aws-ec2/images/23_1693044806.png?size=medium 1.5x, /posts/aws-ec2/images/23_1693044806.png?size=large 2x" sizes="auto" data-title="phone" data-alt="phone" style="--width: 974px;--aspect-ratio: 974 / 1052;background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}"/></a></li>
+<li>选择支持计划
+<a class="lightgallery" href="/posts/aws-ec2/images/23_1693045029.png?size=large" data-thumbnail="/posts/aws-ec2/images/23_1693045029.png?size=small" data-sub-html="<h2>plan</h2>"><img loading="lazy" src="/posts/aws-ec2/images/23_1693045029.png" srcset="/posts/aws-ec2/images/23_1693045029.png?size=small, /posts/aws-ec2/images/23_1693045029.png?size=medium 1.5x, /posts/aws-ec2/images/23_1693045029.png?size=large 2x" sizes="auto" data-title="plan" data-alt="plan" style="--width: 1308px;--aspect-ratio: 1308 / 1326;background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}"/></a></li>
+<li>完成注册
+<a class="lightgallery" href="/posts/aws-ec2/images/23_1693045100.png?size=large" data-thumbnail="/posts/aws-ec2/images/23_1693045100.png?size=small" data-sub-html="<h2>complete</h2>"><img loading="lazy" src="/posts/aws-ec2/images/23_1693045100.png" srcset="/posts/aws-ec2/images/23_1693045100.png?size=small, /posts/aws-ec2/images/23_1693045100.png?size=medium 1.5x, /posts/aws-ec2/images/23_1693045100.png?size=large 2x" sizes="auto" data-title="complete" data-alt="complete" style="--width: 1136px;--aspect-ratio: 1136 / 754;background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}"/></a></li>
+<li>登录亚马逊云控制台，<a href="https://console.aws.amazon.com/console/home"target="_blank" rel="external nofollow noopener noreferrer">登录地址<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>，选择根用户输入电子邮件地址，点击下一步会让输入密码，输入密码后就可以完成登录了。</li>
+</ol>
+<h2 id="创建-ec2-服务实例">创建 EC2 服务实例</h2>
+<p>点击链接查看 <a href="https://aws.amazon.com/cn/free/?sc_channel=seo&amp;sc_campaign=blog0805"target="_blank" rel="external nofollow noopener noreferrer">亚马逊免费套餐<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>，找到云服务器 EC2，点击立即开始 12 个月免费使用。</p>
+<p><a class="lightgallery" href="/posts/aws-ec2/images/23_1693045572.png?size=large" data-thumbnail="/posts/aws-ec2/images/23_1693045572.png?size=small" data-sub-html="<h2>EC2</h2>"><img loading="lazy" src="/posts/aws-ec2/images/23_1693045572.png" srcset="/posts/aws-ec2/images/23_1693045572.png?size=small, /posts/aws-ec2/images/23_1693045572.png?size=medium 1.5x, /posts/aws-ec2/images/23_1693045572.png?size=large 2x" sizes="auto" data-title="EC2" data-alt="EC2" style="--width: 2368px;--aspect-ratio: 2368 / 1146;background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}"/></a></p>
+<p>进行 EC2 服务器主页后，点击页面<strong>创建实例</strong>按钮。</p>
+<p><a class="lightgallery" href="/posts/aws-ec2/images/23_1693045780.png?size=large" data-thumbnail="/posts/aws-ec2/images/23_1693045780.png?size=small" data-sub-html="<h2>start-EC2</h2>"><img loading="lazy" src="/posts/aws-ec2/images/23_1693045780.png" srcset="/posts/aws-ec2/images/23_1693045780.png?size=small, /posts/aws-ec2/images/23_1693045780.png?size=medium 1.5x, /posts/aws-ec2/images/23_1693045780.png?size=large 2x" sizes="auto" data-title="start-EC2" data-alt="start-EC2" style="--width: 2878px;--aspect-ratio: 2878 / 1294;background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}"/></a></p>
+<p>然后按照页面提示要求，依次填写或选择：</p>
+<ol>
+<li>实例的名称：随便填</li>
+<li>应用程序和操作系统映像 (Amazon Machine Image)：Amazon Linux 和 Amazon Linux 2023 AMI 免费套餐</li>
+<li>实例类型：选择免费套餐</li>
+<li>密钥对（登录）：这里要点击创建密钥对，输入密钥对名称，选择 RSA 点击创建密钥对会下载文件到本地，要妥善保存，登录时会用到</li>
+<li>网络设置：安全组把允许来自于 http 和 https 得都勾选上</li>
+<li>配置存储：默认是 8G，但免费的最多可以 30G，可以手动改成 30G</li>
+<li>然后点击右侧侧边栏启动实例，等待片刻实例就创建好了</li>
+</ol>
+<h2 id="连接实例">连接实例</h2>
+<p><a class="lightgallery" href="/posts/aws-ec2/images/23_1693046630.png?size=large" data-thumbnail="/posts/aws-ec2/images/23_1693046630.png?size=small" data-sub-html="<h2>instance</h2>"><img loading="lazy" src="/posts/aws-ec2/images/23_1693046630.png" srcset="/posts/aws-ec2/images/23_1693046630.png?size=small, /posts/aws-ec2/images/23_1693046630.png?size=medium 1.5x, /posts/aws-ec2/images/23_1693046630.png?size=large 2x" sizes="auto" data-title="instance" data-alt="instance" style="--width: 954px;--aspect-ratio: 954 / 410;background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}"/></a></p>
+<p>点击上面的实例 ID 进入实例的详情，再点击右上角的连接按钮。</p>
+<p><a class="lightgallery" href="/posts/aws-ec2/images/23_1693046822.png?size=large" data-thumbnail="/posts/aws-ec2/images/23_1693046822.png?size=small" data-sub-html="<h2>connect</h2>"><img loading="lazy" src="/posts/aws-ec2/images/23_1693046822.png" srcset="/posts/aws-ec2/images/23_1693046822.png?size=small, /posts/aws-ec2/images/23_1693046822.png?size=medium 1.5x, /posts/aws-ec2/images/23_1693046822.png?size=large 2x" sizes="auto" data-title="connect" data-alt="connect" style="--width: 2344px;--aspect-ratio: 2344 / 216;background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}"/></a></p>
+<p>连接成功后，页面会新打开一个窗口，这个窗口就是我们服务器的终端，可以在这里对服务器进行操作。</p>
+<p><a class="lightgallery" href="/posts/aws-ec2/images/23_1693046970.png?size=large" data-thumbnail="/posts/aws-ec2/images/23_1693046970.png?size=small" data-sub-html="<h2>cloudshell</h2>"><img loading="lazy" src="/posts/aws-ec2/images/23_1693046970.png" srcset="/posts/aws-ec2/images/23_1693046970.png?size=small, /posts/aws-ec2/images/23_1693046970.png?size=medium 1.5x, /posts/aws-ec2/images/23_1693046970.png?size=large 2x" sizes="auto" data-title="cloudshell" data-alt="cloudshell" style="--width: 1408px;--aspect-ratio: 1408 / 514;background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}"/></a></p>
+<h2 id="创建-root-用户角色">创建 root 用户角色</h2>
+<p>在终端中输入以下命令，创建 root 用户角色。</p>
+<div class="highlight" id="id-1"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 切换到 root 用户</span>
+</span></span><span class="line"><span class="cl">sudo -i
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 修改 sshd 配置文件</span>
+</span></span><span class="line"><span class="cl">vi /etc/ssh/sshd_config</span></span></code></pre></td></tr></table>
+</div>
+</div><p>修改如下两项</p>
+<div class="highlight" id="id-2"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">PermitRootLogin yes
+</span></span><span class="line"><span class="cl">PasswordAuthentication yes</span></span></code></pre></td></tr></table>
+</div>
+</div><p>设置 root 用户密码</p>
+<div class="highlight" id="id-3"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">passwd</span></span></code></pre></td></tr></table>
+</div>
+</div><p>会让输入两次密码，输入完成，重启一下 ssh 服务：</p>
+<div class="highlight" id="id-4"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">service sshd restart</span></span></code></pre></td></tr></table>
+</div>
+</div><p>重启后在电脑命令行就可以通过 ssh 协议加上用户名称 + 密码连接远程服务器了。</p>
+<div class="highlight" id="id-5"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">ssh root@3.85.xxx.xxx</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>后续操作尽量用 root 用户进行。</p>
+</blockquote>
+<h2 id="安装宝塔面板">安装宝塔面板</h2>
+<p>宝塔面板是一个服务器管理面板，可以通过宝塔面板来管理服务器，比如安装 nginx、mysql、php 等等。</p>
+<div class="highlight" id="id-6"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">yum install -y wget <span class="o">&amp;&amp;</span> wget -O install.sh https://download.bt.cn/install/install_6.0.sh <span class="o">&amp;&amp;</span> sh install.sh ed8484bec</span></span></code></pre></td></tr></table>
+</div>
+</div><ol>
+<li>在亚马逊服务器实例安全组中放行 TCP <code>19430</code> 端口</li>
+<li>宝塔面板安装完后按照命令行提示打开宝塔面板，进入面板安装 <code>LAMP</code> 环境，其中包含了我们需要的 <code>nginx</code></li>
+<li>等待 <code>LAMP</code> 环境安装完毕</li>
+</ol>
+<h2 id="部署-hugo-博客">部署 Hugo 博客</h2>
+<p>Hugo 博客打包</p>
+<div class="highlight" id="id-7"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">hugo -v --gc --minify</span></span></code></pre></td></tr></table>
+</div>
+</div><p>将打包好的 <code>public</code> 文件夹上传到服务器的 <code>/www/wwwroot/hugo</code> 目录下，输入以下命令，等待上传完成。</p>
+<div class="highlight" id="id-8"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 上传文件（需要输入 root 用户密码）</span>
+</span></span><span class="line"><span class="cl">scp -r /path/to/public root@3.85.xxx.xxx:/www/wwwroot/hugo</span></span></code></pre></td></tr></table>
+</div>
+</div><p>在宝塔面板中选择网站，点击添加站点：</p>
+<ol>
+<li>域名：填写你的公网 IP 或者域名</li>
+<li>网站目录：选择 <code>/www/wwwroot/hugo</code></li>
+<li>站点备注：随便填</li>
+<li>FTP、数据库选择不创建，PHP 选择纯静态</li>
+<li>点击提交</li>
+</ol>
+<p>在浏览器中输入服务器的公网 IP 地址，就可以看到 Hugo 博客了。</p>
+<p><a class="lightgallery" href="/posts/aws-ec2/images/23_1693050865.png?size=large" data-thumbnail="/posts/aws-ec2/images/23_1693050865.png?size=small" data-sub-html="<h2>preview</h2>"><img loading="lazy" src="/posts/aws-ec2/images/23_1693050865.png" srcset="/posts/aws-ec2/images/23_1693050865.png?size=small, /posts/aws-ec2/images/23_1693050865.png?size=medium 1.5x, /posts/aws-ec2/images/23_1693050865.png?size=large 2x" sizes="auto" data-title="preview" data-alt="preview" style="--width: 2878px;--aspect-ratio: 2878 / 1354;background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}"/></a></p>
+<h2 id="注意事项">注意事项</h2>
+<blockquote>
+<p>亚马逊的服务器每个月免费时长时 <strong>750</strong> 小时，一个月 31 天 x 24 = 744 小时，正常使用是不会超出免费的份额的，但切记不要同时开两个服务器实例，使用时长会累加，不注意可能会超出套餐额度。</p>
+<p>到期后，如果不想继续使用，一定要记得删除实例，不然会一直扣费的。在控制台选中实例，点击实例状态-&gt;终止实例。</p>
+</blockquote>
+<h2 id="总结">总结</h2>
+<p>有了一台海外服务器，我们还可以做很多事情，比如部署 chatgpt 等等，有了服务器一定要多去探索和学习，这么复杂的申请的流程，不要白白放着让过期了。</p>
+<p>保持探索欲，砥砺前行！</p>]]></description></item><item><title>探索 AWS 云上一站式解决方案免费使用</title><link>https://lruihao.cn/posts/aws-solution/</link><pubDate>Sat, 18 Nov 2023 12:52:37 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/aws-solution/</guid><description><![CDATA[<p>在如今云计算蓬勃发展的时代，创新成长型企业正积极寻求一站式的云上解决方案，以提高效率、降低成本并实现快速发展。AWS（亚马逊云科技）作为全球领先的云服务提供商，为创新成长型企业提供一站式云上解决方案，助力创新成长型企业在不同发展阶段实现低成本上云，实现快速发展。本文将探索一下如何利用 AWS 云上一站式解决方案实现企业发展的突破。</p>
+<h2 id="简介">简介</h2>
+<ul>
+<li>AWS 官网地址：<a href="https://aws.amazon.com/cn/campaigns/smb-cloud-one-stop-solution-paid-search/?sc_channel=seo&amp;sc_campaign=blog1104"target="_blank" rel="external nofollow noopener noreferrer">企业云上一站式解决方案_创新成长企业加速中心 - AWS 云服务<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+</ul>
+<p>目前已经给出 11 种使用场景和解决方案，分别是：</p>
+<ul>
+<li><a href="https://aws.amazon.com/cn/campaigns/smb-cloud-one-stop-solution-paid-search/watch-the-video-zhaoyunxi/?sc_channel=seo&amp;sc_campaign=blog1104"target="_blank" rel="external nofollow noopener noreferrer">亚马逊云科技 Stable Diffusion WebUI 一键部署方案<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+<li><a href="https://aws.amazon.com/cn/campaigns/smb-cloud-one-stop-solution-paid-search/watch-the-video-xiongjunfeng/?sc_channel=seo&amp;sc_campaign=blog1104"target="_blank" rel="external nofollow noopener noreferrer">基于智能搜索的大语言模型增强方案<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+<li><a href="https://aws.amazon.com/cn/campaigns/smb-cloud-one-stop-solution-paid-search/watch-the-video-lisiyuan/?sc_channel=seo&amp;sc_campaign=blog1104"target="_blank" rel="external nofollow noopener noreferrer">Stable Diffusion 亚马逊云科技 插件解决方案<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+<li><a href="https://aws.amazon.com/cn/campaigns/smb-cloud-one-stop-solution-paid-search/watch-the-video-hanxiaoyong/?sc_channel=seo&amp;sc_campaign=blog1104"target="_blank" rel="external nofollow noopener noreferrer">玩转免费试用 - 全球领先云服务的那些羊毛<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+<li><a href="https://aws.amazon.com/cn/campaigns/smb-cloud-one-stop-solution-paid-search/watch-the-video-wangbeichen/?sc_channel=seo&amp;sc_campaign=blog1104"target="_blank" rel="external nofollow noopener noreferrer">快速搭建容量高达 35GB 的免费个人网盘<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+<li><a href="https://aws.amazon.com/cn/campaigns/smb-cloud-one-stop-solution-paid-search/watch-the-video-wangjinglai/?sc_channel=seo&amp;sc_campaign=blog1104"target="_blank" rel="external nofollow noopener noreferrer">呼叫中心也免费？没错！<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+<li><a href="https://aws.amazon.com/cn/campaigns/smb-cloud-one-stop-solution-paid-search/watch-the-video-suzhe/?sc_channel=seo&amp;sc_campaign=blog1104"target="_blank" rel="external nofollow noopener noreferrer">使用 Amazon Lightsail 构建 WordPress 网站<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+<li><a href="https://aws.amazon.com/cn/campaigns/smb-cloud-one-stop-solution-paid-search/watch-the-video-lilong/?sc_channel=seo&amp;sc_campaign=blog1104"target="_blank" rel="external nofollow noopener noreferrer">零代码一键部署多语言视频字幕解决方案<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+<li><a href="https://aws.amazon.com/cn/campaigns/smb-cloud-one-stop-solution-paid-search/watch-the-video-xuwei/?sc_channel=seo&amp;sc_campaign=blog1104"target="_blank" rel="external nofollow noopener noreferrer">Serverless 轻松搭建多人在线游戏小程序<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+<li><a href="https://aws.amazon.com/cn/campaigns/smb-cloud-one-stop-solution-paid-search/watch-the-video-hewenan/?sc_channel=seo&amp;sc_campaign=blog1104"target="_blank" rel="external nofollow noopener noreferrer">通知必达 - 无服务器通知方案<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+<li><a href="https://aws.amazon.com/cn/campaigns/smb-cloud-one-stop-solution-paid-search/watch-the-video-luhaoyu/?sc_channel=seo&amp;sc_campaign=blog1104"target="_blank" rel="external nofollow noopener noreferrer">轻松使用开箱即用的 AI 功能 - AI Solution Kit<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+</ul>
+<p>从以上列表标题就能看出，不仅含括了近些年比较火的“生成式 AI”相关一站式解决方案，还有一些比较常见的“网盘”、“呼叫中心”、“WordPress 网站”等等。</p>
+<h2 id="玩转免费试用">玩转免费试用</h2>
+<p>视频讲解详细链接：<a href="https://aws.amazon.com/cn/campaigns/smb-cloud-one-stop-solution-paid-search/watch-the-video-hanxiaoyong/?sc_channel=seo&amp;sc_campaign=blog1104"target="_blank" rel="external nofollow noopener noreferrer">玩转免费试用 - 全球领先云服务的那些羊毛<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
+<p>这个标题是最吸引人的，毕竟很多人都本着有羊毛必薅的心理。</p>
+<p>这个视频主要讲解了 AWS 的免费试用。很多公司都是从小到大到独角兽这样的成长，最初的时候学习自研，搭建一个系统其实可以从很多的一些免费的云服务开始，或者对于一些个人或者学生，如果想找工作，想试用云计算，也可以免费申请 AWS 的账号来使用。</p>
+<h3 id="免费云服务种类">免费云服务种类</h3>
+<p>亚马逊云科技提供了 200 多种云服务，当然并不是所有的都是免费的，但是有免费的服务占比很大，可以看张图，是在 AWS 中国峰会上展示的：</p>
+<p><a class="lightgallery" href="/posts/aws-solution/images/23_1700288712.png?size=large" data-thumbnail="/posts/aws-solution/images/23_1700288712.png?size=small" data-sub-html="<h2>AWS 免费云服务占比</h2>"><img loading="lazy" src="/posts/aws-solution/images/23_1700288712.png" srcset="/posts/aws-solution/images/23_1700288712.png?size=small, /posts/aws-solution/images/23_1700288712.png?size=medium 1.5x, /posts/aws-solution/images/23_1700288712.png?size=large 2x" sizes="auto" data-title="AWS 免费云服务占比" data-alt="AWS 免费云服务占比" style="--width: 2686px;--aspect-ratio: 2686 / 1344;background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}"/></a></p>
+<p>免费的期限也很宽限，不同云服务的免费额度不一样，比如亚马逊云服务器，有免费一年的，云电话有免费接打电话 90 分钟，短信免费试用 2 个月等。</p>
+<p>另外也有永久免费的服务，这一块应该是大家最感兴趣的，比如 Lambda 服务，如果一个月调用不超过一百万次的话，这是永久免费的，对于初创企业内部服务或者学习个人来说，这个额度是足够的。再有就是，SES 邮件服务，每个月外发次数可用 62000 次，对于小型服务运营，这个也是远远足够的了。</p>
+<p>免费的服务还有很多，涵盖广泛的产品种类：计算、数据库、存储、容器、机器学习等等。</p>
+<p><a class="lightgallery" href="/posts/aws-solution/images/23_1700289309.png?size=large" data-thumbnail="/posts/aws-solution/images/23_1700289309.png?size=small" data-sub-html="<h2>免费服务种类</h2>"><img loading="lazy" src="/posts/aws-solution/images/23_1700289309.png" srcset="/posts/aws-solution/images/23_1700289309.png?size=small, /posts/aws-solution/images/23_1700289309.png?size=medium 1.5x, /posts/aws-solution/images/23_1700289309.png?size=large 2x" sizes="auto" data-title="免费服务种类" data-alt="免费服务种类" style="--width: 2528px;--aspect-ratio: 2528 / 1340;background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}"/></a></p>
+<h3 id="免费云服务可以做什么">免费云服务可以做什么</h3>
+<p>从上图可以基本可以看出涵盖面还是很广的，如果大家有什么新的 ideas 或者说想去尝试某种服务的话，综合运用以上服务，是完全可以零成本实现的。</p>
+<p>我们还可以做很多事情，比如：</p>
+<ul>
+<li>学习亚马逊云科技的产品</li>
+<li>尝试新的产品</li>
+<li>验证你的创意方案</li>
+</ul>
+<p>不仅仅是学习，你可以利用它搭建出一些比较高级实用的工具，比如个人网站、个人网盘：</p>
+<ul>
+<li><a href="https://aws.amazon.com/cn/campaigns/smb-cloud-one-stop-solution-paid-search/watch-the-video-suzhe/?sc_channel=seo&amp;sc_campaign=blog1104"target="_blank" rel="external nofollow noopener noreferrer">使用 Amazon Lightsail 构建 WordPress 网站<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+<li><a href="https://aws.amazon.com/cn/campaigns/smb-cloud-one-stop-solution-paid-search/watch-the-video-wangbeichen/?sc_channel=seo&amp;sc_campaign=blog1104"target="_blank" rel="external nofollow noopener noreferrer">快速搭建容量高达 35GB 的免费个人网盘<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+</ul>
+<p>甚至轻松搭建多人在线的”大炮打蚊子“的小游戏、轻松使用开箱即用的 AI 功能、零代码为视频生成多语言字幕，亦或是建造一个免费的呼叫中心：</p>
+<ul>
+<li><a href="https://aws.amazon.com/cn/campaigns/smb-cloud-one-stop-solution-paid-search/watch-the-video-xuwei/?sc_channel=seo&amp;sc_campaign=blog1104"target="_blank" rel="external nofollow noopener noreferrer">Serverless 轻松搭建多人在线游戏小程序<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+<li><a href="https://aws.amazon.com/cn/campaigns/smb-cloud-one-stop-solution-paid-search/watch-the-video-luhaoyu/?sc_channel=seo&amp;sc_campaign=blog1104"target="_blank" rel="external nofollow noopener noreferrer">轻松使用开箱即用的 AI 功能 - AI Solution Kit<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+<li><a href="https://aws.amazon.com/cn/campaigns/smb-cloud-one-stop-solution-paid-search/watch-the-video-wangjinglai/?sc_channel=seo&amp;sc_campaign=blog1104"target="_blank" rel="external nofollow noopener noreferrer">呼叫中心也免费？没错！<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+</ul>
+<p>另外还有其他更多的免费一站式云服务方案也都很不错，这里不一一例举了。</p>
+<p>对于初创企业或者有兴趣的这方面工作，但是苦于没有资源尝试的朋友们可以前往 <a href="https://aws.amazon.com/cn/campaigns/smb-cloud-one-stop-solution-paid-search/?sc_channel=seo&amp;sc_campaign=blog1104"target="_blank" rel="external nofollow noopener noreferrer">官网<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 观看视频详细讲解了解更多详细信息。</p>]]></description></item><item><title>中文翻译的常见问题</title><link>https://lruihao.cn/posts/translation-guide/</link><pubDate>Fri, 15 Sep 2023 11:07:56 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/translation-guide/</guid><description><![CDATA[<blockquote>
 <p>以下内容截取自 <a href="https://github.com/mdn/translated-content/blob/main/docs/zh-cn/translation-guide.md"target="_blank" rel="external nofollow noopener noreferrer">针对 MDN 文档的本地化指南<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 的中文翻译的常见问题小节。</p>
 <p>其中翻译的规范也是中文写作的规范，更多详见之前写的 <a href="/posts/document-style-guide/">中文技术文档的写作规范</a>。</p>
 </blockquote>
@@ -27861,159 +28064,7 @@ push 和 pull 命令时由于编码方式的不同会产生错误，因此需要
 </span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="k">default</span> <span class="nx">router</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="参考">参考</h2>
-<p><a href="https://github.com/sunzsh/vue-el-demo/blob/f5e9a2a9934c7040f4fa72663eb8c24b1e3b20c1/gen-router.js"target="_blank" rel="external nofollow noopener noreferrer">sunzsh/vue-el-demo<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>]]></description></item><item><title>将 Hugo 博客部署到亚马逊云服务器</title><link>https://lruihao.cn/posts/aws-ec2/</link><pubDate>Sat, 26 Aug 2023 17:22:57 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/aws-ec2/</guid><description><![CDATA[<div class="featured-image"><img loading="eager" src="https://lruihao.cn/posts/aws-ec2/images/featured-image.png" title="将 Hugo 博客部署到亚马逊云服务器" alt="将 Hugo 博客部署到亚马逊云服务器" referrerpolicy="no-referrer"/></div><p>本文将介绍如何将 Hugo 博客打包并部署到亚马逊云服务器上，并附上亚马逊云服务器的配置过程。</p>
-<h2 id="前言">前言</h2>
-<p>最近很长一段时间都是使用 Hugo 在写博客，也花了很多精力在 <a href="https://github.com/hugo-fixit/FixIt"target="_blank" rel="external nofollow noopener noreferrer">hugo-fixit<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 这个主题的开发上。也听到很多使用 Hugo 写博客的网友们问我，如何部署博客？部署到哪里？</p>
-<p>今天就介绍一种方式：<strong>把博客部署到云服务器上</strong>。</p>
-<p>但是国内的云服务器太贵了，而且还要备案，所以就想到了海外的云服务器，比如亚马逊云服务器，以下便是注册到部署的全过程。</p>
-<h2 id="注册亚马逊云账户">注册亚马逊云账户</h2>
-<p>打开 <a href="https://aws.amazon.com/cn/free/?sc_channel=seo&amp;sc_campaign=blog0805"target="_blank" rel="external nofollow noopener noreferrer">亚马逊账号注册地址<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>，点击右上角创建 AWS 账户。</p>
-<p><a class="lightgallery" href="/posts/aws-ec2/images/23_1693042834.png?size=large" data-thumbnail="/posts/aws-ec2/images/23_1693042834.png?size=small" data-sub-html="<h2>创建 AWS 账户</h2>"><img loading="lazy" src="/posts/aws-ec2/images/23_1693042834.png" srcset="/posts/aws-ec2/images/23_1693042834.png?size=small, /posts/aws-ec2/images/23_1693042834.png?size=medium 1.5x, /posts/aws-ec2/images/23_1693042834.png?size=large 2x" sizes="auto" data-title="创建 AWS 账户" data-alt="创建 AWS 账户" style="--width: 1100px;--aspect-ratio: 1100 / 190;background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}"/></a></p>
-<ol>
-<li>填写邮件地址和账号名称（支持使用国内的邮箱）
-<a class="lightgallery" href="/posts/aws-ec2/images/23_1693043425.png?size=large" data-thumbnail="/posts/aws-ec2/images/23_1693043425.png?size=small" data-sub-html="<h2>login</h2>"><img loading="lazy" src="/posts/aws-ec2/images/23_1693043425.png" srcset="/posts/aws-ec2/images/23_1693043425.png?size=small, /posts/aws-ec2/images/23_1693043425.png?size=medium 1.5x, /posts/aws-ec2/images/23_1693043425.png?size=large 2x" sizes="auto" data-title="login" data-alt="login" style="--width: 1754px;--aspect-ratio: 1754 / 1058;background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}"/></a></li>
-<li>验证邮件
-<a class="lightgallery" href="/posts/aws-ec2/images/23_1693043626.png?size=large" data-thumbnail="/posts/aws-ec2/images/23_1693043626.png?size=small" data-sub-html="<h2>valid</h2>"><img loading="lazy" src="/posts/aws-ec2/images/23_1693043626.png" srcset="/posts/aws-ec2/images/23_1693043626.png?size=small, /posts/aws-ec2/images/23_1693043626.png?size=medium 1.5x, /posts/aws-ec2/images/23_1693043626.png?size=large 2x" sizes="auto" data-title="valid" data-alt="valid" style="--width: 1603px;--aspect-ratio: 1603 / 841;background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}"/></a></li>
-<li>输入密码
-<a class="lightgallery" href="/posts/aws-ec2/images/23_1693043910.png?size=large" data-thumbnail="/posts/aws-ec2/images/23_1693043910.png?size=small" data-sub-html="<h2>password</h2>"><img loading="lazy" src="/posts/aws-ec2/images/23_1693043910.png" srcset="/posts/aws-ec2/images/23_1693043910.png?size=small, /posts/aws-ec2/images/23_1693043910.png?size=medium 1.5x, /posts/aws-ec2/images/23_1693043910.png?size=large 2x" sizes="auto" data-title="password" data-alt="password" style="--width: 1490px;--aspect-ratio: 1490 / 1002;background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}"/></a></li>
-<li>联系人信息
-<a class="lightgallery" href="/posts/aws-ec2/images/23_1693044220.png?size=large" data-thumbnail="/posts/aws-ec2/images/23_1693044220.png?size=small" data-sub-html="<h2>contact</h2>"><img loading="lazy" src="/posts/aws-ec2/images/23_1693044220.png" srcset="/posts/aws-ec2/images/23_1693044220.png?size=small, /posts/aws-ec2/images/23_1693044220.png?size=medium 1.5x, /posts/aws-ec2/images/23_1693044220.png?size=large 2x" sizes="auto" data-title="contact" data-alt="contact" style="--width: 938px;--aspect-ratio: 938 / 1204;background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}"/></a></li>
-<li>付款信息（Visa）
-<a class="lightgallery" href="/posts/aws-ec2/images/23_1693044537.png?size=large" data-thumbnail="/posts/aws-ec2/images/23_1693044537.png?size=small" data-sub-html="<h2>payment</h2>"><img loading="lazy" src="/posts/aws-ec2/images/23_1693044537.png" srcset="/posts/aws-ec2/images/23_1693044537.png?size=small, /posts/aws-ec2/images/23_1693044537.png?size=medium 1.5x, /posts/aws-ec2/images/23_1693044537.png?size=large 2x" sizes="auto" data-title="payment" data-alt="payment" style="--width: 1454px;--aspect-ratio: 1454 / 1180;background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}"/></a></li>
-<li>验证手机号（支持中国地区国内手机号）
-<a class="lightgallery" href="/posts/aws-ec2/images/23_1693044806.png?size=large" data-thumbnail="/posts/aws-ec2/images/23_1693044806.png?size=small" data-sub-html="<h2>phone</h2>"><img loading="lazy" src="/posts/aws-ec2/images/23_1693044806.png" srcset="/posts/aws-ec2/images/23_1693044806.png?size=small, /posts/aws-ec2/images/23_1693044806.png?size=medium 1.5x, /posts/aws-ec2/images/23_1693044806.png?size=large 2x" sizes="auto" data-title="phone" data-alt="phone" style="--width: 974px;--aspect-ratio: 974 / 1052;background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}"/></a></li>
-<li>选择支持计划
-<a class="lightgallery" href="/posts/aws-ec2/images/23_1693045029.png?size=large" data-thumbnail="/posts/aws-ec2/images/23_1693045029.png?size=small" data-sub-html="<h2>plan</h2>"><img loading="lazy" src="/posts/aws-ec2/images/23_1693045029.png" srcset="/posts/aws-ec2/images/23_1693045029.png?size=small, /posts/aws-ec2/images/23_1693045029.png?size=medium 1.5x, /posts/aws-ec2/images/23_1693045029.png?size=large 2x" sizes="auto" data-title="plan" data-alt="plan" style="--width: 1308px;--aspect-ratio: 1308 / 1326;background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}"/></a></li>
-<li>完成注册
-<a class="lightgallery" href="/posts/aws-ec2/images/23_1693045100.png?size=large" data-thumbnail="/posts/aws-ec2/images/23_1693045100.png?size=small" data-sub-html="<h2>complete</h2>"><img loading="lazy" src="/posts/aws-ec2/images/23_1693045100.png" srcset="/posts/aws-ec2/images/23_1693045100.png?size=small, /posts/aws-ec2/images/23_1693045100.png?size=medium 1.5x, /posts/aws-ec2/images/23_1693045100.png?size=large 2x" sizes="auto" data-title="complete" data-alt="complete" style="--width: 1136px;--aspect-ratio: 1136 / 754;background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}"/></a></li>
-<li>登录亚马逊云控制台，<a href="https://console.aws.amazon.com/console/home"target="_blank" rel="external nofollow noopener noreferrer">登录地址<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>，选择根用户输入电子邮件地址，点击下一步会让输入密码，输入密码后就可以完成登录了。</li>
-</ol>
-<h2 id="创建-ec2-服务实例">创建 EC2 服务实例</h2>
-<p>点击链接查看 <a href="https://aws.amazon.com/cn/free/?sc_channel=seo&amp;sc_campaign=blog0805"target="_blank" rel="external nofollow noopener noreferrer">亚马逊免费套餐<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>，找到云服务器 EC2，点击立即开始 12 个月免费使用。</p>
-<p><a class="lightgallery" href="/posts/aws-ec2/images/23_1693045572.png?size=large" data-thumbnail="/posts/aws-ec2/images/23_1693045572.png?size=small" data-sub-html="<h2>EC2</h2>"><img loading="lazy" src="/posts/aws-ec2/images/23_1693045572.png" srcset="/posts/aws-ec2/images/23_1693045572.png?size=small, /posts/aws-ec2/images/23_1693045572.png?size=medium 1.5x, /posts/aws-ec2/images/23_1693045572.png?size=large 2x" sizes="auto" data-title="EC2" data-alt="EC2" style="--width: 2368px;--aspect-ratio: 2368 / 1146;background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}"/></a></p>
-<p>进行 EC2 服务器主页后，点击页面<strong>创建实例</strong>按钮。</p>
-<p><a class="lightgallery" href="/posts/aws-ec2/images/23_1693045780.png?size=large" data-thumbnail="/posts/aws-ec2/images/23_1693045780.png?size=small" data-sub-html="<h2>start-EC2</h2>"><img loading="lazy" src="/posts/aws-ec2/images/23_1693045780.png" srcset="/posts/aws-ec2/images/23_1693045780.png?size=small, /posts/aws-ec2/images/23_1693045780.png?size=medium 1.5x, /posts/aws-ec2/images/23_1693045780.png?size=large 2x" sizes="auto" data-title="start-EC2" data-alt="start-EC2" style="--width: 2878px;--aspect-ratio: 2878 / 1294;background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}"/></a></p>
-<p>然后按照页面提示要求，依次填写或选择：</p>
-<ol>
-<li>实例的名称：随便填</li>
-<li>应用程序和操作系统映像 (Amazon Machine Image)：Amazon Linux 和 Amazon Linux 2023 AMI 免费套餐</li>
-<li>实例类型：选择免费套餐</li>
-<li>密钥对（登录）：这里要点击创建密钥对，输入密钥对名称，选择 RSA 点击创建密钥对会下载文件到本地，要妥善保存，登录时会用到</li>
-<li>网络设置：安全组把允许来自于 http 和 https 得都勾选上</li>
-<li>配置存储：默认是 8G，但免费的最多可以 30G，可以手动改成 30G</li>
-<li>然后点击右侧侧边栏启动实例，等待片刻实例就创建好了</li>
-</ol>
-<h2 id="连接实例">连接实例</h2>
-<p><a class="lightgallery" href="/posts/aws-ec2/images/23_1693046630.png?size=large" data-thumbnail="/posts/aws-ec2/images/23_1693046630.png?size=small" data-sub-html="<h2>instance</h2>"><img loading="lazy" src="/posts/aws-ec2/images/23_1693046630.png" srcset="/posts/aws-ec2/images/23_1693046630.png?size=small, /posts/aws-ec2/images/23_1693046630.png?size=medium 1.5x, /posts/aws-ec2/images/23_1693046630.png?size=large 2x" sizes="auto" data-title="instance" data-alt="instance" style="--width: 954px;--aspect-ratio: 954 / 410;background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}"/></a></p>
-<p>点击上面的实例 ID 进入实例的详情，再点击右上角的连接按钮。</p>
-<p><a class="lightgallery" href="/posts/aws-ec2/images/23_1693046822.png?size=large" data-thumbnail="/posts/aws-ec2/images/23_1693046822.png?size=small" data-sub-html="<h2>connect</h2>"><img loading="lazy" src="/posts/aws-ec2/images/23_1693046822.png" srcset="/posts/aws-ec2/images/23_1693046822.png?size=small, /posts/aws-ec2/images/23_1693046822.png?size=medium 1.5x, /posts/aws-ec2/images/23_1693046822.png?size=large 2x" sizes="auto" data-title="connect" data-alt="connect" style="--width: 2344px;--aspect-ratio: 2344 / 216;background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}"/></a></p>
-<p>连接成功后，页面会新打开一个窗口，这个窗口就是我们服务器的终端，可以在这里对服务器进行操作。</p>
-<p><a class="lightgallery" href="/posts/aws-ec2/images/23_1693046970.png?size=large" data-thumbnail="/posts/aws-ec2/images/23_1693046970.png?size=small" data-sub-html="<h2>cloudshell</h2>"><img loading="lazy" src="/posts/aws-ec2/images/23_1693046970.png" srcset="/posts/aws-ec2/images/23_1693046970.png?size=small, /posts/aws-ec2/images/23_1693046970.png?size=medium 1.5x, /posts/aws-ec2/images/23_1693046970.png?size=large 2x" sizes="auto" data-title="cloudshell" data-alt="cloudshell" style="--width: 1408px;--aspect-ratio: 1408 / 514;background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}"/></a></p>
-<h2 id="创建-root-用户角色">创建 root 用户角色</h2>
-<p>在终端中输入以下命令，创建 root 用户角色。</p>
-<div class="highlight" id="id-1"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 切换到 root 用户</span>
-</span></span><span class="line"><span class="cl">sudo -i
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># 修改 sshd 配置文件</span>
-</span></span><span class="line"><span class="cl">vi /etc/ssh/sshd_config</span></span></code></pre></td></tr></table>
-</div>
-</div><p>修改如下两项</p>
-<div class="highlight" id="id-2"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">PermitRootLogin yes
-</span></span><span class="line"><span class="cl">PasswordAuthentication yes</span></span></code></pre></td></tr></table>
-</div>
-</div><p>设置 root 用户密码</p>
-<div class="highlight" id="id-3"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">passwd</span></span></code></pre></td></tr></table>
-</div>
-</div><p>会让输入两次密码，输入完成，重启一下 ssh 服务：</p>
-<div class="highlight" id="id-4"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">service sshd restart</span></span></code></pre></td></tr></table>
-</div>
-</div><p>重启后在电脑命令行就可以通过 ssh 协议加上用户名称 + 密码连接远程服务器了。</p>
-<div class="highlight" id="id-5"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">ssh root@3.85.xxx.xxx</span></span></code></pre></td></tr></table>
-</div>
-</div><blockquote>
-<p>后续操作尽量用 root 用户进行。</p>
-</blockquote>
-<h2 id="安装宝塔面板">安装宝塔面板</h2>
-<p>宝塔面板是一个服务器管理面板，可以通过宝塔面板来管理服务器，比如安装 nginx、mysql、php 等等。</p>
-<div class="highlight" id="id-6"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">yum install -y wget <span class="o">&amp;&amp;</span> wget -O install.sh https://download.bt.cn/install/install_6.0.sh <span class="o">&amp;&amp;</span> sh install.sh ed8484bec</span></span></code></pre></td></tr></table>
-</div>
-</div><ol>
-<li>在亚马逊服务器实例安全组中放行 TCP <code>19430</code> 端口</li>
-<li>宝塔面板安装完后按照命令行提示打开宝塔面板，进入面板安装 <code>LAMP</code> 环境，其中包含了我们需要的 <code>nginx</code></li>
-<li>等待 <code>LAMP</code> 环境安装完毕</li>
-</ol>
-<h2 id="部署-hugo-博客">部署 Hugo 博客</h2>
-<p>Hugo 博客打包</p>
-<div class="highlight" id="id-7"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">hugo -v --gc --minify</span></span></code></pre></td></tr></table>
-</div>
-</div><p>将打包好的 <code>public</code> 文件夹上传到服务器的 <code>/www/wwwroot/hugo</code> 目录下，输入以下命令，等待上传完成。</p>
-<div class="highlight" id="id-8"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 上传文件（需要输入 root 用户密码）</span>
-</span></span><span class="line"><span class="cl">scp -r /path/to/public root@3.85.xxx.xxx:/www/wwwroot/hugo</span></span></code></pre></td></tr></table>
-</div>
-</div><p>在宝塔面板中选择网站，点击添加站点：</p>
-<ol>
-<li>域名：填写你的公网 IP 或者域名</li>
-<li>网站目录：选择 <code>/www/wwwroot/hugo</code></li>
-<li>站点备注：随便填</li>
-<li>FTP、数据库选择不创建，PHP 选择纯静态</li>
-<li>点击提交</li>
-</ol>
-<p>在浏览器中输入服务器的公网 IP 地址，就可以看到 Hugo 博客了。</p>
-<p><a class="lightgallery" href="/posts/aws-ec2/images/23_1693050865.png?size=large" data-thumbnail="/posts/aws-ec2/images/23_1693050865.png?size=small" data-sub-html="<h2>preview</h2>"><img loading="lazy" src="/posts/aws-ec2/images/23_1693050865.png" srcset="/posts/aws-ec2/images/23_1693050865.png?size=small, /posts/aws-ec2/images/23_1693050865.png?size=medium 1.5x, /posts/aws-ec2/images/23_1693050865.png?size=large 2x" sizes="auto" data-title="preview" data-alt="preview" style="--width: 2878px;--aspect-ratio: 2878 / 1354;background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}"/></a></p>
-<h2 id="注意事项">注意事项</h2>
-<blockquote>
-<p>亚马逊的服务器每个月免费时长时 <strong>750</strong> 小时，一个月 31 天 x 24 = 744 小时，正常使用是不会超出免费的份额的，但切记不要同时开两个服务器实例，使用时长会累加，不注意可能会超出套餐额度。</p>
-<p>到期后，如果不想继续使用，一定要记得删除实例，不然会一直扣费的。在控制台选中实例，点击实例状态-&gt;终止实例。</p>
-</blockquote>
-<h2 id="总结">总结</h2>
-<p>有了一台海外服务器，我们还可以做很多事情，比如部署 chatgpt 等等，有了服务器一定要多去探索和学习，这么复杂的申请的流程，不要白白放着让过期了。</p>
-<p>保持探索欲，砥砺前行！</p>]]></description></item><item><title>CSS 实现网格背景效果</title><link>https://lruihao.cn/posts/grid-bg-image/</link><pubDate>Sat, 02 Sep 2023 10:05:44 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/grid-bg-image/</guid><description><![CDATA[<p>本文将介绍如何使用 <code>linear-gradient</code> 、<code>background-size</code> 等属性来实现网格背景效果。</p>
+<p><a href="https://github.com/sunzsh/vue-el-demo/blob/f5e9a2a9934c7040f4fa72663eb8c24b1e3b20c1/gen-router.js"target="_blank" rel="external nofollow noopener noreferrer">sunzsh/vue-el-demo<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>]]></description></item><item><title>CSS 实现网格背景效果</title><link>https://lruihao.cn/posts/grid-bg-image/</link><pubDate>Sat, 02 Sep 2023 10:05:44 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/grid-bg-image/</guid><description><![CDATA[<p>本文将介绍如何使用 <code>linear-gradient</code> 、<code>background-size</code> 等属性来实现网格背景效果。</p>
 <h2 id="前言">前言</h2>
 <p>最近在开发一个拖拽式仪表盘时，需要在拖拽组件时添加网格辅助标线来帮助布局和对齐元素。</p>
 <p>最先想到的是使用 CSS 来实现这个效果，经过一番尝试，发现可以通过使用 CSS 的一些技术点，轻松实现不同类型的网格背景效果，包括实线网格和虚线网格。</p>
@@ -30244,7 +30295,58 @@ push 和 pull 命令时由于编码方式的不同会产生错误，因此需要
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git log --show-signature</span></span></code></pre></td></tr></table>
 </div>
-</div>]]></description></item><item><title>SSH 提交签名验证</title><link>https://lruihao.cn/posts/ssh-sign/</link><pubDate>Sun, 22 Oct 2023 18:59:31 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/ssh-sign/</guid><description><![CDATA[<p>Git 支持使用 GPG 来签名提交记录。但 GPG 用起来很复杂，一直赖得搞。Git 从 2.34 开始支持使用 SSH 签名，所以本文将介绍如何使用 SSH 对提交进行签名。</p>
+</div>]]></description></item><item><title>探索 AWS 云上一站式解决方案免费使用</title><link>https://lruihao.cn/posts/aws-solution/</link><pubDate>Sat, 18 Nov 2023 12:52:37 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/aws-solution/</guid><description><![CDATA[<p>在如今云计算蓬勃发展的时代，创新成长型企业正积极寻求一站式的云上解决方案，以提高效率、降低成本并实现快速发展。AWS（亚马逊云科技）作为全球领先的云服务提供商，为创新成长型企业提供一站式云上解决方案，助力创新成长型企业在不同发展阶段实现低成本上云，实现快速发展。本文将探索一下如何利用 AWS 云上一站式解决方案实现企业发展的突破。</p>
+<h2 id="简介">简介</h2>
+<ul>
+<li>AWS 官网地址：<a href="https://aws.amazon.com/cn/campaigns/smb-cloud-one-stop-solution-paid-search/?sc_channel=seo&amp;sc_campaign=blog1104"target="_blank" rel="external nofollow noopener noreferrer">企业云上一站式解决方案_创新成长企业加速中心 - AWS 云服务<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+</ul>
+<p>目前已经给出 11 种使用场景和解决方案，分别是：</p>
+<ul>
+<li><a href="https://aws.amazon.com/cn/campaigns/smb-cloud-one-stop-solution-paid-search/watch-the-video-zhaoyunxi/?sc_channel=seo&amp;sc_campaign=blog1104"target="_blank" rel="external nofollow noopener noreferrer">亚马逊云科技 Stable Diffusion WebUI 一键部署方案<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+<li><a href="https://aws.amazon.com/cn/campaigns/smb-cloud-one-stop-solution-paid-search/watch-the-video-xiongjunfeng/?sc_channel=seo&amp;sc_campaign=blog1104"target="_blank" rel="external nofollow noopener noreferrer">基于智能搜索的大语言模型增强方案<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+<li><a href="https://aws.amazon.com/cn/campaigns/smb-cloud-one-stop-solution-paid-search/watch-the-video-lisiyuan/?sc_channel=seo&amp;sc_campaign=blog1104"target="_blank" rel="external nofollow noopener noreferrer">Stable Diffusion 亚马逊云科技 插件解决方案<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+<li><a href="https://aws.amazon.com/cn/campaigns/smb-cloud-one-stop-solution-paid-search/watch-the-video-hanxiaoyong/?sc_channel=seo&amp;sc_campaign=blog1104"target="_blank" rel="external nofollow noopener noreferrer">玩转免费试用 - 全球领先云服务的那些羊毛<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+<li><a href="https://aws.amazon.com/cn/campaigns/smb-cloud-one-stop-solution-paid-search/watch-the-video-wangbeichen/?sc_channel=seo&amp;sc_campaign=blog1104"target="_blank" rel="external nofollow noopener noreferrer">快速搭建容量高达 35GB 的免费个人网盘<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+<li><a href="https://aws.amazon.com/cn/campaigns/smb-cloud-one-stop-solution-paid-search/watch-the-video-wangjinglai/?sc_channel=seo&amp;sc_campaign=blog1104"target="_blank" rel="external nofollow noopener noreferrer">呼叫中心也免费？没错！<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+<li><a href="https://aws.amazon.com/cn/campaigns/smb-cloud-one-stop-solution-paid-search/watch-the-video-suzhe/?sc_channel=seo&amp;sc_campaign=blog1104"target="_blank" rel="external nofollow noopener noreferrer">使用 Amazon Lightsail 构建 WordPress 网站<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+<li><a href="https://aws.amazon.com/cn/campaigns/smb-cloud-one-stop-solution-paid-search/watch-the-video-lilong/?sc_channel=seo&amp;sc_campaign=blog1104"target="_blank" rel="external nofollow noopener noreferrer">零代码一键部署多语言视频字幕解决方案<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+<li><a href="https://aws.amazon.com/cn/campaigns/smb-cloud-one-stop-solution-paid-search/watch-the-video-xuwei/?sc_channel=seo&amp;sc_campaign=blog1104"target="_blank" rel="external nofollow noopener noreferrer">Serverless 轻松搭建多人在线游戏小程序<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+<li><a href="https://aws.amazon.com/cn/campaigns/smb-cloud-one-stop-solution-paid-search/watch-the-video-hewenan/?sc_channel=seo&amp;sc_campaign=blog1104"target="_blank" rel="external nofollow noopener noreferrer">通知必达 - 无服务器通知方案<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+<li><a href="https://aws.amazon.com/cn/campaigns/smb-cloud-one-stop-solution-paid-search/watch-the-video-luhaoyu/?sc_channel=seo&amp;sc_campaign=blog1104"target="_blank" rel="external nofollow noopener noreferrer">轻松使用开箱即用的 AI 功能 - AI Solution Kit<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+</ul>
+<p>从以上列表标题就能看出，不仅含括了近些年比较火的“生成式 AI”相关一站式解决方案，还有一些比较常见的“网盘”、“呼叫中心”、“WordPress 网站”等等。</p>
+<h2 id="玩转免费试用">玩转免费试用</h2>
+<p>视频讲解详细链接：<a href="https://aws.amazon.com/cn/campaigns/smb-cloud-one-stop-solution-paid-search/watch-the-video-hanxiaoyong/?sc_channel=seo&amp;sc_campaign=blog1104"target="_blank" rel="external nofollow noopener noreferrer">玩转免费试用 - 全球领先云服务的那些羊毛<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
+<p>这个标题是最吸引人的，毕竟很多人都本着有羊毛必薅的心理。</p>
+<p>这个视频主要讲解了 AWS 的免费试用。很多公司都是从小到大到独角兽这样的成长，最初的时候学习自研，搭建一个系统其实可以从很多的一些免费的云服务开始，或者对于一些个人或者学生，如果想找工作，想试用云计算，也可以免费申请 AWS 的账号来使用。</p>
+<h3 id="免费云服务种类">免费云服务种类</h3>
+<p>亚马逊云科技提供了 200 多种云服务，当然并不是所有的都是免费的，但是有免费的服务占比很大，可以看张图，是在 AWS 中国峰会上展示的：</p>
+<p><a class="lightgallery" href="/posts/aws-solution/images/23_1700288712.png?size=large" data-thumbnail="/posts/aws-solution/images/23_1700288712.png?size=small" data-sub-html="<h2>AWS 免费云服务占比</h2>"><img loading="lazy" src="/posts/aws-solution/images/23_1700288712.png" srcset="/posts/aws-solution/images/23_1700288712.png?size=small, /posts/aws-solution/images/23_1700288712.png?size=medium 1.5x, /posts/aws-solution/images/23_1700288712.png?size=large 2x" sizes="auto" data-title="AWS 免费云服务占比" data-alt="AWS 免费云服务占比" style="--width: 2686px;--aspect-ratio: 2686 / 1344;background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}"/></a></p>
+<p>免费的期限也很宽限，不同云服务的免费额度不一样，比如亚马逊云服务器，有免费一年的，云电话有免费接打电话 90 分钟，短信免费试用 2 个月等。</p>
+<p>另外也有永久免费的服务，这一块应该是大家最感兴趣的，比如 Lambda 服务，如果一个月调用不超过一百万次的话，这是永久免费的，对于初创企业内部服务或者学习个人来说，这个额度是足够的。再有就是，SES 邮件服务，每个月外发次数可用 62000 次，对于小型服务运营，这个也是远远足够的了。</p>
+<p>免费的服务还有很多，涵盖广泛的产品种类：计算、数据库、存储、容器、机器学习等等。</p>
+<p><a class="lightgallery" href="/posts/aws-solution/images/23_1700289309.png?size=large" data-thumbnail="/posts/aws-solution/images/23_1700289309.png?size=small" data-sub-html="<h2>免费服务种类</h2>"><img loading="lazy" src="/posts/aws-solution/images/23_1700289309.png" srcset="/posts/aws-solution/images/23_1700289309.png?size=small, /posts/aws-solution/images/23_1700289309.png?size=medium 1.5x, /posts/aws-solution/images/23_1700289309.png?size=large 2x" sizes="auto" data-title="免费服务种类" data-alt="免费服务种类" style="--width: 2528px;--aspect-ratio: 2528 / 1340;background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}"/></a></p>
+<h3 id="免费云服务可以做什么">免费云服务可以做什么</h3>
+<p>从上图可以基本可以看出涵盖面还是很广的，如果大家有什么新的 ideas 或者说想去尝试某种服务的话，综合运用以上服务，是完全可以零成本实现的。</p>
+<p>我们还可以做很多事情，比如：</p>
+<ul>
+<li>学习亚马逊云科技的产品</li>
+<li>尝试新的产品</li>
+<li>验证你的创意方案</li>
+</ul>
+<p>不仅仅是学习，你可以利用它搭建出一些比较高级实用的工具，比如个人网站、个人网盘：</p>
+<ul>
+<li><a href="https://aws.amazon.com/cn/campaigns/smb-cloud-one-stop-solution-paid-search/watch-the-video-suzhe/?sc_channel=seo&amp;sc_campaign=blog1104"target="_blank" rel="external nofollow noopener noreferrer">使用 Amazon Lightsail 构建 WordPress 网站<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+<li><a href="https://aws.amazon.com/cn/campaigns/smb-cloud-one-stop-solution-paid-search/watch-the-video-wangbeichen/?sc_channel=seo&amp;sc_campaign=blog1104"target="_blank" rel="external nofollow noopener noreferrer">快速搭建容量高达 35GB 的免费个人网盘<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+</ul>
+<p>甚至轻松搭建多人在线的”大炮打蚊子“的小游戏、轻松使用开箱即用的 AI 功能、零代码为视频生成多语言字幕，亦或是建造一个免费的呼叫中心：</p>
+<ul>
+<li><a href="https://aws.amazon.com/cn/campaigns/smb-cloud-one-stop-solution-paid-search/watch-the-video-xuwei/?sc_channel=seo&amp;sc_campaign=blog1104"target="_blank" rel="external nofollow noopener noreferrer">Serverless 轻松搭建多人在线游戏小程序<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+<li><a href="https://aws.amazon.com/cn/campaigns/smb-cloud-one-stop-solution-paid-search/watch-the-video-luhaoyu/?sc_channel=seo&amp;sc_campaign=blog1104"target="_blank" rel="external nofollow noopener noreferrer">轻松使用开箱即用的 AI 功能 - AI Solution Kit<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+<li><a href="https://aws.amazon.com/cn/campaigns/smb-cloud-one-stop-solution-paid-search/watch-the-video-wangjinglai/?sc_channel=seo&amp;sc_campaign=blog1104"target="_blank" rel="external nofollow noopener noreferrer">呼叫中心也免费？没错！<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+</ul>
+<p>另外还有其他更多的免费一站式云服务方案也都很不错，这里不一一例举了。</p>
+<p>对于初创企业或者有兴趣的这方面工作，但是苦于没有资源尝试的朋友们可以前往 <a href="https://aws.amazon.com/cn/campaigns/smb-cloud-one-stop-solution-paid-search/?sc_channel=seo&amp;sc_campaign=blog1104"target="_blank" rel="external nofollow noopener noreferrer">官网<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 观看视频详细讲解了解更多详细信息。</p>]]></description></item><item><title>SSH 提交签名验证</title><link>https://lruihao.cn/posts/ssh-sign/</link><pubDate>Sun, 22 Oct 2023 18:59:31 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/ssh-sign/</guid><description><![CDATA[<p>Git 支持使用 GPG 来签名提交记录。但 GPG 用起来很复杂，一直赖得搞。Git 从 2.34 开始支持使用 SSH 签名，所以本文将介绍如何使用 SSH 对提交进行签名。</p>
 <h2 id="操作步骤">操作步骤</h2>
 <p>可以使用 SSH 通过自己生成的 SSH 密钥对提交进行签名。有关详细信息，请查看 <code>user.Signingkey</code> 的 <a href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-usersigningKey"target="_blank" rel="external nofollow noopener noreferrer">Git 参考文档<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>。如果已使用 SSH 密钥向 GitHub 进行了身份验证，还可以再次上传该相同密钥以用作签名密钥。可以添加到帐户的签名密钥数没有限制。</p>
 <p>GitHub 使用 <a href="https://github.com/github/ssh_data"target="_blank" rel="external nofollow noopener noreferrer">ssh_data<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>（一种开放源代码 Ruby 库）来确认本地签名的提交和标记是否根据在 GitHub.com 上添加到帐户的公钥进行加密验证。</p>
@@ -34170,212 +34272,4 @@ push 和 pull 命令时由于编码方式的不同会产生错误，因此需要
 <li><a href="https://zh.wikisource.org/zh-hans/GB_3100-1993_%e5%9b%bd%e9%99%85%e5%8d%95%e4%bd%8d%e5%88%b6%e5%8f%8a%e5%85%b6%e5%ba%94%e7%94%a8"target="_blank" rel="external nofollow noopener noreferrer">GB 3100-1993 国际单位制及其应用<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
 <li><a href="https://github.com/DavidAnson/vscode-markdownlint"target="_blank" rel="external nofollow noopener noreferrer">markdownlint<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>, VSCode 插件</li>
 <li><a href="https://github.com/vinta/pangu.js"target="_blank" rel="external nofollow noopener noreferrer">pangu.js<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>, 盘古之白系列插件</li>
-</ul>]]></description></item><item><title>浏览器原理 - 事件循环</title><link>https://lruihao.cn/posts/event-loop/</link><pubDate>Wed, 11 Jan 2023 11:16:02 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/event-loop/</guid><description><![CDATA[<div class="featured-image"><img loading="eager" src="/posts/event-loop/images/202208092131410.png" title="浏览器原理 - 事件循环" alt="浏览器原理 - 事件循环" referrerpolicy="no-referrer"/></div><p>最近在抖音上刷到很多次 <a href="http://yuanjin.tech/"target="_blank" rel="external nofollow noopener noreferrer">袁进老师<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 的前端视频，然后就听了一下他的前端大师课，感觉了解一些浏览器原理后，原来工作中的一些疑问也自然解开了。</p>
-<h2 id="浏览器的进程模型">浏览器的进程模型</h2>
-<h3 id="何为进程">何为进程？</h3>
-<p>程序运行需要有它自己专属的内存空间，可以把这块内存空间简单的理解为进程</p>
-<p><figure><a class="lightgallery" href="/posts/event-loop/images/202208092057573.png?size=large" data-thumbnail="/posts/event-loop/images/202208092057573.png?size=small" data-sub-html="<h2>进程</h2><p>进程可以简单理解为单独的内存空间</p>"><img loading="lazy" src="/posts/event-loop/images/202208092057573.png" srcset="/posts/event-loop/images/202208092057573.png?size=small, /posts/event-loop/images/202208092057573.png?size=medium 1.5x, /posts/event-loop/images/202208092057573.png?size=large 2x" sizes="auto" data-title="进程可以简单理解为单独的内存空间" data-alt="进程" style="--width: 1364px;--aspect-ratio: 1364 / 970;background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}"/></a><figcaption class="image-caption">进程</figcaption>
-  </figure></p>
-<p>每个应用至少有一个进程，进程之间相互独立，即使要通信，也需要双方同意。</p>
-<h3 id="何为线程">何为线程？</h3>
-<p>有了进程后，就可以运行程序的代码了。</p>
-<p>运行代码的「人」称之为「线程」。</p>
-<p>一个进程至少有一个线程，所以在进程开启后会自动创建一个线程来运行代码，该线程称之为主线程。</p>
-<p>如果程序需要同时执行多块代码，主线程就会启动更多的线程来执行代码，所以一个进程中可以包含多个线程。</p>
-<p><figure><a class="lightgallery" href="/posts/event-loop/images/202208092108499.png?size=large" data-thumbnail="/posts/event-loop/images/202208092108499.png?size=small" data-sub-html="<h2>线程</h2><p>一个进程可以有 N 个线程</p>"><img loading="lazy" src="/posts/event-loop/images/202208092108499.png" srcset="/posts/event-loop/images/202208092108499.png?size=small, /posts/event-loop/images/202208092108499.png?size=medium 1.5x, /posts/event-loop/images/202208092108499.png?size=large 2x" sizes="auto" data-title="一个进程可以有 N 个线程" data-alt="线程" style="--width: 1704px;--aspect-ratio: 1704 / 992;background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}"/></a><figcaption class="image-caption">线程</figcaption>
-  </figure></p>
-<h3 id="浏览器有哪些进程和线程">浏览器有哪些进程和线程？</h3>
-<p><strong>浏览器是一个多进程多线程的应用程序</strong>，浏览器内部工作极其复杂。</p>
-<p>为了避免相互影响，为了减少连环崩溃的几率，当启动浏览器后，它会自动启动多个进程。</p>
-<p><figure><a class="lightgallery" href="/posts/event-loop/images/202208092131410.png?size=large" data-thumbnail="/posts/event-loop/images/202208092131410.png?size=small" data-sub-html="<h2>浏览器进程</h2><p>浏览器进程</p>"><img loading="lazy" src="/posts/event-loop/images/202208092131410.png" srcset="/posts/event-loop/images/202208092131410.png?size=small, /posts/event-loop/images/202208092131410.png?size=medium 1.5x, /posts/event-loop/images/202208092131410.png?size=large 2x" sizes="auto" data-title="浏览器进程" data-alt="浏览器进程" style="--width: 1518px;--aspect-ratio: 1518 / 1022;background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}"/></a><figcaption class="image-caption">浏览器进程</figcaption>
-  </figure></p>
-<blockquote>
-<p>可以在浏览器的任务管理器中查看当前的所有进程</p>
-</blockquote>
-<p>其中，最主要的进程有：</p>
-<ol>
-<li>
-<p>浏览器进程</p>
-<p>主要负责界面显示、用户交互、子进程管理等。浏览器进程内部会启动多个线程处理不同的任务。</p>
-</li>
-<li>
-<p>网络进程</p>
-<p>负责加载网络资源。网络进程内部会启动多个线程来处理不同的网络任务。</p>
-</li>
-<li>
-<p><strong>渲染进程</strong>（本篇重点讲解的进程）</p>
-<p>渲染进程启动后，会开启一个<strong>渲染主线程</strong>，主线程负责执行 HTML、CSS、JS 代码。</p>
-<p>默认情况下，浏览器会为每个标签页开启一个新的渲染进程，以保证不同的标签页之间不相互影响。</p>
-<blockquote>
-<p>将来该默认模式可能会有所改变，有兴趣的同学可参见 <a href="https://chromium.googlesource.com/chromium/src/&#43;/main/docs/process_model_and_site_isolation.md#Modes-and-Availability"target="_blank" rel="external nofollow noopener noreferrer">chrome 官方说明文档<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
-</blockquote>
-</li>
-</ol>
-<h2 id="渲染主线程是如何工作的">渲染主线程是如何工作的？</h2>
-<p>渲染主线程是浏览器中最繁忙的线程，需要它处理的任务包括但不限于：</p>
-<ul>
-<li>解析 HTML</li>
-<li>解析 CSS</li>
-<li>计算样式</li>
-<li>布局</li>
-<li>处理图层</li>
-<li>每秒把页面画 60 次</li>
-<li>执行全局 JS 代码</li>
-<li>执行事件处理函数</li>
-<li>执行计时器的回调函数</li>
-<li>&hellip;&hellip;</li>
-</ul>
-<blockquote>
-<p>思考题：为什么渲染进程不适用多个线程来处理这些事情？</p>
-</blockquote>
-<p>要处理这么多的任务，主线程遇到了一个前所未有的难题：如何调度任务？</p>
-<p>比如：</p>
-<ul>
-<li>我正在执行一个 JS 函数，执行到一半的时候用户点击了按钮，我该立即去执行点击事件的处理函数吗？</li>
-<li>我正在执行一个 JS 函数，执行到一半的时候某个计时器到达了时间，我该立即去执行它的回调吗？</li>
-<li>浏览器进程通知我“用户点击了按钮”，与此同时，某个计时器也到达了时间，我应该处理哪一个呢？</li>
-<li>&hellip;&hellip;</li>
-</ul>
-<p>渲染主线程想出了一个绝妙的主意来处理这个问题：排队</p>
-<p><figure><a class="lightgallery" href="/posts/event-loop/images/202208092230847.png?size=large" data-thumbnail="/posts/event-loop/images/202208092230847.png?size=small" data-sub-html="<h2>消息队列</h2><p>所有要执行的任务都要排队，FIFO</p>"><img loading="lazy" src="/posts/event-loop/images/202208092230847.png" srcset="/posts/event-loop/images/202208092230847.png?size=small, /posts/event-loop/images/202208092230847.png?size=medium 1.5x, /posts/event-loop/images/202208092230847.png?size=large 2x" sizes="auto" data-title="所有要执行的任务都要排队，FIFO" data-alt="消息队列" style="--width: 1570px;--aspect-ratio: 1570 / 886;background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}"/></a><figcaption class="image-caption">消息队列</figcaption>
-  </figure></p>
-<ol>
-<li>在最开始的时候，渲染主线程会进入一个无限循环</li>
-<li>每一次循环会检查消息队列中是否有任务存在。如果有，就取出第一个任务执行，执行完一个后进入下一次循环；如果没有，则进入休眠状态。</li>
-<li>其他所有线程（包括其他进程的线程）可以随时向消息队列添加任务。新任务会加到消息队列的末尾。在添加新任务时，如果主线程是休眠状态，则会将其唤醒以继续循环拿取任务</li>
-</ol>
-<p>这样一来，就可以让每个任务有条不紊的、持续的进行下去了。<strong>整个过程，被称之为事件循环（消息循环）</strong>。</p>
-<h2 id="若干解释">若干解释</h2>
-<h3 id="何为异步">何为异步？</h3>
-<p>代码在执行过程中，会遇到一些无法立即处理的任务，比如：</p>
-<ul>
-<li>计时完成后需要执行的任务 —— <code>setTimeout</code>、<code>setInterval</code></li>
-<li>网络通信完成后需要执行的任务 &ndash; <code>XHR</code>、<code>Fetch</code></li>
-<li>用户操作后需要执行的任务 &ndash; <code>addEventListener</code></li>
-</ul>
-<p>如果让渲染主线程等待这些任务的时机达到，就会导致主线程长期处于「阻塞」的状态，从而导致浏览器「卡死」</p>
-<p><figure><a class="lightgallery" href="/posts/event-loop/images/202208101043348.png?size=large" data-thumbnail="/posts/event-loop/images/202208101043348.png?size=small" data-sub-html="<h2>同步策略</h2><p>同步策略会导致卡死</p>"><img loading="lazy" src="/posts/event-loop/images/202208101043348.png" srcset="/posts/event-loop/images/202208101043348.png?size=small, /posts/event-loop/images/202208101043348.png?size=medium 1.5x, /posts/event-loop/images/202208101043348.png?size=large 2x" sizes="auto" data-title="同步策略会导致卡死" data-alt="同步策略" style="--width: 1712px;--aspect-ratio: 1712 / 790;background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}"/></a><figcaption class="image-caption">同步策略</figcaption>
-  </figure></p>
-<p><strong>渲染主线程承担着极其重要的工作，无论如何都不能阻塞！</strong></p>
-<p>因此，浏览器选择<strong>异步</strong>来解决这个问题</p>
-<p><figure><a class="lightgallery" href="/posts/event-loop/images/202208101048899.png?size=large" data-thumbnail="/posts/event-loop/images/202208101048899.png?size=small" data-sub-html="<h2>异步策略</h2><p>异步策略，渲染主线程永不阻塞</p>"><img loading="lazy" src="/posts/event-loop/images/202208101048899.png" srcset="/posts/event-loop/images/202208101048899.png?size=small, /posts/event-loop/images/202208101048899.png?size=medium 1.5x, /posts/event-loop/images/202208101048899.png?size=large 2x" sizes="auto" data-title="异步策略，渲染主线程永不阻塞" data-alt="异步策略" style="--width: 1740px;--aspect-ratio: 1740 / 848;background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}"/></a><figcaption class="image-caption">异步策略</figcaption>
-  </figure></p>
-<p>使用异步的方式，<strong>渲染主线程永不阻塞</strong></p>
-<div class="details admonition question">
-    <div class="details-summary admonition-title">
-      <i class="icon fa-solid fa-question-circle fa-fw" aria-hidden="true"></i>面试题：如何理解 JS 的异步？<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i>
-    </div>
-    <div class="details-content">
-      <div class="admonition-content"><p>参考答案：</p>
-<p>JS 是一门单线程的语言，这是因为它运行在浏览器的渲染主线程中，而渲染主线程只有一个。</p>
-<p>而渲染主线程承担着诸多的工作，渲染页面、执行 JS 都在其中运行。</p>
-<p>如果使用同步的方式，就极有可能导致主线程产生阻塞，从而导致消息队列中的很多其他任务无法得到执行。这样一来，一方面会导致繁忙的主线程白白的消耗时间，另一方面导致页面无法及时更新，给用户造成卡死现象。</p>
-<p>所以浏览器采用异步的方式来避免。具体做法是当某些任务发生时，比如计时器、网络、事件监听，主线程将任务交给其他线程去处理，自身立即结束任务的执行，转而执行后续代码。当其他线程完成时，将事先传递的回调函数包装成任务，加入到消息队列的末尾排队，等待主线程调度执行。</p>
-<p>在这种异步模式下，浏览器永不阻塞，从而最大限度的保证了单线程的流畅运行。</p>
-</div>
-    </div>
-  </div>
-<h3 id="js-为何会阻碍渲染">JS 为何会阻碍渲染？</h3>
-<p>先看代码</p>
-<div class="highlight" id="id-1"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>Mr.Yuan is awesome!<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">button</span><span class="p">&gt;</span>change<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">  <span class="kd">var</span> <span class="nx">h1</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s1">&#39;h1&#39;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="kd">var</span> <span class="nx">btn</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s1">&#39;button&#39;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">  <span class="c1">// 死循环指定的时间
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kd">function</span> <span class="nx">delay</span><span class="p">(</span><span class="nx">duration</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">start</span> <span class="o">=</span> <span class="nb">Date</span><span class="p">.</span><span class="nx">now</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl">    <span class="k">while</span> <span class="p">(</span><span class="nb">Date</span><span class="p">.</span><span class="nx">now</span><span class="p">()</span> <span class="o">-</span> <span class="nx">start</span> <span class="o">&lt;</span> <span class="nx">duration</span><span class="p">)</span> <span class="p">{}</span>
-</span></span><span class="line"><span class="cl">  <span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">  <span class="nx">btn</span><span class="p">.</span><span class="nx">onclick</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">h1</span><span class="p">.</span><span class="nx">textContent</span> <span class="o">=</span> <span class="s1">&#39;袁老师很帅！&#39;</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">delay</span><span class="p">(</span><span class="mi">3000</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="p">};</span>
-</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span></span></span></code></pre></td></tr></table>
-</div>
-</div><p>点击按钮后，会发生什么呢？</p>
-<p>&lt;复制代码自行演示&gt;</p>
-<h3 id="任务有优先级吗">任务有优先级吗？</h3>
-<p>任务没有优先级，在消息队列中先进先出</p>
-<p>但<strong>消息队列是有优先级的</strong></p>
-<p>根据 W3C 的最新解释：</p>
-<ul>
-<li>每个任务都有一个任务类型，同一个类型的任务必须在一个队列，不同类型的任务可以分属于不同的队列。
-在一次事件循环中，浏览器可以根据实际情况从不同的队列中取出任务执行。</li>
-<li>浏览器必须准备好一个微队列，微队列中的任务优先所有其他任务执行
-<a href="https://html.spec.whatwg.org/multipage/webappapis.html#perform-a-microtask-checkpoint"target="_blank" rel="external nofollow noopener noreferrer">https://html.spec.whatwg.org/multipage/webappapis.html#perform-a-microtask-checkpoint<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
-</ul>
-<blockquote>
-<p>随着浏览器的复杂度急剧提升，W3C 不再使用宏队列的说法</p>
-</blockquote>
-<p>在目前 chrome 的实现中，至少包含了下面的队列：</p>
-<ul>
-<li>微队列：用户存放需要最快执行的任务，优先级「最高」</li>
-<li>延时队列：用于存放计时器到达后的回调任务，优先级「中」</li>
-<li>交互队列：用于存放用户操作后产生的事件处理任务，优先级「高」</li>
-</ul>
-<p><figure><a class="lightgallery" href="/posts/event-loop/images/multiple-queues.png?size=large" data-thumbnail="/posts/event-loop/images/multiple-queues.png?size=small" data-sub-html="<h2>多队列演示图</h2><p>微队列、延时队列、交互队列</p>"><img loading="lazy" src="/posts/event-loop/images/multiple-queues.png" srcset="/posts/event-loop/images/multiple-queues.png?size=small, /posts/event-loop/images/multiple-queues.png?size=medium 1.5x, /posts/event-loop/images/multiple-queues.png?size=large 2x" sizes="auto" data-title="微队列、延时队列、交互队列" data-alt="多队列演示图" style="--width: 1232px;--aspect-ratio: 1232 / 676;background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}"/></a><figcaption class="image-caption">多队列演示图</figcaption>
-  </figure></p>
-<p>添加任务到微队列的主要方式主要是使用 Promise、MutationObserver，例如：</p>
-<div class="highlight" id="id-2"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="c1">// 立即把一个函数添加到微队列
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nb">Promise</span><span class="p">.</span><span class="nx">resolve</span><span class="p">().</span><span class="nx">then</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{});</span></span></span></code></pre></td></tr></table>
-</div>
-</div><p>浏览器还有很多其他的队列，由于和我们开发关系不大，不作考虑。</p>
-<div class="details admonition question">
-    <div class="details-summary admonition-title">
-      <i class="icon fa-solid fa-question-circle fa-fw" aria-hidden="true"></i>面试题：阐述一下 JS 的事件循环<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i>
-    </div>
-    <div class="details-content">
-      <div class="admonition-content"><p>参考答案：</p>
-<p>事件循环又叫做消息循环，是浏览器渲染主线程的工作方式。</p>
-<p>在 Chrome 的源码中，它开启一个不会结束的 for 循环，每次循环从消息队列中取出第一个任务执行，而其他线程只需要在合适的时候将任务加入到队列末尾即可。</p>
-<p>过去把消息队列简单分为宏队列和微队列，这种说法目前已无法满足复杂的浏览器环境，取而代之的是一种更加灵活多变的处理方式。</p>
-<p>根据 W3C 官方的解释，每个任务有不同的类型，同类型的任务必须在同一个队列，不同的任务可以属于不同的队列。不同任务队列有不同的优先级，在一次事件循环中，由浏览器自行决定取哪一个队列的任务。但浏览器必须有一个微队列，微队列的任务一定具有最高的优先级，必须优先调度执行。</p>
-</div>
-    </div>
-  </div>
-<div class="details admonition question">
-    <div class="details-summary admonition-title">
-      <i class="icon fa-solid fa-question-circle fa-fw" aria-hidden="true"></i>面试题：JS 中的计时器能做到精确计时吗？为什么？<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i>
-    </div>
-    <div class="details-content">
-      <div class="admonition-content"><p>参考答案：</p>
-<p>不行，因为：</p>
-<ol>
-<li>计算机硬件没有原子钟，无法做到精确计时</li>
-<li>操作系统的计时函数本身就有少量偏差，由于 JS 的计时器最终调用的是操作系统的函数，也就携带了这些偏差</li>
-<li>按照 W3C 的标准，浏览器实现计时器时，如果嵌套层级超过 5 层，则会带有 4 毫秒的最少时间，这样在计时时间少于 4 毫秒时又带来了偏差</li>
-<li>受事件循环的影响，计时器的回调函数只能在主线程空闲时运行，因此又带来了偏差</li>
-</ol>
-</div>
-    </div>
-  </div>]]></description></item></channel></rss>
+</ul>]]></description></item></channel></rss>
