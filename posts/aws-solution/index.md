@@ -29,8 +29,6 @@
 
 视频讲解详细链接：[玩转免费试用 - 全球领先云服务的那些羊毛](https://aws.amazon.com/cn/campaigns/smb-cloud-one-stop-solution-paid-search/watch-the-video-hanxiaoyong/?sc_channel=seo&sc_campaign=blog1104)
 
-这个标题是最吸引人的，毕竟很多人都本着有羊毛必薅的心理。
-
 这个视频主要讲解了 AWS 的免费试用。很多公司都是从小到大到独角兽这样的成长，最初的时候学习自研，搭建一个系统其实可以从很多的一些免费的云服务开始，或者对于一些个人或者学生，如果想找工作，想试用云计算，也可以免费申请 AWS 的账号来使用。
 
 ### 免费云服务种类
