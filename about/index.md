@@ -44,7 +44,7 @@ const site = new Blog('菠菜眾長', 'Lruihao', 'https://lruihao.cn');
 ## 訂閱
 
 - [RSS](http://lruihao.cn/index.xml)
-- [GitHub](https://github.com/Lruihao/hugo-blog)
+- [GitHub](https://github.com/Lruihao/hugo-blog "Watch on GitHub")
 - [云 + 社区](https://cloud.tencent.com/developer/column/94521)
 
 ## 致謝
@@ -64,7 +64,7 @@ const site = new Blog('菠菜眾長', 'Lruihao', 'https://lruihao.cn');
 [fixit-repo]: https://github.com/hugo-fixit/FixIt
 
 <!-- footnote reference definition -->
-[^1]: [菠菜眾長][blog] 的源码见 [Lruihao/hugo-blog][blog-repo]。
+[^1]: [菠菜眾長][blog] 的源码见 [Lruihao/hugo-blog][blog-repo]，构建档见 [lruihao.github.io](https://github.com/Lruihao/lruihao.github.io)。
 [^2]: [FixIt][fixit] 的源码见 [hugo-fixit/FixIt][fixit-repo]。
 
 
