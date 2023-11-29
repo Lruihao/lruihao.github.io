@@ -42,7 +42,7 @@ hugo new site /path/to/site
 
 ### 创建文章
 
-注： 路径要写以 `content/` 为根目录的相对路径
+注：路径要写以 `content/` 为根目录的相对路径
 
 ```bash
 hugo new path/fileName
