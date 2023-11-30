@@ -38,7 +38,7 @@
 import os
 import requests
 
-path="C:\\Users\\李瑞豪、\Desktop\\MMT_images\\" #下载路径： 绝对或者相对路径比如。/image/
+path="C:\\Users\\李瑞豪、\Desktop\\MMT_images\\" #下载路径：绝对或者相对路径比如。/image/
 os.makedirs(path+"0\\", exist_ok=True) ## 创建文件夹
 os.makedirs(path+"1\\", exist_ok=True)
 

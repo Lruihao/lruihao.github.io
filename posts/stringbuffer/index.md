@@ -174,7 +174,7 @@ public static int getIndex(int[] arr,int value) {
   double    Double
   char    Character
   boolean    Boolean
-特殊：  void    Void
+特殊：void    Void
 ```
 
 ### Integer
@@ -201,7 +201,7 @@ public static int getIndex(int[] arr,int value) {
 ```
 
 - byte 缓存池面试题  
-  byte,short,char--->小于 127，否则报-6 的错误（查看 JDK)
+  byte,short,char--->小于 127，否则报 -6 的错误（查看 JDK)
 
 ### Character
 

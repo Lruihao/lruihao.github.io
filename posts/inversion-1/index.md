@@ -6,7 +6,7 @@
 
 <!--more-->
 
-> **部分倒装： 把谓语动词的一部分（`助动词，be 动词，情态动词`）提到主语前面。**
+> **部分倒装：把谓语动词的一部分（`助动词，be 动词，情态动词`）提到主语前面。**
 
 ### xx 也如此，xx 也一样
 
@@ -19,11 +19,11 @@
 3. Lily <u>can't</u> ride bicycle`,` `nor/neither can`lucy.
 4. The injured look <u>disappointed（沮丧的）</u>`,` `so did`senior citizens.（老人） （否定前缀词 ≠ 否定）
 5. If you <u>aren't</u> for the plan`;` `nor/neither will`I.<br>
-   **,** 或 **;** 前的句子若为从句，先将主句补充出，其后再根据主句改。<br>这里主句应为： I will not be for the plan.(be for 同意）
-6. It is burning（燃烧） hot today`,` so it is（那确实） `and/; so was (it)`yesterday.（这里只用用 and 或；)
+   **,** 或 **;** 前的句子若为从句，先将主句补充出，其后再根据主句改。<br>这里主句应为：I will not be for the plan.(be for 同意）
+6. It is burning（燃烧）hot today`,` so it is（那确实） `and/; so was (it)`yesterday.（这里只用用 and 或；)
 7. Everyone is here and looks upset`,` `so it is with Mary = it is the same with`Mary.<br>
    这个句型同样适用于前面的六个例子，但是前面是并列句必须用这个句型。
-8. The truth is that no one is perfect.When all potential（潜在的） for ugliness in removed`,` so is all of the potential for beauty.
+8. The truth is that no one is perfect.When all potential（潜在的）for ugliness in removed`,` so is all of the potential for beauty.
 
 ### 否定副词或含有否定的介词短位于句首
 
@@ -49,7 +49,7 @@
 1. <u>Only in this way</u> `are you` able to do it well.<br>
    倒装前：<br>You are able to do it well only in this way.
 2. <u>Only when they returned home</u> `did they` understand what had happened.
-3. <u>Only on such a trip</u> `will you` gain a better appreciation（理解） of Eurepean literature.
+3. <u>Only on such a trip</u> `will you` gain a better appreciation（理解）of Eurepean literature.
 4. <u>Only the teacher</u> got the news that our school could have <u>a 4-day holiday.</u>（同位语从句，only+主语所以不倒装）
 
 ### So/Such...that... 句型位于句首
@@ -75,7 +75,7 @@
 2. Poor as King was,he tried his best to help others.
 3. Try as he may,he has never made his boss satisfied.
 4. Search as you would,you could find no body in the room.
-5. Much as I want to buy the car,I can't afford（支付） it.
+5. Much as I want to buy the car,I can't afford（支付）it.
 
 ### 把虚拟语气从句中的 were,had,should 提至句首，并省略 if
 

@@ -37,7 +37,7 @@ total = len(friends[1:])   #计算总数
 #下面为分析
 attr = ["男性","女性","其他"]
 v1 = [float(male),float(female),float(other)]
-pie = Pie("饼图-圆环图示例", title_pos='center')
+pie = Pie("饼图 - 圆环图示例", title_pos='center')
 pie.add("", attr, v1, radius=[40, 75], label_text_color=None, is_label_show=True,
         legend_orient='vertical', legend_pos='left')
 pie.render("sex.html")

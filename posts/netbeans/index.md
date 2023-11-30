@@ -99,7 +99,7 @@
 
 1. 复制一行：Ctrl + Shift + 上下方向键（该操作并非复制到粘贴板）；
 2. 复制一行：在该行任何地方连续三击选中一样，然后 Ctrl + C 即可复制一行。；
-3. 复制一行（使用宏）: 编辑-开始录制宏 (Home,Shift + End,Ctrl + C)-停止录制宏-设置宏名称（如 select-entire-line)-设置快捷键（如 Ctrl + Alt + C)；
+3. 复制一行（使用宏）: 编辑 - 开始录制宏 (Home,Shift + End,Ctrl + C)-停止录制宏 - 设置宏名称（如 select-entire-line)-设置快捷键（如 Ctrl + Alt + C)；
 
 - 也可自己修改快捷鍵 (Tools→Options→Keympa), 如下圖
 

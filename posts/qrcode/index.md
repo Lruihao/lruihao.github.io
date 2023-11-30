@@ -88,7 +88,7 @@ myqr   Words
 myqr https://github.com
 ```
 
-- 在命令后输入链接或者句子作为参数，然后在程序的当前目录中产生相应的二维码图片文件，默认命名为 “qrcode.png”。
+- 在命令后输入链接或者句子作为参数，然后在程序的当前目录中产生相应的二维码图片文件，默认命名为“qrcode.png”。
 
 ```markdown
 #2 -v, -l
@@ -110,7 +110,7 @@ myqr https://github.com -v 10 -l Q
 myqr https://github.com -n github_qr.jpg -d .../paths/
 ```
 
-- **默认输出文件名**是“ qrcode.png "，而**默认存储位置**是当前目录。
+- **默认输出文件名**是“qrcode.png "，而**默认存储位置**是当前目录。
 
 - 自定义：可以自己定义输出名称和位置。**注意**同名文件会覆盖旧的。
 

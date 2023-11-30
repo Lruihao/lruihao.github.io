@@ -27,7 +27,7 @@ cmd 也进入到上面的路径下，然后执行`Python setup.py install`，等
 
 pyinstaller 将 Python 脚本打包成可执行程序，使在没有 Python 环境的机器上运行。
 
-最新版是 pyinstaller 3.4，可运行在 Windows，Mac 和 Linux 操作系统下。 但它不是跨编译的，也就是说在 Windows 下用 PyInstaller 生成的 exe 只能运行在 Windows 下，在 Linux 下生成的只能运行在 Linux 下。
+最新版是 pyinstaller 3.4，可运行在 Windows，Mac 和 Linux 操作系统下。但它不是跨编译的，也就是说在 Windows 下用 PyInstaller 生成的 exe 只能运行在 Windows 下，在 Linux 下生成的只能运行在 Linux 下。
 
 ## 打包
 

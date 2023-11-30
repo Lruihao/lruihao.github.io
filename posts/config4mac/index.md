@@ -143,7 +143,7 @@ ssh-add ~/.ssh/Lruihao-Github  # 私钥路径
 
 - Terminal: 系统自带
 - Shell: zsh
-- 美化: [ohmyzsh](https://github.com/ohmyzsh/ohmyzsh)
+- 美化：[ohmyzsh](https://github.com/ohmyzsh/ohmyzsh)
 
 修改启动语
 

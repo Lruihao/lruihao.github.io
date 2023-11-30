@@ -1,7 +1,7 @@
 # 大数乘法
 
 
-> 大数乘法 c 版(基础写法)
+> 大数乘法 c 版 (基础写法)
 
 <!--more-->
 
@@ -11,7 +11,7 @@
 #define N 202
 
 int main() {
-  int a[N] = {0}, b[N] = {0}, c[404] = {0}, la, lb, i, j,k, d = 0, n1, n2;//202位数相乘，最长404位数
+  int a[N] = {0}, b[N] = {0}, c[404] = {0}, la, lb, i, j,k, d = 0, n1, n2;//202 位数相乘，最长 404 位数
   int get(int *p);
   void change(int *a, int *b, int n);
 
@@ -48,7 +48,7 @@ int main() {
   return 0;
 }
 
-//输入字符串作为数字，并返回数字去除前导0后的长度
+//输入字符串作为数字，并返回数字去除前导 0 后的长度
 int get(int *p) {
   char x[N];
   int l, i, ex = 0;
@@ -57,7 +57,7 @@ int get(int *p) {
   l = strlen(x);
   while (x[ex] == '0')
     ex++;
-  for (i = ex; i < l; i++) //提取字符串数字到int数组，倒序排列
+  for (i = ex; i < l; i++) //提取字符串数字到 int 数组，倒序排列
     *(p + l - i - 1) = x[i] - '0';
   return l - ex;
 }

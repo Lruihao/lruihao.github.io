@@ -32,7 +32,7 @@ public class ArraysDemo {
     Arrays.sort(arr);
     System.out.print("排序后：");
     display(arr);
-    //将值-1 分配给数组 arr 中下标从 0 到 3-1 的位置
+    //将值 -1 分配给数组 arr 中下标从 0 到 3-1 的位置
     Arrays.fill(arr, 0,3,-1);
     System.out.print("fill() 后：");
     display(arr);

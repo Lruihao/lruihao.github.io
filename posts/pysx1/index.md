@@ -104,7 +104,7 @@ print("Good bye!")
 Good bye!
 ```
 
-### str() 、 import 导库
+### str() 、import 导库
 
 ```python
 x=10

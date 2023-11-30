@@ -118,7 +118,7 @@ Flex 布局将成为未来布局的首选方案，比如说常见的 bootstrap4 
 > - .col-md- 中等屏幕 >=992px
 > - .col-lg- 大屏幕 >1200px
 
-css3 写法 @media （宽度具体调整）
+css3 写法 @media（宽度具体调整）
 
 ```css css3 写法@media （宽度具体调整）
 /* 手机等小屏幕手持设备 */

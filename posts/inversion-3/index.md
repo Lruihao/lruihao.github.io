@@ -15,7 +15,7 @@
 
 **例句**
 
-1. Whatever the weather is,he sticks out（坚持） walking outside.
+1. Whatever the weather is,he sticks out（坚持）walking outside.
 2. Go to stamp sales and buy whatever you can offord.
 3. Whatever reasons you have,you should carry out your promise.
 4. However <u>many difficulties(n.)</u> you meet with,you should try to overcome them.

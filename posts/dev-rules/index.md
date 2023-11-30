@@ -221,7 +221,7 @@ Java 注释应该遵循 JavaDoc 的标准撰写
 
 ### 前端参数取得
 
-参数取得需通过 filter_input 函数取得，不得使用 \_GET 、\_POST
+参数取得需通过 filter_input 函数取得，不得使用 \_GET、\_POST
 
 ### 输出到前台
 

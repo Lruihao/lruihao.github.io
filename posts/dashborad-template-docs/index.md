@@ -84,7 +84,7 @@
 - `isCollapse` (Boolean): 是否折叠侧边栏
 - `colNum` (Number): 栅格列数
 - `rowHeight` (Number): 栅格行高
-- `gaps` (Array): 栅格间隙 [水平间隙, 垂直间隙] e.g. [8, 8]
+- `gaps` (Array): 栅格间隙 [水平间隙，垂直间隙] e.g. [8, 8]
 - `dashboardGrid` (Element): 可接收拖放的栅格容器
 - `dashboardList` (Array): 仪表盘列表
 - `dashboard` (Object): 仪表盘数据
@@ -318,9 +318,9 @@ dashboard 显示通知
 ```sql {title="dashboard 表结构"}
 CREATE TABLE `dashboard` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `route` varchar(150) NOT NULL DEFAULT '' COMMENT 'dashborad名称',
-  `layout` longtext COMMENT 'dashborad布局JSON',
-  `organization_id` bigint(11) DEFAULT '0' COMMENT '组织id',
+  `route` varchar(150) NOT NULL DEFAULT '' COMMENT 'dashborad 名称',
+  `layout` longtext COMMENT 'dashborad 布局 JSON',
+  `organization_id` bigint(11) DEFAULT '0' COMMENT '组织 id',
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
   `aside` varchar(15) DEFAULT NULL COMMENT '侧栏位置',
@@ -328,7 +328,7 @@ CREATE TABLE `dashboard` (
   `name` varchar(250) DEFAULT NULL COMMENT '仪表盘名称',
   PRIMARY KEY (`id`),
   KEY `name` (`route`)
-) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8 COMMENT='Dashboard组件布局数据';
+) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8 COMMENT='Dashboard 组件布局数据';
 ```
 
 ## Appendix B: API Reference

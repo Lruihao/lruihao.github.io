@@ -23,16 +23,16 @@
 
 1. The horse and cart has fallen down the cliff（悬崖）.
 2. Butter and bread is his favourate.
-3. The poet（诗人） and writer has been sentenced（判决） to death.
-4. The poet and the writer have been sentenced（判决） to death.
+3. The poet（诗人）and writer has been sentenced（判决）to death.
+4. The poet and the writer have been sentenced（判决）to death.
 
 ### 两数相加或相乘，单复皆可，相减或相除，只能用单数，量词做主语，用单数
 
-等于： be,equal,be equal to,make
-相加： and,plus
-相减： minus
-相乘： multily,time
-相除： divided by
+等于：be,equal,be equal to,make
+相加：and,plus
+相减：minus
+相乘：multily,time
+相除：divided by
 
 One and one make(makes) two.
 
@@ -68,9 +68,9 @@ One and one make(makes) two.
 ## 分数，百分数，the rest(+of+n) 做主语，用单数
 
 谓语动词由 of 后面的名词决定，一般用单数。
-分数用法： 通常分子读基数，分母读序数，分子超过 1 时，分母加 s。即 基+序 (s)+of+n+谓
+分数用法：通常分子读基数，分母读序数，分子超过 1 时，分母加 s。即 基 + 序 (s)+of+n+谓
 
-1. Most students are in favaour of the contract（契约） but the rest disagree.
+1. Most students are in favaour of the contract（契约）but the rest disagree.
    be favaour of: be for,approve of,support,agree with
 2. About two thirds of the earth's surface is covered by water.
 
@@ -78,15 +78,15 @@ One and one make(makes) two.
 
 > one of+n 或 the only one of+n, 一般用单数（定从根据中心词在 of 前后）
 > a number of+n（用复数） & the number of+n（用单数）
-> one in 或 one out of+n （用单数）
+> one in 或 one out of+n（用单数）
 > a large quantity of & large quantity of + 可、不可数 n
 > a large amount of & large amounts of + 不可数 n
 
 1. He is one of the students who were awarded the other day.
 2. He is the only one of the students who was awarded the other day.
-3. One of his family was a traitor（卖国贼，叛徒） during the world war two.
+3. One of his family was a traitor（卖国贼，叛徒）during the world war two.
 4. A number of teenagers are addicted to the Internet.
-5. The number of students who are addicted to the Internet is up to（接近于） 15.
+5. The number of students who are addicted to the Internet is up to（接近于）15.
 6. Large amounts of power are foused on him alone.==a large amount of power is foused on him alone.
 
 ## 不定代词做主语，谓语动词用单数
@@ -94,7 +94,7 @@ One and one make(makes) two.
 > all 修饰人，谓语动词用复数，修饰物，谓语动词用单数
 
 1. All are present besides the professor.
-2. All that glitters（发光体） is not gold.
+2. All that glitters（发光体）is not gold.
    not 与 all/both 等连用表部分否定
 
 ## the +adj 表一类人做主语时，谓语动词用复数
@@ -110,7 +110,7 @@ One and one make(makes) two.
 2. The pair of glasses seems expensive.（谓语动词与表示计量单位的名词形式一致）
 3. Three set of fashionable socks are shown in today's evening proper（恰当地）.
 
-一系列： a piece/pair/set/suit/series of
+一系列：a piece/pair/set/suit/series of
 
 ## 以 s 结尾特殊专用名词，用单数
 
@@ -119,7 +119,7 @@ One and one make(makes) two.
 
 Arabian Night sounds beautiful.
 
-## many a +单 n+单谓： “许多” more than one +单 n+单谓： “不止一个”
+## many a +单 n+单谓： “许多”more than one +单 n+单谓： “不止一个”
 
 1. Many a man thinks life is meaningless without a purpose/an aim.
 2. More than one student has put forward the suggestion.
@@ -140,7 +140,7 @@ The Olympices is hold every four years. == The Olympic games are hold every four
 
 <!-- markdownlint-disable MD033 -->
 
-1. The innovation experiment（革新实验） class consists of 24 students and enjoy chinese.
+1. The innovation experiment（革新实验）class consists of 24 students and enjoy chinese.
 2. Population in China is 1.4 billion <u>or so</u>(about) 20% (Population) have no access to clean water.
 
 ## 单复同形，sheep,deer,means,Chinese 等谓语动词依据情况而定

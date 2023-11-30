@@ -135,10 +135,10 @@ npm install --save hexo-tag-aplayer
 - `title` : 曲目标题
 - `author`: 曲目作者
 - `url`: 音乐文件 URL 地址
-- `picture_url`: （可选） 音乐对应的图片地址
+- `picture_url`: （可选）音乐对应的图片地址
 - `narrow`: （可选）播放器袖珍风格
-- `autoplay`: （可选） 自动播放，移动端浏览器暂时不支持此功能
-- `width:xxx`: （可选） 播放器宽度 （默认：100%)
+- `autoplay`: （可选）自动播放，移动端浏览器暂时不支持此功能
+- `width:xxx`: （可选）播放器宽度（默认：100%)
 - `lrc:xxx`: （可选）歌词文件 URL 地址
 
 当开启 Hexo 的 [文章资源文件夹](https://hexo.io/zh-cn/docs/asset-folders.html#%E6%96%87%E7%AB%A0%E8%B5%84%E6%BA%90%E6%96%87%E4%BB%B6%E5%A4%B9) 功能时，可以将图片、音乐文件、歌词文件放入与文章对应的资源文件夹中，然后直接引用：
@@ -347,7 +347,7 @@ merge newbranch
 
 ## tab 选项卡
 
-> "tab"为选项卡的名称，可以自定义，数字是几表示从第几个选项卡开始。非必须，若数值为-1 则隐藏选项卡内容。
+> "tab"为选项卡的名称，可以自定义，数字是几表示从第几个选项卡开始。非必须，若数值为 -1 则隐藏选项卡内容。
 > [查看更多](https://theme-next.org/docs/tag-plugins/tabs)
 
 ```md
@@ -388,7 +388,7 @@ this is tab3
 {% endtabs %}
 ```
 
-> 数值为-1
+> 数值为 -1
 
 ```md
 {% tabs 选项，-1 %}

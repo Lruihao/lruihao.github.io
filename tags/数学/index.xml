@@ -41,7 +41,7 @@ m 奇 n 奇时，gcd(m, n)=gcd(n, m-n)</p>
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">if</span><span class="p">(</span><span class="n">j</span><span class="o">&lt;</span><span class="n">i</span><span class="p">)</span> <span class="n">i</span><span class="o">=</span><span class="n">j</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">        <span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">){</span>
 </span></span><span class="line"><span class="cl">                <span class="k">if</span><span class="p">(</span><span class="n">x</span><span class="o">&lt;</span><span class="n">y</span><span class="p">)</span><span class="n">x</span><span class="o">^=</span><span class="n">y</span><span class="p">,</span><span class="n">y</span><span class="o">^=</span><span class="n">x</span><span class="p">,</span><span class="n">x</span><span class="o">^=</span><span class="n">y</span><span class="p">;</span>   <span class="c1">// 若 x &lt; y 交换 x, y
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                <span class="k">if</span><span class="p">(</span><span class="mi">0</span><span class="o">==</span><span class="p">(</span><span class="n">x</span><span class="o">-=</span><span class="n">y</span><span class="p">))</span> <span class="k">return</span> <span class="n">y</span><span class="o">&lt;&lt;</span><span class="n">i</span><span class="p">;</span>  <span class="c1">// 若 x == y， gcd == x == y （就是在辗转减，while(1) 控制）
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                <span class="k">if</span><span class="p">(</span><span class="mi">0</span><span class="o">==</span><span class="p">(</span><span class="n">x</span><span class="o">-=</span><span class="n">y</span><span class="p">))</span> <span class="k">return</span> <span class="n">y</span><span class="o">&lt;&lt;</span><span class="n">i</span><span class="p">;</span>  <span class="c1">// 若 x == y，gcd == x == y（就是在辗转减，while(1) 控制）
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>                <span class="k">while</span><span class="p">(</span><span class="mi">0</span><span class="o">==</span><span class="p">(</span><span class="n">x</span><span class="o">&amp;</span><span class="mi">1</span><span class="p">))</span><span class="n">x</span><span class="o">&gt;&gt;=</span><span class="mi">1</span><span class="p">;</span> <span class="c1">// 去掉所有的 2
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
@@ -76,7 +76,7 @@ m 奇 n 奇时，gcd(m, n)=gcd(n, m-n)</p>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
 </div>]]></description></item><item><title>大数乘法</title><link>https://lruihao.cn/posts/dacheng/</link><pubDate>Thu, 28 Mar 2019 22:50:43 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/dacheng/</guid><description><![CDATA[<blockquote>
-<p>大数乘法 c 版(基础写法)</p>
+<p>大数乘法 c 版 (基础写法)</p>
 </blockquote>
 <div class="highlight" id="id-1"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -152,7 +152,7 @@ m 奇 n 奇时，gcd(m, n)=gcd(n, m-n)</p>
 </span></span></span><span class="line"><span class="cl"><span class="cp">#define N 202
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">a</span><span class="p">[</span><span class="n">N</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">},</span> <span class="n">b</span><span class="p">[</span><span class="n">N</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">},</span> <span class="n">c</span><span class="p">[</span><span class="mi">404</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">},</span> <span class="n">la</span><span class="p">,</span> <span class="n">lb</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span><span class="n">k</span><span class="p">,</span> <span class="n">d</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">n1</span><span class="p">,</span> <span class="n">n2</span><span class="p">;</span><span class="c1">//202位数相乘，最长404位数
+</span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">a</span><span class="p">[</span><span class="n">N</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">},</span> <span class="n">b</span><span class="p">[</span><span class="n">N</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">},</span> <span class="n">c</span><span class="p">[</span><span class="mi">404</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">},</span> <span class="n">la</span><span class="p">,</span> <span class="n">lb</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span><span class="n">k</span><span class="p">,</span> <span class="n">d</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">n1</span><span class="p">,</span> <span class="n">n2</span><span class="p">;</span><span class="c1">//202 位数相乘，最长 404 位数
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">int</span> <span class="n">get</span><span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="n">p</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="kt">void</span> <span class="n">change</span><span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">b</span><span class="p">,</span> <span class="kt">int</span> <span class="n">n</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
@@ -189,7 +189,7 @@ m 奇 n 奇时，gcd(m, n)=gcd(n, m-n)</p>
 </span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">//输入字符串作为数字，并返回数字去除前导0后的长度
+</span></span><span class="line"><span class="cl"><span class="c1">//输入字符串作为数字，并返回数字去除前导 0 后的长度
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">int</span> <span class="nf">get</span><span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="n">p</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="kt">char</span> <span class="n">x</span><span class="p">[</span><span class="n">N</span><span class="p">];</span>
 </span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">l</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">ex</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
@@ -198,7 +198,7 @@ m 奇 n 奇时，gcd(m, n)=gcd(n, m-n)</p>
 </span></span><span class="line"><span class="cl">  <span class="n">l</span> <span class="o">=</span> <span class="n">strlen</span><span class="p">(</span><span class="n">x</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="k">while</span> <span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">ex</span><span class="p">]</span> <span class="o">==</span> <span class="sc">&#39;0&#39;</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="n">ex</span><span class="o">++</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">  <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="n">ex</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">l</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="c1">//提取字符串数字到int数组，倒序排列
+</span></span><span class="line"><span class="cl">  <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="n">ex</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">l</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="c1">//提取字符串数字到 int 数组，倒序排列
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="o">*</span><span class="p">(</span><span class="n">p</span> <span class="o">+</span> <span class="n">l</span> <span class="o">-</span> <span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="sc">&#39;0&#39;</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="n">l</span> <span class="o">-</span> <span class="n">ex</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
@@ -255,7 +255,7 @@ m 奇 n 奇时，gcd(m, n)=gcd(n, m-n)</p>
 <pre><code>12
 </code></pre>
 <h2 id="备注">备注</h2>
-<p>对于 100%的测试数据：<br>
+<p>对于 100% 的测试数据：<br>
 1 ≤ n, m ≤ 1000<br>
 数据量较大，注意使用更快的输入输出方式。</p>
 <p>水题。</p>
@@ -496,7 +496,7 @@ For the second sample, there are only three valid sequence of steps {2, 1}, {1, 
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>想不通，没办法只好换思路。</p>
-<p>我先分别记下 a,b 串的&rsquo;+&rsquo;,&rsquo;-&rsquo;,&rsquo;?&lsquo;个数，然后后我们很容易知道，如要 a,b 位置相等，则加号和减号的数目，两串要相等，且 a 中的加号要比 b 中已知的加号要多，减号也要比 b 中已知的要多，否则打死都不会相等的，仔细比划一下就知道了。然后有 z 个‘?’，相当于有 z 个坑，让我们去填使得 a,b 相等。只能填+或-，设加号差等于 x-p, 所以概率就等于 c(z,x-p)/2^z。</p>
+<p>我先分别记下 a,b 串的&rsquo;+&rsquo;,&rsquo;-&rsquo;,&rsquo;?&lsquo;个数，然后后我们很容易知道，如要 a,b 位置相等，则加号和减号的数目，两串要相等，且 a 中的加号要比 b 中已知的加号要多，减号也要比 b 中已知的要多，否则打死都不会相等的，仔细比划一下就知道了。然后有 z 个‘?’，相当于有 z 个坑，让我们去填使得 a,b 相等。只能填 + 或-，设加号差等于 x-p, 所以概率就等于 c(z,x-p)/2^z。</p>
 <h2 id="ac-代码">AC 代码</h2>
 <div class="highlight" id="id-3"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -726,7 +726,7 @@ For the second sample, there are only three valid sequence of steps {2, 1}, {1, 
 </ol>
 <p>举个例子</p>
 <p>当出现 2.5&lt;=k&lt;=5.5 时，我们需要的可行的 k 为 3,4,5，所以需要将 2.5 向上取整得到 3，5.5 向下取整得到 5，即为 3&lt;=k&lt;=5；</p>
-<p>当出现-5.5&lt;=&lt;=-2.5 时，我们需要的可行的 k 为-5,-4,-3, 所以需要将-5.5 向上取整得到-5,-2.5 向下取整得到-3，即为-5&lt;=k&lt;=-3；</p>
+<p>当出现 -5.5&lt;=&lt;=-2.5 时，我们需要的可行的 k 为 -5,-4,-3, 所以需要将 -5.5 向上取整得到 -5,-2.5 向下取整得到 -3，即为 -5&lt;=k&lt;=-3；</p>
 <p>正负数的情况都已经考虑完全了，可以得到取整的结论：上界下取整，下界上取整。</p>
 <p>最后，将得到的两个范围取交集，得到 [l,r]，则最终答案为 r-l+1。</p>
 <p>这样，本题就可以完美解决了。</p>
@@ -933,7 +933,7 @@ For the second sample, there are only three valid sequence of steps {2, 1}, {1, 
 </span></span><span class="line"><span class="cl"><span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
-</div>]]></description></item><item><title>Leading and Trailing-lightoj1282（快速幂+对数运算）</title><link>https://lruihao.cn/posts/lightoj1282/</link><pubDate>Thu, 09 Aug 2018 20:55:26 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/lightoj1282/</guid><description><![CDATA[<h2 id="题目链接httpsvjudgenetcontest238979probleme"><a href="https://vjudge.net/contest/238979#problem/E"target="_blank" rel="external nofollow noopener noreferrer">题目链接<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></h2>
+</div>]]></description></item><item><title>Leading and Trailing-lightoj1282（快速幂 + 对数运算）</title><link>https://lruihao.cn/posts/lightoj1282/</link><pubDate>Thu, 09 Aug 2018 20:55:26 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/lightoj1282/</guid><description><![CDATA[<h2 id="题目链接httpsvjudgenetcontest238979probleme"><a href="https://vjudge.net/contest/238979#problem/E"target="_blank" rel="external nofollow noopener noreferrer">题目链接<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></h2>
 <h2 id="题目大意">题目大意</h2>
 <p>给定两个数 n,k 求 n^k 的前三位和最后三位。</p>
 <h2 id="分析">分析</h2>

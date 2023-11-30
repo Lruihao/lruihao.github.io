@@ -68,8 +68,8 @@ while a < 500: ## 输出不大于 500 的序列
 > csv 文件格式： ‘,’逗号连接元素
 
 ```python
-fi = open("data/笑傲江湖-网络版。txt","r",encoding="utf-8")
-fo = open("data/笑傲江湖-字符统计。txt","w",encoding="utf-8")
+fi = open("data/笑傲江湖 - 网络版。txt","r",encoding="utf-8")
+fo = open("data/笑傲江湖 - 字符统计。txt","w",encoding="utf-8")
 
 txt = fi.read() #打开文件
 #txt
@@ -461,7 +461,7 @@ class UserDialog(wx.Dialog):## user-defined
 
         pstock_Text = wx.StaticText(self, -1, u'选股策略筛选结果')
         pstock_Text.SetFont(wx.Font(18,wx.DEFAULT,wx.NORMAL,wx.BOLD))
-        pstock_sure = wx.TextCtrl(self, -1, "角度值：\n",size=(350,300),style = wx.TE_MULTILINE|wx.TE_READONLY)#多行|只读
+        pstock_sure = wx.TextCtrl(self, -1, "角度值：\n",size=(350,300),style = wx.TE_MULTILINE|wx.TE_READONLY)#多行 | 只读
         pstock_sure.SetFont(wx.Font(10,wx.DEFAULT,wx.NORMAL,wx.BOLD))
 
         okbtn = wx.Button(self,wx.ID_OK,u"确认")
@@ -537,7 +537,7 @@ class Frame(wx.Frame):
         #初始化指标变量
         self.IndicatInput_Val = self.StratInputBox.GetStringSelection()
 
-        self.TextAInput = wx.TextCtrl(self.ParaPanel, -1, "交易信息提示：", style = wx.TE_MULTILINE|wx.TE_READONLY)#多行|只读
+        self.TextAInput = wx.TextCtrl(self.ParaPanel, -1, "交易信息提示：", style = wx.TE_MULTILINE|wx.TE_READONLY)#多行 | 只读
 
         vboxnetA = wx.BoxSizer(wx.VERTICAL)#纵向 box
         vboxnetA.Add(paraInput_Sizer,proportion=0,flag=wx.EXPAND|wx.BOTTOM,border=2) #proportion 参数控制容器尺寸比例

@@ -61,7 +61,7 @@ public class ExceptionDemo {
    String name=sc.nextLine();
    int num=FindName(name);
    if(num==0?false:true) {//验证书名是否存在 存在则打印
-    System.out.println("book："+name+"\t 序号："+num);
+    System.out.println("book:"+name+"\t 序号："+num);
     //menu();//回到访问起点 也可以去掉终止程序
    }else{
              System.out.println("图书不存在");

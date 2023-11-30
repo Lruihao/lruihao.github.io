@@ -74,7 +74,7 @@ tsu
 
 [Termux-ohmyzsh](https://github.com/Cabbagec/termux-ohmyzsh)
 
-作用 ： 美化之外，主要使用了 zsh 来替代 bash 作为默认 shell。使用一键安装脚本来安装，一步到位，顺便启动了外置存储，可以直接访问 SD 卡下的目录，创建软文件夹。
+作用：美化之外，主要使用了 zsh 来替代 bash 作为默认 shell。使用一键安装脚本来安装，一步到位，顺便启动了外置存储，可以直接访问 SD 卡下的目录，创建软文件夹。
 
 ### 使用
 

@@ -66,7 +66,7 @@ export NVM_NODEJS_ORG_MIRROR=https://mirrors.ustc.edu.cn/node/
 
 ## 参考
 
-- <https://wxhboy.cn/2022/04/12/解决SourceTree提交时候husky命令失败问题/>
+- <https://wxhboy.cn/2022/04/12/解决 SourceTree 提交时候 husky 命令失败问题/>
 - <https://github.com/typicode/husky/issues/390#issuecomment-762213421>
 - <https://github.com/typicode/husky/issues/904#issuecomment-862184954>
 - <https://github.com/nvm-sh/nvm#deeper-shell-integration>

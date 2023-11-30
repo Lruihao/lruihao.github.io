@@ -31,7 +31,7 @@ inline int GCD(int x,int y)
         if(j<i) i=j;
         while(1){
                 if(x<y)x^=y,y^=x,x^=y;   // 若 x < y 交换 x, y
-                if(0==(x-=y)) return y<<i;  // 若 x == y， gcd == x == y （就是在辗转减，while(1) 控制）
+                if(0==(x-=y)) return y<<i;  // 若 x == y，gcd == x == y（就是在辗转减，while(1) 控制）
                 while(0==(x&1))x>>=1; // 去掉所有的 2
         }
 }

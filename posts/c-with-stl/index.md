@@ -135,7 +135,7 @@ set<int>::iterator it;
 it = a.lower_bound(value);
 ```
 
-## 7.next_permutation （排列）
+## 7.next_permutation（排列）
 
 bool next_permutation( iterator start, iterator end ); 通常用于生成序列的全排列。用之前先保证有序；
 
@@ -203,7 +203,7 @@ do{
 }while(next_permutation(str, str+length))；
 ```
 
-## 8.unique （去重）
+## 8.unique（去重）
 
 如何把序列 a 中的重复元素去除呢？首先需要对原序列 a 进行排序，保证有序后，调用 unique(a.head , a.tail ) 就可以了。unique 会返回一个类似指针的东西（和 lower_bound 有点像），-a 后表示去重之后序列的长度。
 

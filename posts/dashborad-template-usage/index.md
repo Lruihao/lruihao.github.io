@@ -54,8 +54,8 @@ export default {
     // 加载组件列表
     this.addComponents('测试跟踪', trackingComponents)
     this.addComponents('接口测试', interfaceComponents)
-    this.addComponents('WebUI测试', webuiComponents)
-    this.addComponents('App测试', appComponents)
+    this.addComponents('WebUI 测试', webuiComponents)
+    this.addComponents('App 测试', appComponents)
 
     // 设置权限
     this.hasEditPermission = this.checkPermission(['admin']) || !this.dashboard.isDefault

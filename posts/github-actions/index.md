@@ -86,7 +86,7 @@ jobs:
 > 至此，Github Pages 和 COS 都已經可以通過 Github Actions 自動部署了，有部署記錄后，  
 > 打開 Lruihao/hugo-blog -> Actions 可以看到構建過程和結果，構建失敗也會收到 Github 發給你的郵件。
 
-## COS 自動同步 （備用）
+## COS 自動同步（備用）
 
 本小節內容和 Github Actions 無關，僅作為 COS 備用上傳方式。
 

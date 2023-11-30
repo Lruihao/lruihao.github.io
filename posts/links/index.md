@@ -16,7 +16,7 @@
 | :---------------------------------------------------------------------------------------- | :-------------------------------------------------------- |
 | [各大 OJ 题目分类](http://www.pythontip.com/acm/problemCategory)                          | 各种算法分类，对应 OJ 题号超链接                          |
 | [ACM 题目分类](https://blog.csdn.net/column/details/acm--acm-acm--1.html)                 |                                                           |
-| [codeforces](https://codeforces.com)                                                      | 俄国 CF 在线编程，一般比赛在晚上 9:30 和 11：00           |
+| [codeforces](https://codeforces.com)                                                      | 俄国 CF 在线编程，一般比赛在晚上 9:30 和 11:00           |
 | [牛客网](https://www.nowcoder.com)                                                        | 国内求职学习网，有很多程序设计比赛                        |
 | [vjudge](https://vjudge.net)                                                              | 这个不用说了吧                                            |
 | [hihocoder](https://hihocoder.com)                                                        | 打得少，感觉好多数据结构的题                              |
@@ -140,7 +140,7 @@
 | [老殁科技](https://www.laomoit.com/)                                 | Adobe 等各种绿色破解软件                                                                                                      |
 | [百度接口](https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=) | 百度搜索关键词接口                                                                                                            |
 | [在线短信](https://www.pdflibr.com/)                                 | 不想泄露个人的电话号码，注册一些一次性网站可以用到                                                                            |
-| [配音阁](http://www.peiyinge.com/)                                   | 文字转换语音/语音合成广告*叫卖录音*在线配音网络软件\_促销宣传片配音-配音阁-配音阁，国内专业的广告配音平台                     |
+| [配音阁](http://www.peiyinge.com/)                                   | 文字转换语音/语音合成广告*叫卖录音*在线配音网络软件\_促销宣传片配音 - 配音阁 - 配音阁，国内专业的广告配音平台                     |
 | [hacknical](https://hacknical.com)                                   | 在线个性简历，个人 Github 总结分析                                                                                            |
 
 <!-- endtab -->

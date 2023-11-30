@@ -43,9 +43,9 @@ img[loading='lazy']:not([data-lazyloaded]) {
 
 ## 懒加载特性的研究
 
-> 以下结论来自 [浏览器 IMG 图片原生懒加载 loading=”lazy”实践指南 « 张鑫旭-鑫空间-鑫生活](https://www.zhangxinxu.com/wordpress/2019/09/native-img-loading-lazy/) 总结部分。
+> 以下结论来自 [浏览器 IMG 图片原生懒加载 loading=”lazy”实践指南 « 张鑫旭 - 鑫空间 - 鑫生活](https://www.zhangxinxu.com/wordpress/2019/09/native-img-loading-lazy/) 总结部分。
 
-1. Lazy loading 加载数量与屏幕高度有关，高度越小加载数量越少，但并不是线性关系.
+1. Lazy loading 加载数量与屏幕高度有关，高度越小加载数量越少，但并不是线性关系。
 2. Lazy loading 加载数量与网速有关，网速越慢，加载数量越多，但并不是线性关系。
 3. Lazy loading 加载没有缓冲，滚动即会触发新的图片资源加载。
 4. Lazy loading 加载在窗口 resize 尺寸变化时候也会触发，例如屏幕高度从小变大的时候。

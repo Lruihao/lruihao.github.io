@@ -49,7 +49,7 @@
 ### 5. html5 有哪些新特性
 
 - 语义化标签：`header` `footer` `nav` `section` `article` `aside` 等
-- 增强型表单：`date`（从一个日期选择器选择一个日期） `email`（包含 e-mail 地址的输入域） `number`（数值的输入域） `range`（一定范围内数字值的输入域） `search`（用于搜索域） `tel`（定义输入电话号码字段） 等
+- 增强型表单：`date`（从一个日期选择器选择一个日期） `email`（包含 e-mail 地址的输入域） `number`（数值的输入域） `range`（一定范围内数字值的输入域） `search`（用于搜索域） `tel`（定义输入电话号码字段）等
 - 视频和音频：`audio` `video`
 - Canvas 绘图 SVG 绘图
 - 地理定位：`Geolocation`
@@ -184,7 +184,7 @@ box-sizing: content-box|border-box|inherit:
 
 ### 5. position 的值有哪些
 
-> static： 默认值。没有定位，元素出现在正常的流中
+> static：默认值。没有定位，元素出现在正常的流中
 
 > relative（相对定位）：生成相对定位的元素，相对于其正常（原先本身）位置进行定位
 
