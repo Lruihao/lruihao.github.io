@@ -9,7 +9,7 @@
 
 HTML `loading` 属性适用于 `img` 和 `iframe`，语法规范见 [HTML Standard - Lazy loading attributes](https://html.spec.whatwg.org/multipage/urls-and-fetching.html#lazy-loading-attributes)。
 
-| 关键词  |  状态  | 描述                                 |
+| 关键词  | 状态  | 描述                                 |
 | :-----: | :----: | ------------------------------------ |
 | `lazy`  | 懒惰的 | 用于延迟获取资源，直到满足某些条件。 |
 | `eager` | 渴望的 | 用于立即获取资源；默认状态。         |

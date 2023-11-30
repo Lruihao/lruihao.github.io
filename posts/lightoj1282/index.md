@@ -60,8 +60,8 @@ int main ()
 C 库函数 - fmod()  
 C 库函数 double fmod(double x, double y) 返回 x 除以 y 的余数。
 
-- x -- 代表分子的浮点值。
-- y -- 代表分母的浮点值。
+- x — 代表分子的浮点值。
+- y — 代表分母的浮点值。
   该函数返回 x/y 的余数。
 
 下面的实例演示了 fmod() 函数的用法。

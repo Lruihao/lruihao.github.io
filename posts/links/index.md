@@ -140,7 +140,7 @@
 | [老殁科技](https://www.laomoit.com/)                                 | Adobe 等各种绿色破解软件                                                                                                      |
 | [百度接口](https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=) | 百度搜索关键词接口                                                                                                            |
 | [在线短信](https://www.pdflibr.com/)                                 | 不想泄露个人的电话号码，注册一些一次性网站可以用到                                                                            |
-| [配音阁](http://www.peiyinge.com/)                                   | 文字转换语音/语音合成广告*叫卖录音*在线配音网络软件\_促销宣传片配音 - 配音阁 - 配音阁，国内专业的广告配音平台                     |
+| [配音阁](http://www.peiyinge.com/)                                   | 文字转换语音/语音合成广告_叫卖录音_在线配音网络软件\_促销宣传片配音 - 配音阁 - 配音阁，国内专业的广告配音平台                     |
 | [hacknical](https://hacknical.com)                                   | 在线个性简历，个人 Github 总结分析                                                                                            |
 
 <!-- endtab -->

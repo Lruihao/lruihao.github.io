@@ -610,12 +610,12 @@ class EmployeeDemo {
 
 ## java 类中的成员变量和方法访问权限
 
-|  关键词   | 同一个类 | 同一个包 | 不同包中的子类 | 不同包中的非子类 |
+| 关键词   | 同一个类 | 同一个包 | 不同包中的子类 | 不同包中的非子类 |
 | :-------: | :------: | :------: | :------------: | :--------------: |
-|  private  |    √     |  &ensp;  |     &ensp;     |      &ensp;      |
-|  default  |    √     |    √     |     &ensp;     |      &ensp;      |
+| private  |    √     | &ensp;  |     &ensp;     |      &ensp;      |
+| default  |    √     |    √     |     &ensp;     |      &ensp;      |
 | protected |    √     |    √     |       √        |      &ensp;      |
-|  public   |    √     |    √     |       √        |        √         |
+| public   |    √     |    √     |       √        |        √         |
 
 
 ---

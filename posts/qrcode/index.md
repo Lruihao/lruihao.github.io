@@ -3,7 +3,7 @@
 
 > **Python 二维码生成器**是 github 上@sylnsfar 开源的一个 python 生成二维码工具。有 python, 网页及 exe 版本，详见 [sylnsfar/qrcode](https://github.com/sylnsfar/qrcode/)，本文主要介绍记录一下 python 版本使用。exe 可以去 [项目开源地址](https://github.com/sylnsfar/qrcode_win) 下载，公众号文章后台回复关键词“qrcode”获取链接。
 
-可生成*普通二维码*、*带图片的艺术二维码（黑白与彩色）*、*动态二维码（黑白与彩色）*。
+可生成_普通二维码_、_带图片的艺术二维码（黑白与彩色）_、_动态二维码（黑白与彩色）_。
 
 <!--more-->
 

@@ -54,7 +54,7 @@ npm install markdownlint-cli2 --save-dev
 ```json
 {
   "scripts": {
-    "lint:md": "markdownlint-cli2 content/**/*.md",
+    "lint:md": "markdownlint-cli2 \"content/**/*.md\"",
     "fix:md": "npm run lint:md -- --fix"
   }
 }
@@ -305,8 +305,8 @@ npm install autocorrect-node --save-dev
 ```json
 {
   "scripts": {
-    "lint:md": "markdownlint-cli2 content/**/*.md && autocorrect content/**/*.md --lint",
-    "fix:md": "markdownlint-cli2 content/**/*.md --fix && autocorrect content/**/*.md --fix",
+    "fix:md": "autocorrect content --fix && markdownlint-cli2 \"content/**/*.md\" --fix",
+    "lint:md": "autocorrect content --lint && markdownlint-cli2 \"content/**/*.md\""
   }
 }
 ```
@@ -316,8 +316,8 @@ npm install autocorrect-node --save-dev
 ```json
 {
   "content/**/*.md": [
-    "markdownlint-cli2 --fix",
-    "autocorrect --fix"
+    "autocorrect --fix",
+    "markdownlint-cli2 --fix"
   ]
 }
 ```
