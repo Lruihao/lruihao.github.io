@@ -127,6 +127,6 @@ function test_input($data) {
 
 ---
 
-> 作者:   
+> 作者: [Lruihao](https://github.com/Lruihao)  
 > URL: https://lruihao.cn/posts/phpform/  
 

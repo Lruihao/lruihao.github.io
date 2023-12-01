@@ -39,6 +39,6 @@
 
 ---
 
-> 作者:   
+> 作者: [Lruihao](https://github.com/Lruihao)  
 > URL: https://lruihao.cn/posts/vue2-guid/  
 > 转载 URL: https://zhuanlan.zhihu.com/p/23134551

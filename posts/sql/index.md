@@ -134,6 +134,6 @@ CASE WHEN <求值表达式> THEN <表达式>
 
 ---
 
-> 作者:   
+> 作者: [Lruihao](https://github.com/Lruihao)  
 > URL: https://lruihao.cn/posts/sql/  
 

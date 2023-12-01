@@ -48,6 +48,6 @@ a << b 就表示把 a 转为二进制后左移 b 位（在后面添 b 个 0）�
 
 ---
 
-> 作者:   
+> 作者: [Lruihao](https://github.com/Lruihao)  
 > URL: https://lruihao.cn/posts/%E4%BD%8D%E8%BF%90%E7%AE%97/  
 

@@ -119,6 +119,6 @@ int main() {
 
 ---
 
-> 作者:   
+> 作者: [Lruihao](https://github.com/Lruihao)  
 > URL: https://lruihao.cn/posts/%E7%AE%80%E5%8D%95%E8%83%8C%E5%8C%85/  
 

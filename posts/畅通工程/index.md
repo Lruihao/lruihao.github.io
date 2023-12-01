@@ -99,6 +99,6 @@ void join(int x,int y){
 
 ---
 
-> 作者:   
+> 作者: [Lruihao](https://github.com/Lruihao)  
 > URL: https://lruihao.cn/posts/%E7%95%85%E9%80%9A%E5%B7%A5%E7%A8%8B/  
 

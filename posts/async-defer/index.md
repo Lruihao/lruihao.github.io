@@ -71,6 +71,6 @@ JS 的加载分为两个部分：下载和执行。
 
 ---
 
-> 作者:   
+> 作者: [Lruihao](https://github.com/Lruihao)  
 > URL: https://lruihao.cn/posts/async-defer/  
 

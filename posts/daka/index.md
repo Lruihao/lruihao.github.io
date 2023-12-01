@@ -103,6 +103,6 @@ python /home/python/yiban_daka/daka.py
 
 ---
 
-> 作者:   
+> 作者: [Lruihao](https://github.com/Lruihao)  
 > URL: https://lruihao.cn/posts/daka/  
 

@@ -70,6 +70,6 @@ const site = new Blog('菠菜眾長', 'Lruihao', 'https://lruihao.cn');
 
 ---
 
-> 作者:   
+> 作者: [Lruihao](https://github.com/Lruihao)  
 > URL: https://lruihao.cn/about/  
 

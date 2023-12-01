@@ -228,6 +228,6 @@ for(int i=0;i<len;i++)
 
 ---
 
-> 作者:   
+> 作者: [Lruihao](https://github.com/Lruihao)  
 > URL: https://lruihao.cn/posts/c-with-stl/  
 

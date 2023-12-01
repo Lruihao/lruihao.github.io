@@ -370,6 +370,6 @@ _学无止境，与未来的自己共勉_
 
 ---
 
-> 作者:   
+> 作者: [Lruihao](https://github.com/Lruihao)  
 > URL: https://lruihao.cn/posts/js-rediscover/  
 

@@ -114,6 +114,6 @@ npm run serve
 
 ---
 
-> 作者:   
+> 作者: [Lruihao](https://github.com/Lruihao)  
 > URL: https://lruihao.cn/posts/v2-tailwind/  
 

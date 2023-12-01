@@ -53,6 +53,6 @@ location ~* ^/(temp|upload|imgs|data|application|static|system)/.*.(php|php5)$ {
 
 ---
 
-> 作者:   
+> 作者: [Lruihao](https://github.com/Lruihao)  
 > URL: https://lruihao.cn/posts/imgurl/  
 

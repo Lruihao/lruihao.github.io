@@ -116,6 +116,6 @@ if __name__=="__main__":
 
 ---
 
-> 作者:   
+> 作者: [Lruihao](https://github.com/Lruihao)  
 > URL: https://lruihao.cn/posts/mmtimgpy/  
 

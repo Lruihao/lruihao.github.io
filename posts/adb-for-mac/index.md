@@ -53,6 +53,6 @@ push 和 pull 命令时由于编码方式的不同会产生错误，因此需要
 
 ---
 
-> 作者:   
+> 作者: [Lruihao](https://github.com/Lruihao)  
 > URL: https://lruihao.cn/posts/adb-for-mac/  
 

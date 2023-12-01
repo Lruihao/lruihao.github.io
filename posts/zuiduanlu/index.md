@@ -82,6 +82,6 @@ d 数组全部赋值为 INF（无穷大）；p 数组全部赋值为 s（即源�
 
 ---
 
-> 作者:   
+> 作者: [Lruihao](https://github.com/Lruihao)  
 > URL: https://lruihao.cn/posts/zuiduanlu/  
 
