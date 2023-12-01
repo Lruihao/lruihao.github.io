@@ -181,6 +181,6 @@ console.log(urls.join('\n'));
 
 ---
 
-> 作者: [Lruihao](https://github.com/Lruihao)  
+> 作者:   
 > URL: https://lruihao.cn/posts/hexo-to-hugo/  
 

@@ -54,6 +54,6 @@ git push origin master
 
 ---
 
-> 作者: [Lruihao](https://github.com/Lruihao)  
+> 作者:   
 > URL: https://lruihao.cn/posts/gituse/  
 

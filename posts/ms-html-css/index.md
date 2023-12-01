@@ -260,6 +260,6 @@ box-sizing: content-box|border-box|inherit:
 
 ---
 
-> 作者: [Lruihao](https://github.com/Lruihao)  
+> 作者:   
 > URL: https://lruihao.cn/posts/ms-html-css/  
 

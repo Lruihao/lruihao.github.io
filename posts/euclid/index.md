@@ -270,6 +270,6 @@ return 0;
 
 ---
 
-> 作者: [Lruihao](https://github.com/Lruihao)  
+> 作者:   
 > URL: https://lruihao.cn/posts/euclid/  
 > 转载 URL: https://www.cnblogs.com/Rinyo/archive/2012/11/25/2787419.html

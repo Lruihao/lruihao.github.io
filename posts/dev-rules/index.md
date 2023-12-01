@@ -317,6 +317,6 @@ INSERT INTO `user` VALUES('a', 'b');
 
 ---
 
-> 作者: [Lruihao](https://github.com/Lruihao)  
+> 作者:   
 > URL: https://lruihao.cn/posts/dev-rules/  
 

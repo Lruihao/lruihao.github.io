@@ -116,6 +116,6 @@ ps: `title`和`subtitle`的`字体`还有`颜色`也可以在这个文件修改�
 
 ---
 
-> 作者: [Lruihao](https://github.com/Lruihao)  
+> 作者:   
 > URL: https://lruihao.cn/posts/dongtaisub/  
 

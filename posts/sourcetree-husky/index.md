@@ -74,6 +74,6 @@ export NVM_NODEJS_ORG_MIRROR=https://mirrors.ustc.edu.cn/node/
 
 ---
 
-> 作者: [Lruihao](https://github.com/Lruihao)  
+> 作者:   
 > URL: https://lruihao.cn/posts/sourcetree-husky/  
 

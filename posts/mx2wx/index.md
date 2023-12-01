@@ -111,6 +111,6 @@ if __name__=="__main__":
 
 ---
 
-> 作者: [Lruihao](https://github.com/Lruihao)  
+> 作者:   
 > URL: https://lruihao.cn/posts/mx2wx/  
 

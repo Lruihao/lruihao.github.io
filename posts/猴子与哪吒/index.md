@@ -26,6 +26,6 @@
 
 ---
 
-> 作者: [Lruihao](https://github.com/Lruihao)  
+> 作者:   
 > URL: https://lruihao.cn/posts/%E7%8C%B4%E5%AD%90%E4%B8%8E%E5%93%AA%E5%90%92/  
 

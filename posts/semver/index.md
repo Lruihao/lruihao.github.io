@@ -199,6 +199,6 @@ package.json 版本控制规则使用了一些些符号：
 
 ---
 
-> 作者: [Lruihao](https://github.com/Lruihao)  
+> 作者:   
 > URL: https://lruihao.cn/posts/semver/  
 

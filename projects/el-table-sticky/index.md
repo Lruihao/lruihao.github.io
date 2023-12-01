@@ -107,6 +107,6 @@ Non sunt multiplicanda entia sine necessitate
 
 ---
 
-> 作者: [Lruihao](https://github.com/Lruihao)  
+> 作者:   
 > URL: https://lruihao.cn/projects/el-table-sticky/  
 

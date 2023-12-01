@@ -123,6 +123,6 @@ int main()
 
 ---
 
-> 作者: [Lruihao](https://github.com/Lruihao)  
+> 作者:   
 > URL: https://lruihao.cn/posts/bfs%E6%B1%82%E6%9C%80%E7%9F%AD%E8%B7%AF/  
 
