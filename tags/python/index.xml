@@ -1,4 +1,330 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Python - 标签 - 菠菜眾長</title><link>https://lruihao.cn/tags/python/</link><description>Python - 标签 - 菠菜眾長</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><copyright>本站内容采用 CC BY-NC-SA 4.0 国际许可协议。</copyright><lastBuildDate>Thu, 26 Mar 2020 11:08:38 +0000</lastBuildDate><atom:link href="https://lruihao.cn/tags/python/" rel="self" type="application/rss+xml"/><item><title>使用 Python 刷 csdn 访问量</title><link>https://lruihao.cn/posts/csdnvisiter/</link><pubDate>Thu, 26 Mar 2020 11:08:38 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/csdnvisiter/</guid><description><![CDATA[<blockquote>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Python - 标签 - 菠菜眾長</title><link>https://lruihao.cn/tags/python/</link><description>Python - 标签 - 菠菜眾長</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><copyright>本站内容采用 CC BY-NC-SA 4.0 国际许可协议。</copyright><lastBuildDate>Fri, 22 Dec 2023 19:58:47 +0800</lastBuildDate><atom:link href="https://lruihao.cn/tags/python/" rel="self" type="application/rss+xml"/><item><title>尝试在 Python 中使用 Amazon Titan 文本模型</title><link>https://lruihao.cn/posts/d8ae205/</link><pubDate>Fri, 22 Dec 2023 19:58:47 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/d8ae205/</guid><description><![CDATA[<!-- markdownlint-disable-file no-duplicate-heading-->
+<p>本文将通过 Python 代码探索 Amazon Titan 文本模型系列（包括 Express、Lite 和 Embedding）。</p>
+<h2 id="认识-amazon-titan">认识 Amazon Titan</h2>
+<p>Amazon Titan 是来自亚马逊云科技的高性能基础模型。Amazon Bedrock 独有的 Amazon Titan 系列模型融合了 Amazon 25 年来，在其业务范围内积累的人工智能和机器学习创新的经验。Amazon Titan 基础模型（FM）通过完全托管的 API 为客户提供广泛的高性能图像、多模式和文本模型选择。Amazon Titan 模型由 AWS 创建并在大型数据集上进行预训练，使其成为强大的通用模型，旨在支持各种用例，同时还支持负责任地使用 AI。你可以按原样使用，也可以根据自己的数据私下进行自定义。</p>
+<p>Amazon Titan 文本模型系列包括：</p>
+<ul>
+<li>Titan Text Express</li>
+<li>Titan Text Lite</li>
+<li>Titan Text Embeddings</li>
+<li>Titan 多模态嵌入</li>
+<li>Titan Image Generator（预览版）</li>
+</ul>
+<p>本文主要探索一下 Express、Lite 和 Embeddings。更多细节和其他模型请访问 <a href="https://aws.amazon.com/cn/bedrock/titan/text/"target="_blank" rel="external nofollow noopener noreferrer">Amazon Titan 文本模型系列<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>。</p>
+<p>如果你还没有注册亚马逊云科技账户，可以参考本文最后一节 <a href="#register-aws">注册亚马逊云科技账户</a>。</p>
+<h2 id="环境准备">环境准备</h2>
+<p>我正在使用配置了 AWS Credential 的 vscode 本地环境。</p>
+<h3 id="安装最新的-python">安装最新的 Python</h3>
+<div class="highlight" id="id-1"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">python --version
+</span></span><span class="line"><span class="cl"><span class="c1"># Python 3.11.5</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="升级-pip">升级 pip</h3>
+<div class="highlight" id="id-2"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">pip install --upgrade pip</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="安装依赖">安装依赖</h3>
+<div class="highlight" id="id-3"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">pip install --no-build-isolation --force-reinstall <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    <span class="s2">&#34;boto3&gt;=1.33.6&#34;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    <span class="s2">&#34;awscli&gt;=1.31.6&#34;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    <span class="s2">&#34;botocore&gt;=1.33.6&#34;</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="加载库">加载库</h3>
+<div class="highlight" id="id-4"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">json</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">os</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">sys</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">boto3</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">botocore</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">bedrock</span> <span class="o">=</span> <span class="n">boto3</span><span class="o">.</span><span class="n">client</span><span class="p">(</span><span class="n">service_name</span><span class="o">=</span><span class="s2">&#34;bedrock&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">bedrock_runtime</span> <span class="o">=</span> <span class="n">boto3</span><span class="o">.</span><span class="n">client</span><span class="p">(</span><span class="n">service_name</span><span class="o">=</span><span class="s2">&#34;bedrock-runtime&#34;</span><span class="p">)</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="express">Titan 文本模型 - Express</h2>
+<h3 id="设置-prompt">设置 Prompt</h3>
+<div class="highlight" id="id-5"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="line"><span class="cl"><span class="c1"># 写一个关于 AWS Lambda 的文章</span>
+</span></span><span class="line"><span class="cl"><span class="n">express_prompt</span> <span class="o">=</span> <span class="s2">&#34;write article about AWS Lambda&#34;</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="配置模型">配置模型</h3>
+<div class="highlight" id="id-6"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="line"><span class="cl"><span class="n">body</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;inputText&#34;</span><span class="p">:</span> <span class="n">express_prompt</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;textGenerationConfig&#34;</span><span class="p">:</span> <span class="p">{</span>  
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;maxTokenCount&#34;</span><span class="p">:</span> <span class="mi">128</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;stopSequences&#34;</span><span class="p">:</span> <span class="p">[],</span> <span class="c1"># 定义指示模型结束文本生成的短语</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;temperature&#34;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="c1"># 温度控制随机性；较高的值会增加多样性，较低的值会提高可预测性</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;topP&#34;</span><span class="p">:</span> <span class="mf">0.9</span> <span class="c1"># Top P 是一种文本生成技术，从分布中最可能的标记中采样</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">})</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="调用模型">调用模型</h3>
+<div class="highlight" id="id-7"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="line"><span class="cl"><span class="n">response</span> <span class="o">=</span> <span class="n">bedrock_runtime</span><span class="o">.</span><span class="n">invoke_model</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">modelId</span><span class="o">=</span><span class="s2">&#34;amazon.titan-text-express-v1&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">accept</span><span class="o">=</span><span class="s2">&#34;application/json&#34;</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">    <span class="n">contentType</span><span class="o">=</span><span class="s2">&#34;application/json&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="解析配置">解析配置</h3>
+<div class="highlight" id="id-8"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="line"><span class="cl"><span class="n">response_body</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;body&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl"><span class="n">outputText</span> <span class="o">=</span> <span class="n">response_body</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;results&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;outputText&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 代码 text = outputText[outputText.index(&#39;\n&#39;)+1:] 提取 outputText 字符串中第一个换行符后面的子字符串。这对于第一个换行符之前的初始内容不相关并且您想要捕获其后面的文本的情况非常有用。index(&#39;\n&#39;)+1 定位第一个换行符的位置，切片 [index+1:] 取出后续文本，将其赋值给变量 text</span>
+</span></span><span class="line"><span class="cl"><span class="n">text</span> <span class="o">=</span> <span class="n">outputText</span><span class="p">[</span><span class="n">outputText</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">:]</span>
+</span></span><span class="line"><span class="cl"><span class="n">about_lambda</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">about_lambda</span><span class="p">)</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="运行结果">运行结果</h3>
+<div class="highlight" id="id-9"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-plain" data-lang="plain"><span class="line"><span class="cl">AWS Lambda is a serverless computing service provided by Amazon Web Services (AWS). It allows developers to run code in response to events without the need to manage any infrastructure. In this article, we will explore the features and benefits of AWS Lambda, as well as how to use it to build serverless applications.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Features and Benefits of AWS Lambda:
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Serverless Computing: AWS Lambda is a serverless computing service, which means that developers do not have to worry about managing servers, operating systems, or infrastructure. Lambda runs the code in an environment that is managed by AWS, and scales automatically based</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="lite">Titan 文本模型 - Lite</h2>
+<h3 id="设置-prompt-1">设置 Prompt</h3>
+<div class="highlight" id="id-10"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="line"><span class="cl"><span class="c1"># AWS DynamoDB 和 AWS Redis 两个 AWS 服务的区别</span>
+</span></span><span class="line"><span class="cl"><span class="n">lite_prompt</span> <span class="o">=</span> <span class="s2">&#34;2 difference between AWS DynamoDB and AWS Redis&#34;</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="配置模型-1">配置模型</h3>
+<div class="highlight" id="id-11"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="line"><span class="cl"><span class="n">body</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;inputText&#34;</span><span class="p">:</span> <span class="n">lite_prompt</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;textGenerationConfig&#34;</span><span class="p">:</span> <span class="p">{</span>  
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;maxTokenCount&#34;</span><span class="p">:</span> <span class="mi">128</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;stopSequences&#34;</span><span class="p">:</span> <span class="p">[],</span> <span class="c1"># 定义指示模型结束文本生成的短语</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;temperature&#34;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="c1"># 温度控制随机性；较高的值会增加多样性，较低的值会提高可预测性</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;topP&#34;</span><span class="p">:</span> <span class="mf">0.9</span> <span class="c1"># Top P 是一种文本生成技术，从分布中最可能的标记中采样</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">})</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="调用模型-1">调用模型</h3>
+<div class="highlight" id="id-12"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="line"><span class="cl"><span class="n">response</span> <span class="o">=</span> <span class="n">bedrock_runtime</span><span class="o">.</span><span class="n">invoke_model</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">modelId</span><span class="o">=</span><span class="s2">&#34;amazon.titan-text-lite-v1&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">accept</span><span class="o">=</span><span class="s2">&#34;application/json&#34;</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">    <span class="n">contentType</span><span class="o">=</span><span class="s2">&#34;application/json&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="解析配置-1">解析配置</h3>
+<div class="highlight" id="id-13"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="line"><span class="cl"><span class="n">response_body</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;body&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl"><span class="n">outputText</span> <span class="o">=</span> <span class="n">response_body</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;results&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;outputText&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">text</span> <span class="o">=</span> <span class="n">outputText</span><span class="p">[</span><span class="n">outputText</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">:]</span>
+</span></span><span class="line"><span class="cl"><span class="n">compare_dynamodb_redis</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">compare_dynamodb_redis</span><span class="p">)</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="运行结果-1">运行结果</h3>
+<div class="highlight" id="id-14"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-plain" data-lang="plain"><span class="line"><span class="cl">Amazon DynamoDB is a fully managed NoSQL database service in the cloud that offers fast and predictable performance with seamless scalability. It is designed to run high-performance applications at any scale. On the other hand, Amazon Redis is a fully managed in-memory data structure store that provides real-time analytics, caching, and key-value data storage. It is suitable for applications that require fast data retrieval and low latency.</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="embeddings">Titan 文本模型 - Embeddings</h2>
+<h3 id="设置-prompt-2">设置 Prompt</h3>
+<div class="highlight" id="id-15"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="line"><span class="cl"><span class="c1"># AWS re:Invent 2023 是我们今年最大的云活动，在内华达州拉斯维加斯举行，包括主题演讲、创新讲座、构建者实验室、研讨会、技术和可持续发展演示</span>
+</span></span><span class="line"><span class="cl"><span class="n">embed_prompt</span> <span class="o">=</span> <span class="s2">&#34;AWS re:Invent 2023, our biggest cloud event of the year, in Las Vegas, Nevada, featured keynotes, innovation talks, builder labs, workshops, tech and sustainability demos&#34;</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="配置模型-2">配置模型</h3>
+<div class="highlight" id="id-16"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="line"><span class="cl"><span class="n">body</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;inputText&#34;</span><span class="p">:</span> <span class="n">embed_prompt</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl"><span class="p">})</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="调用模型-2">调用模型</h3>
+<div class="highlight" id="id-17"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="line"><span class="cl"><span class="n">response</span> <span class="o">=</span> <span class="n">bedrock_runtime</span><span class="o">.</span><span class="n">invoke_model</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">modelId</span><span class="o">=</span><span class="s2">&#34;amazon.titan-embed-text-v1&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">accept</span><span class="o">=</span><span class="s2">&#34;application/json&#34;</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">    <span class="n">contentType</span><span class="o">=</span><span class="s2">&#34;application/json&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="解析配置-2">解析配置</h3>
+<div class="highlight" id="id-18"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="line"><span class="cl"><span class="n">response_body</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;body&#34;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl"><span class="n">embedding_output</span> <span class="o">=</span> <span class="n">response_body</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;embedding&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 此代码从响应正文中检索“嵌入”向量，并打印其长度以及前三个和最后三个值的预览，显示嵌入向量的片段</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;You can find the Embedding Vector </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">embedding_output</span><span class="p">)</span><span class="si">}</span><span class="s2"> values</span><span class="se">\n</span><span class="si">{</span><span class="n">embedding_output</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span><span class="o">+</span><span class="p">[</span><span class="s1">&#39;...&#39;</span><span class="p">]</span><span class="o">+</span><span class="n">embedding_output</span><span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">:]</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="运行结果-2">运行结果</h3>
+<div class="highlight" id="id-19"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-plain" data-lang="plain"><span class="line"><span class="cl">You can find the Embedding Vector 1536 values
+</span></span><span class="line"><span class="cl">[0.40429688, -0.38085938, 0.19726562, &#39;...&#39;, 0.2109375, 0.012573242, 0.18847656]</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="register-aws">注册亚马逊云科技账户</h2>
+<p>打开 <a href="https://aws.amazon.com/cn/free/?sc_channel=seo&amp;sc_campaign=blog0805"target="_blank" rel="external nofollow noopener noreferrer">亚马逊云科技账号注册地址<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>，点击右上角创建 AWS 账户。</p>
+<p><a class="lightgallery" href="../aws-ec2/images/23_1693042834.png?size=large" data-thumbnail="../aws-ec2/images/23_1693042834.png?size=small" data-sub-html="<h2>创建 AWS 账户</h2>"><img loading="lazy" src="../aws-ec2/images/23_1693042834.png" alt="创建 AWS 账户" srcset="../aws-ec2/images/23_1693042834.png?size=small, ../aws-ec2/images/23_1693042834.png?size=medium 1.5x, ../aws-ec2/images/23_1693042834.png?size=large 2x" sizes="auto" data-title="创建 AWS 账户" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></p>
+<ol>
+<li>填写邮件地址和账号名称（支持使用国内的邮箱）
+<a class="lightgallery" href="../aws-ec2/images/23_1693043425.png?size=large" data-thumbnail="../aws-ec2/images/23_1693043425.png?size=small" data-sub-html="<h2>login</h2>"><img loading="lazy" src="../aws-ec2/images/23_1693043425.png" alt="login" srcset="../aws-ec2/images/23_1693043425.png?size=small, ../aws-ec2/images/23_1693043425.png?size=medium 1.5x, ../aws-ec2/images/23_1693043425.png?size=large 2x" sizes="auto" data-title="login" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></li>
+<li>验证邮件
+<a class="lightgallery" href="../aws-ec2/images/23_1693043626.png?size=large" data-thumbnail="../aws-ec2/images/23_1693043626.png?size=small" data-sub-html="<h2>valid</h2>"><img loading="lazy" src="../aws-ec2/images/23_1693043626.png" alt="valid" srcset="../aws-ec2/images/23_1693043626.png?size=small, ../aws-ec2/images/23_1693043626.png?size=medium 1.5x, ../aws-ec2/images/23_1693043626.png?size=large 2x" sizes="auto" data-title="valid" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></li>
+<li>输入密码
+<a class="lightgallery" href="../aws-ec2/images/23_1693043910.png?size=large" data-thumbnail="../aws-ec2/images/23_1693043910.png?size=small" data-sub-html="<h2>password</h2>"><img loading="lazy" src="../aws-ec2/images/23_1693043910.png" alt="password" srcset="../aws-ec2/images/23_1693043910.png?size=small, ../aws-ec2/images/23_1693043910.png?size=medium 1.5x, ../aws-ec2/images/23_1693043910.png?size=large 2x" sizes="auto" data-title="password" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></li>
+<li>联系人信息
+<a class="lightgallery" href="../aws-ec2/images/23_1693044220.png?size=large" data-thumbnail="../aws-ec2/images/23_1693044220.png?size=small" data-sub-html="<h2>contact</h2>"><img loading="lazy" src="../aws-ec2/images/23_1693044220.png" alt="contact" srcset="../aws-ec2/images/23_1693044220.png?size=small, ../aws-ec2/images/23_1693044220.png?size=medium 1.5x, ../aws-ec2/images/23_1693044220.png?size=large 2x" sizes="auto" data-title="contact" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></li>
+<li>付款信息（Visa）
+<a class="lightgallery" href="../aws-ec2/images/23_1693044537.png?size=large" data-thumbnail="../aws-ec2/images/23_1693044537.png?size=small" data-sub-html="<h2>payment</h2>"><img loading="lazy" src="../aws-ec2/images/23_1693044537.png" alt="payment" srcset="../aws-ec2/images/23_1693044537.png?size=small, ../aws-ec2/images/23_1693044537.png?size=medium 1.5x, ../aws-ec2/images/23_1693044537.png?size=large 2x" sizes="auto" data-title="payment" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></li>
+<li>验证手机号（支持中国地区国内手机号）
+<a class="lightgallery" href="../aws-ec2/images/23_1693044806.png?size=large" data-thumbnail="../aws-ec2/images/23_1693044806.png?size=small" data-sub-html="<h2>phone</h2>"><img loading="lazy" src="../aws-ec2/images/23_1693044806.png" alt="phone" srcset="../aws-ec2/images/23_1693044806.png?size=small, ../aws-ec2/images/23_1693044806.png?size=medium 1.5x, ../aws-ec2/images/23_1693044806.png?size=large 2x" sizes="auto" data-title="phone" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></li>
+<li>选择支持计划
+<a class="lightgallery" href="../aws-ec2/images/23_1693045029.png?size=large" data-thumbnail="../aws-ec2/images/23_1693045029.png?size=small" data-sub-html="<h2>plan</h2>"><img loading="lazy" src="../aws-ec2/images/23_1693045029.png" alt="plan" srcset="../aws-ec2/images/23_1693045029.png?size=small, ../aws-ec2/images/23_1693045029.png?size=medium 1.5x, ../aws-ec2/images/23_1693045029.png?size=large 2x" sizes="auto" data-title="plan" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></li>
+<li>完成注册
+<a class="lightgallery" href="../aws-ec2/images/23_1693045100.png?size=large" data-thumbnail="../aws-ec2/images/23_1693045100.png?size=small" data-sub-html="<h2>complete</h2>"><img loading="lazy" src="../aws-ec2/images/23_1693045100.png" alt="complete" srcset="../aws-ec2/images/23_1693045100.png?size=small, ../aws-ec2/images/23_1693045100.png?size=medium 1.5x, ../aws-ec2/images/23_1693045100.png?size=large 2x" sizes="auto" data-title="complete" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></li>
+<li>登录亚马逊云科技控制台，<a href="https://console.aws.amazon.com/console/home"target="_blank" rel="external nofollow noopener noreferrer">登录地址<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>，选择根用户输入电子邮件地址，点击下一步会让输入密码，输入密码后就可以完成登录了。</li>
+</ol>]]></description></item><item><title>使用 Python 刷 csdn 访问量</title><link>https://lruihao.cn/posts/csdnvisiter/</link><pubDate>Thu, 26 Mar 2020 11:08:38 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/csdnvisiter/</guid><description><![CDATA[<blockquote>
 <p>使用 python 模拟浏览器行为刷 csdn 访问量，脚本仅做学习，请勿滥用~</p>
 </blockquote>
 <p>直接丢代码，把代码挂到服务器上可以策马奔腾~，也可以生成二进制文件放到 Windows 桌面上随时使用~<br>
