@@ -1,10 +1,10 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>nginx - 标签 - 菠菜眾長</title><link>https://lruihao.cn/tags/nginx/</link><description>nginx - 标签 - 菠菜眾長</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><copyright>本站内容采用 CC BY-NC-SA 4.0 国际许可协议。</copyright><lastBuildDate>Sat, 26 Aug 2023 17:22:57 +0800</lastBuildDate><atom:link href="https://lruihao.cn/tags/nginx/" rel="self" type="application/rss+xml"/><item><title>将 Hugo 博客部署到亚马逊云服务器</title><link>https://lruihao.cn/posts/aws-ec2/</link><pubDate>Sat, 26 Aug 2023 17:22:57 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/aws-ec2/</guid><description><![CDATA[<div class="featured-image"><img loading="eager" src="https://lruihao.cn/posts/aws-ec2/images/featured-image.png" alt="将 Hugo 博客部署到亚马逊云服务器" title="将 Hugo 博客部署到亚马逊云服务器" referrerpolicy="no-referrer"/></div><p>本文将介绍如何将 Hugo 博客打包并部署到亚马逊云服务器上，并附上亚马逊云服务器的配置过程。</p>
-<h2 id="前言">前言</h2>
-<p>最近很长一段时间都是使用 Hugo 在写博客，也花了很多精力在 <a href="https://github.com/hugo-fixit/FixIt"target="_blank" rel="external nofollow noopener noreferrer">hugo-fixit<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 这个主题的开发上。也听到很多使用 Hugo 写博客的网友们问我，如何部署博客？部署到哪里？</p>
+<h2 id="前言" class="heading-element">
+  <a href="#%e5%89%8d%e8%a8%80" class="heading-mark"></a>1 前言</h2><p>最近很长一段时间都是使用 Hugo 在写博客，也花了很多精力在 <a href="https://github.com/hugo-fixit/FixIt"target="_blank" rel="external nofollow noopener noreferrer">hugo-fixit<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 这个主题的开发上。也听到很多使用 Hugo 写博客的网友们问我，如何部署博客？部署到哪里？</p>
 <p>今天就介绍一种方式：<strong>把博客部署到云服务器上</strong>。</p>
 <p>但是国内的云服务器太贵了，而且还要备案，所以就想到了海外的云服务器，比如亚马逊云服务器，以下便是注册到部署的全过程。</p>
-<h2 id="注册亚马逊云账户">注册亚马逊云账户</h2>
-<p>打开 <a href="https://aws.amazon.com/cn/free/?sc_channel=seo&amp;sc_campaign=blog0805"target="_blank" rel="external nofollow noopener noreferrer">亚马逊账号注册地址<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>，点击右上角创建 AWS 账户。</p>
+<h2 id="注册亚马逊云账户" class="heading-element">
+  <a href="#%e6%b3%a8%e5%86%8c%e4%ba%9a%e9%a9%ac%e9%80%8a%e4%ba%91%e8%b4%a6%e6%88%b7" class="heading-mark"></a>2 注册亚马逊云账户</h2><p>打开 <a href="https://aws.amazon.com/cn/free/?sc_channel=seo&amp;sc_campaign=blog0805"target="_blank" rel="external nofollow noopener noreferrer">亚马逊账号注册地址<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>，点击右上角创建 AWS 账户。</p>
 <p><a class="lightgallery" href="/posts/aws-ec2/images/23_1693042834.png?size=large" data-thumbnail="/posts/aws-ec2/images/23_1693042834.png?size=small" data-sub-html="<h2>创建 AWS 账户</h2>"><img loading="lazy" src="/posts/aws-ec2/images/23_1693042834.png" alt="创建 AWS 账户" srcset="/posts/aws-ec2/images/23_1693042834.png?size=small, /posts/aws-ec2/images/23_1693042834.png?size=medium 1.5x, /posts/aws-ec2/images/23_1693042834.png?size=large 2x" sizes="auto" data-title="创建 AWS 账户" style="--width: 1100px;--aspect-ratio: 1100 / 190;background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></p>
 <ol>
 <li>填写邮件地址和账号名称（支持使用国内的邮箱）
@@ -25,8 +25,8 @@
 <a class="lightgallery" href="/posts/aws-ec2/images/23_1693045100.png?size=large" data-thumbnail="/posts/aws-ec2/images/23_1693045100.png?size=small" data-sub-html="<h2>complete</h2>"><img loading="lazy" src="/posts/aws-ec2/images/23_1693045100.png" alt="complete" srcset="/posts/aws-ec2/images/23_1693045100.png?size=small, /posts/aws-ec2/images/23_1693045100.png?size=medium 1.5x, /posts/aws-ec2/images/23_1693045100.png?size=large 2x" sizes="auto" data-title="complete" style="--width: 1136px;--aspect-ratio: 1136 / 754;background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></li>
 <li>登录亚马逊云控制台，<a href="https://console.aws.amazon.com/console/home"target="_blank" rel="external nofollow noopener noreferrer">登录地址<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>，选择根用户输入电子邮件地址，点击下一步会让输入密码，输入密码后就可以完成登录了。</li>
 </ol>
-<h2 id="创建-ec2-服务实例">创建 EC2 服务实例</h2>
-<p>点击链接查看 <a href="https://aws.amazon.com/cn/free/?sc_channel=seo&amp;sc_campaign=blog0805"target="_blank" rel="external nofollow noopener noreferrer">亚马逊免费套餐<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>，找到云服务器 EC2，点击立即开始 12 个月免费使用。</p>
+<h2 id="创建-ec2-服务实例" class="heading-element">
+  <a href="#%e5%88%9b%e5%bb%ba-ec2-%e6%9c%8d%e5%8a%a1%e5%ae%9e%e4%be%8b" class="heading-mark"></a>3 创建 EC2 服务实例</h2><p>点击链接查看 <a href="https://aws.amazon.com/cn/free/?sc_channel=seo&amp;sc_campaign=blog0805"target="_blank" rel="external nofollow noopener noreferrer">亚马逊免费套餐<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>，找到云服务器 EC2，点击立即开始 12 个月免费使用。</p>
 <p><a class="lightgallery" href="/posts/aws-ec2/images/23_1693045572.png?size=large" data-thumbnail="/posts/aws-ec2/images/23_1693045572.png?size=small" data-sub-html="<h2>EC2</h2>"><img loading="lazy" src="/posts/aws-ec2/images/23_1693045572.png" alt="EC2" srcset="/posts/aws-ec2/images/23_1693045572.png?size=small, /posts/aws-ec2/images/23_1693045572.png?size=medium 1.5x, /posts/aws-ec2/images/23_1693045572.png?size=large 2x" sizes="auto" data-title="EC2" style="--width: 2368px;--aspect-ratio: 2368 / 1146;background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></p>
 <p>进行 EC2 服务器主页后，点击页面<strong>创建实例</strong>按钮。</p>
 <p><a class="lightgallery" href="/posts/aws-ec2/images/23_1693045780.png?size=large" data-thumbnail="/posts/aws-ec2/images/23_1693045780.png?size=small" data-sub-html="<h2>start-EC2</h2>"><img loading="lazy" src="/posts/aws-ec2/images/23_1693045780.png" alt="start-EC2" srcset="/posts/aws-ec2/images/23_1693045780.png?size=small, /posts/aws-ec2/images/23_1693045780.png?size=medium 1.5x, /posts/aws-ec2/images/23_1693045780.png?size=large 2x" sizes="auto" data-title="start-EC2" style="--width: 2878px;--aspect-ratio: 2878 / 1294;background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></p>
@@ -40,14 +40,14 @@
 <li>配置存储：默认是 8G，但免费的最多可以 30G，可以手动改成 30G</li>
 <li>然后点击右侧侧边栏启动实例，等待片刻实例就创建好了</li>
 </ol>
-<h2 id="连接实例">连接实例</h2>
-<p><a class="lightgallery" href="/posts/aws-ec2/images/23_1693046630.png?size=large" data-thumbnail="/posts/aws-ec2/images/23_1693046630.png?size=small" data-sub-html="<h2>instance</h2>"><img loading="lazy" src="/posts/aws-ec2/images/23_1693046630.png" alt="instance" srcset="/posts/aws-ec2/images/23_1693046630.png?size=small, /posts/aws-ec2/images/23_1693046630.png?size=medium 1.5x, /posts/aws-ec2/images/23_1693046630.png?size=large 2x" sizes="auto" data-title="instance" style="--width: 954px;--aspect-ratio: 954 / 410;background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></p>
+<h2 id="连接实例" class="heading-element">
+  <a href="#%e8%bf%9e%e6%8e%a5%e5%ae%9e%e4%be%8b" class="heading-mark"></a>4 连接实例</h2><p><a class="lightgallery" href="/posts/aws-ec2/images/23_1693046630.png?size=large" data-thumbnail="/posts/aws-ec2/images/23_1693046630.png?size=small" data-sub-html="<h2>instance</h2>"><img loading="lazy" src="/posts/aws-ec2/images/23_1693046630.png" alt="instance" srcset="/posts/aws-ec2/images/23_1693046630.png?size=small, /posts/aws-ec2/images/23_1693046630.png?size=medium 1.5x, /posts/aws-ec2/images/23_1693046630.png?size=large 2x" sizes="auto" data-title="instance" style="--width: 954px;--aspect-ratio: 954 / 410;background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></p>
 <p>点击上面的实例 ID 进入实例的详情，再点击右上角的连接按钮。</p>
 <p><a class="lightgallery" href="/posts/aws-ec2/images/23_1693046822.png?size=large" data-thumbnail="/posts/aws-ec2/images/23_1693046822.png?size=small" data-sub-html="<h2>connect</h2>"><img loading="lazy" src="/posts/aws-ec2/images/23_1693046822.png" alt="connect" srcset="/posts/aws-ec2/images/23_1693046822.png?size=small, /posts/aws-ec2/images/23_1693046822.png?size=medium 1.5x, /posts/aws-ec2/images/23_1693046822.png?size=large 2x" sizes="auto" data-title="connect" style="--width: 2344px;--aspect-ratio: 2344 / 216;background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></p>
 <p>连接成功后，页面会新打开一个窗口，这个窗口就是我们服务器的终端，可以在这里对服务器进行操作。</p>
 <p><a class="lightgallery" href="/posts/aws-ec2/images/23_1693046970.png?size=large" data-thumbnail="/posts/aws-ec2/images/23_1693046970.png?size=small" data-sub-html="<h2>cloudshell</h2>"><img loading="lazy" src="/posts/aws-ec2/images/23_1693046970.png" alt="cloudshell" srcset="/posts/aws-ec2/images/23_1693046970.png?size=small, /posts/aws-ec2/images/23_1693046970.png?size=medium 1.5x, /posts/aws-ec2/images/23_1693046970.png?size=large 2x" sizes="auto" data-title="cloudshell" style="--width: 1408px;--aspect-ratio: 1408 / 514;background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></p>
-<h2 id="创建-root-用户角色">创建 root 用户角色</h2>
-<p>在终端中输入以下命令，创建 root 用户角色。</p>
+<h2 id="创建-root-用户角色" class="heading-element">
+  <a href="#%e5%88%9b%e5%bb%ba-root-%e7%94%a8%e6%88%b7%e8%a7%92%e8%89%b2" class="heading-mark"></a>5 创建 root 用户角色</h2><p>在终端中输入以下命令，创建 root 用户角色。</p>
 <div class="highlight" id="id-1"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -100,8 +100,8 @@
 </div><blockquote>
 <p>后续操作尽量用 root 用户进行。</p>
 </blockquote>
-<h2 id="安装宝塔面板">安装宝塔面板</h2>
-<p>宝塔面板是一个服务器管理面板，可以通过宝塔面板来管理服务器，比如安装 nginx、mysql、php 等等。</p>
+<h2 id="安装宝塔面板" class="heading-element">
+  <a href="#%e5%ae%89%e8%a3%85%e5%ae%9d%e5%a1%94%e9%9d%a2%e6%9d%bf" class="heading-mark"></a>6 安装宝塔面板</h2><p>宝塔面板是一个服务器管理面板，可以通过宝塔面板来管理服务器，比如安装 nginx、mysql、php 等等。</p>
 <div class="highlight" id="id-6"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -114,8 +114,8 @@
 <li>宝塔面板安装完后按照命令行提示打开宝塔面板，进入面板安装 <code>LAMP</code> 环境，其中包含了我们需要的 <code>nginx</code></li>
 <li>等待 <code>LAMP</code> 环境安装完毕</li>
 </ol>
-<h2 id="部署-hugo-博客">部署 Hugo 博客</h2>
-<p>Hugo 博客打包</p>
+<h2 id="部署-hugo-博客" class="heading-element">
+  <a href="#%e9%83%a8%e7%bd%b2-hugo-%e5%8d%9a%e5%ae%a2" class="heading-mark"></a>7 部署 Hugo 博客</h2><p>Hugo 博客打包</p>
 <div class="highlight" id="id-7"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -143,11 +143,11 @@
 </ol>
 <p>在浏览器中输入服务器的公网 IP 地址，就可以看到 Hugo 博客了。</p>
 <p><a class="lightgallery" href="/posts/aws-ec2/images/23_1693050865.png?size=large" data-thumbnail="/posts/aws-ec2/images/23_1693050865.png?size=small" data-sub-html="<h2>preview</h2>"><img loading="lazy" src="/posts/aws-ec2/images/23_1693050865.png" alt="preview" srcset="/posts/aws-ec2/images/23_1693050865.png?size=small, /posts/aws-ec2/images/23_1693050865.png?size=medium 1.5x, /posts/aws-ec2/images/23_1693050865.png?size=large 2x" sizes="auto" data-title="preview" style="--width: 2878px;--aspect-ratio: 2878 / 1354;background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></p>
-<h2 id="注意事项">注意事项</h2>
-<blockquote>
+<h2 id="注意事项" class="heading-element">
+  <a href="#%e6%b3%a8%e6%84%8f%e4%ba%8b%e9%a1%b9" class="heading-mark"></a>8 注意事项</h2><blockquote>
 <p>亚马逊的服务器每个月免费时长时 <strong>750</strong> 小时，一个月 31 天 x 24 = 744 小时，正常使用是不会超出免费的份额的，但切记不要同时开两个服务器实例，使用时长会累加，不注意可能会超出套餐额度。</p>
 <p>到期后，如果不想继续使用，一定要记得删除实例，不然会一直扣费的。在控制台选中实例，点击实例状态-&gt;终止实例。</p>
 </blockquote>
-<h2 id="总结">总结</h2>
-<p>有了一台海外服务器，我们还可以做很多事情，比如部署 chatgpt 等等，有了服务器一定要多去探索和学习，这么复杂的申请的流程，不要白白放着让过期了。</p>
+<h2 id="总结" class="heading-element">
+  <a href="#%e6%80%bb%e7%bb%93" class="heading-mark"></a>9 总结</h2><p>有了一台海外服务器，我们还可以做很多事情，比如部署 chatgpt 等等，有了服务器一定要多去探索和学习，这么复杂的申请的流程，不要白白放着让过期了。</p>
 <p>保持探索欲，砥砺前行！</p>]]></description></item></channel></rss>

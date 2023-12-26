@@ -1,9 +1,9 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Scss - 标签 - 菠菜眾長</title><link>https://lruihao.cn/tags/scss/</link><description>Scss - 标签 - 菠菜眾長</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><copyright>本站内容采用 CC BY-NC-SA 4.0 国际许可协议。</copyright><lastBuildDate>Sat, 30 Apr 2022 22:04:29 +0800</lastBuildDate><atom:link href="https://lruihao.cn/tags/scss/" rel="self" type="application/rss+xml"/><item><title>关于 CSS 和 Scss 变量运算那些事</title><link>https://lruihao.cn/posts/css-scss-var/</link><pubDate>Sat, 30 Apr 2022 22:04:29 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/css-scss-var/</guid><description><![CDATA[<h2 id="问题分析">问题分析</h2>
-<p>昨天在开发 FixIt 的时候，在 Scss 中写 <code>max(foo, bar)</code> 函数比较不同的单位变量时报错了，但是在 CSS 中使用 <code>max</code> 或者 <code>min</code> 函数函数比较不同的单位变量是没有问题的。</p>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Scss - 标签 - 菠菜眾長</title><link>https://lruihao.cn/tags/scss/</link><description>Scss - 标签 - 菠菜眾長</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><copyright>本站内容采用 CC BY-NC-SA 4.0 国际许可协议。</copyright><lastBuildDate>Sat, 30 Apr 2022 22:04:29 +0800</lastBuildDate><atom:link href="https://lruihao.cn/tags/scss/" rel="self" type="application/rss+xml"/><item><title>关于 CSS 和 Scss 变量运算那些事</title><link>https://lruihao.cn/posts/css-scss-var/</link><pubDate>Sat, 30 Apr 2022 22:04:29 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/css-scss-var/</guid><description><![CDATA[<h2 id="问题分析" class="heading-element">
+  <a href="#%e9%97%ae%e9%a2%98%e5%88%86%e6%9e%90" class="heading-mark"></a>1 问题分析</h2><p>昨天在开发 FixIt 的时候，在 Scss 中写 <code>max(foo, bar)</code> 函数比较不同的单位变量时报错了，但是在 CSS 中使用 <code>max</code> 或者 <code>min</code> 函数函数比较不同的单位变量是没有问题的。</p>
 <p>造成这一问题的原因是，在 Scss 中，也实现了 <code>max</code> 和 <code>min</code> 函数，但是在 Scss 中，<strong>不同单位的变量是不能进行运算的</strong>，所以使得在 Scss 中直接使用 <code>max</code> 或者 <code>min</code> 函数会提示单位不同的报错。（同类 Less 中的变量运算是支持不同单位的）</p>
 <p>知道造成问题的原因后，解决这个问题就很简单了，有很多种方法，有些方法感觉像在卡 BUG，有点意思，记录一下。</p>
-<h2 id="奇思淫技">奇思淫技</h2>
-<ol>
+<h2 id="奇思淫技" class="heading-element">
+  <a href="#%e5%a5%87%e6%80%9d%e6%b7%ab%e6%8a%80" class="heading-mark"></a>2 奇思淫技</h2><ol>
 <li>
 <p>由于 <strong>Scss 区分大小写而 CSS 不区分</strong>，所以为了不让 Scss 中的函数覆盖 CSS 的函数，我们可以使用除了 <code>max</code> 以外的 2<sup>3</sup> - 1 种写法，这样就能使用原生 CSS 的 <code>max</code> 函数来比较了，就不会报错了。</p>
 <div class="highlight" id="id-1"><div class="chroma">
@@ -48,8 +48,8 @@
 </div>
 </div></li>
 </ol>
-<h2 id="by-the-way">By the way</h2>
-<p>如果需要在 CSS 函数内部恢复 <code>Scss</code> 解析（引用 <code>Scss</code> 变量），只需用 <code>#{...}</code> 包围 Scss 代码。</p>
+<h2 id="by-the-way" class="heading-element">
+  <a href="#by-the-way" class="heading-mark"></a>3 By the way</h2><p>如果需要在 CSS 函数内部恢复 <code>Scss</code> 解析（引用 <code>Scss</code> 变量），只需用 <code>#{...}</code> 包围 Scss 代码。</p>
 <div class="highlight" id="id-4"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -97,8 +97,8 @@
 <p>Sass 和 Less 都屬於 <strong>CSS 前置處理器</strong>，CSS 前置處理器定義了一種新的語言，其基本思想是，用一種專門的程式設計語言，為 CSS 增加了一些程式設計的特性，將 CSS 作為目標生成檔，然後開發者就只要使用這種語言進行 CSS 的編碼工作。<br>
 轉化成通俗易懂的話來說就是 <strong>“用一種專門的程式設計語言，進行 Web 頁面樣式設計，再通過編譯器轉化為正常的 CSS 檔，以供專案使用”。</strong></p>
 </blockquote>
-<h2 id="為什麼什麼時候要使用-css-前置處理器-why-when">為什麼，什麼時候要使用 CSS 前置處理器？ (Why, When)</h2>
-<p><strong>CSS 有具體以下幾個缺點：</strong></p>
+<h2 id="為什麼什麼時候要使用-css-前置處理器-why-when" class="heading-element">
+  <a href="#%e7%82%ba%e4%bb%80%e9%ba%bc%e4%bb%80%e9%ba%bc%e6%99%82%e5%80%99%e8%a6%81%e4%bd%bf%e7%94%a8-css-%e5%89%8d%e7%bd%ae%e8%99%95%e7%90%86%e5%99%a8-why-when" class="heading-mark"></a>1 為什麼，什麼時候要使用 CSS 前置處理器？ (Why, When)</h2><p><strong>CSS 有具體以下幾個缺點：</strong></p>
 <ul>
 <li>語法不夠強大，比如無法嵌套書寫，導致模組化開發中需要書寫很多重複的選擇器</li>
 <li>沒有變數和合理的樣式複用機制，使得邏輯上相關的屬性值必須以字面量的形式重複輸出，導致難以維護</li>
@@ -119,18 +119,18 @@
 <li>系統級框架開發（大型複雜的樣式設計）</li>
 <li>持續維護</li>
 </ul>
-<h2 id="lesssassscss-是什麼-what">Less、Sass/Scss 是什麼？ (What)</h2>
-<h3 id="less">Less</h3>
-<p>是一種動態樣式語言。對 CSS 賦予了動態語言的特性，如變數、繼承、運算、函數。<br>
+<h2 id="lesssassscss-是什麼-what" class="heading-element">
+  <a href="#lesssassscss-%e6%98%af%e4%bb%80%e9%ba%bc-what" class="heading-mark"></a>2 Less、Sass/Scss 是什麼？ (What)</h2><h3 id="less" class="heading-element">
+  <a href="#less" class="heading-mark"></a>2.1 Less</h3><p>是一種動態樣式語言。對 CSS 賦予了動態語言的特性，如變數、繼承、運算、函數。<br>
 Less 既可以在用戶端上運行（支援 IE 6+, Webkit, Firefox)，也可在服務端運行。</p>
-<h3 id="sass">Sass</h3>
-<p>是一種動態樣式語言，Sass 語法屬於縮排語法，<br>
+<h3 id="sass" class="heading-element">
+  <a href="#sass" class="heading-mark"></a>2.2 Sass</h3><p>是一種動態樣式語言，Sass 語法屬於縮排語法，<br>
 比 CSS 比多出好些功能（如變數、嵌套、運算，混入 (Mixin)、繼承、顏色處理，函數等），更容易閱讀。</p>
-<h3 id="sass-與-scss-的關係">Sass 與 Scss 的關係</h3>
-<p>Sass 的縮排語法，對於寫慣 CSS 的前端開發者來說很不直觀，也不能將 CSS 代碼加入到 Sass 裡面，因此 Sass 語法進行了改良，Sass 3 就變成了 Scss(Sassy CSS)。與原來的語法相容，只是用<code>{}</code>取代了原來的縮進。Sass 相當於 Scss 的嚴格模式。</p>
-<h2 id="sass-和-less-的比較">Sass 和 Less 的比較</h2>
-<h3 id="相同點">相同點</h3>
-<p>Less 和 Sass 在語法上有些共性，比如下面這些：</p>
+<h3 id="sass-與-scss-的關係" class="heading-element">
+  <a href="#sass-%e8%88%87-scss-%e7%9a%84%e9%97%9c%e4%bf%82" class="heading-mark"></a>2.3 Sass 與 Scss 的關係</h3><p>Sass 的縮排語法，對於寫慣 CSS 的前端開發者來說很不直觀，也不能將 CSS 代碼加入到 Sass 裡面，因此 Sass 語法進行了改良，Sass 3 就變成了 Scss(Sassy CSS)。與原來的語法相容，只是用<code>{}</code>取代了原來的縮進。Sass 相當於 Scss 的嚴格模式。</p>
+<h2 id="sass-和-less-的比較" class="heading-element">
+  <a href="#sass-%e5%92%8c-less-%e7%9a%84%e6%af%94%e8%bc%83" class="heading-mark"></a>3 Sass 和 Less 的比較</h2><h3 id="相同點" class="heading-element">
+  <a href="#%e7%9b%b8%e5%90%8c%e9%bb%9e" class="heading-mark"></a>3.1 相同點</h3><p>Less 和 Sass 在語法上有些共性，比如下面這些：</p>
 <ol>
 <li>混入 (Mixins)——class 中的 class</li>
 <li>參數混入——可以傳遞參數的 class，就像函數一樣</li>
@@ -141,8 +141,8 @@ Less 既可以在用戶端上運行（支援 IE 6+, Webkit, Firefox)，也可在
 <li>作用域——局部修改樣式</li>
 <li>JavaScript 賦值——在 CSS 中使用 JavaScript 運算式賦值</li>
 </ol>
-<h3 id="不同點">不同點</h3>
-<ol>
+<h3 id="不同點" class="heading-element">
+  <a href="#%e4%b8%8d%e5%90%8c%e9%bb%9e" class="heading-mark"></a>3.2 不同點</h3><ol>
 <li>實現方式</li>
 </ol>
 <ul>
@@ -154,14 +154,14 @@ Less 既可以在用戶端上運行（支援 IE 6+, Webkit, Firefox)，也可在
 <li>less 中的變量運算可帶、可不帶單位，Sass 需要帶單位元</li>
 <li>語法不同，請詳見 Less、Sass 官網</li>
 </ol>
-<h2 id="選用-less-還是-sass-">選用 Less 還是 Sass ?</h2>
-<p>無論是學習資料，討論情況，以及項目使用情況 Sass/Scss 都優於 Less，比如 Bootstrap 4 就使用的 Sass, 但是 Less 的使用更加簡單，使用門檻也較低，內網開發的情況，Less 則更加適合。</p>]]></description></item><item><title>Web 开发规则，代码规范</title><link>https://lruihao.cn/posts/dev-rules/</link><pubDate>Thu, 15 Aug 2019 18:30:31 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/dev-rules/</guid><description><![CDATA[<h2 id="精神">精神</h2>
-<ul>
+<h2 id="選用-less-還是-sass-" class="heading-element">
+  <a href="#%e9%81%b8%e7%94%a8-less-%e9%82%84%e6%98%af-sass-" class="heading-mark"></a>4 選用 Less 還是 Sass ?</h2><p>無論是學習資料，討論情況，以及項目使用情況 Sass/Scss 都優於 Less，比如 Bootstrap 4 就使用的 Sass, 但是 Less 的使用更加簡單，使用門檻也較低，內網開發的情況，Less 則更加適合。</p>]]></description></item><item><title>Web 开发规则，代码规范</title><link>https://lruihao.cn/posts/dev-rules/</link><pubDate>Thu, 15 Aug 2019 18:30:31 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/dev-rules/</guid><description><![CDATA[<h2 id="精神" class="heading-element">
+  <a href="#%e7%b2%be%e7%a5%9e" class="heading-mark"></a>1 精神</h2><ul>
 <li>绝不写死代码，硬编码</li>
 <li>不留不要用的、垃圾代码</li>
 </ul>
-<h2 id="git">Git</h2>
-<ul>
+<h2 id="git" class="heading-element">
+  <a href="#git" class="heading-mark"></a>2 Git</h2><ul>
 <li>Master 的 BUG 必须最少且趋近于零，为最稳定的版本</li>
 <li>每次 Commit 信息应该准确填写。不可模棱两可，eg: 修复 BUG、增加功能</li>
 <li>禁止 Commit IDE 的 project data，e.g: .vscode</li>
@@ -170,17 +170,17 @@ Less 既可以在用戶端上運行（支援 IE 6+, Webkit, Firefox)，也可在
 <blockquote>
 <p>更多规则详见文档 <a href="/posts/commit-spec/">Commit 规范</a></p>
 </blockquote>
-<h3 id="分支branch">分支（Branch）</h3>
-<ul>
+<h3 id="分支branch" class="heading-element">
+  <a href="#%e5%88%86%e6%94%afbranch" class="heading-mark"></a>2.1 分支（Branch）</h3><ul>
 <li>命名规则：应以此分支主要目的命名（修复什么 BUG，新增特定功能）</li>
 <li>合并后的分支应该删除</li>
 </ul>
-<h3 id="commit">commit</h3>
-<ul>
+<h3 id="commit" class="heading-element">
+  <a href="#commit" class="heading-mark"></a>2.2 commit</h3><ul>
 <li>遵循一个功能一个 commit 的原则</li>
 </ul>
-<h2 id="restful">Restful</h2>
-<ul>
+<h2 id="restful" class="heading-element">
+  <a href="#restful" class="heading-mark"></a>3 Restful</h2><ul>
 <li>
 <p>资源名词站在 API 的角度思考</p>
 <ul>
@@ -214,13 +214,13 @@ Less 既可以在用戶端上運行（支援 IE 6+, Webkit, Firefox)，也可在
 </div><blockquote>
 <p>更多规则详见文档 <a href="/posts/restful/">RESTful</a></p>
 </blockquote>
-<h2 id="命名">命名</h2>
-<ul>
+<h2 id="命名" class="heading-element">
+  <a href="#%e5%91%bd%e5%90%8d" class="heading-mark"></a>4 命名</h2><ul>
 <li>命名应根据内容做有意义的命名，让后续维护人员可以顾名思义！</li>
 <li>即使不会发生错误，代码英文大小写也需明确区分。</li>
 </ul>
-<h3 id="语意">语意</h3>
-<table>
+<h3 id="语意" class="heading-element">
+  <a href="#%e8%af%ad%e6%84%8f" class="heading-mark"></a>4.1 语意</h3><table>
 <thead>
 <tr>
 <th style="text-align:left">类型</th>
@@ -241,8 +241,8 @@ Less 既可以在用戶端上運行（支援 IE 6+, Webkit, Firefox)，也可在
 </tr>
 </tbody>
 </table>
-<h3 id="字母与分隔">字母与分隔</h3>
-<table>
+<h3 id="字母与分隔" class="heading-element">
+  <a href="#%e5%ad%97%e6%af%8d%e4%b8%8e%e5%88%86%e9%9a%94" class="heading-mark"></a>4.2 字母与分隔</h3><table>
 <thead>
 <tr>
 <th>语言</th>
@@ -311,8 +311,8 @@ Less 既可以在用戶端上運行（支援 IE 6+, Webkit, Firefox)，也可在
 </tr>
 </tbody>
 </table>
-<h2 id="通用">通用</h2>
-<ul>
+<h2 id="通用" class="heading-element">
+  <a href="#%e9%80%9a%e7%94%a8" class="heading-mark"></a>5 通用</h2><ul>
 <li>代码编写</li>
 <li><strong>每个函数应该使用块注释，注释应包含函数功能说明、参数说明</strong>。规则见：JSDoc、JavaDoc</li>
 <li>不必要的代码不要写，也应禁止放到注释里面！</li>
@@ -321,8 +321,8 @@ Less 既可以在用戶端上運行（支援 IE 6+, Webkit, Firefox)，也可在
 </li>
 <li>代码规范、代码排版等可通过 eslint 等工具做统一处理</li>
 </ul>
-<h3 id="正确写法">正确写法</h3>
-<div class="highlight" id="id-2"><div class="chroma">
+<h3 id="正确写法" class="heading-element">
+  <a href="#%e6%ad%a3%e7%a1%ae%e5%86%99%e6%b3%95" class="heading-mark"></a>5.1 正确写法</h3><div class="highlight" id="id-2"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -339,8 +339,8 @@ Less 既可以在用戶端上運行（支援 IE 6+, Webkit, Firefox)，也可在
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="错误写法">错误写法</h2>
-<div class="highlight" id="id-3"><div class="chroma">
+</div><h2 id="错误写法" class="heading-element">
+  <a href="#%e9%94%99%e8%af%af%e5%86%99%e6%b3%95" class="heading-mark"></a>6 错误写法</h2><div class="highlight" id="id-3"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -384,9 +384,9 @@ Less 既可以在用戶端上運行（支援 IE 6+, Webkit, Firefox)，也可在
 </ul>
 </li>
 </ul>
-<h2 id="html">HTML</h2>
-<h3 id="代码编写">代码编写</h3>
-<ul>
+<h2 id="html" class="heading-element">
+  <a href="#html" class="heading-mark"></a>7 HTML</h2><h3 id="代码编写" class="heading-element">
+  <a href="#%e4%bb%a3%e7%a0%81%e7%bc%96%e5%86%99" class="heading-mark"></a>7.1 代码编写</h3><ul>
 <li>禁止在 HTML 使用 <code>&lt;style&gt;</code>、<code>&lt;script&gt;</code>，一律使用外部档案引用方式引用 CSS、JavaScript 文件</li>
 <li>HTML 标签需成双成对，有头有尾</li>
 <li>块级标签：<code>&lt;tag&gt;&lt;/tag&gt;</code></li>
@@ -426,26 +426,26 @@ Less 既可以在用戶端上運行（支援 IE 6+, Webkit, Firefox)，也可在
 </span></span><span class="line"><span class="cl">bgcolor
 </span></span><span class="line"><span class="cl">color</span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="css">CSS</h2>
-<blockquote>
+</div><h2 id="css" class="heading-element">
+  <a href="#css" class="heading-mark"></a>8 CSS</h2><blockquote>
 <p>CSS 的定义应该独立一个 CSS 文件，禁止使用 <code>&lt;style&gt;</code> 或 <code>style</code> 属性直接在 HTML 中定义样式。</p>
 </blockquote>
-<h2 id="javascript">JavaScript</h2>
-<blockquote>
+<h2 id="javascript" class="heading-element">
+  <a href="#javascript" class="heading-mark"></a>9 JavaScript</h2><blockquote>
 <p>禁止使用 HTML 字串，一律使用 Dom 产生 HTML, e.g: <code>document.createDocumentFragment()</code></p>
 </blockquote>
-<h3 id="注释">注释</h3>
-<p>JavaScript 注释应该遵循 JSDoc 的标准撰写</p>
-<h4 id="全局变量-global">全局变量 (Global)</h4>
-<div class="highlight" id="id-5"><div class="chroma">
+<h3 id="注释" class="heading-element">
+  <a href="#%e6%b3%a8%e9%87%8a" class="heading-mark"></a>9.1 注释</h3><p>JavaScript 注释应该遵循 JSDoc 的标准撰写</p>
+<h4 id="全局变量-global" class="heading-element">
+  <a href="#%e5%85%a8%e5%b1%80%e5%8f%98%e9%87%8f-global" class="heading-mark"></a>9.1.1 全局变量 (Global)</h4><div class="highlight" id="id-5"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="cm">/* global ZT */</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h4 id="常量-constant">常量 (Constant)</h4>
-<div class="highlight" id="id-6"><div class="chroma">
+</div><h4 id="常量-constant" class="heading-element">
+  <a href="#%e5%b8%b8%e9%87%8f-constant" class="heading-mark"></a>9.1.2 常量 (Constant)</h4><div class="highlight" id="id-6"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -474,8 +474,8 @@ Less 既可以在用戶端上運行（支援 IE 6+, Webkit, Firefox)，也可在
 </span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
 </span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">REQUEST_URL</span> <span class="o">=</span> <span class="s1">&#39;http://localhost:8080&#39;</span><span class="p">;</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h4 id="函數方法-function-method">函數、方法 (Function, Method)</h4>
-<div class="highlight" id="id-8"><div class="chroma">
+</div><h4 id="函數方法-function-method" class="heading-element">
+  <a href="#%e5%87%bd%e6%95%b8%e6%96%b9%e6%b3%95-function-method" class="heading-mark"></a>9.1.3 函數、方法 (Function, Method)</h4><div class="highlight" id="id-8"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -522,24 +522,24 @@ Less 既可以在用戶端上運行（支援 IE 6+, Webkit, Firefox)，也可在
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">return</span> <span class="nx">user</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="vue">Vue</h2>
+</div><h2 id="vue" class="heading-element">
+  <a href="#vue" class="heading-mark"></a>10 Vue</h2><ul>
+<li><i class="fa-regular fa-square fa-fw" aria-hidden="true"></i> 待补充</li>
+</ul>
+<h2 id="java" class="heading-element">
+  <a href="#java" class="heading-mark"></a>11 Java</h2><p>Java 注释应该遵循 JavaDoc 的标准撰写</p>
 <ul>
 <li><i class="fa-regular fa-square fa-fw" aria-hidden="true"></i> 待补充</li>
 </ul>
-<h2 id="java">Java</h2>
-<p>Java 注释应该遵循 JavaDoc 的标准撰写</p>
-<ul>
-<li><i class="fa-regular fa-square fa-fw" aria-hidden="true"></i> 待补充</li>
-</ul>
-<h2 id="php">PHP</h2>
-<h3 id="前端参数取得">前端参数取得</h3>
-<p>参数取得需通过 filter_input 函数取得，不得使用 _GET、_POST</p>
-<h3 id="输出到前台">输出到前台</h3>
-<p>参数命名必须为：全部小写，不同单字以「_」分隔</p>
-<h3 id="注解">注解</h3>
-<p>PHP 注解应该遵循 PHPDoc 的标准撰写</p>
-<h3 id="成员变量-member">成员变量 (Member)</h3>
-<p>成员变量只的是 Class 内的成员变数，我们都会要求替成员变量增加注解说明。通常 Function 的变量除非太特别否则都不需要特别注解说明。</p>
+<h2 id="php" class="heading-element">
+  <a href="#php" class="heading-mark"></a>12 PHP</h2><h3 id="前端参数取得" class="heading-element">
+  <a href="#%e5%89%8d%e7%ab%af%e5%8f%82%e6%95%b0%e5%8f%96%e5%be%97" class="heading-mark"></a>12.1 前端参数取得</h3><p>参数取得需通过 filter_input 函数取得，不得使用 _GET、_POST</p>
+<h3 id="输出到前台" class="heading-element">
+  <a href="#%e8%be%93%e5%87%ba%e5%88%b0%e5%89%8d%e5%8f%b0" class="heading-mark"></a>12.2 输出到前台</h3><p>参数命名必须为：全部小写，不同单字以「_」分隔</p>
+<h3 id="注解" class="heading-element">
+  <a href="#%e6%b3%a8%e8%a7%a3" class="heading-mark"></a>12.3 注解</h3><p>PHP 注解应该遵循 PHPDoc 的标准撰写</p>
+<h3 id="成员变量-member" class="heading-element">
+  <a href="#%e6%88%90%e5%91%98%e5%8f%98%e9%87%8f-member" class="heading-mark"></a>12.4 成员变量 (Member)</h3><p>成员变量只的是 Class 内的成员变数，我们都会要求替成员变量增加注解说明。通常 Function 的变量除非太特别否则都不需要特别注解说明。</p>
 <div class="highlight" id="id-10"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -569,8 +569,8 @@ Less 既可以在用戶端上運行（支援 IE 6+, Webkit, Firefox)，也可在
 </span></span></span><span class="line"><span class="cl"><span class="sd"> */</span>
 </span></span><span class="line"><span class="cl"><span class="nv">$userId</span> <span class="o">=</span> <span class="s1">&#39;Hello&#39;</span><span class="p">;</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="函数方法-function-method">函数、方法 (Function, Method)</h3>
-<div class="highlight" id="id-12"><div class="chroma">
+</div><h3 id="函数方法-function-method" class="heading-element">
+  <a href="#%e5%87%bd%e6%95%b0%e6%96%b9%e6%b3%95-function-method" class="heading-mark"></a>12.5 函数、方法 (Function, Method)</h3><div class="highlight" id="id-12"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -619,18 +619,18 @@ Less 既可以在用戶端上運行（支援 IE 6+, Webkit, Firefox)，也可在
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">return</span> <span class="nv">$user</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">};</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="python">Python</h2>
-<ul>
+</div><h2 id="python" class="heading-element">
+  <a href="#python" class="heading-mark"></a>13 Python</h2><ul>
 <li><i class="fa-regular fa-square fa-fw" aria-hidden="true"></i> 待补充</li>
 </ul>
-<h2 id="database">Database</h2>
-<ul>
+<h2 id="database" class="heading-element">
+  <a href="#database" class="heading-mark"></a>14 Database</h2><ul>
 <li>禁止使用 Table Join。</li>
 <li>禁止使用 Oracle Trigger。</li>
 <li>禁止将查询数据库的 SQL 放在循环中查询</li>
 </ul>
-<h3 id="sql-撰写">SQL 撰写</h3>
-<ul>
+<h3 id="sql-撰写" class="heading-element">
+  <a href="#sql-%e6%92%b0%e5%86%99" class="heading-mark"></a>14.1 SQL 撰写</h3><ul>
 <li>属于 SQL 语法使用大写（SELECT，WHERE，INSERT etc..）</li>
 <li>属于使用者自己定义的使用小写（表名 table name，字段名 column name etc..）</li>
 <li>表名、字段名前后需加上 `</li>
@@ -643,8 +643,8 @@ Less 既可以在用戶端上運行（支援 IE 6+, Webkit, Firefox)，也可在
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="o">`</span><span class="k">user</span><span class="o">`</span><span class="w"> </span><span class="k">VALUES</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;b&#39;</span><span class="p">);</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="统一用词">统一用词</h2>
-<blockquote>
+</div><h2 id="统一用词" class="heading-element">
+  <a href="#%e7%bb%9f%e4%b8%80%e7%94%a8%e8%af%8d" class="heading-mark"></a>15 统一用词</h2><blockquote>
 <p>系统中常用词，例如弹出框按钮、搜索框等，仅为举例，不限与此。</p>
 </blockquote>
 <table>

@@ -1,17 +1,17 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>需求分析 - 标签 - 菠菜眾長</title><link>https://lruihao.cn/tags/%E9%9C%80%E6%B1%82%E5%88%86%E6%9E%90/</link><description>需求分析 - 标签 - 菠菜眾長</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><copyright>本站内容采用 CC BY-NC-SA 4.0 国际许可协议。</copyright><lastBuildDate>Thu, 12 Oct 2023 15:37:30 +0800</lastBuildDate><atom:link href="https://lruihao.cn/tags/%E9%9C%80%E6%B1%82%E5%88%86%E6%9E%90/" rel="self" type="application/rss+xml"/><item><title>拖拽式仪表盘 - 功能需求分析</title><link>https://lruihao.cn/posts/dashboard-analysis/</link><pubDate>Thu, 12 Oct 2023 15:37:30 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/dashboard-analysis/</guid><description><![CDATA[<h2 id="仪表盘简介">仪表盘简介</h2>
-<p>仪表盘（dashboard）作为一种直观、灵活的数据可视化工具，正在越来越多地应用于各种领域，帮助用户实时监控和分析数据。常见于各类数据分析平台、数据可视化平台、数据大屏等场景。</p>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>需求分析 - 标签 - 菠菜眾長</title><link>https://lruihao.cn/tags/%E9%9C%80%E6%B1%82%E5%88%86%E6%9E%90/</link><description>需求分析 - 标签 - 菠菜眾長</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><copyright>本站内容采用 CC BY-NC-SA 4.0 国际许可协议。</copyright><lastBuildDate>Thu, 12 Oct 2023 15:37:30 +0800</lastBuildDate><atom:link href="https://lruihao.cn/tags/%E9%9C%80%E6%B1%82%E5%88%86%E6%9E%90/" rel="self" type="application/rss+xml"/><item><title>拖拽式仪表盘 - 功能需求分析</title><link>https://lruihao.cn/posts/dashboard-analysis/</link><pubDate>Thu, 12 Oct 2023 15:37:30 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/dashboard-analysis/</guid><description><![CDATA[<h2 id="仪表盘简介" class="heading-element">
+  <a href="#%e4%bb%aa%e8%a1%a8%e7%9b%98%e7%ae%80%e4%bb%8b" class="heading-mark"></a>1 仪表盘简介</h2><p>仪表盘（dashboard）作为一种直观、灵活的数据可视化工具，正在越来越多地应用于各种领域，帮助用户实时监控和分析数据。常见于各类数据分析平台、数据可视化平台、数据大屏等场景。</p>
 <p>传统的仪表盘往往是开发者固定好的，用户只能使用，无法自定义。而拖拽式仪表盘则可以让用户自由地选择、拖拽、调整仪表盘中的各种组件，从而实现自定义的仪表盘。</p>
-<h2 id="功能需求">功能需求</h2>
-<p>由于本系列文章写作在设计和开发之后，所以先一睹为快，看看最终的效果：<a href="https://lruihao.github.io/vue-el-demo/#/dashboard/index"target="_blank" rel="external nofollow noopener noreferrer">在线 Demo<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
+<h2 id="功能需求" class="heading-element">
+  <a href="#%e5%8a%9f%e8%83%bd%e9%9c%80%e6%b1%82" class="heading-mark"></a>2 功能需求</h2><p>由于本系列文章写作在设计和开发之后，所以先一睹为快，看看最终的效果：<a href="https://lruihao.github.io/vue-el-demo/#/dashboard/index"target="_blank" rel="external nofollow noopener noreferrer">在线 Demo<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
 <p>技术背景是基于 Vue2 实现，功能需求大致如下：</p>
-<h3 id="布局需求">布局需求</h3>
-<p>仪表盘布局是拖拽式仪表盘的核心功能之一。布局应该是一个可复用的模板，因为对于一个中后台系统，往往会有多个仪表盘，所有基础功能应该提炼出来，以便于快速复用。</p>
+<h3 id="布局需求" class="heading-element">
+  <a href="#%e5%b8%83%e5%b1%80%e9%9c%80%e6%b1%82" class="heading-mark"></a>2.1 布局需求</h3><p>仪表盘布局是拖拽式仪表盘的核心功能之一。布局应该是一个可复用的模板，因为对于一个中后台系统，往往会有多个仪表盘，所有基础功能应该提炼出来，以便于快速复用。</p>
 <ul>
 <li>组件拖放到布局容器中时，用户应能够自由拖拽、调整组件的大小和位置，也可以对组件进行排序、刷新、删除等操作</li>
 <li>允许创建、删除、复制布局，每个布局可以有不同的组件排列</li>
 </ul>
-<h3 id="组件需求">组件需求</h3>
-<ul>
+<h3 id="组件需求" class="heading-element">
+  <a href="#%e7%bb%84%e4%bb%b6%e9%9c%80%e6%b1%82" class="heading-mark"></a>2.2 组件需求</h3><ul>
 <li>统一的配置项（宽高、是否可调整大小、各种事件钩子等）</li>
 <li>组件分类</li>
 <li>自动加载组件列表</li>
@@ -22,16 +22,16 @@
 <p>组件列表中的组件可以通过拖拽或者点击添加到布局容器中。</p>
 <p>组件需要有分类，例如：模块 A 的组件、模块 B 的组件等。因为虽然系统中的每个模块的仪表盘只需要显示当前模块相关的图表组件，但是整个系统的仪表盘需要显示各个模块的图表统计数据，所以需要对组件进行分类。</p>
 <p>另外，应该有一个通用分类，用于存放所有模块都可以使用的组件。例如：便签、天气组件、时间组件等。</p>
-<h3 id="布局和组件交互">布局和组件交互</h3>
-<p>仪表盘布局内通常有多个组件，布局和组件之间可能需要进行交互，例如：</p>
+<h3 id="布局和组件交互" class="heading-element">
+  <a href="#%e5%b8%83%e5%b1%80%e5%92%8c%e7%bb%84%e4%bb%b6%e4%ba%a4%e4%ba%92" class="heading-mark"></a>2.3 布局和组件交互</h3><p>仪表盘布局内通常有多个组件，布局和组件之间可能需要进行交互，例如：</p>
 <ul>
 <li>点击总的刷新按钮，所有组件都刷新；点击某个组件的刷新按钮，只刷新当前组件</li>
 <li>点击某个组件的设置按钮，弹出设置框，设置当前组件的配置项保存到当前布局数据中</li>
 <li>点击某个组件的删除按钮，从当前布局数据中删除当前组件</li>
 <li>……</li>
 </ul>
-<h3 id="用户角色和权限管理需求">用户角色和权限管理需求</h3>
-<p>在拖拽式仪表盘中，不同用户角色可能具有不同的访问权限和操作权限。</p>
+<h3 id="用户角色和权限管理需求" class="heading-element">
+  <a href="#%e7%94%a8%e6%88%b7%e8%a7%92%e8%89%b2%e5%92%8c%e6%9d%83%e9%99%90%e7%ae%a1%e7%90%86%e9%9c%80%e6%b1%82" class="heading-mark"></a>2.4 用户角色和权限管理需求</h3><p>在拖拽式仪表盘中，不同用户角色可能具有不同的访问权限和操作权限。</p>
 <p>管理员拥有完整的权限：</p>
 <ul>
 <li>可以查看所有仪表盘</li>
@@ -46,8 +46,8 @@
 <li>工作台仪表盘可以拖拽、调整组件在非默认仪表盘布局中的位置和大小</li>
 <li>其他模块的仪表盘只能查看和刷新，不能编辑</li>
 </ul>
-<h2 id="总结">总结</h2>
-<p>通过分析，简单来说，拖拽式仪表盘的功能需求主要包括：</p>
+<h2 id="总结" class="heading-element">
+  <a href="#%e6%80%bb%e7%bb%93" class="heading-mark"></a>3 总结</h2><p>通过分析，简单来说，拖拽式仪表盘的功能需求主要包括：</p>
 <ul>
 <li>布局需求</li>
 <li>组件需求</li>

@@ -1,6 +1,6 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>HTML - 标签 - 菠菜眾長</title><link>https://lruihao.cn/tags/html/</link><description>HTML - 标签 - 菠菜眾長</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><copyright>本站内容采用 CC BY-NC-SA 4.0 国际许可协议。</copyright><lastBuildDate>Sun, 12 Feb 2023 19:40:43 +0800</lastBuildDate><atom:link href="https://lruihao.cn/tags/html/" rel="self" type="application/rss+xml"/><item><title>浏览器 IMG 图片原生懒加载 loading="lazy"</title><link>https://lruihao.cn/posts/native-img-loading-lazy/</link><pubDate>Sun, 12 Feb 2023 19:40:43 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/native-img-loading-lazy/</guid><description><![CDATA[<p>记录使用 HTML 原生方案实现图片的懒加载。</p>
-<h2 id="语法规范">语法规范</h2>
-<p>HTML <code>loading</code> 属性适用于 <code>img</code> 和 <code>iframe</code>，语法规范见 <a href="https://html.spec.whatwg.org/multipage/urls-and-fetching.html#lazy-loading-attributes"target="_blank" rel="external nofollow noopener noreferrer">HTML Standard - Lazy loading attributes<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>。</p>
+<h2 id="语法规范" class="heading-element">
+  <a href="#%e8%af%ad%e6%b3%95%e8%a7%84%e8%8c%83" class="heading-mark"></a>1 语法规范</h2><p>HTML <code>loading</code> 属性适用于 <code>img</code> 和 <code>iframe</code>，语法规范见 <a href="https://html.spec.whatwg.org/multipage/urls-and-fetching.html#lazy-loading-attributes"target="_blank" rel="external nofollow noopener noreferrer">HTML Standard - Lazy loading attributes<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>。</p>
 <table>
 <thead>
 <tr>
@@ -23,8 +23,8 @@
 </tbody>
 </table>
 <p>属性的 <em><a href="https://html.spec.whatwg.org/multipage/common-microsyntaxes.html#missing-value-default"target="_blank" rel="external nofollow noopener noreferrer">缺失值默认值<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></em> 和 <em><a href="https://html.spec.whatwg.org/multipage/common-microsyntaxes.html#invalid-value-default"target="_blank" rel="external nofollow noopener noreferrer">无效值默认值<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></em> 都是 <a href="https://html.spec.whatwg.org/multipage/urls-and-fetching.html#attr-loading-eager-state"target="_blank" rel="external nofollow noopener noreferrer">Eager<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>状态。</p>
-<h2 id="实际应用">实际应用</h2>
-<p>基于 <a href="https://github.com/hugo-fixit/FixIt"target="_blank" rel="external nofollow noopener noreferrer">FixIt 主题<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 版本大于 v0.2.18 的博客网站使用就是原生的懒加载方案，大致如下：</p>
+<h2 id="实际应用" class="heading-element">
+  <a href="#%e5%ae%9e%e9%99%85%e5%ba%94%e7%94%a8" class="heading-mark"></a>2 实际应用</h2><p>基于 <a href="https://github.com/hugo-fixit/FixIt"target="_blank" rel="external nofollow noopener noreferrer">FixIt 主题<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 版本大于 v0.2.18 的博客网站使用就是原生的懒加载方案，大致如下：</p>
 <div class="highlight" id="id-1"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -59,8 +59,8 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>设置 <code>data-title</code> 和 <code>data-alt</code> 是因为移动浏览器大多数只要有 <code>title</code> 或 <code>alt</code> 就会显示图片的替代字符，所以等到图片加载完或加载失败后再回填。</p>
-<h2 id="懒加载特性的研究">懒加载特性的研究</h2>
-<blockquote>
+<h2 id="懒加载特性的研究" class="heading-element">
+  <a href="#%e6%87%92%e5%8a%a0%e8%bd%bd%e7%89%b9%e6%80%a7%e7%9a%84%e7%a0%94%e7%a9%b6" class="heading-mark"></a>3 懒加载特性的研究</h2><blockquote>
 <p>以下结论来自 <a href="https://www.zhangxinxu.com/wordpress/2019/09/native-img-loading-lazy/"target="_blank" rel="external nofollow noopener noreferrer">浏览器 IMG 图片原生懒加载 loading=”lazy”实践指南 « 张鑫旭 - 鑫空间 - 鑫生活<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 总结部分。</p>
 </blockquote>
 <ol>
@@ -70,13 +70,13 @@
 <li>Lazy loading 加载在窗口 resize 尺寸变化时候也会触发，例如屏幕高度从小变大的时候。</li>
 <li>Lazy loading 加载也有可能会先加载后面的图片资源，例如页面加载时滚动高度很高的时候。</li>
 </ol>
-<h2 id="参考链接">参考链接</h2>
-<ul>
+<h2 id="参考链接" class="heading-element">
+  <a href="#%e5%8f%82%e8%80%83%e9%93%be%e6%8e%a5" class="heading-mark"></a>4 参考链接</h2><ul>
 <li><a href="https://developer.mozilla.org/zh-CN/docs/Web/Performance/Lazy_loading"target="_blank" rel="external nofollow noopener noreferrer">Lazy loading - Web 性能 | MDN<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
 <li><a href="https://caniuse.com/loading-lazy-attr"target="_blank" rel="external nofollow noopener noreferrer">Lazy loading via attribute for images &amp; iframes 兼容性<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
 </ul>]]></description></item><item><title>浏览器渲染原理</title><link>https://lruihao.cn/posts/browser-rendering/</link><pubDate>Sun, 05 Feb 2023 21:02:52 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/browser-rendering/</guid><description><![CDATA[<iframe src="files/browser-rendering.pdf" width="100%" height="550"></iframe>
-<h2 id="浏览器是如何渲染页面的">浏览器是如何渲染页面的？</h2>
-<p>当浏览器的网络线程收到 HTML 文档后，会产生一个渲染任务，并将其传递给渲染主线程的消息队列。</p>
+<h2 id="浏览器是如何渲染页面的" class="heading-element">
+  <a href="#%e6%b5%8f%e8%a7%88%e5%99%a8%e6%98%af%e5%a6%82%e4%bd%95%e6%b8%b2%e6%9f%93%e9%a1%b5%e9%9d%a2%e7%9a%84" class="heading-mark"></a>1 浏览器是如何渲染页面的？</h2><p>当浏览器的网络线程收到 HTML 文档后，会产生一个渲染任务，并将其传递给渲染主线程的消息队列。</p>
 <p>在事件循环机制的作用下，渲染主线程取出消息队列中的渲染任务，开启渲染流程。</p>
 <hr>
 <p>整个渲染流程分为多个阶段，分别是：HTML 解析、样式计算、布局、分层、绘制、分块、光栅化、画</p>
@@ -121,26 +121,26 @@
 <p>指引会标识出每个位图应该画到屏幕的哪个位置，以及会考虑到旋转、缩放等变形。</p>
 <p>变形发生在合成线程，与渲染主线程无关，这就是<code>transform</code>效率高的本质原因。</p>
 <p>合成线程会把 quad 提交给 GPU 进程，由 GPU 进程产生系统调用，提交给 GPU 硬件，完成最终的屏幕成像。</p>
-<h2 id="什么是-reflow">什么是 reflow？</h2>
-<p>reflow 的本质就是重新计算 layout 树。</p>
+<h2 id="什么是-reflow" class="heading-element">
+  <a href="#%e4%bb%80%e4%b9%88%e6%98%af-reflow" class="heading-mark"></a>2 什么是 reflow？</h2><p>reflow 的本质就是重新计算 layout 树。</p>
 <p>当进行了会影响布局树的操作后，需要重新计算布局树，会引发 layout。</p>
 <p>为了避免连续的多次操作导致布局树反复计算，浏览器会合并这些操作，当 JS 代码全部完成后再进行统一计算。所以，改动属性造成的 reflow 是异步完成的。</p>
 <p>也同样因为如此，当 JS 获取布局属性时，就可能造成无法获取到最新的布局信息。</p>
 <p>浏览器在反复权衡下，最终决定获取属性立即 reflow。</p>
-<h2 id="什么是-repaint">什么是 repaint？</h2>
-<p>repaint 的本质就是重新根据分层信息计算了绘制指令。</p>
+<h2 id="什么是-repaint" class="heading-element">
+  <a href="#%e4%bb%80%e4%b9%88%e6%98%af-repaint" class="heading-mark"></a>3 什么是 repaint？</h2><p>repaint 的本质就是重新根据分层信息计算了绘制指令。</p>
 <p>当改动了可见样式后，就需要重新计算，会引发 repaint。</p>
 <p>由于元素的布局信息也属于可见样式，所以 reflow 一定会引起 repaint。</p>
-<h2 id="为什么-transform-的效率高">为什么 transform 的效率高？</h2>
-<p>因为 transform 既不会影响布局也不会影响绘制指令，它影响的只是渲染流程的最后一个「draw」阶段</p>
+<h2 id="为什么-transform-的效率高" class="heading-element">
+  <a href="#%e4%b8%ba%e4%bb%80%e4%b9%88-transform-%e7%9a%84%e6%95%88%e7%8e%87%e9%ab%98" class="heading-mark"></a>4 为什么 transform 的效率高？</h2><p>因为 transform 既不会影响布局也不会影响绘制指令，它影响的只是渲染流程的最后一个「draw」阶段</p>
 <p>由于 draw 阶段在合成线程中，所以 transform 的变化几乎不会影响渲染主线程。反之，渲染主线程无论如何忙碌，也不会影响 transform 的变化。</p>
-]]></description></item><item><title>Web 开发规则，代码规范</title><link>https://lruihao.cn/posts/dev-rules/</link><pubDate>Thu, 15 Aug 2019 18:30:31 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/dev-rules/</guid><description><![CDATA[<h2 id="精神">精神</h2>
-<ul>
+]]></description></item><item><title>Web 开发规则，代码规范</title><link>https://lruihao.cn/posts/dev-rules/</link><pubDate>Thu, 15 Aug 2019 18:30:31 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/dev-rules/</guid><description><![CDATA[<h2 id="精神" class="heading-element">
+  <a href="#%e7%b2%be%e7%a5%9e" class="heading-mark"></a>1 精神</h2><ul>
 <li>绝不写死代码，硬编码</li>
 <li>不留不要用的、垃圾代码</li>
 </ul>
-<h2 id="git">Git</h2>
-<ul>
+<h2 id="git" class="heading-element">
+  <a href="#git" class="heading-mark"></a>2 Git</h2><ul>
 <li>Master 的 BUG 必须最少且趋近于零，为最稳定的版本</li>
 <li>每次 Commit 信息应该准确填写。不可模棱两可，eg: 修复 BUG、增加功能</li>
 <li>禁止 Commit IDE 的 project data，e.g: .vscode</li>
@@ -149,17 +149,17 @@
 <blockquote>
 <p>更多规则详见文档 <a href="/posts/commit-spec/">Commit 规范</a></p>
 </blockquote>
-<h3 id="分支branch">分支（Branch）</h3>
-<ul>
+<h3 id="分支branch" class="heading-element">
+  <a href="#%e5%88%86%e6%94%afbranch" class="heading-mark"></a>2.1 分支（Branch）</h3><ul>
 <li>命名规则：应以此分支主要目的命名（修复什么 BUG，新增特定功能）</li>
 <li>合并后的分支应该删除</li>
 </ul>
-<h3 id="commit">commit</h3>
-<ul>
+<h3 id="commit" class="heading-element">
+  <a href="#commit" class="heading-mark"></a>2.2 commit</h3><ul>
 <li>遵循一个功能一个 commit 的原则</li>
 </ul>
-<h2 id="restful">Restful</h2>
-<ul>
+<h2 id="restful" class="heading-element">
+  <a href="#restful" class="heading-mark"></a>3 Restful</h2><ul>
 <li>
 <p>资源名词站在 API 的角度思考</p>
 <ul>
@@ -193,13 +193,13 @@
 </div><blockquote>
 <p>更多规则详见文档 <a href="/posts/restful/">RESTful</a></p>
 </blockquote>
-<h2 id="命名">命名</h2>
-<ul>
+<h2 id="命名" class="heading-element">
+  <a href="#%e5%91%bd%e5%90%8d" class="heading-mark"></a>4 命名</h2><ul>
 <li>命名应根据内容做有意义的命名，让后续维护人员可以顾名思义！</li>
 <li>即使不会发生错误，代码英文大小写也需明确区分。</li>
 </ul>
-<h3 id="语意">语意</h3>
-<table>
+<h3 id="语意" class="heading-element">
+  <a href="#%e8%af%ad%e6%84%8f" class="heading-mark"></a>4.1 语意</h3><table>
 <thead>
 <tr>
 <th style="text-align:left">类型</th>
@@ -220,8 +220,8 @@
 </tr>
 </tbody>
 </table>
-<h3 id="字母与分隔">字母与分隔</h3>
-<table>
+<h3 id="字母与分隔" class="heading-element">
+  <a href="#%e5%ad%97%e6%af%8d%e4%b8%8e%e5%88%86%e9%9a%94" class="heading-mark"></a>4.2 字母与分隔</h3><table>
 <thead>
 <tr>
 <th>语言</th>
@@ -290,8 +290,8 @@
 </tr>
 </tbody>
 </table>
-<h2 id="通用">通用</h2>
-<ul>
+<h2 id="通用" class="heading-element">
+  <a href="#%e9%80%9a%e7%94%a8" class="heading-mark"></a>5 通用</h2><ul>
 <li>代码编写</li>
 <li><strong>每个函数应该使用块注释，注释应包含函数功能说明、参数说明</strong>。规则见：JSDoc、JavaDoc</li>
 <li>不必要的代码不要写，也应禁止放到注释里面！</li>
@@ -300,8 +300,8 @@
 </li>
 <li>代码规范、代码排版等可通过 eslint 等工具做统一处理</li>
 </ul>
-<h3 id="正确写法">正确写法</h3>
-<div class="highlight" id="id-2"><div class="chroma">
+<h3 id="正确写法" class="heading-element">
+  <a href="#%e6%ad%a3%e7%a1%ae%e5%86%99%e6%b3%95" class="heading-mark"></a>5.1 正确写法</h3><div class="highlight" id="id-2"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -318,8 +318,8 @@
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="错误写法">错误写法</h2>
-<div class="highlight" id="id-3"><div class="chroma">
+</div><h2 id="错误写法" class="heading-element">
+  <a href="#%e9%94%99%e8%af%af%e5%86%99%e6%b3%95" class="heading-mark"></a>6 错误写法</h2><div class="highlight" id="id-3"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -363,9 +363,9 @@
 </ul>
 </li>
 </ul>
-<h2 id="html">HTML</h2>
-<h3 id="代码编写">代码编写</h3>
-<ul>
+<h2 id="html" class="heading-element">
+  <a href="#html" class="heading-mark"></a>7 HTML</h2><h3 id="代码编写" class="heading-element">
+  <a href="#%e4%bb%a3%e7%a0%81%e7%bc%96%e5%86%99" class="heading-mark"></a>7.1 代码编写</h3><ul>
 <li>禁止在 HTML 使用 <code>&lt;style&gt;</code>、<code>&lt;script&gt;</code>，一律使用外部档案引用方式引用 CSS、JavaScript 文件</li>
 <li>HTML 标签需成双成对，有头有尾</li>
 <li>块级标签：<code>&lt;tag&gt;&lt;/tag&gt;</code></li>
@@ -405,26 +405,26 @@
 </span></span><span class="line"><span class="cl">bgcolor
 </span></span><span class="line"><span class="cl">color</span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="css">CSS</h2>
-<blockquote>
+</div><h2 id="css" class="heading-element">
+  <a href="#css" class="heading-mark"></a>8 CSS</h2><blockquote>
 <p>CSS 的定义应该独立一个 CSS 文件，禁止使用 <code>&lt;style&gt;</code> 或 <code>style</code> 属性直接在 HTML 中定义样式。</p>
 </blockquote>
-<h2 id="javascript">JavaScript</h2>
-<blockquote>
+<h2 id="javascript" class="heading-element">
+  <a href="#javascript" class="heading-mark"></a>9 JavaScript</h2><blockquote>
 <p>禁止使用 HTML 字串，一律使用 Dom 产生 HTML, e.g: <code>document.createDocumentFragment()</code></p>
 </blockquote>
-<h3 id="注释">注释</h3>
-<p>JavaScript 注释应该遵循 JSDoc 的标准撰写</p>
-<h4 id="全局变量-global">全局变量 (Global)</h4>
-<div class="highlight" id="id-5"><div class="chroma">
+<h3 id="注释" class="heading-element">
+  <a href="#%e6%b3%a8%e9%87%8a" class="heading-mark"></a>9.1 注释</h3><p>JavaScript 注释应该遵循 JSDoc 的标准撰写</p>
+<h4 id="全局变量-global" class="heading-element">
+  <a href="#%e5%85%a8%e5%b1%80%e5%8f%98%e9%87%8f-global" class="heading-mark"></a>9.1.1 全局变量 (Global)</h4><div class="highlight" id="id-5"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="cm">/* global ZT */</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h4 id="常量-constant">常量 (Constant)</h4>
-<div class="highlight" id="id-6"><div class="chroma">
+</div><h4 id="常量-constant" class="heading-element">
+  <a href="#%e5%b8%b8%e9%87%8f-constant" class="heading-mark"></a>9.1.2 常量 (Constant)</h4><div class="highlight" id="id-6"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -453,8 +453,8 @@
 </span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
 </span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">REQUEST_URL</span> <span class="o">=</span> <span class="s1">&#39;http://localhost:8080&#39;</span><span class="p">;</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h4 id="函數方法-function-method">函數、方法 (Function, Method)</h4>
-<div class="highlight" id="id-8"><div class="chroma">
+</div><h4 id="函數方法-function-method" class="heading-element">
+  <a href="#%e5%87%bd%e6%95%b8%e6%96%b9%e6%b3%95-function-method" class="heading-mark"></a>9.1.3 函數、方法 (Function, Method)</h4><div class="highlight" id="id-8"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -501,24 +501,24 @@
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">return</span> <span class="nx">user</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="vue">Vue</h2>
+</div><h2 id="vue" class="heading-element">
+  <a href="#vue" class="heading-mark"></a>10 Vue</h2><ul>
+<li><i class="fa-regular fa-square fa-fw" aria-hidden="true"></i> 待补充</li>
+</ul>
+<h2 id="java" class="heading-element">
+  <a href="#java" class="heading-mark"></a>11 Java</h2><p>Java 注释应该遵循 JavaDoc 的标准撰写</p>
 <ul>
 <li><i class="fa-regular fa-square fa-fw" aria-hidden="true"></i> 待补充</li>
 </ul>
-<h2 id="java">Java</h2>
-<p>Java 注释应该遵循 JavaDoc 的标准撰写</p>
-<ul>
-<li><i class="fa-regular fa-square fa-fw" aria-hidden="true"></i> 待补充</li>
-</ul>
-<h2 id="php">PHP</h2>
-<h3 id="前端参数取得">前端参数取得</h3>
-<p>参数取得需通过 filter_input 函数取得，不得使用 _GET、_POST</p>
-<h3 id="输出到前台">输出到前台</h3>
-<p>参数命名必须为：全部小写，不同单字以「_」分隔</p>
-<h3 id="注解">注解</h3>
-<p>PHP 注解应该遵循 PHPDoc 的标准撰写</p>
-<h3 id="成员变量-member">成员变量 (Member)</h3>
-<p>成员变量只的是 Class 内的成员变数，我们都会要求替成员变量增加注解说明。通常 Function 的变量除非太特别否则都不需要特别注解说明。</p>
+<h2 id="php" class="heading-element">
+  <a href="#php" class="heading-mark"></a>12 PHP</h2><h3 id="前端参数取得" class="heading-element">
+  <a href="#%e5%89%8d%e7%ab%af%e5%8f%82%e6%95%b0%e5%8f%96%e5%be%97" class="heading-mark"></a>12.1 前端参数取得</h3><p>参数取得需通过 filter_input 函数取得，不得使用 _GET、_POST</p>
+<h3 id="输出到前台" class="heading-element">
+  <a href="#%e8%be%93%e5%87%ba%e5%88%b0%e5%89%8d%e5%8f%b0" class="heading-mark"></a>12.2 输出到前台</h3><p>参数命名必须为：全部小写，不同单字以「_」分隔</p>
+<h3 id="注解" class="heading-element">
+  <a href="#%e6%b3%a8%e8%a7%a3" class="heading-mark"></a>12.3 注解</h3><p>PHP 注解应该遵循 PHPDoc 的标准撰写</p>
+<h3 id="成员变量-member" class="heading-element">
+  <a href="#%e6%88%90%e5%91%98%e5%8f%98%e9%87%8f-member" class="heading-mark"></a>12.4 成员变量 (Member)</h3><p>成员变量只的是 Class 内的成员变数，我们都会要求替成员变量增加注解说明。通常 Function 的变量除非太特别否则都不需要特别注解说明。</p>
 <div class="highlight" id="id-10"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -548,8 +548,8 @@
 </span></span></span><span class="line"><span class="cl"><span class="sd"> */</span>
 </span></span><span class="line"><span class="cl"><span class="nv">$userId</span> <span class="o">=</span> <span class="s1">&#39;Hello&#39;</span><span class="p">;</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="函数方法-function-method">函数、方法 (Function, Method)</h3>
-<div class="highlight" id="id-12"><div class="chroma">
+</div><h3 id="函数方法-function-method" class="heading-element">
+  <a href="#%e5%87%bd%e6%95%b0%e6%96%b9%e6%b3%95-function-method" class="heading-mark"></a>12.5 函数、方法 (Function, Method)</h3><div class="highlight" id="id-12"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -598,18 +598,18 @@
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">return</span> <span class="nv">$user</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">};</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="python">Python</h2>
-<ul>
+</div><h2 id="python" class="heading-element">
+  <a href="#python" class="heading-mark"></a>13 Python</h2><ul>
 <li><i class="fa-regular fa-square fa-fw" aria-hidden="true"></i> 待补充</li>
 </ul>
-<h2 id="database">Database</h2>
-<ul>
+<h2 id="database" class="heading-element">
+  <a href="#database" class="heading-mark"></a>14 Database</h2><ul>
 <li>禁止使用 Table Join。</li>
 <li>禁止使用 Oracle Trigger。</li>
 <li>禁止将查询数据库的 SQL 放在循环中查询</li>
 </ul>
-<h3 id="sql-撰写">SQL 撰写</h3>
-<ul>
+<h3 id="sql-撰写" class="heading-element">
+  <a href="#sql-%e6%92%b0%e5%86%99" class="heading-mark"></a>14.1 SQL 撰写</h3><ul>
 <li>属于 SQL 语法使用大写（SELECT，WHERE，INSERT etc..）</li>
 <li>属于使用者自己定义的使用小写（表名 table name，字段名 column name etc..）</li>
 <li>表名、字段名前后需加上 `</li>
@@ -622,8 +622,8 @@
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="o">`</span><span class="k">user</span><span class="o">`</span><span class="w"> </span><span class="k">VALUES</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;b&#39;</span><span class="p">);</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="统一用词">统一用词</h2>
-<blockquote>
+</div><h2 id="统一用词" class="heading-element">
+  <a href="#%e7%bb%9f%e4%b8%80%e7%94%a8%e8%af%8d" class="heading-mark"></a>15 统一用词</h2><blockquote>
 <p>系统中常用词，例如弹出框按钮、搜索框等，仅为举例，不限与此。</p>
 </blockquote>
 <table>
@@ -691,9 +691,9 @@
 “卓越班”到了大三突然掀起一股毕业慌，一部分人投身于考研的热潮中，一部分人选择了培训机构学习技术。而我出于种种原因既不考研也不培训，选择自学 java 和 web 相关的知识，也希望因此能在以后谋得一份心仪的工作。</p>
 </blockquote>
 <p>如果文章中有出现纰漏、错误之处，还请看到的小伙伴多多指教，先行谢过</p>
-<h2 id="html">HTML</h2>
-<h3 id="1-doctype-作用html5-为什么只需要写-doctype-html">1. Doctype 作用，HTML5 为什么只需要写 <!DOCTYPE HTML></h3>
-<blockquote>
+<h2 id="html" class="heading-element">
+  <a href="#html" class="heading-mark"></a>1 HTML</h2><h3 id="1-doctype-作用html5-为什么只需要写-doctype-html" class="heading-element">
+  <a href="#1-doctype-%e4%bd%9c%e7%94%a8html5-%e4%b8%ba%e4%bb%80%e4%b9%88%e5%8f%aa%e9%9c%80%e8%a6%81%e5%86%99-doctype-html" class="heading-mark"></a>1.1 1. Doctype 作用，HTML5 为什么只需要写 <!DOCTYPE HTML></h3><blockquote>
 <p>doctype 是一种标准通用标记语言的文档类型声明，目的是告诉标准通用标记语言解析器要使用什么样的文档类型定义（DTD）来解析文档。<code>&lt;!DOCTYPE&gt;</code>声明必须是 HTML 文档的第一行，位于 html 标签之前</p>
 </blockquote>
 <blockquote>
@@ -702,19 +702,19 @@
 <blockquote>
 <p>SGML: 标准通用标记语言，是现时常用的超文本格式的最高层次标准</p>
 </blockquote>
-<h3 id="2-行内元素有哪些块级元素有哪些空-void-元素有那些">2. 行内元素有哪些，块级元素有哪些，空 (void) 元素有那些</h3>
-<p>行内元素：<code>a</code> <code>span</code> <code>i</code> <code>img</code> <code>input</code> <code>select</code> <code>b</code> 等</p>
+<h3 id="2-行内元素有哪些块级元素有哪些空-void-元素有那些" class="heading-element">
+  <a href="#2-%e8%a1%8c%e5%86%85%e5%85%83%e7%b4%a0%e6%9c%89%e5%93%aa%e4%ba%9b%e5%9d%97%e7%ba%a7%e5%85%83%e7%b4%a0%e6%9c%89%e5%93%aa%e4%ba%9b%e7%a9%ba-void-%e5%85%83%e7%b4%a0%e6%9c%89%e9%82%a3%e4%ba%9b" class="heading-mark"></a>1.2 2. 行内元素有哪些，块级元素有哪些，空 (void) 元素有那些</h3><p>行内元素：<code>a</code> <code>span</code> <code>i</code> <code>img</code> <code>input</code> <code>select</code> <code>b</code> 等</p>
 <p>块级元素：<code>div</code> <code>ul</code> <code>ol</code> <code>li</code> <code>h1~h6</code> <code>p</code> <code>table</code> 等</p>
 <p>空元素：<code>br</code> <code>hr</code> <code>link</code> 等</p>
-<h3 id="3-简述一下你对-html-语义化的理解">3. 简述一下你对 HTML 语义化的理解</h3>
-<p>简单来说，就是合适的标签做合适的事情，这样具有以下好处：</p>
+<h3 id="3-简述一下你对-html-语义化的理解" class="heading-element">
+  <a href="#3-%e7%ae%80%e8%bf%b0%e4%b8%80%e4%b8%8b%e4%bd%a0%e5%af%b9-html-%e8%af%ad%e4%b9%89%e5%8c%96%e7%9a%84%e7%90%86%e8%a7%a3" class="heading-mark"></a>1.3 3. 简述一下你对 HTML 语义化的理解</h3><p>简单来说，就是合适的标签做合适的事情，这样具有以下好处：</p>
 <ul>
 <li>有助于构架良好的 HTML 结构，有利于搜索引擎的建立索引、抓取，利于 SEO</li>
 <li>有利于不同设备的解析</li>
 <li>有利于构建清晰的机构，有利于团队的开发、维护</li>
 </ul>
-<h3 id="4-常见的浏览器内核有哪些介绍一下你对浏览器内核的理解h5">4. 常见的浏览器内核有哪些，介绍一下你对浏览器内核的理解</h5></h3>
-<blockquote>
+<h3 id="4-常见的浏览器内核有哪些介绍一下你对浏览器内核的理解h5" class="heading-element">
+  <a href="#4-%e5%b8%b8%e8%a7%81%e7%9a%84%e6%b5%8f%e8%a7%88%e5%99%a8%e5%86%85%e6%a0%b8%e6%9c%89%e5%93%aa%e4%ba%9b%e4%bb%8b%e7%bb%8d%e4%b8%80%e4%b8%8b%e4%bd%a0%e5%af%b9%e6%b5%8f%e8%a7%88%e5%99%a8%e5%86%85%e6%a0%b8%e7%9a%84%e7%90%86%e8%a7%a3h5" class="heading-mark"></a>1.4 4. 常见的浏览器内核有哪些，介绍一下你对浏览器内核的理解</h5></h3><blockquote>
 <p>Trident 内核：IE</p>
 </blockquote>
 <blockquote>
@@ -727,8 +727,8 @@
 <p>Webkit 内核：Safari，Chrome 等。[Chrome 的：Blink（WebKit 的分支）]</p>
 </blockquote>
 <p>浏览器内核又可以分成两部分：<strong>渲染引擎和 JS 引擎。</strong> 渲染引擎主要负责取得网页的内容、整理讯息、计算网页的显示方式等，JS 引擎则是解析 Javascript 语言，执行 javascript 语言来实现网页的动态效果。</p>
-<h3 id="5-html5-有哪些新特性">5. html5 有哪些新特性</h3>
-<ul>
+<h3 id="5-html5-有哪些新特性" class="heading-element">
+  <a href="#5-html5-%e6%9c%89%e5%93%aa%e4%ba%9b%e6%96%b0%e7%89%b9%e6%80%a7" class="heading-mark"></a>1.5 5. html5 有哪些新特性</h3><ul>
 <li>语义化标签：<code>header</code> <code>footer</code> <code>nav</code> <code>section</code> <code>article</code> <code>aside</code> 等</li>
 <li>增强型表单：<code>date</code>（从一个日期选择器选择一个日期） <code>email</code>（包含 e-mail 地址的输入域） <code>number</code>（数值的输入域） <code>range</code>（一定范围内数字值的输入域） <code>search</code>（用于搜索域） <code>tel</code>（定义输入电话号码字段）等</li>
 <li>视频和音频：<code>audio</code> <code>video</code></li>
@@ -739,8 +739,8 @@
 <li>web storage: <code>localStorage</code> <code>sessionStorage</code></li>
 <li>WebSocket: HTML5 开始提供的一种在单个 TCP 连接上进行全双工通讯的协议</li>
 </ul>
-<h3 id="6-描述一下-cookiesessionstorage-和-localstorage-的区别">6. 描述一下 cookie，sessionStorage 和 localStorage 的区别</h3>
-<table>
+<h3 id="6-描述一下-cookiesessionstorage-和-localstorage-的区别" class="heading-element">
+  <a href="#6-%e6%8f%8f%e8%bf%b0%e4%b8%80%e4%b8%8b-cookiesessionstorage-%e5%92%8c-localstorage-%e7%9a%84%e5%8c%ba%e5%88%ab" class="heading-mark"></a>1.6 6. 描述一下 cookie，sessionStorage 和 localStorage 的区别</h3><table>
 <thead>
 <tr>
 <th style="text-align:left">特性</th>
@@ -770,30 +770,30 @@
 </tr>
 </tbody>
 </table>
-<h3 id="7-如何实现浏览器内多个标签页之间的通信">7. 如何实现浏览器内多个标签页之间的通信</h3>
-<ul>
+<h3 id="7-如何实现浏览器内多个标签页之间的通信" class="heading-element">
+  <a href="#7-%e5%a6%82%e4%bd%95%e5%ae%9e%e7%8e%b0%e6%b5%8f%e8%a7%88%e5%99%a8%e5%86%85%e5%a4%9a%e4%b8%aa%e6%a0%87%e7%ad%be%e9%a1%b5%e4%b9%8b%e9%97%b4%e7%9a%84%e9%80%9a%e4%bf%a1" class="heading-mark"></a>1.7 7. 如何实现浏览器内多个标签页之间的通信</h3><ul>
 <li>使用 localStorage: <code>localStorage.setItem(key,value)</code>、<code>localStorage.getItem(key)</code></li>
 <li>websocket 协议</li>
 <li>webworker</li>
 </ul>
 <p><a href="https://juejin.im/post/5acdba01f265da23826e5633"target="_blank" rel="external nofollow noopener noreferrer">多个标签页之间的通信<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
-<h3 id="8-html5-的离线存储怎么使用解释一下工作原理">8. HTML5 的离线存储怎么使用，解释一下工作原理</h3>
-<p><a href="https://segmentfault.com/a/1190000006984353"target="_blank" rel="external nofollow noopener noreferrer">HTML5 的离线存储<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
-<h3 id="9-src-与-href-的区别">9. src 与 href 的区别</h3>
-<p>区别：src 用于替代这个元素，而 href 用于建立这个标签与外部资源之间的关系</p>
+<h3 id="8-html5-的离线存储怎么使用解释一下工作原理" class="heading-element">
+  <a href="#8-html5-%e7%9a%84%e7%a6%bb%e7%ba%bf%e5%ad%98%e5%82%a8%e6%80%8e%e4%b9%88%e4%bd%bf%e7%94%a8%e8%a7%a3%e9%87%8a%e4%b8%80%e4%b8%8b%e5%b7%a5%e4%bd%9c%e5%8e%9f%e7%90%86" class="heading-mark"></a>1.8 8. HTML5 的离线存储怎么使用，解释一下工作原理</h3><p><a href="https://segmentfault.com/a/1190000006984353"target="_blank" rel="external nofollow noopener noreferrer">HTML5 的离线存储<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
+<h3 id="9-src-与-href-的区别" class="heading-element">
+  <a href="#9-src-%e4%b8%8e-href-%e7%9a%84%e5%8c%ba%e5%88%ab" class="heading-mark"></a>1.9 9. src 与 href 的区别</h3><p>区别：src 用于替代这个元素，而 href 用于建立这个标签与外部资源之间的关系</p>
 <p><code>&lt;link href=&quot;style.css&quot; rel=&quot;stylesheet&quot; /&gt;</code>浏览器加载到这里的时候，html 的渲染和解析不会暂停，css 文件的加载是同时进行的</p>
 <p><code>&lt;script src=&quot;script.js&quot;&gt;&lt;/script&gt;</code>当浏览器解析到这句代码时，页面的加载和解析都会暂停直到浏览器拿到并执行完这个 js 文件</p>
-<h3 id="10-表单提交中-get-和-post-方式的区别">10. 表单提交中 Get 和 Post 方式的区别</h3>
-<ul>
+<h3 id="10-表单提交中-get-和-post-方式的区别" class="heading-element">
+  <a href="#10-%e8%a1%a8%e5%8d%95%e6%8f%90%e4%ba%a4%e4%b8%ad-get-%e5%92%8c-post-%e6%96%b9%e5%bc%8f%e7%9a%84%e5%8c%ba%e5%88%ab" class="heading-mark"></a>1.10 10. 表单提交中 Get 和 Post 方式的区别</h3><ul>
 <li>Get 一般用于从服务器上获取数据，Post 向服务器传送数据</li>
 <li>Get 传输的数据是拼接在 Url 之后的，对用户是可见的；Post 的传输数据对用户是不可见的</li>
 <li>Get 传送的数据量较小，不能大于 2KB。Post 传送的数据量较大，一般被默认为不受限制</li>
 <li>Get 安全性非常低，Post 安全性较高</li>
 <li>在 FORM 提交的时候，如果不指定 Method，则默认为 Get 请求</li>
 </ul>
-<h2 id="css">CSS</h2>
-<h3 id="1-css-盒子模型box-sizing-属性的理解">1. css 盒子模型，box-sizing 属性的理解</h3>
-<p>css 的盒模型由 content（内容）、padding（内边距）、border（边框）、margin（外边距）组成。但盒子的大小由 content+padding+border 这几部分决定</p>
+<h2 id="css" class="heading-element">
+  <a href="#css" class="heading-mark"></a>2 CSS</h2><h3 id="1-css-盒子模型box-sizing-属性的理解" class="heading-element">
+  <a href="#1-css-%e7%9b%92%e5%ad%90%e6%a8%a1%e5%9e%8bbox-sizing-%e5%b1%9e%e6%80%a7%e7%9a%84%e7%90%86%e8%a7%a3" class="heading-mark"></a>2.1 1. css 盒子模型，box-sizing 属性的理解</h3><p>css 的盒模型由 content（内容）、padding（内边距）、border（边框）、margin（外边距）组成。但盒子的大小由 content+padding+border 这几部分决定</p>
 <p>box-sizing 是一个 CSS3 属性，与盒子模型有着密切联系。即决定元素的宽高如何计算，box-sizing 有三个属性：</p>
 <div class="highlight" id="id-1"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -807,8 +807,8 @@
 <li>border-box: 计算方式 content + padding + border = 本身元素大小，即缩小了 content 大小</li>
 <li>inherit 指定 box-sizing 属性的值，应该从父元素继承</li>
 </ul>
-<h3 id="2-清除浮动什么时候需要清除浮动清除浮动都有哪些方法">2. 清除浮动，什么时候需要清除浮动，清除浮动都有哪些方法</h3>
-<p>浮动的元素是脱离文档标准流的，如果我们不清楚浮动，那么就会造成<strong>父元素高度塌陷</strong>，影响页面布局。</p>
+<h3 id="2-清除浮动什么时候需要清除浮动清除浮动都有哪些方法" class="heading-element">
+  <a href="#2-%e6%b8%85%e9%99%a4%e6%b5%ae%e5%8a%a8%e4%bb%80%e4%b9%88%e6%97%b6%e5%80%99%e9%9c%80%e8%a6%81%e6%b8%85%e9%99%a4%e6%b5%ae%e5%8a%a8%e6%b8%85%e9%99%a4%e6%b5%ae%e5%8a%a8%e9%83%bd%e6%9c%89%e5%93%aa%e4%ba%9b%e6%96%b9%e6%b3%95" class="heading-mark"></a>2.2 2. 清除浮动，什么时候需要清除浮动，清除浮动都有哪些方法</h3><p>浮动的元素是脱离文档标准流的，如果我们不清楚浮动，那么就会造成<strong>父元素高度塌陷</strong>，影响页面布局。</p>
 <p>清除浮动的方式：</p>
 <ul>
 <li>为父元素设置高度</li>
@@ -834,8 +834,8 @@
 <blockquote>
 <p>overflow:hidden 可以触发 BFC 机制。BFC：块级格式化上下文，创建了 BFC 的元素就是一个独立的盒子，它规定了内部如何布局，并且与这个独立盒子里的布局不受外部影响，当然它也不会影响到外面的元素，<strong>计算 BFC 的高度时，浮动元素也参与计算</strong></p>
 </blockquote>
-<h3 id="3-如何让一个不定宽高的盒子水平垂直居中">3. 如何让一个不定宽高的盒子水平垂直居中</h3>
-<blockquote>
+<h3 id="3-如何让一个不定宽高的盒子水平垂直居中" class="heading-element">
+  <a href="#3-%e5%a6%82%e4%bd%95%e8%ae%a9%e4%b8%80%e4%b8%aa%e4%b8%8d%e5%ae%9a%e5%ae%bd%e9%ab%98%e7%9a%84%e7%9b%92%e5%ad%90%e6%b0%b4%e5%b9%b3%e5%9e%82%e7%9b%b4%e5%b1%85%e4%b8%ad" class="heading-mark"></a>2.3 3. 如何让一个不定宽高的盒子水平垂直居中</h3><blockquote>
 <p>定位的方式</p>
 </blockquote>
 <div class="highlight" id="id-3"><div class="chroma">
@@ -909,8 +909,8 @@
 </span></span><span class="line"><span class="cl">  <span class="k">align-items</span><span class="p">:</span> <span class="kc">center</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="4-px-和-em-和-rem-的区别">4. px 和 em 和 rem 的区别</h3>
-<blockquote>
+</div><h3 id="4-px-和-em-和-rem-的区别" class="heading-element">
+  <a href="#4-px-%e5%92%8c-em-%e5%92%8c-rem-%e7%9a%84%e5%8c%ba%e5%88%ab" class="heading-mark"></a>2.4 4. px 和 em 和 rem 的区别</h3><blockquote>
 <p><code>px</code>: 像素，相对长度单位。像素<code>px</code>是相对于显示器屏幕分辨率而言的</p>
 </blockquote>
 <blockquote>
@@ -919,8 +919,8 @@
 <blockquote>
 <p><code>rem</code>的值并不是固定的，始终是基于根元素 <code>&lt;html&gt;</code> 的，也代表倍数</p>
 </blockquote>
-<h3 id="5-position-的值有哪些">5. position 的值有哪些</h3>
-<blockquote>
+<h3 id="5-position-的值有哪些" class="heading-element">
+  <a href="#5-position-%e7%9a%84%e5%80%bc%e6%9c%89%e5%93%aa%e4%ba%9b" class="heading-mark"></a>2.5 5. position 的值有哪些</h3><blockquote>
 <p>static：默认值。没有定位，元素出现在正常的流中</p>
 </blockquote>
 <blockquote>
@@ -932,8 +932,8 @@
 <blockquote>
 <p>fixed（固定定位）：生成绝对定位的元素，相对于浏览器窗口进行定位</p>
 </blockquote>
-<h3 id="6-displaynone-与-visibilityhidden-的区别">6. display:none 与 visibility：hidden 的区别</h3>
-<table>
+<h3 id="6-displaynone-与-visibilityhidden-的区别" class="heading-element">
+  <a href="#6-displaynone-%e4%b8%8e-visibilityhidden-%e7%9a%84%e5%8c%ba%e5%88%ab" class="heading-mark"></a>2.6 6. display:none 与 visibility：hidden 的区别</h3><table>
 <thead>
 <tr>
 <th>区别</th>
@@ -959,8 +959,8 @@
 </tr>
 </tbody>
 </table>
-<h3 id="7-css-中-link-和import-的区别">7. CSS 中 link 和@import 的区别</h3>
-<blockquote>
+<h3 id="7-css-中-link-和import-的区别" class="heading-element">
+  <a href="#7-css-%e4%b8%ad-link-%e5%92%8cimport-%e7%9a%84%e5%8c%ba%e5%88%ab" class="heading-mark"></a>2.7 7. CSS 中 link 和@import 的区别</h3><blockquote>
 <p>link 属于 XHTML 标签，@import 完全是 CSS 提供的一种方式，只能加载 CSS</p>
 </blockquote>
 <blockquote>
@@ -972,19 +972,19 @@
 <blockquote>
 <p>当使用 javascript 控制 dom 去改变样式的时候，只能使用 link 标签，因为@import 不是 dom 可以控制的</p>
 </blockquote>
-<h3 id="8-什么是响应式设计响应式设计的基本原理是什么">8. 什么是响应式设计，响应式设计的基本原理是什么</h3>
-<blockquote>
+<h3 id="8-什么是响应式设计响应式设计的基本原理是什么" class="heading-element">
+  <a href="#8-%e4%bb%80%e4%b9%88%e6%98%af%e5%93%8d%e5%ba%94%e5%bc%8f%e8%ae%be%e8%ae%a1%e5%93%8d%e5%ba%94%e5%bc%8f%e8%ae%be%e8%ae%a1%e7%9a%84%e5%9f%ba%e6%9c%ac%e5%8e%9f%e7%90%86%e6%98%af%e4%bb%80%e4%b9%88" class="heading-mark"></a>2.8 8. 什么是响应式设计，响应式设计的基本原理是什么</h3><blockquote>
 <p>响应式网站设计是一个网站能够兼容多个终端，而不是为每一个终端做一个特定的版本。基本原理是通过媒体查询检测不同的设备屏幕尺寸做处理</p>
 </blockquote>
-<h3 id="9-为什么要初始化-css-样式">9. 为什么要初始化 CSS 样式</h3>
-<blockquote>
+<h3 id="9-为什么要初始化-css-样式" class="heading-element">
+  <a href="#9-%e4%b8%ba%e4%bb%80%e4%b9%88%e8%a6%81%e5%88%9d%e5%a7%8b%e5%8c%96-css-%e6%a0%b7%e5%bc%8f" class="heading-mark"></a>2.9 9. 为什么要初始化 CSS 样式</h3><blockquote>
 <p>因为浏览器的兼容问题，不同浏览器对有些标签的默认值是不同的，如果没对 CSS 初始化往往会出现浏览器之间的页面显示差异</p>
 </blockquote>
 <blockquote>
 <p>初始化样式会对 SEO 有一定的影响</p>
 </blockquote>
-<h3 id="10-css3-有哪些新特性">10. CSS3 有哪些新特性</h3>
-<ul>
+<h3 id="10-css3-有哪些新特性" class="heading-element">
+  <a href="#10-css3-%e6%9c%89%e5%93%aa%e4%ba%9b%e6%96%b0%e7%89%b9%e6%80%a7" class="heading-mark"></a>2.10 10. CSS3 有哪些新特性</h3><ul>
 <li>实现圆角<code>border-radius</code>，阴影<code>box-shadow</code>，边框图片<code>border-image</code></li>
 <li>对文字加特效<code>text-shadow</code>，强制文本换行<code>word-wrap</code>，线性渐变<code>linear-gradient</code></li>
 <li>实现旋转<code>transform:rotate(90deg)</code>, 缩放<code>scale(0.85,0.90)</code>,<code>translate(0px,-30px)</code>定位，倾斜<code>skew(-9deg,0deg)</code>;</li>
@@ -993,12 +993,12 @@
 <li>实现媒体查询<code>@media</code>，多栏布局<code>flex</code></li>
 <li>过渡<code>transition</code> 动画<code>animation</code></li>
 </ul>
-<h3 id="11-before-和-after-中双冒号和单冒号有什么区别解释一下这-2-个伪元素的作用">11. ::before 和 :after 中双冒号和单冒号有什么区别？解释一下这 2 个伪元素的作用</h3>
-<blockquote>
+<h3 id="11-before-和-after-中双冒号和单冒号有什么区别解释一下这-2-个伪元素的作用" class="heading-element">
+  <a href="#11-before-%e5%92%8c-after-%e4%b8%ad%e5%8f%8c%e5%86%92%e5%8f%b7%e5%92%8c%e5%8d%95%e5%86%92%e5%8f%b7%e6%9c%89%e4%bb%80%e4%b9%88%e5%8c%ba%e5%88%ab%e8%a7%a3%e9%87%8a%e4%b8%80%e4%b8%8b%e8%bf%99-2-%e4%b8%aa%e4%bc%aa%e5%85%83%e7%b4%a0%e7%9a%84%e4%bd%9c%e7%94%a8" class="heading-mark"></a>2.11 11. ::before 和 :after 中双冒号和单冒号有什么区别？解释一下这 2 个伪元素的作用</h3><blockquote>
 <p>单冒号 (:) 用于 CSS3 伪类，双冒号 (::) 用于 CSS3 伪元素。（伪元素由双冒号和伪元素名称组成）, 双冒号是在当前规范中引入的，用于区分伪类和伪元素</p>
 </blockquote>
-<h3 id="12-css-优化提高性能的方法有哪些">12. CSS 优化、提高性能的方法有哪些</h3>
-<ul>
+<h3 id="12-css-优化提高性能的方法有哪些" class="heading-element">
+  <a href="#12-css-%e4%bc%98%e5%8c%96%e6%8f%90%e9%ab%98%e6%80%a7%e8%83%bd%e7%9a%84%e6%96%b9%e6%b3%95%e6%9c%89%e5%93%aa%e4%ba%9b" class="heading-mark"></a>2.12 12. CSS 优化、提高性能的方法有哪些</h3><ul>
 <li>移除空的 css 规则（Remove empty rules）</li>
 <li>正确使用 display 的属性</li>
 <li>不滥用浮动、web 字体</li>
@@ -1008,9 +1008,9 @@
 <li>尽量减少页面重排、重绘</li>
 <li>抽象提取公共样式，减少代码量</li>
 </ul>
-<h3 id="13-重绘和回流">13. 重绘和回流</h3>
-<p><a href="https://juejin.im/post/5a9923e9518825558251c96a"target="_blank" rel="external nofollow noopener noreferrer">重绘和回流<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
-<h3 id="14-flex-布局">14. flex 布局</h3>
-<p><a href="http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html"target="_blank" rel="external nofollow noopener noreferrer">flex 布局教程&ndash;阮一峰<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
-<h3 id="15-css-预处理器">15. css 预处理器</h3>
-<p>提供了一种 css 的书写方式，常见的就是 <a href="http://sass.bootcss.com/docs/sass-reference/"target="_blank" rel="external nofollow noopener noreferrer">SAAS 文档<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 和 <a href="https://less.bootcss.com/"target="_blank" rel="external nofollow noopener noreferrer">LESS 文档<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>]]></description></item></channel></rss>
+<h3 id="13-重绘和回流" class="heading-element">
+  <a href="#13-%e9%87%8d%e7%bb%98%e5%92%8c%e5%9b%9e%e6%b5%81" class="heading-mark"></a>2.13 13. 重绘和回流</h3><p><a href="https://juejin.im/post/5a9923e9518825558251c96a"target="_blank" rel="external nofollow noopener noreferrer">重绘和回流<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
+<h3 id="14-flex-布局" class="heading-element">
+  <a href="#14-flex-%e5%b8%83%e5%b1%80" class="heading-mark"></a>2.14 14. flex 布局</h3><p><a href="http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html"target="_blank" rel="external nofollow noopener noreferrer">flex 布局教程&ndash;阮一峰<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
+<h3 id="15-css-预处理器" class="heading-element">
+  <a href="#15-css-%e9%a2%84%e5%a4%84%e7%90%86%e5%99%a8" class="heading-mark"></a>2.15 15. css 预处理器</h3><p>提供了一种 css 的书写方式，常见的就是 <a href="http://sass.bootcss.com/docs/sass-reference/"target="_blank" rel="external nofollow noopener noreferrer">SAAS 文档<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 和 <a href="https://less.bootcss.com/"target="_blank" rel="external nofollow noopener noreferrer">LESS 文档<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>]]></description></item></channel></rss>

@@ -1,21 +1,21 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>脚手架 - 标签 - 菠菜眾長</title><link>https://lruihao.cn/tags/%E8%84%9A%E6%89%8B%E6%9E%B6/</link><description>脚手架 - 标签 - 菠菜眾長</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><copyright>本站内容采用 CC BY-NC-SA 4.0 国际许可协议。</copyright><lastBuildDate>Tue, 28 Nov 2023 10:48:07 +0800</lastBuildDate><atom:link href="https://lruihao.cn/tags/%E8%84%9A%E6%89%8B%E6%9E%B6/" rel="self" type="application/rss+xml"/><item><title>用 Node.js 开发一个轻量脚手架</title><link>https://lruihao.cn/posts/fixit-cli/</link><pubDate>Tue, 28 Nov 2023 10:48:07 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/fixit-cli/</guid><description><![CDATA[<div class="featured-image"><img loading="eager" src="https://lruihao.cn/posts/fixit-cli/images/featured-image.png" alt="用 Node.js 开发一个轻量脚手架" title="用 Node.js 开发一个轻量脚手架" referrerpolicy="no-referrer"/></div><p>本文将介绍如何用 Node.js 开发一个轻量脚手架，以 <a href="https://github.com/hugo-fixit/fixit-cli"target="_blank" rel="external nofollow noopener noreferrer">fixit-cli<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 为例。</p>
-<h2 id="前言">前言</h2>
-<p>在维护 <a href="https://github.com/hugo-fixit/FixIt"target="_blank" rel="external nofollow noopener noreferrer">FixIt<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 这个项目时，很多新人可能第一次接触 Hugo，第一次使用 FixIt 主题，可能觉得无从下手。在之前的工作中，为了避免这个问题，我新增了两个模板项目：</p>
+<h2 id="前言" class="heading-element">
+  <a href="#%e5%89%8d%e8%a8%80" class="heading-mark"></a>1 前言</h2><p>在维护 <a href="https://github.com/hugo-fixit/FixIt"target="_blank" rel="external nofollow noopener noreferrer">FixIt<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 这个项目时，很多新人可能第一次接触 Hugo，第一次使用 FixIt 主题，可能觉得无从下手。在之前的工作中，为了避免这个问题，我新增了两个模板项目：</p>
 <ul>
 <li><a href="https://github.com/hugo-fixit/hugo-fixit-blog-git"target="_blank" rel="external nofollow noopener noreferrer">hugo-fixit-blog-git<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
 <li><a href="https://github.com/hugo-fixit/hugo-fixit-blog-go"target="_blank" rel="external nofollow noopener noreferrer">hugo-fixit-blog-go<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
 </ul>
 <p>然并卵哈哈哈🤣，大家似乎都有种惰性，不愿意认真地读一遍 README，即使只需简单几步就能通过 GitHub template 创建一个拥有完整主题配置、自动化部署完善的博客。</p>
 <p>懒惰是人类进步的源泉，想到 Vue CLI、Create React App 这些脚手架，我决定开发一个轻量级的脚手架 <a href="https://github.com/hugo-fixit/fixit-cli"target="_blank" rel="external nofollow noopener noreferrer">fixit-cli<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>，让大家能够快速地上手 FixIt 主题。</p>
-<h2 id="思路">思路</h2>
-<p>fixit-cli 的思路很简单，就是通过命令行交互，让用户输入一些信息，然后根据这些信息生成一个完整的博客项目。</p>
+<h2 id="思路" class="heading-element">
+  <a href="#%e6%80%9d%e8%b7%af" class="heading-mark"></a>2 思路</h2><p>fixit-cli 的思路很简单，就是通过命令行交互，让用户输入一些信息，然后根据这些信息生成一个完整的博客项目。</p>
 <ul>
 <li><code>fixit create my-blog</code> 创建一个名为 <code>my-blog</code> 的项目</li>
 <li><code>fixit check</code> 检查 FixIt 主题的最新版本</li>
 </ul>
-<h2 id="开发">开发</h2>
-<h3 id="初始化项目">初始化项目</h3>
-<div class="highlight" id="id-1"><div class="chroma">
+<h2 id="开发" class="heading-element">
+  <a href="#%e5%bc%80%e5%8f%91" class="heading-mark"></a>3 开发</h2><h3 id="初始化项目" class="heading-element">
+  <a href="#%e5%88%9d%e5%a7%8b%e5%8c%96%e9%a1%b9%e7%9b%ae" class="heading-mark"></a>3.1 初始化项目</h3><div class="highlight" id="id-1"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -27,8 +27,8 @@
 </span></span><span class="line"><span class="cl">npm init -y</span></span></code></pre></td></tr></table>
 </div>
 </div><p>然后在 <code>package.json</code> 中写点项目信息。</p>
-<h3 id="安装依赖">安装依赖</h3>
-<div class="highlight" id="id-2"><div class="chroma">
+<h3 id="安装依赖" class="heading-element">
+  <a href="#%e5%ae%89%e8%a3%85%e4%be%9d%e8%b5%96" class="heading-mark"></a>3.2 安装依赖</h3><div class="highlight" id="id-2"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
@@ -67,8 +67,8 @@
 </tbody>
 </table>
 <p>如果需要使用简单的 <code>git clone</code> 下载模板，可以使用 <a href="https://www.npmjs.com/package/download-git-repo"target="_blank" rel="external nofollow noopener noreferrer">download-git-repo<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 替代 <code>simple-git</code>。</p>
-<h3 id="定义一个-cli">定义一个 CLI</h3>
-<p>在 <code>package.json</code> 中添加 <code>bin</code> 字段，指定 CLI 的入口文件。</p>
+<h3 id="定义一个-cli" class="heading-element">
+  <a href="#%e5%ae%9a%e4%b9%89%e4%b8%80%e4%b8%aa-cli" class="heading-mark"></a>3.3 定义一个 CLI</h3><p>在 <code>package.json</code> 中添加 <code>bin</code> 字段，指定 CLI 的入口文件。</p>
 <div class="highlight" id="id-3"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -117,8 +117,8 @@
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">npm install -g fixit-cli /Users/cell/workspace/fixit-cli/</span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="命令行交互">命令行交互</h3>
-<p>先把要实现的命令和选项列出来：</p>
+</div><h3 id="命令行交互" class="heading-element">
+  <a href="#%e5%91%bd%e4%bb%a4%e8%a1%8c%e4%ba%a4%e4%ba%92" class="heading-mark"></a>3.4 命令行交互</h3><p>先把要实现的命令和选项列出来：</p>
 <div class="highlight" id="id-7"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -257,8 +257,8 @@
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">fixit create my-blog</span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="源码">源码</h2>
-<p>命令动作的具体实现详见 FixIt CLI 源码。</p>
+</div><h2 id="源码" class="heading-element">
+  <a href="#%e6%ba%90%e7%a0%81" class="heading-mark"></a>4 源码</h2><p>命令动作的具体实现详见 FixIt CLI 源码。</p>
 <a href="https://github.com/hugo-fixit/fixit-cli"target="_blank" rel="external nofollow noopener noreferrer" class="card-link"><span class="cl-backdrop" style="--cl-bg-url: url(/fixit.min.svg);"></span>
     <span class="cl-content">
       <span class="cl-text">

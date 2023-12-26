@@ -1,17 +1,17 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>electron - 标签 - 菠菜眾長</title><link>https://lruihao.cn/tags/electron/</link><description>electron - 标签 - 菠菜眾長</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><copyright>本站内容采用 CC BY-NC-SA 4.0 国际许可协议。</copyright><lastBuildDate>Fri, 12 Aug 2022 11:22:01 +0800</lastBuildDate><atom:link href="https://lruihao.cn/tags/electron/" rel="self" type="application/rss+xml"/><item><title>electron 踩坑总结</title><link>https://lruihao.cn/posts/electron-summary/</link><pubDate>Fri, 12 Aug 2022 11:22:01 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/electron-summary/</guid><description><![CDATA[<div class="featured-image"><img loading="eager" src="https://lruihao.cn/posts/electron-summary/images/featured-image.png" alt="electron 踩坑总结" title="electron 踩坑总结" referrerpolicy="no-referrer"/></div><p>总结一下最近 electron 开发遇到的问题和一些重要知识点。</p>
-<h2 id="简介">简介</h2>
-<p>如果你可以建一个网站，你就可以建一个桌面应用程序。 <a href="https://www.electronjs.org/"target="_blank" rel="external nofollow noopener noreferrer">Electron<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 是一个使用 JavaScript, HTML 和 CSS 等 Web 技术创建原生程序的开源框架，它负责比较难搞的部分，你只需把精力放在你的应用的核心上即可。</p>
-<h2 id="知识点">知识点</h2>
-<h3 id="进程">进程</h3>
-<p>electron 由两种进程组成，包括<code>主进程</code>和 0 个或 n 个<code>渲染进程</code>。</p>
+<h2 id="简介" class="heading-element">
+  <a href="#%e7%ae%80%e4%bb%8b" class="heading-mark"></a>1 简介</h2><p>如果你可以建一个网站，你就可以建一个桌面应用程序。 <a href="https://www.electronjs.org/"target="_blank" rel="external nofollow noopener noreferrer">Electron<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 是一个使用 JavaScript, HTML 和 CSS 等 Web 技术创建原生程序的开源框架，它负责比较难搞的部分，你只需把精力放在你的应用的核心上即可。</p>
+<h2 id="知识点" class="heading-element">
+  <a href="#%e7%9f%a5%e8%af%86%e7%82%b9" class="heading-mark"></a>2 知识点</h2><h3 id="进程" class="heading-element">
+  <a href="#%e8%bf%9b%e7%a8%8b" class="heading-mark"></a>2.1 进程</h3><p>electron 由两种进程组成，包括<code>主进程</code>和 0 个或 n 个<code>渲染进程</code>。</p>
 <ol>
 <li><code>主进程</code>：承担应用的生命周期（包括启动，退出，准备，正在切换到后台，正在切换到前台等，还负责与原生操作系统 API 通信）</li>
 <li><code>渲染进程</code>：做 web 页面的 ui，渲染进程之间独立在各自的单线程，渲染进程之间相互隔离，不能直接访问操作系统，需要通信到主线程，在通过主线程操作访问操作形态，一个 BrowserWindow 实例即为一个渲染进程</li>
 </ol>
-<h3 id="技术栈">技术栈</h3>
-<p>electron 整合了 Node 和浏览器的所有能力，可以随意发挥这些技术栈的特点。由于固定浏览器内核，可以无需考虑兼容性地使用 html/js/css 新特性。</p>
-<h3 id="安装">安装</h3>
-<p>安装 electron 时，可能因为网络问题导致下载失败，需要使用镜像仓库来下载。</p>
+<h3 id="技术栈" class="heading-element">
+  <a href="#%e6%8a%80%e6%9c%af%e6%a0%88" class="heading-mark"></a>2.2 技术栈</h3><p>electron 整合了 Node 和浏览器的所有能力，可以随意发挥这些技术栈的特点。由于固定浏览器内核，可以无需考虑兼容性地使用 html/js/css 新特性。</p>
+<h3 id="安装" class="heading-element">
+  <a href="#%e5%ae%89%e8%a3%85" class="heading-mark"></a>2.3 安装</h3><p>安装 electron 时，可能因为网络问题导致下载失败，需要使用镜像仓库来下载。</p>
 <div class="highlight" id="id-1"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -26,8 +26,8 @@
 </span></span><span class="line"><span class="cl">npm config <span class="nb">set</span> <span class="nv">electron_mirror</span><span class="o">=</span>https://npmmirror.com/mirrors/electron/</span></span></code></pre></td></tr></table>
 </div>
 </div><p>M1 Mac 安装较低版本 electron 时可能会报错，<code>Failed to find Electron v xxx for darwin-arm64</code>，因为这些版本的 electron 不支持 darwin-arm64 架构。Apple 针对未适配的 X64 应用提供了 Rosetta2 转换器，安装 darwin-x64 版本的 electron 在 Intel 模式下运行即可，<a href="https://www.jianshu.com/p/b1b3577fd373"target="_blank" rel="external nofollow noopener noreferrer">参考<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>。</p>
-<h3 id="remote">remote</h3>
-<blockquote>
+<h3 id="remote" class="heading-element">
+  <a href="#remote" class="heading-mark"></a>2.4 remote</h3><blockquote>
 <p>不要频繁使用 remote, 更多应该手动进行和主进程之间的通信。</p>
 </blockquote>
 <p>使用时需在窗口创建时设置 <code>webPreferences.enableRemoteModule</code> 为 <code>true</code>。</p>
@@ -43,11 +43,11 @@
 </div><ul>
 <li>获取当前窗口：<code>remote.getCurrentWindow()</code></li>
 </ul>
-<h2 id="问题点">问题点</h2>
-<h3 id="打开外部浏览器">打开外部浏览器</h3>
-<p>electron 的 <code>shell</code> 模块，可以使用 <code>shell.openExternal(url)</code> 在默认浏览器打开链接。</p>
-<h3 id="防抖与节流">防抖与节流</h3>
-<p>防抖：短期内大量触发事件时，只执行最后一次。</p>
+<h2 id="问题点" class="heading-element">
+  <a href="#%e9%97%ae%e9%a2%98%e7%82%b9" class="heading-mark"></a>3 问题点</h2><h3 id="打开外部浏览器" class="heading-element">
+  <a href="#%e6%89%93%e5%bc%80%e5%a4%96%e9%83%a8%e6%b5%8f%e8%a7%88%e5%99%a8" class="heading-mark"></a>3.1 打开外部浏览器</h3><p>electron 的 <code>shell</code> 模块，可以使用 <code>shell.openExternal(url)</code> 在默认浏览器打开链接。</p>
+<h3 id="防抖与节流" class="heading-element">
+  <a href="#%e9%98%b2%e6%8a%96%e4%b8%8e%e8%8a%82%e6%b5%81" class="heading-mark"></a>3.2 防抖与节流</h3><p>防抖：短期内大量触发事件时，只执行最后一次。</p>
 <div class="highlight" id="id-3"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -97,16 +97,16 @@
 </span></span><span class="line"><span class="cl">  <span class="p">};</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="devtools">devTools</h3>
-<p>初始化窗口时设置 <code>webPreferences.devTools</code> 为 <code>true</code>，然后通过 <code>mainWindow.webContents.openDevTools()</code> 打开开发者工具。</p>
+</div><h3 id="devtools" class="heading-element">
+  <a href="#devtools" class="heading-mark"></a>3.3 devTools</h3><p>初始化窗口时设置 <code>webPreferences.devTools</code> 为 <code>true</code>，然后通过 <code>mainWindow.webContents.openDevTools()</code> 打开开发者工具。</p>
 <p>如果只在开发环境启用开发者工具，则需要设置 <code>webPreferences.devTools</code> 为 <code>process.env.NODE_ENV === 'development'</code></p>
-<h3 id="启动白屏">启动白屏</h3>
-<p>在创建窗口时设置 <code>show: false</code>，在 <code>ready-to-show</code> 事件之后执行 <code>mainWindow.show()</code>，</p>
+<h3 id="启动白屏" class="heading-element">
+  <a href="#%e5%90%af%e5%8a%a8%e7%99%bd%e5%b1%8f" class="heading-mark"></a>3.4 启动白屏</h3><p>在创建窗口时设置 <code>show: false</code>，在 <code>ready-to-show</code> 事件之后执行 <code>mainWindow.show()</code>，</p>
 <p>可见官方文档 <a href="https://www.electronjs.org/zh/docs/latest/api/browser-window#%e4%bc%98%e9%9b%85%e5%9c%b0%e6%98%be%e7%a4%ba%e7%aa%97%e5%8f%a3"target="_blank" rel="external nofollow noopener noreferrer">优雅地显示窗口<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>。</p>
-<h4 id="启动前-loading">启动前 loading</h4>
-<p>额外创建一个 loading 窗口，该窗口可设置为透明只包含 loading 图标和文字，在 <code>mainWindow.show()</code> 后关闭。</p>
-<h4 id="启动后-loading">启动后 loading</h4>
-<p>如果使用了 Vue 框架，在 Vue 初始化之前窗口虽然出现了，但是内容时空白的，可以在 Vue 实例 #app 里写一个 loading, Vue 加载完后会覆盖掉。</p>
+<h4 id="启动前-loading" class="heading-element">
+  <a href="#%e5%90%af%e5%8a%a8%e5%89%8d-loading" class="heading-mark"></a>3.4.1 启动前 loading</h4><p>额外创建一个 loading 窗口，该窗口可设置为透明只包含 loading 图标和文字，在 <code>mainWindow.show()</code> 后关闭。</p>
+<h4 id="启动后-loading" class="heading-element">
+  <a href="#%e5%90%af%e5%8a%a8%e5%90%8e-loading" class="heading-mark"></a>3.4.2 启动后 loading</h4><p>如果使用了 Vue 框架，在 Vue 初始化之前窗口虽然出现了，但是内容时空白的，可以在 Vue 实例 #app 里写一个 loading, Vue 加载完后会覆盖掉。</p>
 <div class="highlight" id="id-5"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -208,12 +208,12 @@
 </span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">span</span><span class="p">&gt;</span>加载中 ...<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="阻止窗口关闭">阻止窗口关闭</h3>
-<p>可以在关闭前一些事件里做拦截，比如：<code>onbeforeunload</code> 等，详见 <a href="https://www.electronjs.org/zh/docs/latest/api/browser-window#%e5%ae%9e%e4%be%8b%e4%ba%8b%e4%bb%b6"target="_blank" rel="external nofollow noopener noreferrer">实例事件<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>。</p>
-<h3 id="手动关闭窗口">手动关闭窗口</h3>
-<p>当自定义关闭时，使用 <code>mainWindow.destroy()</code> 来关闭窗口，因为使用 <code>mainWindow.close()</code> 时，windows 系统打开开发者工具时会出现无法关闭窗口的情况。</p>
-<h3 id="全局快捷键">全局快捷键</h3>
-<p>当 electron 版本较低时，比如 <code>13.1.7</code>，会出现在 mac 系统上复制粘贴等常用快捷键失效的问题。可通过设置菜单并绑定快捷键的方式解决。</p>
+</div><h3 id="阻止窗口关闭" class="heading-element">
+  <a href="#%e9%98%bb%e6%ad%a2%e7%aa%97%e5%8f%a3%e5%85%b3%e9%97%ad" class="heading-mark"></a>3.5 阻止窗口关闭</h3><p>可以在关闭前一些事件里做拦截，比如：<code>onbeforeunload</code> 等，详见 <a href="https://www.electronjs.org/zh/docs/latest/api/browser-window#%e5%ae%9e%e4%be%8b%e4%ba%8b%e4%bb%b6"target="_blank" rel="external nofollow noopener noreferrer">实例事件<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>。</p>
+<h3 id="手动关闭窗口" class="heading-element">
+  <a href="#%e6%89%8b%e5%8a%a8%e5%85%b3%e9%97%ad%e7%aa%97%e5%8f%a3" class="heading-mark"></a>3.6 手动关闭窗口</h3><p>当自定义关闭时，使用 <code>mainWindow.destroy()</code> 来关闭窗口，因为使用 <code>mainWindow.close()</code> 时，windows 系统打开开发者工具时会出现无法关闭窗口的情况。</p>
+<h3 id="全局快捷键" class="heading-element">
+  <a href="#%e5%85%a8%e5%b1%80%e5%bf%ab%e6%8d%b7%e9%94%ae" class="heading-mark"></a>3.7 全局快捷键</h3><p>当 electron 版本较低时，比如 <code>13.1.7</code>，会出现在 mac 系统上复制粘贴等常用快捷键失效的问题。可通过设置菜单并绑定快捷键的方式解决。</p>
 <div class="highlight" id="id-6"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -318,8 +318,8 @@
 </span></span><span class="line"><span class="cl">  <span class="nx">Menu</span><span class="p">.</span><span class="nx">setApplicationMenu</span><span class="p">(</span><span class="nx">menu</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="electron-builder">electron-builder</h3>
-<p>下载时，可能因为网络问题导致下载失败，可设置 GitHub 下载镜像。</p>
+</div><h3 id="electron-builder" class="heading-element">
+  <a href="#electron-builder" class="heading-mark"></a>3.8 electron-builder</h3><p>下载时，可能因为网络问题导致下载失败，可设置 GitHub 下载镜像。</p>
 <div class="highlight" id="id-8"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -355,8 +355,8 @@
 </span></span><span class="line"><span class="cl">▸ wine/
 </span></span><span class="line"><span class="cl">  ▸ wine-4.0.1-mac/</span></span></code></pre></td></tr></table>
 </div>
-</div><h4 id="windows-打包">windows 打包</h4>
-<p>windows 系统打包配置，当没有配置签名时，<code>sign</code> 字段应删除或者配置为 <code>null</code>，否则可能导致打包时报错。</p>
+</div><h4 id="windows-打包" class="heading-element">
+  <a href="#windows-%e6%89%93%e5%8c%85" class="heading-mark"></a>3.8.1 windows 打包</h4><p>windows 系统打包配置，当没有配置签名时，<code>sign</code> 字段应删除或者配置为 <code>null</code>，否则可能导致打包时报错。</p>
 <div class="highlight" id="id-10"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -379,8 +379,8 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>注：win11 打包在 win10 上可能运行不了，最好使用 win10 打包或者 mac 打包指定系统和位数。</p>
-<h4 id="macos-打包">macOS 打包</h4>
-<p>问题：mac 升级之后 electron 打包报错 <code>Exit code: ENOENT. spawn /usr/bin/python ENOENT</code></p>
+<h4 id="macos-打包" class="heading-element">
+  <a href="#macos-%e6%89%93%e5%8c%85" class="heading-mark"></a>3.8.2 macOS 打包</h4><p>问题：mac 升级之后 electron 打包报错 <code>Exit code: ENOENT. spawn /usr/bin/python ENOENT</code></p>
 <p>解决：网上搜到的下载 python 2.7 是治标不治本，正确做法是升级 <code>electron-builder</code> 到 <code>23.0.2</code> 或更高版本，参考 <a href="https://github.com/electron-userland/electron-builder/issues/6726"target="_blank" rel="external nofollow noopener noreferrer">electron-builder#6726<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
 <p>参考链接</p>
 <ul>

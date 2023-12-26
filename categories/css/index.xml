@@ -1,9 +1,9 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>CSS - 分类 - 菠菜眾長</title><link>https://lruihao.cn/categories/css/</link><description>CSS - 分类 - 菠菜眾長</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><copyright>本站内容采用 CC BY-NC-SA 4.0 国际许可协议。</copyright><lastBuildDate>Sat, 02 Sep 2023 10:05:44 +0800</lastBuildDate><atom:link href="https://lruihao.cn/categories/css/" rel="self" type="application/rss+xml"/><item><title>CSS 实现网格背景效果</title><link>https://lruihao.cn/posts/grid-bg-image/</link><pubDate>Sat, 02 Sep 2023 10:05:44 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/grid-bg-image/</guid><description><![CDATA[<p>本文将介绍如何使用 <code>linear-gradient</code> 、<code>background-size</code> 等属性来实现网格背景效果。</p>
-<h2 id="前言">前言</h2>
-<p>最近在开发一个拖拽式仪表盘时，需要在拖拽组件时添加网格辅助标线来帮助布局和对齐元素。</p>
+<h2 id="前言" class="heading-element">
+  <a href="#%e5%89%8d%e8%a8%80" class="heading-mark"></a>1 前言</h2><p>最近在开发一个拖拽式仪表盘时，需要在拖拽组件时添加网格辅助标线来帮助布局和对齐元素。</p>
 <p>最先想到的是使用 CSS 来实现这个效果，经过一番尝试，发现可以通过使用 CSS 的一些技术点，轻松实现不同类型的网格背景效果，包括实线网格和虚线网格。</p>
-<h2 id="前驱知识">前驱知识</h2>
-<p>在开始之前，我们需要了解一些必要的 CSS 属性和知识点。</p>
+<h2 id="前驱知识" class="heading-element">
+  <a href="#%e5%89%8d%e9%a9%b1%e7%9f%a5%e8%af%86" class="heading-mark"></a>2 前驱知识</h2><p>在开始之前，我们需要了解一些必要的 CSS 属性和知识点。</p>
 <ul>
 <li><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/gradient/linear-gradient"target="_blank" rel="external nofollow noopener noreferrer"><code>linear-gradient</code><i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>：CSS <strong><code>linear-gradient()</code></strong> 函数用于创建一个表示两种或多种颜色线性渐变的图片。其结果属于<a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/gradient"target="_blank" rel="external nofollow noopener noreferrer"><code>&lt;gradient&gt;</code><i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>数据类型，是一种特别的<a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/image"target="_blank" rel="external nofollow noopener noreferrer"><code>&lt;image&gt;</code><i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>数据类型。</li>
 <li><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/gradient/radial-gradient"target="_blank" rel="external nofollow noopener noreferrer"><code>radial-gradient</code><i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>：<strong><code>radial-gradient()</code></strong> <a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS"target="_blank" rel="external nofollow noopener noreferrer">CSS<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> <a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/CSS_Functions"target="_blank" rel="external nofollow noopener noreferrer">函数<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>创建一个图像，该图像由从原点辐射的两种或多种颜色之间的渐进过渡组成。它的形状可以是圆形或椭圆形。函数的结果是 <a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/gradient"target="_blank" rel="external nofollow noopener noreferrer"><code>&lt;gradient&gt;</code><i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 数据类型的对象。这是一种特别的 <a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/image"target="_blank" rel="external nofollow noopener noreferrer"><code>&lt;image&gt;</code><i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>。</li>
@@ -12,8 +12,8 @@
 <li><code>background-position</code></li>
 <li><code>::before</code> 和 <code>::after</code> 伪元素</li>
 </ul>
-<h2 id="实线网格">实线网格</h2>
-<p>这个效果，我最初是在刷掘金的时候发现的，掘金文章内容区的背景一个实线网格，呈现出的效果类似一页学生时代的记事本，当时觉得很有意思，于是扒下来当作了现在博客文章内容的背景。</p>
+<h2 id="实线网格" class="heading-element">
+  <a href="#%e5%ae%9e%e7%ba%bf%e7%bd%91%e6%a0%bc" class="heading-mark"></a>3 实线网格</h2><p>这个效果，我最初是在刷掘金的时候发现的，掘金文章内容区的背景一个实线网格，呈现出的效果类似一页学生时代的记事本，当时觉得很有意思，于是扒下来当作了现在博客文章内容的背景。</p>
 <p>实线网格的实现思路是使用 <code>linear-gradient</code> 来绘制横向和纵向的网格线，然后通过 <code>background-size</code> 来控制网格线的间距。</p>
 <p>具体代码如下：</p>
 <div class="highlight" id="id-1"><div class="chroma">
@@ -32,13 +32,13 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>上面的代码中，<code>background-image</code> 属性使用了两个 <code>linear-gradient</code>，通过渐变颜色从 <code>rgba(60, 10, 30, 0.04)</code> 到 <code>transparent</code> 实现了横向和纵向的网格线。通过指定 <code>background-size</code> 为 <code>20px 20px</code>，设置了背景大小为 20px，由于 <code>background-repeat</code> 默认为 <code>repeat</code>，所以就实现了 20px 间距的网格线。</p>
-<h2 id="虚线网格">虚线网格</h2>
-<p>虚线网格的实现思路需要借助 <code>::before</code> 和 <code>::after</code> 伪元素，然后还是通过类似实线的思路实现网格线，然后两个伪元素叠加在一起，从而实现虚线网格。</p>
+<h2 id="虚线网格" class="heading-element">
+  <a href="#%e8%99%9a%e7%ba%bf%e7%bd%91%e6%a0%bc" class="heading-mark"></a>4 虚线网格</h2><p>虚线网格的实现思路需要借助 <code>::before</code> 和 <code>::after</code> 伪元素，然后还是通过类似实线的思路实现网格线，然后两个伪元素叠加在一起，从而实现虚线网格。</p>
 <blockquote>
 <p>未做实例</p>
 </blockquote>
-<h2 id="点阵网格">点阵网格</h2>
-<p>这里把渐变修改为径向渐变就实现点点背景了，原理和前面说的都是一样的。</p>
+<h2 id="点阵网格" class="heading-element">
+  <a href="#%e7%82%b9%e9%98%b5%e7%bd%91%e6%a0%bc" class="heading-mark"></a>5 点阵网格</h2><p>这里把渐变修改为径向渐变就实现点点背景了，原理和前面说的都是一样的。</p>
 <div class="highlight" id="id-2"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -52,8 +52,8 @@
 </span></span><span class="line"><span class="cl">  <span class="k">background-size</span><span class="p">:</span> <span class="mi">20</span><span class="kt">px</span> <span class="mi">20</span><span class="kt">px</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="总结">总结</h2>
-<p>最后为了实现我在实际开发中的需求，我还需要控制网格宽度为容器的 1/24，这里就需要使用 <code>calc()</code> 函数来计算了。</p>
+</div><h2 id="总结" class="heading-element">
+  <a href="#%e6%80%bb%e7%bb%93" class="heading-mark"></a>6 总结</h2><p>最后为了实现我在实际开发中的需求，我还需要控制网格宽度为容器的 1/24，这里就需要使用 <code>calc()</code> 函数来计算了。</p>
 <div class="highlight" id="id-3"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -82,16 +82,16 @@
 </span></span><span class="line"><span class="cl"><span class="nt">background-size</span><span class="o">:</span> <span class="nt">calc</span><span class="o">((</span><span class="nt">100</span><span class="o">%</span> <span class="nt">-</span> <span class="nt">8px</span><span class="o">)</span> <span class="o">/</span> <span class="nt">24</span><span class="o">)</span> <span class="nt">48px</span><span class="o">;</span>
 </span></span><span class="line"><span class="cl"><span class="nt">background-position</span><span class="o">:</span> <span class="nt">24px</span> <span class="nt">24px</span><span class="o">;</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="参考">参考</h2>
-<ul>
+</div><h2 id="参考" class="heading-element">
+  <a href="#%e5%8f%82%e8%80%83" class="heading-mark"></a>7 参考</h2><ul>
 <li><a href="https://zhuanlan.zhihu.com/p/345973110"target="_blank" rel="external nofollow noopener noreferrer">CSS+HTML&lt;网格背景效果&gt;<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
 </ul>
-]]></description></item><item><title>关于 CSS 和 Scss 变量运算那些事</title><link>https://lruihao.cn/posts/css-scss-var/</link><pubDate>Sat, 30 Apr 2022 22:04:29 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/css-scss-var/</guid><description><![CDATA[<h2 id="问题分析">问题分析</h2>
-<p>昨天在开发 FixIt 的时候，在 Scss 中写 <code>max(foo, bar)</code> 函数比较不同的单位变量时报错了，但是在 CSS 中使用 <code>max</code> 或者 <code>min</code> 函数函数比较不同的单位变量是没有问题的。</p>
+]]></description></item><item><title>关于 CSS 和 Scss 变量运算那些事</title><link>https://lruihao.cn/posts/css-scss-var/</link><pubDate>Sat, 30 Apr 2022 22:04:29 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/css-scss-var/</guid><description><![CDATA[<h2 id="问题分析" class="heading-element">
+  <a href="#%e9%97%ae%e9%a2%98%e5%88%86%e6%9e%90" class="heading-mark"></a>1 问题分析</h2><p>昨天在开发 FixIt 的时候，在 Scss 中写 <code>max(foo, bar)</code> 函数比较不同的单位变量时报错了，但是在 CSS 中使用 <code>max</code> 或者 <code>min</code> 函数函数比较不同的单位变量是没有问题的。</p>
 <p>造成这一问题的原因是，在 Scss 中，也实现了 <code>max</code> 和 <code>min</code> 函数，但是在 Scss 中，<strong>不同单位的变量是不能进行运算的</strong>，所以使得在 Scss 中直接使用 <code>max</code> 或者 <code>min</code> 函数会提示单位不同的报错。（同类 Less 中的变量运算是支持不同单位的）</p>
 <p>知道造成问题的原因后，解决这个问题就很简单了，有很多种方法，有些方法感觉像在卡 BUG，有点意思，记录一下。</p>
-<h2 id="奇思淫技">奇思淫技</h2>
-<ol>
+<h2 id="奇思淫技" class="heading-element">
+  <a href="#%e5%a5%87%e6%80%9d%e6%b7%ab%e6%8a%80" class="heading-mark"></a>2 奇思淫技</h2><ol>
 <li>
 <p>由于 <strong>Scss 区分大小写而 CSS 不区分</strong>，所以为了不让 Scss 中的函数覆盖 CSS 的函数，我们可以使用除了 <code>max</code> 以外的 2<sup>3</sup> - 1 种写法，这样就能使用原生 CSS 的 <code>max</code> 函数来比较了，就不会报错了。</p>
 <div class="highlight" id="id-1"><div class="chroma">
@@ -136,8 +136,8 @@
 </div>
 </div></li>
 </ol>
-<h2 id="by-the-way">By the way</h2>
-<p>如果需要在 CSS 函数内部恢复 <code>Scss</code> 解析（引用 <code>Scss</code> 变量），只需用 <code>#{...}</code> 包围 Scss 代码。</p>
+<h2 id="by-the-way" class="heading-element">
+  <a href="#by-the-way" class="heading-mark"></a>3 By the way</h2><p>如果需要在 CSS 函数内部恢复 <code>Scss</code> 解析（引用 <code>Scss</code> 变量），只需用 <code>#{...}</code> 包围 Scss 代码。</p>
 <div class="highlight" id="id-4"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -185,8 +185,8 @@
 <p>Sass 和 Less 都屬於 <strong>CSS 前置處理器</strong>，CSS 前置處理器定義了一種新的語言，其基本思想是，用一種專門的程式設計語言，為 CSS 增加了一些程式設計的特性，將 CSS 作為目標生成檔，然後開發者就只要使用這種語言進行 CSS 的編碼工作。<br>
 轉化成通俗易懂的話來說就是 <strong>“用一種專門的程式設計語言，進行 Web 頁面樣式設計，再通過編譯器轉化為正常的 CSS 檔，以供專案使用”。</strong></p>
 </blockquote>
-<h2 id="為什麼什麼時候要使用-css-前置處理器-why-when">為什麼，什麼時候要使用 CSS 前置處理器？ (Why, When)</h2>
-<p><strong>CSS 有具體以下幾個缺點：</strong></p>
+<h2 id="為什麼什麼時候要使用-css-前置處理器-why-when" class="heading-element">
+  <a href="#%e7%82%ba%e4%bb%80%e9%ba%bc%e4%bb%80%e9%ba%bc%e6%99%82%e5%80%99%e8%a6%81%e4%bd%bf%e7%94%a8-css-%e5%89%8d%e7%bd%ae%e8%99%95%e7%90%86%e5%99%a8-why-when" class="heading-mark"></a>1 為什麼，什麼時候要使用 CSS 前置處理器？ (Why, When)</h2><p><strong>CSS 有具體以下幾個缺點：</strong></p>
 <ul>
 <li>語法不夠強大，比如無法嵌套書寫，導致模組化開發中需要書寫很多重複的選擇器</li>
 <li>沒有變數和合理的樣式複用機制，使得邏輯上相關的屬性值必須以字面量的形式重複輸出，導致難以維護</li>
@@ -207,18 +207,18 @@
 <li>系統級框架開發（大型複雜的樣式設計）</li>
 <li>持續維護</li>
 </ul>
-<h2 id="lesssassscss-是什麼-what">Less、Sass/Scss 是什麼？ (What)</h2>
-<h3 id="less">Less</h3>
-<p>是一種動態樣式語言。對 CSS 賦予了動態語言的特性，如變數、繼承、運算、函數。<br>
+<h2 id="lesssassscss-是什麼-what" class="heading-element">
+  <a href="#lesssassscss-%e6%98%af%e4%bb%80%e9%ba%bc-what" class="heading-mark"></a>2 Less、Sass/Scss 是什麼？ (What)</h2><h3 id="less" class="heading-element">
+  <a href="#less" class="heading-mark"></a>2.1 Less</h3><p>是一種動態樣式語言。對 CSS 賦予了動態語言的特性，如變數、繼承、運算、函數。<br>
 Less 既可以在用戶端上運行（支援 IE 6+, Webkit, Firefox)，也可在服務端運行。</p>
-<h3 id="sass">Sass</h3>
-<p>是一種動態樣式語言，Sass 語法屬於縮排語法，<br>
+<h3 id="sass" class="heading-element">
+  <a href="#sass" class="heading-mark"></a>2.2 Sass</h3><p>是一種動態樣式語言，Sass 語法屬於縮排語法，<br>
 比 CSS 比多出好些功能（如變數、嵌套、運算，混入 (Mixin)、繼承、顏色處理，函數等），更容易閱讀。</p>
-<h3 id="sass-與-scss-的關係">Sass 與 Scss 的關係</h3>
-<p>Sass 的縮排語法，對於寫慣 CSS 的前端開發者來說很不直觀，也不能將 CSS 代碼加入到 Sass 裡面，因此 Sass 語法進行了改良，Sass 3 就變成了 Scss(Sassy CSS)。與原來的語法相容，只是用<code>{}</code>取代了原來的縮進。Sass 相當於 Scss 的嚴格模式。</p>
-<h2 id="sass-和-less-的比較">Sass 和 Less 的比較</h2>
-<h3 id="相同點">相同點</h3>
-<p>Less 和 Sass 在語法上有些共性，比如下面這些：</p>
+<h3 id="sass-與-scss-的關係" class="heading-element">
+  <a href="#sass-%e8%88%87-scss-%e7%9a%84%e9%97%9c%e4%bf%82" class="heading-mark"></a>2.3 Sass 與 Scss 的關係</h3><p>Sass 的縮排語法，對於寫慣 CSS 的前端開發者來說很不直觀，也不能將 CSS 代碼加入到 Sass 裡面，因此 Sass 語法進行了改良，Sass 3 就變成了 Scss(Sassy CSS)。與原來的語法相容，只是用<code>{}</code>取代了原來的縮進。Sass 相當於 Scss 的嚴格模式。</p>
+<h2 id="sass-和-less-的比較" class="heading-element">
+  <a href="#sass-%e5%92%8c-less-%e7%9a%84%e6%af%94%e8%bc%83" class="heading-mark"></a>3 Sass 和 Less 的比較</h2><h3 id="相同點" class="heading-element">
+  <a href="#%e7%9b%b8%e5%90%8c%e9%bb%9e" class="heading-mark"></a>3.1 相同點</h3><p>Less 和 Sass 在語法上有些共性，比如下面這些：</p>
 <ol>
 <li>混入 (Mixins)——class 中的 class</li>
 <li>參數混入——可以傳遞參數的 class，就像函數一樣</li>
@@ -229,8 +229,8 @@ Less 既可以在用戶端上運行（支援 IE 6+, Webkit, Firefox)，也可在
 <li>作用域——局部修改樣式</li>
 <li>JavaScript 賦值——在 CSS 中使用 JavaScript 運算式賦值</li>
 </ol>
-<h3 id="不同點">不同點</h3>
-<ol>
+<h3 id="不同點" class="heading-element">
+  <a href="#%e4%b8%8d%e5%90%8c%e9%bb%9e" class="heading-mark"></a>3.2 不同點</h3><ol>
 <li>實現方式</li>
 </ol>
 <ul>
@@ -242,5 +242,5 @@ Less 既可以在用戶端上運行（支援 IE 6+, Webkit, Firefox)，也可在
 <li>less 中的變量運算可帶、可不帶單位，Sass 需要帶單位元</li>
 <li>語法不同，請詳見 Less、Sass 官網</li>
 </ol>
-<h2 id="選用-less-還是-sass-">選用 Less 還是 Sass ?</h2>
-<p>無論是學習資料，討論情況，以及項目使用情況 Sass/Scss 都優於 Less，比如 Bootstrap 4 就使用的 Sass, 但是 Less 的使用更加簡單，使用門檻也較低，內網開發的情況，Less 則更加適合。</p>]]></description></item></channel></rss>
+<h2 id="選用-less-還是-sass-" class="heading-element">
+  <a href="#%e9%81%b8%e7%94%a8-less-%e9%82%84%e6%98%af-sass-" class="heading-mark"></a>4 選用 Less 還是 Sass ?</h2><p>無論是學習資料，討論情況，以及項目使用情況 Sass/Scss 都優於 Less，比如 Bootstrap 4 就使用的 Sass, 但是 Less 的使用更加簡單，使用門檻也較低，內網開發的情況，Less 則更加適合。</p>]]></description></item></channel></rss>

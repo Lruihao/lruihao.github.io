@@ -1,8 +1,8 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>计算机网络 - 分类 - 菠菜眾長</title><link>https://lruihao.cn/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/</link><description>计算机网络 - 分类 - 菠菜眾長</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><copyright>本站内容采用 CC BY-NC-SA 4.0 国际许可协议。</copyright><lastBuildDate>Thu, 14 Nov 2019 19:06:05 +0000</lastBuildDate><atom:link href="https://lruihao.cn/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" rel="self" type="application/rss+xml"/><item><title>RESTful</title><link>https://lruihao.cn/posts/restful/</link><pubDate>Thu, 14 Nov 2019 19:06:05 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/restful/</guid><description><![CDATA[<blockquote>
 <p>RESTful 是一种系统开发设计风格、原则。可视情况调整，以下参考来源 <a href="https://www.rfc-editor.org/rfc/rfc5789"target="_blank" rel="external nofollow noopener noreferrer">RFC5789<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
 </blockquote>
-<h2 id="noun">Noun</h2>
-<ul>
+<h2 id="noun" class="heading-element">
+  <a href="#noun" class="heading-mark"></a>1 Noun</h2><ul>
 <li>一般资源
 通用于一律使用复数名词
 例如：/books 或 /books/123。但有部分人认为应该使用单数名词，因为： /book/123 看似比 /books/123 合理。但想想文件系统的目录命名（例如 /Users 或 /Documents)，其实用复数也没问题。复数可以保持 API endpoint 的一致性，所以一般资源建议用复数。</li>
@@ -10,20 +10,20 @@
 通用于单数名词
 例如：user 是指目前验证的使用者，使用者永远只能同时登入一个使用者</li>
 </ul>
-<h2 id="http-method">Http Method</h2>
-<!-- markdownlint-disable MD033 -->
+<h2 id="http-method" class="heading-element">
+  <a href="#http-method" class="heading-mark"></a>2 Http Method</h2><!-- markdownlint-disable MD033 -->
 <table><tbody><tr><th>Method</th><th>Idempotent</th><th>Safe</th><th>CRUD</th><th>OO</th><th>生活动词</th><th>用途</th></tr><tr><td rowspan="2">GET</td><td rowspan="2" style="text-align: center;">Y</td><td rowspan="2" style="text-align: center;">Y</td><td rowspan="2"><b>R</b>ead</td><td rowspan="2">get</td><td>get</td><td>取得资料</td></tr><tr><td>list</td><td>列出资料</td></tr><tr><td rowspan="2">POST</td><td rowspan="2"></td><td rowspan="2"></td><td rowspan="2"><b>C</b>reate</td><td rowspan="2">add</td><td>create</td><td>建立一个可以完全独立存在的实体</td></tr><tr><td>add</td><td>增加一个必须依赖于某个实体的实体</td></tr><tr><td rowspan="2">PUT</td><td rowspan="2" style="text-align: center;">Y</td><td rowspan="2"></td><td rowspan="3"><b>U</b>pdate</td><td rowspan="3">set</td><td>replace</td><td>取代一个关系，已存在时先删除后建立，不存在时直接建立</td></tr><tr><td>add</td><td>附加唯一关系，两个关系实体可以互相独立存在，且已经存在</td></tr><tr><td>PATCH</td><td></td><td></td><td>edit</td><td>编辑某个实体</td></tr><tr><td>DELETE</td><td></td><td></td><td><b>D</b>elete</td><td>remove</td><td>remove<br>delete</td><td>删除某个实体</td></tr></tbody></table>
 <ul>
 <li>Safe：该操作不会改变伺服器端的资源状态（而且结果可以被 cache），属于 Safe 的操作必定属于 Idempotent</li>
 <li>Idempotent (幂等性)：该操作不管做 1 遍或做 n 遍，都会得到同样的资源状态结果（但不一定得到同样的返回值，例如第 2 次 DELETE 请求可能回传 404），因此 client 端可以放心 retry</li>
 </ul>
-<h3 id="get">GET</h3>
-<blockquote>
+<h3 id="get" class="heading-element">
+  <a href="#get" class="heading-mark"></a>2.1 GET</h3><blockquote>
 <p>Safe：每次执行操作时，GET 只有读取 Resource，不会改变到任何的 Resource（资源，资料）<br>
 Idempotent：每次执行操作时，GET 只有读取 Resource，不会改变到任何的 Resource（资源，资料），所以任何资源的任何状态都是一样的</p>
 </blockquote>
-<h3 id="post">POST</h3>
-<blockquote>
+<h3 id="post" class="heading-element">
+  <a href="#post" class="heading-mark"></a>2.2 POST</h3><blockquote>
 <p>每次执行操作时，POST 都会建立一个 Resource（资源，资料）</p>
 </blockquote>
 <ul>
@@ -78,8 +78,8 @@ Idempotent：每次执行操作时，GET 只有读取 Resource，不会改变到
 </div>
 </div></li>
 </ul>
-<h3 id="put">PUT</h3>
-<blockquote>
+<h3 id="put" class="heading-element">
+  <a href="#put" class="heading-mark"></a>2.3 PUT</h3><blockquote>
 <p>Idempotent：每次执行操作时，PUT 都会取代 Resource，不管操作几次，使用者获取得 Resource 结果都是一样的</p>
 <p>Replace：不论资源如何，最终的资源状态都是一样的，Resource 已存在时，或许不理会、或许先删除后建立（取代）Resource 不存在时，直接建立</p>
 <p>Add：添加唯一关系，建立这个唯一关系前，两个关连实体都必须存在。在没有建立关系前，两个关连实体都可以互相独立存在
@@ -122,8 +122,8 @@ Idempotent：每次执行操作时，GET 只有读取 Resource，不会改变到
 </div>
 </div></li>
 </ul>
-<h3 id="patch">PATCH</h3>
-<blockquote>
+<h3 id="patch" class="heading-element">
+  <a href="#patch" class="heading-mark"></a>2.4 PATCH</h3><blockquote>
 <p>Edit：编辑可独立存在、且已经存在的实体，也就是产生新版本的实体，可能会影响其他 Resource</p>
 </blockquote>
 <ul>
@@ -154,8 +154,8 @@ Idempotent：每次执行操作时，GET 只有读取 Resource，不会改变到
 </div>
 </div></li>
 </ul>
-<h3 id="delete">DELETE</h3>
-<blockquote>
+<h3 id="delete" class="heading-element">
+  <a href="#delete" class="heading-mark"></a>2.5 DELETE</h3><blockquote>
 <p>Idempotent：每次执行操作时，DELETE 都会删除相同的东西</p>
 </blockquote>
 <ul>
@@ -173,8 +173,8 @@ Idempotent：每次执行操作时，GET 只有读取 Resource，不会改变到
 </div>
 </div></li>
 </ul>
-<h2 id="http-status-code">HTTP Status Code</h2>
-<p>HTTP 状态码（HTTP Status Code）是用以表示网页服务器 HTTP 响应状态的 3 位数字代码。所有状态码的第一个数字代表了响应的五种状态之一。除非另有说明，状态码是 <strong>HTTP/1.1 标准</strong>（<a href="https://www.rfc-editor.org/rfc/rfc7231"target="_blank" rel="external nofollow noopener noreferrer">RFC 7231<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>）的一部分。</p>
+<h2 id="http-status-code" class="heading-element">
+  <a href="#http-status-code" class="heading-mark"></a>3 HTTP Status Code</h2><p>HTTP 状态码（HTTP Status Code）是用以表示网页服务器 HTTP 响应状态的 3 位数字代码。所有状态码的第一个数字代表了响应的五种状态之一。除非另有说明，状态码是 <strong>HTTP/1.1 标准</strong>（<a href="https://www.rfc-editor.org/rfc/rfc7231"target="_blank" rel="external nofollow noopener noreferrer">RFC 7231<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>）的一部分。</p>
 <p>而关于 RESTful API 的请求状态，通常有以下两种设计方案：</p>
 <ul>
 <li>方案一：使用 HTTP 状态码来表示请求状态，200 时返回的内容就是数据</li>
@@ -182,8 +182,8 @@ Idempotent：每次执行操作时，GET 只有读取 Resource，不会改变到
 </ul>
 <p>在实际应用中，应据具体情景及需要进行选择与调整。</p>
 <table><tbody><tr><th>方案</th><th colspan="2">优劣比较</th></tr><tr><td rowspan="2">方案一</td><td>优点</td><td>对服务端来说较为简单方便</td></tr><tr><td>缺点</td><td>客户端难以根据状态码处理复杂问题</td></tr><tr><td rowspan="2">方案二</td><td>优点</td><td>方便对返回资料进行统一处理和细微性的控制</td></tr><tr><td>缺点</td><td>相当于放弃了 HTTP 状态码的语义</td></tr></tbody></table>
-<h3 id="常用-http-状态码">常用 HTTP 状态码</h3>
-<table>
+<h3 id="常用-http-状态码" class="heading-element">
+  <a href="#%e5%b8%b8%e7%94%a8-http-%e7%8a%b6%e6%80%81%e7%a0%81" class="heading-mark"></a>3.1 常用 HTTP 状态码</h3><table>
 <thead>
 <tr>
 <th>Code</th>

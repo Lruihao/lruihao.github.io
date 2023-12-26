@@ -1,6 +1,6 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>SSH - 标签 - 菠菜眾長</title><link>https://lruihao.cn/tags/ssh/</link><description>SSH - 标签 - 菠菜眾長</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><copyright>本站内容采用 CC BY-NC-SA 4.0 国际许可协议。</copyright><lastBuildDate>Sun, 22 Oct 2023 18:59:31 +0800</lastBuildDate><atom:link href="https://lruihao.cn/tags/ssh/" rel="self" type="application/rss+xml"/><item><title>SSH 提交签名验证</title><link>https://lruihao.cn/posts/ssh-sign/</link><pubDate>Sun, 22 Oct 2023 18:59:31 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/ssh-sign/</guid><description><![CDATA[<p>Git 支持使用 GPG 来签名提交记录。但 GPG 用起来很复杂，一直赖得搞。Git 从 2.34 开始支持使用 SSH 签名，所以本文将介绍如何使用 SSH 对提交进行签名。</p>
-<h2 id="操作步骤">操作步骤</h2>
-<p>可以使用 SSH 通过自己生成的 SSH 密钥对提交进行签名。有关详细信息，请查看 <code>user.Signingkey</code> 的 <a href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-usersigningKey"target="_blank" rel="external nofollow noopener noreferrer">Git 参考文档<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>。如果已使用 SSH 密钥向 GitHub 进行了身份验证，还可以再次上传该相同密钥以用作签名密钥。可以添加到帐户的签名密钥数没有限制。</p>
+<h2 id="操作步骤" class="heading-element">
+  <a href="#%e6%93%8d%e4%bd%9c%e6%ad%a5%e9%aa%a4" class="heading-mark"></a>1 操作步骤</h2><p>可以使用 SSH 通过自己生成的 SSH 密钥对提交进行签名。有关详细信息，请查看 <code>user.Signingkey</code> 的 <a href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-usersigningKey"target="_blank" rel="external nofollow noopener noreferrer">Git 参考文档<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>。如果已使用 SSH 密钥向 GitHub 进行了身份验证，还可以再次上传该相同密钥以用作签名密钥。可以添加到帐户的签名密钥数没有限制。</p>
 <p>GitHub 使用 <a href="https://github.com/github/ssh_data"target="_blank" rel="external nofollow noopener noreferrer">ssh_data<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>（一种开放源代码 Ruby 库）来确认本地签名的提交和标记是否根据在 GitHub.com 上添加到帐户的公钥进行加密验证。</p>
 <blockquote>
 <p>注意：SSH 签名验证可用于 Git 2.34 或更高版本。若要更新 Git 版本，请参阅 <a href="https://git-scm.com/downloads"target="_blank" rel="external nofollow noopener noreferrer">Git<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 网站。</p>
@@ -14,8 +14,8 @@
 <li><a href="https://docs.github.com/zh/authentication/managing-commit-signature-verification/signing-commits"target="_blank" rel="external nofollow noopener noreferrer">对提交签名<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
 <li><a href="https://docs.github.com/zh/authentication/managing-commit-signature-verification/signing-tags"target="_blank" rel="external nofollow noopener noreferrer">对标记签名<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
 </ol>
-<h2 id="检查现有-ssh-密钥">检查现有 SSH 密钥</h2>
-<ol>
+<h2 id="检查现有-ssh-密钥" class="heading-element">
+  <a href="#%e6%a3%80%e6%9f%a5%e7%8e%b0%e6%9c%89-ssh-%e5%af%86%e9%92%a5" class="heading-mark"></a>2 检查现有 SSH 密钥</h2><ol>
 <li>
 <p>打开终端。</p>
 </li>
@@ -40,8 +40,8 @@
 </ul>
 </li>
 </ol>
-<h2 id="生成新的-ssh-密钥">生成新的 SSH 密钥</h2>
-<div class="details admonition note open">
+<h2 id="生成新的-ssh-密钥" class="heading-element">
+  <a href="#%e7%94%9f%e6%88%90%e6%96%b0%e7%9a%84-ssh-%e5%af%86%e9%92%a5" class="heading-mark"></a>3 生成新的 SSH 密钥</h2><div class="details admonition note open">
     <div class="details-summary admonition-title">
       <i class="icon fa-solid fa-pencil-alt fa-fw" aria-hidden="true"></i>注意<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i>
     </div>
@@ -104,10 +104,10 @@
 </div></li>
 </ol>
 <p>更多请查看 <a href="https://docs.github.com/zh/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent"target="_blank" rel="external nofollow noopener noreferrer">生成新的 SSH 密钥<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>。</p>
-<h2 id="新增-ssh-密钥到-github-帐户">新增 SSH 密钥到 GitHub 帐户</h2>
-<p>注意：添加 SSH 密钥的类型选择 <code>Signing Key</code>，细节略，详见 <a href="https://docs.github.com/zh/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account"target="_blank" rel="external nofollow noopener noreferrer">将 SSH 签名密钥添加到 GitHub 帐户<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>。</p>
-<h2 id="将-ssh-密钥告知-git">将 SSH 密钥告知 Git</h2>
-<ol>
+<h2 id="新增-ssh-密钥到-github-帐户" class="heading-element">
+  <a href="#%e6%96%b0%e5%a2%9e-ssh-%e5%af%86%e9%92%a5%e5%88%b0-github-%e5%b8%90%e6%88%b7" class="heading-mark"></a>4 新增 SSH 密钥到 GitHub 帐户</h2><p>注意：添加 SSH 密钥的类型选择 <code>Signing Key</code>，细节略，详见 <a href="https://docs.github.com/zh/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account"target="_blank" rel="external nofollow noopener noreferrer">将 SSH 签名密钥添加到 GitHub 帐户<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>。</p>
+<h2 id="将-ssh-密钥告知-git" class="heading-element">
+  <a href="#%e5%b0%86-ssh-%e5%af%86%e9%92%a5%e5%91%8a%e7%9f%a5-git" class="heading-mark"></a>5 将 SSH 密钥告知 Git</h2><ol>
 <li>
 <p>打开终端。</p>
 </li>
@@ -132,8 +132,8 @@
 </div>
 </div></li>
 </ol>
-<h2 id="对提交签名">对提交签名</h2>
-<p>当本地分支中的提交更改时，可以将 <code>-S</code> 添加到 <code>git commit</code> 命令：</p>
+<h2 id="对提交签名" class="heading-element">
+  <a href="#%e5%af%b9%e6%8f%90%e4%ba%a4%e7%ad%be%e5%90%8d" class="heading-mark"></a>6 对提交签名</h2><p>当本地分支中的提交更改时，可以将 <code>-S</code> 添加到 <code>git commit</code> 命令：</p>
 <div class="highlight" id="id-9"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -160,8 +160,8 @@
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git config --global commit.gpgsign true</span></span></code></pre></td></tr></table>
 </div>
 </div><p>在本地完成创建提交后，将其推送到 GitHub 上的远程仓库，在 GitHub 上查看提交记录就能看到 <code>Verified</code> 的标志了。</p>
-<h2 id="对标记签名">对标记签名</h2>
-<p>若要对标记进行签名，请将 <code>-s</code> 添加到 <code>git tag</code> 命令。</p>
+<h2 id="对标记签名" class="heading-element">
+  <a href="#%e5%af%b9%e6%a0%87%e8%ae%b0%e7%ad%be%e5%90%8d" class="heading-mark"></a>7 对标记签名</h2><p>若要对标记进行签名，请将 <code>-s</code> 添加到 <code>git tag</code> 命令。</p>
 <div class="highlight" id="id-12"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -193,8 +193,8 @@
 </span></span><span class="line"><span class="cl"><span class="c1"># 或者</span>
 </span></span><span class="line"><span class="cl">git config --global tag.gpgsign true</span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="其他">其他</h2>
-<p>创建可信公钥列表文件：</p>
+</div><h2 id="其他" class="heading-element">
+  <a href="#%e5%85%b6%e4%bb%96" class="heading-mark"></a>8 其他</h2><p>创建可信公钥列表文件：</p>
 <div class="highlight" id="id-15"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1

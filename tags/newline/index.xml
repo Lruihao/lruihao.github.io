@@ -1,12 +1,12 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>newline - 标签 - 菠菜眾長</title><link>https://lruihao.cn/tags/newline/</link><description>newline - 标签 - 菠菜眾長</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><copyright>本站内容采用 CC BY-NC-SA 4.0 国际许可协议。</copyright><lastBuildDate>Sun, 07 Aug 2022 00:10:30 +0800</lastBuildDate><atom:link href="https://lruihao.cn/tags/newline/" rel="self" type="application/rss+xml"/><item><title>不同系统的换行符的差异</title><link>https://lruihao.cn/posts/newline/</link><pubDate>Sun, 07 Aug 2022 00:10:30 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/newline/</guid><description><![CDATA[<p>换行符（通常称为行尾、行尾 (EOL)、下一行 (NEL) 或换行符）是字符编码规范（例如，ASCII、EBCDIC）中的控制字符或控制字符序列，用于表示一行文本的结尾和新文本的开头。</p>
 <p>周五下班的时候想在 windows 电脑上跑一下 FixIt 看看有没有什么 bug, 然后就发现了 typyit shortcode 开头多出一行空行，mermaid shortcode 则直接语法报错了。</p>
 <p>看了一下代码明明有 trim <code>\n</code> 处理，而且 Vercel 打包和 Mac 上运行打包都没问题。debug 了一下才发现 Windows 系统上的换行是 <code>\r\n</code>, 而 Mac 系统上的换行是 <code>\n</code>。于是查了一下不同系统的换行符的差异问题。</p>
-<h2 id="历史">历史</h2>
-<p>简单来说，回车换行这些说法是从打字机那个时代开始叫的，然后在不同的标准下换行符有不同的表现符号。</p>
+<h2 id="历史" class="heading-element">
+  <a href="#%e5%8e%86%e5%8f%b2" class="heading-mark"></a>1 历史</h2><p>简单来说，回车换行这些说法是从打字机那个时代开始叫的，然后在不同的标准下换行符有不同的表现符号。</p>
 <p>Windows 系统设计遵循了 <code>CR + LF</code> 的约定，而 Unix 系统则遵循了 <code>LF</code> 的约定，之后的 类 Unix (Linux, macOS) 系统也遵循了 <code>LF</code> 的约定。</p>
 <p>当然也有异类，老版的 mac 系统使用 <code>CR</code> 作为换行符。</p>
-<h2 id="表示">表示</h2>
-<ul>
+<h2 id="表示" class="heading-element">
+  <a href="#%e8%a1%a8%e7%a4%ba" class="heading-mark"></a>2 表示</h2><ul>
 <li><code>CR</code> 回车：<code>\r</code></li>
 <li><code>LF</code> 换行：<code>\n</code></li>
 </ul>
@@ -32,11 +32,11 @@
 </tr>
 </tbody>
 </table>
-<h2 id="问题">问题</h2>
-<p>由于这个差异，会导致文本类的文件在跨系统浏览时会产生一些差异，比如说，Mac 的文本文件在 Windows 打开会全部挤在一行等等。</p>
+<h2 id="问题" class="heading-element">
+  <a href="#%e9%97%ae%e9%a2%98" class="heading-mark"></a>3 问题</h2><p>由于这个差异，会导致文本类的文件在跨系统浏览时会产生一些差异，比如说，Mac 的文本文件在 Windows 打开会全部挤在一行等等。</p>
 <p>对于开发人员来说，这很有可能导致某些程序失效，比如正则去除空行等等。</p>
 <p>甚至因此，Linux 系统下提供有两个命令用来进行 Windows 和 Unix 文件的转化：<code>dos2unix</code>和 <code>unix2dos</code>。</p>
-<h2 id="参考">参考</h2>
-<ul>
+<h2 id="参考" class="heading-element">
+  <a href="#%e5%8f%82%e8%80%83" class="heading-mark"></a>4 参考</h2><ul>
 <li><a href="https://en.wikipedia.org/wiki/Newline"target="_blank" rel="external nofollow noopener noreferrer">Newline<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
 </ul>]]></description></item></channel></rss>
