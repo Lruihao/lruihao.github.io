@@ -8,7 +8,7 @@
 
 ## 认识 Amazon Titan
 
-Amazon Titan 是来自亚马逊云科技的高性能基础模型。Amazon Bedrock 独有的 Amazon Titan 系列模型融合了 Amazon 25 年来，在其业务范围内积累的人工智能和机器学习创新的经验。Amazon Titan 基础模型（FM）通过完全托管的 API 为客户提供广泛的高性能图像、多模式和文本模型选择。Amazon Titan 模型由 AWS 创建并在大型数据集上进行预训练，使其成为强大的通用模型，旨在支持各种用例，同时还支持负责任地使用 AI。你可以按原样使用，也可以根据自己的数据私下进行自定义。
+[Amazon Titan](https://aws.amazon.com/cn/bedrock/titan/) 是来自亚马逊云科技的高性能基础模型。[Amazon Bedrock](https://aws.amazon.com/cn/bedrock/) 独有的 Amazon Titan 系列模型融合了 Amazon 25 年来，在其业务范围内积累的人工智能和机器学习创新的经验。Amazon Titan 基础模型（FM）通过完全托管的 API 为客户提供广泛的高性能图像、多模式和文本模型选择。Amazon Titan 模型由 AWS 创建并在大型数据集上进行预训练，使其成为强大的通用模型，旨在支持各种用例，同时还支持负责任地使用 AI。你可以按原样使用，也可以根据自己的数据私下进行自定义。
 
 Amazon Titan 文本模型系列包括：
 
@@ -18,7 +18,7 @@ Amazon Titan 文本模型系列包括：
 - Titan 多模态嵌入
 - Titan Image Generator（预览版）
 
-本文主要探索一下 Express、Lite 和 Embeddings。更多细节和其他模型请访问 [Amazon Titan 文本模型系列](https://aws.amazon.com/cn/bedrock/titan/text/)。
+本文主要探索 Express、Lite 和 Embeddings。更多细节和其他模型请访问 [Amazon Titan 文本模型系列](https://aws.amazon.com/cn/bedrock/titan/)。
 
 如果你还没有注册亚马逊云科技账户，可以参考本文最后一节 [注册亚马逊云科技账户](#register-aws)。
 
@@ -215,7 +215,7 @@ You can find the Embedding Vector 1536 values
 
 ## 注册亚马逊云科技账户 {#register-aws}
 
-打开 [亚马逊云科技账号注册地址](https://aws.amazon.com/cn/free/?sc_channel=seo&sc_campaign=blog0805)，点击右上角创建 AWS 账户。
+打开 [亚马逊云科技账号注册地址](https://aws.amazon.com/cn/q/?sc_channel=seo&sc_campaign=blog1210)，点击右上角创建 AWS 账户。
 
 ![创建 AWS 账户](../aws-ec2/images/23_1693042834.png)
 

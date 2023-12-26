@@ -1,7 +1,7 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Python - 标签 - 菠菜眾長</title><link>https://lruihao.cn/tags/python/</link><description>Python - 标签 - 菠菜眾長</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><copyright>本站内容采用 CC BY-NC-SA 4.0 国际许可协议。</copyright><lastBuildDate>Fri, 22 Dec 2023 19:58:47 +0800</lastBuildDate><atom:link href="https://lruihao.cn/tags/python/" rel="self" type="application/rss+xml"/><item><title>尝试在 Python 中使用 Amazon Titan 文本模型</title><link>https://lruihao.cn/posts/d8ae205/</link><pubDate>Fri, 22 Dec 2023 19:58:47 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/d8ae205/</guid><description><![CDATA[<!-- markdownlint-disable-file no-duplicate-heading-->
 <p>本文将通过 Python 代码探索 Amazon Titan 文本模型系列（包括 Express、Lite 和 Embedding）。</p>
 <h2 id="认识-amazon-titan" class="heading-element">
-  <a href="#%e8%ae%a4%e8%af%86-amazon-titan" class="heading-mark"></a>1 认识 Amazon Titan</h2><p>Amazon Titan 是来自亚马逊云科技的高性能基础模型。Amazon Bedrock 独有的 Amazon Titan 系列模型融合了 Amazon 25 年来，在其业务范围内积累的人工智能和机器学习创新的经验。Amazon Titan 基础模型（FM）通过完全托管的 API 为客户提供广泛的高性能图像、多模式和文本模型选择。Amazon Titan 模型由 AWS 创建并在大型数据集上进行预训练，使其成为强大的通用模型，旨在支持各种用例，同时还支持负责任地使用 AI。你可以按原样使用，也可以根据自己的数据私下进行自定义。</p>
+  <a href="#%e8%ae%a4%e8%af%86-amazon-titan" class="heading-mark"></a>1 认识 Amazon Titan</h2><p><a href="https://aws.amazon.com/cn/bedrock/titan/"target="_blank" rel="external nofollow noopener noreferrer">Amazon Titan<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 是来自亚马逊云科技的高性能基础模型。<a href="https://aws.amazon.com/cn/bedrock/"target="_blank" rel="external nofollow noopener noreferrer">Amazon Bedrock<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 独有的 Amazon Titan 系列模型融合了 Amazon 25 年来，在其业务范围内积累的人工智能和机器学习创新的经验。Amazon Titan 基础模型（FM）通过完全托管的 API 为客户提供广泛的高性能图像、多模式和文本模型选择。Amazon Titan 模型由 AWS 创建并在大型数据集上进行预训练，使其成为强大的通用模型，旨在支持各种用例，同时还支持负责任地使用 AI。你可以按原样使用，也可以根据自己的数据私下进行自定义。</p>
 <p>Amazon Titan 文本模型系列包括：</p>
 <ul>
 <li>Titan Text Express</li>
@@ -10,7 +10,7 @@
 <li>Titan 多模态嵌入</li>
 <li>Titan Image Generator（预览版）</li>
 </ul>
-<p>本文主要探索一下 Express、Lite 和 Embeddings。更多细节和其他模型请访问 <a href="https://aws.amazon.com/cn/bedrock/titan/text/"target="_blank" rel="external nofollow noopener noreferrer">Amazon Titan 文本模型系列<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>。</p>
+<p>本文主要探索 Express、Lite 和 Embeddings。更多细节和其他模型请访问 <a href="https://aws.amazon.com/cn/bedrock/titan/"target="_blank" rel="external nofollow noopener noreferrer">Amazon Titan 文本模型系列<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>。</p>
 <p>如果你还没有注册亚马逊云科技账户，可以参考本文最后一节 <a href="#register-aws">注册亚马逊云科技账户</a>。</p>
 <h2 id="环境准备" class="heading-element">
   <a href="#%e7%8e%af%e5%a2%83%e5%87%86%e5%a4%87" class="heading-mark"></a>2 环境准备</h2><p>我正在使用配置了 AWS Credential 的 vscode 本地环境。</p>
@@ -304,7 +304,7 @@
 </span></span><span class="line"><span class="cl">[0.40429688, -0.38085938, 0.19726562, &#39;...&#39;, 0.2109375, 0.012573242, 0.18847656]</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="register-aws" class="heading-element">
-  <a href="#register-aws" class="heading-mark"></a>6 注册亚马逊云科技账户</h2><p>打开 <a href="https://aws.amazon.com/cn/free/?sc_channel=seo&amp;sc_campaign=blog0805"target="_blank" rel="external nofollow noopener noreferrer">亚马逊云科技账号注册地址<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>，点击右上角创建 AWS 账户。</p>
+  <a href="#register-aws" class="heading-mark"></a>6 注册亚马逊云科技账户</h2><p>打开 <a href="https://aws.amazon.com/cn/q/?sc_channel=seo&amp;sc_campaign=blog1210"target="_blank" rel="external nofollow noopener noreferrer">亚马逊云科技账号注册地址<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>，点击右上角创建 AWS 账户。</p>
 <p><a class="lightgallery" href="../aws-ec2/images/23_1693042834.png?size=large" data-thumbnail="../aws-ec2/images/23_1693042834.png?size=small" data-sub-html="<h2>创建 AWS 账户</h2>"><img loading="lazy" src="../aws-ec2/images/23_1693042834.png" alt="创建 AWS 账户" srcset="../aws-ec2/images/23_1693042834.png?size=small, ../aws-ec2/images/23_1693042834.png?size=medium 1.5x, ../aws-ec2/images/23_1693042834.png?size=large 2x" sizes="auto" data-title="创建 AWS 账户" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></p>
 <ol>
 <li>填写邮件地址和账号名称（支持使用国内的邮箱）
