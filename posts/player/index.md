@@ -1,11 +1,11 @@
 # 宅音乐播放器
 
 
-> 宅音乐播放器，HTML5 网页播放器，集成后台管理及 API 调用，目前正在开发中，敬请关注~  
-> [原项目](https://github.com/lzx8589561/zhai-music) 由 [IT 技术宅](https://www.ilt.me) 开源，使用 thinkPHP 开发后台。 [fork 地址](https://github.com/Lruihao/zhai-music) 是我个人学习模仿的库，也是相当于备份源码。  
-> _注：插件修改于明月浩空免费版，仅用于学习交流，无商业价值，如发现商业传播，将禁止软件的免费使用。_
+&gt; 宅音乐播放器，HTML5 网页播放器，集成后台管理及 API 调用，目前正在开发中，敬请关注~  
+&gt; [原项目](https://github.com/lzx8589561/zhai-music) 由 [IT 技术宅](https://www.ilt.me) 开源，使用 thinkPHP 开发后台。 [fork 地址](https://github.com/Lruihao/zhai-music) 是我个人学习模仿的库，也是相当于备份源码。  
+&gt; _注：插件修改于明月浩空免费版，仅用于学习交流，无商业价值，如发现商业传播，将禁止软件的免费使用。_
 
-<!--more-->
+&lt;!--more--&gt;
 
 ## 技术栈
 
@@ -15,27 +15,27 @@
 
 ## 演示站
 
-> 已兼容移动端，测试账号仅供测试请勿修改密码！
+&gt; 已兼容移动端，测试账号仅供测试请勿修改密码！
 
 ```text 测试账号
 test
 test123
 ```
 
-- <https://player.ilt.me/>
-- <https://player.lruihao.cn/>
+- &lt;https://player.ilt.me/&gt;
+- &lt;https://player.lruihao.cn/&gt;
 
 ## 安装
 
 ### 视频安装教程
 
-<https://www.bilibili.com/video/av46476706>
+&lt;https://www.bilibili.com/video/av46476706&gt;
 
 ### 依赖
 
 - composer
-- php 5.6+
-- mysql 5.5+
+- php 5.6&#43;
+- mysql 5.5&#43;
 
 ### 步骤
 

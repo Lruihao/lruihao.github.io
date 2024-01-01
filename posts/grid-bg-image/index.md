@@ -13,8 +13,8 @@
 
 在开始之前，我们需要了解一些必要的 CSS 属性和知识点。
 
-- [`linear-gradient`](https://developer.mozilla.org/zh-CN/docs/Web/CSS/gradient/linear-gradient)：CSS **`linear-gradient()`** 函数用于创建一个表示两种或多种颜色线性渐变的图片。其结果属于[`<gradient>`](https://developer.mozilla.org/zh-CN/docs/Web/CSS/gradient)数据类型，是一种特别的[`<image>`](https://developer.mozilla.org/zh-CN/docs/Web/CSS/image)数据类型。
-- [`radial-gradient`](https://developer.mozilla.org/zh-CN/docs/Web/CSS/gradient/radial-gradient)：**`radial-gradient()`** [CSS](https://developer.mozilla.org/zh-CN/docs/Web/CSS) [函数](https://developer.mozilla.org/zh-CN/docs/Web/CSS/CSS_Functions)创建一个图像，该图像由从原点辐射的两种或多种颜色之间的渐进过渡组成。它的形状可以是圆形或椭圆形。函数的结果是 [`<gradient>`](https://developer.mozilla.org/zh-CN/docs/Web/CSS/gradient) 数据类型的对象。这是一种特别的 [`<image>`](https://developer.mozilla.org/zh-CN/docs/Web/CSS/image)。
+- [`linear-gradient`](https://developer.mozilla.org/zh-CN/docs/Web/CSS/gradient/linear-gradient)：CSS **`linear-gradient()`** 函数用于创建一个表示两种或多种颜色线性渐变的图片。其结果属于[`&lt;gradient&gt;`](https://developer.mozilla.org/zh-CN/docs/Web/CSS/gradient)数据类型，是一种特别的[`&lt;image&gt;`](https://developer.mozilla.org/zh-CN/docs/Web/CSS/image)数据类型。
+- [`radial-gradient`](https://developer.mozilla.org/zh-CN/docs/Web/CSS/gradient/radial-gradient)：**`radial-gradient()`** [CSS](https://developer.mozilla.org/zh-CN/docs/Web/CSS) [函数](https://developer.mozilla.org/zh-CN/docs/Web/CSS/CSS_Functions)创建一个图像，该图像由从原点辐射的两种或多种颜色之间的渐进过渡组成。它的形状可以是圆形或椭圆形。函数的结果是 [`&lt;gradient&gt;`](https://developer.mozilla.org/zh-CN/docs/Web/CSS/gradient) 数据类型的对象。这是一种特别的 [`&lt;image&gt;`](https://developer.mozilla.org/zh-CN/docs/Web/CSS/image)。
 - `background-size`
 - `background-repeat`
 - `background-position`
@@ -42,7 +42,7 @@
 
 虚线网格的实现思路需要借助 `::before` 和 `::after` 伪元素，然后还是通过类似实线的思路实现网格线，然后两个伪元素叠加在一起，从而实现虚线网格。
 
-> 未做实例
+&gt; 未做实例
 
 ## 点阵网格
 
@@ -60,7 +60,7 @@
 最后为了实现我在实际开发中的需求，我还需要控制网格宽度为容器的 1/24，这里就需要使用 `calc()` 函数来计算了。
 
 ```css
-/* 背景显示网格辅助线（宽：1/24 高：40+8px） */
+/* 背景显示网格辅助线（宽：1/24 高：40&#43;8px） */
 background-image: linear-gradient(90deg, rgba(60, 10, 30, 0.04) 1px, transparent 0),
   linear-gradient(1turn, rgba(60, 10, 30, 0.04) 1px, transparent 0);
 background-size: calc((100% - 8px) / 24) 48px;
@@ -68,7 +68,7 @@ background-position: 4px 4px;
 ```
 
 ```css
-/* 或者点阵网格辅助线（宽：1/24 高：40+8px） */
+/* 或者点阵网格辅助线（宽：1/24 高：40&#43;8px） */
 background-image: radial-gradient(circle , #5a5a5a .5px, transparent .5px);
 background-size: calc((100% - 8px) / 24) 48px;
 background-position: 24px 24px;
@@ -76,7 +76,7 @@ background-position: 24px 24px;
 
 ## 参考
 
-- [CSS+HTML<网格背景效果>](https://zhuanlan.zhihu.com/p/345973110)
+- [CSS&#43;HTML&lt;网格背景效果&gt;](https://zhuanlan.zhihu.com/p/345973110)
 
 
 ---

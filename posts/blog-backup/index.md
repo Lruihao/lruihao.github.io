@@ -8,7 +8,7 @@
 cd hexo
 git init  //初始化本地仓库
 git add source themes scaffolds _config.yml package.json package-lock.json  //将必要的文件依次添加
-git commit -m "blog hexo"
+git commit -m &#34;blog hexo&#34;
 git branch hexo  //新建 hexo 分支
 git checkout hexo  //切换到 hexo 分支上
 git remote add origin git@github.com:username/username.github.io.git  //将本地与 Github 项目对接
@@ -17,7 +17,7 @@ git push origin hexo  //push 到 Github 项目的 hexo 分支上
 
 ## 在其他终端克隆和更新 hexo 博客
 
-> nodejs,git,hexo 已经安装好，即搭建完成
+&gt; nodejs,git,hexo 已经安装好，即搭建完成
 
 ### 克隆 hexo 博客备份
 
@@ -31,14 +31,14 @@ npm install  //注意，这里一定要切换到刚刚 clone 的文件夹内执�
 
 ### 写新文章并备份和部署（备用操作）
 
-> 其实源码拷下来了，这步不做我们也知道怎么做了，完全没必要按照教程死搬硬套。灵活一点就行了。
+&gt; 其实源码拷下来了，这步不做我们也知道怎么做了，完全没必要按照教程死搬硬套。灵活一点就行了。
 
 ```
 //进入 username.github.io 文件夹，应是 hexo 分支
 git pull origin hexo //本地和远端的融合
-hexo new post "new post name"  //写新文章
+hexo new post &#34;new post name&#34;  //写新文章
 git add source
-git commit -m "xxx"
+git commit -m &#34;xxx&#34;
 git push origin hexo  //备份
 hexo d -g  //部署
 ```

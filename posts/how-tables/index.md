@@ -4,10 +4,10 @@
 并查集求连通域数目，初始化 sum=n；
 题目链接： [how many tables](http://acm.hdu.edu.cn/showproblem.php?pid=1213)
 
-<!--more-->
+&lt;!--more--&gt;
 
 ```cpp
-#include<bits/stdc++.h>
+#include&lt;bits/stdc&#43;&#43;.h&gt;
 using namespace std;
 
 int pre[1005];
@@ -27,14 +27,14 @@ int find(int root){
 
 int main(){
     int n,m,t,sum,root1,root2;
-    cin>>t;
+    cin&gt;&gt;t;
     while(t--){
-        cin>>n>>m;
+        cin&gt;&gt;n&gt;&gt;m;
         sum=n;
-        for(int i=1;i<=n;i++)
+        for(int i=1;i&lt;=n;i&#43;&#43;)
             pre[i]=i;
-        for(int i=0;i<m;i++){
-            cin>>root1>>root2;
+        for(int i=0;i&lt;m;i&#43;&#43;){
+            cin&gt;&gt;root1&gt;&gt;root2;
             int xx=find(root1);
             int yy=find(root2);
             if(xx!=yy){
@@ -42,7 +42,7 @@ int main(){
                 sum--;
             }
         }
-        cout<<sum<<endl;
+        cout&lt;&lt;sum&lt;&lt;endl;
     }
     return 0;
 }

@@ -13,13 +13,13 @@ Accepted: 30423
 ## Input
 
 输入含有多组测试数据。  
-每组数据的第一行是两个正整数，n k，用一个空格隔开，表示了将在一个 n \* n 的矩阵内描述棋盘，以及摆放棋子的数目。n <= 8 , k <= n  
+每组数据的第一行是两个正整数，n k，用一个空格隔开，表示了将在一个 n \* n 的矩阵内描述棋盘，以及摆放棋子的数目。n &lt;= 8 , k &lt;= n  
 当为 -1 -1 时表示输入结束。  
 随后的 n 行描述了棋盘的形状：每行有 n 个字符，其中 # 表示棋盘区域， . 表示空白区域（数据保证不出现多余的空白行或者空白列）。
 
 ## Output
 
-对于每一组数据，给出一行输出，输出摆放的方案数目 C（数据保证 C<2^31）。
+对于每一组数据，给出一行输出，输出摆放的方案数目 C（数据保证 C&lt;2^31）。
 
 ## Sample Input
 
@@ -61,13 +61,13 @@ Accepted: 30423
 
 ## AC 代码
 
-<!-- markdownlint-disable code-block-style -->
+&lt;!-- markdownlint-disable code-block-style --&gt;
 
 ```cpp
-#include<iostream>
-#include<cstdio>
-#include<cstring>
-#include<algorithm>
+#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;algorithm&gt;
 using namespace std;
 char mp[8][8];
 int v[8];
@@ -76,36 +76,36 @@ void dfs(int x)//逐行深搜，x 为当前搜索行
 {
     if(w==k)//下子数 w
     {
-        r++;return;
+        r&#43;&#43;;return;
     }
     if(x==n)return;
-    for(int i=0;i<n;i++)
+    for(int i=0;i&lt;n;i&#43;&#43;)
     {
-        if(v[i]!=1&&mp[x][i]=='#')
+        if(v[i]!=1&amp;&amp;mp[x][i]==&#39;#&#39;)
         {
             v[i]=1;
-            w++;
-            dfs(x+1);
+            w&#43;&#43;;
+            dfs(x&#43;1);
             w--;
             v[i]=0;
         }
     }
-    dfs(x+1);//搜索下一行
+    dfs(x&#43;1);//搜索下一行
 }
 
 int main()
 {
-    while(cin>>n>>k)
+    while(cin&gt;&gt;n&gt;&gt;k)
     {
-        if(n==-1&&k==-1)
+        if(n==-1&amp;&amp;k==-1)
             return 0;
         memset(mp,0,sizeof(mp));
         memset(v,0,sizeof(v));
-        for(int i=0;i<n;i++)
-            cin>>mp[i];
+        for(int i=0;i&lt;n;i&#43;&#43;)
+            cin&gt;&gt;mp[i];
         w=0;r=0;
         dfs(0);
-        cout<<r<<endl;
+        cout&lt;&lt;r&lt;&lt;endl;
     }
 }
 ```

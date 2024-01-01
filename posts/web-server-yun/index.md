@@ -54,7 +54,7 @@
 ```
 ServerAdmin 管理员邮箱，用于浏览器请求报错时展示
 DocumentRoot 访问根目录（默认：/var/www/html），如项目存放在其他地方，可修改为项目存放位置
-<Directory "/var/www/html"> 同 DocumentRoot 配置
+&lt;Directory &#34;/var/www/html&#34;&gt; 同 DocumentRoot 配置
 ServerName 服务器 IP 或 域名
 ```
 

@@ -9,11 +9,11 @@
 
 首先在地图上给你若干个城镇，这些城镇都可以看作点，然后告诉你哪些对城镇之间是有道路直接相连的。最后要解决的是整幅图的连通性问题。比如随意给你两个点，让你判断它们是否连通，或者问你整幅图一共有几个连通分支，也就是被分成了几个互相独立的块。像畅通工程这题，问还需要修几条路，实质就是求有几个连通分支。
 
-<!--more-->
+&lt;!--more--&gt;
 
 ```cpp
-#include<iostream>
-#include<cstdio>
+#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
 using namespace std;
 int pre[1010];
 
@@ -32,13 +32,13 @@ int findd(int root){
 
 int main(){
     int n,m,i,sum,r1,r2,star,end1;
-    while(scanf("%d",&n)&&n){
+    while(scanf(&#34;%d&#34;,&amp;n)&amp;&amp;n){
         sum=n-1;
-        for(i=1;i<=n;i++)
+        for(i=1;i&lt;=n;i&#43;&#43;)
             pre[i]=i;
-        scanf("%d",&m);
+        scanf(&#34;%d&#34;,&amp;m);
         while(m--){
-            scanf("%d%d",&star,&end1);
+            scanf(&#34;%d%d&#34;,&amp;star,&amp;end1);
             r1=findd(star);
             r2=findd(end1);
             if(r1!=r2){
@@ -46,7 +46,7 @@ int main(){
                 sum--;
             }
         }
-        printf("%d\n",sum);
+        printf(&#34;%d\n&#34;,sum);
     }
  return 0;
 }

@@ -12,10 +12,10 @@
 2. 警察所住城市的左边和右边位置若**都**不为 0，则说明两座城市都有罪犯（只有一边为 1 是不能确定到底哪个城市有罪犯的）
 3. 警察所在城市的一边检测到有罪犯，但在另一边已经没有城市了，则说明该城市一定有罪犯
 
-<!--more-->
+&lt;!--more--&gt;
 
 ```cpp
-#include<bits/stdc++.h>
+#include&lt;bits/stdc&#43;&#43;.h&gt;
 using namespace std;
 
 int t[107];
@@ -23,26 +23,26 @@ int t[107];
 int main()
 {
   int n, a;
-  while(cin>>n>>a){
+  while(cin&gt;&gt;n&gt;&gt;a){
     int sum = 0;
-    for(int i =1; i <= n; i++)
-      cin >> t[i];
-    if(t[a]) sum++;//小熊所在城市有罪犯
-    for(int i = 1; i <= n; i++){
-      if(a-i > 0&&a+i <= n) {
-        if(t[a-i] == 1&&t[a+i] == 1)
-          sum+=2;
+    for(int i =1; i &lt;= n; i&#43;&#43;)
+      cin &gt;&gt; t[i];
+    if(t[a]) sum&#43;&#43;;//小熊所在城市有罪犯
+    for(int i = 1; i &lt;= n; i&#43;&#43;){
+      if(a-i &gt; 0&amp;&amp;a&#43;i &lt;= n) {
+        if(t[a-i] == 1&amp;&amp;t[a&#43;i] == 1)
+          sum&#43;=2;
       }
-      else if(a-i <= 0&&a+i <= n){//警察在第一个点
-        if(t[a+i])
-          sum++;
+      else if(a-i &lt;= 0&amp;&amp;a&#43;i &lt;= n){//警察在第一个点
+        if(t[a&#43;i])
+          sum&#43;&#43;;
       }
-      else if(a-i > 0&&a+i > n){
+      else if(a-i &gt; 0&amp;&amp;a&#43;i &gt; n){
         if(t[a-i])
-          sum++;
+          sum&#43;&#43;;
       }
     }
-    cout <<sum<<endl;
+    cout &lt;&lt;sum&lt;&lt;endl;
   }
   return 0;
 }

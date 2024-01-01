@@ -5,7 +5,7 @@
 如和找到从起点到终点的最短路径？利用 BFS 搜索，逐步计算出每个节点到起点的最短距离，  
 以及最短路径每个节点的前一个节点。最终将生成一颗以起点为根的 BFS 树。此时 BFS 可以求出任意一点到起点的距离。
 
-<!--more-->
+&lt;!--more--&gt;
 
 ## 图
 
@@ -34,13 +34,13 @@
 ## 代码
 
 ```cpp
-#include<iostream>
-#include<queue>
-#include<cstdio>
-#include<cstring>
-#include<vector>
+#include&lt;iostream&gt;
+#include&lt;queue&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;vector&gt;
 using namespace std;
-const int maxn=100+5;
+const int maxn=100&#43;5;
 
 int G[maxn][maxn];   //存图的 d=id
 int path[maxn];      //存每个节点的父节点，即路径
@@ -67,17 +67,17 @@ struct node
 
 int main()
 {
-    //freopen("in.txt","r",stdin);
+    //freopen(&#34;in.txt&#34;,&#34;r&#34;,stdin);
     memset(G,0,sizeof(G));
     memset(vis,0,sizeof(vis));
     memset(path,0,sizeof(path));
-    cin>>n>>m;
-    for(int i=1; i<=n; i++)
-        for(int j=1; j<=m; j++)
+    cin&gt;&gt;n&gt;&gt;m;
+    for(int i=1; i&lt;=n; i&#43;&#43;)
+        for(int j=1; j&lt;=m; j&#43;&#43;)
         {
-            cin>>G[i][j];
+            cin&gt;&gt;G[i][j];
         }
-    queue<node> q;
+    queue&lt;node&gt; q;
     node v=node(1,1,1);
     q.push(v);
     vis[1][1]=1;
@@ -86,23 +86,23 @@ int main()
         node u=q.front();
         q.pop();
         path[u.id]=u.parent;//记录每个点的父节点
-        for(int i=0; i<4; i++)
+        for(int i=0; i&lt;4; i&#43;&#43;)
         {
-            int tx=u.x+vx[i];
-            int ty=u.y+vy[i];
-            if(G[tx][ty]&&!vis[tx][ty])//有路可走且未访问
+            int tx=u.x&#43;vx[i];
+            int ty=u.y&#43;vy[i];
+            if(G[tx][ty]&amp;&amp;!vis[tx][ty])//有路可走且未访问
             {
                 vis[tx][ty]=1;
-                //cout<<tx<<ty<<endl;
-                node v=node(tx,ty,++k);
+                //cout&lt;&lt;tx&lt;&lt;ty&lt;&lt;endl;
+                node v=node(tx,ty,&#43;&#43;k);
                 end_num=k;
                 v.parent=u.id;
                 q.push(v);
             }
         }
     }
-    vector<int> ans;
-    //cout<<end_num<<endl;
+    vector&lt;int&gt; ans;
+    //cout&lt;&lt;end_num&lt;&lt;endl;
     while(end_num)//从后面开始找父亲节点
     {
         ans.push_back(end_num);
@@ -111,11 +111,11 @@ int main()
     int s=0;
     while(!ans.empty())
     {
-        s++;
-        cout<<*(ans.end()-1)<<' ';//ans 最后一个元素是 0
+        s&#43;&#43;;
+        cout&lt;&lt;*(ans.end()-1)&lt;&lt;&#39; &#39;;//ans 最后一个元素是 0
         ans.pop_back();
     }
-    cout<<endl<<s-1;
+    cout&lt;&lt;endl&lt;&lt;s-1;
     return 0;
 }
 ```

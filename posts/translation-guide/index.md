@@ -1,26 +1,26 @@
 # 中文翻译的常见问题
 
 
-> 以下内容截取自 [针对 MDN 文档的本地化指南](https://github.com/mdn/translated-content/blob/main/docs/zh-cn/translation-guide.md) 的中文翻译的常见问题小节。
->
-> 其中翻译的规范也是中文写作的规范，更多详见之前写的 [中文技术文档的写作规范](/posts/document-style-guide/)。
+&gt; 以下内容截取自 [针对 MDN 文档的本地化指南](https://github.com/mdn/translated-content/blob/main/docs/zh-cn/translation-guide.md) 的中文翻译的常见问题小节。
+&gt;
+&gt; 其中翻译的规范也是中文写作的规范，更多详见之前写的 [中文技术文档的写作规范](/posts/document-style-guide/)。
 
 为保证简体中文文档格式的一致性，翻译指南列出了部分规范。
 
-<!--more-->
+&lt;!--more--&gt;
 
 ## 标点符号
 
 除了代码中使用的符号以及一些特殊情况外，请将英文（半角）符号替换成中文（大部分为全角）符号。
 
-> 但请注意，请不要使用**全角数字**（特殊情况除外）。
+&gt; 但请注意，请不要使用**全角数字**（特殊情况除外）。
 
 示例如下：
 
 - 正确：`我们可以学习 JavaScript——一种很酷的语言`
 - 错误：`我们可以学习 JavaScript--一种很酷的语言`
 - 正确：`以下示例是“可交互的”`
-- 错误：`以下示例是"可交互的"`
+- 错误：`以下示例是&#34;可交互的&#34;`
 
 另外，请注意并列的词语间应使用顿号而非逗号：
 
@@ -30,16 +30,16 @@
 
 ### 常见中/英文标点
 
-<!-- markdownlint-disable search-replace -->
+&lt;!-- markdownlint-disable search-replace --&gt;
 
 | 名称   | 中文 | 英文    |
 | ------ | ---- | ------- |
 | 括号   | （） | ()      |
 | 冒号   | ：   | :       |
-| 引号   | “”   | ""      |
+| 引号   | “”   | &#34;&#34;      |
 | 破折号 | ——   | -- 、 — |
 
-<!-- markdownlint-enable search-replace -->
+&lt;!-- markdownlint-enable search-replace --&gt;
 
 简体中文标点符号参考资源：
 
@@ -96,11 +96,11 @@ Like this.
 
 ## 代名词
 
-<!-- markdownlint-disable search-replace -->
+&lt;!-- markdownlint-disable search-replace --&gt;
 
 我们无需将“you”翻译为“您”，在文档正文部分的翻译中，请统一使用“你”。
 
-<!-- markdownlint-enable search-replace -->
+&lt;!-- markdownlint-enable search-replace --&gt;
 
 ## 复数形式
 

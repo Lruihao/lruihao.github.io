@@ -1,31 +1,31 @@
 # 用 MyQR 制作专属动态二维码 (py 和 exe 版本）
 
 
-> **Python 二维码生成器**是 github 上@sylnsfar 开源的一个 python 生成二维码工具。有 python, 网页及 exe 版本，详见 [sylnsfar/qrcode](https://github.com/sylnsfar/qrcode/)，本文主要介绍记录一下 python 版本使用。exe 可以去 [项目开源地址](https://github.com/sylnsfar/qrcode_win) 下载，公众号文章后台回复关键词“qrcode”获取链接。
+&gt; **Python 二维码生成器**是 github 上@sylnsfar 开源的一个 python 生成二维码工具。有 python, 网页及 exe 版本，详见 [sylnsfar/qrcode](https://github.com/sylnsfar/qrcode/)，本文主要介绍记录一下 python 版本使用。exe 可以去 [项目开源地址](https://github.com/sylnsfar/qrcode_win) 下载，公众号文章后台回复关键词“qrcode”获取链接。
 
 可生成_普通二维码_、_带图片的艺术二维码（黑白与彩色）_、_动态二维码（黑白与彩色）_。
 
-<!--more-->
+&lt;!--more--&gt;
 
 ## 示例
 
-<!-- markdownlint-disable MD033 -->
+&lt;!-- markdownlint-disable MD033 --&gt;
 
-<div class="text-center">
+&lt;div class=&#34;text-center&#34;&gt;
 
 ![1](images/1.gif)
 ![2](images/2.png)
 
-</div>
+&lt;/div&gt;
 
 ```python
 from MyQR import myqr
 import os
 version, level, qr_name = myqr.run(
-    words='https://lruihao.cn',
+    words=&#39;https://lruihao.cn&#39;,
     version=1,
-    level='H',
-    picture='2.jpg',
+    level=&#39;H&#39;,
+    picture=&#39;2.jpg&#39;,
     colorized=True,
     contrast=1.0,
     brightness=1.0,
@@ -35,20 +35,20 @@ version, level, qr_name = myqr.run(
 
 # help(myqr)
 # https://github.com/sylnsfar/qrcode/
-'''
+&#39;&#39;&#39;
 Positional parameter
    words: str # 链接或者文字
 
 Optional parameters
    version: int, from 1 to 40  # 控制边长
-   level: str, just one of ('L','M','Q','H') # 控制纠错水平，从左到右依次升高。
+   level: str, just one of (&#39;L&#39;,&#39;M&#39;,&#39;Q&#39;,&#39;H&#39;) # 控制纠错水平，从左到右依次升高。
    picutre: str, a filename of a image # 图片，需在同路径，默认 None
    colorized: bool  # 是否彩色 默认 False
    constrast: float # 对比度 默认 1.0
    brightness: float # 亮度 默认 1.0
-   save_name: str, the output filename like 'example.png' #控制文件名，默认 None,'qrcode.png'
+   save_name: str, the output filename like &#39;example.png&#39; #控制文件名，默认 None,&#39;qrcode.png&#39;
    save_dir: str, the output directory # 储存路径
-'''
+&#39;&#39;&#39;
 ```
 
 ## 安装
@@ -110,7 +110,7 @@ myqr https://github.com -v 10 -l Q
 myqr https://github.com -n github_qr.jpg -d .../paths/
 ```
 
-- **默认输出文件名**是“qrcode.png "，而**默认存储位置**是当前目录。
+- **默认输出文件名**是“qrcode.png &#34;，而**默认存储位置**是当前目录。
 
 - 自定义：可以自己定义输出名称和位置。**注意**同名文件会覆盖旧的。
 
@@ -155,7 +155,7 @@ from MyQR import myqr
 version, level, qr_name = myqr.run(
   words,
     version=1,
-    level='H',
+    level=&#39;H&#39;,
     picture=None,
     colorized=False,
     contrast=1.0,
@@ -174,12 +174,12 @@ Positional parameter
 
 Optional parameters
    version: int, from 1 to 40
-   level: str, just one of ('L','M','Q','H')
+   level: str, just one of (&#39;L&#39;,&#39;M&#39;,&#39;Q&#39;,&#39;H&#39;)
    picutre: str, a filename of a image
    colorized: bool
    constrast: float
    brightness: float
-   save_name: str, the output filename like 'example.png'
+   save_name: str, the output filename like &#39;example.png&#39;
    save_dir: str, the output directory
 ```
 
@@ -198,7 +198,7 @@ Optional parameters
 - 常用**英文标点符号**和空格
 
   ```console
-  · , . : ; + - * / \ ~ ! @ # $ % ^ & ` ' = < > [ ] ( ) ? _ { } | and  (space)
+  · , . : ; &#43; - * / \ ~ ! @ # $ % ^ &amp; ` &#39; = &lt; &gt; [ ] ( ) ? _ { } | and  (space)
   ```
 
 ## 依赖库

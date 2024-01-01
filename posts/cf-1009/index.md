@@ -6,31 +6,31 @@
 ## [A. Game Shopping](https://codeforces.com/contest/1009/problem/A)
 
 ```cpp
-#include<iostream>
+#include&lt;iostream&gt;
 using namespace std;
 
 int main(){
     int n,m,s=0;
-    cin>>n>>m;
+    cin&gt;&gt;n&gt;&gt;m;
     int i,j;
     int c[1000],a[1000];
-    for(i=0;i<n;i++)
-        cin>>c[i];
-    for(i=0;i<m;i++)
-        cin>>a[i];
-    for(i=0,j=0;i<n;){
+    for(i=0;i&lt;n;i&#43;&#43;)
+        cin&gt;&gt;c[i];
+    for(i=0;i&lt;m;i&#43;&#43;)
+        cin&gt;&gt;a[i];
+    for(i=0,j=0;i&lt;n;){
         if(j==m)
             break;
-        if(c[i]<=a[j]){
-            s++;
-            j++;
-            i++;
+        if(c[i]&lt;=a[j]){
+            s&#43;&#43;;
+            j&#43;&#43;;
+            i&#43;&#43;;
         }
-        else i++;
+        else i&#43;&#43;;
     }
-    if(i==n&&s==0)
-        cout<<"0\n";
-    else cout<<s<<endl;
+    if(i==n&amp;&amp;s==0)
+        cout&lt;&lt;&#34;0\n&#34;;
+    else cout&lt;&lt;s&lt;&lt;endl;
     return 0;
 }
 
@@ -39,25 +39,25 @@ int main(){
 ## [B. Minimum Ternary String](https://codeforces.com/contest/1009/problem/B)
 
 ```cpp
-#include <bits/stdc++.h>
+#include &lt;bits/stdc&#43;&#43;.h&gt;
 using namespace std;
 
 string s, ans;
 
 int main(){
-    cin >> s;
+    cin &gt;&gt; s;
     int one = 0;
-    for (int i = 0; i < s.size(); i++){
-        if (s[i] == '0') ans += "0";
-        if (s[i] == '1') one++;
-        if (s[i] == '2') ans += "2";
+    for (int i = 0; i &lt; s.size(); i&#43;&#43;){
+        if (s[i] == &#39;0&#39;) ans &#43;= &#34;0&#34;;
+        if (s[i] == &#39;1&#39;) one&#43;&#43;;
+        if (s[i] == &#39;2&#39;) ans &#43;= &#34;2&#34;;
     }
     bool flag = false;
-    for (int i = 0; i < ans.size(); i++){
-        if (ans[i] == '2' && !flag) flag = true, cout << string(one, '1');
-        cout << ans[i];
+    for (int i = 0; i &lt; ans.size(); i&#43;&#43;){
+        if (ans[i] == &#39;2&#39; &amp;&amp; !flag) flag = true, cout &lt;&lt; string(one, &#39;1&#39;);
+        cout &lt;&lt; ans[i];
     }
-    if (!flag) cout << string(one, '1');
+    if (!flag) cout &lt;&lt; string(one, &#39;1&#39;);
     return 0;
 }
 

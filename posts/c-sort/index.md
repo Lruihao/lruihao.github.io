@@ -1,21 +1,21 @@
 # sort 排序
 
 
-sort 使用`#include<algorithm>`头文件，
+sort 使用`#include&lt;algorithm&gt;`头文件，
 
 sort（开始地址，结束地址，排序方式），其中第三参数可以没有，则默认为升序排序。
 
 或者简单的用
-`less<参数类型>()`表示升序
+`less&lt;参数类型&gt;()`表示升序
 
-`greater<参数类型>()`表示降序
+`greater&lt;参数类型&gt;()`表示降序
 
 也可以用一个 bool 型函数，比如：
 
 ```cpp
 bool cmp(int a,int b){
 
-       return a>b;//表从大到小，即降序
+       return a&gt;b;//表从大到小，即降序
 
 }
 ```
@@ -45,11 +45,11 @@ bool cmp(node x,node y)
 
 {
 
-if(x.a!=y.a) return x.a<y.a;
+if(x.a!=y.a) return x.a&lt;y.a;
 
-if(x.b!=y.b) return x.b>y.b;
+if(x.b!=y.b) return x.b&gt;y.b;
 
-return x.c>y.c;
+return x.c&gt;y.c;
 
 }
 ```
@@ -59,9 +59,9 @@ sort() 函数是完全通用的，你可以用它来操作几乎任何数据集�
 实例：先降序再升序
 
 ```c
-#include<iostream>
+#include&lt;iostream&gt;
 
-#include<algorithm>
+#include&lt;algorithm&gt;
 
 using namespace std;
 
@@ -75,9 +75,9 @@ typedef struct data{
 
 bool cmp(date a,date b){
 
-    if(a.b!=b.b) return a.b>b.b;
+    if(a.b!=b.b) return a.b&gt;b.b;
 
-    return a.a<b.a;
+    return a.a&lt;b.a;
 
 }
 
@@ -85,20 +85,20 @@ int main(){
 
     date a[3]={{5,56.5},{4,56.5},{8,85}};
 
-    sort(a,a+3,cmp);
+    sort(a,a&#43;3,cmp);
 
-    for(int i=0;i<3;i++)
+    for(int i=0;i&lt;3;i&#43;&#43;)
 
-        cout<<a[i].a<<"-"<<a[i].b<<endl;
+        cout&lt;&lt;a[i].a&lt;&lt;&#34;-&#34;&lt;&lt;a[i].b&lt;&lt;endl;
 
-    cout<<endl;
+    cout&lt;&lt;endl;
 
     return 0;
 
 }
 ```
 
-[传送门](https://weibo.com/ttarticle/p/show?id=2309404237869425234111&mod=zwenzhang)
+[传送门](https://weibo.com/ttarticle/p/show?id=2309404237869425234111&amp;mod=zwenzhang)
 
 
 ---

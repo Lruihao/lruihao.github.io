@@ -1,9 +1,9 @@
 # java 实现一个单线程的资源下载器
 
 
-> 实现一个简单的基于单线程的资源下载器，如图所示，用户可以任意指定下载资源的链接地址，系统根据该地址判断资源是否存在，如果存在，则将该资源下载到本地。
+&gt; 实现一个简单的基于单线程的资源下载器，如图所示，用户可以任意指定下载资源的链接地址，系统根据该地址判断资源是否存在，如果存在，则将该资源下载到本地。
 
-<!--more-->
+&lt;!--more--&gt;
 
 ## GUI 设计基本流程
 
@@ -39,16 +39,16 @@ import javax.swing.JTextField;
 
 public class SingleThreadDown extends JFrame implements ActionListener {
   private final JPanel panel=new JPanel();
-  private final JLabel label1=new JLabel("网络资源的单线程下载：");
-  private final JLabel label2=new JLabel("网络资源的网址：");
-  JButton StartButton = new JButton("单击开始下载");
-  JButton resetButton = new JButton("清空");
-  JButton exitButton = new JButton("退出");
+  private final JLabel label1=new JLabel(&#34;网络资源的单线程下载：&#34;);
+  private final JLabel label2=new JLabel(&#34;网络资源的网址：&#34;);
+  JButton StartButton = new JButton(&#34;单击开始下载&#34;);
+  JButton resetButton = new JButton(&#34;清空&#34;);
+  JButton exitButton = new JButton(&#34;退出&#34;);
   JTextField urlField  = new JTextField(20);
 
   public SingleThreadDown() {
     panel.setLayout(new FlowLayout()); //布局管理器
-    label1.setFont(new Font("雅黑",Font.BOLD,15));
+    label1.setFont(new Font(&#34;雅黑&#34;,Font.BOLD,15));
     panel.add(label1);
     panel.add(label2);
     panel.add(urlField);
@@ -71,9 +71,9 @@ public class SingleThreadDown extends JFrame implements ActionListener {
     urlcon.connect();
     InputStream in=urlcon.getInputStream();//获取的字节流对象
     String filePath = url.getFile();
-    int pos=filePath.lastIndexOf("/"); //"/"分割的最后一个串的下标
-    String fileName = filePath.substring(pos+1);
-    FileOutputStream out = new FileOutputStream("C:\\Users\\李瑞豪、\Desktop\\"+fileName);
+    int pos=filePath.lastIndexOf(&#34;/&#34;); //&#34;/&#34;分割的最后一个串的下标
+    String fileName = filePath.substring(pos&#43;1);
+    FileOutputStream out = new FileOutputStream(&#34;C:\\Users\\李瑞豪、\Desktop\\&#34;&#43;fileName);
     byte[] b = new byte[1024];
     int len=0;
     while((len=in.read(b,0,1024))!=-1) {
@@ -81,24 +81,24 @@ public class SingleThreadDown extends JFrame implements ActionListener {
     }
     out.close();
     in.close();
-    JOptionPane.showMessageDialog(this, "下载完毕");
+    JOptionPane.showMessageDialog(this, &#34;下载完毕&#34;);
   }
 
   @Override
   public void actionPerformed(ActionEvent e) {
     if(e.getSource()==StartButton) {
-      if("".equals(urlField.getText())){
-        JOptionPane.showMessageDialog(this, "请输入资源地址");
+      if(&#34;&#34;.equals(urlField.getText())){
+        JOptionPane.showMessageDialog(this, &#34;请输入资源地址&#34;);
       }
       String url = urlField.getText();
       try {
         download(url);
       } catch (Exception e1) {
-        JOptionPane.showMessageDialog(this, "资源地址有误，请检查~");
+        JOptionPane.showMessageDialog(this, &#34;资源地址有误，请检查~&#34;);
         e1.printStackTrace();
       }
     }else if(e.getSource()==resetButton) {
-      urlField.setText("");
+      urlField.setText(&#34;&#34;);
     }else {
       System.exit(0);
     }

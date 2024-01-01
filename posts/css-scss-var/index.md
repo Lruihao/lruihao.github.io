@@ -9,11 +9,11 @@
 
 知道造成问题的原因后，解决这个问题就很简单了，有很多种方法，有些方法感觉像在卡 BUG，有点意思，记录一下。
 
-<!--more-->
+&lt;!--more--&gt;
 
 ## 奇思淫技
 
-1. 由于 **Scss 区分大小写而 CSS 不区分**，所以为了不让 Scss 中的函数覆盖 CSS 的函数，我们可以使用除了 `max` 以外的 2<sup>3</sup> - 1 种写法，这样就能使用原生 CSS 的 `max` 函数来比较了，就不会报错了。
+1. 由于 **Scss 区分大小写而 CSS 不区分**，所以为了不让 Scss 中的函数覆盖 CSS 的函数，我们可以使用除了 `max` 以外的 2&lt;sup&gt;3&lt;/sup&gt; - 1 种写法，这样就能使用原生 CSS 的 `max` 函数来比较了，就不会报错了。
 
    ```scss
    .foo {
@@ -35,7 +35,7 @@
 
    ```scss
    .foo {
-     padding-left: unquote('max(10vh, #{$header-height})');
+     padding-left: unquote(&#39;max(10vh, #{$header-height})&#39;);
    }
    ```
 

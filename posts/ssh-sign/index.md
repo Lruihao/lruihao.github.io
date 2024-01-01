@@ -3,7 +3,7 @@
 
 Git 支持使用 GPG 来签名提交记录。但 GPG 用起来很复杂，一直赖得搞。Git 从 2.34 开始支持使用 SSH 签名，所以本文将介绍如何使用 SSH 对提交进行签名。
 
-<!--more-->
+&lt;!--more--&gt;
 
 ## 操作步骤
 
@@ -11,7 +11,7 @@ Git 支持使用 GPG 来签名提交记录。但 GPG 用起来很复杂，一直
 
 GitHub 使用 [ssh_data](https://github.com/github/ssh_data)（一种开放源代码 Ruby 库）来确认本地签名的提交和标记是否根据在 GitHub.com 上添加到帐户的公钥进行加密验证。
 
-> 注意：SSH 签名验证可用于 Git 2.34 或更高版本。若要更新 Git 版本，请参阅 [Git](https://git-scm.com/downloads) 网站。
+&gt; 注意：SSH 签名验证可用于 Git 2.34 或更高版本。若要更新 Git 版本，请参阅 [Git](https://git-scm.com/downloads) 网站。
 
 要使用 SSH 对提交签名并在 GitHub 上验证这些提交，请执行以下步骤：
 
@@ -41,45 +41,45 @@ GitHub 使用 [ssh_data](https://github.com/github/ssh_data)（一种开放源�
 
 ## 生成新的 SSH 密钥
 
-{{< admonition >}}
+{{&lt; admonition &gt;}}
 注意：GitHub 通过在 2022 年 3 月 15 日删除旧的、不安全的密钥类型来提高安全性。
 
 自该日期起，不再支持 DSA 密钥 (`ssh-dss`)。无法在 GitHub.com 上向个人帐户添加新的 DSA 密钥。
 
 2021 年 11 月 2 日之前带有 `valid_after` 的 RSA 密钥 (`ssh-rsa`) 可以继续使用任何签名算法。在该日期之后生成的 RSA 密钥必须使用 SHA-2 签名算法。一些较旧的客户端可能需要升级才能使用 SHA-2 签名。
-{{< /admonition >}}
+{{&lt; /admonition &gt;}}
 
 1. 打开终端。
 
 2. 粘贴下面的文本（替换为你的 GitHub 电子邮件地址）。
 
    ```shell
-   ssh-keygen -t ed25519 -C "your_email@example.com"
+   ssh-keygen -t ed25519 -C &#34;your_email@example.com&#34;
    ```
 
    注意：如果你使用的是不支持 Ed25519 算法的旧系统，请使用以下命令：
 
    ```shell
-   ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
+   ssh-keygen -t rsa -b 4096 -C &#34;your_email@example.com&#34;
    ```
 
    这将以提供的电子邮件地址为标签创建新 SSH 密钥。
 
    ```shell
-   > Generating public/private ALGORITHM key pair.
+   &gt; Generating public/private ALGORITHM key pair.
    ```
 
    当系统提示你“Enter a file in which to save the key（输入要保存密钥的文件）”时，可以按 Enter 键接受默认文件位置。请注意，如果以前创建了 SSH 密钥，则 ssh-keygen 可能会要求重写另一个密钥，在这种情况下，我们建议创建自定义命名的 SSH 密钥。为此，请键入默认文件位置，并将 id_ssh_keyname 替换为自定义密钥名称。
 
    ```shell
-   > Enter a file in which to save the key (/Users/YOU/.ssh/id_ALGORITHM): [Press enter]
+   &gt; Enter a file in which to save the key (/Users/YOU/.ssh/id_ALGORITHM): [Press enter]
    ```
 
 3. 在提示符下，键入安全密码。有关详细信息，请参阅“[使用 SSH 密钥密码](https://docs.github.com/zh/authentication/connecting-to-github-with-ssh/working-with-ssh-key-passphrases)”。
 
    ```shell
-   > Enter passphrase (empty for no passphrase): [Type a passphrase]
-   > Enter same passphrase again: [Type passphrase again]
+   &gt; Enter passphrase (empty for no passphrase): [Type a passphrase]
+   &gt; Enter same passphrase again: [Type passphrase again]
    ```
 
 更多请查看 [生成新的 SSH 密钥](https://docs.github.com/zh/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent)。
@@ -109,7 +109,7 @@ GitHub 使用 [ssh_data](https://github.com/github/ssh_data)（一种开放源�
 
 ```bash
 # Creates a signed commit
-git commit -S -m "YOUR_COMMIT_MESSAGE"
+git commit -S -m &#34;YOUR_COMMIT_MESSAGE&#34;
 ```
 
 若要将 Git 客户端配置为默认对本地存储库的提交进行签名，请在 Git 版本 2.0.0 及更高版本中，运行：
@@ -168,18 +168,18 @@ touch ~/.config/git/allowed_signers
 例如，可以将 `~/.ssh/id_ed25519.pub` 公钥复制然后粘贴：
 
 ```bash
-pbcopy < ~/.ssh/id_ed25519.pub
+pbcopy &lt; ~/.ssh/id_ed25519.pub
 open ~/.config/git/allowed_signers
 ```
 
 ```plain
-Cell ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIE5bRSsXZ5HnUkMMEWS5/jxEQaqbLb+i6xjMyC6qiXsb xxx@xxx.com
+Cell ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIE5bRSsXZ5HnUkMMEWS5/jxEQaqbLb&#43;i6xjMyC6qiXsb xxx@xxx.com
 ```
 
 将可信公钥列表文件路径添加到 Git 配置中：
 
 ```bash
-git config --global gpg.ssh.allowedSignersFile "~/.config/git/allowed_signers"
+git config --global gpg.ssh.allowedSignersFile &#34;~/.config/git/allowed_signers&#34;
 ```
 
 本地查看提交日志签名状况：

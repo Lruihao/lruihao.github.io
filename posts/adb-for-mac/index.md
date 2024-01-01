@@ -4,7 +4,7 @@
 作为非安卓专业开发，无需下载 Android SDK，  
 仅下载 Android SDK 中的 [platform-tools](https://developer.android.com/studio/releases/platform-tools?hl=zh-cn) 命令行工具即可，并配置好环境变量。
 
-<!--more-->
+&lt;!--more--&gt;
 
 ## 安装
 

@@ -1,24 +1,24 @@
-# ubuntu + windows 双系统默认启动项设置
+# ubuntu &#43; windows 双系统默认启动项设置
 
 
-> 双系统默认启动项是 Ubuntu，而日常使用最多的还是 Windows，所以说很不方便，一不小心就开机到 Ubuntu 去了。今天来设置一下。
+&gt; 双系统默认启动项是 Ubuntu，而日常使用最多的还是 Windows，所以说很不方便，一不小心就开机到 Ubuntu 去了。今天来设置一下。
 
-<!--more-->
+&lt;!--more--&gt;
 
 ## 修改`/etc/default/grub`文件
 
-> 同时按住键盘上的“Ctrl Alt T”三个键（即快捷键“Ctrl+Alt+T”），打开终端窗口。在终端内输入 sudo gedit /etc/default/grub 按 Enter 键确认，提示输入用户密码，输入的用户密码是看不见的，不要管它，输入完成确认即可打开 grub 文件。
+&gt; 同时按住键盘上的“Ctrl Alt T”三个键（即快捷键“Ctrl&#43;Alt&#43;T”），打开终端窗口。在终端内输入 sudo gedit /etc/default/grub 按 Enter 键确认，提示输入用户密码，输入的用户密码是看不见的，不要管它，输入完成确认即可打开 grub 文件。
 
 ![1](images/1.png)
 
-> 把 grub 文件中的 `GRUB_DEFAULT=0` 中的 0 改为 `saved`, 把 `GRUB_TIMEOUT=10` 中的 10 改为 5。（这里的 5 表示开机时等待选择操作系统是时间是 5 秒）
-> 在文件末尾添加 `GRUB_SAVEDEFAULT=true`后保存文件并退出。
+&gt; 把 grub 文件中的 `GRUB_DEFAULT=0` 中的 0 改为 `saved`, 把 `GRUB_TIMEOUT=10` 中的 10 改为 5。（这里的 5 表示开机时等待选择操作系统是时间是 5 秒）
+&gt; 在文件末尾添加 `GRUB_SAVEDEFAULT=true`后保存文件并退出。
 
 ![2](images/2.png)
 
 ## 更新启动配置文件
 
-> 在终端输入 sudo update-grub 按 Enter 键确认
+&gt; 在终端输入 sudo update-grub 按 Enter 键确认
 
 ![3](images/3.png)
 

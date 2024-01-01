@@ -11,7 +11,7 @@
 
 ---
 
-<!--more-->
+&lt;!--more--&gt;
 
 ## 引言
 
@@ -95,8 +95,8 @@
 出于类似的原因，认知复杂度不会对每个二进制逻辑运算符进行增量计算。相反，它对每个二进制逻辑运算符序列进行基本增量评估。例如，考虑以下几对示例：
 
 ```js
-a && b
-a && b && c && d
+a &amp;&amp; b
+a &amp;&amp; b &amp;&amp; c &amp;&amp; d
 
 a || b
 a || b || c || d
@@ -105,21 +105,21 @@ a || b || c || d
 理解每对示例中的第二行并不比理解第一行困难太多。然而，对于理解下面两行的努力确实存在明显的差异：
 
 ```js
-a && b && c && d
-a || b && c || d
+a &amp;&amp; b &amp;&amp; c &amp;&amp; d
+a || b &amp;&amp; c || d
 ```
 
 因为混合运算符的布尔表达式变得更难理解，所以认知复杂度会对每个新的相同运算符序列进行增量计算。例如：
 
 ```js
-if (a                   // +1 for `if`
-  && b && c             // +1
-  || d || e             // +1
-  && f)                 // +1
+if (a                   // &#43;1 for `if`
+  &amp;&amp; b &amp;&amp; c             // &#43;1
+  || d || e             // &#43;1
+  &amp;&amp; f)                 // &#43;1
 
-if (a                   // +1 for `if`
-  &&                    // +1
-  !(b && c))            // +1
+if (a                   // &#43;1 for `if`
+  &amp;&amp;                    // &#43;1
+  !(b &amp;&amp; c))            // &#43;1
 ```
 
 虽然相对于圈复杂度，认知复杂度对相同的运算符提供了一种“折扣”，但它会对所有的二元布尔运算符序列进行增量计算，例如变量赋值、方法调用和返回语句中的序列。
@@ -140,12 +140,12 @@ if (a                   // +1 for `if`
 
 具体来说，每当一个导致结构增量或混合增量的结构嵌套在另一个这样的结构内部时，每个嵌套级别都会增加一个嵌套增量。例如，在下面的示例中，对于方法本身或 `try` 语句，都没有嵌套增量，因为这两个结构都不会导致结构增量或混合增量：
 
-![Illustration 1 of "Increment for nested flow-break structures"](images/23_1696904025.png)
+![Illustration 1 of &#34;Increment for nested flow-break structures&#34;](images/23_1696904025.png)
 
 然而，`if`、`for`、`while`和`catch`结构都会受到结构增量和嵌套增量的影响。
 此外，顶层方法会被忽略，并且 `lambda` 表达式、嵌套方法和类似特性不会导致结构增量，但当这些方法嵌套在其他类似方法的结构内部时，会增加嵌套级别：
 
-![Illustration 2 of "Increment for nested flow-break structures"](images/23_1696904298.png)
+![Illustration 2 of &#34;Increment for nested flow-break structures&#34;](images/23_1696904298.png)
 
 ## 影响
 
@@ -175,8 +175,8 @@ if (a                   // +1 for `if`
 
 本文翻译自 G. Ann Campbell 的文章“{Cognitive Complexity} a new way of measuring understandability”[^2]，原文发表于 2023 年 8 月 29 日，版本号为 1.7。
 
-[^1]: Thomas J. McCabe, "A Complexity Measure", IEEE Transactions on Software Engineering, Vol. SE-2, No. 4, December 1976
-[^2]: G. Ann Campbell, "[Cognitive Complexity - a new way of measuring understandability](https://www.sonarsource.com/docs/CognitiveComplexity.pdf)", [Sonar](https://www.sonarsource.com/), 29 August 2023, Version 1.7
+[^1]: Thomas J. McCabe, &#34;A Complexity Measure&#34;, IEEE Transactions on Software Engineering, Vol. SE-2, No. 4, December 1976
+[^2]: G. Ann Campbell, &#34;[Cognitive Complexity - a new way of measuring understandability](https://www.sonarsource.com/docs/CognitiveComplexity.pdf)&#34;, [Sonar](https://www.sonarsource.com/), 29 August 2023, Version 1.7
 
 ## 附录 A：补偿用法
 
@@ -188,7 +188,7 @@ if (a                   // +1 for `if`
 
 这意味着如果一次捕获多个异常类型成为一种常见预期的语言特性，那么对于不提供该功能的语言中的“额外”`catch` 子句可能会添加例外。这种可能性并没有排除，但对于是否添加这样的未来例外的评估应该以保守为原则。换句话说，新的例外应该慢慢引入。
 
-另一方面，如果 COBOL 标准的未来版本添加了"else if"结构，应尽快放弃 COBOL 的"else ... if"例外（如下所述）。
+另一方面，如果 COBOL 标准的未来版本添加了&#34;else if&#34;结构，应尽快放弃 COBOL 的&#34;else ... if&#34;例外（如下所述）。
 
 到目前为止，已经确定了三个例外情况：
 
@@ -199,15 +199,15 @@ if (a                   // +1 for `if`
 例如：
 
 ```COBOL
-IF condition1        // +1 structure, +0 for nesting
+IF condition1        // &#43;1 structure, &#43;0 for nesting
   ...
 ELSE
-  IF condition2      // +1 structure, +0 for nesting
+  IF condition2      // &#43;1 structure, &#43;0 for nesting
     ...
   ELSE
-    IF condition3    // +1 structure, +0 for nesting
+    IF condition3    // &#43;1 structure, &#43;0 for nesting
       statement1
-      IF condition4  // +1 structure, +1 for nesting
+      IF condition4  // &#43;1 structure, &#43;1 for nesting
         ...
       END-IF
     END-IF
@@ -275,8 +275,8 @@ Python 的装饰器习惯用法允许在不修改函数本身的情况下向现�
 
 ## 附录 C：示例
 
-> **Note**
-> 译者注：在各大 IDE 中可以安装 SonarLint 插件，以便在编码过程中实时检查代码质量，[详见](https://www.sonarsource.com/products/sonarlint/?gads_campaign=SL-Class02-Brand&gads_ad_group=SonarLint&gads_keyword=sonarlint&gclid=CjwKCAjwyY6pBhA9EiwAMzmfwba_MRBC_UXg_im757z_Om_T6Jfd_vt_gVuNL-Wxh9S0HVKKqK7nRhoCl5UQAvD_BwE
+&gt; **Note**
+&gt; 译者注：在各大 IDE 中可以安装 SonarLint 插件，以便在编码过程中实时检查代码质量，[详见](https://www.sonarsource.com/products/sonarlint/?gads_campaign=SL-Class02-Brand&amp;gads_ad_group=SonarLint&amp;gads_keyword=sonarlint&amp;gclid=CjwKCAjwyY6pBhA9EiwAMzmfwba_MRBC_UXg_im757z_Om_T6Jfd_vt_gVuNL-Wxh9S0HVKKqK7nRhoCl5UQAvD_BwE
 )
 
 来自 SonarJava 分析器中的 `org.sonar.java.resolve.JavaSymbol.java`：

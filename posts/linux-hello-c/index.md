@@ -1,7 +1,7 @@
 # linux 编程初体验
 
 
-> 在 Linux 上编译 c 语言文件。
+&gt; 在 Linux 上编译 c 语言文件。
 
 ### 打开 vim 编辑器
 
@@ -39,7 +39,7 @@ gcc hello.c -o hello
 
 ![hello](images/hello.png)
 
-若权限不够则加可执行权限`chmod +x hello`
+若权限不够则加可执行权限`chmod &#43;x hello`
 
 
 ---

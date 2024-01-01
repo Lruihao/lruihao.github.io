@@ -1,7 +1,7 @@
 # 英语语法--形式倒装
 
 
-> 形式倒装，句子本不是本来的语序。
+&gt; 形式倒装，句子本不是本来的语序。
 
 ### may 位于句首，标祝愿
 
@@ -18,11 +18,11 @@
 1. Whatever the weather is,he sticks out（坚持）walking outside.
 2. Go to stamp sales and buy whatever you can offord.
 3. Whatever reasons you have,you should carry out your promise.
-4. However <u>many difficulties(n.)</u> you meet with,you should try to overcome them.
-   Whatever <u>difficulties(n.)</u> you meet with,you should try to overcome them.
-   However <u>difficult(adj.)</u> the problem is,we must work it out today.
+4. However &lt;u&gt;many difficulties(n.)&lt;/u&gt; you meet with,you should try to overcome them.
+   Whatever &lt;u&gt;difficulties(n.)&lt;/u&gt; you meet with,you should try to overcome them.
+   However &lt;u&gt;difficult(adj.)&lt;/u&gt; the problem is,we must work it out today.
 
-### the + 比较级，the + 比较级 \-\->“越 ... 越 ...”
+### the &#43; 比较级，the &#43; 比较级 \-\-&gt;“越 ... 越 ...”
 
 **例句**
 

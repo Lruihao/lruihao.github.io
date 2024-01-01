@@ -4,7 +4,7 @@
 在 git 没有运行完成之前强制关闭，下次提交的时候会产以下生错误，或者类似的。
 
 ```bash
-fatal: Unable to create '/xxx/xx/.git/index.lock': File exists.
+fatal: Unable to create &#39;/xxx/xx/.git/index.lock&#39;: File exists.
 
 If no other git process is currently running, this probably means a
 git process crashed in this repository earlier. Make sure no other git

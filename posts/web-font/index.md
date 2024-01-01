@@ -21,12 +21,12 @@ npm install font-spider -g
 我的 css
 
 ```css
-<style type="text/css">
+&lt;style type=&#34;text/css&#34;&gt;
   @font-face {
     font-family: MMT;
-    src: url("font/MMT_579767_SOAJ0_0.ttf");
+    src: url(&#34;font/MMT_579767_SOAJ0_0.ttf&#34;);
   }
-</style>
+&lt;/style&gt;
 ```
 
 生成新的字体库，命令行输入

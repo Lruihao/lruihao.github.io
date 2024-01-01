@@ -13,7 +13,7 @@
 - 禁止 Commit IDE 的 project data，e.g: .vscode
 - 禁止上传垃圾代码
 
-> 更多规则详见文档 [Commit 规范](/posts/commit-spec/)
+&gt; 更多规则详见文档 [Commit 规范](/posts/commit-spec/)
 
 ### 分支（Branch）
 
@@ -45,7 +45,7 @@
 错误范例： calendar_manager/calendar/29?id=29
 ```
 
-> 更多规则详见文档 [RESTful](/posts/restful/)
+&gt; 更多规则详见文档 [RESTful](/posts/restful/)
 
 ## 命名
 
@@ -57,20 +57,20 @@
 | 类型                       | 命名规则                               | 说明                                           |
 | :------------------------- | :------------------------------------- | :--------------------------------------------- |
 | 属性 (Attribute, Property) | 名词 user_name、userName               |                                                |
-| 方法 (Method, Function)    | 动词 + 名词 getUserName、get_user_name | 常見的动词有：get、set、update、delete、remove |
+| 方法 (Method, Function)    | 动词 &#43; 名词 getUserName、get_user_name | 常見的动词有：get、set、update、delete、remove |
 
 ### 字母与分隔
 
 | 语言       | 变量 (Variable, Parameter, Argument)                                                                                          | 常量 (Constant)                                      | 面向对象 - 类名 (Class Name)                                                                                            | 面向对象 - 成员 (mebmer)                                                                                                                                      |
 | ---------- | ----------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| HTML       | 全部小写，不同单词以「-」分隔<br />e.g: user-id                                                                               |                                                      |                                                                                                                         |                                                                                                                                                               |
-| CSS、SCSS  | 全部小写，不同单词以「-」分隔，CSS 变量以「--」开头，SCSS 变量以「$」开头<br />e.g: .user-id、--header-height、$header-height |                                                      |                                                                                                                         |                                                                                                                                                               |
-| JavaScript | 驼峰式命名法<br />首字小写，不同单字「首字以大写」分隔<br /> e.g: userId                                                      | 全部大写，不同单字以「\_」分隔 MAX_COUNT             | 驼峰式命名法<br />首字大写，不同单字「首字以大写」分隔<br />一个文件放一个 Class, 文件名即为 Class Name <br />e.g: User | 驼峰式命名法<br />公有 (public) : 首字小写，不同单词「首字以大写」分隔<br />e.g: name, getName<br />私有 (private): \_公有命名规则<br />e.g: \_name,\_getName |
+| HTML       | 全部小写，不同单词以「-」分隔&lt;br /&gt;e.g: user-id                                                                               |                                                      |                                                                                                                         |                                                                                                                                                               |
+| CSS、SCSS  | 全部小写，不同单词以「-」分隔，CSS 变量以「--」开头，SCSS 变量以「$」开头&lt;br /&gt;e.g: .user-id、--header-height、$header-height |                                                      |                                                                                                                         |                                                                                                                                                               |
+| JavaScript | 驼峰式命名法&lt;br /&gt;首字小写，不同单字「首字以大写」分隔&lt;br /&gt; e.g: userId                                                      | 全部大写，不同单字以「\_」分隔 MAX_COUNT             | 驼峰式命名法&lt;br /&gt;首字大写，不同单字「首字以大写」分隔&lt;br /&gt;一个文件放一个 Class, 文件名即为 Class Name &lt;br /&gt;e.g: User | 驼峰式命名法&lt;br /&gt;公有 (public) : 首字小写，不同单词「首字以大写」分隔&lt;br /&gt;e.g: name, getName&lt;br /&gt;私有 (private): \_公有命名规则&lt;br /&gt;e.g: \_name,\_getName |
 | Vue        |                                                                                                                               |                                                      |                                                                                                                         |                                                                                                                                                               |
 | Java       |                                                                                                                               |                                                      |                                                                                                                         |                                                                                                                                                               |
-| PHP        | 全部小写，不同单词以「\_」分隔<br />e.g: user_id                                                                              |                                                      |                                                                                                                         |                                                                                                                                                               |
+| PHP        | 全部小写，不同单词以「\_」分隔&lt;br /&gt;e.g: user_id                                                                              |                                                      |                                                                                                                         |                                                                                                                                                               |
 | Python     |                                                                                                                               |                                                      |                                                                                                                         |                                                                                                                                                               |
-| SQL        | 由使用者定义的：表名、字段名<br />全部小写，不同单词以「\_」分隔                                                              | SQL 语法、函数全部大写<br />e.g: SELECT、INSERT INTO |                                                                                                                         |                                                                                                                                                               |
+| SQL        | 由使用者定义的：表名、字段名&lt;br /&gt;全部小写，不同单词以「\_」分隔                                                              | SQL 语法、函数全部大写&lt;br /&gt;e.g: SELECT、INSERT INTO |                                                                                                                         |                                                                                                                                                               |
 
 ## 通用
 
@@ -119,24 +119,24 @@ public function test ()
 
 ### 代码编写
 
-- 禁止在 HTML 使用 `<style>`、`<script>`，一律使用外部档案引用方式引用 CSS、JavaScript 文件
+- 禁止在 HTML 使用 `&lt;style&gt;`、`&lt;script&gt;`，一律使用外部档案引用方式引用 CSS、JavaScript 文件
 - HTML 标签需成双成对，有头有尾
-- 块级标签：`<tag></tag>`
-- 单标签：`<tag />`
+- 块级标签：`&lt;tag&gt;&lt;/tag&gt;`
+- 单标签：`&lt;tag /&gt;`
 - 禁止使用已被 HTML 舍弃的旧标签、属性，如：
 
 ```html
-<!-- html tag -->
-<center>
-<font>
-<basefont>
-<s>
-<strike>
-<u>
-<listing>
-<plaintext>
-<xmp>
-<!-- html attribute -->
+&lt;!-- html tag --&gt;
+&lt;center&gt;
+&lt;font&gt;
+&lt;basefont&gt;
+&lt;s&gt;
+&lt;strike&gt;
+&lt;u&gt;
+&lt;listing&gt;
+&lt;plaintext&gt;
+&lt;xmp&gt;
+&lt;!-- html attribute --&gt;
 align
 bgcolor
 color
@@ -144,11 +144,11 @@ color
 
 ## CSS
 
-> CSS 的定义应该独立一个 CSS 文件，禁止使用 `<style>` 或 `style` 属性直接在 HTML 中定义样式。
+&gt; CSS 的定义应该独立一个 CSS 文件，禁止使用 `&lt;style&gt;` 或 `style` 属性直接在 HTML 中定义样式。
 
 ## JavaScript
 
-> 禁止使用 HTML 字串，一律使用 Dom 产生 HTML, e.g: `document.createDocumentFragment()`
+&gt; 禁止使用 HTML 字串，一律使用 Dom 产生 HTML, e.g: `document.createDocumentFragment()`
 
 ### 注释
 
@@ -176,7 +176,7 @@ JavaScript 注释应该遵循 JSDoc 的标准撰写
  * 请求地址
  * @type {String}
  */
-const REQUEST_URL = 'http://localhost:8080';
+const REQUEST_URL = &#39;http://localhost:8080&#39;;
 ```
 
 #### 函數、方法 (Function, Method)
@@ -198,7 +198,7 @@ const REQUEST_URL = 'http://localhost:8080';
  * 取得使用者
  * @param {Int} userId 使用者 ID
  * @param {Object} [options] 其他选项
- * @param {String} [options.query='a'] 查询关键词 默认为 'a'
+ * @param {String} [options.query=&#39;a&#39;] 查询关键词 默认为 &#39;a&#39;
  * @returns {Object} 使用者资料
  */
 function getUser(userId, options) {
@@ -249,7 +249,7 @@ PHP 注解应该遵循 PHPDoc 的标准撰写
  * 使用者 ID
  * @type {String}
  */
-$userId = 'Hello';
+$userId = &#39;Hello&#39;;
 ```
 
 ### 函数、方法 (Function, Method)
@@ -271,8 +271,8 @@ $userId = 'Hello';
  * 取得使用者
  * @param int userId 使用者 ID
  * @param object options 其他选项
- * @option string options['query'] 查询关键字
- * @uses $_POST['role_id'] 从前端以 POST 取得角色 ID
+ * @option string options[&#39;query&#39;] 查询关键字
+ * @uses $_POST[&#39;role_id&#39;] 从前端以 POST 取得角色 ID
  * @returns object 使用者资料
  */
 function getUser ($userId, $options) {
@@ -300,12 +300,12 @@ function getUser ($userId, $options) {
 **Example**
 
 ```sql
-INSERT INTO `user` VALUES('a', 'b');
+INSERT INTO `user` VALUES(&#39;a&#39;, &#39;b&#39;);
 ```
 
 ## 统一用词
 
-> 系统中常用词，例如弹出框按钮、搜索框等，仅为举例，不限与此。
+&gt; 系统中常用词，例如弹出框按钮、搜索框等，仅为举例，不限与此。
 
 | 用词                       | 统一 |
 | :------------------------- | :--- |

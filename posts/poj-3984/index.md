@@ -52,11 +52,11 @@ Total Submissions: 32323 Accepted: 18471
 
 ## 题解
 
-<!-- markdownlint-disable code-block-style -->
+&lt;!-- markdownlint-disable code-block-style --&gt;
 
 ```cpp
-#include<iostream>
-#include<cstring>
+#include&lt;iostream&gt;
+#include&lt;cstring&gt;
 using namespace std;
 int map[5][5];
 int visited[5][5];
@@ -74,26 +74,26 @@ void BFS(int x,int y)
   visited[x][y]=1;
   pre[0].xx=x,pre[0].yy=y;
 
-  while(tail>head)//栈空
+  while(tail&gt;head)//栈空
   {
     x=pre[head].xx;
     y=pre[head].yy;
-    if(x==4&&y==4)//结束标志
+    if(x==4&amp;&amp;y==4)//结束标志
       return ;
-    for(int i=0;i<4;i++)
+    for(int i=0;i&lt;4;i&#43;&#43;)
     {
-      x1=x+dx[i];y1=y+dy[i];
-      if(x1>=0&&x1<=4&&y1>=0&&y1<=4)
-        if(map[x1][y1]==0&&!visited[x1][y1])
+      x1=x&#43;dx[i];y1=y&#43;dy[i];
+      if(x1&gt;=0&amp;&amp;x1&lt;=4&amp;&amp;y1&gt;=0&amp;&amp;y1&lt;=4)
+        if(map[x1][y1]==0&amp;&amp;!visited[x1][y1])
         {
           pre[tail].xx=x1;
           pre[tail].yy=y1;
           pre[tail].fa=head;
           visited[x1][y1]=1;
-          tail+=1;//入栈
+          tail&#43;=1;//入栈
         }
     }
-    head++;//相当于出栈
+    head&#43;&#43;;//相当于出栈
   }
 }
 int main()
@@ -102,9 +102,9 @@ int main()
   ios::sync_with_stdio(false);
   memset(map,0,sizeof(map));
   memset(visited,0,sizeof(visited));
-  for(i=0;i<5;i++)
-    for(j=0;j<5;j++)
-      cin>>map[i][j];
+  for(i=0;i&lt;5;i&#43;&#43;)
+    for(j=0;j&lt;5;j&#43;&#43;)
+      cin&gt;&gt;map[i][j];
   BFS(0,0);
   i=0;
   while(head)//逆序进行赋值输出就是通路
@@ -112,13 +112,13 @@ int main()
     way[i].xx=pre[head].xx;
     way[i].yy=pre[head].yy;
     head=pre[head].fa;
-    i++;
+    i&#43;&#43;;
   }
   //画一下队列
   way[i].xx=0;way[i].yy=0;
   while(i!=-1)
   {
-    cout<<"("<<way[i].xx<<", "<<way[i].yy<<")"<<endl;
+    cout&lt;&lt;&#34;(&#34;&lt;&lt;way[i].xx&lt;&lt;&#34;, &#34;&lt;&lt;way[i].yy&lt;&lt;&#34;)&#34;&lt;&lt;endl;
     i--;
   }
   return 0;

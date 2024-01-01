@@ -1,11 +1,11 @@
 # SQL 总结
 
 
-> SQL 增删改查 (CRUD) 语句与常用函数总结。
+&gt; SQL 增删改查 (CRUD) 语句与常用函数总结。
 
-<!--more-->
+&lt;!--more--&gt;
 
-<!-- markdownlint-disable -->
+&lt;!-- markdownlint-disable --&gt;
 
 ## SQL Introduction
 
@@ -19,7 +19,7 @@
 
 3. 属于使用者自己定义的要使用小写（表名、列名 etc...）。
 
-4. 表名与列名前后使用 \` 包起来，防止与关键字冲突（例如： INSERT INTO \`user\` VALUES('a','b'); ）。
+4. 表名与列名前后使用 \` 包起来，防止与关键字冲突（例如： INSERT INTO \`user\` VALUES(&#39;a&#39;,&#39;b&#39;); ）。
 
 5. 禁止使用 Table Join。
 
@@ -33,49 +33,49 @@
 
 | 功能       | 语句                                                                                                                                                                                                                |
 | :--------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| 创建数据库 | `CREATE DATABASE <数据库名>;`                                                                                                                                                                                       |
-| 创建数据表 | `CREATE TABLE  <表名> (`<br/>`<列名 1> <数据类型> <约束条件>,`<br/>`<列名 2> <数据类型> <约束条件>,`<br/>`<列名 3> <数据类型> <约束条件>,`<br/>`......`<br/>`<该表的的约束条件 1>`<br/>`<该表的的约束条件 2>...);` |
-| 插入数据   | `INSERT INTO <表名> （列名 1, 列名 2,...) VALUES （值 1, 值 2,...);`<br/>（每列都有数据插入时，可省略列名。但是为了代码的可读性，不建议如此操作。）                                                                 |
-| 增加列     | `ALTER TABLE <表名> ADD <列名> <数据类型> <约束条件> AFTER <前一列列名>;`<br/>（默认插入到最后一列）                                                                                                                |
+| 创建数据库 | `CREATE DATABASE &lt;数据库名&gt;;`                                                                                                                                                                                       |
+| 创建数据表 | `CREATE TABLE  &lt;表名&gt; (`&lt;br/&gt;`&lt;列名 1&gt; &lt;数据类型&gt; &lt;约束条件&gt;,`&lt;br/&gt;`&lt;列名 2&gt; &lt;数据类型&gt; &lt;约束条件&gt;,`&lt;br/&gt;`&lt;列名 3&gt; &lt;数据类型&gt; &lt;约束条件&gt;,`&lt;br/&gt;`......`&lt;br/&gt;`&lt;该表的的约束条件 1&gt;`&lt;br/&gt;`&lt;该表的的约束条件 2&gt;...);` |
+| 插入数据   | `INSERT INTO &lt;表名&gt; （列名 1, 列名 2,...) VALUES （值 1, 值 2,...);`&lt;br/&gt;（每列都有数据插入时，可省略列名。但是为了代码的可读性，不建议如此操作。）                                                                 |
+| 增加列     | `ALTER TABLE &lt;表名&gt; ADD &lt;列名&gt; &lt;数据类型&gt; &lt;约束条件&gt; AFTER &lt;前一列列名&gt;;`&lt;br/&gt;（默认插入到最后一列）                                                                                                                |
 
 ## 删除（DELETE）
 
 | 功能       | 语句                                                |
 | :--------- | :-------------------------------------------------- |
-| 删除数据库 | `DROP DATABASE <数据库名>;`                         |
-| 删除数据表 | `DROP TABLE <表名>;`                                |
-| 清空表数据 | `DELETE FROM <表名>;` 或者 `TRUNCATE TABLE <表名>;` |
-| 删除行数据 | `DELETE FROM <表名> WHERE <条件>;`                  |
-| 删除列数据 | `ALTER TABLE <表名> DROP <列名>;`                   |
+| 删除数据库 | `DROP DATABASE &lt;数据库名&gt;;`                         |
+| 删除数据表 | `DROP TABLE &lt;表名&gt;;`                                |
+| 清空表数据 | `DELETE FROM &lt;表名&gt;;` 或者 `TRUNCATE TABLE &lt;表名&gt;;` |
+| 删除行数据 | `DELETE FROM &lt;表名&gt; WHERE &lt;条件&gt;;`                  |
+| 删除列数据 | `ALTER TABLE &lt;表名&gt; DROP &lt;列名&gt;;`                   |
 
 ## 修改（UPDATE）
 
 | 功能         | 语句                                                                      |
 | :----------- | :------------------------------------------------------------------------ |
-| 修改数据库名 | `RENAME DATABASE <旧名称> TO <新名称>;`                                   |
-| 修改表名     | `RENAME TABLE <旧名称> TO <新名称>;`                                      |
-| 修改数据     | `UPDATE <表名> SET <列名 1> = <新值 1>,<列名 2> = <新值 2> WHERE <条件>;` |
-| 修改列名     | `ALTER TABLE <表名> CHANGE <旧列名> <新列名> <数据类型> <约束条件>;`      |
+| 修改数据库名 | `RENAME DATABASE &lt;旧名称&gt; TO &lt;新名称&gt;;`                                   |
+| 修改表名     | `RENAME TABLE &lt;旧名称&gt; TO &lt;新名称&gt;;`                                      |
+| 修改数据     | `UPDATE &lt;表名&gt; SET &lt;列名 1&gt; = &lt;新值 1&gt;,&lt;列名 2&gt; = &lt;新值 2&gt; WHERE &lt;条件&gt;;` |
+| 修改列名     | `ALTER TABLE &lt;表名&gt; CHANGE &lt;旧列名&gt; &lt;新列名&gt; &lt;数据类型&gt; &lt;约束条件&gt;;`      |
 
-> 注意：重命名数据库与数据表一般不推荐使用，若想测试，请先备份好自己的数据库~
+&gt; 注意：重命名数据库与数据表一般不推荐使用，若想测试，请先备份好自己的数据库~
 
-## 查询（&nbsp;R&nbsp;E&nbsp;A&nbsp;D&nbsp;）
+## 查询（&amp;nbsp;R&amp;nbsp;E&amp;nbsp;A&amp;nbsp;D&amp;nbsp;）
 
 | 功能                     | 语句                                                                                                                                                                    |
 | :----------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | 查询所有数据库           | `SHOW DATABASES;`                                                                                                                                                       |
-| 查询指定数据库中所有表名 | `USE <数据库名>;` 然后 `SHOW TABLES;`<br/>或者 `SHOW TABLES FROM <数据库名>;`                                                                                           |
-| 查询表中所有列信息       | `SHOW COLUMNS FROM <表名>;`                                                                                                                                             |
-| 查询表中所有数据         | `SELECT <列名 1>,<列名 2>,<列名 3>,... FROM <表名>;`                                                                                                                    |
-| 查询表中某个数据         | `SELECT <列名> FROM <表名>;`                                                                                                                                            |
-| 查询表中指定多个数据     | `SELECT <列名 1>,<列名 2>,<列名 3>,... FROM <表名> WHERE <条件>;`                                                                                                       |
-| 查询表中指定一个数据     | `SELECT <列名> FROM <表名> WHERE <条件>;`                                                                                                                               |
-| 查询指定范围数据         | `SELECT <列名 1>,<列名 2>,<列名 3>,... FROM <表名> WHERE`<br/>`<某列名> BETWEEN <某列名范围值-小> AND <某列名范围值-大>;`                                              |
-| 字符串模式匹配查询       | `SELECT <列名> FROM <表名> WHERE name LIKE 'Y%';`<br/>（查询以 Y 开头的，更多匹配方式自行百度哦~。）                                                                    |
-| 指定多个值数据查询       | `SELECT <列名 1>,<列名 2>,<列名 3>,... FROM <表名> WHERE`<br/>`<某列名> IN ('<某列名值 1>','<某列名值 2>','<某列名值 3>',...);`                                        |
-| 查询结果排序             | `SELECT <列名 1>,<列名 2>,<列名 3>,... FROM <表名> ORDER BY <某列名> DESC;`<br/>（此处为递减排列，默认为递增`ASC`）                                                     |
-| 查询指定几笔数据         | `SELECT <列名 1>,<列名 2>,<列名 3>,... FROM <表名> LIMIT n,m;`<br/>（从`n`到`m`笔数据）                                                                                 |
-| 分群查询                 | `SELECT <列名 1>,<列名 2>,<列名 3>,...,<函数> FROM <表名> GROUP BY <列名 1>,<列名 2>,<列名 3>,...;`<br/>（常搭配函数有：`SUM()`、`AVG()`、`COUNT()`、`MAX()`、`MIN()`） |
+| 查询指定数据库中所有表名 | `USE &lt;数据库名&gt;;` 然后 `SHOW TABLES;`&lt;br/&gt;或者 `SHOW TABLES FROM &lt;数据库名&gt;;`                                                                                           |
+| 查询表中所有列信息       | `SHOW COLUMNS FROM &lt;表名&gt;;`                                                                                                                                             |
+| 查询表中所有数据         | `SELECT &lt;列名 1&gt;,&lt;列名 2&gt;,&lt;列名 3&gt;,... FROM &lt;表名&gt;;`                                                                                                                    |
+| 查询表中某个数据         | `SELECT &lt;列名&gt; FROM &lt;表名&gt;;`                                                                                                                                            |
+| 查询表中指定多个数据     | `SELECT &lt;列名 1&gt;,&lt;列名 2&gt;,&lt;列名 3&gt;,... FROM &lt;表名&gt; WHERE &lt;条件&gt;;`                                                                                                       |
+| 查询表中指定一个数据     | `SELECT &lt;列名&gt; FROM &lt;表名&gt; WHERE &lt;条件&gt;;`                                                                                                                               |
+| 查询指定范围数据         | `SELECT &lt;列名 1&gt;,&lt;列名 2&gt;,&lt;列名 3&gt;,... FROM &lt;表名&gt; WHERE`&lt;br/&gt;`&lt;某列名&gt; BETWEEN &lt;某列名范围值-小&gt; AND &lt;某列名范围值-大&gt;;`                                              |
+| 字符串模式匹配查询       | `SELECT &lt;列名&gt; FROM &lt;表名&gt; WHERE name LIKE &#39;Y%&#39;;`&lt;br/&gt;（查询以 Y 开头的，更多匹配方式自行百度哦~。）                                                                    |
+| 指定多个值数据查询       | `SELECT &lt;列名 1&gt;,&lt;列名 2&gt;,&lt;列名 3&gt;,... FROM &lt;表名&gt; WHERE`&lt;br/&gt;`&lt;某列名&gt; IN (&#39;&lt;某列名值 1&gt;&#39;,&#39;&lt;某列名值 2&gt;&#39;,&#39;&lt;某列名值 3&gt;&#39;,...);`                                        |
+| 查询结果排序             | `SELECT &lt;列名 1&gt;,&lt;列名 2&gt;,&lt;列名 3&gt;,... FROM &lt;表名&gt; ORDER BY &lt;某列名&gt; DESC;`&lt;br/&gt;（此处为递减排列，默认为递增`ASC`）                                                     |
+| 查询指定几笔数据         | `SELECT &lt;列名 1&gt;,&lt;列名 2&gt;,&lt;列名 3&gt;,... FROM &lt;表名&gt; LIMIT n,m;`&lt;br/&gt;（从`n`到`m`笔数据）                                                                                 |
+| 分群查询                 | `SELECT &lt;列名 1&gt;,&lt;列名 2&gt;,&lt;列名 3&gt;,...,&lt;函数&gt; FROM &lt;表名&gt; GROUP BY &lt;列名 1&gt;,&lt;列名 2&gt;,&lt;列名 3&gt;,...;`&lt;br/&gt;（常搭配函数有：`SUM()`、`AVG()`、`COUNT()`、`MAX()`、`MIN()`） |
 
 ## 常用函数
 
@@ -84,7 +84,7 @@
 | `ABS`（数值）                                            | ABS 函数（求绝对值）                     |
 | `MOD`（被除数，除数）                                    | MOD 函数（求余）                         |
 | `ROUND`（对象数值，保留小数的位数）                      | ROUND 函数（四舍五入）                   |
-| 字符串 1 &Iota;&Iota; 字符串 2                           | &Iota;&Iota; 函数（拼接）                |
+| 字符串 1 &amp;Iota;&amp;Iota; 字符串 2                           | &amp;Iota;&amp;Iota; 函数（拼接）                |
 | `LENGTH`（字符串）                                       | LENGTH 函数（求字符串长度）              |
 | `LOWER`（字符串）                                        | LOWER 函数（小写转换）                   |
 | `UPPER`（字符串）                                        | UPPER 函数（大写转换）                   |
@@ -100,11 +100,11 @@
 补充：CASE 表达式。
 
 ```
-CASE WHEN <求值表达式> THEN <表达式>
-     WHEN <求值表达式> THEN <表达式>
-     WHEN <求值表达式> THEN <表达式>
+CASE WHEN &lt;求值表达式&gt; THEN &lt;表达式&gt;
+     WHEN &lt;求值表达式&gt; THEN &lt;表达式&gt;
+     WHEN &lt;求值表达式&gt; THEN &lt;表达式&gt;
      ......
-     ELSE <表达式>
+     ELSE &lt;表达式&gt;
  END
 ```
 
@@ -119,13 +119,13 @@ CASE WHEN <求值表达式> THEN <表达式>
 
 给表设置别名，让 SQL 更简洁。例如：
 
-`SELECT <col-1>,<col-2>,<col-3>,... FROM <table1> <alias-a>,<table2> <alias-b> WHERE <alias-a>.<id> = <alias-b>.<id>;`
+`SELECT &lt;col-1&gt;,&lt;col-2&gt;,&lt;col-3&gt;,... FROM &lt;table1&gt; &lt;alias-a&gt;,&lt;table2&gt; &lt;alias-b&gt; WHERE &lt;alias-a&gt;.&lt;id&gt; = &lt;alias-b&gt;.&lt;id&gt;;`
 
 列名也可以设置别名。例如：
 
-`SELECT <col-1> <alias-a>,<col-2> <alias-b>,<col-3> <alias-c>,... FROM <table>;`  
+`SELECT &lt;col-1&gt; &lt;alias-a&gt;,&lt;col-2&gt; &lt;alias-b&gt;,&lt;col-3&gt; &lt;alias-c&gt;,... FROM &lt;table&gt;;`  
 或者  
-`SELECT <col-1> AS <alias-a>,<col-2> AS <alias-b>,<col-3> AS <alias-c>,... FROM <table>;`
+`SELECT &lt;col-1&gt; AS &lt;alias-a&gt;,&lt;col-2&gt; AS &lt;alias-b&gt;,&lt;col-3&gt; AS &lt;alias-c&gt;,... FROM &lt;table&gt;;`
 
 ## 总结
 

@@ -1,4 +1,4 @@
-# HDU 1009 FatMouse' Trade（贪心）
+# HDU 1009 FatMouse&#39; Trade（贪心）
 
 
 ## 题目大意
@@ -27,11 +27,11 @@
 
 老鼠要用最少的猫粮来换取最多的食物 , 也就是 J[i]/F[i] 越大越好 , 所以按照 J[i]/F[i] 进行降序排列 , 然后依次用猫粮来换取食物 , 当所剩下的猫粮不足以完全换取食物 , 能换多少是多少。
 
-<!-- markdownlint-disable MD046 -->
+&lt;!-- markdownlint-disable MD046 --&gt;
 
 ```cpp
-#include<stdio.h>
-#include<algorithm>
+#include&lt;stdio.h&gt;
+#include&lt;algorithm&gt;
 using namespace std;
 
 struct node{
@@ -41,33 +41,33 @@ struct node{
 }a[1005];
 
 int cmp(node x,node y){
-  return x.s>y.s;
+  return x.s&gt;y.s;
 }
 
 int main(){
   int m,n,i;
-  while(scanf("%d%d",&m,&n)&&(m!=-1&&n!=-1)){
+  while(scanf(&#34;%d%d&#34;,&amp;m,&amp;n)&amp;&amp;(m!=-1&amp;&amp;n!=-1)){
     memset(a,0,sizeof(a));
-    for(i=0;i<n;i++){
-      scanf("%lf%lf",&a[i].j,&a[i].f);
+    for(i=0;i&lt;n;i&#43;&#43;){
+      scanf(&#34;%lf%lf&#34;,&amp;a[i].j,&amp;a[i].f);
       a[i].s=a[i].j/a[i].f;
     }
 
-    sort(a,a+n,cmp);
+    sort(a,a&#43;n,cmp);
 
     double sum=0;
-    for(i=0;i<n;i++){
-      if(m>=a[i].f){
-        sum+=a[i].j;
+    for(i=0;i&lt;n;i&#43;&#43;){
+      if(m&gt;=a[i].f){
+        sum&#43;=a[i].j;
         m-=a[i].f;
       }else{
-        sum+=a[i].s*m;
+        sum&#43;=a[i].s*m;
         m=0;
       }
-      if(m<=0)
+      if(m&lt;=0)
         break;
     }
-    printf("%.3lf\n",sum);
+    printf(&#34;%.3lf\n&#34;,sum);
   }
   return 0;
 }

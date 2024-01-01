@@ -5,7 +5,7 @@
 
 Given a,b,c,d, ﬁnd out the number of pairs of integers (x,y) where a ≤ x ≤ b,c ≤ y ≤ d and x·y is a multiple of 2018.
 
-<!--more-->
+&lt;!--more--&gt;
 
 ### Input
 
@@ -43,29 +43,29 @@ For each test case, print an integer which denotes the result.
 后 AC 代码
 
 ```c
-#include<cstdio>
-#include<iostream>
+#include&lt;cstdio&gt;
+#include&lt;iostream&gt;
 typedef unsigned long long ll;
 using namespace std;
 
 int main(){
    ll a,b,c,d;
-   while(cin>>a>>b>>c>>d){
+   while(cin&gt;&gt;a&gt;&gt;b&gt;&gt;c&gt;&gt;d){
      ll num1_all_1009=b/1009-(a-1)/1009;
      ll num1_even=b/2-(a-1)/2;
      ll num1_1009_in_even=b/2018-(a-1)/2018;
      ll num1_rest_in_even=num1_even-num1_1009_in_even;
-     ll num1_odd=(b-a+1)-num1_even;
+     ll num1_odd=(b-a&#43;1)-num1_even;
      ll num1_1009_in_odd=num1_all_1009-num1_1009_in_even;
      ll num1_rest_in_odd=num1_odd-num1_1009_in_odd;
      ll ans=0;
-     ans+=num1_1009_in_even*(d-c+1);
+     ans&#43;=num1_1009_in_even*(d-c&#43;1);
      ll num2_all_1009=d/1009-(c-1)/1009;
-     ans+=num1_rest_in_even*num2_all_1009;
+     ans&#43;=num1_rest_in_even*num2_all_1009;
      ll num2_even=d/2-(c-1)/2;
-     ans+=num1_1009_in_odd*num2_even;
-     ll num2_all_2018=d/2018-(c-1)/2018; ans+=num1_rest_in_odd*num2_all_2018;
-     cout<<ans<<endl;
+     ans&#43;=num1_1009_in_odd*num2_even;
+     ll num2_all_2018=d/2018-(c-1)/2018; ans&#43;=num1_rest_in_odd*num2_all_2018;
+     cout&lt;&lt;ans&lt;&lt;endl;
    }
    return 0;
 }

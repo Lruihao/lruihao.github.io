@@ -1,9 +1,9 @@
 # 网页离开时改变标题“崩溃欺骗”
 
 
-> 从暑假到现在有好几个小伙伴问我博客的标题怎么变来变去的，不想再和每个人都说一遍了，耽误时间，索性写一下。
+&gt; 从暑假到现在有好几个小伙伴问我博客的标题怎么变来变去的，不想再和每个人都说一遍了，耽误时间，索性写一下。
 
-<!--more-->
+&lt;!--more--&gt;
 
 ## 创建一个 js 文件
 
@@ -15,17 +15,17 @@
 ```js 崩溃欺骗 (Jquery 版）
 var OriginTitle = document.title;
 var titleTime;
-document.addEventListener('visibilitychange', function () {
+document.addEventListener(&#39;visibilitychange&#39;, function () {
   if (document.hidden) {
-    $('[rel="icon"]').attr('href', 'https://i.loli.net/2018/08/24/5b7fcb00ed9bf.png');
-    document.title = '怎么回事╭(°A°`)╮';
+    $(&#39;[rel=&#34;icon&#34;]&#39;).attr(&#39;href&#39;, &#39;https://i.loli.net/2018/08/24/5b7fcb00ed9bf.png&#39;);
+    document.title = &#39;怎么回事╭(°A°`)╮&#39;;
     clearTimeout(titleTime);
   } else {
-    $("[rel='icon']").attr('href', 'https://i.loli.net/2018/09/25/5baa4f21661e7.png');
-    document.title = '小老弟 (ฅ>ω<*ฅ)';
+    $(&#34;[rel=&#39;icon&#39;]&#34;).attr(&#39;href&#39;, &#39;https://i.loli.net/2018/09/25/5baa4f21661e7.png&#39;);
+    document.title = &#39;小老弟 (ฅ&gt;ω&lt;*ฅ)&#39;;
     titleTime = setTimeout(function () {
       document.title = OriginTitle;
-      $("[rel='icon']").attr('href', '/images/favicon-32x32-next.png');
+      $(&#34;[rel=&#39;icon&#39;]&#34;).attr(&#39;href&#39;, &#39;/images/favicon-32x32-next.png&#39;);
     }, 2000);
   }
 });
@@ -36,14 +36,14 @@ document.addEventListener('visibilitychange', function () {
 ```js 崩溃欺骗 (JS 版）
 var oldTitle = document.title;
 var titleTime; //標題恢復計時器
-document.addEventListener('visibilitychange', function () {
+document.addEventListener(&#39;visibilitychange&#39;, function () {
   if (document.hidden) {
-    document.querySelector("[rel='icon']").setAttribute('href', '/images/icons/favicon-32.png');
-    document.title = '網站崩潰了！';
+    document.querySelector(&#34;[rel=&#39;icon&#39;]&#34;).setAttribute(&#39;href&#39;, &#39;/images/icons/favicon-32.png&#39;);
+    document.title = &#39;網站崩潰了！&#39;;
     clearTimeout(titleTime);
   } else {
-    document.title = '其實並沒有！';
-    document.querySelector("[rel='icon']").setAttribute('href', '/images/icons/crash.png');
+    document.title = &#39;其實並沒有！&#39;;
+    document.querySelector(&#34;[rel=&#39;icon&#39;]&#34;).setAttribute(&#39;href&#39;, &#39;/images/icons/crash.png&#39;);
     titleTime = setTimeout(function () {
       document.title = oldTitle;
     }, 1000);
@@ -54,10 +54,10 @@ document.addEventListener('visibilitychange', function () {
 ## 使用
 
 在`hexo\themes\hexo-theme-next\layout`文件路径找到`layout.swig`文件，其他有些主题用的是`.ejs`后缀，一样的。  
-然后打开文件，在`<body></body>`之间加入调用刚刚的 js。
+然后打开文件，在`&lt;body&gt;&lt;/body&gt;`之间加入调用刚刚的 js。
 
 ```html
-<script type="text/javascript" src="/js/src/crash-cheat.js"></script>
+&lt;script type=&#34;text/javascript&#34; src=&#34;/js/src/crash-cheat.js&#34;&gt;&lt;/script&gt;
 ```
 
 重新部署博客就可以了。

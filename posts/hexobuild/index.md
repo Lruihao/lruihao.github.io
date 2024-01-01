@@ -1,4 +1,4 @@
-# hexo+github 搭建个人博客及美化
+# hexo&#43;github 搭建个人博客及美化
 
 
 **[更多关于 hexo](/categories/hexo/)**
@@ -24,12 +24,12 @@ npm install -g hexo-cli
 安装 Hexo 完成后，请执行下列命令，Hexo 将会在指定文件夹中新建所需要的文件。
 
 ```bash
-hexo init <folder>
-cd <folder>
+hexo init &lt;folder&gt;
+cd &lt;folder&gt;
 npm install
 ```
 
-<folder>为一个文件夹的名字
+&lt;folder&gt;为一个文件夹的名字
 新建完成后，指定文件夹的目录如下：
 
 ```
@@ -65,7 +65,7 @@ npm install hexo-generator-sitemap@1 --save
 
 ## 本地查看效果
 
-执行下面语句，执行完再登录 localhost:4000 查看效果（执行完不要按 Ctrl+C，不然就停止了）
+执行下面语句，执行完再登录 localhost:4000 查看效果（执行完不要按 Ctrl&#43;C，不然就停止了）
 
 ```bash
 hexo g
@@ -99,29 +99,29 @@ hexo g -d
 修改 `hero-generator-index` 插件，把文件：`node_modules/hexo-generator-index/lib/generator.js` 内的代码替换为：
 
 ```java
-'use strict';
-var pagination = require('hexo-pagination');
+&#39;use strict&#39;;
+var pagination = require(&#39;hexo-pagination&#39;);
 module.exports = function(locals){
   var config = this.config;
   var posts = locals.posts;
     posts.data = posts.data.sort(function(a, b) {
-        if(a.top && b.top) { // 两篇文章 top 都有定义
+        if(a.top &amp;&amp; b.top) { // 两篇文章 top 都有定义
             if(a.top == b.top) return b.date - a.date; // 若 top 值一样则按照文章日期降序排
             else return b.top - a.top; // 否则按照 top 值降序排
         }
-        else if(a.top && !b.top) { // 以下是只有一篇文章 top 有定义，那么将有 top 的排在前面（这里用异或操作居然不行 233）
+        else if(a.top &amp;&amp; !b.top) { // 以下是只有一篇文章 top 有定义，那么将有 top 的排在前面（这里用异或操作居然不行 233）
             return -1;
         }
-        else if(!a.top && b.top) {
+        else if(!a.top &amp;&amp; b.top) {
             return 1;
         }
         else return b.date - a.date; // 都没定义按照文章日期降序排
     });
-  var paginationDir = config.pagination_dir || 'page';
-  return pagination('', posts, {
+  var paginationDir = config.pagination_dir || &#39;page&#39;;
+  return pagination(&#39;&#39;, posts, {
     perPage: config.index_generator.per_page,
-    layout: ['index', 'archive'],
-    format: paginationDir + '/%d/',
+    layout: [&#39;index&#39;, &#39;archive&#39;],
+    format: paginationDir &#43; &#39;/%d/&#39;,
     data: {
       __index: true
     }
@@ -131,7 +131,7 @@ module.exports = function(locals){
 
 ### about 页面
 
-about 页面可以用 HTML 写，你想怎么写都行，我用的最简单的方法，直接`hexo n page "about"`后，会生成一个 md 文件，也就是后面说的文章，直接写文章就行了。
+about 页面可以用 HTML 写，你想怎么写都行，我用的最简单的方法，直接`hexo n page &#34;about&#34;`后，会生成一个 md 文件，也就是后面说的文章，直接写文章就行了。
 
 ### 添加搜索，评论，分享
 
@@ -172,14 +172,14 @@ local_search:
 
 #### 文章阅读量
 
-> 以下适合非 next 主题的部分主题，next 主题已经自带，到主题配置文件修改就好了。
+&gt; 以下适合非 next 主题的部分主题，next 主题已经自带，到主题配置文件修改就好了。
 
 打开以下路径在你喜欢的地方添加代码，`\blog\hexo\themes\主题名字、layout\_partial`，找到 `article.ejs`文件
 
 ```html
-<div align="left">
-  <span id="busuanzi_container_page_pv"> 本文总阅读量<span id="busuanzi_value_page_pv"></span>次 </span>
-</div>
+&lt;div align=&#34;left&#34;&gt;
+  &lt;span id=&#34;busuanzi_container_page_pv&#34;&gt; 本文总阅读量&lt;span id=&#34;busuanzi_value_page_pv&#34;&gt;&lt;/span&gt;次 &lt;/span&gt;
+&lt;/div&gt;
 ```
 
 #### 站点访问量，访客数
@@ -187,10 +187,10 @@ local_search:
 打开以下路径在你喜欢的地方添加代码，`\blog\hexo\themes\主题名字、layout\_partial`，找到 `footer.ejs`文件
 
 ```html
-<script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async defer></script>
+&lt;script src=&#34;//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js&#34; async defer&gt;&lt;/script&gt;
 
-<span id="busuanzi_container_page_pv"> 本站总访问量<span id="busuanzi_value_site_pv"></span>次 | </span>
-<span id="busuanzi_container_site_uv"> 本站访客数<span id="busuanzi_value_site_uv"></span>人次 </span>
+&lt;span id=&#34;busuanzi_container_page_pv&#34;&gt; 本站总访问量&lt;span id=&#34;busuanzi_value_site_pv&#34;&gt;&lt;/span&gt;次 | &lt;/span&gt;
+&lt;span id=&#34;busuanzi_container_site_uv&#34;&gt; 本站访客数&lt;span id=&#34;busuanzi_value_site_uv&#34;&gt;&lt;/span&gt;人次 &lt;/span&gt;
 ```
 
 **2018.10.08 更新

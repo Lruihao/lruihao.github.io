@@ -1,10 +1,10 @@
 # 利用腾讯云对象存储 COS 桶托管 hexo 博客
 
 
-> 本以为 coding pages 与腾讯云合作后会更好，没想到正是这种初期 bug 不断，速度也是非常慢。比 gitee, 甚至 github 都要慢很多了。所以决定放弃 coding 了，本想挂到云服务器上，但是这个云服务器只续费了半年，可能不会再续费，前几天看到用腾讯云的 cos 桶 xml 制作动态相册的文章，知道了对象存储这个玩意，腾讯云 COS 提供免费 50G 的存储空间，还有 CDN 加速服务，我觉得是个不错的选择，部署后发现速度还挺好。  
-> 适用于 hexo, hugo 等静态博客的部署。
+&gt; 本以为 coding pages 与腾讯云合作后会更好，没想到正是这种初期 bug 不断，速度也是非常慢。比 gitee, 甚至 github 都要慢很多了。所以决定放弃 coding 了，本想挂到云服务器上，但是这个云服务器只续费了半年，可能不会再续费，前几天看到用腾讯云的 cos 桶 xml 制作动态相册的文章，知道了对象存储这个玩意，腾讯云 COS 提供免费 50G 的存储空间，还有 CDN 加速服务，我觉得是个不错的选择，部署后发现速度还挺好。  
+&gt; 适用于 hexo, hugo 等静态博客的部署。
 
-<!--more-->
+&lt;!--more--&gt;
 
 ## 创建存储桶
 
@@ -72,19 +72,19 @@ npm install qcloud-cdn-node-sdk --save
 - 创建`qcloudcdn.js`放入`script`文件夹
 
 ```js
-const qcloudSDK = require('qcloud-cdn-node-sdk');
+const qcloudSDK = require(&#39;qcloud-cdn-node-sdk&#39;);
 
 qcloudSDK.config({
-  secretId: '你的 ID',
-  secretKey: '你的密钥'
+  secretId: &#39;你的 ID&#39;,
+  secretKey: &#39;你的密钥&#39;
 });
 
 qcloudSDK.request(
-  'RefreshCdnDir',
+  &#39;RefreshCdnDir&#39;,
   {
-    'dirs.1': 'http://博客地址'
+    &#39;dirs.1&#39;: &#39;http://博客地址&#39;
   },
-  (res) => {
+  (res) =&gt; {
     console.log(res);
   }
 );
@@ -92,25 +92,25 @@ qcloudSDK.request(
 
 ## 自动 CDN 刷新配置（推荐）
 
-1. 进入腾讯云，找到 函数计算 -> CDN 缓存刷新函数 -> 创建 CDN 缓存刷新函数
+1. 进入腾讯云，找到 函数计算 -&gt; CDN 缓存刷新函数 -&gt; 创建 CDN 缓存刷新函数
 2. 修改 `index.js` 内容后重新部署
 
 ```js
-'use strict';
+&#39;use strict&#39;;
 
-const CosSdk = require('cos-nodejs-sdk-v5');
-const CdnSdk = require('./common/CdnSdk');
-const CdnRefreshTask = require('./common/CdnRefreshTask');
-const { getParams, getObjectUrl, logger, getLogSummary } = require('./common/utils');
+const CosSdk = require(&#39;cos-nodejs-sdk-v5&#39;);
+const CdnSdk = require(&#39;./common/CdnSdk&#39;);
+const CdnRefreshTask = require(&#39;./common/CdnRefreshTask&#39;);
+const { getParams, getObjectUrl, logger, getLogSummary } = require(&#39;./common/utils&#39;);
 
-exports.main_handler = async (event, context, callback) => {
+exports.main_handler = async (event, context, callback) =&gt; {
   /**
    * parse param from event and process.env
    */
   const { objects, cdnHosts, secretId, secretKey, token } = getParams(event);
 
   logger({
-    title: 'param is parsed success, param as follow: ',
+    title: &#39;param is parsed success, param as follow: &#39;,
     data: { objects, cdnHosts, event }
   });
   /**
@@ -127,21 +127,21 @@ exports.main_handler = async (event, context, callback) => {
     XCosSecurityToken: token
   });
 
-  const taskList = objects.map(({ bucket, region, key }) => {
+  const taskList = objects.map(({ bucket, region, key }) =&gt; {
     /* 变更内容-START */
     const purgeUrls = [];
-    cdnHosts.forEach((host) => {
+    cdnHosts.forEach((host) =&gt; {
       const tempUrl = getObjectUrl({
         cosInstance,
         bucket,
         region,
         key,
-        origin: `${/^(http\:\/\/|https\:\/\/)/.test(host) ? '' : 'https://'}${host}`
+        origin: `${/^(http\:\/\/|https\:\/\/)/.test(host) ? &#39;&#39; : &#39;https://&#39;}${host}`
       });
       purgeUrls.push(tempUrl);
       // 如果以 /index.html 结尾，则增加目录首页/。
       // 例如 https://www.xxxx.com/index.html, 则增加 https://www.xxxx.com/。
-      if (tempUrl.lastIndexOf('/index.html') == tempUrl.length - 11) {
+      if (tempUrl.lastIndexOf(&#39;/index.html&#39;) == tempUrl.length - 11) {
         purgeUrls.push(tempUrl.substr(0, tempUrl.length - 10));
       }
     });
@@ -159,20 +159,20 @@ exports.main_handler = async (event, context, callback) => {
   }
 
   logger({
-    title: 'cdn refresh full logs:',
+    title: &#39;cdn refresh full logs:&#39;,
     data: taskResults
   });
 
   const { status, messages } = getLogSummary(taskResults);
 
   logger({
-    messages: messages.map((item) => item.replace(/\,\ /g, '\n'))
+    messages: messages.map((item) =&gt; item.replace(/\,\ /g, &#39;\n&#39;))
   });
 
-  if (status === 'fail') {
-    throw messages.join('; ');
+  if (status === &#39;fail&#39;) {
+    throw messages.join(&#39;; &#39;);
   } else {
-    return messages.join('; ');
+    return messages.join(&#39;; &#39;);
   }
 };
 ```

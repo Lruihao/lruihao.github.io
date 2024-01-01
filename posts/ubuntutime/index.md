@@ -1,9 +1,9 @@
 # win10,ubuntu 双系统时间不一致
 
 
-> 我的 Ubuntu 和 Windows 双系统是 Ubuntu 是第一启动项，所以总是开机忘记点下键，一进 Ubuntu 系统时间就不对了（总是少了 8 小时），回到 Windows 时间也是错的。知道是错的调整一下还好。忘记调了有时候真的会误事。比如说 git 版本控制提交会遇到问题种种等。
+&gt; 我的 Ubuntu 和 Windows 双系统是 Ubuntu 是第一启动项，所以总是开机忘记点下键，一进 Ubuntu 系统时间就不对了（总是少了 8 小时），回到 Windows 时间也是错的。知道是错的调整一下还好。忘记调了有时候真的会误事。比如说 git 版本控制提交会遇到问题种种等。
 
-<!--more-->
+&lt;!--more--&gt;
 
 ## 原因
 
@@ -12,7 +12,7 @@
 ## 方法一
 
 在 Windows 下 进行如下修改：（博主 win10,win7 自测）  
-以管理员身份运行 CMD（`win+x 后选择 Windows Powershell（管理员）`
+以管理员身份运行 CMD（`win&#43;x 后选择 Windows Powershell（管理员）`
 
 ```default windows cmd 命令
 Reg add HKLM\SYSTEM\CurrentControlSet\Control\TimeZoneInformation /v RealTimeIsUniversal /t REG_DWORD /d 1

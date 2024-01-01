@@ -3,7 +3,7 @@
 
 基于 [vue-fullscreen](https://github.com/mirari/vue-fullscreen) 封装一个的 Vue 全屏/退出全屏切换组件。
 
-<!--more-->
+&lt;!--more--&gt;
 
 ## 简介
 
@@ -25,24 +25,24 @@ yarn add vue-fullscreen@^2.6.1
 
 这个组件会显示为一个切换按钮，通过绑定 `target` 属性来指定全屏的目标元素，通过 `bodyAgent` 属性来指定是否使用 `document.body` 代理全屏元素，目标元素则改为网页全屏，避免弹窗等元素在全屏模式下不可见的问题。
 
-{{< admonition info >}}
+{{&lt; admonition info &gt;}}
 `vue-fullscreen` 插件处理弹窗等元素在全屏模式下不可见问题的方案是通过 `teleport` 修饰符将目标元素移动到 `document.body` 下，从而避免层级遮挡问题。个人不太喜欢这种改变 DOM 结构的方式，所以封装的插件新增一个参数 `bodyAgent`，当设置为 `true` 时，会使用 `document.body` 代理全屏元素，目标元素则改为网页全屏，此时 `document.fullscreenElement` 为 `document.body` 而不是真实设置的 `target` 元素。
-{{< /admonition >}}
+{{&lt; /admonition &gt;}}
 
 ```vue {title=FullScreenToggler.vue}
-<!-- 全屏/退出全屏切换组件，浏览器不支持时，打开网页内全屏 -->
-<script>
-import { directive as fullscreen } from 'vue-fullscreen'
+&lt;!-- 全屏/退出全屏切换组件，浏览器不支持时，打开网页内全屏 --&gt;
+&lt;script&gt;
+import { directive as fullscreen } from &#39;vue-fullscreen&#39;
 
 export default {
-  name: 'FullScreenToggler',
+  name: &#39;FullScreenToggler&#39;,
   directives: {
     fullscreen,
   },
   props: {
     target: {
       type: String,
-      default: 'document.body',
+      default: &#39;document.body&#39;,
     },
     /**
      * 是否使用 document.body 代理全屏元素，目标元素则改为网页全屏
@@ -54,7 +54,7 @@ export default {
     },
     fullscreenClass: {
       type: String,
-      default: 'is-fullscreen',
+      default: &#39;is-fullscreen&#39;,
     },
     /**
      * 不调用全屏 API，而是将当前元素撑满网页
@@ -80,29 +80,29 @@ export default {
   computed: {
     options() {
       return {
-        target: this.bodyAgent ? 'document.body' : this.target,
-        callback: (isFullscreen) => {
+        target: this.bodyAgent ? &#39;document.body&#39; : this.target,
+        callback: (isFullscreen) =&gt; {
           this.isFullscreen = isFullscreen
           // 网页全屏
-          if (this.bodyAgent && this.target !== 'document.body') {
-            document.querySelector(this.target).classList.toggle('is-fullscreen-fullpage', isFullscreen)
+          if (this.bodyAgent &amp;&amp; this.target !== &#39;document.body&#39;) {
+            document.querySelector(this.target).classList.toggle(&#39;is-fullscreen-fullpage&#39;, isFullscreen)
           }
           // 触发事件传递给父组件
-          this.$emit('change', isFullscreen)
+          this.$emit(&#39;change&#39;, isFullscreen)
         },
         fullscreenClass: this.fullscreenClass,
       }
     },
   },
   render(h) {
-    return h('span', {
-      class: 'full-screen-toggler',
+    return h(&#39;span&#39;, {
+      class: &#39;full-screen-toggler&#39;,
       attrs: {
-        title: this.isFullscreen ? '退出全屏' : '全屏',
+        title: this.isFullscreen ? &#39;退出全屏&#39; : &#39;全屏&#39;,
       },
       directives: [
         {
-          name: 'fullscreen',
+          name: &#39;fullscreen&#39;,
           value: this.options,
           modifiers: {
             pageOnly: this.pageOnly,
@@ -112,23 +112,23 @@ export default {
       ],
     },
     [
-      h('svg-icon', {
+      h(&#39;svg-icon&#39;, {
         props: {
-          iconClass: this.isFullscreen ? 'exit-fullscreen' : 'fullscreen',
+          iconClass: this.isFullscreen ? &#39;exit-fullscreen&#39; : &#39;fullscreen&#39;,
         }
       }),
     ])
   },
 }
-</script>
+&lt;/script&gt;
 
-<style lang="scss" scoped>
+&lt;style lang=&#34;scss&#34; scoped&gt;
 .full-screen-toggler {
   cursor: pointer;
 }
-</style>
+&lt;/style&gt;
 
-<style>
+&lt;style&gt;
 .is-fullscreen-fullpage {
   position: fixed !important;
   top: 0px;
@@ -139,27 +139,27 @@ export default {
   z-index: 2000;
   box-sizing: border-box;
 }
-</style>
+&lt;/style&gt;
 ```
 
 使用方式如下：
 
 ```vue
-<template>
-  <div class="page-container">
-    <full-screen-toggler target=".page-container" />
-  </div>
-</template>
+&lt;template&gt;
+  &lt;div class=&#34;page-container&#34;&gt;
+    &lt;full-screen-toggler target=&#34;.page-container&#34; /&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
 
-<script>
-import FullScreenToggler from '@/components/FullScreenToggler'
+&lt;script&gt;
+import FullScreenToggler from &#39;@/components/FullScreenToggler&#39;
 
 export default {
   components: {
     FullScreenToggler,
   },
 }
-</script>
+&lt;/script&gt;
 ```
 
 

@@ -1,7 +1,7 @@
 # java 继承 test
 
 
-{{< admonition quote >}}
+{{&lt; admonition quote &gt;}}
 继承的好处：
 
 1. 提高了代码的复用性
@@ -15,13 +15,13 @@
 - 耦合：类与类的关系。
 - 内聚：自己完成事情的能力。
 
-{{< /admonition >}}
+{{&lt; /admonition &gt;}}
 
-<!--more-->
+&lt;!--more--&gt;
 
 ## java 中的继承特点
 
-> Java 只支持单继承，不支持多继承。Java 支持多层继承（继承体系）
+&gt; Java 只支持单继承，不支持多继承。Java 支持多层继承（继承体系）
 
 ```java
 class A {
@@ -62,7 +62,7 @@ Dog,Pig  错
 
 ## 继承
 
-> 继承间的构造方法关系：创建子类对象，会先去访问父类的构造方法。对父类的数据进行初始化。
+&gt; 继承间的构造方法关系：创建子类对象，会先去访问父类的构造方法。对父类的数据进行初始化。
 
 ```java
 package jicheng;
@@ -70,13 +70,13 @@ package jicheng;
 class Fu{
   public int num = 10;
   public Fu(){
-    System.out.println("父类");
+    System.out.println(&#34;父类&#34;);
   }
 }
 class Zi extends Fu{
   public int num = 20;
   public Zi(){
-    System.out.println("子类");
+    System.out.println(&#34;子类&#34;);
   }
   public void show(){
     int num = 30;
@@ -106,37 +106,37 @@ public class test {
 
 ## 代码块
 
-> 代码块的执行顺序：静态代码块 --> 构造代码块 --> 构造方法  
-> 代码的执行特点：静态代码块只执行一次，构造代码块每次调用构造方法都执行。
+&gt; 代码块的执行顺序：静态代码块 --&gt; 构造代码块 --&gt; 构造方法  
+&gt; 代码的执行特点：静态代码块只执行一次，构造代码块每次调用构造方法都执行。
 
 ```java
 package jicheng;
 
 class Fu {
   static {
-    System.out.println("父类静态代码块");
+    System.out.println(&#34;父类静态代码块&#34;);
   }
 
   {
-    System.out.println("父类构造代码块");
+    System.out.println(&#34;父类构造代码块&#34;);
   }
 
   public Fu() {
-    System.out.println("父类构造方法");
+    System.out.println(&#34;父类构造方法&#34;);
   }
 }
 
 class Zi extends Fu {
   static {
-    System.out.println("子类静态代码块");
+    System.out.println(&#34;子类静态代码块&#34;);
   }
 
   {
-    System.out.println("子类构造代码块");
+    System.out.println(&#34;子类构造代码块&#34;);
   }
 
   public Zi() {
-    System.out.println("子类构造方法");
+    System.out.println(&#34;子类构造方法&#34;);
   }
 }
 
@@ -174,9 +174,9 @@ public class test {
 - 成员变量：
   名字不同：非常的简单，一看就知道使用的是谁。  
   名字相同：就近原则。
-  > 使用变量的时候，会先找局部范围。  
-  > 如果想直接使用成员变量，加关键字：this 即可。  
-  > 如果想直接使用父类的成员变量，加关键字：super 即可。
+  &gt; 使用变量的时候，会先找局部范围。  
+  &gt; 如果想直接使用成员变量，加关键字：this 即可。  
+  &gt; 如果想直接使用父类的成员变量，加关键字：super 即可。
 
 ## 注意事项
 

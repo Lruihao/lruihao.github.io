@@ -5,23 +5,23 @@
 现在做一下记录，防止以后出错用。  
 错误如下
 
-<!--more-->
+&lt;!--more--&gt;
 
 ```bash
 Connection reset by 13.229.188.59 port 22
-fatal: sha1 file '<stdout>' write error: Broken pipe
+fatal: sha1 file &#39;&lt;stdout&gt;&#39; write error: Broken pipe
 fatal: The remote end hung up unexpectedly
-FATAL Something's wrong. Maybe you can find the solution here: http://hexo.io/docs/troubleshooting.html
+FATAL Something&#39;s wrong. Maybe you can find the solution here: http://hexo.io/docs/troubleshooting.html
 Error: Connection reset by 13.229.188.59 port 22
-fatal: sha1 file '<stdout>' write error: Broken pipe
+fatal: sha1 file &#39;&lt;stdout&gt;&#39; write error: Broken pipe
 fatal: The remote end hung up unexpectedly
 
-at ChildProcess.<anonymous> (H:\Hexo\node_modules\hexo-util\lib\spawn.js:37:17)
+at ChildProcess.&lt;anonymous&gt; (H:\Hexo\node_modules\hexo-util\lib\spawn.js:37:17)
     at emitTwo (events.js:106:13)
     at ChildProcess.emit (events.js:191:7)
     at ChildProcess.cp.emit (H:\Hexo\node_modules\cross-spawn\lib\enoent.js:40:29)
     at maybeClose (internal/child_process.js:850:16)
-    at Socket.<anonymous> (internal/child_process.js:323:11)
+    at Socket.&lt;anonymous&gt; (internal/child_process.js:323:11)
     at emitOne (events.js:96:13)
     at Socket.emit (events.js:188:7)
     at Pipe._handle.close [as _onclose] (net.js:492:12)

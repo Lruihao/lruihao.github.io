@@ -4,14 +4,14 @@
 ### config
 
 ```bash
-git config --global user.name "Your Name"
-git config --global user.email "email@example.com"
+git config --global user.name &#34;Your Name&#34;
+git config --global user.email &#34;email@example.com&#34;
 ```
 
-> 第一次使用 git 的时候需要设置提交者信息。  
-> 注意：  
-> 如果用了 `--global` 选项，那么更改的配置文件就是位于你用户主目录下的那个，以后你所有的项目都会默认使用这里配置的用户信息。  
-> 如果要在某个特定的项目中使用其他名字或者电邮，只要去掉 `--global` 选项重新配置即可，新的设定保存在当前项目的 `.git/config` 文件里。
+&gt; 第一次使用 git 的时候需要设置提交者信息。  
+&gt; 注意：  
+&gt; 如果用了 `--global` 选项，那么更改的配置文件就是位于你用户主目录下的那个，以后你所有的项目都会默认使用这里配置的用户信息。  
+&gt; 如果要在某个特定的项目中使用其他名字或者电邮，只要去掉 `--global` 选项重新配置即可，新的设定保存在当前项目的 `.git/config` 文件里。
 
 ### 生成 ssh
 
@@ -19,10 +19,10 @@ git config --global user.email "email@example.com"
 使用以下命令生成 SSH Key：
 
 ```
-ssh-keygen -t rsa -C "youremail@example.com"
+ssh-keygen -t rsa -C &#34;youremail@example.com&#34;
 ```
 
-> 后面的 `your_email@youremail.com` 改为你在 Github 上注册的邮箱，之后会要求确认路径和输入密码，我们这使用默认的一路回车就行。成功的话会在 `C:\Users\用户名、`或者`~/` 下生成 `.ssh`文件夹，进去，打开 `id_rsa.pub`，复制里面的 key。去 github、coding 等平台配置 SSH 公钥（根据自己情况）
+&gt; 后面的 `your_email@youremail.com` 改为你在 Github 上注册的邮箱，之后会要求确认路径和输入密码，我们这使用默认的一路回车就行。成功的话会在 `C:\Users\用户名、`或者`~/` 下生成 `.ssh`文件夹，进去，打开 `id_rsa.pub`，复制里面的 key。去 github、coding 等平台配置 SSH 公钥（根据自己情况）
 
 ### 创建本地代码库
 
@@ -45,7 +45,7 @@ git clone https://github.com/Lruihao/Lruihao.github.io.git
 ```
 git status
 git add *
-git commit -m "代码备注随便写"
+git commit -m &#34;代码备注随便写&#34;
 git push origin master
 ```
 

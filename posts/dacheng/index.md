@@ -1,13 +1,13 @@
 # 大数乘法
 
 
-> 大数乘法 c 版 (基础写法)
+&gt; 大数乘法 c 版 (基础写法)
 
-<!--more-->
+&lt;!--more--&gt;
 
 ```cpp
-#include<stdio.h>
-#include<string.h>
+#include&lt;stdio.h&gt;
+#include&lt;string.h&gt;
 #define N 202
 
 int main() {
@@ -17,33 +17,33 @@ int main() {
 
   la = get(a);
   lb = get(b);
-  n1 = la > lb ? la : lb;//较长的数长
-  n2 = la < lb ? la : lb;//较短的数长
+  n1 = la &gt; lb ? la : lb;//较长的数长
+  n2 = la &lt; lb ? la : lb;//较短的数长
 
-  if (la < lb)
+  if (la &lt; lb)
     change(a, b, lb);
 
   //模拟乘法运算过程（进位等考虑）
-  for (i = 0; i < n2; i++) {
-    for (j = 0; j < n1; j++) {
-      c[j + i] += (b[i] * a[j] + d)%10;
-      d = (b[i] * a[j] + d) / 10;
+  for (i = 0; i &lt; n2; i&#43;&#43;) {
+    for (j = 0; j &lt; n1; j&#43;&#43;) {
+      c[j &#43; i] &#43;= (b[i] * a[j] &#43; d)%10;
+      d = (b[i] * a[j] &#43; d) / 10;
 
-      if (c[j+i]>9){
-        d++;
-        c[j+i]%=10;
+      if (c[j&#43;i]&gt;9){
+        d&#43;&#43;;
+        c[j&#43;i]%=10;
       }
-      if (a[j+1]==0&&d!=0){
-        k=j+i+1;
+      if (a[j&#43;1]==0&amp;&amp;d!=0){
+        k=j&#43;i&#43;1;
         c[k]=d;
       }
     }
     d=0;
   }
 
-  k=k>(j+i-2)?k:j+i-2;
-  for (i = k; i >= 0; i--)//将倒序装入的结果打印
-    printf("%d", c[i]);
+  k=k&gt;(j&#43;i-2)?k:j&#43;i-2;
+  for (i = k; i &gt;= 0; i--)//将倒序装入的结果打印
+    printf(&#34;%d&#34;, c[i]);
 
   return 0;
 }
@@ -53,19 +53,19 @@ int get(int *p) {
   char x[N];
   int l, i, ex = 0;
 
-  scanf("%s", x);
+  scanf(&#34;%s&#34;, x);
   l = strlen(x);
-  while (x[ex] == '0')
-    ex++;
-  for (i = ex; i < l; i++) //提取字符串数字到 int 数组，倒序排列
-    *(p + l - i - 1) = x[i] - '0';
+  while (x[ex] == &#39;0&#39;)
+    ex&#43;&#43;;
+  for (i = ex; i &lt; l; i&#43;&#43;) //提取字符串数字到 int 数组，倒序排列
+    *(p &#43; l - i - 1) = x[i] - &#39;0&#39;;
   return l - ex;
 }
 
 
 void change(int *a, int *b, int n) {
   int i, t;
-  for (i = 0; i < n; i++) {
+  for (i = 0; i &lt; n; i&#43;&#43;) {
     t = a[i];
     a[i] = b[i];
     b[i] = t;

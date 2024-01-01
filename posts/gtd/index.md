@@ -1,15 +1,15 @@
 # Getting Things Done for ios App Reminders and Github issues
 
 
-{{< admonition quote "quote" true >}}
-**Getting Things Done (GTD)** is a personal productivity system developed by David Allen and published in a book of the same name. GTD is described as a time management system. Allen states "there is an inverse relationship between things on your mind and those things getting done".
+{{&lt; admonition quote &#34;quote&#34; true &gt;}}
+**Getting Things Done (GTD)** is a personal productivity system developed by David Allen and published in a book of the same name. GTD is described as a time management system. Allen states &#34;there is an inverse relationship between things on your mind and those things getting done&#34;.
 
 - [Reference](https://en.wikipedia.org/wiki/Getting_Things_Done)
 - [#20](https://github.com/Lruihao/hugo-blog/issues/20)
 
-{{< /admonition >}}
+{{&lt; /admonition &gt;}}
 
-<!--more-->
+&lt;!--more--&gt;
 
 ## 理解
 
@@ -36,7 +36,7 @@
 
 ## Github
 
-- 收集：选择 repository -> 建 issue
+- 收集：选择 repository -&gt; 建 issue
 - 处理：解决并关闭 issue
 - 组织：
   - Labels
@@ -45,13 +45,13 @@
 
 | Lable            | Description                                |
 | :--------------- | :----------------------------------------- |
-| bug              | Something isn't working                    |
+| bug              | Something isn&#39;t working                    |
 | documentation    | Improvements or additions to documentation |
 | duplicate        | e or pull request already exists           |
 | enhancement      | New feature or request                     |
 | good first issue | Good for newcomers                         |
 | help wanted      | Extra attention is needed                  |
-| invalid          | This doesn't seem right                    |
+| invalid          | This doesn&#39;t seem right                    |
 | priority         | Something to deal with first               |
 | question         | Further information is requested           |
 | study            | Self learning plan                         |

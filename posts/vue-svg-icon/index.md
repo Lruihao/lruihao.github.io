@@ -7,7 +7,7 @@
 
 随着前端的发展，icon 使用方案落在了 svg 上，svg 有着矢量图的优势，可以无限放大而不失真，而且 svg 本身就是一种 XML 文件，可以直接在 HTML 中使用，也可以通过 CSS 进行样式控制，但是在 Vue 项目中使用 svg 时，我们会遇到一些问题，本文将介绍如何在 Vue 项目中更优雅的使用 svg icon。
 
-<!--more-->
+&lt;!--more--&gt;
 
 ## 工具
 
@@ -21,16 +21,16 @@
 在 `src/components` 目录下新建 `SvgIcon.vue` 组件：
 
 ```vue
-<template>
-  <div v-if="isExternal" :style="styleExternalIcon" class="svg-external-icon svg-icon" v-on="$listeners" />
-  <svg v-else class="svg-icon" aria-hidden="true" v-on="$listeners">
-    <use :href="iconName" />
-  </svg>
-</template>
+&lt;template&gt;
+  &lt;div v-if=&#34;isExternal&#34; :style=&#34;styleExternalIcon&#34; class=&#34;svg-external-icon svg-icon&#34; v-on=&#34;$listeners&#34; /&gt;
+  &lt;svg v-else class=&#34;svg-icon&#34; aria-hidden=&#34;true&#34; v-on=&#34;$listeners&#34;&gt;
+    &lt;use :href=&#34;iconName&#34; /&gt;
+  &lt;/svg&gt;
+&lt;/template&gt;
 
-<script>
+&lt;script&gt;
 export default {
-  name: 'SvgIcon',
+  name: &#39;SvgIcon&#39;,
   props: {
     iconClass: {
       type: String,
@@ -38,7 +38,7 @@ export default {
     },
     className: {
       type: String,
-      default: ''
+      default: &#39;&#39;
     }
   },
   computed: {
@@ -51,14 +51,14 @@ export default {
     styleExternalIcon() {
       return {
         mask: `url(${this.iconClass}) no-repeat 50% 50%`,
-        '-webkit-mask': `url(${this.iconClass}) no-repeat 50% 50%`
+        &#39;-webkit-mask&#39;: `url(${this.iconClass}) no-repeat 50% 50%`
       }
     }
   }
 }
-</script>
+&lt;/script&gt;
 
-<style scoped>
+&lt;style scoped&gt;
 .svg-icon {
   width: 1em;
   height: 1em;
@@ -72,7 +72,7 @@ export default {
   mask-size: cover!important;
   display: inline-block;
 }
-</style>
+&lt;/style&gt;
 ```
 
 ## 安装
@@ -90,8 +90,8 @@ yarn add svg-sprite-loader svgo-loader -D
 然后在 `vue.config.js` 中添加如下配置：
 
 ```js
-const { defineConfig } = require('@vue/cli-service')
-const path = require('path')
+const { defineConfig } = require(&#39;@vue/cli-service&#39;)
+const path = require(&#39;path&#39;)
 
 function resolve(dir) {
   return path.join(__dirname, dir)
@@ -99,31 +99,31 @@ function resolve(dir) {
 
 module.exports = defineConfig({
   // ...
-  chainWebpack: (config) => {
+  chainWebpack: (config) =&gt; {
     // set svg-sprite-loader
-    const svgPath = resolve('src/assets/icons')
+    const svgPath = resolve(&#39;src/assets/icons&#39;)
     config.module
-      .rule('svg')
+      .rule(&#39;svg&#39;)
       .exclude.add(svgPath)
       .end()
     config.module
-      .rule('svg-icon')
+      .rule(&#39;svg-icon&#39;)
       .test(/.svg$/)
       .include.add(svgPath)
       .end()
-      .use('svg-sprite-loader')
-      .loader('svg-sprite-loader')
+      .use(&#39;svg-sprite-loader&#39;)
+      .loader(&#39;svg-sprite-loader&#39;)
       .options({
-        symbolId: 'icon-[name]',
+        symbolId: &#39;icon-[name]&#39;,
       })
       .end()
       // remove origin svg fill attr
-      .use('svgo-loader')
-      .loader('svgo-loader')
-      .tap((options) => ({
+      .use(&#39;svgo-loader&#39;)
+      .loader(&#39;svgo-loader&#39;)
+      .tap((options) =&gt; ({
         ...options,
         // 删除 svg 中 fill 和 fill-rule
-        plugins: [{ name: 'removeAttrs', params: { attrs: 'fill|fill-rule' } }],
+        plugins: [{ name: &#39;removeAttrs&#39;, params: { attrs: &#39;fill|fill-rule&#39; } }],
       }))
       .end()
   },
@@ -138,21 +138,21 @@ module.exports = defineConfig({
 在 `src/main.js` 中引入所有的 svg 图标，之后可在文件夹自行添加或者删除图标，所以图标都会被自动导入，无需手动操作：
 
 ```js
-import Vue from 'vue'
-import SvgIcon from '@/components/SvgIcon'
+import Vue from &#39;vue&#39;
+import SvgIcon from &#39;@/components/SvgIcon&#39;
 
 // register svg component globally 
-Vue.component('SvgIcon', SvgIcon)
+Vue.component(&#39;SvgIcon&#39;, SvgIcon)
 // require all svg
-const requireAll = (requireContext) => requireContext.keys().map(requireContext)
-const req = require.context('@/assets/icons', false, /\.svg$/)
+const requireAll = (requireContext) =&gt; requireContext.keys().map(requireContext)
+const req = require.context(&#39;@/assets/icons&#39;, false, /\.svg$/)
 requireAll(req)
 ```
 
 ## 使用 icon
 
 ```html
-<svg-icon icon-class="fullscreen"  class='custom-class' />
+&lt;svg-icon icon-class=&#34;fullscreen&#34;  class=&#39;custom-class&#39; /&gt;
 ```
 
 ### 颜色

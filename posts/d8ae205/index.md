@@ -1,10 +1,10 @@
 # 尝试在 Python 中使用 Amazon Titan 文本模型
 
-<!-- markdownlint-disable-file no-duplicate-heading-->
+&lt;!-- markdownlint-disable-file no-duplicate-heading--&gt;
 
 本文将通过 Python 代码探索 Amazon Titan 文本模型系列（包括 Express、Lite 和 Embedding）。
 
-<!--more-->
+&lt;!--more--&gt;
 
 ## 认识 Amazon Titan
 
@@ -43,9 +43,9 @@ pip install --upgrade pip
 
 ```bash
 pip install --no-build-isolation --force-reinstall \
-    "boto3>=1.33.6" \
-    "awscli>=1.31.6" \
-    "botocore>=1.33.6"
+    &#34;boto3&gt;=1.33.6&#34; \
+    &#34;awscli&gt;=1.31.6&#34; \
+    &#34;botocore&gt;=1.33.6&#34;
 ```
 
 ### 加载库
@@ -58,8 +58,8 @@ import sys
 import boto3
 import botocore
 
-bedrock = boto3.client(service_name="bedrock")
-bedrock_runtime = boto3.client(service_name="bedrock-runtime")
+bedrock = boto3.client(service_name=&#34;bedrock&#34;)
+bedrock_runtime = boto3.client(service_name=&#34;bedrock-runtime&#34;)
 ```
 
 ## Titan 文本模型 - Express {#express}
@@ -68,19 +68,19 @@ bedrock_runtime = boto3.client(service_name="bedrock-runtime")
 
 ```py
 # 写一个关于 AWS Lambda 的文章
-express_prompt = "write article about AWS Lambda"
+express_prompt = &#34;write article about AWS Lambda&#34;
 ```
 
 ### 配置模型
 
 ```py
 body = json.dumps({
-    "inputText": express_prompt, 
-    "textGenerationConfig": {  
-        "maxTokenCount": 128,
-        "stopSequences": [], # 定义指示模型结束文本生成的短语
-        "temperature": 0, # 温度控制随机性；较高的值会增加多样性，较低的值会提高可预测性
-        "topP": 0.9 # Top P 是一种文本生成技术，从分布中最可能的标记中采样
+    &#34;inputText&#34;: express_prompt, 
+    &#34;textGenerationConfig&#34;: {  
+        &#34;maxTokenCount&#34;: 128,
+        &#34;stopSequences&#34;: [], # 定义指示模型结束文本生成的短语
+        &#34;temperature&#34;: 0, # 温度控制随机性；较高的值会增加多样性，较低的值会提高可预测性
+        &#34;topP&#34;: 0.9 # Top P 是一种文本生成技术，从分布中最可能的标记中采样
     }
 })
 ```
@@ -90,20 +90,20 @@ body = json.dumps({
 ```py
 response = bedrock_runtime.invoke_model(
     body=body,
-    modelId="amazon.titan-text-express-v1",
-    accept="application/json", 
-    contentType="application/json"
+    modelId=&#34;amazon.titan-text-express-v1&#34;,
+    accept=&#34;application/json&#34;, 
+    contentType=&#34;application/json&#34;
 )
 ```
 
 ### 解析配置
 
 ```py
-response_body = json.loads(response.get('body').read())
-outputText = response_body.get('results')[0].get('outputText')
+response_body = json.loads(response.get(&#39;body&#39;).read())
+outputText = response_body.get(&#39;results&#39;)[0].get(&#39;outputText&#39;)
 
-# 代码 text = outputText[outputText.index('\n')+1:] 提取 outputText 字符串中第一个换行符后面的子字符串。这对于第一个换行符之前的初始内容不相关并且您想要捕获其后面的文本的情况非常有用。index('\n')+1 定位第一个换行符的位置，切片 [index+1:] 取出后续文本，将其赋值给变量 text
-text = outputText[outputText.index('\n')+1:]
+# 代码 text = outputText[outputText.index(&#39;\n&#39;)&#43;1:] 提取 outputText 字符串中第一个换行符后面的子字符串。这对于第一个换行符之前的初始内容不相关并且您想要捕获其后面的文本的情况非常有用。index(&#39;\n&#39;)&#43;1 定位第一个换行符的位置，切片 [index&#43;1:] 取出后续文本，将其赋值给变量 text
+text = outputText[outputText.index(&#39;\n&#39;)&#43;1:]
 about_lambda = text.strip()
 print(about_lambda)
 ```
@@ -124,19 +124,19 @@ Serverless Computing: AWS Lambda is a serverless computing service, which means 
 
 ```py
 # AWS DynamoDB 和 AWS Redis 两个 AWS 服务的区别
-lite_prompt = "2 difference between AWS DynamoDB and AWS Redis"
+lite_prompt = &#34;2 difference between AWS DynamoDB and AWS Redis&#34;
 ```
 
 ### 配置模型
 
 ```py
 body = json.dumps({
-    "inputText": lite_prompt, 
-    "textGenerationConfig": {  
-        "maxTokenCount": 128,
-        "stopSequences": [], # 定义指示模型结束文本生成的短语
-        "temperature": 0, # 温度控制随机性；较高的值会增加多样性，较低的值会提高可预测性
-        "topP": 0.9 # Top P 是一种文本生成技术，从分布中最可能的标记中采样
+    &#34;inputText&#34;: lite_prompt, 
+    &#34;textGenerationConfig&#34;: {  
+        &#34;maxTokenCount&#34;: 128,
+        &#34;stopSequences&#34;: [], # 定义指示模型结束文本生成的短语
+        &#34;temperature&#34;: 0, # 温度控制随机性；较高的值会增加多样性，较低的值会提高可预测性
+        &#34;topP&#34;: 0.9 # Top P 是一种文本生成技术，从分布中最可能的标记中采样
     }
 })
 ```
@@ -146,18 +146,18 @@ body = json.dumps({
 ```py
 response = bedrock_runtime.invoke_model(
     body=body,
-    modelId="amazon.titan-text-lite-v1",
-    accept="application/json", 
-    contentType="application/json"
+    modelId=&#34;amazon.titan-text-lite-v1&#34;,
+    accept=&#34;application/json&#34;, 
+    contentType=&#34;application/json&#34;
 )
 ```
 
 ### 解析配置
 
 ```py
-response_body = json.loads(response.get('body').read())
-outputText = response_body.get('results')[0].get('outputText')
-text = outputText[outputText.index('\n')+1:]
+response_body = json.loads(response.get(&#39;body&#39;).read())
+outputText = response_body.get(&#39;results&#39;)[0].get(&#39;outputText&#39;)
+text = outputText[outputText.index(&#39;\n&#39;)&#43;1:]
 compare_dynamodb_redis = text.strip()
 print(compare_dynamodb_redis)
 ```
@@ -174,14 +174,14 @@ Amazon DynamoDB is a fully managed NoSQL database service in the cloud that offe
 
 ```py
 # AWS re:Invent 2023 是我们今年最大的云活动，在内华达州拉斯维加斯举行，包括主题演讲、创新讲座、构建者实验室、研讨会、技术和可持续发展演示
-embed_prompt = "AWS re:Invent 2023, our biggest cloud event of the year, in Las Vegas, Nevada, featured keynotes, innovation talks, builder labs, workshops, tech and sustainability demos"
+embed_prompt = &#34;AWS re:Invent 2023, our biggest cloud event of the year, in Las Vegas, Nevada, featured keynotes, innovation talks, builder labs, workshops, tech and sustainability demos&#34;
 ```
 
 ### 配置模型
 
 ```py
 body = json.dumps({
-    "inputText": embed_prompt, 
+    &#34;inputText&#34;: embed_prompt, 
 })
 ```
 
@@ -190,32 +190,32 @@ body = json.dumps({
 ```py
 response = bedrock_runtime.invoke_model(
     body=body,
-    modelId="amazon.titan-embed-text-v1",
-    accept="application/json", 
-    contentType="application/json"
+    modelId=&#34;amazon.titan-embed-text-v1&#34;,
+    accept=&#34;application/json&#34;, 
+    contentType=&#34;application/json&#34;
 )
 ```
 
 ### 解析配置
 
 ```py
-response_body = json.loads(response.get("body").read())
-embedding_output = response_body.get("embedding")
+response_body = json.loads(response.get(&#34;body&#34;).read())
+embedding_output = response_body.get(&#34;embedding&#34;)
 
 # 此代码从响应正文中检索“嵌入”向量，并打印其长度以及前三个和最后三个值的预览，显示嵌入向量的片段
-print(f"You can find the Embedding Vector {len(embedding_output)} values\n{embedding_output[0:3]+['...']+embedding_output[-3:]}")
+print(f&#34;You can find the Embedding Vector {len(embedding_output)} values\n{embedding_output[0:3]&#43;[&#39;...&#39;]&#43;embedding_output[-3:]}&#34;)
 ```
 
 ### 运行结果
 
 ```plain
 You can find the Embedding Vector 1536 values
-[0.40429688, -0.38085938, 0.19726562, '...', 0.2109375, 0.012573242, 0.18847656]
+[0.40429688, -0.38085938, 0.19726562, &#39;...&#39;, 0.2109375, 0.012573242, 0.18847656]
 ```
 
 ## 注册亚马逊云科技账户 {#register-aws}
 
-打开 [亚马逊云科技账号注册地址](https://aws.amazon.com/cn/q/?sc_channel=seo&sc_campaign=blog1210)，点击右上角创建 AWS 账户。
+打开 [亚马逊云科技账号注册地址](https://aws.amazon.com/cn/q/?sc_channel=seo&amp;sc_campaign=blog1210)，点击右上角创建 AWS 账户。
 
 ![创建 AWS 账户](../aws-ec2/images/23_1693042834.png)
 

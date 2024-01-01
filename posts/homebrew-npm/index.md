@@ -1,11 +1,11 @@
 # 安装 Homebrew 后导致系统中原有的 npm 和 npx 失效
 
 
-{{< admonition question >}}
+{{&lt; admonition question &gt;}}
 前面一段时间，安装了 Homebrew, 但是今天切换 node 版本到 system version (8.10.0) 后，发现虽然 node 版本切换成功，但是 node 版本对应的 npm 和 npx 版本不相符，下面记录一下问题排查过程。
-{{< /admonition >}}
+{{&lt; /admonition &gt;}}
 
-<!--more-->
+&lt;!--more--&gt;
 
 ## 罪魁祸首
 

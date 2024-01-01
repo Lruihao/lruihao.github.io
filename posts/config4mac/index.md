@@ -3,7 +3,7 @@
 
 记录一下使用 Mac 作为生产工具开发的一些基本配置和经验。
 
-<!--more-->
+&lt;!--more--&gt;
 
 ## 配置文件
 
@@ -23,10 +23,10 @@ Mac 上有很多配置文件都可以用来保存环境变量等配置，根据�
 
 ```bash
 # 安装/卸载 homebrew install.sh/uninstall.sh
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+/bin/bash -c &#34;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)&#34;
 # 注意：安装 Homebrew 会下载 node, 请做好 node 环境被破坏的准备
 
-# 显示隐藏文件 true/false or cmd+shift+.
+# 显示隐藏文件 true/false or cmd&#43;shift&#43;.
 defaults write com.apple.finder AppleShowAllFiles -boolean true ; killall Finder
 
 # 释放端口
@@ -100,13 +100,13 @@ Custom actions
 - Script target: `/bin/bash`
 - Parameters: `/Users/liruihao/workspace/.shell/sync_tags.sh`
 
-{{< admonition tip >}}
+{{&lt; admonition tip &gt;}}
 根据不同的 shell 程序选择不同的文件后缀名，并给文件增加可执行权限：
 
 - zsh: `.zsh`
 - bash: `.sh`
 
-{{< /admonition >}}
+{{&lt; /admonition &gt;}}
 
 ```bash sync_tags.sh
 #! /bin/bash
@@ -130,14 +130,14 @@ ssh-agent -s
 ssh-add ~/.ssh/Lruihao-Github  # 私钥路径
 ```
 
-{{< admonition tip >}}
+{{&lt; admonition tip &gt;}}
 开机启动时系统会去自动读取 `id_rsa` 的私钥来启动 SSH 链接，若不是默认命令就会失败需要手动执行上诉命令启动，可添加到[开机自启动](#startup)。
-{{< /admonition >}}
+{{&lt; /admonition &gt;}}
 
-{{< admonition tip "SourceTree 相关文章" >}}
+{{&lt; admonition tip &#34;SourceTree 相关文章&#34; &gt;}}
 
 - [解决 SourceTree 提交时候 husky 命令失败问题](/posts/sourcetree-husky/)
-{{< /admonition >}}
+{{&lt; /admonition &gt;}}
 
 ## Terminal
 
@@ -156,21 +156,21 @@ vim $PREFIX/etc/motd
 ```bash
 # Terminal 启用 sublime 别名 subl
 ## 1.设置软链（推荐）
-sudo ln -s "/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl" /usr/local/bin/subl
+sudo ln -s &#34;/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl&#34; /usr/local/bin/subl
 ## 2.设置别名
 vim ~/.bash_profile
-alias subl="'/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl'"
+alias subl=&#34;&#39;/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl&#39;&#34;
 source ~/.bash_profile # 每打开一个命令窗口，需要先让命令生效
 ```
 
 ## 开机自启动 {#startup}
 
-1. 系统偏好设置 -> 用户与群组 -> 登录项 -> 增删可执行文件 (需配置默认启动软件)
+1. 系统偏好设置 -&gt; 用户与群组 -&gt; 登录项 -&gt; 增删可执行文件 (需配置默认启动软件)
 2. 将 shell 命令添加到 `/System/Library/StartupItems/` 或 `/Library/StartupItems/` 文件夹（测试无效）
 
 ## 备份
 
-```bash {title="~/.bash_profile"}
+```bash {title=&#34;~/.bash_profile&#34;}
 # -------------------------------------
 # This configuration is for Lruihao.
 # https://lruihao.cn/posts/config4mac/
@@ -180,22 +180,22 @@ export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 
 # workspace
-export WORKSPACE="$HOME/workspace"
+export WORKSPACE=&#34;$HOME/workspace&#34;
 
 # alias
-alias subl="'/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl'"
+alias subl=&#34;&#39;/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl&#39;&#34;
 alias mysql=/usr/local/mysql/bin/mysql
 alias mysqladmin=/usr/local/mysql/bin/mysqladmin
-alias incr="source $WORKSPACE/.shell/incr*.zsh"
-alias typora="open -a typora"
+alias incr=&#34;source $WORKSPACE/.shell/incr*.zsh&#34;
+alias typora=&#34;open -a typora&#34;
 
 # maven
 export M2_HOME=$HOME/Applications/apache-maven-3.8.5
 export PATH=$PATH:$M2_HOME/bin
 
 # jenv
-export PATH="$HOME/.jenv/bin:$PATH"
-eval "$(jenv init -)"
+export PATH=&#34;$HOME/.jenv/bin:$PATH&#34;
+eval &#34;$(jenv init -)&#34;
 
 # java
 export JAVA_8_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_321.jdk/Contents/Home
@@ -217,15 +217,15 @@ export CSC_LINK=$WORKSPACE/mac_app_dev/Mac.p12
 export CSC_KEY_PASSWORD=xxxxxxxxx
 
 # yarn
-export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+export PATH=&#34;$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH&#34;
 
 # zsh custom plugin
 # https://mimosa-pudica.net/zsh-incremental.html
 # source $WORKSPACE/.shell/incr*.zsh
 
 # Qcloud secret key-value
-export SECRET_ID=""
-export SECRET_KEY=""
+export SECRET_ID=&#34;&#34;
+export SECRET_KEY=&#34;&#34;
 
 # golang
 export GOROOT=/usr/local/go
@@ -240,34 +240,34 @@ export PATH=$PATH:$GOPATH/bin
 export PATH=$PATH:$HOME/Applications/sass_embedded
 ```
 
-```zsh {title="$ZSH_CUSTOM/nvm_custom.zsh"}
+```zsh {title=&#34;$ZSH_CUSTOM/nvm_custom.zsh&#34;}
 # https://github.com/nvm-sh/nvm#manual-install
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+export NVM_DIR=&#34;$HOME/.nvm&#34;
+[ -s &#34;$NVM_DIR/nvm.sh&#34; ] &amp;&amp; \. &#34;$NVM_DIR/nvm.sh&#34;  # This loads nvm
+[ -s &#34;$NVM_DIR/bash_completion&#34; ] &amp;&amp; \. &#34;$NVM_DIR/bash_completion&#34;  # This loads nvm bash_completion
 
 # https://github.com/nvm-sh/nvm#deeper-shell-integration
 autoload -U add-zsh-hook
 load-nvmrc() {
-  local node_version="$(nvm version)"
-  local nvmrc_path="$(nvm_find_nvmrc)"
+  local node_version=&#34;$(nvm version)&#34;
+  local nvmrc_path=&#34;$(nvm_find_nvmrc)&#34;
 
-  if [ -n "$nvmrc_path" ]; then
-    local nvmrc_node_version=$(nvm version "$(cat "${nvmrc_path}")")
+  if [ -n &#34;$nvmrc_path&#34; ]; then
+    local nvmrc_node_version=$(nvm version &#34;$(cat &#34;${nvmrc_path}&#34;)&#34;)
 
-    if [ "$nvmrc_node_version" = "N/A" ]; then
+    if [ &#34;$nvmrc_node_version&#34; = &#34;N/A&#34; ]; then
       nvm install
-    elif [ "$nvmrc_node_version" != "$node_version" ]; then
+    elif [ &#34;$nvmrc_node_version&#34; != &#34;$node_version&#34; ]; then
       nvm use
     fi
-  elif [ "$node_version" != "$(nvm version default)" ]; then
-    echo "Reverting to nvm default version"
+  elif [ &#34;$node_version&#34; != &#34;$(nvm version default)&#34; ]; then
+    echo &#34;Reverting to nvm default version&#34;
     nvm use default
   fi
 
   # fix husky hook
   # ref: https://github.com/typicode/husky/issues/390#issuecomment-762213421
-  echo "export PATH=\"$(dirname $(which node)):\$PATH\"" > ~/.huskyrc
+  echo &#34;export PATH=\&#34;$(dirname $(which node)):\$PATH\&#34;&#34; &gt; ~/.huskyrc
 }
 add-zsh-hook chpwd load-nvmrc
 load-nvmrc
@@ -276,15 +276,15 @@ load-nvmrc
 export NVM_NODEJS_ORG_MIRROR=https://mirrors.ustc.edu.cn/node/
 ```
 
-> 先添加一些基础配置 [basic.vim](https://github.com/amix/vimrc/blob/master/vimrcs/basic.vim)
+&gt; 先添加一些基础配置 [basic.vim](https://github.com/amix/vimrc/blob/master/vimrcs/basic.vim)
 
-```bash {title="~/.vimrc"}
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Custom config for Lruihao
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Enable mouse
+```bash {title=&#34;~/.vimrc&#34;}
+&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;
+&#34; =&gt; Custom config for Lruihao
+&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;&#34;
+&#34; Enable mouse
 set mouse=a
-" Enable line-number
+&#34; Enable line-number
 set number
 ```
 

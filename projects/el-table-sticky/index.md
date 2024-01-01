@@ -3,7 +3,7 @@
 
 本文将介绍如何通过自定义指令的方式实现 Element UI 表格的表头吸顶、表尾吸底、滚动条吸底以及高度自适应功能。
 
-<!--more-->
+&lt;!--more--&gt;
 
 ## 背景
 
@@ -15,10 +15,10 @@ Element UI 的表格组件在使用时，如果表格内容过多，表格会出
 
 为了解决以上痛点/需求，减少开发和维护成本，于是我开发了 [el-table-sticky](https://github.com/Lruihao/el-table-sticky) 插件，[在线示例](https://lruihao.github.io/el-table-sticky/)。
 
-<!-- markdownlint-disable-next-line no-bare-urls -->
-{{< link href="https://github.com/Lruihao/el-table-sticky" content="el-table-stick" card=true >}}
+&lt;!-- markdownlint-disable-next-line no-bare-urls --&gt;
+{{&lt; link href=&#34;https://github.com/Lruihao/el-table-sticky&#34; content=&#34;el-table-stick&#34; card=true &gt;}}
 
-> *如果你觉得这个插件还不错，赏个 star 吧 😛，如果你有更好的实现方案，欢迎提 issue 或者 PR。*
+&gt; *如果你觉得这个插件还不错，赏个 star 吧 😛，如果你有更好的实现方案，欢迎提 issue 或者 PR。*
 
 ## 解决思路
 
@@ -45,7 +45,7 @@ npm install @cell-x/el-table-sticky
 
 接下来，我们来看看如何实现这些功能。
 
-### 表头吸顶&表尾吸底
+### 表头吸顶&amp;表尾吸底
 
 表头吸顶是我最迫切想要解决的问题，所以在 0.x 版本开发完，我就马上发布并在公司老项目中引入了。
 
@@ -59,7 +59,7 @@ npm install @cell-x/el-table-sticky
 
 ### 高度自适应
 
-> 沿用 Element UI 的 `max-height` 和 `height` 属性，所以 el-table 初始化时必须设置高度。
+&gt; 沿用 Element UI 的 `max-height` 和 `height` 属性，所以 el-table 初始化时必须设置高度。
 
 这个就比较简单了，监听 el-table 元素的 resize，然后 JS 计算出表格的可用高度，最后调用 `$table.layout.setHeight` 设置高度即可。
 
@@ -89,11 +89,11 @@ A few moments later...
 
 一念对开源蠢蠢欲动，一念对维护犹豫不决，一念成就开源，一念成就自己。
 
-{{< center-quote >}}
+{{&lt; center-quote &gt;}}
 Non sunt multiplicanda entia sine necessitate
 
 若无必要，勿增实体
-{{< /center-quote >}}
+{{&lt; /center-quote &gt;}}
 
 不到迫不得已，不要轻易造轮子，要善于发现和利用已有的轮子、最理想的状态就是永远站在巨人的肩膀上。
 
@@ -101,7 +101,7 @@ Non sunt multiplicanda entia sine necessitate
 
 学而不思则罔，思而不学则殆。
 
-<!-- footnote reference definition -->
+&lt;!-- footnote reference definition --&gt;
 [^1]: *如有必要，以后版本需要替换 gemini-scrollbar 实现自定义滚动条的功能。*
 
 

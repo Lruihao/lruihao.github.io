@@ -1,15 +1,15 @@
 # web 汇总
 
 
-> 下面一些 web 开发的一些总结，还有一些常用到的代码，脚本等！
+&gt; 下面一些 web 开发的一些总结，还有一些常用到的代码，脚本等！
 
-<!--more-->
+&lt;!--more--&gt;
 
 ## front-end
 
 ### html
 
-> - [HTML+CSS](https://lruihao.cn/posts/ms-html-css.html)
+&gt; - [HTML&#43;CSS](https://lruihao.cn/posts/ms-html-css.html)
 
 #### oblique 和 intalic 的区别
 
@@ -20,16 +20,16 @@
 
 #### title 显示换行
 
-<a href="#" title="第一行&#10; 第二行&#10; 第三行">使用`&#10;`</a>或<a href="#" title="第一排&#13; 第二排&#13; 第三排">使用`&#13;`</a>
+&lt;a href=&#34;#&#34; title=&#34;第一行&amp;#10; 第二行&amp;#10; 第三行&#34;&gt;使用`&amp;#10;`&lt;/a&gt;或&lt;a href=&#34;#&#34; title=&#34;第一排&amp;#13; 第二排&amp;#13; 第三排&#34;&gt;使用`&amp;#13;`&lt;/a&gt;
 
 ```
-<a href="#" title="第一行&#10; 第二行&#10; 第三行">使用`&#10;`</a>
-<a href="#" title="第一排&#13; 第二排&#13; 第三排">使用`&#13;`</a>
+&lt;a href=&#34;#&#34; title=&#34;第一行&amp;#10; 第二行&amp;#10; 第三行&#34;&gt;使用`&amp;#10;`&lt;/a&gt;
+&lt;a href=&#34;#&#34; title=&#34;第一排&amp;#13; 第二排&amp;#13; 第三排&#34;&gt;使用`&amp;#13;`&lt;/a&gt;
 ```
 
 #### 图片类型选择
 
-![图片类型选择](images/imgType.jpg '图片类型选择')
+![图片类型选择](images/imgType.jpg &#39;图片类型选择&#39;)
 
 ### css
 
@@ -38,7 +38,7 @@
 Flex 布局将成为未来布局的首选方案，比如说常见的 bootstrap4 的版本就用 flex 替代了 float 来进行排版。  
 我在网上看到几个很好的教程，图文并茂，一目了然。
 
-> - [A Complete Guide to Flexbox](https://css-tricks.com/snippets/css/a-guide-to-flexbox/)
+&gt; - [A Complete Guide to Flexbox](https://css-tricks.com/snippets/css/a-guide-to-flexbox/)
 
 - [Flex 布局教程：语法篇](http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html)
 
@@ -57,66 +57,66 @@ Flex 布局将成为未来布局的首选方案，比如说常见的 bootstrap4 
 
 #### textContent、innerText 和 innerHTML 的区别
 
-> 1. 设置标签中的文本内容，应该使用`textContent`或`innerText`（更老）属性，区别在于浏览器支援程度
-> 2. `innerHTML`能够获得元素内的所有标签内容，也可以设置标签使之生效。（**注意防止 XSS 注入**）
+&gt; 1. 设置标签中的文本内容，应该使用`textContent`或`innerText`（更老）属性，区别在于浏览器支援程度
+&gt; 2. `innerHTML`能够获得元素内的所有标签内容，也可以设置标签使之生效。（**注意防止 XSS 注入**）
 
 如果某个属性在浏览器中不支持，那么这个属性的类型是`undefined`，判断这个属性的类型是不是`undefined`，就知道浏览器是否支持。
 
 ```js 兼容代码 设置任意的标签中间的任意文本内容
-<script>
+&lt;script&gt;
   // 设置任意的标签中间的任意文本内容
   function setInnerText(element, text) {
       //判断浏览器是否支持这个属性
-      if (typeof element.textContent == "undefined") {//不支持
+      if (typeof element.textContent == &#34;undefined&#34;) {//不支持
           element.innerText = text;
       } else {//支持这个属性
           element.textContent = text;
       }
   };
-</script>
+&lt;/script&gt;
 ```
 
 ### 图床方案
 
-> - 自行搭建
->   比如使用开源图床 ImgURL 搭建的`img.lruihao.cn`（**需要服务器**）  
->   使用上传工具加第三方免费空间，比如`PicGo + 腾讯云 COS`（**无需服务器**）
+&gt; - 自行搭建
+&gt;   比如使用开源图床 ImgURL 搭建的`img.lruihao.cn`（**需要服务器**）  
+&gt;   使用上传工具加第三方免费空间，比如`PicGo &#43; 腾讯云 COS`（**无需服务器**）
 
 - 使用各大图床  
   诸如 sm.ms，腾讯云 COS，阿里云 OSS，七牛云，又拍云，Github，微博图床，ImgURL 图床等等
 
 ### font-awesome
 
-现在使用 5 的版本，可以使用`webfont+css`或`svg+js`
+现在使用 5 的版本，可以使用`webfont&#43;css`或`svg&#43;js`
 
 ```xml font-awesome
-<link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css">
+&lt;link rel=&#34;stylesheet&#34; href=&#34;https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css&#34;&gt;
 ```
 
 其他的图标 js
 
 ```
-<script src="//at.alicdn.com/t/font_578712_g26jo2kbzd5qm2t9.js"></script>
-<svg class="card-avatar" aria-hidden="true">
-  <use xlink:href="#icon-{{n+1}}"></use>                <!--n 为一个数字-->
-</svg>
+&lt;script src=&#34;//at.alicdn.com/t/font_578712_g26jo2kbzd5qm2t9.js&#34;&gt;&lt;/script&gt;
+&lt;svg class=&#34;card-avatar&#34; aria-hidden=&#34;true&#34;&gt;
+  &lt;use xlink:href=&#34;#icon-{{n&#43;1}}&#34;&gt;&lt;/use&gt;                &lt;!--n 为一个数字--&gt;
+&lt;/svg&gt;
 ```
 
 ### 响应式（自适应）
 
 ```xml bootstrap
-<link rel="stylesheet" href="https://apps.bdimg.com/libs/bootstrap/3.3.4/css/bootstrap.min.css">
-<script src="https://apps.bdimg.com/libs/bootstrap/3.3.4/js/bootstrap.min.js">
+&lt;link rel=&#34;stylesheet&#34; href=&#34;https://apps.bdimg.com/libs/bootstrap/3.3.4/css/bootstrap.min.css&#34;&gt;
+&lt;script src=&#34;https://apps.bdimg.com/libs/bootstrap/3.3.4/js/bootstrap.min.js&#34;&gt;
 ```
 
 ```xml
-<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=0">
+&lt;meta name=&#34;viewport&#34; content=&#34;width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=0&#34;&gt;
 ```
 
-> - .col-xs- 超小屏幕 手机 <768px
-> - .col-sm- 小屏幕 平板 >=768px
-> - .col-md- 中等屏幕 >=992px
-> - .col-lg- 大屏幕 >1200px
+&gt; - .col-xs- 超小屏幕 手机 &lt;768px
+&gt; - .col-sm- 小屏幕 平板 &gt;=768px
+&gt; - .col-md- 中等屏幕 &gt;=992px
+&gt; - .col-lg- 大屏幕 &gt;1200px
 
 css3 写法 @media（宽度具体调整）
 
@@ -134,57 +134,57 @@ css3 写法 @media（宽度具体调整）
 link 引入不同 css
 
 ```xml link 引入不同 css
-<!--手机端-->
-<link rel="stylesheet" type="text/css" href="style_phone.css" media="screen and (max-width: 960px)"/>
-<!--电脑端-->
-<link rel="stylesheet" type="text/css" href="style_PC.css" media="screen and (min-width: 960px)"/>
+&lt;!--手机端--&gt;
+&lt;link rel=&#34;stylesheet&#34; type=&#34;text/css&#34; href=&#34;style_phone.css&#34; media=&#34;screen and (max-width: 960px)&#34;/&gt;
+&lt;!--电脑端--&gt;
+&lt;link rel=&#34;stylesheet&#34; type=&#34;text/css&#34; href=&#34;style_PC.css&#34; media=&#34;screen and (min-width: 960px)&#34;/&gt;
 ```
 
 ### jquery
 
 ```xml jquery
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+&lt;script src=&#34;https://code.jquery.com/jquery-3.3.1.min.js&#34;&gt;&lt;/script&gt;
 
-<script src="https://lib.sinaapp.com/js/jquery/2.0.2/jquery-2.0.2.min.js"></script>
+&lt;script src=&#34;https://lib.sinaapp.com/js/jquery/2.0.2/jquery-2.0.2.min.js&#34;&gt;&lt;/script&gt;
 
-<script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+&lt;script src=&#34;https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js&#34;&gt;&lt;/script&gt;
 
-<script src="http://cdn.bootcss.com/jquery/1.11.0/jquery.min.js"></script>
+&lt;script src=&#34;http://cdn.bootcss.com/jquery/1.11.0/jquery.min.js&#34;&gt;&lt;/script&gt;
 //还有其他的源 ...
 ```
 
 ### QQ 推广链接
 
-> [QQ 推广](https://shang.qq.com/v3/widget.html) [QQ 群](https://qun.qq.com/join.html)
+&gt; [QQ 推广](https://shang.qq.com/v3/widget.html) [QQ 群](https://qun.qq.com/join.html)
 
 ```
-<a target="_blank" href="https://wpa.qq.com/msgrd?v=3&uin=1074627678&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:1074627678:51" alt="点击这里给我发消息" title="点击这里给我发消息"/></a>
+&lt;a target=&#34;_blank&#34; href=&#34;https://wpa.qq.com/msgrd?v=3&amp;uin=1074627678&amp;site=qq&amp;menu=yes&#34;&gt;&lt;img border=&#34;0&#34; src=&#34;http://wpa.qq.com/pa?p=2:1074627678:51&#34; alt=&#34;点击这里给我发消息&#34; title=&#34;点击这里给我发消息&#34;/&gt;&lt;/a&gt;
 ```
 
-<a target="_blank" href="https://wpa.qq.com/msgrd?v=3&uin=1074627678&site=qq&menu=yes"><img border="0" src="https://wpa.qq.com/pa?p=2:1074627678:51" alt="点击这里给我发消息" title="点击这里给我发消息"/></a>
+&lt;a target=&#34;_blank&#34; href=&#34;https://wpa.qq.com/msgrd?v=3&amp;uin=1074627678&amp;site=qq&amp;menu=yes&#34;&gt;&lt;img border=&#34;0&#34; src=&#34;https://wpa.qq.com/pa?p=2:1074627678:51&#34; alt=&#34;点击这里给我发消息&#34; title=&#34;点击这里给我发消息&#34;/&gt;&lt;/a&gt;
 
 ### Google fonts
 
 ```diff
 https://fonts.google.com/
 一般选用国内源镜像替代（待补充 ...）
-+ https://fonts.loli.net
-+ //fonts.lug.ustc.edu.cn
+&#43; https://fonts.loli.net
+&#43; //fonts.lug.ustc.edu.cn
 ```
 
 ### fancybox
 
-[github 介绍](https://github.com/fancyapps/fancybox)&emsp;[fancybox 源](https://www.bootcdn.cn/fancybox/)
+[github 介绍](https://github.com/fancyapps/fancybox)&amp;emsp;[fancybox 源](https://www.bootcdn.cn/fancybox/)
 
 ```xml fancybox 源
-<link href="https://cdn.bootcss.com/fancybox/3.5.7/jquery.fancybox.min.css" rel="stylesheet">
-<script src="https://cdn.bootcss.com/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+&lt;link href=&#34;https://cdn.bootcss.com/fancybox/3.5.7/jquery.fancybox.min.css&#34; rel=&#34;stylesheet&#34;&gt;
+&lt;script src=&#34;https://cdn.bootcss.com/fancybox/3.5.7/jquery.fancybox.min.js&#34;&gt;&lt;/script&gt;
 ```
 
 ## back-end
 
-> 更多学习内容见 [学习课件](https://github.com/Lruihao/web-dev-data)  
-> 练习作业 [源码](https://github.com/Lruihao/hw)+[Demo](http://hw.lruihao.cn/)
+&gt; 更多学习内容见 [学习课件](https://github.com/Lruihao/web-dev-data)  
+&gt; 练习作业 [源码](https://github.com/Lruihao/hw)&#43;[Demo](http://hw.lruihao.cn/)
 
 
 ---

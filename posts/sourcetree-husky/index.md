@@ -17,8 +17,8 @@
 
 配置 `.huskyrc` 文件，内容如下：
 
-```bash {title="~/.huskyrc"}
-echo "export PATH=\"$(dirname $(which node)):\$PATH\"" > ~/.huskyrc
+```bash {title=&#34;~/.huskyrc&#34;}
+echo &#34;export PATH=\&#34;$(dirname $(which node)):\$PATH\&#34;&#34; &gt; ~/.huskyrc
 ```
 
 如果你使用了 `zsh` 和 `nvm`, 建议在 `$ZSH_CUSTOM` 目录下添加一个自定义 zsh 脚本。
@@ -28,34 +28,34 @@ echo "export PATH=\"$(dirname $(which node)):\$PATH\"" > ~/.huskyrc
 vim $ZSH_CUSTOM/nvm_custom.zsh
 ```
 
-```zsh {title="$ZSH_CUSTOM/nvm_custom.zsh"}
+```zsh {title=&#34;$ZSH_CUSTOM/nvm_custom.zsh&#34;}
 # https://github.com/nvm-sh/nvm#manual-install
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+export NVM_DIR=&#34;$HOME/.nvm&#34;
+[ -s &#34;$NVM_DIR/nvm.sh&#34; ] &amp;&amp; \. &#34;$NVM_DIR/nvm.sh&#34;  # This loads nvm
+[ -s &#34;$NVM_DIR/bash_completion&#34; ] &amp;&amp; \. &#34;$NVM_DIR/bash_completion&#34;  # This loads nvm bash_completion
 
 # https://github.com/nvm-sh/nvm#deeper-shell-integration
 autoload -U add-zsh-hook
 load-nvmrc() {
-  local node_version="$(nvm version)"
-  local nvmrc_path="$(nvm_find_nvmrc)"
+  local node_version=&#34;$(nvm version)&#34;
+  local nvmrc_path=&#34;$(nvm_find_nvmrc)&#34;
 
-  if [ -n "$nvmrc_path" ]; then
-    local nvmrc_node_version=$(nvm version "$(cat "${nvmrc_path}")")
+  if [ -n &#34;$nvmrc_path&#34; ]; then
+    local nvmrc_node_version=$(nvm version &#34;$(cat &#34;${nvmrc_path}&#34;)&#34;)
 
-    if [ "$nvmrc_node_version" = "N/A" ]; then
+    if [ &#34;$nvmrc_node_version&#34; = &#34;N/A&#34; ]; then
       nvm install
-    elif [ "$nvmrc_node_version" != "$node_version" ]; then
+    elif [ &#34;$nvmrc_node_version&#34; != &#34;$node_version&#34; ]; then
       nvm use
     fi
-  elif [ "$node_version" != "$(nvm version default)" ]; then
-    echo "Reverting to nvm default version"
+  elif [ &#34;$node_version&#34; != &#34;$(nvm version default)&#34; ]; then
+    echo &#34;Reverting to nvm default version&#34;
     nvm use default
   fi
 
   # fix husky hook
   # ref: https://github.com/typicode/husky/issues/390#issuecomment-762213421
-  echo "export PATH=\"$(dirname $(which node)):\$PATH\"" > ~/.huskyrc
+  echo &#34;export PATH=\&#34;$(dirname $(which node)):\$PATH\&#34;&#34; &gt; ~/.huskyrc
 }
 add-zsh-hook chpwd load-nvmrc
 load-nvmrc
@@ -66,10 +66,10 @@ export NVM_NODEJS_ORG_MIRROR=https://mirrors.ustc.edu.cn/node/
 
 ## 参考
 
-- <https://wxhboy.cn/2022/04/12/解决 SourceTree 提交时候 husky 命令失败问题/>
-- <https://github.com/typicode/husky/issues/390#issuecomment-762213421>
-- <https://github.com/typicode/husky/issues/904#issuecomment-862184954>
-- <https://github.com/nvm-sh/nvm#deeper-shell-integration>
+- &lt;https://wxhboy.cn/2022/04/12/解决 SourceTree 提交时候 husky 命令失败问题/&gt;
+- &lt;https://github.com/typicode/husky/issues/390#issuecomment-762213421&gt;
+- &lt;https://github.com/typicode/husky/issues/904#issuecomment-862184954&gt;
+- &lt;https://github.com/nvm-sh/nvm#deeper-shell-integration&gt;
 
 
 ---

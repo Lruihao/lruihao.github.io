@@ -7,40 +7,40 @@
 
 ## [托米的划分](https://www.nowcoder.com/acm/contest/156/B)
 
-<!--more-->
+&lt;!--more--&gt;
 
 ## a
 
 ```cpp
-#include<bits/stdc++.h>
+#include&lt;bits/stdc&#43;&#43;.h&gt;
 using namespace std;
 
 int main(){
     int c[13],d[13]={100,50,20,10,5,2,1,50,20,10,5,2,1};
     int i,t;
-    cin>>t;
+    cin&gt;&gt;t;
     int a,b;
     while(t--){
         memset(c,0,sizeof(c));
-        cin>>a>>b;
-        for(i=0;i<7;i++){
+        cin&gt;&gt;a&gt;&gt;b;
+        for(i=0;i&lt;7;i&#43;&#43;){
             int x=0;
-        if(a>c[i]){
+        if(a&gt;c[i]){
             x=a/d[i];
-            c[i]+=x;
+            c[i]&#43;=x;
             a-=x*d[i];
         }
-        for(i=7;i<13;i++){
+        for(i=7;i&lt;13;i&#43;&#43;){
             int x=0;
-        if(b>c[i]){
+        if(b&gt;c[i]){
             x=b/d[i];
-            c[i]+=x;
+            c[i]&#43;=x;
             b-=x*d[i];
         }
-        cout<<c[0];
-        for(i=1;i<13;i++)
-            cout<<" "<<c[i];
-        cout<<endl;
+        cout&lt;&lt;c[0];
+        for(i=1;i&lt;13;i&#43;&#43;)
+            cout&lt;&lt;&#34; &#34;&lt;&lt;c[i];
+        cout&lt;&lt;endl;
     }
     return 0;
 }
@@ -48,10 +48,10 @@ int main(){
 
 ## b
 
-f(n)=f(n-1)+n-1;
+f(n)=f(n-1)&#43;n-1;
 
 ```c
-#include<bits/stdc++.h>
+#include&lt;bits/stdc&#43;&#43;.h&gt;
 using namespace std;
 
 long long sum;
@@ -59,14 +59,14 @@ long long sum;
 int main(){
     int n;
     int t;
-    cin>>t;
+    cin&gt;&gt;t;
     while(t--){
         sum=1;
-        cin>>n;
+        cin&gt;&gt;n;
         if(n==1) sum=0;
-        for(int i=3;i<=n;i++)
-            sum+=i-1;
-        cout<<sum<<endl;
+        for(int i=3;i&lt;=n;i&#43;&#43;)
+            sum&#43;=i-1;
+        cout&lt;&lt;sum&lt;&lt;endl;
     }
     return 0;
 }

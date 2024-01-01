@@ -1,10 +1,10 @@
 # 宝塔面板安装 ImgURL 图床
 
 
-> ImgURL 是一个开源、免费的图床程序，ImgURL 2.x 之后对环境要求更高，尤其是 ImageMagick 组件的支持，很多朋友不清楚怎样安装这个组件，这篇文章分享宝塔面板安装 ImgURL 2.x 图床的过程（包括 ImgURL 2.x 需要的各种组件）
-> [阅读原文](https://www.xiaoz.me/archives/12081)
+&gt; ImgURL 是一个开源、免费的图床程序，ImgURL 2.x 之后对环境要求更高，尤其是 ImageMagick 组件的支持，很多朋友不清楚怎样安装这个组件，这篇文章分享宝塔面板安装 ImgURL 2.x 图床的过程（包括 ImgURL 2.x 需要的各种组件）
+&gt; [阅读原文](https://www.xiaoz.me/archives/12081)
 
-<!--more-->
+&lt;!--more--&gt;
 
 ## 准备工作
 
@@ -32,7 +32,7 @@ location ~* ^/(temp|upload|imgs|data|application|static|system)/.*.(php|php5)$ {
 
 ![](images/2.png)
 
-## 安装 fileinfo & imagemagick
+## 安装 fileinfo &amp; imagemagick
 
 在宝塔后台 - 软件管理 - 找到你站点对应的 PHP 版本 - 设置 PHP - 安装扩展 - 勾选`fileinfo`和`imagemagick`，如下截图。
 
@@ -48,7 +48,7 @@ location ~* ^/(temp|upload|imgs|data|application|static|system)/.*.(php|php5)$ {
 ## 其它说明
 
 - 如果安装遇到任何问题，请留言反馈或到 [3T 官方社区](https://ttt.sh/category/6/imgurl%E5%9B%BE%E5%BA%8A) 进行反馈
-- ImgURL 更多使用说明请参考帮助文档：<https://dwz.ovh/imgurldoc>
+- ImgURL 更多使用说明请参考帮助文档：&lt;https://dwz.ovh/imgurldoc&gt;
 
 
 ---

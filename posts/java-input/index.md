@@ -29,23 +29,23 @@ public class helloworld {
     Scanner sc = new Scanner(System.in);
     int i=sc.nextInt(),j=sc.nextInt(),k=sc.nextInt();
     sc.close();
-    System.out.println(i+"+"+j+"="+(i+j));
-    System.out.println("MAXij="+Max(i,j));
-    System.out.println("MAXijk="+Max(i,j,k));
+    System.out.println(i&#43;&#34;&#43;&#34;&#43;j&#43;&#34;=&#34;&#43;(i&#43;j));
+    System.out.println(&#34;MAXij=&#34;&#43;Max(i,j));
+    System.out.println(&#34;MAXijk=&#34;&#43;Max(i,j,k));
 
   }
   //Max() 方法重载
   static int Max(int i,int j) {
-    return i>j?i:j;
+    return i&gt;j?i:j;
   }
   static int Max(int i,int j,int k) {
     if(i==j)
-      System.out.println("i 和 j 相等");
+      System.out.println(&#34;i 和 j 相等&#34;);
     else if(i==k)
-      System.out.println("i 和 k 相等");
+      System.out.println(&#34;i 和 k 相等&#34;);
     else if(j==k)
-      System.out.println("j 和 k 相等");
-    return  (i=i>j?i:j)>k?i:k;
+      System.out.println(&#34;j 和 k 相等&#34;);
+    return  (i=i&gt;j?i:j)&gt;k?i:k;
   }
 
 }
@@ -55,7 +55,7 @@ public class helloworld {
 
 ```plain
 5 5 6
-5+5=10
+5&#43;5=10
 MAXij=5
 i 和 j 相等
 MAXijk=6

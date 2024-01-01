@@ -164,8 +164,8 @@
 - 事务记录
 - 恢复算法
 
-  - undo <Ti\>
-  - redo <Ti\>
+  - undo &lt;Ti\&gt;
+  - redo &lt;Ti\&gt;
 
 ### 检查点
 

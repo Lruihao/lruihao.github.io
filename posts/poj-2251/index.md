@@ -17,7 +17,7 @@
 每个空间的描述的第一行为 L，R 和 C（皆不超过 30）。  
 L 表示空间的高度。R 和 C 分别表示每层空间的行与列的大小。  
 随后 L 层地牢，每层 R 行，每行 C 个字符。  
-每个字符表示空间的一个单元。'#'表示不可通过单元，'.'表示空白单元。你的起始位置在'S'，出口为'E'。  
+每个字符表示空间的一个单元。&#39;#&#39;表示不可通过单元，&#39;.&#39;表示空白单元。你的起始位置在&#39;S&#39;，出口为&#39;E&#39;。  
 每层空间后都有一个空行。L，R 和 C 均为 0 时输入结束。
 
 ## Output - 输出
@@ -62,14 +62,14 @@ Trapped!
 
 类似二维四个方向的 bfs 最短路，改成上下东西南北就行了，三维 bfs 最短路
 
-<!-- markdownlint-disable MD046 -->
+&lt;!-- markdownlint-disable MD046 --&gt;
 
 ```cpp
-#include <iostream>
-#include <stdio.h>
-#include <string.h>
-#include <queue>
-#include <algorithm>
+#include &lt;iostream&gt;
+#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+#include &lt;queue&gt;
+#include &lt;algorithm&gt;
 using namespace std;
 
 char map[35][35][35];
@@ -84,9 +84,9 @@ struct node
 
 int check(int x,int y,int z)//检查是否可走
 {
-    if(x<0 || y<0 || z<0 || x>=k || y>=n || z>=m)//越界判断
+    if(x&lt;0 || y&lt;0 || z&lt;0 || x&gt;=k || y&gt;=n || z&gt;=m)//越界判断
         return 1;
-    else if(map[x][y][z] == '#')
+    else if(map[x][y][z] == &#39;#&#39;)
         return 1;
     else if(vis[x][y][z])
         return 1;
@@ -97,7 +97,7 @@ int bfs()
 {
     int i;
     node a,next;
-    queue<node> Q;
+    queue&lt;node&gt; Q;
     a.x = sx,a.y = sy,a.z = sz;
     a.step = 0;
     vis[sx][sy][sz] = 1;
@@ -106,18 +106,18 @@ int bfs()
     {
         a = Q.front();
         Q.pop();
-        if(a.x == ex && a.y == ey && a.z == ez)
+        if(a.x == ex &amp;&amp; a.y == ey &amp;&amp; a.z == ez)
             return a.step;
-        for(i = 0; i<6; i++)
+        for(i = 0; i&lt;6; i&#43;&#43;)
         {
             next = a;
-            next.x = a.x+to[i][0];
-            next.y = a.y+to[i][1];
-            next.z = a.z+to[i][2];
+            next.x = a.x&#43;to[i][0];
+            next.y = a.y&#43;to[i][1];
+            next.z = a.z&#43;to[i][2];
             if(check(next.x,next.y,next.z))
                 continue;
             vis[next.x][next.y][next.z] = 1;
-            next.step = a.step+1;
+            next.step = a.step&#43;1;
             Q.push(next);
         }
     }
@@ -127,20 +127,20 @@ int bfs()
 int main()
 {
     int i,j,r;
-    while(scanf("%d%d%d",&k,&n,&m),n+m+k)
+    while(scanf(&#34;%d%d%d&#34;,&amp;k,&amp;n,&amp;m),n&#43;m&#43;k)
     {
-        for(i = 0; i<k; i++)
+        for(i = 0; i&lt;k; i&#43;&#43;)
         {
-            for(j = 0; j<n; j++)
+            for(j = 0; j&lt;n; j&#43;&#43;)
             {
-                scanf("%s",map[i][j]);
-                for(r = 0; r<m; r++)
+                scanf(&#34;%s&#34;,map[i][j]);
+                for(r = 0; r&lt;m; r&#43;&#43;)
                 {
-                    if(map[i][j][r] == 'S')
+                    if(map[i][j][r] == &#39;S&#39;)
                     {
                         sx = i,sy = j,sz = r;
                     }
-                    else if(map[i][j][r] == 'E')
+                    else if(map[i][j][r] == &#39;E&#39;)
                     {
                         ex = i,ey = j,ez = r;
                     }
@@ -151,9 +151,9 @@ int main()
         int ans;
         ans = bfs();
         if(ans)
-            printf("Escaped in %d minute(s).\n",ans);
+            printf(&#34;Escaped in %d minute(s).\n&#34;,ans);
         else
-            printf("Trapped!\n");
+            printf(&#34;Trapped!\n&#34;);
     }
 
     return 0;
