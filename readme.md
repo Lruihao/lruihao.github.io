@@ -1,9 +1,10 @@
 # 菠菜眾長
 
-共计 226 篇文章
+共计 227 篇文章
 
 ## 2024
 
+- 01-11 [git submodule: already exists in the index](https://lruihao.cn/posts/6550187/ "2024-01-11 10:30:04")
 - 01-10 [给 el-card 添加折叠功能](https://lruihao.cn/posts/el-card-collapse/ "2024-01-10 17:06:54")
 
 ## 2023
