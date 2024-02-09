@@ -1,9 +1,10 @@
 # 菠菜眾長
 
-共计 229 篇文章
+共计 230 篇文章
 
 ## 2024
 
+- 02-09 [2023 年度总结](https://lruihao.cn/years/2023/ "2024-02-09 14:07:24")
 - 01-17 [记一次 Debug 第三方包的过程](https://lruihao.cn/posts/900d5e4/ "2024-01-17 14:57:48")
 - 01-17 [为什么很多教程中都有 foo bar？](https://lruihao.cn/posts/20b75e9/ "2024-01-17 09:58:58")
 - 01-11 [git submodule: already exists in the index](https://lruihao.cn/posts/6550187/ "2024-01-11 10:30:04")
