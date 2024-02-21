@@ -1,6 +1,6 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Browser - 标签 | 菠菜眾長</title><link>https://lruihao.cn/tags/browser/</link><description>Browser - 标签 | 菠菜眾長</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><copyright>本站内容采用 CC BY-NC-SA 4.0 国际许可协议。</copyright><lastBuildDate>Sun, 05 Feb 2023 21:02:52 +0800</lastBuildDate><atom:link href="https://lruihao.cn/tags/browser/" rel="self" type="application/rss+xml"/><item><title>浏览器渲染原理</title><link>https://lruihao.cn/posts/browser-rendering/</link><pubDate>Sun, 05 Feb 2023 21:02:52 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/browser-rendering/</guid><description><![CDATA[<iframe src="files/browser-rendering.pdf" width="100%" height="550"></iframe>
 <h2 id="浏览器是如何渲染页面的" class="heading-element">
-  <a href="#%e6%b5%8f%e8%a7%88%e5%99%a8%e6%98%af%e5%a6%82%e4%bd%95%e6%b8%b2%e6%9f%93%e9%a1%b5%e9%9d%a2%e7%9a%84" class="heading-mark"></a>1 浏览器是如何渲染页面的？</h2><p>当浏览器的网络线程收到 HTML 文档后，会产生一个渲染任务，并将其传递给渲染主线程的消息队列。</p>
+  <a href="#%e6%b5%8f%e8%a7%88%e5%99%a8%e6%98%af%e5%a6%82%e4%bd%95%e6%b8%b2%e6%9f%93%e9%a1%b5%e9%9d%a2%e7%9a%84" class="heading-mark"></a>浏览器是如何渲染页面的？</h2><p>当浏览器的网络线程收到 HTML 文档后，会产生一个渲染任务，并将其传递给渲染主线程的消息队列。</p>
 <p>在事件循环机制的作用下，渲染主线程取出消息队列中的渲染任务，开启渲染流程。</p>
 <hr>
 <p>整个渲染流程分为多个阶段，分别是：HTML 解析、样式计算、布局、分层、绘制、分块、光栅化、画</p>
@@ -46,36 +46,36 @@
 <p>变形发生在合成线程，与渲染主线程无关，这就是<code>transform</code>效率高的本质原因。</p>
 <p>合成线程会把 quad 提交给 GPU 进程，由 GPU 进程产生系统调用，提交给 GPU 硬件，完成最终的屏幕成像。</p>
 <h2 id="什么是-reflow" class="heading-element">
-  <a href="#%e4%bb%80%e4%b9%88%e6%98%af-reflow" class="heading-mark"></a>2 什么是 reflow？</h2><p>reflow 的本质就是重新计算 layout 树。</p>
+  <a href="#%e4%bb%80%e4%b9%88%e6%98%af-reflow" class="heading-mark"></a>什么是 reflow？</h2><p>reflow 的本质就是重新计算 layout 树。</p>
 <p>当进行了会影响布局树的操作后，需要重新计算布局树，会引发 layout。</p>
 <p>为了避免连续的多次操作导致布局树反复计算，浏览器会合并这些操作，当 JS 代码全部完成后再进行统一计算。所以，改动属性造成的 reflow 是异步完成的。</p>
 <p>也同样因为如此，当 JS 获取布局属性时，就可能造成无法获取到最新的布局信息。</p>
 <p>浏览器在反复权衡下，最终决定获取属性立即 reflow。</p>
 <h2 id="什么是-repaint" class="heading-element">
-  <a href="#%e4%bb%80%e4%b9%88%e6%98%af-repaint" class="heading-mark"></a>3 什么是 repaint？</h2><p>repaint 的本质就是重新根据分层信息计算了绘制指令。</p>
+  <a href="#%e4%bb%80%e4%b9%88%e6%98%af-repaint" class="heading-mark"></a>什么是 repaint？</h2><p>repaint 的本质就是重新根据分层信息计算了绘制指令。</p>
 <p>当改动了可见样式后，就需要重新计算，会引发 repaint。</p>
 <p>由于元素的布局信息也属于可见样式，所以 reflow 一定会引起 repaint。</p>
 <h2 id="为什么-transform-的效率高" class="heading-element">
-  <a href="#%e4%b8%ba%e4%bb%80%e4%b9%88-transform-%e7%9a%84%e6%95%88%e7%8e%87%e9%ab%98" class="heading-mark"></a>4 为什么 transform 的效率高？</h2><p>因为 transform 既不会影响布局也不会影响绘制指令，它影响的只是渲染流程的最后一个「draw」阶段</p>
+  <a href="#%e4%b8%ba%e4%bb%80%e4%b9%88-transform-%e7%9a%84%e6%95%88%e7%8e%87%e9%ab%98" class="heading-mark"></a>为什么 transform 的效率高？</h2><p>因为 transform 既不会影响布局也不会影响绘制指令，它影响的只是渲染流程的最后一个「draw」阶段</p>
 <p>由于 draw 阶段在合成线程中，所以 transform 的变化几乎不会影响渲染主线程。反之，渲染主线程无论如何忙碌，也不会影响 transform 的变化。</p>
 ]]></description></item><item><title>浏览器原理 - 事件循环</title><link>https://lruihao.cn/posts/event-loop/</link><pubDate>Wed, 11 Jan 2023 11:16:02 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/event-loop/</guid><description><![CDATA[<div class="featured-image"><img loading="eager" src="images/202208092131410.png" alt="浏览器原理 - 事件循环" title="浏览器原理 - 事件循环" referrerpolicy="no-referrer"/></div><p>最近在抖音上刷到很多次 <a href="http://yuanjin.tech/"target="_blank" rel="external nofollow noopener noreferrer">袁进老师<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 的前端视频，然后就听了一下他的前端大师课，感觉了解一些浏览器原理后，原来工作中的一些疑问也自然解开了。</p>
 <h2 id="浏览器的进程模型" class="heading-element">
-  <a href="#%e6%b5%8f%e8%a7%88%e5%99%a8%e7%9a%84%e8%bf%9b%e7%a8%8b%e6%a8%a1%e5%9e%8b" class="heading-mark"></a>1 浏览器的进程模型</h2><h3 id="何为进程" class="heading-element">
-  <a href="#%e4%bd%95%e4%b8%ba%e8%bf%9b%e7%a8%8b" class="heading-mark"></a>1.1 何为进程？</h3><p>程序运行需要有它自己专属的内存空间，可以把这块内存空间简单的理解为进程</p>
-<p><figure><a class="lightgallery" href="/posts/event-loop/images/202208092057573.png?size=large" data-thumbnail="/posts/event-loop/images/202208092057573.png?size=small" data-sub-html="<h2>进程</h2><p>进程可以简单理解为单独的内存空间</p>"><img loading="lazy" src="/posts/event-loop/images/202208092057573.png" alt="进程" srcset="/posts/event-loop/images/202208092057573.png?size=small, /posts/event-loop/images/202208092057573.png?size=medium 1.5x, /posts/event-loop/images/202208092057573.png?size=large 2x" data-title="进程可以简单理解为单独的内存空间" style="--width: 1364px;--aspect-ratio: 1364 / 970;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a><figcaption class="image-caption">进程</figcaption>
+  <a href="#%e6%b5%8f%e8%a7%88%e5%99%a8%e7%9a%84%e8%bf%9b%e7%a8%8b%e6%a8%a1%e5%9e%8b" class="heading-mark"></a>浏览器的进程模型</h2><h3 id="何为进程" class="heading-element">
+  <a href="#%e4%bd%95%e4%b8%ba%e8%bf%9b%e7%a8%8b" class="heading-mark"></a>何为进程？</h3><p>程序运行需要有它自己专属的内存空间，可以把这块内存空间简单的理解为进程</p>
+<p><figure><a class="lightgallery" href="images/202208092057573.png?size=large" data-thumbnail="images/202208092057573.png?size=small" data-sub-html="<h2>进程</h2><p>进程可以简单理解为单独的内存空间</p>"><img loading="lazy" src="images/202208092057573.png" alt="进程" srcset="images/202208092057573.png?size=small, images/202208092057573.png?size=medium 1.5x, images/202208092057573.png?size=large 2x" data-title="进程可以简单理解为单独的内存空间" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a><figcaption class="image-caption">进程</figcaption>
   </figure></p>
 <p>每个应用至少有一个进程，进程之间相互独立，即使要通信，也需要双方同意。</p>
 <h3 id="何为线程" class="heading-element">
-  <a href="#%e4%bd%95%e4%b8%ba%e7%ba%bf%e7%a8%8b" class="heading-mark"></a>1.2 何为线程？</h3><p>有了进程后，就可以运行程序的代码了。</p>
+  <a href="#%e4%bd%95%e4%b8%ba%e7%ba%bf%e7%a8%8b" class="heading-mark"></a>何为线程？</h3><p>有了进程后，就可以运行程序的代码了。</p>
 <p>运行代码的「人」称之为「线程」。</p>
 <p>一个进程至少有一个线程，所以在进程开启后会自动创建一个线程来运行代码，该线程称之为主线程。</p>
 <p>如果程序需要同时执行多块代码，主线程就会启动更多的线程来执行代码，所以一个进程中可以包含多个线程。</p>
-<p><figure><a class="lightgallery" href="/posts/event-loop/images/202208092108499.png?size=large" data-thumbnail="/posts/event-loop/images/202208092108499.png?size=small" data-sub-html="<h2>线程</h2><p>一个进程可以有 N 个线程</p>"><img loading="lazy" src="/posts/event-loop/images/202208092108499.png" alt="线程" srcset="/posts/event-loop/images/202208092108499.png?size=small, /posts/event-loop/images/202208092108499.png?size=medium 1.5x, /posts/event-loop/images/202208092108499.png?size=large 2x" data-title="一个进程可以有 N 个线程" style="--width: 1704px;--aspect-ratio: 1704 / 992;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a><figcaption class="image-caption">线程</figcaption>
+<p><figure><a class="lightgallery" href="images/202208092108499.png?size=large" data-thumbnail="images/202208092108499.png?size=small" data-sub-html="<h2>线程</h2><p>一个进程可以有 N 个线程</p>"><img loading="lazy" src="images/202208092108499.png" alt="线程" srcset="images/202208092108499.png?size=small, images/202208092108499.png?size=medium 1.5x, images/202208092108499.png?size=large 2x" data-title="一个进程可以有 N 个线程" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a><figcaption class="image-caption">线程</figcaption>
   </figure></p>
 <h3 id="浏览器有哪些进程和线程" class="heading-element">
-  <a href="#%e6%b5%8f%e8%a7%88%e5%99%a8%e6%9c%89%e5%93%aa%e4%ba%9b%e8%bf%9b%e7%a8%8b%e5%92%8c%e7%ba%bf%e7%a8%8b" class="heading-mark"></a>1.3 浏览器有哪些进程和线程？</h3><p><strong>浏览器是一个多进程多线程的应用程序</strong>，浏览器内部工作极其复杂。</p>
+  <a href="#%e6%b5%8f%e8%a7%88%e5%99%a8%e6%9c%89%e5%93%aa%e4%ba%9b%e8%bf%9b%e7%a8%8b%e5%92%8c%e7%ba%bf%e7%a8%8b" class="heading-mark"></a>浏览器有哪些进程和线程？</h3><p><strong>浏览器是一个多进程多线程的应用程序</strong>，浏览器内部工作极其复杂。</p>
 <p>为了避免相互影响，为了减少连环崩溃的几率，当启动浏览器后，它会自动启动多个进程。</p>
-<p><figure><a class="lightgallery" href="/posts/event-loop/images/202208092131410.png?size=large" data-thumbnail="/posts/event-loop/images/202208092131410.png?size=small" data-sub-html="<h2>浏览器进程</h2><p>浏览器进程</p>"><img loading="lazy" src="/posts/event-loop/images/202208092131410.png" alt="浏览器进程" srcset="/posts/event-loop/images/202208092131410.png?size=small, /posts/event-loop/images/202208092131410.png?size=medium 1.5x, /posts/event-loop/images/202208092131410.png?size=large 2x" data-title="浏览器进程" style="--width: 1518px;--aspect-ratio: 1518 / 1022;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a><figcaption class="image-caption">浏览器进程</figcaption>
+<p><figure><a class="lightgallery" href="images/202208092131410.png?size=large" data-thumbnail="images/202208092131410.png?size=small" data-sub-html="<h2>浏览器进程</h2><p>浏览器进程</p>"><img loading="lazy" src="images/202208092131410.png" alt="浏览器进程" srcset="images/202208092131410.png?size=small, images/202208092131410.png?size=medium 1.5x, images/202208092131410.png?size=large 2x" data-title="浏览器进程" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a><figcaption class="image-caption">浏览器进程</figcaption>
   </figure></p>
 <blockquote>
 <p>可以在浏览器的任务管理器中查看当前的所有进程</p>
@@ -100,7 +100,7 @@
 </li>
 </ol>
 <h2 id="渲染主线程是如何工作的" class="heading-element">
-  <a href="#%e6%b8%b2%e6%9f%93%e4%b8%bb%e7%ba%bf%e7%a8%8b%e6%98%af%e5%a6%82%e4%bd%95%e5%b7%a5%e4%bd%9c%e7%9a%84" class="heading-mark"></a>2 渲染主线程是如何工作的？</h2><p>渲染主线程是浏览器中最繁忙的线程，需要它处理的任务包括但不限于：</p>
+  <a href="#%e6%b8%b2%e6%9f%93%e4%b8%bb%e7%ba%bf%e7%a8%8b%e6%98%af%e5%a6%82%e4%bd%95%e5%b7%a5%e4%bd%9c%e7%9a%84" class="heading-mark"></a>渲染主线程是如何工作的？</h2><p>渲染主线程是浏览器中最繁忙的线程，需要它处理的任务包括但不限于：</p>
 <ul>
 <li>解析 HTML</li>
 <li>解析 CSS</li>
@@ -125,7 +125,7 @@
 <li>&hellip;&hellip;</li>
 </ul>
 <p>渲染主线程想出了一个绝妙的主意来处理这个问题：排队</p>
-<p><figure><a class="lightgallery" href="/posts/event-loop/images/202208092230847.png?size=large" data-thumbnail="/posts/event-loop/images/202208092230847.png?size=small" data-sub-html="<h2>消息队列</h2><p>所有要执行的任务都要排队，FIFO</p>"><img loading="lazy" src="/posts/event-loop/images/202208092230847.png" alt="消息队列" srcset="/posts/event-loop/images/202208092230847.png?size=small, /posts/event-loop/images/202208092230847.png?size=medium 1.5x, /posts/event-loop/images/202208092230847.png?size=large 2x" data-title="所有要执行的任务都要排队，FIFO" style="--width: 1570px;--aspect-ratio: 1570 / 886;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a><figcaption class="image-caption">消息队列</figcaption>
+<p><figure><a class="lightgallery" href="images/202208092230847.png?size=large" data-thumbnail="images/202208092230847.png?size=small" data-sub-html="<h2>消息队列</h2><p>所有要执行的任务都要排队，FIFO</p>"><img loading="lazy" src="images/202208092230847.png" alt="消息队列" srcset="images/202208092230847.png?size=small, images/202208092230847.png?size=medium 1.5x, images/202208092230847.png?size=large 2x" data-title="所有要执行的任务都要排队，FIFO" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a><figcaption class="image-caption">消息队列</figcaption>
   </figure></p>
 <ol>
 <li>在最开始的时候，渲染主线程会进入一个无限循环</li>
@@ -134,19 +134,19 @@
 </ol>
 <p>这样一来，就可以让每个任务有条不紊的、持续的进行下去了。<strong>整个过程，被称之为事件循环（消息循环）</strong>。</p>
 <h2 id="若干解释" class="heading-element">
-  <a href="#%e8%8b%a5%e5%b9%b2%e8%a7%a3%e9%87%8a" class="heading-mark"></a>3 若干解释</h2><h3 id="何为异步" class="heading-element">
-  <a href="#%e4%bd%95%e4%b8%ba%e5%bc%82%e6%ad%a5" class="heading-mark"></a>3.1 何为异步？</h3><p>代码在执行过程中，会遇到一些无法立即处理的任务，比如：</p>
+  <a href="#%e8%8b%a5%e5%b9%b2%e8%a7%a3%e9%87%8a" class="heading-mark"></a>若干解释</h2><h3 id="何为异步" class="heading-element">
+  <a href="#%e4%bd%95%e4%b8%ba%e5%bc%82%e6%ad%a5" class="heading-mark"></a>何为异步？</h3><p>代码在执行过程中，会遇到一些无法立即处理的任务，比如：</p>
 <ul>
 <li>计时完成后需要执行的任务 —— <code>setTimeout</code>、<code>setInterval</code></li>
 <li>网络通信完成后需要执行的任务 — <code>XHR</code>、<code>Fetch</code></li>
 <li>用户操作后需要执行的任务 — <code>addEventListener</code></li>
 </ul>
 <p>如果让渲染主线程等待这些任务的时机达到，就会导致主线程长期处于「阻塞」的状态，从而导致浏览器「卡死」</p>
-<p><figure><a class="lightgallery" href="/posts/event-loop/images/202208101043348.png?size=large" data-thumbnail="/posts/event-loop/images/202208101043348.png?size=small" data-sub-html="<h2>同步策略</h2><p>同步策略会导致卡死</p>"><img loading="lazy" src="/posts/event-loop/images/202208101043348.png" alt="同步策略" srcset="/posts/event-loop/images/202208101043348.png?size=small, /posts/event-loop/images/202208101043348.png?size=medium 1.5x, /posts/event-loop/images/202208101043348.png?size=large 2x" data-title="同步策略会导致卡死" style="--width: 1712px;--aspect-ratio: 1712 / 790;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a><figcaption class="image-caption">同步策略</figcaption>
+<p><figure><a class="lightgallery" href="images/202208101043348.png?size=large" data-thumbnail="images/202208101043348.png?size=small" data-sub-html="<h2>同步策略</h2><p>同步策略会导致卡死</p>"><img loading="lazy" src="images/202208101043348.png" alt="同步策略" srcset="images/202208101043348.png?size=small, images/202208101043348.png?size=medium 1.5x, images/202208101043348.png?size=large 2x" data-title="同步策略会导致卡死" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a><figcaption class="image-caption">同步策略</figcaption>
   </figure></p>
 <p><strong>渲染主线程承担着极其重要的工作，无论如何都不能阻塞！</strong></p>
 <p>因此，浏览器选择<strong>异步</strong>来解决这个问题</p>
-<p><figure><a class="lightgallery" href="/posts/event-loop/images/202208101048899.png?size=large" data-thumbnail="/posts/event-loop/images/202208101048899.png?size=small" data-sub-html="<h2>异步策略</h2><p>异步策略，渲染主线程永不阻塞</p>"><img loading="lazy" src="/posts/event-loop/images/202208101048899.png" alt="异步策略" srcset="/posts/event-loop/images/202208101048899.png?size=small, /posts/event-loop/images/202208101048899.png?size=medium 1.5x, /posts/event-loop/images/202208101048899.png?size=large 2x" data-title="异步策略，渲染主线程永不阻塞" style="--width: 1740px;--aspect-ratio: 1740 / 848;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a><figcaption class="image-caption">异步策略</figcaption>
+<p><figure><a class="lightgallery" href="images/202208101048899.png?size=large" data-thumbnail="images/202208101048899.png?size=small" data-sub-html="<h2>异步策略</h2><p>异步策略，渲染主线程永不阻塞</p>"><img loading="lazy" src="images/202208101048899.png" alt="异步策略" srcset="images/202208101048899.png?size=small, images/202208101048899.png?size=medium 1.5x, images/202208101048899.png?size=large 2x" data-title="异步策略，渲染主线程永不阻塞" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a><figcaption class="image-caption">异步策略</figcaption>
   </figure></p>
 <p>使用异步的方式，<strong>渲染主线程永不阻塞</strong></p>
 <div class="details admonition question">
@@ -164,7 +164,7 @@
     </div>
   </div>
 <h3 id="js-为何会阻碍渲染" class="heading-element">
-  <a href="#js-%e4%b8%ba%e4%bd%95%e4%bc%9a%e9%98%bb%e7%a2%8d%e6%b8%b2%e6%9f%93" class="heading-mark"></a>3.2 JS 为何会阻碍渲染？</h3><p>先看代码</p>
+  <a href="#js-%e4%b8%ba%e4%bd%95%e4%bc%9a%e9%98%bb%e7%a2%8d%e6%b8%b2%e6%9f%93" class="heading-mark"></a>JS 为何会阻碍渲染？</h3><p>先看代码</p>
 <div class="highlight" id="id-1"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -207,7 +207,7 @@
 </div><p>点击按钮后，会发生什么呢？</p>
 <p>&lt;复制代码自行演示&gt;</p>
 <h3 id="任务有优先级吗" class="heading-element">
-  <a href="#%e4%bb%bb%e5%8a%a1%e6%9c%89%e4%bc%98%e5%85%88%e7%ba%a7%e5%90%97" class="heading-mark"></a>3.3 任务有优先级吗？</h3><p>任务没有优先级，在消息队列中先进先出</p>
+  <a href="#%e4%bb%bb%e5%8a%a1%e6%9c%89%e4%bc%98%e5%85%88%e7%ba%a7%e5%90%97" class="heading-mark"></a>任务有优先级吗？</h3><p>任务没有优先级，在消息队列中先进先出</p>
 <p>但<strong>消息队列是有优先级的</strong></p>
 <p>根据 W3C 的最新解释：</p>
 <ul>
@@ -225,7 +225,7 @@
 <li>延时队列：用于存放计时器到达后的回调任务，优先级「中」</li>
 <li>交互队列：用于存放用户操作后产生的事件处理任务，优先级「高」</li>
 </ul>
-<p><figure><a class="lightgallery" href="/posts/event-loop/images/multiple-queues.png?size=large" data-thumbnail="/posts/event-loop/images/multiple-queues.png?size=small" data-sub-html="<h2>多队列演示图</h2><p>微队列、延时队列、交互队列</p>"><img loading="lazy" src="/posts/event-loop/images/multiple-queues.png" alt="多队列演示图" srcset="/posts/event-loop/images/multiple-queues.png?size=small, /posts/event-loop/images/multiple-queues.png?size=medium 1.5x, /posts/event-loop/images/multiple-queues.png?size=large 2x" data-title="微队列、延时队列、交互队列" style="--width: 1232px;--aspect-ratio: 1232 / 676;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a><figcaption class="image-caption">多队列演示图</figcaption>
+<p><figure><a class="lightgallery" href="images/multiple-queues.png?size=large" data-thumbnail="images/multiple-queues.png?size=small" data-sub-html="<h2>多队列演示图</h2><p>微队列、延时队列、交互队列</p>"><img loading="lazy" src="images/multiple-queues.png" alt="多队列演示图" srcset="images/multiple-queues.png?size=small, images/multiple-queues.png?size=medium 1.5x, images/multiple-queues.png?size=large 2x" data-title="微队列、延时队列、交互队列" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a><figcaption class="image-caption">多队列演示图</figcaption>
   </figure></p>
 <p>添加任务到微队列的主要方式主要是使用 Promise、MutationObserver，例如：</p>
 <div class="highlight" id="id-2"><div class="chroma">
