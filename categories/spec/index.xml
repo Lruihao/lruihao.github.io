@@ -1,11 +1,11 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>程序猿的自我修养 - 分类 | 菠菜眾長</title><link>https://lruihao.cn/categories/spec/</link><description>程序猿的自我修养 - 分类 | 菠菜眾長</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><copyright>本站内容采用 CC BY-NC-SA 4.0 国际许可协议。</copyright><atom:link href="https://lruihao.cn/categories/spec/" rel="self" type="application/rss+xml"/><item><title>给你的 Markdown 挑挑刺</title><link>https://lruihao.cn/posts/markdownlint/</link><pubDate>Wed, 11 Oct 2023 14:26:48 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/markdownlint/</guid><description><![CDATA[<p>会写 Markdown 的人很多，但写得好 Markdown 的人却很少。有没有什么工具能充当「秘书」，检查文件中的 Markdown 语法和风格，并且提出解决方案、自动修复问题，甚至自动补齐中英文之间的「盘古之白」呢？本文介绍的 Markdown 语法检查器就能做到。</p>
 <h2 id="引言" class="heading-element">
-  <a href="#%e5%bc%95%e8%a8%80" class="heading-mark"></a>引言</h2><p><strong>会写</strong> Markdown 的人很多，但<strong>写得好</strong> Markdown 的人却很少。这一方面是 Markdown 生态系统自身的问题：<a href="https://www.w3.org/community/markdown/wiki/MarkdownImplementations"target="_blank" rel="external nofollow noopener noreferrer">语法变种和实现方式<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 五花八门，互不兼容甚至相互矛盾。</p>
+  <a href="#%e5%bc%95%e8%a8%80" class="heading-mark"></a>1 引言</h2><p><strong>会写</strong> Markdown 的人很多，但<strong>写得好</strong> Markdown 的人却很少。这一方面是 Markdown 生态系统自身的问题：<a href="https://www.w3.org/community/markdown/wiki/MarkdownImplementations"target="_blank" rel="external nofollow noopener noreferrer">语法变种和实现方式<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 五花八门，互不兼容甚至相互矛盾。</p>
 <p>另一方面，也鲜有人愿意花时间去仔细阅读 Markdown 的技术规范；大多数人都只是读了一两篇「速成」，就自我批准出师了，对于一些细节问题并未关注；如果在写作中遇到，也是凭想象和直觉随意判断。</p>
 <p>由此，就产生了大量语法天马行空、版面张牙舞爪，让读者和排版软件都困惑不已的 Markdown 文件。</p>
 <p>既然 JavaScript 有 ESLint，Python 有 PyLint，是不是 Markdown 也有 markdownlint 呢？答案是肯定的！</p>
 <h2 id="示例" class="heading-element">
-  <a href="#%e7%a4%ba%e4%be%8b" class="heading-mark"></a>示例</h2><p>本博客源码已引入 markdownlint 规范，可下载本博客源码查看配置。</p>
+  <a href="#%e7%a4%ba%e4%be%8b" class="heading-mark"></a>2 示例</h2><p>本博客源码已引入 markdownlint 规范，可下载本博客源码查看配置。</p>
 <a href="http://github.com/Lruihao/hugo-blog"target="_blank" rel="external nofollow noopener noreferrer" class="card-link"><span class="cl-backdrop" style="--cl-bg-url: url(/images/fixit.min.svg);"></span>
     <span class="cl-content">
       <span class="cl-text">
@@ -16,7 +16,7 @@
         </span>
       </span><svg class="cl-icon-globe" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" width="64" height="64"><path d="M960 512c0 249.408-203.2 448-448 448-244.778667 0-448-198.592-448-448S262.592 64 512 64s448 198.592 448 448" fill="#2196F3"></path><path d="M507.52 718.08c0-8.96-4.48-13.44-13.44-17.92-26.88-8.96-53.76-8.96-76.16-31.381333-4.48-8.96-4.48-17.92-8.96-26.88-8.96-8.96-31.36-13.44-44.8-17.92h-89.6c-13.44-4.48-22.4-22.4-31.36-35.84 0-4.48 0-13.461333-8.96-13.461334-8.96-4.458667-17.92 4.501333-26.88 0-4.48-4.458667-4.48-8.96-4.48-13.418666 0-13.461333 8.96-26.901333 17.92-35.861334 13.44-8.96 26.88 4.48 40.32 4.48 4.48 0 4.48 0 8.96 4.48 13.44 4.48 17.92 22.4 17.92 35.861334v8.96c0 4.48 4.48 4.48 8.96 4.48 4.48-22.4 4.48-44.821333 8.96-67.2 0-26.88 26.88-53.781333 49.28-62.72 8.96-4.458667 13.44 4.501333 22.4 0 26.88-8.96 94.08-35.84 80.64-71.658667-8.96-31.381333-35.84-62.698667-71.68-58.24-8.96 4.501333-13.44 8.96-22.4 13.461333-13.44 8.96-40.32 35.84-53.76 35.84-22.4-4.48-22.4-35.84-17.92-49.301333 4.48-17.92 44.8-76.138667 71.68-67.178667l17.92 17.92c8.96 4.48 22.4 4.48 35.84 4.48 4.48 0 8.96 0 13.44-4.48 4.48-4.48 4.48-4.48 4.48-8.96 0-13.44-13.44-26.901333-22.4-35.861333s-22.4-17.92-35.84-22.378667c-44.8-13.461333-116.48 4.458667-152.32 35.84-35.84 31.36-62.72 85.12-80.64 129.92-8.96 26.88-17.92 62.698667-22.4 94.08-4.48 22.4-8.96 40.32 4.48 62.698667 13.44 26.88 40.32 53.781333 67.2 71.68 17.92 13.44 53.76 13.44 71.68 35.84 13.44 17.941333 8.96 40.32 8.96 62.72 0 26.88 17.92 49.28 26.88 71.658667 4.48 13.461333 8.96 31.381333 13.44 44.821333 0 4.48 4.48 31.36 4.48 35.84 26.88 13.44 49.28 26.901333 80.64 35.861333 4.48 0 22.4-26.901333 22.4-31.381333 13.44-13.44 22.4-31.36 35.84-40.32 8.96-4.48 17.92-8.96 26.88-17.941333 8.96-8.96 13.44-26.88 17.92-40.32 4.48-8.938667 8.96-26.858667 4.48-40.298667M516.48 305.92c4.48 0 8.96-4.48 17.92-8.96 13.44-8.96 26.901333-22.4 40.32-31.36 13.461333-8.96 26.901333-22.4 35.861333-31.36 13.44-8.96 22.4-26.88 26.88-40.341333 4.48-8.96 17.941333-26.88 13.44-40.32-4.48-8.96-26.88-13.44-35.84-17.92C579.2 126.698667 547.84 122.24 512 122.24c-13.44 0-31.36 4.458667-35.84 17.92-4.48 22.4 13.44 17.92 31.36 22.4 0 0 4.48 35.84 4.48 40.32 4.48 22.421333-8.96 35.84-8.96 58.24 0 13.44 0 35.84 8.96 44.8h4.48zM892.8 619.52c4.501333-8.96 4.501333-22.4 8.96-31.36 4.501333-22.421333 4.501333-44.8 4.501333-67.2 0-44.8-4.501333-89.578667-17.92-129.92-8.96-13.44-13.461333-26.88-17.941333-40.341333-8.96-22.378667-22.4-44.8-40.32-62.698667-17.92-22.4-40.341333-85.12-80.64-67.2-13.44 4.501333-22.4 22.421333-31.36 31.381333l-26.88 40.32c-4.501333 4.48-8.96 13.44-4.501333 17.92 0 4.48 4.501333 4.48 8.96 4.48 8.96 4.501333 13.461333 4.501333 22.421333 8.96 4.48 0 8.96 4.501333 4.48 8.96 0 0 0 4.501333-4.48 4.501334-22.421333 22.4-44.8 40.32-67.2 62.698666-4.48 4.48-8.96 13.44-8.96 17.92s4.48 4.48 4.48 8.96c0 4.501333-4.48 4.501333-8.96 8.96-8.96 4.501333-17.92 8.96-22.4 13.461334-4.48 8.96 0 22.4-4.48 31.36-4.48 22.4-17.941333 40.32-26.901333 62.72-8.96 13.418667-13.418667 26.88-22.378667 40.32 0 17.92-4.501333 31.36 4.458667 44.8 22.421333 31.36 62.72 13.44 94.08 26.901333 8.96 4.458667 17.92 4.458667 22.421333 13.418667 13.418667 13.461333 13.418667 35.861333 17.92 49.301333 4.458667 17.92 8.96 35.84 17.92 53.76 4.48 22.421333 13.44 44.821333 17.92 62.72 40.341333-31.36 76.16-67.178667 103.04-112 26.88-31.424 40.341333-67.242667 53.76-103.104" fill="#CDDC39"></path></svg></span></a>
 <h2 id="引入-markdownlint" class="heading-element">
-  <a href="#%e5%bc%95%e5%85%a5-markdownlint" class="heading-mark"></a>引入 markdownlint</h2><p>markdownlint 是一个 Markdown 语法检查工具，它可以检查 Markdown 文件中的语法错误，以及一些不规范的写法，让 Markdown 干净又卫生。</p>
+  <a href="#%e5%bc%95%e5%85%a5-markdownlint" class="heading-mark"></a>3 引入 markdownlint</h2><p>markdownlint 是一个 Markdown 语法检查工具，它可以检查 Markdown 文件中的语法错误，以及一些不规范的写法，让 Markdown 干净又卫生。</p>
 <p>markdownlint 有两个版本，分别是 <a href="https://github.com/mivok"target="_blank" rel="external nofollow noopener noreferrer">Mark Harrison<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 基于 Ruby 的 <a href="https://github.com/markdownlint/markdownlint"target="_blank" rel="external nofollow noopener noreferrer">原版<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 和 <a href="https://github.com/DavidAnson"target="_blank" rel="external nofollow noopener noreferrer">David Anson<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 基于 Node.js 的 <a href="https://github.com/DavidAnson/markdownlint"target="_blank" rel="external nofollow noopener noreferrer">移植版<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>。Node.js 版在人气和活跃程度上后来居上，本文也以 Node.js 版为例。</p>
 <p>markdownlint 可以在多个场景下使用，包括：</p>
 <ul>
@@ -26,11 +26,11 @@
 </ul>
 <p>本文主要的目的是介绍 markdownlint-cli2 的使用，因为它可以在项目中集成，方便团队协作。</p>
 <h3 id="markdownlint-cli-历史" class="heading-element">
-  <a href="#markdownlint-cli-%e5%8e%86%e5%8f%b2" class="heading-mark"></a>markdownlint cli 历史</h3><p>根据 David 的博客<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>，在大约 2015 年左右 <a href="https://github.com/igorshubovych"target="_blank" rel="external nofollow noopener noreferrer">Igor Shubovych<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 和他探讨了开发 CLI 工具的想法，当时，David 还没做好准备，所以 Igor 独自开发了 <a href="https://github.com/igorshubovych/markdownlint-cli"target="_blank" rel="external nofollow noopener noreferrer">markdownlint-cli<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 这个 CLI 工具。</p>
+  <a href="#markdownlint-cli-%e5%8e%86%e5%8f%b2" class="heading-mark"></a>3.1 markdownlint cli 历史</h3><p>根据 David 的博客<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>，在大约 2015 年左右 <a href="https://github.com/igorshubovych"target="_blank" rel="external nofollow noopener noreferrer">Igor Shubovych<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 和他探讨了开发 CLI 工具的想法，当时，David 还没做好准备，所以 Igor 独自开发了 <a href="https://github.com/igorshubovych/markdownlint-cli"target="_blank" rel="external nofollow noopener noreferrer">markdownlint-cli<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 这个 CLI 工具。</p>
 <p>经过两年的发展，越来越多的人开始使用 markdownlint-cli，于是 David 开始给 markdownlint-cli 项目贡献代码，添加新功能，并在之后三年里成为了主要的维护人员。直到 2020 年，David 觉得在别人的项目中，很难改变一些事情（可能涉及向后兼容性的问题），因此他重新建立了一个名叫 <a href="https://github.com/DavidAnson/markdownlint-cli2"target="_blank" rel="external nofollow noopener noreferrer">markdownlint-cli2<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 的项目，在 markdownlint-cli 的基础上进行了改进，使其具有更快的执行速度、更灵活的配置和更少的依赖等优点。</p>
 <p>目前，这两个工具仍然随着 markdownlint 的更新而更新。如果已经在使用 markdownlint-cli 的旧项目，可以继续使用它，以避免出现未知的问题。而对于新引入的项目，可以考虑使用更强大的 markdownlint-cli2。</p>
 <h3 id="安装-markdownlint-cli2" class="heading-element">
-  <a href="#%e5%ae%89%e8%a3%85-markdownlint-cli2" class="heading-mark"></a>安装 markdownlint-cli2</h3><div class="highlight" id="id-1"><div class="chroma">
+  <a href="#%e5%ae%89%e8%a3%85-markdownlint-cli2" class="heading-mark"></a>3.2 安装 markdownlint-cli2</h3><div class="highlight" id="id-1"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
@@ -372,7 +372,7 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="安装-lint-staged" class="heading-element">
-  <a href="#%e5%ae%89%e8%a3%85-lint-staged" class="heading-mark"></a>安装 lint-staged</h3><div class="highlight" id="id-6"><div class="chroma">
+  <a href="#%e5%ae%89%e8%a3%85-lint-staged" class="heading-mark"></a>3.3 安装 lint-staged</h3><div class="highlight" id="id-6"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
@@ -392,7 +392,7 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="安装-husky" class="heading-element">
-  <a href="#%e5%ae%89%e8%a3%85-husky" class="heading-mark"></a>安装 husky</h3><div class="highlight" id="id-8"><div class="chroma">
+  <a href="#%e5%ae%89%e8%a3%85-husky" class="heading-mark"></a>3.4 安装 husky</h3><div class="highlight" id="id-8"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
@@ -415,15 +415,15 @@
 </div>
 </div><p>这样每次提交代码时，就会自动检查并修复 content 目录下的所有 markdown 文件中的语法错误。</p>
 <h2 id="引入-autocorrect" class="heading-element">
-  <a href="#%e5%bc%95%e5%85%a5-autocorrect" class="heading-mark"></a>引入 AutoCorrect</h2><h3 id="盘古之白" class="heading-element">
-  <a href="#%e7%9b%98%e5%8f%a4%e4%b9%8b%e7%99%bd" class="heading-mark"></a>盘古之白</h3><p>在很多中文社区，中英文之间要手动加空格，俗称「盘古之白」，都是不成文的风格要求。这项要求是否合理、又该如何满足，是很有价值的话题，但超出了本文的讨论范围<sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup>。</p>
+  <a href="#%e5%bc%95%e5%85%a5-autocorrect" class="heading-mark"></a>4 引入 AutoCorrect</h2><h3 id="盘古之白" class="heading-element">
+  <a href="#%e7%9b%98%e5%8f%a4%e4%b9%8b%e7%99%bd" class="heading-mark"></a>4.1 盘古之白</h3><p>在很多中文社区，中英文之间要手动加空格，俗称「盘古之白」，都是不成文的风格要求。这项要求是否合理、又该如何满足，是很有价值的话题，但超出了本文的讨论范围<sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup>。</p>
 <p>这里，只简单概括通说：中英文之间加入空隙，是为了实现视觉上的区隔，更加美观和易读。理想情况下，这种「空隙」应当由排版引擎自动加入，宽度宜为 1/4 个全角空格（em）。但由于数字排版环境复杂多变，在大多数时候（包括最常见的网页环境）不能指望排版引擎有这种能力，因此只能退而求其次，手动插入一个半角空格（因其宽度<strong>通常</strong>接近于 1/4 em），达到类似效果。</p>
 <p>如果想要在中英文之间手动加空格，有什么自动检查和补全的方法吗？</p>
 <p>答案是当然有，而且选择也不止一个。</p>
 <h3 id="pangujs" class="heading-element">
-  <a href="#pangujs" class="heading-mark"></a>pangu.js</h3><p>其中，最著名的可能是 <a href="https://github.com/vinta/pangu.js/"target="_blank" rel="external nofollow noopener noreferrer">pangu.js<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 项目。如果你用过一个叫做「<a href="https://chrome.google.com/webstore/detail/%e7%82%ba%e4%bb%80%e9%ba%bc%e4%bd%a0%e5%80%91%e5%b0%b1%e6%98%af%e4%b8%8d%e8%83%bd%e5%8a%a0%e5%80%8b%e7%a9%ba%e6%a0%bc%e5%91%a2%ef%bc%9f/paphcfdffjnbcgkokihcdjliihicmbpd?hl=zh-CN"target="_blank" rel="external nofollow noopener noreferrer">为什么你们就是不能加个空格呢？<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>」的浏览器插件，那你也就用过 pangu.js —— 它正是出自同一位作者之手、以 pangu.js 为底层支撑的。Hugo FixIt 主题也内置了 pangu.js 以自动优化博客文章内容中西混排。</p>
+  <a href="#pangujs" class="heading-mark"></a>4.2 pangu.js</h3><p>其中，最著名的可能是 <a href="https://github.com/vinta/pangu.js/"target="_blank" rel="external nofollow noopener noreferrer">pangu.js<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 项目。如果你用过一个叫做「<a href="https://chrome.google.com/webstore/detail/%e7%82%ba%e4%bb%80%e9%ba%bc%e4%bd%a0%e5%80%91%e5%b0%b1%e6%98%af%e4%b8%8d%e8%83%bd%e5%8a%a0%e5%80%8b%e7%a9%ba%e6%a0%bc%e5%91%a2%ef%bc%9f/paphcfdffjnbcgkokihcdjliihicmbpd?hl=zh-CN"target="_blank" rel="external nofollow noopener noreferrer">为什么你们就是不能加个空格呢？<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>」的浏览器插件，那你也就用过 pangu.js —— 它正是出自同一位作者之手、以 pangu.js 为底层支撑的。Hugo FixIt 主题也内置了 pangu.js 以自动优化博客文章内容中西混排。</p>
 <h3 id="autocorrect" class="heading-element">
-  <a href="#autocorrect" class="heading-mark"></a>AutoCorrect</h3><p>另一个选择是 <a href="https://github.com/huacnlee/autocorrect"target="_blank" rel="external nofollow noopener noreferrer">AutoCorrect<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>。与主要关注文本内容的 pangu.js 相比，AutoCorrect 出生于 Ruby 语言的中文社区，因此从一开始就考虑到了编程代码中的中英混排场景（可以参见该项目的 <a href="https://github.com/huacnlee/autocorrect/tree/main/tests/fixtures"target="_blank" rel="external nofollow noopener noreferrer">测试文件<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>），通用性更强。</p>
+  <a href="#autocorrect" class="heading-mark"></a>4.3 AutoCorrect</h3><p>另一个选择是 <a href="https://github.com/huacnlee/autocorrect"target="_blank" rel="external nofollow noopener noreferrer">AutoCorrect<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>。与主要关注文本内容的 pangu.js 相比，AutoCorrect 出生于 Ruby 语言的中文社区，因此从一开始就考虑到了编程代码中的中英混排场景（可以参见该项目的 <a href="https://github.com/huacnlee/autocorrect/tree/main/tests/fixtures"target="_blank" rel="external nofollow noopener noreferrer">测试文件<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>），通用性更强。</p>
 <p>pangu.js 和 AutoCorrect 的对比：</p>
 <table>
 <thead>
@@ -457,7 +457,7 @@
 </ul>
 <p>我在博客、VSCode、浏览器插件中都使用了 pangu.js，长期以来，就会发现很多问题，它的便捷同时也带来了“暴力”，处理规则不可控，这一直让我很头疼，所以本文尝试使用 AutoCorrect 替代 pangu.js。事实上，AutoCorrect 的效果确实更好。</p>
 <h3 id="use-autocorrect-in-npm" class="heading-element">
-  <a href="#use-autocorrect-in-npm" class="heading-mark"></a>Use AutoCorrect in NPM</h3><p>安装 <code>autocorrect-node</code>：</p>
+  <a href="#use-autocorrect-in-npm" class="heading-mark"></a>4.4 Use AutoCorrect in NPM</h3><p>安装 <code>autocorrect-node</code>：</p>
 <div class="highlight" id="id-10"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -536,7 +536,7 @@
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">一二三,四五六.七八九</span><span class="p">:</span><span class="w"> </span><span class="m">0</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="总结" class="heading-element">
-  <a href="#%e6%80%bb%e7%bb%93" class="heading-mark"></a>总结</h2><p>本文主要介绍了 markdownlint-cli2 和 AutoCorrect 两个工具，前者用于检查 Markdown 语法和风格，后者用于自动补齐中英文之间的「盘古之白」。这两个工具都可以在项目中集成，方便统一规范、团队协作。</p>
+  <a href="#%e6%80%bb%e7%bb%93" class="heading-mark"></a>5 总结</h2><p>本文主要介绍了 markdownlint-cli2 和 AutoCorrect 两个工具，前者用于检查 Markdown 语法和风格，后者用于自动补齐中英文之间的「盘古之白」。这两个工具都可以在项目中集成，方便统一规范、团队协作。</p>
 <!-- footnote reference definition -->
 <div class="footnotes" role="doc-endnotes">
 <hr>
@@ -552,21 +552,21 @@
 </li>
 </ol>
 </div>]]></description></item><item><title>认知复杂度（Cognitive Complexity）</title><link>https://lruihao.cn/posts/cognitive-complexity/</link><pubDate>Sun, 08 Oct 2023 09:52:44 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/cognitive-complexity/</guid><description><![CDATA[<div class="featured-image"><img loading="eager" src="https://lruihao.cn/posts/cognitive-complexity/images/featured-image.png" alt="认知复杂度（Cognitive Complexity）" title="认知复杂度（Cognitive Complexity）" referrerpolicy="no-referrer"/></div><h2 id="摘要" class="heading-element">
-  <a href="#%e6%91%98%e8%a6%81" class="heading-mark"></a>摘要</h2><p>循环复杂度（Cyclomatic Complexity）最初被制定为衡量模块控制流的“可测试性和可维护性”的一种度量标准。虽然它在衡量前者方面表现出色，但其底层的数学模型在产生衡量后者的值方面不尽如人意。本文介绍了一种新的度量标准，它摒弃了使用数学模型评估代码的做法，以弥补循环复杂度的不足之处，并产生更准确地反映方法、类和应用程序的相对难度的度量标准。</p>
+  <a href="#%e6%91%98%e8%a6%81" class="heading-mark"></a>1 摘要</h2><p>循环复杂度（Cyclomatic Complexity）最初被制定为衡量模块控制流的“可测试性和可维护性”的一种度量标准。虽然它在衡量前者方面表现出色，但其底层的数学模型在产生衡量后者的值方面不尽如人意。本文介绍了一种新的度量标准，它摒弃了使用数学模型评估代码的做法，以弥补循环复杂度的不足之处，并产生更准确地反映方法、类和应用程序的相对难度的度量标准。</p>
 <h3 id="术语说明" class="heading-element">
-  <a href="#%e6%9c%af%e8%af%ad%e8%af%b4%e6%98%8e" class="heading-mark"></a>术语说明</h3><p>虽然认知复杂度（Cognitive Complexity）是一种语言中立的度量标准，同样适用于文件和类，以及方法、过程、函数等等，但为了方便起见，本文中使用面向对象的术语“类”和“方法”。</p>
+  <a href="#%e6%9c%af%e8%af%ad%e8%af%b4%e6%98%8e" class="heading-mark"></a>1.1 术语说明</h3><p>虽然认知复杂度（Cognitive Complexity）是一种语言中立的度量标准，同样适用于文件和类，以及方法、过程、函数等等，但为了方便起见，本文中使用面向对象的术语“类”和“方法”。</p>
 <hr>
 <h2 id="引言" class="heading-element">
-  <a href="#%e5%bc%95%e8%a8%80" class="heading-mark"></a>引言</h2><p>循环复杂度（Cyclomatic Complexity）是一种用于衡量代码中控制流的度量标准，它最初是由 Thomas J. McCabe 在 1976 年提出的。<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> 该度量标准的目的是衡量代码的“可测试性和可维护性”。虽然它在衡量前者方面表现出色，但其底层的数学模型在产生衡量后者的值方面不尽如人意。本文介绍了一种新的度量标准，它摒弃了使用数学模型评估代码的做法，以弥补循环复杂度的不足之处，并产生更准确地反映方法、类和应用程序的相对难度的度量标准。</p>
+  <a href="#%e5%bc%95%e8%a8%80" class="heading-mark"></a>2 引言</h2><p>循环复杂度（Cyclomatic Complexity）是一种用于衡量代码中控制流的度量标准，它最初是由 Thomas J. McCabe 在 1976 年提出的。<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> 该度量标准的目的是衡量代码的“可测试性和可维护性”。虽然它在衡量前者方面表现出色，但其底层的数学模型在产生衡量后者的值方面不尽如人意。本文介绍了一种新的度量标准，它摒弃了使用数学模型评估代码的做法，以弥补循环复杂度的不足之处，并产生更准确地反映方法、类和应用程序的相对难度的度量标准。</p>
 <p>与此同时，循环复杂度已经不再全面。它于 1976 年在 Fortran 环境中制定，不包括像 <code>try/catch</code> 和 <code>lambda</code> 这样的现代语言结构。</p>
 <p>最后，由于每个方法的最小循环复杂度分数为 1，我们无法知道具有高聚合循环复杂度的任何给定类是一个大型、易于维护的域类，还是一个具有复杂控制流的小型类。除了类级别之外，广泛认可的观点是应用程序的循环复杂度得分与其代码行数总和相关。换句话说，循环复杂度在方法级别以上几乎没有用处。</p>
 <p>为了解决这些问题，认知复杂度（Cognitive Complexity）已经被制定出来，以解决现代语言结构的问题，并产生在类和应用程序级别上有意义的值。更重要的是，它摒弃了基于数学模型评估代码的做法，以便能够提供与程序员对理解流程所需的心智或认知努力的直觉相符的控制流评估。</p>
 <h2 id="问题示例" class="heading-element">
-  <a href="#%e9%97%ae%e9%a2%98%e7%a4%ba%e4%be%8b" class="heading-mark"></a>问题示例</h2><p>从一个示例开始讨论认知复杂度可以帮助理解它的应用对象。下面的两个方法具有相同的循环复杂度，但在可理解性方面却存在明显的差异。</p>
-<p><img loading="lazy" src="images/23_1696818696.png" alt="An illustration of the problem" srcset="images/23_1696818696.png?size=small, images/23_1696818696.png?size=medium 1.5x, images/23_1696818696.png?size=large 2x" data-title="An illustration of the problem" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+  <a href="#%e9%97%ae%e9%a2%98%e7%a4%ba%e4%be%8b" class="heading-mark"></a>3 问题示例</h2><p>从一个示例开始讨论认知复杂度可以帮助理解它的应用对象。下面的两个方法具有相同的循环复杂度，但在可理解性方面却存在明显的差异。</p>
+<p><a class="lightgallery" href="/posts/cognitive-complexity/images/23_1696818696.png?size=large" data-thumbnail="/posts/cognitive-complexity/images/23_1696818696.png?size=small" data-sub-html="<h2>An illustration of the problem</h2>"><img loading="lazy" src="/posts/cognitive-complexity/images/23_1696818696.png" alt="An illustration of the problem" srcset="/posts/cognitive-complexity/images/23_1696818696.png?size=small, /posts/cognitive-complexity/images/23_1696818696.png?size=medium 1.5x, /posts/cognitive-complexity/images/23_1696818696.png?size=large 2x" data-title="An illustration of the problem" style="--width: 1476px;--aspect-ratio: 1476 / 428;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></p>
 <p>循环复杂度的数学模型给予这两个方法相同的权重，然而直观上很明显，sumOfPrimes 方法的控制流比 getWords 方法更难理解。这就是为什么认知复杂度放弃了使用数学模型评估控制流的做法，而采用了一组简单的规则，将程序员的直觉转化为数字。</p>
 <h2 id="基本准则和方法" class="heading-element">
-  <a href="#%e5%9f%ba%e6%9c%ac%e5%87%86%e5%88%99%e5%92%8c%e6%96%b9%e6%b3%95" class="heading-mark"></a>基本准则和方法</h2><p>根据三个基本规则来评估认知复杂度得分：</p>
+  <a href="#%e5%9f%ba%e6%9c%ac%e5%87%86%e5%88%99%e5%92%8c%e6%96%b9%e6%b3%95" class="heading-mark"></a>4 基本准则和方法</h2><p>根据三个基本规则来评估认知复杂度得分：</p>
 <ol>
 <li>忽略允许多个语句可读性缩写成一个的结构</li>
 <li>每次中断代码的线性流程时增加一个（加一）</li>
@@ -582,13 +582,13 @@
 <p>虽然在数学上，增量的类型没有影响，每个增量都会将最终得分增加一点，但对被计数的特征类别进行区分可以更容易地理解嵌套增量适用和不适用的地方。</p>
 <p>这些规则及其背后的原则在以下章节中进一步详细介绍。</p>
 <h2 id="忽略简写" class="heading-element">
-  <a href="#%e5%bf%bd%e7%95%a5%e7%ae%80%e5%86%99" class="heading-mark"></a>忽略简写</h2><p>在制定认知复杂度的过程中，一个指导原则是它应该激励良好的编码实践。也就是说，它应该忽略或减少使代码更易读的特性。</p>
+  <a href="#%e5%bf%bd%e7%95%a5%e7%ae%80%e5%86%99" class="heading-mark"></a>5 忽略简写</h2><p>在制定认知复杂度的过程中，一个指导原则是它应该激励良好的编码实践。也就是说，它应该忽略或减少使代码更易读的特性。</p>
 <p>方法的结构本身就是一个很好的例子。将代码分解为方法可以将多个语句压缩为一个具有描述性名称的调用，即“简写（shorthand）”。因此，认知复杂度不会针对方法进行增量计算。</p>
 <p>认知复杂度还忽略许多编程语言中常见的空合并运算符，因为它们允许将多行代码缩减为一行。例如，下面两个代码示例执行相同的操作：</p>
-<p><img loading="lazy" src="images/23_1696826535.png" alt="ignore shorthand" srcset="images/23_1696826535.png?size=small, images/23_1696826535.png?size=medium 1.5x, images/23_1696826535.png?size=large 2x" data-title="ignore shorthand" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+<p><a class="lightgallery" href="/posts/cognitive-complexity/images/23_1696826535.png?size=large" data-thumbnail="/posts/cognitive-complexity/images/23_1696826535.png?size=small" data-sub-html="<h2>ignore shorthand</h2>"><img loading="lazy" src="/posts/cognitive-complexity/images/23_1696826535.png" alt="ignore shorthand" srcset="/posts/cognitive-complexity/images/23_1696826535.png?size=small, /posts/cognitive-complexity/images/23_1696826535.png?size=medium 1.5x, /posts/cognitive-complexity/images/23_1696826535.png?size=large 2x" data-title="ignore shorthand" style="--width: 1084px;--aspect-ratio: 1084 / 176;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></p>
 <p>左侧版本的含义需要一些时间来理解，而一旦理解了空合并语法，右侧版本就立即清晰明了。因此，认知复杂度忽略了空合并运算符。</p>
 <h2 id="中断线性流程" class="heading-element">
-  <a href="#%e4%b8%ad%e6%96%ad%e7%ba%bf%e6%80%a7%e6%b5%81%e7%a8%8b" class="heading-mark"></a>中断线性流程</h2><p>在制定认知复杂度的过程中，另一个指导原则是打破代码从上到下、从左到右的正常线性流程的结构会使维护者在理解代码时需要付出更多的努力。为了认可这种额外的努力，认知复杂度对以下结构进行结构增量评估：</p>
+  <a href="#%e4%b8%ad%e6%96%ad%e7%ba%bf%e6%80%a7%e6%b5%81%e7%a8%8b" class="heading-mark"></a>6 中断线性流程</h2><p>在制定认知复杂度的过程中，另一个指导原则是打破代码从上到下、从左到右的正常线性流程的结构会使维护者在理解代码时需要付出更多的努力。为了认可这种额外的努力，认知复杂度对以下结构进行结构增量评估：</p>
 <ul>
 <li>循环结构：<code>for</code>、<code>while</code>、<code>do while</code>、&hellip;</li>
 <li>条件判断：三元运算符、<code>if</code>、<code>#if</code>、<code>#ifdef</code>、&hellip;</li>
@@ -600,14 +600,14 @@
 <p>对于这些结构，不会评估嵌套增量，因为在阅读条件语句时已经承担了心理成本。</p>
 <p>这些增量目标对于那些习惯于圈复杂度的人来说可能会很熟悉。此外，认知复杂度还会增加以下方面的复杂度：</p>
 <h3 id="捕获catches" class="heading-element">
-  <a href="#%e6%8d%95%e8%8e%b7catches" class="heading-mark"></a>捕获（Catches）</h3><p><code>catch</code> 语句与 <code>if</code> 语句一样，代表了控制流程中的一种分支。因此，每个 <code>catch</code> 子句都会对认知复杂度进行结构增量评估。请注意，无论捕获了多少种异常类型，每个 <code>catch</code> 子句只会给认知复杂度得分增加一个点。<code>try</code> 和 <code>finally</code> 块则完全被忽略。</p>
+  <a href="#%e6%8d%95%e8%8e%b7catches" class="heading-mark"></a>6.1 捕获（Catches）</h3><p><code>catch</code> 语句与 <code>if</code> 语句一样，代表了控制流程中的一种分支。因此，每个 <code>catch</code> 子句都会对认知复杂度进行结构增量评估。请注意，无论捕获了多少种异常类型，每个 <code>catch</code> 子句只会给认知复杂度得分增加一个点。<code>try</code> 和 <code>finally</code> 块则完全被忽略。</p>
 <h3 id="开关switches" class="heading-element">
-  <a href="#%e5%bc%80%e5%85%b3switches" class="heading-mark"></a>开关（Switches）</h3><p>一个 <code>switch</code> 语句及其所有的 <code>case</code> 合并会导致一个单独的结构增量。</p>
+  <a href="#%e5%bc%80%e5%85%b3switches" class="heading-mark"></a>6.2 开关（Switches）</h3><p>一个 <code>switch</code> 语句及其所有的 <code>case</code> 合并会导致一个单独的结构增量。</p>
 <p>在圈复杂度中，<code>switch</code> 语句被视为类似于 <code>if-else</code> <code>if</code> 链的模拟。也就是说，<code>switch</code> 语句中的每个 <code>case</code> 都会导致增量，因为它在控制流的数学模型中引起了一个分支。</p>
 <p>但是从维护者的角度来看，一个 <code>switch</code> 语句，它将一个变量与一组明确命名的字面值进行比较，比一个 <code>if-else</code> <code>if</code> 链容易理解得多，因为后者可能进行任意数量的比较，使用任意数量的变量和值。</p>
 <p>简而言之，必须仔细阅读 <code>if-else</code> <code>if</code> 链，而 <code>switch</code> 语句通常可以一目了然地理解。</p>
 <h3 id="逻辑运算符序列sequences-of-logical-operators" class="heading-element">
-  <a href="#%e9%80%bb%e8%be%91%e8%bf%90%e7%ae%97%e7%ac%a6%e5%ba%8f%e5%88%97sequences-of-logical-operators" class="heading-mark"></a>逻辑运算符序列（Sequences of logical operators）</h3><p>出于类似的原因，认知复杂度不会对每个二进制逻辑运算符进行增量计算。相反，它对每个二进制逻辑运算符序列进行基本增量评估。例如，考虑以下几对示例：</p>
+  <a href="#%e9%80%bb%e8%be%91%e8%bf%90%e7%ae%97%e7%ac%a6%e5%ba%8f%e5%88%97sequences-of-logical-operators" class="heading-mark"></a>6.3 逻辑运算符序列（Sequences of logical operators）</h3><p>出于类似的原因，认知复杂度不会对每个二进制逻辑运算符进行增量计算。相反，它对每个二进制逻辑运算符序列进行基本增量评估。例如，考虑以下几对示例：</p>
 <div class="highlight" id="id-1"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -658,40 +658,40 @@
 </div>
 </div><p>虽然相对于圈复杂度，认知复杂度对相同的运算符提供了一种“折扣”，但它会对所有的二元布尔运算符序列进行增量计算，例如变量赋值、方法调用和返回语句中的序列。</p>
 <h3 id="递归recursion" class="heading-element">
-  <a href="#%e9%80%92%e5%bd%92recursion" class="heading-mark"></a>递归（Recursion）</h3><p>与圈复杂度不同，认知复杂度对递归循环中的每个方法（无论是直接递归还是间接递归）都会增加一个基本增量。</p>
+  <a href="#%e9%80%92%e5%bd%92recursion" class="heading-mark"></a>6.4 递归（Recursion）</h3><p>与圈复杂度不同，认知复杂度对递归循环中的每个方法（无论是直接递归还是间接递归）都会增加一个基本增量。</p>
 <p>这个决定有两个动机。首先，递归代表了一种“元循环（meta-loop）”，而认知复杂度对循环进行增量计算。其次，认知复杂度旨在估计理解方法控制流的相对难度，即使对一些经验丰富的程序员来说，递归也很难理解。</p>
 <h3 id="跳转到标签jumps-to-labels" class="heading-element">
-  <a href="#%e8%b7%b3%e8%bd%ac%e5%88%b0%e6%a0%87%e7%ad%bejumps-to-labels" class="heading-mark"></a>跳转到标签（Jumps to labels）</h3><p>使用 <code>goto</code> 语句会给认知复杂度增加一个基本增量，同样的，使用带有标签的 <code>break</code> 或 <code>continue</code> 语句以及其他多级跳转（如某些语言中的带有数字的 <code>break</code> 或 <code>continue</code> 语句）也会增加增量。但是，因为提前返回通常可以使代码更清晰，其他跳转或提前退出不会增加增量。</p>
+  <a href="#%e8%b7%b3%e8%bd%ac%e5%88%b0%e6%a0%87%e7%ad%bejumps-to-labels" class="heading-mark"></a>6.5 跳转到标签（Jumps to labels）</h3><p>使用 <code>goto</code> 语句会给认知复杂度增加一个基本增量，同样的，使用带有标签的 <code>break</code> 或 <code>continue</code> 语句以及其他多级跳转（如某些语言中的带有数字的 <code>break</code> 或 <code>continue</code> 语句）也会增加增量。但是，因为提前返回通常可以使代码更清晰，其他跳转或提前退出不会增加增量。</p>
 <h2 id="嵌套流程中的增量" class="heading-element">
-  <a href="#%e5%b5%8c%e5%a5%97%e6%b5%81%e7%a8%8b%e4%b8%ad%e7%9a%84%e5%a2%9e%e9%87%8f" class="heading-mark"></a>嵌套流程中的增量</h2><p>直观上很明显，一系列线性的五个 <code>if</code> 和 <code>for</code> 结构比相同的五个结构连续嵌套更容易理解，而不管每个系列中的执行路径数量如何。因为这样的嵌套增加了理解代码的心理需求，认知复杂度对其进行了嵌套增量的评估。</p>
+  <a href="#%e5%b5%8c%e5%a5%97%e6%b5%81%e7%a8%8b%e4%b8%ad%e7%9a%84%e5%a2%9e%e9%87%8f" class="heading-mark"></a>7 嵌套流程中的增量</h2><p>直观上很明显，一系列线性的五个 <code>if</code> 和 <code>for</code> 结构比相同的五个结构连续嵌套更容易理解，而不管每个系列中的执行路径数量如何。因为这样的嵌套增加了理解代码的心理需求，认知复杂度对其进行了嵌套增量的评估。</p>
 <p>具体来说，每当一个导致结构增量或混合增量的结构嵌套在另一个这样的结构内部时，每个嵌套级别都会增加一个嵌套增量。例如，在下面的示例中，对于方法本身或 <code>try</code> 语句，都没有嵌套增量，因为这两个结构都不会导致结构增量或混合增量：</p>
-<p><img loading="lazy" src="images/23_1696904025.png" alt="Illustration 1 of &amp;ldquo;Increment for nested flow-break structures&amp;rdquo;" srcset="images/23_1696904025.png?size=small, images/23_1696904025.png?size=medium 1.5x, images/23_1696904025.png?size=large 2x" data-title="Illustration 1 of &amp;ldquo;Increment for nested flow-break structures&amp;rdquo;" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+<p><a class="lightgallery" href="/posts/cognitive-complexity/images/23_1696904025.png?size=large" data-thumbnail="/posts/cognitive-complexity/images/23_1696904025.png?size=small" data-sub-html="<h2>Illustration 1 of &amp;ldquo;Increment for nested flow-break structures&amp;rdquo;</h2>"><img loading="lazy" src="/posts/cognitive-complexity/images/23_1696904025.png" alt="Illustration 1 of &amp;ldquo;Increment for nested flow-break structures&amp;rdquo;" srcset="/posts/cognitive-complexity/images/23_1696904025.png?size=small, /posts/cognitive-complexity/images/23_1696904025.png?size=medium 1.5x, /posts/cognitive-complexity/images/23_1696904025.png?size=large 2x" data-title="Illustration 1 of &amp;ldquo;Increment for nested flow-break structures&amp;rdquo;" style="--width: 1366px;--aspect-ratio: 1366 / 456;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></p>
 <p>然而，<code>if</code>、<code>for</code>、<code>while</code>和<code>catch</code>结构都会受到结构增量和嵌套增量的影响。
 此外，顶层方法会被忽略，并且 <code>lambda</code> 表达式、嵌套方法和类似特性不会导致结构增量，但当这些方法嵌套在其他类似方法的结构内部时，会增加嵌套级别：</p>
-<p><img loading="lazy" src="images/23_1696904298.png" alt="Illustration 2 of &amp;ldquo;Increment for nested flow-break structures&amp;rdquo;" srcset="images/23_1696904298.png?size=small, images/23_1696904298.png?size=medium 1.5x, images/23_1696904298.png?size=large 2x" data-title="Illustration 2 of &amp;ldquo;Increment for nested flow-break structures&amp;rdquo;" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+<p><a class="lightgallery" href="/posts/cognitive-complexity/images/23_1696904298.png?size=large" data-thumbnail="/posts/cognitive-complexity/images/23_1696904298.png?size=small" data-sub-html="<h2>Illustration 2 of &amp;ldquo;Increment for nested flow-break structures&amp;rdquo;</h2>"><img loading="lazy" src="/posts/cognitive-complexity/images/23_1696904298.png" alt="Illustration 2 of &amp;ldquo;Increment for nested flow-break structures&amp;rdquo;" srcset="/posts/cognitive-complexity/images/23_1696904298.png?size=small, /posts/cognitive-complexity/images/23_1696904298.png?size=medium 1.5x, /posts/cognitive-complexity/images/23_1696904298.png?size=large 2x" data-title="Illustration 2 of &amp;ldquo;Increment for nested flow-break structures&amp;rdquo;" style="--width: 1368px;--aspect-ratio: 1368 / 594;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></p>
 <h2 id="影响" class="heading-element">
-  <a href="#%e5%bd%b1%e5%93%8d" class="heading-mark"></a>影响</h2><p>认知复杂度的主要目标是计算方法分数，以更准确地反映方法的相对可理解性，并且其次目标是处理现代语言结构并生成在方法级别以上有价值的度量标准。可以证明，处理现代语言结构的目标已经实现。下面将对另外两个目标进行详细讨论。</p>
+  <a href="#%e5%bd%b1%e5%93%8d" class="heading-mark"></a>8 影响</h2><p>认知复杂度的主要目标是计算方法分数，以更准确地反映方法的相对可理解性，并且其次目标是处理现代语言结构并生成在方法级别以上有价值的度量标准。可以证明，处理现代语言结构的目标已经实现。下面将对另外两个目标进行详细讨论。</p>
 <h3 id="直观地正确的复杂性分数" class="heading-element">
-  <a href="#%e7%9b%b4%e8%a7%82%e5%9c%b0%e6%ad%a3%e7%a1%ae%e7%9a%84%e5%a4%8d%e6%9d%82%e6%80%a7%e5%88%86%e6%95%b0" class="heading-mark"></a>直观地“正确”的复杂性分数</h3><p>这次讨论始于一对具有相等圈复杂度但明显不同可理解性的方法。现在是重新审视这些方法并计算它们的认知复杂度分数的时候了。</p>
-<p><img loading="lazy" src="images/23_1696904888.png" alt="Intuitively ‘right’ complexity scores" srcset="images/23_1696904888.png?size=small, images/23_1696904888.png?size=medium 1.5x, images/23_1696904888.png?size=large 2x" data-title="Intuitively ‘right’ complexity scores" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+  <a href="#%e7%9b%b4%e8%a7%82%e5%9c%b0%e6%ad%a3%e7%a1%ae%e7%9a%84%e5%a4%8d%e6%9d%82%e6%80%a7%e5%88%86%e6%95%b0" class="heading-mark"></a>8.1 直观地“正确”的复杂性分数</h3><p>这次讨论始于一对具有相等圈复杂度但明显不同可理解性的方法。现在是重新审视这些方法并计算它们的认知复杂度分数的时候了。</p>
+<p><a class="lightgallery" href="/posts/cognitive-complexity/images/23_1696904888.png?size=large" data-thumbnail="/posts/cognitive-complexity/images/23_1696904888.png?size=small" data-sub-html="<h2>Intuitively ‘right’ complexity scores</h2>"><img loading="lazy" src="/posts/cognitive-complexity/images/23_1696904888.png" alt="Intuitively ‘right’ complexity scores" srcset="/posts/cognitive-complexity/images/23_1696904888.png?size=small, /posts/cognitive-complexity/images/23_1696904888.png?size=medium 1.5x, /posts/cognitive-complexity/images/23_1696904888.png?size=large 2x" data-title="Intuitively ‘right’ complexity scores" style="--width: 1734px;--aspect-ratio: 1734 / 534;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></p>
 <p>认知复杂度算法给出了这两个方法明显不同的分数，这些分数更能反映它们相对可理解性的差异。</p>
 <h3 id="高于方法级别的有价值的指标" class="heading-element">
-  <a href="#%e9%ab%98%e4%ba%8e%e6%96%b9%e6%b3%95%e7%ba%a7%e5%88%ab%e7%9a%84%e6%9c%89%e4%bb%b7%e5%80%bc%e7%9a%84%e6%8c%87%e6%a0%87" class="heading-mark"></a>高于方法级别的有价值的指标</h3><p>此外，由于认知复杂度不会针对方法结构增加增量，聚合的数值变得有用起来。现在，通过比较它们的度量值，你可以轻松区分一个包含大量简单的 <code>getter</code> 和 <code>setter</code> 的领域类和一个包含复杂控制流的类。因此，认知复杂度成为衡量类和应用程序相对可理解性的工具。</p>
+  <a href="#%e9%ab%98%e4%ba%8e%e6%96%b9%e6%b3%95%e7%ba%a7%e5%88%ab%e7%9a%84%e6%9c%89%e4%bb%b7%e5%80%bc%e7%9a%84%e6%8c%87%e6%a0%87" class="heading-mark"></a>8.2 高于方法级别的有价值的指标</h3><p>此外，由于认知复杂度不会针对方法结构增加增量，聚合的数值变得有用起来。现在，通过比较它们的度量值，你可以轻松区分一个包含大量简单的 <code>getter</code> 和 <code>setter</code> 的领域类和一个包含复杂控制流的类。因此，认知复杂度成为衡量类和应用程序相对可理解性的工具。</p>
 <h2 id="结论" class="heading-element">
-  <a href="#%e7%bb%93%e8%ae%ba" class="heading-mark"></a>结论</h2><p>编写和维护代码是人类过程，它们的输出必须符合数学模型，但它们本身并不适合数学模型。这就是为什么数学模型不足以评估它们所需努力的原因。</p>
+  <a href="#%e7%bb%93%e8%ae%ba" class="heading-mark"></a>9 结论</h2><p>编写和维护代码是人类过程，它们的输出必须符合数学模型，但它们本身并不适合数学模型。这就是为什么数学模型不足以评估它们所需努力的原因。</p>
 <p>认知复杂度打破了使用数学模型评估软件可维护性的做法。它起源于圈复杂度所设定的先例，但使用人类判断来评估应该如何计算结构，并决定整体模型应该加入什么内容。结果，它产生了方法复杂度分数，相对于以前的模型，程序员认为这些分数更公平地评估了可理解性。</p>
 <p>此外，因为认知复杂度对于一个方法没有“进入成本”的要求，它不仅在方法级别产生了这些更公平的相对评估，还在类和应用程序级别上产生了相应的评估。</p>
 <h2 id="参考文献" class="heading-element">
-  <a href="#%e5%8f%82%e8%80%83%e6%96%87%e7%8c%ae" class="heading-mark"></a>参考文献</h2><p>本文翻译自 G. Ann Campbell 的文章“{Cognitive Complexity} a new way of measuring understandability”<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>，原文发表于 2023 年 8 月 29 日，版本号为 1.7。</p>
+  <a href="#%e5%8f%82%e8%80%83%e6%96%87%e7%8c%ae" class="heading-mark"></a>10 参考文献</h2><p>本文翻译自 G. Ann Campbell 的文章“{Cognitive Complexity} a new way of measuring understandability”<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>，原文发表于 2023 年 8 月 29 日，版本号为 1.7。</p>
 <h2 id="附录-a补偿用法" class="heading-element">
-  <a href="#%e9%99%84%e5%bd%95-a%e8%a1%a5%e5%81%bf%e7%94%a8%e6%b3%95" class="heading-mark"></a>附录 A：补偿用法</h2><p>认知复杂度被设计为一种与语言无关的度量标准，但不可忽视的是不同的编程语言提供了不同的特性。例如，COBOL 中没有 <code>else if</code> 结构，而 JavaScript 直到最近也缺乏类似的结构。不幸的是，这些缺陷并不能阻止开发人员需要这些结构或者试图用手头的工具构建类似的结构。在这种情况下，严格遵守认知复杂度规则会导致不成比例的高分。</p>
+  <a href="#%e9%99%84%e5%bd%95-a%e8%a1%a5%e5%81%bf%e7%94%a8%e6%b3%95" class="heading-mark"></a>11 附录 A：补偿用法</h2><p>认知复杂度被设计为一种与语言无关的度量标准，但不可忽视的是不同的编程语言提供了不同的特性。例如，COBOL 中没有 <code>else if</code> 结构，而 JavaScript 直到最近也缺乏类似的结构。不幸的是，这些缺陷并不能阻止开发人员需要这些结构或者试图用手头的工具构建类似的结构。在这种情况下，严格遵守认知复杂度规则会导致不成比例的高分。</p>
 <p>因此，为了不惩罚一种语言相对于另一种语言的使用，对于语言的缺陷，即在考虑的语言中普遍使用并且在大多数现代语言中都是期望的结构，但在该语言中缺失的结构（例如 COBOL 缺少的 <code>else if</code>），可以进行例外处理。</p>
 <p>另一方面，当一种语言创新引入一个特性时，例如 Java 7 可以一次捕获多个异常类型，其他语言中缺乏这种创新不应被视为缺陷，因此不应有例外。</p>
 <p>这意味着如果一次捕获多个异常类型成为一种常见预期的语言特性，那么对于不提供该功能的语言中的“额外”<code>catch</code> 子句可能会添加例外。这种可能性并没有排除，但对于是否添加这样的未来例外的评估应该以保守为原则。换句话说，新的例外应该慢慢引入。</p>
 <p>另一方面，如果 COBOL 标准的未来版本添加了&quot;else if&quot;结构，应尽快放弃 COBOL 的&quot;else &hellip; if&quot;例外（如下所述）。</p>
 <p>到目前为止，已经确定了三个例外情况：</p>
 <h3 id="cobol-missing-else-if" class="heading-element">
-  <a href="#cobol-missing-else-if" class="heading-mark"></a>COBOL: Missing <code>else if</code></h3><p>对于缺乏 <code>else if</code> 结构的 COBOL 语言，一个 <code>else</code> 子句中如果只包含一个 <code>if</code> 语句，则不会增加嵌套惩罚。此外，<code>else</code> 本身不会增加复杂度。也就是说，如果 <code>else</code> 后面紧跟着 <code>if</code> 语句，尽管从语法上讲它并不是 <code>else if</code>，但在计算复杂度时会视作 <code>else if</code>。</p>
+  <a href="#cobol-missing-else-if" class="heading-mark"></a>11.1 COBOL: Missing <code>else if</code></h3><p>对于缺乏 <code>else if</code> 结构的 COBOL 语言，一个 <code>else</code> 子句中如果只包含一个 <code>if</code> 语句，则不会增加嵌套惩罚。此外，<code>else</code> 本身不会增加复杂度。也就是说，如果 <code>else</code> 后面紧跟着 <code>if</code> 语句，尽管从语法上讲它并不是 <code>else if</code>，但在计算复杂度时会视作 <code>else if</code>。</p>
 <p>例如：</p>
 <div class="highlight" id="id-4"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -727,19 +727,19 @@
 </span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="c">ENDIF.</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="javascript-missing-class-structures" class="heading-element">
-  <a href="#javascript-missing-class-structures" class="heading-mark"></a>JavaScript: Missing class structures</h3><p>尽管 ECMAScript 6 规范最近为 JavaScript 添加了类的功能，但这个特性尚未被广泛采用。实际上，许多流行的框架要求继续使用一种补偿习惯用法：使用外部函数作为替代，创建一种命名空间或伪类。为了不对 JavaScript 用户进行惩罚，当外部函数仅用作声明机制时（即它们只包含顶级的声明），它们将被忽略。</p>
+  <a href="#javascript-missing-class-structures" class="heading-mark"></a>11.2 JavaScript: Missing class structures</h3><p>尽管 ECMAScript 6 规范最近为 JavaScript 添加了类的功能，但这个特性尚未被广泛采用。实际上，许多流行的框架要求继续使用一种补偿习惯用法：使用外部函数作为替代，创建一种命名空间或伪类。为了不对 JavaScript 用户进行惩罚，当外部函数仅用作声明机制时（即它们只包含顶级的声明），它们将被忽略。</p>
 <p>然而，如果一个函数位于顶级（即不嵌套在子函数内部），并且包含需要进行结构增加的语句，那么说明它不仅仅是纯粹的声明使用。因此，这类函数应该接受标准处理。</p>
 <p>例如：</p>
-<p><img loading="lazy" src="images/23_1696907520.png" alt="ES5 class" srcset="images/23_1696907520.png?size=small, images/23_1696907520.png?size=medium 1.5x, images/23_1696907520.png?size=large 2x" data-title="ES5 class" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+<p><a class="lightgallery" href="/posts/cognitive-complexity/images/23_1696907520.png?size=large" data-thumbnail="/posts/cognitive-complexity/images/23_1696907520.png?size=small" data-sub-html="<h2>ES5 class</h2>"><img loading="lazy" src="/posts/cognitive-complexity/images/23_1696907520.png" alt="ES5 class" srcset="/posts/cognitive-complexity/images/23_1696907520.png?size=small, /posts/cognitive-complexity/images/23_1696907520.png?size=medium 1.5x, /posts/cognitive-complexity/images/23_1696907520.png?size=large 2x" data-title="ES5 class" style="--width: 1368px;--aspect-ratio: 1368 / 968;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></p>
 <h3 id="python-decorators" class="heading-element">
-  <a href="#python-decorators" class="heading-mark"></a>Python: Decorators</h3><p>Python 的装饰器习惯用法允许在不修改函数本身的情况下向现有函数添加额外的行为。这是通过在装饰器中使用嵌套函数来实现的，嵌套函数提供了额外的行为。</p>
+  <a href="#python-decorators" class="heading-mark"></a>11.3 Python: Decorators</h3><p>Python 的装饰器习惯用法允许在不修改函数本身的情况下向现有函数添加额外的行为。这是通过在装饰器中使用嵌套函数来实现的，嵌套函数提供了额外的行为。</p>
 <p>为了不对使用其语言的 Python 开发人员进行惩罚，已经添加了一个例外。然而，已经试图对例外进行明确定义。具体来说，要符合例外的条件，一个函数只能包含一个嵌套函数和一个 <code>return</code> 语句。</p>
 <p>例如：</p>
-<p><img loading="lazy" src="images/23_1696907633.png" alt="Python decorator" srcset="images/23_1696907633.png?size=small, images/23_1696907633.png?size=medium 1.5x, images/23_1696907633.png?size=large 2x" data-title="Python decorator" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+<p><a class="lightgallery" href="/posts/cognitive-complexity/images/23_1696907633.png?size=large" data-thumbnail="/posts/cognitive-complexity/images/23_1696907633.png?size=small" data-sub-html="<h2>Python decorator</h2>"><img loading="lazy" src="/posts/cognitive-complexity/images/23_1696907633.png" alt="Python decorator" srcset="/posts/cognitive-complexity/images/23_1696907633.png?size=small, /posts/cognitive-complexity/images/23_1696907633.png?size=medium 1.5x, /posts/cognitive-complexity/images/23_1696907633.png?size=large 2x" data-title="Python decorator" style="--width: 1368px;--aspect-ratio: 1368 / 948;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></p>
 <h2 id="附录-b规范" class="heading-element">
-  <a href="#%e9%99%84%e5%bd%95-b%e8%a7%84%e8%8c%83" class="heading-mark"></a>附录 B：规范</h2><p>本节的目的是对增加认知复杂度的结构和情况进行简明列举，但需考虑 <strong>附录 A</strong> 中列出的例外情况。这旨在提供一个全面的列表，但并非穷尽所有编程语言。也就是说，如果某种语言对关键字有非典型的拼写，例如用 <code>elif</code> 表示 <code>else if</code>，那么在此处的省略并不意味着在规范中忽略该结构。</p>
+  <a href="#%e9%99%84%e5%bd%95-b%e8%a7%84%e8%8c%83" class="heading-mark"></a>12 附录 B：规范</h2><p>本节的目的是对增加认知复杂度的结构和情况进行简明列举，但需考虑 <strong>附录 A</strong> 中列出的例外情况。这旨在提供一个全面的列表，但并非穷尽所有编程语言。也就是说，如果某种语言对关键字有非典型的拼写，例如用 <code>elif</code> 表示 <code>else if</code>，那么在此处的省略并不意味着在规范中忽略该结构。</p>
 <h3 id="b1-增量increments" class="heading-element">
-  <a href="#b1-%e5%a2%9e%e9%87%8fincrements" class="heading-mark"></a>B1. 增量（Increments）</h3><p>对于以下每个结构，都会增加复杂度的计数：</p>
+  <a href="#b1-%e5%a2%9e%e9%87%8fincrements" class="heading-mark"></a>12.1 B1. 增量（Increments）</h3><p>对于以下每个结构，都会增加复杂度的计数：</p>
 <ul>
 <li><code>if</code>、<code>else if</code>、<code>else</code> 条件语句和三元运算符</li>
 <li><code>switch</code></li>
@@ -751,7 +751,7 @@
 <li>递归循环中的每个方法</li>
 </ul>
 <h3 id="b2-嵌套级别nesting-level" class="heading-element">
-  <a href="#b2-%e5%b5%8c%e5%a5%97%e7%ba%a7%e5%88%abnesting-level" class="heading-mark"></a>B2. 嵌套级别（Nesting level）</h3><p>以下结构会增加嵌套层级的计数：</p>
+  <a href="#b2-%e5%b5%8c%e5%a5%97%e7%ba%a7%e5%88%abnesting-level" class="heading-mark"></a>12.2 B2. 嵌套级别（Nesting level）</h3><p>以下结构会增加嵌套层级的计数：</p>
 <ul>
 <li><code>if</code>、<code>else if</code>、<code>else</code> 条件语句和三元运算符</li>
 <li><code>switch</code></li>
@@ -761,7 +761,7 @@
 <li>嵌套方法和类似方法的结构，如 <code>lambda</code> 表达式。</li>
 </ul>
 <h3 id="b3-嵌套增量nesting-increments" class="heading-element">
-  <a href="#b3-%e5%b5%8c%e5%a5%97%e5%a2%9e%e9%87%8fnesting-increments" class="heading-mark"></a>B3. 嵌套增量（Nesting increments）</h3><p>以下结构将根据其在 B2 结构内的嵌套深度而增加相应的嵌套层级计数：</p>
+  <a href="#b3-%e5%b5%8c%e5%a5%97%e5%a2%9e%e9%87%8fnesting-increments" class="heading-mark"></a>12.3 B3. 嵌套增量（Nesting increments）</h3><p>以下结构将根据其在 B2 结构内的嵌套深度而增加相应的嵌套层级计数：</p>
 <ul>
 <li><code>if</code> 条件语句和三元运算符</li>
 <li><code>switch</code></li>
@@ -770,17 +770,17 @@
 <li><code>catch</code></li>
 </ul>
 <h2 id="附录-c示例" class="heading-element">
-  <a href="#%e9%99%84%e5%bd%95-c%e7%a4%ba%e4%be%8b" class="heading-mark"></a>附录 C：示例</h2><blockquote>
+  <a href="#%e9%99%84%e5%bd%95-c%e7%a4%ba%e4%be%8b" class="heading-mark"></a>13 附录 C：示例</h2><blockquote>
 <p><strong>Note</strong>
 译者注：在各大 IDE 中可以安装 SonarLint 插件，以便在编码过程中实时检查代码质量，<a href="https://www.sonarsource.com/products/sonarlint/?gads_campaign=SL-Class02-Brand&amp;gads_ad_group=SonarLint&amp;gads_keyword=sonarlint&amp;gclid=CjwKCAjwyY6pBhA9EiwAMzmfwba_MRBC_UXg_im757z_Om_T6Jfd_vt_gVuNL-Wxh9S0HVKKqK7nRhoCl5UQAvD_BwE"target="_blank" rel="external nofollow noopener noreferrer">详见<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
 </blockquote>
 <p>来自 SonarJava 分析器中的 <code>org.sonar.java.resolve.JavaSymbol.java</code>：</p>
-<p><img loading="lazy" src="images/23_1696908636.png" alt="org.sonar.java.resolve.JavaSymbol.java" srcset="images/23_1696908636.png?size=small, images/23_1696908636.png?size=medium 1.5x, images/23_1696908636.png?size=large 2x" data-title="org.sonar.java.resolve.JavaSymbol.java" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+<p><a class="lightgallery" href="/posts/cognitive-complexity/images/23_1696908636.png?size=large" data-thumbnail="/posts/cognitive-complexity/images/23_1696908636.png?size=small" data-sub-html="<h2>org.sonar.java.resolve.JavaSymbol.java</h2>"><img loading="lazy" src="/posts/cognitive-complexity/images/23_1696908636.png" alt="org.sonar.java.resolve.JavaSymbol.java" srcset="/posts/cognitive-complexity/images/23_1696908636.png?size=small, /posts/cognitive-complexity/images/23_1696908636.png?size=medium 1.5x, /posts/cognitive-complexity/images/23_1696908636.png?size=large 2x" data-title="org.sonar.java.resolve.JavaSymbol.java" style="--width: 1378px;--aspect-ratio: 1378 / 1094;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></p>
 <p>来自 sonar-persistit 中的 <code>com.persistit.TimelyResource.java</code>：</p>
-<p><img loading="lazy" src="images/23_1696908742.png" alt="com.persistit.TimelyResource.java" srcset="images/23_1696908742.png?size=small, images/23_1696908742.png?size=medium 1.5x, images/23_1696908742.png?size=large 2x" data-title="com.persistit.TimelyResource.java" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+<p><a class="lightgallery" href="/posts/cognitive-complexity/images/23_1696908742.png?size=large" data-thumbnail="/posts/cognitive-complexity/images/23_1696908742.png?size=small" data-sub-html="<h2>com.persistit.TimelyResource.java</h2>"><img loading="lazy" src="/posts/cognitive-complexity/images/23_1696908742.png" alt="com.persistit.TimelyResource.java" srcset="/posts/cognitive-complexity/images/23_1696908742.png?size=small, /posts/cognitive-complexity/images/23_1696908742.png?size=medium 1.5x, /posts/cognitive-complexity/images/23_1696908742.png?size=large 2x" data-title="com.persistit.TimelyResource.java" style="--width: 1354px;--aspect-ratio: 1354 / 1540;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></p>
 <p>来自 SonarQube 中的 <code>org.sonar.api.utils.WildcardPattern.java</code>：</p>
 <p>来自 YUI 中的 <code>model.js</code>：</p>
-<p><img loading="lazy" src="images/23_1696908890.png" alt="model.js" srcset="images/23_1696908890.png?size=small, images/23_1696908890.png?size=medium 1.5x, images/23_1696908890.png?size=large 2x" data-title="model.js" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+<p><a class="lightgallery" href="/posts/cognitive-complexity/images/23_1696908890.png?size=large" data-thumbnail="/posts/cognitive-complexity/images/23_1696908890.png?size=small" data-sub-html="<h2>model.js</h2>"><img loading="lazy" src="/posts/cognitive-complexity/images/23_1696908890.png" alt="model.js" srcset="/posts/cognitive-complexity/images/23_1696908890.png?size=small, /posts/cognitive-complexity/images/23_1696908890.png?size=medium 1.5x, /posts/cognitive-complexity/images/23_1696908890.png?size=large 2x" data-title="model.js" style="--width: 1166px;--aspect-ratio: 1166 / 1532;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></p>
 <div class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
@@ -797,7 +797,7 @@
 </blockquote>
 <p>为保证简体中文文档格式的一致性，翻译指南列出了部分规范。</p>
 <h2 id="标点符号" class="heading-element">
-  <a href="#%e6%a0%87%e7%82%b9%e7%ac%a6%e5%8f%b7" class="heading-mark"></a>标点符号</h2><p>除了代码中使用的符号以及一些特殊情况外，请将英文（半角）符号替换成中文（大部分为全角）符号。</p>
+  <a href="#%e6%a0%87%e7%82%b9%e7%ac%a6%e5%8f%b7" class="heading-mark"></a>1 标点符号</h2><p>除了代码中使用的符号以及一些特殊情况外，请将英文（半角）符号替换成中文（大部分为全角）符号。</p>
 <blockquote>
 <p>但请注意，请不要使用<strong>全角数字</strong>（特殊情况除外）。</p>
 </blockquote>
@@ -815,7 +815,7 @@
 <li>不宜：<code>a，b，和 c</code></li>
 </ul>
 <h3 id="常见中英文标点" class="heading-element">
-  <a href="#%e5%b8%b8%e8%a7%81%e4%b8%ad%e8%8b%b1%e6%96%87%e6%a0%87%e7%82%b9" class="heading-mark"></a>常见中/英文标点</h3><!-- markdownlint-disable search-replace -->
+  <a href="#%e5%b8%b8%e8%a7%81%e4%b8%ad%e8%8b%b1%e6%96%87%e6%a0%87%e7%82%b9" class="heading-mark"></a>1.1 常见中/英文标点</h3><!-- markdownlint-disable search-replace -->
 <table>
 <thead>
 <tr>
@@ -854,7 +854,7 @@
 <li><a href="https://zh.wikipedia.org/zh-cn/%e6%a0%87%e7%82%b9%e7%ac%a6%e5%8f%b7"target="_blank" rel="external nofollow noopener noreferrer">维基百科：标点符号<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
 </ul>
 <h2 id="中文和拉丁语系文字间加空格" class="heading-element">
-  <a href="#%e4%b8%ad%e6%96%87%e5%92%8c%e6%8b%89%e4%b8%81%e8%af%ad%e7%b3%bb%e6%96%87%e5%ad%97%e9%97%b4%e5%8a%a0%e7%a9%ba%e6%a0%bc" class="heading-mark"></a>中文和拉丁语系文字间加空格</h2><p>对于简体中文文档，请在中文和拉丁语系文字之间保留<strong>一个空格</strong>，但在拉丁语系文字和中文标点之间，则无需保留空格。</p>
+  <a href="#%e4%b8%ad%e6%96%87%e5%92%8c%e6%8b%89%e4%b8%81%e8%af%ad%e7%b3%bb%e6%96%87%e5%ad%97%e9%97%b4%e5%8a%a0%e7%a9%ba%e6%a0%bc" class="heading-mark"></a>2 中文和拉丁语系文字间加空格</h2><p>对于简体中文文档，请在中文和拉丁语系文字之间保留<strong>一个空格</strong>，但在拉丁语系文字和中文标点之间，则无需保留空格。</p>
 <p>示例如下：</p>
 <ul>
 <li>正确：<code>学习 Web 开发</code></li>
@@ -877,7 +877,7 @@
 <li>错误：<code>需10个小时完成</code></li>
 </ul>
 <h2 id="排版" class="heading-element">
-  <a href="#%e6%8e%92%e7%89%88" class="heading-mark"></a>排版</h2><p>英文文档中，对于较长的段落，会通过断行的形式截断，以方便维护文档。但在 Markdown 中，断行会引入空格，在简体中文翻译中，我们有如下约定：</p>
+  <a href="#%e6%8e%92%e7%89%88" class="heading-mark"></a>3 排版</h2><p>英文文档中，对于较长的段落，会通过断行的形式截断，以方便维护文档。但在 Markdown 中，断行会引入空格，在简体中文翻译中，我们有如下约定：</p>
 <ul>
 <li>在段落不是特别长的情况下（200 个字符以内），请不要断行。</li>
 <li>若段落过长，也请在中文与拉丁语系文字、数字之间，或是句子末尾断行。</li>
@@ -903,12 +903,12 @@
 <pre tabindex="0" class="chroma"><code class="language-md" data-lang="md"><span class="line"><span class="cl">这是一个示例。我们不应该断行写这一段话。就像这样。</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="词语翻译" class="heading-element">
-  <a href="#%e8%af%8d%e8%af%ad%e7%bf%bb%e8%af%91" class="heading-mark"></a>词语翻译</h2><h2 id="代名词" class="heading-element">
-  <a href="#%e4%bb%a3%e5%90%8d%e8%af%8d" class="heading-mark"></a>代名词</h2><!-- markdownlint-disable search-replace -->
+  <a href="#%e8%af%8d%e8%af%ad%e7%bf%bb%e8%af%91" class="heading-mark"></a>4 词语翻译</h2><h2 id="代名词" class="heading-element">
+  <a href="#%e4%bb%a3%e5%90%8d%e8%af%8d" class="heading-mark"></a>5 代名词</h2><!-- markdownlint-disable search-replace -->
 <p>我们无需将“you”翻译为“您”，在文档正文部分的翻译中，请统一使用“你”。</p>
 <!-- markdownlint-enable search-replace -->
 <h2 id="复数形式" class="heading-element">
-  <a href="#%e5%a4%8d%e6%95%b0%e5%bd%a2%e5%bc%8f" class="heading-mark"></a>复数形式</h2><p>英文文档中，为了使语句的语法正确，会使用大量的复数形式。在中文翻译中，则无需保留这些复数的形式（未翻译的英文名词也同理）。</p>
+  <a href="#%e5%a4%8d%e6%95%b0%e5%bd%a2%e5%bc%8f" class="heading-mark"></a>6 复数形式</h2><p>英文文档中，为了使语句的语法正确，会使用大量的复数形式。在中文翻译中，则无需保留这些复数的形式（未翻译的英文名词也同理）。</p>
 <ul>
 <li>原文：<code>Application Programming Interfaces (APIs)</code></li>
 <li>宜：<code>应用程序接口（API）</code></li>
@@ -916,9 +916,9 @@
 <li>不宜：<code>应用程序接口们（APIs）</code></li>
 </ul>
 <h2 id="术语表" class="heading-element">
-  <a href="#%e6%9c%af%e8%af%ad%e8%a1%a8" class="heading-mark"></a>术语表</h2><p>我们在仓库中维护了一个<a href="https://github.com/mdn/translated-content/blob/main/docs/zh-cn/glossary.md"target="_blank" rel="external nofollow noopener noreferrer">术语表<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>，旨在统一目前还未有明确中文翻译的术语。在翻译文档时，请尽量使用术语表中的术语，以保证文档的一致性。</p>
+  <a href="#%e6%9c%af%e8%af%ad%e8%a1%a8" class="heading-mark"></a>7 术语表</h2><p>我们在仓库中维护了一个<a href="https://github.com/mdn/translated-content/blob/main/docs/zh-cn/glossary.md"target="_blank" rel="external nofollow noopener noreferrer">术语表<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>，旨在统一目前还未有明确中文翻译的术语。在翻译文档时，请尽量使用术语表中的术语，以保证文档的一致性。</p>
 <h2 id="常用标题" class="heading-element">
-  <a href="#%e5%b8%b8%e7%94%a8%e6%a0%87%e9%a2%98" class="heading-mark"></a>常用标题</h2><p>英文文档中使用了一些常见标题，为了保持简体中文文档的一致性，请在翻译时参考术语表中的<a href="https://github.com/mdn/translated-content/blob/main/docs/zh-cn/glossary.md#%e6%a0%87%e9%a2%98%e8%a1%a8%e6%a0%bc"target="_blank" rel="external nofollow noopener noreferrer">标题和表格的翻译<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>。</p>]]></description></item><item><title>中文技术文档的写作规范</title><link>https://lruihao.cn/posts/document-style-guide/</link><pubDate>Sat, 04 Feb 2023 16:04:42 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/document-style-guide/</guid><description><![CDATA[<blockquote>
+  <a href="#%e5%b8%b8%e7%94%a8%e6%a0%87%e9%a2%98" class="heading-mark"></a>8 常用标题</h2><p>英文文档中使用了一些常见标题，为了保持简体中文文档的一致性，请在翻译时参考术语表中的<a href="https://github.com/mdn/translated-content/blob/main/docs/zh-cn/glossary.md#%e6%a0%87%e9%a2%98%e8%a1%a8%e6%a0%bc"target="_blank" rel="external nofollow noopener noreferrer">标题和表格的翻译<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>。</p>]]></description></item><item><title>中文技术文档的写作规范</title><link>https://lruihao.cn/posts/document-style-guide/</link><pubDate>Sat, 04 Feb 2023 16:04:42 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/document-style-guide/</guid><description><![CDATA[<blockquote>
 <p>以下参考来源：阮一峰的 <a href="https://github.com/ruanyf/document-style-guide"target="_blank" rel="external nofollow noopener noreferrer">中文技术文档的写作规范<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
 </blockquote>
 <p>英语世界里，文档非常受重视，许多公司和组织都有自己的文档规范，清楚地规定写作要求，比如<a href="https://www.microsoftpressstore.com/store/microsoft-manual-of-style-9780735648715"target="_blank" rel="external nofollow noopener noreferrer">微软<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>、<a href="http://styleguide.mailchimp.com/"target="_blank" rel="external nofollow noopener noreferrer">MailChimp<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>、<a href="https://help.apple.com/asg/mac/2013/ASG_2013.pdf"target="_blank" rel="external nofollow noopener noreferrer">Apple<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>、<a href="https://www.amazon.com/dp/B003P8QDFU/ref=dp-kindle-redirect?_encoding=UTF8&amp;btkr=1"target="_blank" rel="external nofollow noopener noreferrer">Yahoo<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>、<a href="https://docs.docker.com/opensource/doc-style/"target="_blank" rel="external nofollow noopener noreferrer">docker<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>、<a href="https://struts.apache.org/docs/documentation-style-guide.html"target="_blank" rel="external nofollow noopener noreferrer">Struts<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 等等（维基百科有一份完整的<a href="https://en.wikipedia.org/wiki/List_of_style_guides"target="_blank" rel="external nofollow noopener noreferrer">清单<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>）。<a href="https://github.com/ruanyf/document-style-guide/blob/master/docs/reference.md"target="_blank" rel="external nofollow noopener noreferrer">中文的<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>也有不少，但都不令人满意，要么太简单，要么不太适用。</p>
@@ -926,8 +926,8 @@
 <p>对于开发的系统、软件而言，系统用词的准确性和统一性也显得十分重要。</p>
 <p>参考上面的规范，于是有了下面一份中文技术文档的写作规范。</p>
 <h2 id="标题" class="heading-element">
-  <a href="#%e6%a0%87%e9%a2%98" class="heading-mark"></a>标题</h2><h3 id="层级" class="heading-element">
-  <a href="#%e5%b1%82%e7%ba%a7" class="heading-mark"></a>层级</h3><p>标题分为四级。</p>
+  <a href="#%e6%a0%87%e9%a2%98" class="heading-mark"></a>1 标题</h2><h3 id="层级" class="heading-element">
+  <a href="#%e5%b1%82%e7%ba%a7" class="heading-mark"></a>1.1 层级</h3><p>标题分为四级。</p>
 <ul>
 <li>一级标题：文章的标题</li>
 <li>二级标题：文章主要部分的大标题</li>
@@ -958,7 +958,7 @@
 <p>注：最多支持六级，但是同论文写作一样，层级太深，会使得整体显得杂乱无章，当确实需要更深层级时，应另起新篇单独论述。</p>
 </blockquote>
 <h3 id="原则" class="heading-element">
-  <a href="#%e5%8e%9f%e5%88%99" class="heading-mark"></a>原则</h3><p>（1）一级标题下，不能直接出现三级标题。</p>
+  <a href="#%e5%8e%9f%e5%88%99" class="heading-mark"></a>1.2 原则</h3><p>（1）一级标题下，不能直接出现三级标题。</p>
 <p>示例：下面的文章结构，缺少二级标题。</p>
 <div class="highlight" id="id-2"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1048,8 +1048,8 @@
 </span></span><span class="line"><span class="cl"><span class="ge">**</span>（3）C**</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="文本" class="heading-element">
-  <a href="#%e6%96%87%e6%9c%ac" class="heading-mark"></a>文本</h2><h3 id="字间距" class="heading-element">
-  <a href="#%e5%ad%97%e9%97%b4%e8%b7%9d" class="heading-mark"></a>字间距</h3><p>（1）全角中文字符与半角英文字符之间，应有一个半角空格。</p>
+  <a href="#%e6%96%87%e6%9c%ac" class="heading-mark"></a>2 文本</h2><h3 id="字间距" class="heading-element">
+  <a href="#%e5%ad%97%e9%97%b4%e8%b7%9d" class="heading-mark"></a>2.1 字间距</h3><p>（1）全角中文字符与半角英文字符之间，应有一个半角空格。</p>
 <div class="highlight" id="id-6"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -1110,7 +1110,7 @@
 </span></span><span class="line"><span class="cl">正确：他的电脑是 MacBook Air。</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="句子" class="heading-element">
-  <a href="#%e5%8f%a5%e5%ad%90" class="heading-mark"></a>句子</h3><p>（1）避免使用长句。</p>
+  <a href="#%e5%8f%a5%e5%ad%90" class="heading-mark"></a>2.2 句子</h3><p>（1）避免使用长句。</p>
 <p>不包含任何标点符号的单个句子，或者以逗号分隔的句子构件，长度尽量保持在 20 个字以内；20 ～ 29 个字的句子，可以接受；30 ～ 39 个字的句子，语义必须明确，才能接受；多于 40 个字的句子，任何情况下都不能接受。</p>
 <div class="highlight" id="id-11"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1161,7 +1161,7 @@
 </span></span><span class="line"><span class="cl">正确：用户必须拥有删除权限，才能删除此文件。</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="写作风格" class="heading-element">
-  <a href="#%e5%86%99%e4%bd%9c%e9%a3%8e%e6%a0%bc" class="heading-mark"></a>写作风格</h3><p>（1）尽量不使用被动语态，改为使用主动语态。</p>
+  <a href="#%e5%86%99%e4%bd%9c%e9%a3%8e%e6%a0%bc" class="heading-mark"></a>2.3 写作风格</h3><p>（1）尽量不使用被动语态，改为使用主动语态。</p>
 <div class="highlight" id="id-15"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -1244,7 +1244,7 @@
 </span></span><span class="line"><span class="cl">正确：此设备必须在技师的指导下使用，且指导技师必须接受过由本公司举办的正式设备培训。</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="英文处理" class="heading-element">
-  <a href="#%e8%8b%b1%e6%96%87%e5%a4%84%e7%90%86" class="heading-mark"></a>英文处理</h3><p>（1）英文原文如果使用了复数形式，翻译成中文时，应该将其还原为单数形式。</p>
+  <a href="#%e8%8b%b1%e6%96%87%e5%a4%84%e7%90%86" class="heading-mark"></a>2.4 英文处理</h3><p>（1）英文原文如果使用了复数形式，翻译成中文时，应该将其还原为单数形式。</p>
 <div class="highlight" id="id-21"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -1311,8 +1311,8 @@
 </span></span><span class="line"><span class="cl">“online transaction processing”（在线事务处理）不是专有名词，不应大写。</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="段落" class="heading-element">
-  <a href="#%e6%ae%b5%e8%90%bd" class="heading-mark"></a>段落</h2><h3 id="原则-1" class="heading-element">
-  <a href="#%e5%8e%9f%e5%88%99-1" class="heading-mark"></a>原则</h3><ul>
+  <a href="#%e6%ae%b5%e8%90%bd" class="heading-mark"></a>3 段落</h2><h3 id="原则-1" class="heading-element">
+  <a href="#%e5%8e%9f%e5%88%99-1" class="heading-mark"></a>3.1 原则</h3><ul>
 <li>一个段落只能有一个主题，或一个中心句子。</li>
 <li>段落的中心句子放在段首，对全段内容进行概述。后面陈述的句子为中心句子服务。</li>
 <li>一个段落的长度不能超过七行，最佳段落长度小于等于四行。</li>
@@ -1321,7 +1321,7 @@
 <li>段落开头不要留出空白字符。</li>
 </ul>
 <h3 id="引用" class="heading-element">
-  <a href="#%e5%bc%95%e7%94%a8" class="heading-mark"></a>引用</h3><p>引用第三方内容时，应注明出处。</p>
+  <a href="#%e5%bc%95%e7%94%a8" class="heading-mark"></a>3.2 引用</h3><p>引用第三方内容时，应注明出处。</p>
 <div class="highlight" id="id-27"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -1346,8 +1346,8 @@
 <pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">本文部分图片来自 Wikipedia</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="数值" class="heading-element">
-  <a href="#%e6%95%b0%e5%80%bc" class="heading-mark"></a>数值</h2><h3 id="半角数字" class="heading-element">
-  <a href="#%e5%8d%8a%e8%a7%92%e6%95%b0%e5%ad%97" class="heading-mark"></a>半角数字</h3><p>阿拉伯数字一律使用半角形式，不得使用全角形式。</p>
+  <a href="#%e6%95%b0%e5%80%bc" class="heading-mark"></a>4 数值</h2><h3 id="半角数字" class="heading-element">
+  <a href="#%e5%8d%8a%e8%a7%92%e6%95%b0%e5%ad%97" class="heading-mark"></a>4.1 半角数字</h3><p>阿拉伯数字一律使用半角形式，不得使用全角形式。</p>
 <div class="highlight" id="id-30"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -1360,7 +1360,7 @@
 </span></span><span class="line"><span class="cl">正确：这件商品的价格是 1000 元。</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="千分号" class="heading-element">
-  <a href="#%e5%8d%83%e5%88%86%e5%8f%b7" class="heading-mark"></a>千分号</h3><p>数值为千位以上，应添加千分号（半角逗号）。</p>
+  <a href="#%e5%8d%83%e5%88%86%e5%8f%b7" class="heading-mark"></a>4.2 千分号</h3><p>数值为千位以上，应添加千分号（半角逗号）。</p>
 <div class="highlight" id="id-31"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -1370,7 +1370,7 @@
 </div>
 </div><p>对于 4 位的数值，千分号是选用的，比如<code>1000</code>和<code>1,000</code>都可以接受。对于 4 位以上的数值，应添加千分号。</p>
 <h3 id="货币" class="heading-element">
-  <a href="#%e8%b4%a7%e5%b8%81" class="heading-mark"></a>货币</h3><p>货币应为阿拉伯数字，并在数字前写出货币符号，或在数字后写出货币中文名称。</p>
+  <a href="#%e8%b4%a7%e5%b8%81" class="heading-mark"></a>4.3 货币</h3><p>货币应为阿拉伯数字，并在数字前写出货币符号，或在数字后写出货币中文名称。</p>
 <div class="highlight" id="id-32"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -1382,7 +1382,7 @@
 </div>
 </div><p>英文的货币名称，建议参考国际标准 <a href="https://en.wikipedia.org/wiki/ISO_4217"target="_blank" rel="external nofollow noopener noreferrer">ISO 4217<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>。</p>
 <h3 id="数值范围" class="heading-element">
-  <a href="#%e6%95%b0%e5%80%bc%e8%8c%83%e5%9b%b4" class="heading-mark"></a>数值范围</h3><p>表示数值范围时，用波浪线（<code>～</code>）或一字线（<code>—</code>）连接。参见《标点符号》一节的“连接号”部分。</p>
+  <a href="#%e6%95%b0%e5%80%bc%e8%8c%83%e5%9b%b4" class="heading-mark"></a>4.4 数值范围</h3><p>表示数值范围时，用波浪线（<code>～</code>）或一字线（<code>—</code>）连接。参见《标点符号》一节的“连接号”部分。</p>
 <p>带有单位或百分号时，两个数字建议都要加上单位或百分号。</p>
 <div class="highlight" id="id-33"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1396,7 +1396,7 @@
 </span></span><span class="line"><span class="cl">67%～89%</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="变化程度的表示法" class="heading-element">
-  <a href="#%e5%8f%98%e5%8c%96%e7%a8%8b%e5%ba%a6%e7%9a%84%e8%a1%a8%e7%a4%ba%e6%b3%95" class="heading-mark"></a>变化程度的表示法</h3><p>数字的增加要使用“增加了”、“增加到”。“了”表示增量，“到”表示定量。</p>
+  <a href="#%e5%8f%98%e5%8c%96%e7%a8%8b%e5%ba%a6%e7%9a%84%e8%a1%a8%e7%a4%ba%e6%b3%95" class="heading-mark"></a>4.5 变化程度的表示法</h3><p>数字的增加要使用“增加了”、“增加到”。“了”表示增量，“到”表示定量。</p>
 <div class="highlight" id="id-34"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -1430,13 +1430,13 @@
 </div>
 </div><p>不能用“降低 N 倍”或“减少 N 倍”的表示法，要用“降低百分之几”或“减少百分之几”。因为减少（或降低）一倍表示数值原来为一百，现在等于零。</p>
 <h2 id="标点符号" class="heading-element">
-  <a href="#%e6%a0%87%e7%82%b9%e7%ac%a6%e5%8f%b7" class="heading-mark"></a>标点符号</h2><h3 id="原则-2" class="heading-element">
-  <a href="#%e5%8e%9f%e5%88%99-2" class="heading-mark"></a>原则</h3><p>（1）中文语句的标点符号，均应该采取全角符号，这样可以与全角文字保持视觉的一致。</p>
+  <a href="#%e6%a0%87%e7%82%b9%e7%ac%a6%e5%8f%b7" class="heading-mark"></a>5 标点符号</h2><h3 id="原则-2" class="heading-element">
+  <a href="#%e5%8e%9f%e5%88%99-2" class="heading-mark"></a>5.1 原则</h3><p>（1）中文语句的标点符号，均应该采取全角符号，这样可以与全角文字保持视觉的一致。</p>
 <p>（2）如果整句为英文，则该句使用英文/半角标点。</p>
 <p>（3）句号、问号、叹号、逗号、顿号、分号和冒号不得出现在一行之首。</p>
 <p>（4）点号（句号、逗号、顿号、分号、冒号）不得出现在标题的末尾，而标号（引号、括号、破折号、省略号、书名号、着重号、间隔号、叹号、问号）可以。</p>
 <h3 id="句号" class="heading-element">
-  <a href="#%e5%8f%a5%e5%8f%b7" class="heading-mark"></a>句号</h3><p>（1）中文语句的结尾处应该用全角句号（<code>。</code>）。</p>
+  <a href="#%e5%8f%a5%e5%8f%b7" class="heading-mark"></a>5.2 句号</h3><p>（1）中文语句的结尾处应该用全角句号（<code>。</code>）。</p>
 <p>（2）句子末尾用括号加注时，句号应在括号之外。</p>
 <div class="highlight" id="id-36"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1450,10 +1450,10 @@
 </span></span><span class="line"><span class="cl">正确：关于文件的输出，请参照第 1.3 节（见第 26 页）。</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="逗号" class="heading-element">
-  <a href="#%e9%80%97%e5%8f%b7" class="heading-mark"></a>逗号</h3><p>（1）逗号（<code>，</code>）表示句子内部的一般性停顿。</p>
+  <a href="#%e9%80%97%e5%8f%b7" class="heading-mark"></a>5.3 逗号</h3><p>（1）逗号（<code>，</code>）表示句子内部的一般性停顿。</p>
 <p>（2）注意避免“一逗到底”，即整个段落除了结尾，全部停顿都使用逗号。</p>
 <h3 id="顿号" class="heading-element">
-  <a href="#%e9%a1%bf%e5%8f%b7" class="heading-mark"></a>顿号</h3><p>（1）句子内部的并列词，应该用全角顿号 (<code>、</code>) 分隔，而不用逗号，即使并列词是英语也是如此。</p>
+  <a href="#%e9%a1%bf%e5%8f%b7" class="heading-mark"></a>5.4 顿号</h3><p>（1）句子内部的并列词，应该用全角顿号 (<code>、</code>) 分隔，而不用逗号，即使并列词是英语也是如此。</p>
 <div class="highlight" id="id-37"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -1486,9 +1486,9 @@
 </span></span><span class="line"><span class="cl">正确：我最欣赏的科技公司有 Google、Facebook、腾讯、阿里和百度等。</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="分号" class="heading-element">
-  <a href="#%e5%88%86%e5%8f%b7" class="heading-mark"></a>分号</h3><p>（1）分号（<code>；</code>）表示复句内部并列分句之间的停顿。</p>
+  <a href="#%e5%88%86%e5%8f%b7" class="heading-mark"></a>5.5 分号</h3><p>（1）分号（<code>；</code>）表示复句内部并列分句之间的停顿。</p>
 <h3 id="引号" class="heading-element">
-  <a href="#%e5%bc%95%e5%8f%b7" class="heading-mark"></a>引号</h3><p>（1）引用时，应该使用全角双引号（<code>“ ”</code>），注意前后双引号不同。</p>
+  <a href="#%e5%bc%95%e5%8f%b7" class="heading-mark"></a>5.6 引号</h3><p>（1）引用时，应该使用全角双引号（<code>“ ”</code>），注意前后双引号不同。</p>
 <div class="highlight" id="id-40"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -1505,7 +1505,7 @@
 <pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">例句：鲍勃解释道：“我要放音乐，可萨利说，‘不行！’。”</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="括号" class="heading-element">
-  <a href="#%e6%8b%ac%e5%8f%b7" class="heading-mark"></a>括号</h3><p>（1）补充说明时，使用全角圆括号（<code>（）</code>），括号前后不加空格。</p>
+  <a href="#%e6%8b%ac%e5%8f%b7" class="heading-mark"></a>5.7 括号</h3><p>（1）补充说明时，使用全角圆括号（<code>（）</code>），括号前后不加空格。</p>
 <div class="highlight" id="id-42"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -1546,7 +1546,7 @@
 </tbody>
 </table>
 <h3 id="冒号" class="heading-element">
-  <a href="#%e5%86%92%e5%8f%b7" class="heading-mark"></a>冒号</h3><p>（1）全角冒号（<code>：</code>）常用在需要解释的词语后边，引出解释和说明。</p>
+  <a href="#%e5%86%92%e5%8f%b7" class="heading-mark"></a>5.8 冒号</h3><p>（1）全角冒号（<code>：</code>）常用在需要解释的词语后边，引出解释和说明。</p>
 <div class="highlight" id="id-43"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -1563,7 +1563,7 @@
 <pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">例句：早上 8:00</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="省略号" class="heading-element">
-  <a href="#%e7%9c%81%e7%95%a5%e5%8f%b7" class="heading-mark"></a>省略号</h3><p>（1）省略号（<code>⋯⋯</code>）表示语句未完、或者语气的不连续。</p>
+  <a href="#%e7%9c%81%e7%95%a5%e5%8f%b7" class="heading-mark"></a>5.9 省略号</h3><p>（1）省略号（<code>⋯⋯</code>）表示语句未完、或者语气的不连续。</p>
 <p>（2）省略号占两个汉字空间、包含六个省略点，不要使用<code>。。。</code>或<code>...</code>等非标准形式。</p>
 <p>（3）省略号不应与“等”这个词一起使用。</p>
 <div class="highlight" id="id-45"><div class="chroma">
@@ -1582,10 +1582,10 @@
 </span></span><span class="line"><span class="cl">正确：我们为会餐准备了香蕉、苹果、梨等各色水果。</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="感叹号" class="heading-element">
-  <a href="#%e6%84%9f%e5%8f%b9%e5%8f%b7" class="heading-mark"></a>感叹号</h3><p>（1）应该使用平静的语气叙述，尽量避免使用感叹号（<code>！</code>）。</p>
+  <a href="#%e6%84%9f%e5%8f%b9%e5%8f%b7" class="heading-mark"></a>5.10 感叹号</h3><p>（1）应该使用平静的语气叙述，尽量避免使用感叹号（<code>！</code>）。</p>
 <p>（2）不得多个感叹号连用，比如<code>！！</code>和<code>!!!</code>。</p>
 <h3 id="破折号" class="heading-element">
-  <a href="#%e7%a0%b4%e6%8a%98%e5%8f%b7" class="heading-mark"></a>破折号</h3><p>（1）破折号<code>————</code>一般用于进一步解释。</p>
+  <a href="#%e7%a0%b4%e6%8a%98%e5%8f%b7" class="heading-mark"></a>5.11 破折号</h3><p>（1）破折号<code>————</code>一般用于进一步解释。</p>
 <p>（2）破折号应占两个汉字的位置。如果破折号本身只占一个汉字的位置，那么前后应该留出一个半角空格。</p>
 <div class="highlight" id="id-46"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1599,7 +1599,7 @@
 </span></span><span class="line"><span class="cl">例句：直觉 —— 尽管它并不总是可靠的 —— 告诉我，这事可能出了些问题。</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="连接号" class="heading-element">
-  <a href="#%e8%bf%9e%e6%8e%a5%e5%8f%b7" class="heading-mark"></a>连接号</h3><p>（1）连接号用于连接两个类似的词。</p>
+  <a href="#%e8%bf%9e%e6%8e%a5%e5%8f%b7" class="heading-mark"></a>5.12 连接号</h3><p>（1）连接号用于连接两个类似的词。</p>
 <p>（2）以下场合应该使用直线连接号（<code>-</code>），占一个半角字符的位置。</p>
 <ul>
 <li>两个名词的复合</li>
@@ -1634,8 +1634,8 @@
 <pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">例句：周围温度：-20 °C 至 -10 °C</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="文档体系" class="heading-element">
-  <a href="#%e6%96%87%e6%a1%a3%e4%bd%93%e7%b3%bb" class="heading-mark"></a>文档体系</h2><h3 id="结构" class="heading-element">
-  <a href="#%e7%bb%93%e6%9e%84" class="heading-mark"></a>结构</h3><p>软件手册是一部完整的书，建议采用下面的结构。</p>
+  <a href="#%e6%96%87%e6%a1%a3%e4%bd%93%e7%b3%bb" class="heading-mark"></a>6 文档体系</h2><h3 id="结构" class="heading-element">
+  <a href="#%e7%bb%93%e6%9e%84" class="heading-mark"></a>6.1 结构</h3><p>软件手册是一部完整的书，建议采用下面的结构。</p>
 <ul>
 <li><strong>简介</strong>（Introduction）：[必备] [文件] 提供对产品和文档本身的总体的、扼要的说明</li>
 <li><strong>快速上手</strong>（Getting Started）：[可选] [文件] 如何最快速地使用产品</li>
@@ -1665,7 +1665,7 @@
 <li><a href="http://flight-manual.atom.io/"target="_blank" rel="external nofollow noopener noreferrer">Atom 手册<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
 </ul>
 <h3 id="文件名" class="heading-element">
-  <a href="#%e6%96%87%e4%bb%b6%e5%90%8d" class="heading-mark"></a>文件名</h3><p>文档的文件名不得含有空格。</p>
+  <a href="#%e6%96%87%e4%bb%b6%e5%90%8d" class="heading-mark"></a>6.2 文件名</h3><p>文档的文件名不得含有空格。</p>
 <p>文件名必须使用半角字符，不得使用全角字符。这也意味着，中文不能用于文件名。</p>
 <div class="highlight" id="id-50"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1704,7 +1704,7 @@
 </span></span><span class="line"><span class="cl">正确：advanced-usage.md</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="参考链接" class="heading-element">
-  <a href="#%e5%8f%82%e8%80%83%e9%93%be%e6%8e%a5" class="heading-mark"></a>参考链接</h2><ul>
+  <a href="#%e5%8f%82%e8%80%83%e9%93%be%e6%8e%a5" class="heading-mark"></a>7 参考链接</h2><ul>
 <li><a href="https://www.taodocs.com/p-51273.html"target="_blank" rel="external nofollow noopener noreferrer">产品手册中文写作规范<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>, by 华为</li>
 <li><a href="http://guide.daocloud.io/dcs/%e5%86%99%e4%bd%9c%e8%a7%84%e8%8c%83%e5%92%8c%e6%a0%bc%e5%bc%8f%e8%a7%84%e8%8c%83-9153803.html"target="_blank" rel="external nofollow noopener noreferrer">写作规范和格式规范<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>, by DaoCloud</li>
 <li><a href="http://www.hitachi-tc.co.jp/company/thesis/thesis.pdf"target="_blank" rel="external nofollow noopener noreferrer">技术写作技巧在日汉翻译中的应用<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>, by 刘方</li>
@@ -1735,7 +1735,7 @@
     </div>
   </div>
 <h2 id="格式" class="heading-element">
-  <a href="#%e6%a0%bc%e5%bc%8f" class="heading-mark"></a>格式</h2><p>基本的语法格式如下，更多请参考 <a href="https://semver.org/#backusnaur-form-grammar-for-valid-semver-versions"target="_blank" rel="external nofollow noopener noreferrer">Backus–Naur Form Grammar for Valid SemVer Versions<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
+  <a href="#%e6%a0%bc%e5%bc%8f" class="heading-mark"></a>1 格式</h2><p>基本的语法格式如下，更多请参考 <a href="https://semver.org/#backusnaur-form-grammar-for-valid-semver-versions"target="_blank" rel="external nofollow noopener noreferrer">Backus–Naur Form Grammar for Valid SemVer Versions<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
 <div class="highlight" id="id-1"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -1750,7 +1750,7 @@
 </span></span><span class="line"><span class="cl">                 | &lt;version core&gt; &#34;-&#34; &lt;pre-release&gt; &#34;+&#34; &lt;build&gt;</span></span></code></pre></td></tr></table>
 </div>
 </div><p>范例：</p>
-<p><img loading="lazy" src="images/version-number.png" alt="version-number" srcset="images/version-number.png?size=small, images/version-number.png?size=medium 1.5x, images/version-number.png?size=large 2x" data-title="version-number" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+<p><a class="lightgallery" href="/posts/semver/images/version-number.png?size=large" data-thumbnail="/posts/semver/images/version-number.png?size=small" data-sub-html="<h2>version-number</h2>"><img loading="lazy" src="/posts/semver/images/version-number.png" alt="version-number" srcset="/posts/semver/images/version-number.png?size=small, /posts/semver/images/version-number.png?size=medium 1.5x, /posts/semver/images/version-number.png?size=large 2x" data-title="version-number" style="--width: 512px;--aspect-ratio: 512 / 160;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></p>
 <table>
 <thead>
 <tr>
@@ -1799,7 +1799,7 @@
     </div>
   </div>
 <h2 id="规范" class="heading-element">
-  <a href="#%e8%a7%84%e8%8c%83" class="heading-mark"></a>规范</h2><p>以下关键词 MUST、MUST NOT、REQUIRED、SHALL、SHALL NOT、SHOULD、SHOULD NOT、RECOMMENDED、MAY、OPTIONAL 依照 <a href="https://www.rfc-editor.org/rfc/rfc2119"target="_blank" rel="external nofollow noopener noreferrer">RFC 2119<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 的叙述解读。</p>
+  <a href="#%e8%a7%84%e8%8c%83" class="heading-mark"></a>2 规范</h2><p>以下关键词 MUST、MUST NOT、REQUIRED、SHALL、SHALL NOT、SHOULD、SHOULD NOT、RECOMMENDED、MAY、OPTIONAL 依照 <a href="https://www.rfc-editor.org/rfc/rfc2119"target="_blank" rel="external nofollow noopener noreferrer">RFC 2119<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 的叙述解读。</p>
 <details>
   <summary>语义化版本控制规范（SemVer）</summary>
   <ol>
@@ -1863,7 +1863,7 @@
 
 </details>
 <h2 id="版本阶段" class="heading-element">
-  <a href="#%e7%89%88%e6%9c%ac%e9%98%b6%e6%ae%b5" class="heading-mark"></a>版本阶段</h2><ul>
+  <a href="#%e7%89%88%e6%9c%ac%e9%98%b6%e6%ae%b5" class="heading-mark"></a>3 版本阶段</h2><ul>
 <li><code>Base</code>: 设计阶段，只有相应的设计没有具体的功能实现</li>
 <li><code>Alpha</code>: 软件的初级版本，基本功能已经实现，但存在较多的 bug</li>
 <li><code>Bate</code>: 相对于 Alpha 已经有了很大的进步，消除了严重的 BUG，但还存在一些潜在的 BUG，还需要不断测试</li>
@@ -1872,9 +1872,9 @@
 </ul>
 <p>最终发布版本（<code>RELEASE</code>）之前的所有版本，都称为先行版本（<code>pre-release</code>）。</p>
 <h2 id="faqhttpssemverorglangzh-cnfaq" class="heading-element">
-  <a href="#faqhttpssemverorglangzh-cnfaq" class="heading-mark"></a><a href="https://semver.org/lang/zh-CN/#faq"target="_blank" rel="external nofollow noopener noreferrer">FAQ<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></h2><h2 id="其他相关" class="heading-element">
-  <a href="#%e5%85%b6%e4%bb%96%e7%9b%b8%e5%85%b3" class="heading-mark"></a>其他相关</h2><h3 id="npm-semver" class="heading-element">
-  <a href="#npm-semver" class="heading-mark"></a>npm SemVer</h3><p>通常我们发布一个包到 npm 仓库时，我们的做法是先修改 <code>package.json</code> 为某个版本，然后执行 <code>npm publish</code> 命令。手动修改版本号的做法建立在你对 SemVer 规范特别熟悉的基础之上，否则可能会造成版本混乱。npm 和 yarn 两个包管理都提供了 SemVer 规范的版本控制命令：</p>
+  <a href="#faqhttpssemverorglangzh-cnfaq" class="heading-mark"></a>4 <a href="https://semver.org/lang/zh-CN/#faq"target="_blank" rel="external nofollow noopener noreferrer">FAQ<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></h2><h2 id="其他相关" class="heading-element">
+  <a href="#%e5%85%b6%e4%bb%96%e7%9b%b8%e5%85%b3" class="heading-mark"></a>5 其他相关</h2><h3 id="npm-semver" class="heading-element">
+  <a href="#npm-semver" class="heading-mark"></a>5.1 npm SemVer</h3><p>通常我们发布一个包到 npm 仓库时，我们的做法是先修改 <code>package.json</code> 为某个版本，然后执行 <code>npm publish</code> 命令。手动修改版本号的做法建立在你对 SemVer 规范特别熟悉的基础之上，否则可能会造成版本混乱。npm 和 yarn 两个包管理都提供了 SemVer 规范的版本控制命令：</p>
 <ul>
 <li><a href="https://docs.npmjs.com/cli/v8/commands/npm-version"target="_blank" rel="external nofollow noopener noreferrer">npm-version<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
 <li><a href="https://classic.yarnpkg.com/en/docs/cli/version"target="_blank" rel="external nofollow noopener noreferrer">yarn version<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
@@ -1984,31 +1984,31 @@
 <li><code>latest</code>: 使用可用的最新版本。</li>
 </ul>
 <h3 id="版本保留" class="heading-element">
-  <a href="#%e7%89%88%e6%9c%ac%e4%bf%9d%e7%95%99" class="heading-mark"></a>版本保留</h3><ol>
+  <a href="#%e7%89%88%e6%9c%ac%e4%bf%9d%e7%95%99" class="heading-mark"></a>5.2 版本保留</h3><ol>
 <li>对于大型软件，每个版本都有使用价值时，应保留所有历史版本</li>
 <li>对于始终以最新版本为准的软件，则可保留至少最近的 10 个次版本</li>
 </ol>
 <h2 id="参考" class="heading-element">
-  <a href="#%e5%8f%82%e8%80%83" class="heading-mark"></a>参考</h2><ul>
+  <a href="#%e5%8f%82%e8%80%83" class="heading-mark"></a>6 参考</h2><ul>
 <li><a href="https://semver.org/"target="_blank" rel="external nofollow noopener noreferrer">Semantic Versioning 2.0.0<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
 <li><a href="http://nodejs.cn/learn/semantic-versioning-using-npm"target="_blank" rel="external nofollow noopener noreferrer">使用 npm 的语义版本控制<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
 </ul>]]></description></item><item><title>Commit Message Spec</title><link>https://lruihao.cn/posts/commit-spec/</link><pubDate>Fri, 12 Aug 2022 15:37:44 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/commit-spec/</guid><description><![CDATA[<!-- markdownlint-disable MD033 -->
 <p>Commit messages are short descriptions of changes to a repository. We should follow certain standards to effectively describe changes, such as the <a href="https://www.conventionalcommits.org/en/v1.0.0-beta.4/"target="_blank" rel="external nofollow noopener noreferrer">Conventional Commits<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> specification based on the <a href="https://github.com/angular/angular/blob/68a6a07/CONTRIBUTING.md#commit"target="_blank" rel="external nofollow noopener noreferrer">Angular convention<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> that is most used on GitHub, or each development team can simplify and formulate their own commit specification. This is not only conducive to the automatic generation of Changelog in the later stage, but more importantly, when a bug occurs, the entire warehouse can be quickly checked, the problem point can be accurately located, and the version can be reverted.</p>
 <h2 id="format" class="heading-element">
-  <a href="#format" class="heading-mark"></a>Format</h2><p><code>[{emoji} ]{type}[({module})]: {subject within 50 words}[ (#{issue/pull request})]</code></p>
+  <a href="#format" class="heading-mark"></a>1 Format</h2><p><code>[{emoji} ]{type}[({module})]: {subject within 50 words}[ (#{issue/pull request})]</code></p>
 <p>example:</p>
 <ul>
 <li>: tada: Feat: add shortcode fixit-encryptor shortcode (#123)</li>
 <li>: arrow_up: Chore(libs): update Artalk from 2.2.12 to 2.3.4 (#150)</li>
 </ul>
 <h2 id="emoji" class="heading-element">
-  <a href="#emoji" class="heading-mark"></a>Emoji</h2><ul>
+  <a href="#emoji" class="heading-mark"></a>2 Emoji</h2><ul>
 <li><a href="https://gitmoji.dev"target="_blank" rel="external nofollow noopener noreferrer">https://gitmoji.dev<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
 <li><a href="https://github.com/maixiaojie/git-emoji-zh.git"target="_blank" rel="external nofollow noopener noreferrer">vscode plugin<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
 <li>utools plugin <code>GitEmoji</code></li>
 </ul>
 <h2 id="message" class="heading-element">
-  <a href="#message" class="heading-mark"></a>Message</h2><table>
+  <a href="#message" class="heading-mark"></a>3 Message</h2><table>
 <thead>
 <tr>
 <th style="text-align:left">Emoji</th>
@@ -2083,7 +2083,7 @@
 <p>RESTful 是一种系统开发设计风格、原则。可视情况调整，以下参考来源 <a href="https://www.rfc-editor.org/rfc/rfc5789"target="_blank" rel="external nofollow noopener noreferrer">RFC5789<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
 </blockquote>
 <h2 id="noun" class="heading-element">
-  <a href="#noun" class="heading-mark"></a>Noun</h2><ul>
+  <a href="#noun" class="heading-mark"></a>1 Noun</h2><ul>
 <li>一般资源
 通用于一律使用复数名词
 例如：/books 或 /books/123。但有部分人认为应该使用单数名词，因为： /book/123 看似比 /books/123 合理。但想想文件系统的目录命名（例如 /Users 或 /Documents)，其实用复数也没问题。复数可以保持 API endpoint 的一致性，所以一般资源建议用复数。</li>
@@ -2092,19 +2092,19 @@
 例如：user 是指目前验证的使用者，使用者永远只能同时登入一个使用者</li>
 </ul>
 <h2 id="http-method" class="heading-element">
-  <a href="#http-method" class="heading-mark"></a>Http Method</h2><!-- markdownlint-disable MD033 -->
+  <a href="#http-method" class="heading-mark"></a>2 Http Method</h2><!-- markdownlint-disable MD033 -->
 <table><tbody><tr><th>Method</th><th>Idempotent</th><th>Safe</th><th>CRUD</th><th>OO</th><th>生活动词</th><th>用途</th></tr><tr><td rowspan="2">GET</td><td rowspan="2" style="text-align: center;">Y</td><td rowspan="2" style="text-align: center;">Y</td><td rowspan="2"><b>R</b>ead</td><td rowspan="2">get</td><td>get</td><td>取得资料</td></tr><tr><td>list</td><td>列出资料</td></tr><tr><td rowspan="2">POST</td><td rowspan="2"></td><td rowspan="2"></td><td rowspan="2"><b>C</b>reate</td><td rowspan="2">add</td><td>create</td><td>建立一个可以完全独立存在的实体</td></tr><tr><td>add</td><td>增加一个必须依赖于某个实体的实体</td></tr><tr><td rowspan="2">PUT</td><td rowspan="2" style="text-align: center;">Y</td><td rowspan="2"></td><td rowspan="3"><b>U</b>pdate</td><td rowspan="3">set</td><td>replace</td><td>取代一个关系，已存在时先删除后建立，不存在时直接建立</td></tr><tr><td>add</td><td>附加唯一关系，两个关系实体可以互相独立存在，且已经存在</td></tr><tr><td>PATCH</td><td></td><td></td><td>edit</td><td>编辑某个实体</td></tr><tr><td>DELETE</td><td></td><td></td><td><b>D</b>elete</td><td>remove</td><td>remove<br>delete</td><td>删除某个实体</td></tr></tbody></table>
 <ul>
 <li>Safe：该操作不会改变伺服器端的资源状态（而且结果可以被 cache），属于 Safe 的操作必定属于 Idempotent</li>
 <li>Idempotent (幂等性)：该操作不管做 1 遍或做 n 遍，都会得到同样的资源状态结果（但不一定得到同样的返回值，例如第 2 次 DELETE 请求可能回传 404），因此 client 端可以放心 retry</li>
 </ul>
 <h3 id="get" class="heading-element">
-  <a href="#get" class="heading-mark"></a>GET</h3><blockquote>
+  <a href="#get" class="heading-mark"></a>2.1 GET</h3><blockquote>
 <p>Safe：每次执行操作时，GET 只有读取 Resource，不会改变到任何的 Resource（资源，资料）<br>
 Idempotent：每次执行操作时，GET 只有读取 Resource，不会改变到任何的 Resource（资源，资料），所以任何资源的任何状态都是一样的</p>
 </blockquote>
 <h3 id="post" class="heading-element">
-  <a href="#post" class="heading-mark"></a>POST</h3><blockquote>
+  <a href="#post" class="heading-mark"></a>2.2 POST</h3><blockquote>
 <p>每次执行操作时，POST 都会建立一个 Resource（资源，资料）</p>
 </blockquote>
 <ul>
@@ -2160,7 +2160,7 @@ Idempotent：每次执行操作时，GET 只有读取 Resource，不会改变到
 </div></li>
 </ul>
 <h3 id="put" class="heading-element">
-  <a href="#put" class="heading-mark"></a>PUT</h3><blockquote>
+  <a href="#put" class="heading-mark"></a>2.3 PUT</h3><blockquote>
 <p>Idempotent：每次执行操作时，PUT 都会取代 Resource，不管操作几次，使用者获取得 Resource 结果都是一样的</p>
 <p>Replace：不论资源如何，最终的资源状态都是一样的，Resource 已存在时，或许不理会、或许先删除后建立（取代）Resource 不存在时，直接建立</p>
 <p>Add：添加唯一关系，建立这个唯一关系前，两个关连实体都必须存在。在没有建立关系前，两个关连实体都可以互相独立存在
@@ -2204,7 +2204,7 @@ Idempotent：每次执行操作时，GET 只有读取 Resource，不会改变到
 </div></li>
 </ul>
 <h3 id="patch" class="heading-element">
-  <a href="#patch" class="heading-mark"></a>PATCH</h3><blockquote>
+  <a href="#patch" class="heading-mark"></a>2.4 PATCH</h3><blockquote>
 <p>Edit：编辑可独立存在、且已经存在的实体，也就是产生新版本的实体，可能会影响其他 Resource</p>
 </blockquote>
 <ul>
@@ -2236,7 +2236,7 @@ Idempotent：每次执行操作时，GET 只有读取 Resource，不会改变到
 </div></li>
 </ul>
 <h3 id="delete" class="heading-element">
-  <a href="#delete" class="heading-mark"></a>DELETE</h3><blockquote>
+  <a href="#delete" class="heading-mark"></a>2.5 DELETE</h3><blockquote>
 <p>Idempotent：每次执行操作时，DELETE 都会删除相同的东西</p>
 </blockquote>
 <ul>
@@ -2255,7 +2255,7 @@ Idempotent：每次执行操作时，GET 只有读取 Resource，不会改变到
 </div></li>
 </ul>
 <h2 id="http-status-code" class="heading-element">
-  <a href="#http-status-code" class="heading-mark"></a>HTTP Status Code</h2><p>HTTP 状态码（HTTP Status Code）是用以表示网页服务器 HTTP 响应状态的 3 位数字代码。所有状态码的第一个数字代表了响应的五种状态之一。除非另有说明，状态码是 <strong>HTTP/1.1 标准</strong>（<a href="https://www.rfc-editor.org/rfc/rfc7231"target="_blank" rel="external nofollow noopener noreferrer">RFC 7231<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>）的一部分。</p>
+  <a href="#http-status-code" class="heading-mark"></a>3 HTTP Status Code</h2><p>HTTP 状态码（HTTP Status Code）是用以表示网页服务器 HTTP 响应状态的 3 位数字代码。所有状态码的第一个数字代表了响应的五种状态之一。除非另有说明，状态码是 <strong>HTTP/1.1 标准</strong>（<a href="https://www.rfc-editor.org/rfc/rfc7231"target="_blank" rel="external nofollow noopener noreferrer">RFC 7231<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>）的一部分。</p>
 <p>而关于 RESTful API 的请求状态，通常有以下两种设计方案：</p>
 <ul>
 <li>方案一：使用 HTTP 状态码来表示请求状态，200 时返回的内容就是数据</li>
@@ -2264,7 +2264,7 @@ Idempotent：每次执行操作时，GET 只有读取 Resource，不会改变到
 <p>在实际应用中，应据具体情景及需要进行选择与调整。</p>
 <table><tbody><tr><th>方案</th><th colspan="2">优劣比较</th></tr><tr><td rowspan="2">方案一</td><td>优点</td><td>对服务端来说较为简单方便</td></tr><tr><td>缺点</td><td>客户端难以根据状态码处理复杂问题</td></tr><tr><td rowspan="2">方案二</td><td>优点</td><td>方便对返回资料进行统一处理和细微性的控制</td></tr><tr><td>缺点</td><td>相当于放弃了 HTTP 状态码的语义</td></tr></tbody></table>
 <h3 id="常用-http-状态码" class="heading-element">
-  <a href="#%e5%b8%b8%e7%94%a8-http-%e7%8a%b6%e6%80%81%e7%a0%81" class="heading-mark"></a>常用 HTTP 状态码</h3><table>
+  <a href="#%e5%b8%b8%e7%94%a8-http-%e7%8a%b6%e6%80%81%e7%a0%81" class="heading-mark"></a>3.1 常用 HTTP 状态码</h3><table>
 <thead>
 <tr>
 <th>Code</th>
@@ -2424,12 +2424,12 @@ Idempotent：每次执行操作时，GET 只有读取 Resource，不会改变到
 <p>以上内容参考自&lt;https://zh.wikipedia.org/zh-cn/HTTP 状态码&gt;，
 需要查看完整 HTTP 状态码请点击 <a href="https://www.rfc-editor.org/rfc/rfc9110.html#name-status-codes"target="_blank" rel="external nofollow noopener noreferrer">https://www.rfc-editor.org/rfc/rfc9110.html#name-status-codes<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
 </blockquote>]]></description></item><item><title>Web 开发规则，代码规范</title><link>https://lruihao.cn/posts/dev-rules/</link><pubDate>Thu, 15 Aug 2019 18:30:31 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/dev-rules/</guid><description><![CDATA[<h2 id="精神" class="heading-element">
-  <a href="#%e7%b2%be%e7%a5%9e" class="heading-mark"></a>精神</h2><ul>
+  <a href="#%e7%b2%be%e7%a5%9e" class="heading-mark"></a>1 精神</h2><ul>
 <li>绝不写死代码，硬编码</li>
 <li>不留不要用的、垃圾代码</li>
 </ul>
 <h2 id="git" class="heading-element">
-  <a href="#git" class="heading-mark"></a>Git</h2><ul>
+  <a href="#git" class="heading-mark"></a>2 Git</h2><ul>
 <li>Master 的 BUG 必须最少且趋近于零，为最稳定的版本</li>
 <li>每次 Commit 信息应该准确填写。不可模棱两可，eg: 修复 BUG、增加功能</li>
 <li>禁止 Commit IDE 的 project data，e.g: .vscode</li>
@@ -2439,16 +2439,16 @@ Idempotent：每次执行操作时，GET 只有读取 Resource，不会改变到
 <p>更多规则详见文档 <a href="/posts/commit-spec/">Commit 规范</a></p>
 </blockquote>
 <h3 id="分支branch" class="heading-element">
-  <a href="#%e5%88%86%e6%94%afbranch" class="heading-mark"></a>分支（Branch）</h3><ul>
+  <a href="#%e5%88%86%e6%94%afbranch" class="heading-mark"></a>2.1 分支（Branch）</h3><ul>
 <li>命名规则：应以此分支主要目的命名（修复什么 BUG，新增特定功能）</li>
 <li>合并后的分支应该删除</li>
 </ul>
 <h3 id="commit" class="heading-element">
-  <a href="#commit" class="heading-mark"></a>commit</h3><ul>
+  <a href="#commit" class="heading-mark"></a>2.2 commit</h3><ul>
 <li>遵循一个功能一个 commit 的原则</li>
 </ul>
 <h2 id="restful" class="heading-element">
-  <a href="#restful" class="heading-mark"></a>Restful</h2><ul>
+  <a href="#restful" class="heading-mark"></a>3 Restful</h2><ul>
 <li>
 <p>资源名词站在 API 的角度思考</p>
 <ul>
@@ -2483,12 +2483,12 @@ Idempotent：每次执行操作时，GET 只有读取 Resource，不会改变到
 <p>更多规则详见文档 <a href="/posts/restful/">RESTful</a></p>
 </blockquote>
 <h2 id="命名" class="heading-element">
-  <a href="#%e5%91%bd%e5%90%8d" class="heading-mark"></a>命名</h2><ul>
+  <a href="#%e5%91%bd%e5%90%8d" class="heading-mark"></a>4 命名</h2><ul>
 <li>命名应根据内容做有意义的命名，让后续维护人员可以顾名思义！</li>
 <li>即使不会发生错误，代码英文大小写也需明确区分。</li>
 </ul>
 <h3 id="语意" class="heading-element">
-  <a href="#%e8%af%ad%e6%84%8f" class="heading-mark"></a>语意</h3><table>
+  <a href="#%e8%af%ad%e6%84%8f" class="heading-mark"></a>4.1 语意</h3><table>
 <thead>
 <tr>
 <th style="text-align:left">类型</th>
@@ -2510,7 +2510,7 @@ Idempotent：每次执行操作时，GET 只有读取 Resource，不会改变到
 </tbody>
 </table>
 <h3 id="字母与分隔" class="heading-element">
-  <a href="#%e5%ad%97%e6%af%8d%e4%b8%8e%e5%88%86%e9%9a%94" class="heading-mark"></a>字母与分隔</h3><table>
+  <a href="#%e5%ad%97%e6%af%8d%e4%b8%8e%e5%88%86%e9%9a%94" class="heading-mark"></a>4.2 字母与分隔</h3><table>
 <thead>
 <tr>
 <th>语言</th>
@@ -2580,7 +2580,7 @@ Idempotent：每次执行操作时，GET 只有读取 Resource，不会改变到
 </tbody>
 </table>
 <h2 id="通用" class="heading-element">
-  <a href="#%e9%80%9a%e7%94%a8" class="heading-mark"></a>通用</h2><ul>
+  <a href="#%e9%80%9a%e7%94%a8" class="heading-mark"></a>5 通用</h2><ul>
 <li>代码编写</li>
 <li><strong>每个函数应该使用块注释，注释应包含函数功能说明、参数说明</strong>。规则见：JSDoc、JavaDoc</li>
 <li>不必要的代码不要写，也应禁止放到注释里面！</li>
@@ -2590,7 +2590,7 @@ Idempotent：每次执行操作时，GET 只有读取 Resource，不会改变到
 <li>代码规范、代码排版等可通过 eslint 等工具做统一处理</li>
 </ul>
 <h3 id="正确写法" class="heading-element">
-  <a href="#%e6%ad%a3%e7%a1%ae%e5%86%99%e6%b3%95" class="heading-mark"></a>正确写法</h3><div class="highlight" id="id-2"><div class="chroma">
+  <a href="#%e6%ad%a3%e7%a1%ae%e5%86%99%e6%b3%95" class="heading-mark"></a>5.1 正确写法</h3><div class="highlight" id="id-2"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -2608,7 +2608,7 @@ Idempotent：每次执行操作时，GET 只有读取 Resource，不会改变到
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="错误写法" class="heading-element">
-  <a href="#%e9%94%99%e8%af%af%e5%86%99%e6%b3%95" class="heading-mark"></a>错误写法</h2><div class="highlight" id="id-3"><div class="chroma">
+  <a href="#%e9%94%99%e8%af%af%e5%86%99%e6%b3%95" class="heading-mark"></a>6 错误写法</h2><div class="highlight" id="id-3"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -2653,8 +2653,8 @@ Idempotent：每次执行操作时，GET 只有读取 Resource，不会改变到
 </li>
 </ul>
 <h2 id="html" class="heading-element">
-  <a href="#html" class="heading-mark"></a>HTML</h2><h3 id="代码编写" class="heading-element">
-  <a href="#%e4%bb%a3%e7%a0%81%e7%bc%96%e5%86%99" class="heading-mark"></a>代码编写</h3><ul>
+  <a href="#html" class="heading-mark"></a>7 HTML</h2><h3 id="代码编写" class="heading-element">
+  <a href="#%e4%bb%a3%e7%a0%81%e7%bc%96%e5%86%99" class="heading-mark"></a>7.1 代码编写</h3><ul>
 <li>禁止在 HTML 使用 <code>&lt;style&gt;</code>、<code>&lt;script&gt;</code>，一律使用外部档案引用方式引用 CSS、JavaScript 文件</li>
 <li>HTML 标签需成双成对，有头有尾</li>
 <li>块级标签：<code>&lt;tag&gt;&lt;/tag&gt;</code></li>
@@ -2695,17 +2695,17 @@ Idempotent：每次执行操作时，GET 只有读取 Resource，不会改变到
 </span></span><span class="line"><span class="cl">color</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="css" class="heading-element">
-  <a href="#css" class="heading-mark"></a>CSS</h2><blockquote>
+  <a href="#css" class="heading-mark"></a>8 CSS</h2><blockquote>
 <p>CSS 的定义应该独立一个 CSS 文件，禁止使用 <code>&lt;style&gt;</code> 或 <code>style</code> 属性直接在 HTML 中定义样式。</p>
 </blockquote>
 <h2 id="javascript" class="heading-element">
-  <a href="#javascript" class="heading-mark"></a>JavaScript</h2><blockquote>
+  <a href="#javascript" class="heading-mark"></a>9 JavaScript</h2><blockquote>
 <p>禁止使用 HTML 字串，一律使用 Dom 产生 HTML, e.g: <code>document.createDocumentFragment()</code></p>
 </blockquote>
 <h3 id="注释" class="heading-element">
-  <a href="#%e6%b3%a8%e9%87%8a" class="heading-mark"></a>注释</h3><p>JavaScript 注释应该遵循 JSDoc 的标准撰写</p>
+  <a href="#%e6%b3%a8%e9%87%8a" class="heading-mark"></a>9.1 注释</h3><p>JavaScript 注释应该遵循 JSDoc 的标准撰写</p>
 <h4 id="全局变量-global" class="heading-element">
-  <a href="#%e5%85%a8%e5%b1%80%e5%8f%98%e9%87%8f-global" class="heading-mark"></a>全局变量 (Global)</h4><div class="highlight" id="id-5"><div class="chroma">
+  <a href="#%e5%85%a8%e5%b1%80%e5%8f%98%e9%87%8f-global" class="heading-mark"></a>9.1.1 全局变量 (Global)</h4><div class="highlight" id="id-5"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
@@ -2713,7 +2713,7 @@ Idempotent：每次执行操作时，GET 只有读取 Resource，不会改变到
 <pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="cm">/* global ZT */</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h4 id="常量-constant" class="heading-element">
-  <a href="#%e5%b8%b8%e9%87%8f-constant" class="heading-mark"></a>常量 (Constant)</h4><div class="highlight" id="id-6"><div class="chroma">
+  <a href="#%e5%b8%b8%e9%87%8f-constant" class="heading-mark"></a>9.1.2 常量 (Constant)</h4><div class="highlight" id="id-6"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -2743,7 +2743,7 @@ Idempotent：每次执行操作时，GET 只有读取 Resource，不会改变到
 </span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">REQUEST_URL</span> <span class="o">=</span> <span class="s1">&#39;http://localhost:8080&#39;</span><span class="p">;</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h4 id="函數方法-function-method" class="heading-element">
-  <a href="#%e5%87%bd%e6%95%b8%e6%96%b9%e6%b3%95-function-method" class="heading-mark"></a>函數、方法 (Function, Method)</h4><div class="highlight" id="id-8"><div class="chroma">
+  <a href="#%e5%87%bd%e6%95%b8%e6%96%b9%e6%b3%95-function-method" class="heading-mark"></a>9.1.3 函數、方法 (Function, Method)</h4><div class="highlight" id="id-8"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -2791,23 +2791,23 @@ Idempotent：每次执行操作时，GET 只有读取 Resource，不会改变到
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="vue" class="heading-element">
-  <a href="#vue" class="heading-mark"></a>Vue</h2><ul>
+  <a href="#vue" class="heading-mark"></a>10 Vue</h2><ul>
 <li><i class="fa-regular fa-square fa-fw" aria-hidden="true"></i> 待补充</li>
 </ul>
 <h2 id="java" class="heading-element">
-  <a href="#java" class="heading-mark"></a>Java</h2><p>Java 注释应该遵循 JavaDoc 的标准撰写</p>
+  <a href="#java" class="heading-mark"></a>11 Java</h2><p>Java 注释应该遵循 JavaDoc 的标准撰写</p>
 <ul>
 <li><i class="fa-regular fa-square fa-fw" aria-hidden="true"></i> 待补充</li>
 </ul>
 <h2 id="php" class="heading-element">
-  <a href="#php" class="heading-mark"></a>PHP</h2><h3 id="前端参数取得" class="heading-element">
-  <a href="#%e5%89%8d%e7%ab%af%e5%8f%82%e6%95%b0%e5%8f%96%e5%be%97" class="heading-mark"></a>前端参数取得</h3><p>参数取得需通过 filter_input 函数取得，不得使用 _GET、_POST</p>
+  <a href="#php" class="heading-mark"></a>12 PHP</h2><h3 id="前端参数取得" class="heading-element">
+  <a href="#%e5%89%8d%e7%ab%af%e5%8f%82%e6%95%b0%e5%8f%96%e5%be%97" class="heading-mark"></a>12.1 前端参数取得</h3><p>参数取得需通过 filter_input 函数取得，不得使用 _GET、_POST</p>
 <h3 id="输出到前台" class="heading-element">
-  <a href="#%e8%be%93%e5%87%ba%e5%88%b0%e5%89%8d%e5%8f%b0" class="heading-mark"></a>输出到前台</h3><p>参数命名必须为：全部小写，不同单字以「_」分隔</p>
+  <a href="#%e8%be%93%e5%87%ba%e5%88%b0%e5%89%8d%e5%8f%b0" class="heading-mark"></a>12.2 输出到前台</h3><p>参数命名必须为：全部小写，不同单字以「_」分隔</p>
 <h3 id="注解" class="heading-element">
-  <a href="#%e6%b3%a8%e8%a7%a3" class="heading-mark"></a>注解</h3><p>PHP 注解应该遵循 PHPDoc 的标准撰写</p>
+  <a href="#%e6%b3%a8%e8%a7%a3" class="heading-mark"></a>12.3 注解</h3><p>PHP 注解应该遵循 PHPDoc 的标准撰写</p>
 <h3 id="成员变量-member" class="heading-element">
-  <a href="#%e6%88%90%e5%91%98%e5%8f%98%e9%87%8f-member" class="heading-mark"></a>成员变量 (Member)</h3><p>成员变量只的是 Class 内的成员变数，我们都会要求替成员变量增加注解说明。通常 Function 的变量除非太特别否则都不需要特别注解说明。</p>
+  <a href="#%e6%88%90%e5%91%98%e5%8f%98%e9%87%8f-member" class="heading-mark"></a>12.4 成员变量 (Member)</h3><p>成员变量只的是 Class 内的成员变数，我们都会要求替成员变量增加注解说明。通常 Function 的变量除非太特别否则都不需要特别注解说明。</p>
 <div class="highlight" id="id-10"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -2838,7 +2838,7 @@ Idempotent：每次执行操作时，GET 只有读取 Resource，不会改变到
 </span></span><span class="line"><span class="cl"><span class="nv">$userId</span> <span class="o">=</span> <span class="s1">&#39;Hello&#39;</span><span class="p">;</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="函数方法-function-method" class="heading-element">
-  <a href="#%e5%87%bd%e6%95%b0%e6%96%b9%e6%b3%95-function-method" class="heading-mark"></a>函数、方法 (Function, Method)</h3><div class="highlight" id="id-12"><div class="chroma">
+  <a href="#%e5%87%bd%e6%95%b0%e6%96%b9%e6%b3%95-function-method" class="heading-mark"></a>12.5 函数、方法 (Function, Method)</h3><div class="highlight" id="id-12"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -2888,17 +2888,17 @@ Idempotent：每次执行操作时，GET 只有读取 Resource，不会改变到
 </span></span><span class="line"><span class="cl"><span class="p">};</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="python" class="heading-element">
-  <a href="#python" class="heading-mark"></a>Python</h2><ul>
+  <a href="#python" class="heading-mark"></a>13 Python</h2><ul>
 <li><i class="fa-regular fa-square fa-fw" aria-hidden="true"></i> 待补充</li>
 </ul>
 <h2 id="database" class="heading-element">
-  <a href="#database" class="heading-mark"></a>Database</h2><ul>
+  <a href="#database" class="heading-mark"></a>14 Database</h2><ul>
 <li>禁止使用 Table Join。</li>
 <li>禁止使用 Oracle Trigger。</li>
 <li>禁止将查询数据库的 SQL 放在循环中查询</li>
 </ul>
 <h3 id="sql-撰写" class="heading-element">
-  <a href="#sql-%e6%92%b0%e5%86%99" class="heading-mark"></a>SQL 撰写</h3><ul>
+  <a href="#sql-%e6%92%b0%e5%86%99" class="heading-mark"></a>14.1 SQL 撰写</h3><ul>
 <li>属于 SQL 语法使用大写（SELECT，WHERE，INSERT etc..）</li>
 <li>属于使用者自己定义的使用小写（表名 table name，字段名 column name etc..）</li>
 <li>表名、字段名前后需加上 `</li>
@@ -2912,7 +2912,7 @@ Idempotent：每次执行操作时，GET 只有读取 Resource，不会改变到
 <pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="o">`</span><span class="k">user</span><span class="o">`</span><span class="w"> </span><span class="k">VALUES</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;b&#39;</span><span class="p">);</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="统一用词" class="heading-element">
-  <a href="#%e7%bb%9f%e4%b8%80%e7%94%a8%e8%af%8d" class="heading-mark"></a>统一用词</h2><blockquote>
+  <a href="#%e7%bb%9f%e4%b8%80%e7%94%a8%e8%af%8d" class="heading-mark"></a>15 统一用词</h2><blockquote>
 <p>系统中常用词，例如弹出框按钮、搜索框等，仅为举例，不限与此。</p>
 </blockquote>
 <table>

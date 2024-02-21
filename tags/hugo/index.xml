@@ -1,35 +1,35 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Hugo - 标签 | 菠菜眾長</title><link>https://lruihao.cn/tags/hugo/</link><description>Hugo - 标签 | 菠菜眾長</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><copyright>本站内容采用 CC BY-NC-SA 4.0 国际许可协议。</copyright><lastBuildDate>Sat, 26 Aug 2023 17:22:57 +0800</lastBuildDate><atom:link href="https://lruihao.cn/tags/hugo/" rel="self" type="application/rss+xml"/><item><title>将 Hugo 博客部署到亚马逊云服务器</title><link>https://lruihao.cn/posts/aws-ec2/</link><pubDate>Sat, 26 Aug 2023 17:22:57 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/aws-ec2/</guid><description><![CDATA[<div class="featured-image"><img loading="eager" src="https://lruihao.cn/posts/aws-ec2/images/featured-image.png" alt="将 Hugo 博客部署到亚马逊云服务器" title="将 Hugo 博客部署到亚马逊云服务器" referrerpolicy="no-referrer"/></div><p>本文将介绍如何将 Hugo 博客打包并部署到亚马逊云服务器上，并附上亚马逊云服务器的配置过程。</p>
 <h2 id="前言" class="heading-element">
-  <a href="#%e5%89%8d%e8%a8%80" class="heading-mark"></a>前言</h2><p>最近很长一段时间都是使用 Hugo 在写博客，也花了很多精力在 <a href="https://github.com/hugo-fixit/FixIt"target="_blank" rel="external nofollow noopener noreferrer">hugo-fixit<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 这个主题的开发上。也听到很多使用 Hugo 写博客的网友们问我，如何部署博客？部署到哪里？</p>
+  <a href="#%e5%89%8d%e8%a8%80" class="heading-mark"></a>1 前言</h2><p>最近很长一段时间都是使用 Hugo 在写博客，也花了很多精力在 <a href="https://github.com/hugo-fixit/FixIt"target="_blank" rel="external nofollow noopener noreferrer">hugo-fixit<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 这个主题的开发上。也听到很多使用 Hugo 写博客的网友们问我，如何部署博客？部署到哪里？</p>
 <p>今天就介绍一种方式：<strong>把博客部署到云服务器上</strong>。</p>
 <p>但是国内的云服务器太贵了，而且还要备案，所以就想到了海外的云服务器，比如亚马逊云服务器，以下便是注册到部署的全过程。</p>
 <h2 id="注册亚马逊云账户" class="heading-element">
-  <a href="#%e6%b3%a8%e5%86%8c%e4%ba%9a%e9%a9%ac%e9%80%8a%e4%ba%91%e8%b4%a6%e6%88%b7" class="heading-mark"></a>注册亚马逊云账户</h2><p>打开 <a href="https://aws.amazon.com/cn/free/?sc_channel=seo&amp;sc_campaign=blog0805"target="_blank" rel="external nofollow noopener noreferrer">亚马逊账号注册地址<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>，点击右上角创建 AWS 账户。</p>
-<p><img loading="lazy" src="images/23_1693042834.png" alt="创建 AWS 账户" srcset="images/23_1693042834.png?size=small, images/23_1693042834.png?size=medium 1.5x, images/23_1693042834.png?size=large 2x" data-title="创建 AWS 账户" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+  <a href="#%e6%b3%a8%e5%86%8c%e4%ba%9a%e9%a9%ac%e9%80%8a%e4%ba%91%e8%b4%a6%e6%88%b7" class="heading-mark"></a>2 注册亚马逊云账户</h2><p>打开 <a href="https://aws.amazon.com/cn/free/?sc_channel=seo&amp;sc_campaign=blog0805"target="_blank" rel="external nofollow noopener noreferrer">亚马逊账号注册地址<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>，点击右上角创建 AWS 账户。</p>
+<p><a class="lightgallery" href="/posts/aws-ec2/images/23_1693042834.png?size=large" data-thumbnail="/posts/aws-ec2/images/23_1693042834.png?size=small" data-sub-html="<h2>创建 AWS 账户</h2>"><img loading="lazy" src="/posts/aws-ec2/images/23_1693042834.png" alt="创建 AWS 账户" srcset="/posts/aws-ec2/images/23_1693042834.png?size=small, /posts/aws-ec2/images/23_1693042834.png?size=medium 1.5x, /posts/aws-ec2/images/23_1693042834.png?size=large 2x" data-title="创建 AWS 账户" style="--width: 1100px;--aspect-ratio: 1100 / 190;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></p>
 <ol>
 <li>填写邮件地址和账号名称（支持使用国内的邮箱）
-<img loading="lazy" src="images/23_1693043425.png" alt="login" srcset="images/23_1693043425.png?size=small, images/23_1693043425.png?size=medium 1.5x, images/23_1693043425.png?size=large 2x" data-title="login" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></li>
+<a class="lightgallery" href="/posts/aws-ec2/images/23_1693043425.png?size=large" data-thumbnail="/posts/aws-ec2/images/23_1693043425.png?size=small" data-sub-html="<h2>login</h2>"><img loading="lazy" src="/posts/aws-ec2/images/23_1693043425.png" alt="login" srcset="/posts/aws-ec2/images/23_1693043425.png?size=small, /posts/aws-ec2/images/23_1693043425.png?size=medium 1.5x, /posts/aws-ec2/images/23_1693043425.png?size=large 2x" data-title="login" style="--width: 1754px;--aspect-ratio: 1754 / 1058;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></li>
 <li>验证邮件
-<img loading="lazy" src="images/23_1693043626.png" alt="valid" srcset="images/23_1693043626.png?size=small, images/23_1693043626.png?size=medium 1.5x, images/23_1693043626.png?size=large 2x" data-title="valid" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></li>
+<a class="lightgallery" href="/posts/aws-ec2/images/23_1693043626.png?size=large" data-thumbnail="/posts/aws-ec2/images/23_1693043626.png?size=small" data-sub-html="<h2>valid</h2>"><img loading="lazy" src="/posts/aws-ec2/images/23_1693043626.png" alt="valid" srcset="/posts/aws-ec2/images/23_1693043626.png?size=small, /posts/aws-ec2/images/23_1693043626.png?size=medium 1.5x, /posts/aws-ec2/images/23_1693043626.png?size=large 2x" data-title="valid" style="--width: 1603px;--aspect-ratio: 1603 / 841;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></li>
 <li>输入密码
-<img loading="lazy" src="images/23_1693043910.png" alt="password" srcset="images/23_1693043910.png?size=small, images/23_1693043910.png?size=medium 1.5x, images/23_1693043910.png?size=large 2x" data-title="password" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></li>
+<a class="lightgallery" href="/posts/aws-ec2/images/23_1693043910.png?size=large" data-thumbnail="/posts/aws-ec2/images/23_1693043910.png?size=small" data-sub-html="<h2>password</h2>"><img loading="lazy" src="/posts/aws-ec2/images/23_1693043910.png" alt="password" srcset="/posts/aws-ec2/images/23_1693043910.png?size=small, /posts/aws-ec2/images/23_1693043910.png?size=medium 1.5x, /posts/aws-ec2/images/23_1693043910.png?size=large 2x" data-title="password" style="--width: 1490px;--aspect-ratio: 1490 / 1002;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></li>
 <li>联系人信息
-<img loading="lazy" src="images/23_1693044220.png" alt="contact" srcset="images/23_1693044220.png?size=small, images/23_1693044220.png?size=medium 1.5x, images/23_1693044220.png?size=large 2x" data-title="contact" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></li>
+<a class="lightgallery" href="/posts/aws-ec2/images/23_1693044220.png?size=large" data-thumbnail="/posts/aws-ec2/images/23_1693044220.png?size=small" data-sub-html="<h2>contact</h2>"><img loading="lazy" src="/posts/aws-ec2/images/23_1693044220.png" alt="contact" srcset="/posts/aws-ec2/images/23_1693044220.png?size=small, /posts/aws-ec2/images/23_1693044220.png?size=medium 1.5x, /posts/aws-ec2/images/23_1693044220.png?size=large 2x" data-title="contact" style="--width: 938px;--aspect-ratio: 938 / 1204;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></li>
 <li>付款信息（Visa）
-<img loading="lazy" src="images/23_1693044537.png" alt="payment" srcset="images/23_1693044537.png?size=small, images/23_1693044537.png?size=medium 1.5x, images/23_1693044537.png?size=large 2x" data-title="payment" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></li>
+<a class="lightgallery" href="/posts/aws-ec2/images/23_1693044537.png?size=large" data-thumbnail="/posts/aws-ec2/images/23_1693044537.png?size=small" data-sub-html="<h2>payment</h2>"><img loading="lazy" src="/posts/aws-ec2/images/23_1693044537.png" alt="payment" srcset="/posts/aws-ec2/images/23_1693044537.png?size=small, /posts/aws-ec2/images/23_1693044537.png?size=medium 1.5x, /posts/aws-ec2/images/23_1693044537.png?size=large 2x" data-title="payment" style="--width: 1454px;--aspect-ratio: 1454 / 1180;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></li>
 <li>验证手机号（支持中国地区国内手机号）
-<img loading="lazy" src="images/23_1693044806.png" alt="phone" srcset="images/23_1693044806.png?size=small, images/23_1693044806.png?size=medium 1.5x, images/23_1693044806.png?size=large 2x" data-title="phone" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></li>
+<a class="lightgallery" href="/posts/aws-ec2/images/23_1693044806.png?size=large" data-thumbnail="/posts/aws-ec2/images/23_1693044806.png?size=small" data-sub-html="<h2>phone</h2>"><img loading="lazy" src="/posts/aws-ec2/images/23_1693044806.png" alt="phone" srcset="/posts/aws-ec2/images/23_1693044806.png?size=small, /posts/aws-ec2/images/23_1693044806.png?size=medium 1.5x, /posts/aws-ec2/images/23_1693044806.png?size=large 2x" data-title="phone" style="--width: 974px;--aspect-ratio: 974 / 1052;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></li>
 <li>选择支持计划
-<img loading="lazy" src="images/23_1693045029.png" alt="plan" srcset="images/23_1693045029.png?size=small, images/23_1693045029.png?size=medium 1.5x, images/23_1693045029.png?size=large 2x" data-title="plan" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></li>
+<a class="lightgallery" href="/posts/aws-ec2/images/23_1693045029.png?size=large" data-thumbnail="/posts/aws-ec2/images/23_1693045029.png?size=small" data-sub-html="<h2>plan</h2>"><img loading="lazy" src="/posts/aws-ec2/images/23_1693045029.png" alt="plan" srcset="/posts/aws-ec2/images/23_1693045029.png?size=small, /posts/aws-ec2/images/23_1693045029.png?size=medium 1.5x, /posts/aws-ec2/images/23_1693045029.png?size=large 2x" data-title="plan" style="--width: 1308px;--aspect-ratio: 1308 / 1326;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></li>
 <li>完成注册
-<img loading="lazy" src="images/23_1693045100.png" alt="complete" srcset="images/23_1693045100.png?size=small, images/23_1693045100.png?size=medium 1.5x, images/23_1693045100.png?size=large 2x" data-title="complete" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></li>
+<a class="lightgallery" href="/posts/aws-ec2/images/23_1693045100.png?size=large" data-thumbnail="/posts/aws-ec2/images/23_1693045100.png?size=small" data-sub-html="<h2>complete</h2>"><img loading="lazy" src="/posts/aws-ec2/images/23_1693045100.png" alt="complete" srcset="/posts/aws-ec2/images/23_1693045100.png?size=small, /posts/aws-ec2/images/23_1693045100.png?size=medium 1.5x, /posts/aws-ec2/images/23_1693045100.png?size=large 2x" data-title="complete" style="--width: 1136px;--aspect-ratio: 1136 / 754;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></li>
 <li>登录亚马逊云控制台，<a href="https://console.aws.amazon.com/console/home"target="_blank" rel="external nofollow noopener noreferrer">登录地址<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>，选择根用户输入电子邮件地址，点击下一步会让输入密码，输入密码后就可以完成登录了。</li>
 </ol>
 <h2 id="创建-ec2-服务实例" class="heading-element">
-  <a href="#%e5%88%9b%e5%bb%ba-ec2-%e6%9c%8d%e5%8a%a1%e5%ae%9e%e4%be%8b" class="heading-mark"></a>创建 EC2 服务实例</h2><p>点击链接查看 <a href="https://aws.amazon.com/cn/free/?sc_channel=seo&amp;sc_campaign=blog0805"target="_blank" rel="external nofollow noopener noreferrer">亚马逊免费套餐<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>，找到云服务器 EC2，点击立即开始 12 个月免费使用。</p>
-<p><img loading="lazy" src="images/23_1693045572.png" alt="EC2" srcset="images/23_1693045572.png?size=small, images/23_1693045572.png?size=medium 1.5x, images/23_1693045572.png?size=large 2x" data-title="EC2" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+  <a href="#%e5%88%9b%e5%bb%ba-ec2-%e6%9c%8d%e5%8a%a1%e5%ae%9e%e4%be%8b" class="heading-mark"></a>3 创建 EC2 服务实例</h2><p>点击链接查看 <a href="https://aws.amazon.com/cn/free/?sc_channel=seo&amp;sc_campaign=blog0805"target="_blank" rel="external nofollow noopener noreferrer">亚马逊免费套餐<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>，找到云服务器 EC2，点击立即开始 12 个月免费使用。</p>
+<p><a class="lightgallery" href="/posts/aws-ec2/images/23_1693045572.png?size=large" data-thumbnail="/posts/aws-ec2/images/23_1693045572.png?size=small" data-sub-html="<h2>EC2</h2>"><img loading="lazy" src="/posts/aws-ec2/images/23_1693045572.png" alt="EC2" srcset="/posts/aws-ec2/images/23_1693045572.png?size=small, /posts/aws-ec2/images/23_1693045572.png?size=medium 1.5x, /posts/aws-ec2/images/23_1693045572.png?size=large 2x" data-title="EC2" style="--width: 2368px;--aspect-ratio: 2368 / 1146;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></p>
 <p>进行 EC2 服务器主页后，点击页面<strong>创建实例</strong>按钮。</p>
-<p><img loading="lazy" src="images/23_1693045780.png" alt="start-EC2" srcset="images/23_1693045780.png?size=small, images/23_1693045780.png?size=medium 1.5x, images/23_1693045780.png?size=large 2x" data-title="start-EC2" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+<p><a class="lightgallery" href="/posts/aws-ec2/images/23_1693045780.png?size=large" data-thumbnail="/posts/aws-ec2/images/23_1693045780.png?size=small" data-sub-html="<h2>start-EC2</h2>"><img loading="lazy" src="/posts/aws-ec2/images/23_1693045780.png" alt="start-EC2" srcset="/posts/aws-ec2/images/23_1693045780.png?size=small, /posts/aws-ec2/images/23_1693045780.png?size=medium 1.5x, /posts/aws-ec2/images/23_1693045780.png?size=large 2x" data-title="start-EC2" style="--width: 2878px;--aspect-ratio: 2878 / 1294;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></p>
 <p>然后按照页面提示要求，依次填写或选择：</p>
 <ol>
 <li>实例的名称：随便填</li>
@@ -41,13 +41,13 @@
 <li>然后点击右侧侧边栏启动实例，等待片刻实例就创建好了</li>
 </ol>
 <h2 id="连接实例" class="heading-element">
-  <a href="#%e8%bf%9e%e6%8e%a5%e5%ae%9e%e4%be%8b" class="heading-mark"></a>连接实例</h2><p><img loading="lazy" src="images/23_1693046630.png" alt="instance" srcset="images/23_1693046630.png?size=small, images/23_1693046630.png?size=medium 1.5x, images/23_1693046630.png?size=large 2x" data-title="instance" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+  <a href="#%e8%bf%9e%e6%8e%a5%e5%ae%9e%e4%be%8b" class="heading-mark"></a>4 连接实例</h2><p><a class="lightgallery" href="/posts/aws-ec2/images/23_1693046630.png?size=large" data-thumbnail="/posts/aws-ec2/images/23_1693046630.png?size=small" data-sub-html="<h2>instance</h2>"><img loading="lazy" src="/posts/aws-ec2/images/23_1693046630.png" alt="instance" srcset="/posts/aws-ec2/images/23_1693046630.png?size=small, /posts/aws-ec2/images/23_1693046630.png?size=medium 1.5x, /posts/aws-ec2/images/23_1693046630.png?size=large 2x" data-title="instance" style="--width: 954px;--aspect-ratio: 954 / 410;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></p>
 <p>点击上面的实例 ID 进入实例的详情，再点击右上角的连接按钮。</p>
-<p><img loading="lazy" src="images/23_1693046822.png" alt="connect" srcset="images/23_1693046822.png?size=small, images/23_1693046822.png?size=medium 1.5x, images/23_1693046822.png?size=large 2x" data-title="connect" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+<p><a class="lightgallery" href="/posts/aws-ec2/images/23_1693046822.png?size=large" data-thumbnail="/posts/aws-ec2/images/23_1693046822.png?size=small" data-sub-html="<h2>connect</h2>"><img loading="lazy" src="/posts/aws-ec2/images/23_1693046822.png" alt="connect" srcset="/posts/aws-ec2/images/23_1693046822.png?size=small, /posts/aws-ec2/images/23_1693046822.png?size=medium 1.5x, /posts/aws-ec2/images/23_1693046822.png?size=large 2x" data-title="connect" style="--width: 2344px;--aspect-ratio: 2344 / 216;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></p>
 <p>连接成功后，页面会新打开一个窗口，这个窗口就是我们服务器的终端，可以在这里对服务器进行操作。</p>
-<p><img loading="lazy" src="images/23_1693046970.png" alt="cloudshell" srcset="images/23_1693046970.png?size=small, images/23_1693046970.png?size=medium 1.5x, images/23_1693046970.png?size=large 2x" data-title="cloudshell" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+<p><a class="lightgallery" href="/posts/aws-ec2/images/23_1693046970.png?size=large" data-thumbnail="/posts/aws-ec2/images/23_1693046970.png?size=small" data-sub-html="<h2>cloudshell</h2>"><img loading="lazy" src="/posts/aws-ec2/images/23_1693046970.png" alt="cloudshell" srcset="/posts/aws-ec2/images/23_1693046970.png?size=small, /posts/aws-ec2/images/23_1693046970.png?size=medium 1.5x, /posts/aws-ec2/images/23_1693046970.png?size=large 2x" data-title="cloudshell" style="--width: 1408px;--aspect-ratio: 1408 / 514;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></p>
 <h2 id="创建-root-用户角色" class="heading-element">
-  <a href="#%e5%88%9b%e5%bb%ba-root-%e7%94%a8%e6%88%b7%e8%a7%92%e8%89%b2" class="heading-mark"></a>创建 root 用户角色</h2><p>在终端中输入以下命令，创建 root 用户角色。</p>
+  <a href="#%e5%88%9b%e5%bb%ba-root-%e7%94%a8%e6%88%b7%e8%a7%92%e8%89%b2" class="heading-mark"></a>5 创建 root 用户角色</h2><p>在终端中输入以下命令，创建 root 用户角色。</p>
 <div class="highlight" id="id-1"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -101,7 +101,7 @@
 <p>后续操作尽量用 root 用户进行。</p>
 </blockquote>
 <h2 id="安装宝塔面板" class="heading-element">
-  <a href="#%e5%ae%89%e8%a3%85%e5%ae%9d%e5%a1%94%e9%9d%a2%e6%9d%bf" class="heading-mark"></a>安装宝塔面板</h2><p>宝塔面板是一个服务器管理面板，可以通过宝塔面板来管理服务器，比如安装 nginx、mysql、php 等等。</p>
+  <a href="#%e5%ae%89%e8%a3%85%e5%ae%9d%e5%a1%94%e9%9d%a2%e6%9d%bf" class="heading-mark"></a>6 安装宝塔面板</h2><p>宝塔面板是一个服务器管理面板，可以通过宝塔面板来管理服务器，比如安装 nginx、mysql、php 等等。</p>
 <div class="highlight" id="id-6"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -115,7 +115,7 @@
 <li>等待 <code>LAMP</code> 环境安装完毕</li>
 </ol>
 <h2 id="部署-hugo-博客" class="heading-element">
-  <a href="#%e9%83%a8%e7%bd%b2-hugo-%e5%8d%9a%e5%ae%a2" class="heading-mark"></a>部署 Hugo 博客</h2><p>Hugo 博客打包</p>
+  <a href="#%e9%83%a8%e7%bd%b2-hugo-%e5%8d%9a%e5%ae%a2" class="heading-mark"></a>7 部署 Hugo 博客</h2><p>Hugo 博客打包</p>
 <div class="highlight" id="id-7"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -142,14 +142,14 @@
 <li>点击提交</li>
 </ol>
 <p>在浏览器中输入服务器的公网 IP 地址，就可以看到 Hugo 博客了。</p>
-<p><img loading="lazy" src="images/23_1693050865.png" alt="preview" srcset="images/23_1693050865.png?size=small, images/23_1693050865.png?size=medium 1.5x, images/23_1693050865.png?size=large 2x" data-title="preview" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+<p><a class="lightgallery" href="/posts/aws-ec2/images/23_1693050865.png?size=large" data-thumbnail="/posts/aws-ec2/images/23_1693050865.png?size=small" data-sub-html="<h2>preview</h2>"><img loading="lazy" src="/posts/aws-ec2/images/23_1693050865.png" alt="preview" srcset="/posts/aws-ec2/images/23_1693050865.png?size=small, /posts/aws-ec2/images/23_1693050865.png?size=medium 1.5x, /posts/aws-ec2/images/23_1693050865.png?size=large 2x" data-title="preview" style="--width: 2878px;--aspect-ratio: 2878 / 1354;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></p>
 <h2 id="注意事项" class="heading-element">
-  <a href="#%e6%b3%a8%e6%84%8f%e4%ba%8b%e9%a1%b9" class="heading-mark"></a>注意事项</h2><blockquote>
+  <a href="#%e6%b3%a8%e6%84%8f%e4%ba%8b%e9%a1%b9" class="heading-mark"></a>8 注意事项</h2><blockquote>
 <p>亚马逊的服务器每个月免费时长时 <strong>750</strong> 小时，一个月 31 天 x 24 = 744 小时，正常使用是不会超出免费的份额的，但切记不要同时开两个服务器实例，使用时长会累加，不注意可能会超出套餐额度。</p>
 <p>到期后，如果不想继续使用，一定要记得删除实例，不然会一直扣费的。在控制台选中实例，点击实例状态-&gt;终止实例。</p>
 </blockquote>
 <h2 id="总结" class="heading-element">
-  <a href="#%e6%80%bb%e7%bb%93" class="heading-mark"></a>总结</h2><p>有了一台海外服务器，我们还可以做很多事情，比如部署 chatgpt 等等，有了服务器一定要多去探索和学习，这么复杂的申请的流程，不要白白放着让过期了。</p>
+  <a href="#%e6%80%bb%e7%bb%93" class="heading-mark"></a>9 总结</h2><p>有了一台海外服务器，我们还可以做很多事情，比如部署 chatgpt 等等，有了服务器一定要多去探索和学习，这么复杂的申请的流程，不要白白放着让过期了。</p>
 <p>保持探索欲，砥砺前行！</p>]]></description></item><item><title>Hugo 添加知乎卡片式链接 Shortcodes</title><link>https://lruihao.cn/posts/hugo-cardlink/</link><pubDate>Tue, 05 Oct 2021 19:33:13 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/hugo-cardlink/</guid><description><![CDATA[<!-- markdownlint-disable MD034 -->
 <a href="https://github.com/Lruihao/FixIt"target="_blank" rel="external nofollow noopener noreferrer" class="card-link"><span class="cl-backdrop" style="--cl-bg-url: url(/images/fixit.min.svg);"></span>
     <span class="cl-content">
@@ -171,7 +171,7 @@
     </div>
   </div>
 <h2 id="源碼" class="heading-element">
-  <a href="#%e6%ba%90%e7%a2%bc" class="heading-mark"></a>源碼</h2><p>基於 LoveIt 主題的 Link Shortcodes, 主要改到以下幾個文件，<a href="https://github.com/Lruihao/hugo-blog/commit/089c303693e806bff855ecf3fee110baa62b870b"target="_blank" rel="external nofollow noopener noreferrer">完整提交記錄<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
+  <a href="#%e6%ba%90%e7%a2%bc" class="heading-mark"></a>1 源碼</h2><p>基於 LoveIt 主題的 Link Shortcodes, 主要改到以下幾個文件，<a href="https://github.com/Lruihao/hugo-blog/commit/089c303693e806bff855ecf3fee110baa62b870b"target="_blank" rel="external nofollow noopener noreferrer">完整提交記錄<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
 <pre><code>assets/css/custom.scss
 assets/css/partial/cardlink.scss          # 卡片式鏈接樣式
 layouts/partials/plugin/cardlink.html     # 卡片式鏈接模板
@@ -179,7 +179,7 @@ layouts/shortcodes/cardlink.html
 static/images/card-link-bg.jpg
 </code></pre>
 <h2 id="使用" class="heading-element">
-  <a href="#%e4%bd%bf%e7%94%a8" class="heading-mark"></a>使用</h2><p>使用參數见 <a href="https://fixit.lruihao.cn/zh-cn/theme-documentation-extended-shortcodes/#2-link"target="_blank" rel="external nofollow noopener noreferrer">FixIt 擴展 Shortcodes - Link<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
+  <a href="#%e4%bd%bf%e7%94%a8" class="heading-mark"></a>2 使用</h2><p>使用參數见 <a href="https://fixit.lruihao.cn/zh-cn/theme-documentation-extended-shortcodes/#2-link"target="_blank" rel="external nofollow noopener noreferrer">FixIt 擴展 Shortcodes - Link<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
 <!-- markdownlint-disable MD046 -->
 <div class="highlight" id="id-1"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -214,7 +214,7 @@ static/images/card-link-bg.jpg
 <p>更新说明：<a href="https://github.com/hugo-fixit/FixIt"target="_blank" rel="external nofollow noopener noreferrer">FixIt<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 主题已支持中文繁體。</p>
 </blockquote>
 <h2 id="翻譯" class="heading-element">
-  <a href="#%e7%bf%bb%e8%ad%af" class="heading-mark"></a>翻譯</h2><p>屬於直譯，有些詞語可能並不符合現在臺灣或者香港那邊的說法。比如，<code>分類</code>好像臺灣常說<code>歸類</code>吧</p>
+  <a href="#%e7%bf%bb%e8%ad%af" class="heading-mark"></a>1 翻譯</h2><p>屬於直譯，有些詞語可能並不符合現在臺灣或者香港那邊的說法。比如，<code>分類</code>好像臺灣常說<code>歸類</code>吧</p>
 <p>新建 <code>i18n/zh-TW.toml</code></p>
 <div class="highlight" id="id-1"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -628,7 +628,7 @@ static/images/card-link-bg.jpg
 </span></span><span class="line"><span class="cl"><span class="c"># === shortcodes/version.html ===</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="配置" class="heading-element">
-  <a href="#%e9%85%8d%e7%bd%ae" class="heading-mark"></a>配置</h2><p>打開 <code>config.toml</code></p>
+  <a href="#%e9%85%8d%e7%bd%ae" class="heading-mark"></a>2 配置</h2><p>打開 <code>config.toml</code></p>
 <div class="highlight" id="id-2"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -664,7 +664,7 @@ static/images/card-link-bg.jpg
         </span>
       </span><svg class="cl-icon-globe" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" width="64" height="64"><path d="M960 512c0 249.408-203.2 448-448 448-244.778667 0-448-198.592-448-448S262.592 64 512 64s448 198.592 448 448" fill="#2196F3"></path><path d="M507.52 718.08c0-8.96-4.48-13.44-13.44-17.92-26.88-8.96-53.76-8.96-76.16-31.381333-4.48-8.96-4.48-17.92-8.96-26.88-8.96-8.96-31.36-13.44-44.8-17.92h-89.6c-13.44-4.48-22.4-22.4-31.36-35.84 0-4.48 0-13.461333-8.96-13.461334-8.96-4.458667-17.92 4.501333-26.88 0-4.48-4.458667-4.48-8.96-4.48-13.418666 0-13.461333 8.96-26.901333 17.92-35.861334 13.44-8.96 26.88 4.48 40.32 4.48 4.48 0 4.48 0 8.96 4.48 13.44 4.48 17.92 22.4 17.92 35.861334v8.96c0 4.48 4.48 4.48 8.96 4.48 4.48-22.4 4.48-44.821333 8.96-67.2 0-26.88 26.88-53.781333 49.28-62.72 8.96-4.458667 13.44 4.501333 22.4 0 26.88-8.96 94.08-35.84 80.64-71.658667-8.96-31.381333-35.84-62.698667-71.68-58.24-8.96 4.501333-13.44 8.96-22.4 13.461333-13.44 8.96-40.32 35.84-53.76 35.84-22.4-4.48-22.4-35.84-17.92-49.301333 4.48-17.92 44.8-76.138667 71.68-67.178667l17.92 17.92c8.96 4.48 22.4 4.48 35.84 4.48 4.48 0 8.96 0 13.44-4.48 4.48-4.48 4.48-4.48 4.48-8.96 0-13.44-13.44-26.901333-22.4-35.861333s-22.4-17.92-35.84-22.378667c-44.8-13.461333-116.48 4.458667-152.32 35.84-35.84 31.36-62.72 85.12-80.64 129.92-8.96 26.88-17.92 62.698667-22.4 94.08-4.48 22.4-8.96 40.32 4.48 62.698667 13.44 26.88 40.32 53.781333 67.2 71.68 17.92 13.44 53.76 13.44 71.68 35.84 13.44 17.941333 8.96 40.32 8.96 62.72 0 26.88 17.92 49.28 26.88 71.658667 4.48 13.461333 8.96 31.381333 13.44 44.821333 0 4.48 4.48 31.36 4.48 35.84 26.88 13.44 49.28 26.901333 80.64 35.861333 4.48 0 22.4-26.901333 22.4-31.381333 13.44-13.44 22.4-31.36 35.84-40.32 8.96-4.48 17.92-8.96 26.88-17.941333 8.96-8.96 13.44-26.88 17.92-40.32 4.48-8.938667 8.96-26.858667 4.48-40.298667M516.48 305.92c4.48 0 8.96-4.48 17.92-8.96 13.44-8.96 26.901333-22.4 40.32-31.36 13.461333-8.96 26.901333-22.4 35.861333-31.36 13.44-8.96 22.4-26.88 26.88-40.341333 4.48-8.96 17.941333-26.88 13.44-40.32-4.48-8.96-26.88-13.44-35.84-17.92C579.2 126.698667 547.84 122.24 512 122.24c-13.44 0-31.36 4.458667-35.84 17.92-4.48 22.4 13.44 17.92 31.36 22.4 0 0 4.48 35.84 4.48 40.32 4.48 22.421333-8.96 35.84-8.96 58.24 0 13.44 0 35.84 8.96 44.8h4.48zM892.8 619.52c4.501333-8.96 4.501333-22.4 8.96-31.36 4.501333-22.421333 4.501333-44.8 4.501333-67.2 0-44.8-4.501333-89.578667-17.92-129.92-8.96-13.44-13.461333-26.88-17.941333-40.341333-8.96-22.378667-22.4-44.8-40.32-62.698667-17.92-22.4-40.341333-85.12-80.64-67.2-13.44 4.501333-22.4 22.421333-31.36 31.381333l-26.88 40.32c-4.501333 4.48-8.96 13.44-4.501333 17.92 0 4.48 4.501333 4.48 8.96 4.48 8.96 4.501333 13.461333 4.501333 22.421333 8.96 4.48 0 8.96 4.501333 4.48 8.96 0 0 0 4.501333-4.48 4.501334-22.421333 22.4-44.8 40.32-67.2 62.698666-4.48 4.48-8.96 13.44-8.96 17.92s4.48 4.48 4.48 8.96c0 4.501333-4.48 4.501333-8.96 8.96-8.96 4.501333-17.92 8.96-22.4 13.461334-4.48 8.96 0 22.4-4.48 31.36-4.48 22.4-17.941333 40.32-26.901333 62.72-8.96 13.418667-13.418667 26.88-22.378667 40.32 0 17.92-4.501333 31.36 4.458667 44.8 22.421333 31.36 62.72 13.44 94.08 26.901333 8.96 4.458667 17.92 4.458667 22.421333 13.418667 13.418667 13.461333 13.418667 35.861333 17.92 49.301333 4.458667 17.92 8.96 35.84 17.92 53.76 4.48 22.421333 13.44 44.821333 17.92 62.72 40.341333-31.36 76.16-67.178667 103.04-112 26.88-31.424 40.341333-67.242667 53.76-103.104" fill="#CDDC39"></path></svg></span></a>
 <h2 id="創建模板" class="heading-element">
-  <a href="#%e5%89%b5%e5%bb%ba%e6%a8%a1%e6%9d%bf" class="heading-mark"></a>創建模板</h2><p>開始之前去看了 hugo 的官網，再看了一下 go 模板的語法。</p>
+  <a href="#%e5%89%b5%e5%bb%ba%e6%a8%a1%e6%9d%bf" class="heading-mark"></a>1 創建模板</h2><p>開始之前去看了 hugo 的官網，再看了一下 go 模板的語法。</p>
 <p>新建 <code>layouts/friends/single.html</code></p>
 <div class="highlight" id="id-1"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -752,7 +752,7 @@ static/images/card-link-bg.jpg
 </span></span><span class="line"><span class="cl">{{- end -}}</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="模板樣式" class="heading-element">
-  <a href="#%e6%a8%a1%e6%9d%bf%e6%a8%a3%e5%bc%8f" class="heading-mark"></a>模板樣式</h2><p>新建文件 <code>_friends.css</code></p>
+  <a href="#%e6%a8%a1%e6%9d%bf%e6%a8%a3%e5%bc%8f" class="heading-mark"></a>2 模板樣式</h2><p>新建文件 <code>_friends.css</code></p>
 <div class="highlight" id="id-2"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -885,7 +885,7 @@ static/images/card-link-bg.jpg
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="友鏈頁面" class="heading-element">
-  <a href="#%e5%8f%8b%e9%8f%88%e9%a0%81%e9%9d%a2" class="heading-mark"></a>友鏈頁面</h2><div class="highlight" id="id-3"><div class="chroma">
+  <a href="#%e5%8f%8b%e9%8f%88%e9%a0%81%e9%9d%a2" class="heading-mark"></a>3 友鏈頁面</h2><div class="highlight" id="id-3"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
@@ -916,7 +916,7 @@ static/images/card-link-bg.jpg
 </div></li>
 </ol>
 <h2 id="數據" class="heading-element">
-  <a href="#%e6%95%b8%e6%93%9a" class="heading-mark"></a>數據</h2><p>新建數據文件 <code>data/friends.yml</code>, 數據格式為：</p>
+  <a href="#%e6%95%b8%e6%93%9a" class="heading-mark"></a>4 數據</h2><p>新建數據文件 <code>data/friends.yml</code>, 數據格式為：</p>
 <div class="highlight" id="id-5"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -939,7 +939,7 @@ static/images/card-link-bg.jpg
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l">不怕萬人阻擋，只怕自己投降</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="結語" class="heading-element">
-  <a href="#%e7%b5%90%e8%aa%9e" class="heading-mark"></a>結語</h2><blockquote>
+  <a href="#%e7%b5%90%e8%aa%9e" class="heading-mark"></a>5 結語</h2><blockquote>
 <p>這樣每次添加友鏈或者刪除友鏈衹要操作數據文件 <code>friends.yml</code> 就好，乾淨又衛生！<br>
 友鏈頁面 <code>content/friends/index.md</code> 繼承了基礎頁面的功能，內容評論等</p>
 </blockquote>]]></description></item><item><title>Hugo 本地管理 Shell 腳本</title><link>https://lruihao.cn/posts/hugo-admin/</link><pubDate>Mon, 04 Oct 2021 23:49:00 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/hugo-admin/</guid><description><![CDATA[<div class="featured-image"><img loading="eager" src="/posts/hugo-admin/images/hugo-admin1.png" alt="Hugo 本地管理 Shell 腳本" title="使用 Shell 腳本管理 Hugo 本地博客" referrerpolicy="no-referrer"/></div><div class="details admonition abstract open">
@@ -952,7 +952,7 @@ static/images/card-link-bg.jpg
     </div>
   </div>
 <h2 id="實現" class="heading-element">
-  <a href="#%e5%af%a6%e7%8f%be" class="heading-mark"></a>實現</h2><p>一共六個腳本，放在 <code>hugo-site/_localadmin/</code> 下</p>
+  <a href="#%e5%af%a6%e7%8f%be" class="heading-mark"></a>1 實現</h2><p>一共六個腳本，放在 <code>hugo-site/_localadmin/</code> 下</p>
 <pre><code>_localadmin/
   ├── auto_push.sh       # 自動化提交源碼
   ├── hugo_builder.sh    # 構建 hugo 命令
@@ -962,7 +962,7 @@ static/images/card-link-bg.jpg
   └── public_async.sh    # 同步 public 子模組
 </code></pre>
 <h3 id="post_generatorsh" class="heading-element">
-  <a href="#post_generatorsh" class="heading-mark"></a>post_generator.sh</h3><ol>
+  <a href="#post_generatorsh" class="heading-mark"></a>1.1 post_generator.sh</h3><ol>
 <li>輸入文章名稱（建議使用英文）</li>
 <li>文章是否會插入圖片等資源（默認：否）</li>
 </ol>
@@ -1000,7 +1000,7 @@ static/images/card-link-bg.jpg
 </span></span><span class="line"><span class="cl"><span class="k">fi</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="hugo_serversh" class="heading-element">
-  <a href="#hugo_serversh" class="heading-mark"></a>hugo_server.sh</h3><div class="highlight" id="id-2"><div class="chroma">
+  <a href="#hugo_serversh" class="heading-mark"></a>1.2 hugo_server.sh</h3><div class="highlight" id="id-2"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -1010,7 +1010,7 @@ static/images/card-link-bg.jpg
 </span></span><span class="line"><span class="cl">hugo server --disableFastRender</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="hugo_buildersh" class="heading-element">
-  <a href="#hugo_buildersh" class="heading-mark"></a>hugo_builder.sh</h3><div class="highlight" id="id-3"><div class="chroma">
+  <a href="#hugo_buildersh" class="heading-mark"></a>1.3 hugo_builder.sh</h3><div class="highlight" id="id-3"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -1020,7 +1020,7 @@ static/images/card-link-bg.jpg
 </span></span><span class="line"><span class="cl">hugo --minify</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="public_asyncsh" class="heading-element">
-  <a href="#public_asyncsh" class="heading-mark"></a>public_async.sh</h3><div class="highlight" id="id-4"><div class="chroma">
+  <a href="#public_asyncsh" class="heading-mark"></a>1.4 public_async.sh</h3><div class="highlight" id="id-4"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -1034,7 +1034,7 @@ static/images/card-link-bg.jpg
 </span></span><span class="line"><span class="cl">git commit -m <span class="s2">&#34;Feat: Update public module commit id&#34;</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="auto_pushsh" class="heading-element">
-  <a href="#auto_pushsh" class="heading-mark"></a>auto_push.sh</h3><p>不輸入 Git 提交訊息會使用腳本中默認訊息 <code>Docs: 『菠菜眾長』内容更新 YYYY-MM-DD week hh:mm::ss</code></p>
+  <a href="#auto_pushsh" class="heading-mark"></a>1.5 auto_push.sh</h3><p>不輸入 Git 提交訊息會使用腳本中默認訊息 <code>Docs: 『菠菜眾長』内容更新 YYYY-MM-DD week hh:mm::ss</code></p>
 <div class="highlight" id="id-5"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -1069,7 +1069,7 @@ static/images/card-link-bg.jpg
 </span></span><span class="line"><span class="cl">git push</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="hugo_mainsh" class="heading-element">
-  <a href="#hugo_mainsh" class="heading-mark"></a>hugo_main.sh</h3><blockquote>
+  <a href="#hugo_mainsh" class="heading-mark"></a>1.6 hugo_main.sh</h3><blockquote>
 <p>可單獨執行子腳本也可以通過主介面來選擇序號執行</p>
 </blockquote>
 <div class="highlight" id="id-6"><div class="chroma">
@@ -1154,7 +1154,7 @@ static/images/card-link-bg.jpg
 </span></span><span class="line"><span class="cl">sh hugo_main.sh</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="使用" class="heading-element">
-  <a href="#%e4%bd%bf%e7%94%a8" class="heading-mark"></a>使用</h2><ol>
+  <a href="#%e4%bd%bf%e7%94%a8" class="heading-mark"></a>2 使用</h2><ol>
 <li>將 <code>hugo_main.sh</code> 建立桌面快捷鍵</li>
 <li>雙擊 <code>hugo_main.sh</code> 進入根據提示使用即可</li>
 </ol>
@@ -1165,7 +1165,7 @@ static/images/card-link-bg.jpg
 <li>一個用於生成文章，部署文章等</li>
 </ul>
 </blockquote>
-<p><figure><a class="lightgallery" href="images/hugo-admin1.png?size=large" data-thumbnail="images/hugo-admin1.png?size=small" data-sub-html="<h2>Hugo Admin</h2><p>Hugo Admin</p>"><img loading="lazy" src="images/hugo-admin1.png" alt="Hugo Admin" srcset="images/hugo-admin1.png?size=small, images/hugo-admin1.png?size=medium 1.5x, images/hugo-admin1.png?size=large 2x" data-title="Hugo Admin" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a><figcaption class="image-caption">Hugo Admin</figcaption>
+<p><figure><a class="lightgallery" href="/posts/hugo-admin/images/hugo-admin1.png?size=large" data-thumbnail="/posts/hugo-admin/images/hugo-admin1.png?size=small" data-sub-html="<h2>Hugo Admin</h2><p>Hugo Admin</p>"><img loading="lazy" src="/posts/hugo-admin/images/hugo-admin1.png" alt="Hugo Admin" srcset="/posts/hugo-admin/images/hugo-admin1.png?size=small, /posts/hugo-admin/images/hugo-admin1.png?size=medium 1.5x, /posts/hugo-admin/images/hugo-admin1.png?size=large 2x" data-title="Hugo Admin" style="--width: 1520px;--aspect-ratio: 1520 / 582;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a><figcaption class="image-caption">Hugo Admin</figcaption>
   </figure></p>]]></description></item><item><title>Hugo 使用 GitHub Actions 部署到 GithHb Pages 和 腾讯云 cos 桶</title><link>https://lruihao.cn/posts/github-actions/</link><pubDate>Mon, 04 Oct 2021 23:46:49 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/github-actions/</guid><description><![CDATA[<div class="details admonition quote open">
     <div class="details-summary admonition-title">
       <i class="icon fa-solid fa-quote-right fa-fw" aria-hidden="true"></i>解決痛點<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i>
@@ -1176,7 +1176,7 @@ static/images/card-link-bg.jpg
     </div>
   </div>
 <h2 id="準備" class="heading-element">
-  <a href="#%e6%ba%96%e5%82%99" class="heading-mark"></a>準備</h2><p>工作流程涉及到兩個倉庫和一個 cos 桶，例如：</p>
+  <a href="#%e6%ba%96%e5%82%99" class="heading-mark"></a>1 準備</h2><p>工作流程涉及到兩個倉庫和一個 cos 桶，例如：</p>
 <blockquote>
 <ul>
 <li>Lruihao/hugo-blog # Blog source repository</li>
@@ -1185,8 +1185,8 @@ static/images/card-link-bg.jpg
 </ul>
 </blockquote>
 <h2 id="github-actions" class="heading-element">
-  <a href="#github-actions" class="heading-mark"></a>Github Actions</h2><h3 id="創建-workflows-任務" class="heading-element">
-  <a href="#%e5%89%b5%e5%bb%ba-workflows-%e4%bb%bb%e5%8b%99" class="heading-mark"></a>創建 workflows 任務</h3><p>創建 <code>hugo-site/.github/workflows/deploy.yml</code>, 這個文件會寫一些命令告訴 Github 在我們提交源碼的時候，它要幫我們做哪些事情。</p>
+  <a href="#github-actions" class="heading-mark"></a>2 Github Actions</h2><h3 id="創建-workflows-任務" class="heading-element">
+  <a href="#%e5%89%b5%e5%bb%ba-workflows-%e4%bb%bb%e5%8b%99" class="heading-mark"></a>2.1 創建 workflows 任務</h3><p>創建 <code>hugo-site/.github/workflows/deploy.yml</code>, 這個文件會寫一些命令告訴 Github 在我們提交源碼的時候，它要幫我們做哪些事情。</p>
 <div class="highlight" id="id-1"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -1267,7 +1267,7 @@ static/images/card-link-bg.jpg
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l">coscmd upload -r -s --delete -f public/ /</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="配置-github-pages-密鑰" class="heading-element">
-  <a href="#%e9%85%8d%e7%bd%ae-github-pages-%e5%af%86%e9%91%b0" class="heading-mark"></a>配置 Github Pages 密鑰</h3><ol>
+  <a href="#%e9%85%8d%e7%bd%ae-github-pages-%e5%af%86%e9%91%b0" class="heading-mark"></a>2.2 配置 Github Pages 密鑰</h3><ol>
 <li>
 <p>為了讓 Lruihao/hugo-blog 提交代碼后自動部署到 Lruihao/lruihao.github.io, 需要生成一對 ssh key.</p>
 <div class="highlight" id="id-2"><div class="chroma">
@@ -1292,7 +1292,7 @@ static/images/card-link-bg.jpg
 </li>
 </ol>
 <h3 id="配置-cos-密鑰" class="heading-element">
-  <a href="#%e9%85%8d%e7%bd%ae-cos-%e5%af%86%e9%91%b0" class="heading-mark"></a>配置 COS 密鑰</h3><p>打開 Lruihao/hugo-blog 倉庫的 settings, 再点击 Secrets, 然後添加 COS 桶的 <code>secret_id</code> 和 <code>secret_key</code>:</p>
+  <a href="#%e9%85%8d%e7%bd%ae-cos-%e5%af%86%e9%91%b0" class="heading-mark"></a>2.3 配置 COS 密鑰</h3><p>打開 Lruihao/hugo-blog 倉庫的 settings, 再点击 Secrets, 然後添加 COS 桶的 <code>secret_id</code> 和 <code>secret_key</code>:</p>
 <ul>
 <li>COS_SECRET_ID</li>
 <li>COS_SECRET_KEY</li>
@@ -1302,7 +1302,7 @@ static/images/card-link-bg.jpg
 打開 Lruihao/hugo-blog -&gt; Actions 可以看到構建過程和結果，構建失敗也會收到 Github 發給你的郵件。</p>
 </blockquote>
 <h2 id="cos-自動同步備用" class="heading-element">
-  <a href="#cos-%e8%87%aa%e5%8b%95%e5%90%8c%e6%ad%a5%e5%82%99%e7%94%a8" class="heading-mark"></a>COS 自動同步（備用）</h2><p>本小節內容和 Github Actions 無關，僅作為 COS 備用上傳方式。</p>
+  <a href="#cos-%e8%87%aa%e5%8b%95%e5%90%8c%e6%ad%a5%e5%82%99%e7%94%a8" class="heading-mark"></a>3 COS 自動同步（備用）</h2><p>本小節內容和 Github Actions 無關，僅作為 COS 備用上傳方式。</p>
 <ul>
 <li>COSBrowser</li>
 </ul>
@@ -1321,8 +1321,8 @@ static/images/card-link-bg.jpg
 <p>电脑升级 win 11 后，分盘操作存在 bug, 然后又不小心把装代码的盘格式化了，虽然都有备份到 github, 但是当时为了省事，hexo Node 安装的很多以来插件都没有备份，现在又下载不到了，所以 hexo 博客没办法完整复原，另外，早就觉得基于 Node 的 hexo 实在有些臃肿，且博客内容多了以后部署太慢，就干脆乘机换了好了，经过一段时间寻找，最终选择了基于 Go 的 hugo, 记录一下迁移过程及待办事项。</p>
 </blockquote>
 <h2 id="hugo-准备" class="heading-element">
-  <a href="#hugo-%e5%87%86%e5%a4%87" class="heading-mark"></a>Hugo 准备</h2><h3 id="概念" class="heading-element">
-  <a href="#%e6%a6%82%e5%bf%b5" class="heading-mark"></a>概念</h3><blockquote>
+  <a href="#hugo-%e5%87%86%e5%a4%87" class="heading-mark"></a>1 Hugo 准备</h2><h3 id="概念" class="heading-element">
+  <a href="#%e6%a6%82%e5%bf%b5" class="heading-mark"></a>1.1 概念</h3><blockquote>
 <p>Hugo is a fast and modern static site generator written in Go, and designed to make website creation fun again.</p>
 </blockquote>
 <p>那 hugo 基于编译语言 GO 构建，对于静态页面的构建肯定是碾压 hexo 的存在，其官方标语也是很直白 <code>&quot;The world’s fastest framework for building websites&quot;</code>, 作为先后使用过 hexo 和 hugo 的我来说，这确实名副其实。</p>
@@ -1330,11 +1330,11 @@ static/images/card-link-bg.jpg
 <li><a href="https://gohugo.io"target="_blank" rel="external nofollow noopener noreferrer">gohugo<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
 </ul>
 <h3 id="安装" class="heading-element">
-  <a href="#%e5%ae%89%e8%a3%85" class="heading-mark"></a>安装</h3><p>hugo 提供了很多种安装方式，Git, Docker, Binary.<br>
+  <a href="#%e5%ae%89%e8%a3%85" class="heading-mark"></a>1.2 安装</h3><p>hugo 提供了很多种安装方式，Git, Docker, Binary.<br>
 个人电脑使用二进制安装是最方便快捷的，无需安装其他依赖。<br>
 到 <a href="https://github.com/gohugoio/hugo/releases"target="_blank" rel="external nofollow noopener noreferrer">Hugo Releases<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 下载对应的 windows 操作系统版本的 Hugo 二进制文件，玩就要玩全的，所以我就选择了扩展版本，此次选择的最新版为 <code>hugo_extended_0.88.1_Windows-64bit.zip</code>, 然后自行解压安装即可。</p>
 <h3 id="生成站点" class="heading-element">
-  <a href="#%e7%94%9f%e6%88%90%e7%ab%99%e7%82%b9" class="heading-mark"></a>生成站点</h3><p>使用 Hugo 快速生成站点，比如希望生成到 <code>/path/to/site</code> 路径：</p>
+  <a href="#%e7%94%9f%e6%88%90%e7%ab%99%e7%82%b9" class="heading-mark"></a>1.3 生成站点</h3><p>使用 Hugo 快速生成站点，比如希望生成到 <code>/path/to/site</code> 路径：</p>
 <div class="highlight" id="id-1"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -1352,7 +1352,7 @@ static/images/card-link-bg.jpg
   config.toml    # 站点配置文件，相当于 hexo 的 _config.yml
 </code></pre>
 <h3 id="创建文章" class="heading-element">
-  <a href="#%e5%88%9b%e5%bb%ba%e6%96%87%e7%ab%a0" class="heading-mark"></a>创建文章</h3><p>注：路径要写以 <code>content/</code> 为根目录的相对路径</p>
+  <a href="#%e5%88%9b%e5%bb%ba%e6%96%87%e7%ab%a0" class="heading-mark"></a>1.4 创建文章</h3><p>注：路径要写以 <code>content/</code> 为根目录的相对路径</p>
 <div class="highlight" id="id-2"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -1361,7 +1361,7 @@ static/images/card-link-bg.jpg
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">hugo new path/fileName</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="添加主题" class="heading-element">
-  <a href="#%e6%b7%bb%e5%8a%a0%e4%b8%bb%e9%a2%98" class="heading-mark"></a>添加主题</h3><p>添加主题的方式选用 Git 子模组的形式，为了日后快速升级，避免在使用 hexo 中因大量魔改 next 主题而导致难以升级的困扰。<br>
+  <a href="#%e6%b7%bb%e5%8a%a0%e4%b8%bb%e9%a2%98" class="heading-mark"></a>1.5 添加主题</h3><p>添加主题的方式选用 Git 子模组的形式，为了日后快速升级，避免在使用 hexo 中因大量魔改 next 主题而导致难以升级的困扰。<br>
 精挑细选最终选择了 <del><a href="https://github.com/dillonzq/LoveIt"target="_blank" rel="external nofollow noopener noreferrer">LoveIt<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></del> =&gt; <a href="https://github.com/Lruihao/FixIt"target="_blank" rel="external nofollow noopener noreferrer">FixIt<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
 <div class="highlight" id="id-3"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1381,7 +1381,7 @@ static/images/card-link-bg.jpg
 <pre tabindex="0" class="chroma"><code class="language-toml" data-lang="toml"><span class="line"><span class="cl"><span class="nx">theme</span> <span class="p">=</span> <span class="s2">&#34;FixIt&#34;</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="在本地启动网站" class="heading-element">
-  <a href="#%e5%9c%a8%e6%9c%ac%e5%9c%b0%e5%90%af%e5%8a%a8%e7%bd%91%e7%ab%99" class="heading-mark"></a>在本地启动网站</h3><p>使用以下命令启动网站：</p>
+  <a href="#%e5%9c%a8%e6%9c%ac%e5%9c%b0%e5%90%af%e5%8a%a8%e7%bd%91%e7%ab%99" class="heading-mark"></a>1.6 在本地启动网站</h3><p>使用以下命令启动网站：</p>
 <div class="highlight" id="id-5"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -1391,7 +1391,7 @@ static/images/card-link-bg.jpg
 </div>
 </div><p>去查看 <code>http://localhost:1313</code></p>
 <h3 id="hugo-build" class="heading-element">
-  <a href="#hugo-build" class="heading-mark"></a>hugo build</h3><p>使用以下命令生成静态文件，然后自己可手动选择部署到 github pages 或 COS 等服务器</p>
+  <a href="#hugo-build" class="heading-mark"></a>1.7 hugo build</h3><p>使用以下命令生成静态文件，然后自己可手动选择部署到 github pages 或 COS 等服务器</p>
 <div class="highlight" id="id-6"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -1400,14 +1400,14 @@ static/images/card-link-bg.jpg
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">hugo --minify</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="写作指北" class="heading-element">
-  <a href="#%e5%86%99%e4%bd%9c%e6%8c%87%e5%8c%97" class="heading-mark"></a>写作指北</h2><ul>
+  <a href="#%e5%86%99%e4%bd%9c%e6%8c%87%e5%8c%97" class="heading-mark"></a>2 写作指北</h2><ul>
 <li><a href="https://fixit.lruihao.cn/zh-cn/theme-documentation-basics"target="_blank" rel="external nofollow noopener noreferrer">FixIt 主题文档 - 基本概念<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
 <li><a href="https://fixit.lruihao.cn/zh-cn/theme-documentation-content/"target="_blank" rel="external nofollow noopener noreferrer">FixIt 主题文档 - 内容<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
 <li><a href="https://fixit.lruihao.cn/zh-cn/theme-documentation-built-in-shortcodes/"target="_blank" rel="external nofollow noopener noreferrer">FixIt 主题文档 - 内置 Shortcodes<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
 <li><a href="https://fixit.lruihao.cn/zh-cn/theme-documentation-extended-shortcodes/"target="_blank" rel="external nofollow noopener noreferrer">FixIt 主题文档 - 扩展 Shortcodes<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
 </ul>
 <h2 id="todo-list" class="heading-element">
-  <a href="#todo-list" class="heading-mark"></a>Todo list</h2><!-- markdownlint-disable MD034 -->
+  <a href="#todo-list" class="heading-mark"></a>3 Todo list</h2><!-- markdownlint-disable MD034 -->
 <a href="https://github.com/Lruihao/hugo-blog"target="_blank" rel="external nofollow noopener noreferrer" class="card-link"><span class="cl-backdrop" style="--cl-bg-url: url(/images/fixit.min.svg);"></span>
     <span class="cl-content">
       <span class="cl-text">
@@ -1421,7 +1421,7 @@ static/images/card-link-bg.jpg
 <p>原来 hexo 做了大量的美化和扩展功能，迁移到 hugo 想尽可能多的保留。取之精华，去其糟粕。</p>
 </blockquote>
 <h3 id="base" class="heading-element">
-  <a href="#base" class="heading-mark"></a>Base</h3><!-- markdownlint-disable MD033 -->
+  <a href="#base" class="heading-mark"></a>3.1 Base</h3><!-- markdownlint-disable MD033 -->
 <ul>
 <li>
 <p><i class="fa-regular fa-check-square fa-fw" aria-hidden="true"></i> 迁移 hexo 所有文章内容</p>
@@ -1506,7 +1506,7 @@ static/images/card-link-bg.jpg
 </blockquote>
 <hr>
 <h3 id="theme-fixit" class="heading-element">
-  <a href="#theme-fixit" class="heading-mark"></a>Theme FixIt</h3><blockquote>
+  <a href="#theme-fixit" class="heading-mark"></a>3.2 Theme FixIt</h3><blockquote>
 <p><del>hugo LoveIt 主题整体优化，必要时建 PR 或 issue 到 LoveIt 仓库</del> (LoveIt 已停更一年多）<br>
 <del>先把自己发现和 LoveIt 原 repo 的 issue 尽可能的修复，修改的原则是：<strong>不改动原项目代码</strong>，</del><br>
 <del>唯一途径就是在站点相同的目录用<strong>新增</strong>的方式替代<strong>修改、删除</strong>操作。</del><br>
@@ -1537,19 +1537,19 @@ static/images/card-link-bg.jpg
 适用于 hexo, hugo 等静态博客的部署。</p>
 </blockquote>
 <h2 id="创建存储桶" class="heading-element">
-  <a href="#%e5%88%9b%e5%bb%ba%e5%ad%98%e5%82%a8%e6%a1%b6" class="heading-mark"></a>创建存储桶</h2><p>打开腾讯云控制台&ndash;云产品&ndash;存储&ndash;对象存储，然后创建存储桶。<br>
-<img loading="lazy" src="images/1.png" alt="images/1.png" srcset="images/1.png?size=small, images/1.png?size=medium 1.5x, images/1.png?size=large 2x" data-title="images/1.png" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+  <a href="#%e5%88%9b%e5%bb%ba%e5%ad%98%e5%82%a8%e6%a1%b6" class="heading-mark"></a>1 创建存储桶</h2><p>打开腾讯云控制台&ndash;云产品&ndash;存储&ndash;对象存储，然后创建存储桶。<br>
+<a class="lightgallery" href="/posts/cos-hexo/images/1.png?size=large" data-thumbnail="/posts/cos-hexo/images/1.png?size=small" data-sub-html="<h2>/posts/cos-hexo/images/1.png</h2>"><img loading="lazy" src="/posts/cos-hexo/images/1.png" alt="/posts/cos-hexo/images/1.png" srcset="/posts/cos-hexo/images/1.png?size=small, /posts/cos-hexo/images/1.png?size=medium 1.5x, /posts/cos-hexo/images/1.png?size=large 2x" data-title="/posts/cos-hexo/images/1.png" style="--width: 911px;--aspect-ratio: 911 / 548;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></p>
 <h2 id="开启静态网站设置" class="heading-element">
-  <a href="#%e5%bc%80%e5%90%af%e9%9d%99%e6%80%81%e7%bd%91%e7%ab%99%e8%ae%be%e7%bd%ae" class="heading-mark"></a>开启静态网站设置</h2><p>在基础配置打开静态网站（关掉强制 https)<br>
-<img loading="lazy" src="images/2.png" alt="images/2.png" srcset="images/2.png?size=small, images/2.png?size=medium 1.5x, images/2.png?size=large 2x" data-title="images/2.png" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+  <a href="#%e5%bc%80%e5%90%af%e9%9d%99%e6%80%81%e7%bd%91%e7%ab%99%e8%ae%be%e7%bd%ae" class="heading-mark"></a>2 开启静态网站设置</h2><p>在基础配置打开静态网站（关掉强制 https)<br>
+<a class="lightgallery" href="/posts/cos-hexo/images/2.png?size=large" data-thumbnail="/posts/cos-hexo/images/2.png?size=small" data-sub-html="<h2>/posts/cos-hexo/images/2.png</h2>"><img loading="lazy" src="/posts/cos-hexo/images/2.png" alt="/posts/cos-hexo/images/2.png" srcset="/posts/cos-hexo/images/2.png?size=small, /posts/cos-hexo/images/2.png?size=medium 1.5x, /posts/cos-hexo/images/2.png?size=large 2x" data-title="/posts/cos-hexo/images/2.png" style="--width: 683px;--aspect-ratio: 683 / 455;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></p>
 <h2 id="绑定域名" class="heading-element">
-  <a href="#%e7%bb%91%e5%ae%9a%e5%9f%9f%e5%90%8d" class="heading-mark"></a>绑定域名</h2><p><img loading="lazy" src="images/3.png" alt="images/3.png" srcset="images/3.png?size=small, images/3.png?size=medium 1.5x, images/3.png?size=large 2x" data-title="images/3.png" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+  <a href="#%e7%bb%91%e5%ae%9a%e5%9f%9f%e5%90%8d" class="heading-mark"></a>3 绑定域名</h2><p><a class="lightgallery" href="/posts/cos-hexo/images/3.png?size=large" data-thumbnail="/posts/cos-hexo/images/3.png?size=small" data-sub-html="<h2>/posts/cos-hexo/images/3.png</h2>"><img loading="lazy" src="/posts/cos-hexo/images/3.png" alt="/posts/cos-hexo/images/3.png" srcset="/posts/cos-hexo/images/3.png?size=small, /posts/cos-hexo/images/3.png?size=medium 1.5x, /posts/cos-hexo/images/3.png?size=large 2x" data-title="/posts/cos-hexo/images/3.png" style="--width: 1647px;--aspect-ratio: 1647 / 551;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></p>
 <p>SSL 设置<br>
-<img loading="lazy" src="images/4.png" alt="images/4.png" srcset="images/4.png?size=small, images/4.png?size=medium 1.5x, images/4.png?size=large 2x" data-title="images/4.png" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+<a class="lightgallery" href="/posts/cos-hexo/images/4.png?size=large" data-thumbnail="/posts/cos-hexo/images/4.png?size=small" data-sub-html="<h2>/posts/cos-hexo/images/4.png</h2>"><img loading="lazy" src="/posts/cos-hexo/images/4.png" alt="/posts/cos-hexo/images/4.png" srcset="/posts/cos-hexo/images/4.png?size=small, /posts/cos-hexo/images/4.png?size=medium 1.5x, /posts/cos-hexo/images/4.png?size=large 2x" data-title="/posts/cos-hexo/images/4.png" style="--width: 1500px;--aspect-ratio: 1500 / 459;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></p>
 <h2 id="域名解析添加记录" class="heading-element">
-  <a href="#%e5%9f%9f%e5%90%8d%e8%a7%a3%e6%9e%90%e6%b7%bb%e5%8a%a0%e8%ae%b0%e5%bd%95" class="heading-mark"></a>域名解析，添加记录</h2><p>去 dns 服务商添加域名解析记录 CNAME 指向上面的域名</p>
+  <a href="#%e5%9f%9f%e5%90%8d%e8%a7%a3%e6%9e%90%e6%b7%bb%e5%8a%a0%e8%ae%b0%e5%bd%95" class="heading-mark"></a>4 域名解析，添加记录</h2><p>去 dns 服务商添加域名解析记录 CNAME 指向上面的域名</p>
 <h2 id="hexo-设置" class="heading-element">
-  <a href="#hexo-%e8%ae%be%e7%bd%ae" class="heading-mark"></a>hexo 设置</h2><ul>
+  <a href="#hexo-%e8%ae%be%e7%bd%ae" class="heading-mark"></a>5 hexo 设置</h2><ul>
 <li>安装插件</li>
 </ul>
 <div class="highlight" id="id-1"><div class="chroma">
@@ -1594,9 +1594,9 @@ static/images/card-link-bg.jpg
 </span></span><span class="line"><span class="cl">hexo g -d</span></span></code></pre></td></tr></table>
 </div>
 </div><p>结果类似于<br>
-<img loading="lazy" src="images/5.png" alt="images/5.png" srcset="images/5.png?size=small, images/5.png?size=medium 1.5x, images/5.png?size=large 2x" data-title="images/5.png" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+<a class="lightgallery" href="/posts/cos-hexo/images/5.png?size=large" data-thumbnail="/posts/cos-hexo/images/5.png?size=small" data-sub-html="<h2>/posts/cos-hexo/images/5.png</h2>"><img loading="lazy" src="/posts/cos-hexo/images/5.png" alt="/posts/cos-hexo/images/5.png" srcset="/posts/cos-hexo/images/5.png?size=small, /posts/cos-hexo/images/5.png?size=medium 1.5x, /posts/cos-hexo/images/5.png?size=large 2x" data-title="/posts/cos-hexo/images/5.png" style="--width: 745px;--aspect-ratio: 745 / 449;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></p>
 <h2 id="cdn-刷新" class="heading-element">
-  <a href="#cdn-%e5%88%b7%e6%96%b0" class="heading-mark"></a>CDN 刷新</h2><p>每次更新博客内容完后，都要登陆腾讯云 CDN&ndash;缓存刷新，手动刷新一下 CDN。</p>
+  <a href="#cdn-%e5%88%b7%e6%96%b0" class="heading-mark"></a>6 CDN 刷新</h2><p>每次更新博客内容完后，都要登陆腾讯云 CDN&ndash;缓存刷新，手动刷新一下 CDN。</p>
 <p>用脚本在每次更新后刷新</p>
 <ul>
 <li>安装</li>
@@ -1649,7 +1649,7 @@ static/images/card-link-bg.jpg
 </span></span><span class="line"><span class="cl"><span class="p">);</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="自动-cdn-刷新配置推荐" class="heading-element">
-  <a href="#%e8%87%aa%e5%8a%a8-cdn-%e5%88%b7%e6%96%b0%e9%85%8d%e7%bd%ae%e6%8e%a8%e8%8d%90" class="heading-mark"></a>自动 CDN 刷新配置（推荐）</h2><ol>
+  <a href="#%e8%87%aa%e5%8a%a8-cdn-%e5%88%b7%e6%96%b0%e9%85%8d%e7%bd%ae%e6%8e%a8%e8%8d%90" class="heading-mark"></a>7 自动 CDN 刷新配置（推荐）</h2><ol>
 <li>进入腾讯云，找到 函数计算 -&gt; CDN 缓存刷新函数 -&gt; 创建 CDN 缓存刷新函数</li>
 <li>修改 <code>index.js</code> 内容后重新部署</li>
 </ol>

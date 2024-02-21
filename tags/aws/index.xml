@@ -1,7 +1,7 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>AWS - 标签 | 菠菜眾長</title><link>https://lruihao.cn/tags/aws/</link><description>AWS - 标签 | 菠菜眾長</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><copyright>本站内容采用 CC BY-NC-SA 4.0 国际许可协议。</copyright><lastBuildDate>Fri, 22 Dec 2023 19:58:47 +0800</lastBuildDate><atom:link href="https://lruihao.cn/tags/aws/" rel="self" type="application/rss+xml"/><item><title>尝试在 Python 中使用 Amazon Titan 文本模型</title><link>https://lruihao.cn/posts/d8ae205/</link><pubDate>Fri, 22 Dec 2023 19:58:47 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/d8ae205/</guid><description><![CDATA[<!-- markdownlint-disable-file no-duplicate-heading-->
 <p>本文将通过 Python 代码探索 Amazon Titan 文本模型系列（包括 Express、Lite 和 Embedding）。</p>
 <h2 id="认识-amazon-titan" class="heading-element">
-  <a href="#%e8%ae%a4%e8%af%86-amazon-titan" class="heading-mark"></a>认识 Amazon Titan</h2><p><a href="https://aws.amazon.com/cn/bedrock/titan/"target="_blank" rel="external nofollow noopener noreferrer">Amazon Titan<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 是来自亚马逊云科技的高性能基础模型。<a href="https://aws.amazon.com/cn/bedrock/"target="_blank" rel="external nofollow noopener noreferrer">Amazon Bedrock<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 独有的 Amazon Titan 系列模型融合了 Amazon 25 年来，在其业务范围内积累的人工智能和机器学习创新的经验。Amazon Titan 基础模型（FM）通过完全托管的 API 为客户提供广泛的高性能图像、多模式和文本模型选择。Amazon Titan 模型由 AWS 创建并在大型数据集上进行预训练，使其成为强大的通用模型，旨在支持各种用例，同时还支持负责任地使用 AI。你可以按原样使用，也可以根据自己的数据私下进行自定义。</p>
+  <a href="#%e8%ae%a4%e8%af%86-amazon-titan" class="heading-mark"></a>1 认识 Amazon Titan</h2><p><a href="https://aws.amazon.com/cn/bedrock/titan/"target="_blank" rel="external nofollow noopener noreferrer">Amazon Titan<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 是来自亚马逊云科技的高性能基础模型。<a href="https://aws.amazon.com/cn/bedrock/"target="_blank" rel="external nofollow noopener noreferrer">Amazon Bedrock<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 独有的 Amazon Titan 系列模型融合了 Amazon 25 年来，在其业务范围内积累的人工智能和机器学习创新的经验。Amazon Titan 基础模型（FM）通过完全托管的 API 为客户提供广泛的高性能图像、多模式和文本模型选择。Amazon Titan 模型由 AWS 创建并在大型数据集上进行预训练，使其成为强大的通用模型，旨在支持各种用例，同时还支持负责任地使用 AI。你可以按原样使用，也可以根据自己的数据私下进行自定义。</p>
 <p>Amazon Titan 文本模型系列包括：</p>
 <ul>
 <li>Titan Text Express</li>
@@ -13,9 +13,9 @@
 <p>本文主要探索 Express、Lite 和 Embeddings。更多细节和其他模型请访问 <a href="https://aws.amazon.com/cn/bedrock/titan/"target="_blank" rel="external nofollow noopener noreferrer">Amazon Titan 文本模型系列<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>。</p>
 <p>如果你还没有注册亚马逊云科技账户，可以参考本文最后一节 <a href="#register-aws">注册亚马逊云科技账户</a>。</p>
 <h2 id="环境准备" class="heading-element">
-  <a href="#%e7%8e%af%e5%a2%83%e5%87%86%e5%a4%87" class="heading-mark"></a>环境准备</h2><p>我正在使用配置了 AWS Credential 的 vscode 本地环境。</p>
+  <a href="#%e7%8e%af%e5%a2%83%e5%87%86%e5%a4%87" class="heading-mark"></a>2 环境准备</h2><p>我正在使用配置了 AWS Credential 的 vscode 本地环境。</p>
 <h3 id="安装最新的-python" class="heading-element">
-  <a href="#%e5%ae%89%e8%a3%85%e6%9c%80%e6%96%b0%e7%9a%84-python" class="heading-mark"></a>安装最新的 Python</h3><div class="highlight" id="id-1"><div class="chroma">
+  <a href="#%e5%ae%89%e8%a3%85%e6%9c%80%e6%96%b0%e7%9a%84-python" class="heading-mark"></a>2.1 安装最新的 Python</h3><div class="highlight" id="id-1"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -25,7 +25,7 @@
 </span></span><span class="line"><span class="cl"><span class="c1"># Python 3.11.5</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="升级-pip" class="heading-element">
-  <a href="#%e5%8d%87%e7%ba%a7-pip" class="heading-mark"></a>升级 pip</h3><div class="highlight" id="id-2"><div class="chroma">
+  <a href="#%e5%8d%87%e7%ba%a7-pip" class="heading-mark"></a>2.2 升级 pip</h3><div class="highlight" id="id-2"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
@@ -33,7 +33,7 @@
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">pip install --upgrade pip</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="安装依赖" class="heading-element">
-  <a href="#%e5%ae%89%e8%a3%85%e4%be%9d%e8%b5%96" class="heading-mark"></a>安装依赖</h3><div class="highlight" id="id-3"><div class="chroma">
+  <a href="#%e5%ae%89%e8%a3%85%e4%be%9d%e8%b5%96" class="heading-mark"></a>2.3 安装依赖</h3><div class="highlight" id="id-3"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -47,7 +47,7 @@
 </span></span></span><span class="line"><span class="cl"><span class="se"></span>    <span class="s2">&#34;botocore&gt;=1.33.6&#34;</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="加载库" class="heading-element">
-  <a href="#%e5%8a%a0%e8%bd%bd%e5%ba%93" class="heading-mark"></a>加载库</h3><div class="highlight" id="id-4"><div class="chroma">
+  <a href="#%e5%8a%a0%e8%bd%bd%e5%ba%93" class="heading-mark"></a>2.4 加载库</h3><div class="highlight" id="id-4"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -71,8 +71,8 @@
 </span></span><span class="line"><span class="cl"><span class="n">bedrock_runtime</span> <span class="o">=</span> <span class="n">boto3</span><span class="o">.</span><span class="n">client</span><span class="p">(</span><span class="n">service_name</span><span class="o">=</span><span class="s2">&#34;bedrock-runtime&#34;</span><span class="p">)</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="express" class="heading-element">
-  <a href="#express" class="heading-mark"></a>Titan 文本模型 - Express</h2><h3 id="设置-prompt" class="heading-element">
-  <a href="#%e8%ae%be%e7%bd%ae-prompt" class="heading-mark"></a>设置 Prompt</h3><div class="highlight" id="id-5"><div class="chroma">
+  <a href="#express" class="heading-mark"></a>3 Titan 文本模型 - Express</h2><h3 id="设置-prompt" class="heading-element">
+  <a href="#%e8%ae%be%e7%bd%ae-prompt" class="heading-mark"></a>3.1 设置 Prompt</h3><div class="highlight" id="id-5"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -82,7 +82,7 @@
 </span></span><span class="line"><span class="cl"><span class="n">express_prompt</span> <span class="o">=</span> <span class="s2">&#34;write article about AWS Lambda&#34;</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="配置模型" class="heading-element">
-  <a href="#%e9%85%8d%e7%bd%ae%e6%a8%a1%e5%9e%8b" class="heading-mark"></a>配置模型</h3><div class="highlight" id="id-6"><div class="chroma">
+  <a href="#%e9%85%8d%e7%bd%ae%e6%a8%a1%e5%9e%8b" class="heading-mark"></a>3.2 配置模型</h3><div class="highlight" id="id-6"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -106,7 +106,7 @@
 </span></span><span class="line"><span class="cl"><span class="p">})</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="调用模型" class="heading-element">
-  <a href="#%e8%b0%83%e7%94%a8%e6%a8%a1%e5%9e%8b" class="heading-mark"></a>调用模型</h3><div class="highlight" id="id-7"><div class="chroma">
+  <a href="#%e8%b0%83%e7%94%a8%e6%a8%a1%e5%9e%8b" class="heading-mark"></a>3.3 调用模型</h3><div class="highlight" id="id-7"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -124,7 +124,7 @@
 </span></span><span class="line"><span class="cl"><span class="p">)</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="解析配置" class="heading-element">
-  <a href="#%e8%a7%a3%e6%9e%90%e9%85%8d%e7%bd%ae" class="heading-mark"></a>解析配置</h3><div class="highlight" id="id-8"><div class="chroma">
+  <a href="#%e8%a7%a3%e6%9e%90%e9%85%8d%e7%bd%ae" class="heading-mark"></a>3.4 解析配置</h3><div class="highlight" id="id-8"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -144,7 +144,7 @@
 </span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">about_lambda</span><span class="p">)</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="运行结果" class="heading-element">
-  <a href="#%e8%bf%90%e8%a1%8c%e7%bb%93%e6%9e%9c" class="heading-mark"></a>运行结果</h3><div class="highlight" id="id-9"><div class="chroma">
+  <a href="#%e8%bf%90%e8%a1%8c%e7%bb%93%e6%9e%9c" class="heading-mark"></a>3.5 运行结果</h3><div class="highlight" id="id-9"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -160,8 +160,8 @@
 </span></span><span class="line"><span class="cl">Serverless Computing: AWS Lambda is a serverless computing service, which means that developers do not have to worry about managing servers, operating systems, or infrastructure. Lambda runs the code in an environment that is managed by AWS, and scales automatically based</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="lite" class="heading-element">
-  <a href="#lite" class="heading-mark"></a>Titan 文本模型 - Lite</h2><h3 id="设置-prompt-1" class="heading-element">
-  <a href="#%e8%ae%be%e7%bd%ae-prompt-1" class="heading-mark"></a>设置 Prompt</h3><div class="highlight" id="id-10"><div class="chroma">
+  <a href="#lite" class="heading-mark"></a>4 Titan 文本模型 - Lite</h2><h3 id="设置-prompt-1" class="heading-element">
+  <a href="#%e8%ae%be%e7%bd%ae-prompt-1" class="heading-mark"></a>4.1 设置 Prompt</h3><div class="highlight" id="id-10"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -171,7 +171,7 @@
 </span></span><span class="line"><span class="cl"><span class="n">lite_prompt</span> <span class="o">=</span> <span class="s2">&#34;2 difference between AWS DynamoDB and AWS Redis&#34;</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="配置模型-1" class="heading-element">
-  <a href="#%e9%85%8d%e7%bd%ae%e6%a8%a1%e5%9e%8b-1" class="heading-mark"></a>配置模型</h3><div class="highlight" id="id-11"><div class="chroma">
+  <a href="#%e9%85%8d%e7%bd%ae%e6%a8%a1%e5%9e%8b-1" class="heading-mark"></a>4.2 配置模型</h3><div class="highlight" id="id-11"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -195,7 +195,7 @@
 </span></span><span class="line"><span class="cl"><span class="p">})</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="调用模型-1" class="heading-element">
-  <a href="#%e8%b0%83%e7%94%a8%e6%a8%a1%e5%9e%8b-1" class="heading-mark"></a>调用模型</h3><div class="highlight" id="id-12"><div class="chroma">
+  <a href="#%e8%b0%83%e7%94%a8%e6%a8%a1%e5%9e%8b-1" class="heading-mark"></a>4.3 调用模型</h3><div class="highlight" id="id-12"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -213,7 +213,7 @@
 </span></span><span class="line"><span class="cl"><span class="p">)</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="解析配置-1" class="heading-element">
-  <a href="#%e8%a7%a3%e6%9e%90%e9%85%8d%e7%bd%ae-1" class="heading-mark"></a>解析配置</h3><div class="highlight" id="id-13"><div class="chroma">
+  <a href="#%e8%a7%a3%e6%9e%90%e9%85%8d%e7%bd%ae-1" class="heading-mark"></a>4.4 解析配置</h3><div class="highlight" id="id-13"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -229,7 +229,7 @@
 </span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">compare_dynamodb_redis</span><span class="p">)</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="运行结果-1" class="heading-element">
-  <a href="#%e8%bf%90%e8%a1%8c%e7%bb%93%e6%9e%9c-1" class="heading-mark"></a>运行结果</h3><div class="highlight" id="id-14"><div class="chroma">
+  <a href="#%e8%bf%90%e8%a1%8c%e7%bb%93%e6%9e%9c-1" class="heading-mark"></a>4.5 运行结果</h3><div class="highlight" id="id-14"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
@@ -237,8 +237,8 @@
 <pre tabindex="0" class="chroma"><code class="language-plain" data-lang="plain"><span class="line"><span class="cl">Amazon DynamoDB is a fully managed NoSQL database service in the cloud that offers fast and predictable performance with seamless scalability. It is designed to run high-performance applications at any scale. On the other hand, Amazon Redis is a fully managed in-memory data structure store that provides real-time analytics, caching, and key-value data storage. It is suitable for applications that require fast data retrieval and low latency.</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="embeddings" class="heading-element">
-  <a href="#embeddings" class="heading-mark"></a>Titan 文本模型 - Embeddings</h2><h3 id="设置-prompt-2" class="heading-element">
-  <a href="#%e8%ae%be%e7%bd%ae-prompt-2" class="heading-mark"></a>设置 Prompt</h3><div class="highlight" id="id-15"><div class="chroma">
+  <a href="#embeddings" class="heading-mark"></a>5 Titan 文本模型 - Embeddings</h2><h3 id="设置-prompt-2" class="heading-element">
+  <a href="#%e8%ae%be%e7%bd%ae-prompt-2" class="heading-mark"></a>5.1 设置 Prompt</h3><div class="highlight" id="id-15"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -248,7 +248,7 @@
 </span></span><span class="line"><span class="cl"><span class="n">embed_prompt</span> <span class="o">=</span> <span class="s2">&#34;AWS re:Invent 2023, our biggest cloud event of the year, in Las Vegas, Nevada, featured keynotes, innovation talks, builder labs, workshops, tech and sustainability demos&#34;</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="配置模型-2" class="heading-element">
-  <a href="#%e9%85%8d%e7%bd%ae%e6%a8%a1%e5%9e%8b-2" class="heading-mark"></a>配置模型</h3><div class="highlight" id="id-16"><div class="chroma">
+  <a href="#%e9%85%8d%e7%bd%ae%e6%a8%a1%e5%9e%8b-2" class="heading-mark"></a>5.2 配置模型</h3><div class="highlight" id="id-16"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -260,7 +260,7 @@
 </span></span><span class="line"><span class="cl"><span class="p">})</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="调用模型-2" class="heading-element">
-  <a href="#%e8%b0%83%e7%94%a8%e6%a8%a1%e5%9e%8b-2" class="heading-mark"></a>调用模型</h3><div class="highlight" id="id-17"><div class="chroma">
+  <a href="#%e8%b0%83%e7%94%a8%e6%a8%a1%e5%9e%8b-2" class="heading-mark"></a>5.3 调用模型</h3><div class="highlight" id="id-17"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -278,7 +278,7 @@
 </span></span><span class="line"><span class="cl"><span class="p">)</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="解析配置-2" class="heading-element">
-  <a href="#%e8%a7%a3%e6%9e%90%e9%85%8d%e7%bd%ae-2" class="heading-mark"></a>解析配置</h3><div class="highlight" id="id-18"><div class="chroma">
+  <a href="#%e8%a7%a3%e6%9e%90%e9%85%8d%e7%bd%ae-2" class="heading-mark"></a>5.4 解析配置</h3><div class="highlight" id="id-18"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -294,7 +294,7 @@
 </span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;You can find the Embedding Vector </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">embedding_output</span><span class="p">)</span><span class="si">}</span><span class="s2"> values</span><span class="se">\n</span><span class="si">{</span><span class="n">embedding_output</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span><span class="o">+</span><span class="p">[</span><span class="s1">&#39;...&#39;</span><span class="p">]</span><span class="o">+</span><span class="n">embedding_output</span><span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">:]</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="运行结果-2" class="heading-element">
-  <a href="#%e8%bf%90%e8%a1%8c%e7%bb%93%e6%9e%9c-2" class="heading-mark"></a>运行结果</h3><div class="highlight" id="id-19"><div class="chroma">
+  <a href="#%e8%bf%90%e8%a1%8c%e7%bb%93%e6%9e%9c-2" class="heading-mark"></a>5.5 运行结果</h3><div class="highlight" id="id-19"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -304,29 +304,29 @@
 </span></span><span class="line"><span class="cl">[0.40429688, -0.38085938, 0.19726562, &#39;...&#39;, 0.2109375, 0.012573242, 0.18847656]</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="register-aws" class="heading-element">
-  <a href="#register-aws" class="heading-mark"></a>注册亚马逊云科技账户</h2><p>打开 <a href="https://aws.amazon.com/cn/q/?sc_channel=seo&amp;sc_campaign=blog1210"target="_blank" rel="external nofollow noopener noreferrer">亚马逊云科技账号注册地址<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>，点击右上角创建 AWS 账户。</p>
-<p><img loading="lazy" src="../aws-ec2/images/23_1693042834.png" alt="创建 AWS 账户" srcset="../aws-ec2/images/23_1693042834.png?size=small, ../aws-ec2/images/23_1693042834.png?size=medium 1.5x, ../aws-ec2/images/23_1693042834.png?size=large 2x" data-title="创建 AWS 账户" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+  <a href="#register-aws" class="heading-mark"></a>6 注册亚马逊云科技账户</h2><p>打开 <a href="https://aws.amazon.com/cn/q/?sc_channel=seo&amp;sc_campaign=blog1210"target="_blank" rel="external nofollow noopener noreferrer">亚马逊云科技账号注册地址<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>，点击右上角创建 AWS 账户。</p>
+<p><a class="lightgallery" href="../aws-ec2/images/23_1693042834.png?size=large" data-thumbnail="../aws-ec2/images/23_1693042834.png?size=small" data-sub-html="<h2>创建 AWS 账户</h2>"><img loading="lazy" src="../aws-ec2/images/23_1693042834.png" alt="创建 AWS 账户" srcset="../aws-ec2/images/23_1693042834.png?size=small, ../aws-ec2/images/23_1693042834.png?size=medium 1.5x, ../aws-ec2/images/23_1693042834.png?size=large 2x" data-title="创建 AWS 账户" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></p>
 <ol>
 <li>填写邮件地址和账号名称（支持使用国内的邮箱）
-<img loading="lazy" src="../aws-ec2/images/23_1693043425.png" alt="login" srcset="../aws-ec2/images/23_1693043425.png?size=small, ../aws-ec2/images/23_1693043425.png?size=medium 1.5x, ../aws-ec2/images/23_1693043425.png?size=large 2x" data-title="login" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></li>
+<a class="lightgallery" href="../aws-ec2/images/23_1693043425.png?size=large" data-thumbnail="../aws-ec2/images/23_1693043425.png?size=small" data-sub-html="<h2>login</h2>"><img loading="lazy" src="../aws-ec2/images/23_1693043425.png" alt="login" srcset="../aws-ec2/images/23_1693043425.png?size=small, ../aws-ec2/images/23_1693043425.png?size=medium 1.5x, ../aws-ec2/images/23_1693043425.png?size=large 2x" data-title="login" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></li>
 <li>验证邮件
-<img loading="lazy" src="../aws-ec2/images/23_1693043626.png" alt="valid" srcset="../aws-ec2/images/23_1693043626.png?size=small, ../aws-ec2/images/23_1693043626.png?size=medium 1.5x, ../aws-ec2/images/23_1693043626.png?size=large 2x" data-title="valid" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></li>
+<a class="lightgallery" href="../aws-ec2/images/23_1693043626.png?size=large" data-thumbnail="../aws-ec2/images/23_1693043626.png?size=small" data-sub-html="<h2>valid</h2>"><img loading="lazy" src="../aws-ec2/images/23_1693043626.png" alt="valid" srcset="../aws-ec2/images/23_1693043626.png?size=small, ../aws-ec2/images/23_1693043626.png?size=medium 1.5x, ../aws-ec2/images/23_1693043626.png?size=large 2x" data-title="valid" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></li>
 <li>输入密码
-<img loading="lazy" src="../aws-ec2/images/23_1693043910.png" alt="password" srcset="../aws-ec2/images/23_1693043910.png?size=small, ../aws-ec2/images/23_1693043910.png?size=medium 1.5x, ../aws-ec2/images/23_1693043910.png?size=large 2x" data-title="password" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></li>
+<a class="lightgallery" href="../aws-ec2/images/23_1693043910.png?size=large" data-thumbnail="../aws-ec2/images/23_1693043910.png?size=small" data-sub-html="<h2>password</h2>"><img loading="lazy" src="../aws-ec2/images/23_1693043910.png" alt="password" srcset="../aws-ec2/images/23_1693043910.png?size=small, ../aws-ec2/images/23_1693043910.png?size=medium 1.5x, ../aws-ec2/images/23_1693043910.png?size=large 2x" data-title="password" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></li>
 <li>联系人信息
-<img loading="lazy" src="../aws-ec2/images/23_1693044220.png" alt="contact" srcset="../aws-ec2/images/23_1693044220.png?size=small, ../aws-ec2/images/23_1693044220.png?size=medium 1.5x, ../aws-ec2/images/23_1693044220.png?size=large 2x" data-title="contact" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></li>
+<a class="lightgallery" href="../aws-ec2/images/23_1693044220.png?size=large" data-thumbnail="../aws-ec2/images/23_1693044220.png?size=small" data-sub-html="<h2>contact</h2>"><img loading="lazy" src="../aws-ec2/images/23_1693044220.png" alt="contact" srcset="../aws-ec2/images/23_1693044220.png?size=small, ../aws-ec2/images/23_1693044220.png?size=medium 1.5x, ../aws-ec2/images/23_1693044220.png?size=large 2x" data-title="contact" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></li>
 <li>付款信息（Visa）
-<img loading="lazy" src="../aws-ec2/images/23_1693044537.png" alt="payment" srcset="../aws-ec2/images/23_1693044537.png?size=small, ../aws-ec2/images/23_1693044537.png?size=medium 1.5x, ../aws-ec2/images/23_1693044537.png?size=large 2x" data-title="payment" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></li>
+<a class="lightgallery" href="../aws-ec2/images/23_1693044537.png?size=large" data-thumbnail="../aws-ec2/images/23_1693044537.png?size=small" data-sub-html="<h2>payment</h2>"><img loading="lazy" src="../aws-ec2/images/23_1693044537.png" alt="payment" srcset="../aws-ec2/images/23_1693044537.png?size=small, ../aws-ec2/images/23_1693044537.png?size=medium 1.5x, ../aws-ec2/images/23_1693044537.png?size=large 2x" data-title="payment" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></li>
 <li>验证手机号（支持中国地区国内手机号）
-<img loading="lazy" src="../aws-ec2/images/23_1693044806.png" alt="phone" srcset="../aws-ec2/images/23_1693044806.png?size=small, ../aws-ec2/images/23_1693044806.png?size=medium 1.5x, ../aws-ec2/images/23_1693044806.png?size=large 2x" data-title="phone" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></li>
+<a class="lightgallery" href="../aws-ec2/images/23_1693044806.png?size=large" data-thumbnail="../aws-ec2/images/23_1693044806.png?size=small" data-sub-html="<h2>phone</h2>"><img loading="lazy" src="../aws-ec2/images/23_1693044806.png" alt="phone" srcset="../aws-ec2/images/23_1693044806.png?size=small, ../aws-ec2/images/23_1693044806.png?size=medium 1.5x, ../aws-ec2/images/23_1693044806.png?size=large 2x" data-title="phone" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></li>
 <li>选择支持计划
-<img loading="lazy" src="../aws-ec2/images/23_1693045029.png" alt="plan" srcset="../aws-ec2/images/23_1693045029.png?size=small, ../aws-ec2/images/23_1693045029.png?size=medium 1.5x, ../aws-ec2/images/23_1693045029.png?size=large 2x" data-title="plan" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></li>
+<a class="lightgallery" href="../aws-ec2/images/23_1693045029.png?size=large" data-thumbnail="../aws-ec2/images/23_1693045029.png?size=small" data-sub-html="<h2>plan</h2>"><img loading="lazy" src="../aws-ec2/images/23_1693045029.png" alt="plan" srcset="../aws-ec2/images/23_1693045029.png?size=small, ../aws-ec2/images/23_1693045029.png?size=medium 1.5x, ../aws-ec2/images/23_1693045029.png?size=large 2x" data-title="plan" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></li>
 <li>完成注册
-<img loading="lazy" src="../aws-ec2/images/23_1693045100.png" alt="complete" srcset="../aws-ec2/images/23_1693045100.png?size=small, ../aws-ec2/images/23_1693045100.png?size=medium 1.5x, ../aws-ec2/images/23_1693045100.png?size=large 2x" data-title="complete" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></li>
+<a class="lightgallery" href="../aws-ec2/images/23_1693045100.png?size=large" data-thumbnail="../aws-ec2/images/23_1693045100.png?size=small" data-sub-html="<h2>complete</h2>"><img loading="lazy" src="../aws-ec2/images/23_1693045100.png" alt="complete" srcset="../aws-ec2/images/23_1693045100.png?size=small, ../aws-ec2/images/23_1693045100.png?size=medium 1.5x, ../aws-ec2/images/23_1693045100.png?size=large 2x" data-title="complete" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></li>
 <li>登录亚马逊云科技控制台，<a href="https://console.aws.amazon.com/console/home"target="_blank" rel="external nofollow noopener noreferrer">登录地址<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>，选择根用户输入电子邮件地址，点击下一步会让输入密码，输入密码后就可以完成登录了。</li>
 </ol>]]></description></item><item><title>探索 AWS 云上一站式解决方案免费使用</title><link>https://lruihao.cn/posts/aws-solution/</link><pubDate>Sat, 18 Nov 2023 12:52:37 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/aws-solution/</guid><description><![CDATA[<p>在如今云计算蓬勃发展的时代，创新成长型企业正积极寻求一站式的云上解决方案，以提高效率、降低成本并实现快速发展。AWS（亚马逊云科技）作为全球领先的云服务提供商，为创新成长型企业提供一站式云上解决方案，助力创新成长型企业在不同发展阶段实现低成本上云，实现快速发展。本文将探索一下 AWS 云上一站式解决方案的免费使用。</p>
 <h2 id="简介" class="heading-element">
-  <a href="#%e7%ae%80%e4%bb%8b" class="heading-mark"></a>简介</h2><ul>
+  <a href="#%e7%ae%80%e4%bb%8b" class="heading-mark"></a>1 简介</h2><ul>
 <li>AWS 官网地址：<a href="https://aws.amazon.com/cn/campaigns/smb-cloud-one-stop-solution-paid-search/?sc_channel=seo&amp;sc_campaign=blog1104"target="_blank" rel="external nofollow noopener noreferrer">企业云上一站式解决方案_创新成长企业加速中心 - AWS 云服务<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
 </ul>
 <p>目前已经给出 11 种使用场景和解决方案，分别是：</p>
@@ -345,20 +345,20 @@
 </ul>
 <p>从以上列表标题就能看出，不仅含括了近些年比较火的“生成式 AI”相关一站式解决方案，还有一些比较常见的“网盘”、“呼叫中心”、“WordPress 网站”等等。</p>
 <h2 id="玩转免费试用" class="heading-element">
-  <a href="#%e7%8e%a9%e8%bd%ac%e5%85%8d%e8%b4%b9%e8%af%95%e7%94%a8" class="heading-mark"></a>玩转免费试用</h2><p>视频讲解详细链接：<a href="https://aws.amazon.com/cn/campaigns/smb-cloud-one-stop-solution-paid-search/watch-the-video-hanxiaoyong/?sc_channel=seo&amp;sc_campaign=blog1104"target="_blank" rel="external nofollow noopener noreferrer">玩转免费试用 - 全球领先云服务的那些羊毛<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
+  <a href="#%e7%8e%a9%e8%bd%ac%e5%85%8d%e8%b4%b9%e8%af%95%e7%94%a8" class="heading-mark"></a>2 玩转免费试用</h2><p>视频讲解详细链接：<a href="https://aws.amazon.com/cn/campaigns/smb-cloud-one-stop-solution-paid-search/watch-the-video-hanxiaoyong/?sc_channel=seo&amp;sc_campaign=blog1104"target="_blank" rel="external nofollow noopener noreferrer">玩转免费试用 - 全球领先云服务的那些羊毛<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
 <p>这个视频主要讲解了 AWS 的免费试用。很多公司都是从小到大到独角兽这样的成长，最初的时候学习自研，搭建一个系统其实可以从很多的一些免费的云服务开始，或者对于一些个人或者学生，如果想找工作，想试用云计算，也可以免费申请 AWS 的账号来使用。</p>
 <h3 id="免费云服务种类" class="heading-element">
-  <a href="#%e5%85%8d%e8%b4%b9%e4%ba%91%e6%9c%8d%e5%8a%a1%e7%a7%8d%e7%b1%bb" class="heading-mark"></a>免费云服务种类</h3><p>从 AWS 官网的数据来看，截止 2023 年 11 月 18 日，亚马逊云科技已经提供了 246 种云服务：</p>
-<p><img loading="lazy" src="images/23_1700464182.png" alt="AWS 全部服务" srcset="images/23_1700464182.png?size=small, images/23_1700464182.png?size=medium 1.5x, images/23_1700464182.png?size=large 2x" data-title="AWS 全部服务" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+  <a href="#%e5%85%8d%e8%b4%b9%e4%ba%91%e6%9c%8d%e5%8a%a1%e7%a7%8d%e7%b1%bb" class="heading-mark"></a>2.1 免费云服务种类</h3><p>从 AWS 官网的数据来看，截止 2023 年 11 月 18 日，亚马逊云科技已经提供了 246 种云服务：</p>
+<p><a class="lightgallery" href="/posts/aws-solution/images/23_1700464182.png?size=large" data-thumbnail="/posts/aws-solution/images/23_1700464182.png?size=small" data-sub-html="<h2>AWS 全部服务</h2>"><img loading="lazy" src="/posts/aws-solution/images/23_1700464182.png" alt="AWS 全部服务" srcset="/posts/aws-solution/images/23_1700464182.png?size=small, /posts/aws-solution/images/23_1700464182.png?size=medium 1.5x, /posts/aws-solution/images/23_1700464182.png?size=large 2x" data-title="AWS 全部服务" style="--width: 2406px;--aspect-ratio: 2406 / 1172;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></p>
 <p>当然并不是所有的都是免费的，但是有免费的服务占比很大，其中免费的服务有 93 种。</p>
-<p><img loading="lazy" src="images/23_1700464456.png" alt="AWS 免费服务" srcset="images/23_1700464456.png?size=small, images/23_1700464456.png?size=medium 1.5x, images/23_1700464456.png?size=large 2x" data-title="AWS 免费服务" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+<p><a class="lightgallery" href="/posts/aws-solution/images/23_1700464456.png?size=large" data-thumbnail="/posts/aws-solution/images/23_1700464456.png?size=small" data-sub-html="<h2>AWS 免费服务</h2>"><img loading="lazy" src="/posts/aws-solution/images/23_1700464456.png" alt="AWS 免费服务" srcset="/posts/aws-solution/images/23_1700464456.png?size=small, /posts/aws-solution/images/23_1700464456.png?size=medium 1.5x, /posts/aws-solution/images/23_1700464456.png?size=large 2x" data-title="AWS 免费服务" style="--width: 2362px;--aspect-ratio: 2362 / 1216;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></p>
 <p>免费额度也很宽限，不同云服务的免费额度不一样，比如亚马逊云服务器，有免费一年的，云电话有免费接打电话 90 分钟，短信免费试用 2 个月等。</p>
 <p>另外也有永久免费的服务，这一块应该是大家最感兴趣的，比如 Lambda 服务，如果一个月调用不超过一百万次的话，这是永久免费的，对于初创企业内部服务或者学习个人来说，这个额度是足够的。再有就是，SES 邮件服务，每个月外发次数可用 62000 次，对于小型服务运营，这个也是远远足够的了。</p>
 <p>免费的服务还有很多，涵盖广泛的产品种类：计算、数据库、存储、容器、机器学习等等。</p>
-<p><figure><a class="lightgallery" href="images/23_1700465041.png?size=large" data-thumbnail="images/23_1700465041.png?size=small" data-sub-html="<h2>免费服务种类</h2><p>免费种类几乎囊括以提供服务的所有种类</p>"><img loading="lazy" src="images/23_1700465041.png" alt="免费服务种类" srcset="images/23_1700465041.png?size=small, images/23_1700465041.png?size=medium 1.5x, images/23_1700465041.png?size=large 2x" data-title="免费种类几乎囊括以提供服务的所有种类" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a><figcaption class="image-caption">免费服务种类</figcaption>
+<p><figure><a class="lightgallery" href="/posts/aws-solution/images/23_1700465041.png?size=large" data-thumbnail="/posts/aws-solution/images/23_1700465041.png?size=small" data-sub-html="<h2>免费服务种类</h2><p>免费种类几乎囊括以提供服务的所有种类</p>"><img loading="lazy" src="/posts/aws-solution/images/23_1700465041.png" alt="免费服务种类" srcset="/posts/aws-solution/images/23_1700465041.png?size=small, /posts/aws-solution/images/23_1700465041.png?size=medium 1.5x, /posts/aws-solution/images/23_1700465041.png?size=large 2x" data-title="免费种类几乎囊括以提供服务的所有种类" style="--width: 442px;--aspect-ratio: 442 / 1402;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a><figcaption class="image-caption">免费服务种类</figcaption>
   </figure></p>
 <h3 id="免费云服务可以做什么" class="heading-element">
-  <a href="#%e5%85%8d%e8%b4%b9%e4%ba%91%e6%9c%8d%e5%8a%a1%e5%8f%af%e4%bb%a5%e5%81%9a%e4%bb%80%e4%b9%88" class="heading-mark"></a>免费云服务可以做什么</h3><p>从上图可以基本可以看出涵盖面还是很广的，如果大家有什么新的 ideas 或者说想去尝试某种服务的话，综合运用以上服务，是完全可以零成本实现的。</p>
+  <a href="#%e5%85%8d%e8%b4%b9%e4%ba%91%e6%9c%8d%e5%8a%a1%e5%8f%af%e4%bb%a5%e5%81%9a%e4%bb%80%e4%b9%88" class="heading-mark"></a>2.2 免费云服务可以做什么</h3><p>从上图可以基本可以看出涵盖面还是很广的，如果大家有什么新的 ideas 或者说想去尝试某种服务的话，综合运用以上服务，是完全可以零成本实现的。</p>
 <p>我们还可以做很多事情，比如：</p>
 <ul>
 <li>学习亚马逊云科技的产品</li>
@@ -379,36 +379,36 @@
 <p>另外还有其他更多的免费一站式云服务方案也都很不错，这里不一一例举了。</p>
 <p>对于初创企业或者有兴趣的这方面工作，但是苦于没有资源尝试的朋友们可以前往 <a href="https://aws.amazon.com/cn/campaigns/smb-cloud-one-stop-solution-paid-search/?sc_channel=seo&amp;sc_campaign=blog1104"target="_blank" rel="external nofollow noopener noreferrer">官网<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 观看视频详细讲解了解更多详细信息。</p>]]></description></item><item><title>将 Hugo 博客部署到亚马逊云服务器</title><link>https://lruihao.cn/posts/aws-ec2/</link><pubDate>Sat, 26 Aug 2023 17:22:57 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/aws-ec2/</guid><description><![CDATA[<div class="featured-image"><img loading="eager" src="https://lruihao.cn/posts/aws-ec2/images/featured-image.png" alt="将 Hugo 博客部署到亚马逊云服务器" title="将 Hugo 博客部署到亚马逊云服务器" referrerpolicy="no-referrer"/></div><p>本文将介绍如何将 Hugo 博客打包并部署到亚马逊云服务器上，并附上亚马逊云服务器的配置过程。</p>
 <h2 id="前言" class="heading-element">
-  <a href="#%e5%89%8d%e8%a8%80" class="heading-mark"></a>前言</h2><p>最近很长一段时间都是使用 Hugo 在写博客，也花了很多精力在 <a href="https://github.com/hugo-fixit/FixIt"target="_blank" rel="external nofollow noopener noreferrer">hugo-fixit<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 这个主题的开发上。也听到很多使用 Hugo 写博客的网友们问我，如何部署博客？部署到哪里？</p>
+  <a href="#%e5%89%8d%e8%a8%80" class="heading-mark"></a>1 前言</h2><p>最近很长一段时间都是使用 Hugo 在写博客，也花了很多精力在 <a href="https://github.com/hugo-fixit/FixIt"target="_blank" rel="external nofollow noopener noreferrer">hugo-fixit<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 这个主题的开发上。也听到很多使用 Hugo 写博客的网友们问我，如何部署博客？部署到哪里？</p>
 <p>今天就介绍一种方式：<strong>把博客部署到云服务器上</strong>。</p>
 <p>但是国内的云服务器太贵了，而且还要备案，所以就想到了海外的云服务器，比如亚马逊云服务器，以下便是注册到部署的全过程。</p>
 <h2 id="注册亚马逊云账户" class="heading-element">
-  <a href="#%e6%b3%a8%e5%86%8c%e4%ba%9a%e9%a9%ac%e9%80%8a%e4%ba%91%e8%b4%a6%e6%88%b7" class="heading-mark"></a>注册亚马逊云账户</h2><p>打开 <a href="https://aws.amazon.com/cn/free/?sc_channel=seo&amp;sc_campaign=blog0805"target="_blank" rel="external nofollow noopener noreferrer">亚马逊账号注册地址<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>，点击右上角创建 AWS 账户。</p>
-<p><img loading="lazy" src="images/23_1693042834.png" alt="创建 AWS 账户" srcset="images/23_1693042834.png?size=small, images/23_1693042834.png?size=medium 1.5x, images/23_1693042834.png?size=large 2x" data-title="创建 AWS 账户" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+  <a href="#%e6%b3%a8%e5%86%8c%e4%ba%9a%e9%a9%ac%e9%80%8a%e4%ba%91%e8%b4%a6%e6%88%b7" class="heading-mark"></a>2 注册亚马逊云账户</h2><p>打开 <a href="https://aws.amazon.com/cn/free/?sc_channel=seo&amp;sc_campaign=blog0805"target="_blank" rel="external nofollow noopener noreferrer">亚马逊账号注册地址<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>，点击右上角创建 AWS 账户。</p>
+<p><a class="lightgallery" href="/posts/aws-ec2/images/23_1693042834.png?size=large" data-thumbnail="/posts/aws-ec2/images/23_1693042834.png?size=small" data-sub-html="<h2>创建 AWS 账户</h2>"><img loading="lazy" src="/posts/aws-ec2/images/23_1693042834.png" alt="创建 AWS 账户" srcset="/posts/aws-ec2/images/23_1693042834.png?size=small, /posts/aws-ec2/images/23_1693042834.png?size=medium 1.5x, /posts/aws-ec2/images/23_1693042834.png?size=large 2x" data-title="创建 AWS 账户" style="--width: 1100px;--aspect-ratio: 1100 / 190;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></p>
 <ol>
 <li>填写邮件地址和账号名称（支持使用国内的邮箱）
-<img loading="lazy" src="images/23_1693043425.png" alt="login" srcset="images/23_1693043425.png?size=small, images/23_1693043425.png?size=medium 1.5x, images/23_1693043425.png?size=large 2x" data-title="login" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></li>
+<a class="lightgallery" href="/posts/aws-ec2/images/23_1693043425.png?size=large" data-thumbnail="/posts/aws-ec2/images/23_1693043425.png?size=small" data-sub-html="<h2>login</h2>"><img loading="lazy" src="/posts/aws-ec2/images/23_1693043425.png" alt="login" srcset="/posts/aws-ec2/images/23_1693043425.png?size=small, /posts/aws-ec2/images/23_1693043425.png?size=medium 1.5x, /posts/aws-ec2/images/23_1693043425.png?size=large 2x" data-title="login" style="--width: 1754px;--aspect-ratio: 1754 / 1058;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></li>
 <li>验证邮件
-<img loading="lazy" src="images/23_1693043626.png" alt="valid" srcset="images/23_1693043626.png?size=small, images/23_1693043626.png?size=medium 1.5x, images/23_1693043626.png?size=large 2x" data-title="valid" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></li>
+<a class="lightgallery" href="/posts/aws-ec2/images/23_1693043626.png?size=large" data-thumbnail="/posts/aws-ec2/images/23_1693043626.png?size=small" data-sub-html="<h2>valid</h2>"><img loading="lazy" src="/posts/aws-ec2/images/23_1693043626.png" alt="valid" srcset="/posts/aws-ec2/images/23_1693043626.png?size=small, /posts/aws-ec2/images/23_1693043626.png?size=medium 1.5x, /posts/aws-ec2/images/23_1693043626.png?size=large 2x" data-title="valid" style="--width: 1603px;--aspect-ratio: 1603 / 841;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></li>
 <li>输入密码
-<img loading="lazy" src="images/23_1693043910.png" alt="password" srcset="images/23_1693043910.png?size=small, images/23_1693043910.png?size=medium 1.5x, images/23_1693043910.png?size=large 2x" data-title="password" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></li>
+<a class="lightgallery" href="/posts/aws-ec2/images/23_1693043910.png?size=large" data-thumbnail="/posts/aws-ec2/images/23_1693043910.png?size=small" data-sub-html="<h2>password</h2>"><img loading="lazy" src="/posts/aws-ec2/images/23_1693043910.png" alt="password" srcset="/posts/aws-ec2/images/23_1693043910.png?size=small, /posts/aws-ec2/images/23_1693043910.png?size=medium 1.5x, /posts/aws-ec2/images/23_1693043910.png?size=large 2x" data-title="password" style="--width: 1490px;--aspect-ratio: 1490 / 1002;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></li>
 <li>联系人信息
-<img loading="lazy" src="images/23_1693044220.png" alt="contact" srcset="images/23_1693044220.png?size=small, images/23_1693044220.png?size=medium 1.5x, images/23_1693044220.png?size=large 2x" data-title="contact" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></li>
+<a class="lightgallery" href="/posts/aws-ec2/images/23_1693044220.png?size=large" data-thumbnail="/posts/aws-ec2/images/23_1693044220.png?size=small" data-sub-html="<h2>contact</h2>"><img loading="lazy" src="/posts/aws-ec2/images/23_1693044220.png" alt="contact" srcset="/posts/aws-ec2/images/23_1693044220.png?size=small, /posts/aws-ec2/images/23_1693044220.png?size=medium 1.5x, /posts/aws-ec2/images/23_1693044220.png?size=large 2x" data-title="contact" style="--width: 938px;--aspect-ratio: 938 / 1204;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></li>
 <li>付款信息（Visa）
-<img loading="lazy" src="images/23_1693044537.png" alt="payment" srcset="images/23_1693044537.png?size=small, images/23_1693044537.png?size=medium 1.5x, images/23_1693044537.png?size=large 2x" data-title="payment" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></li>
+<a class="lightgallery" href="/posts/aws-ec2/images/23_1693044537.png?size=large" data-thumbnail="/posts/aws-ec2/images/23_1693044537.png?size=small" data-sub-html="<h2>payment</h2>"><img loading="lazy" src="/posts/aws-ec2/images/23_1693044537.png" alt="payment" srcset="/posts/aws-ec2/images/23_1693044537.png?size=small, /posts/aws-ec2/images/23_1693044537.png?size=medium 1.5x, /posts/aws-ec2/images/23_1693044537.png?size=large 2x" data-title="payment" style="--width: 1454px;--aspect-ratio: 1454 / 1180;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></li>
 <li>验证手机号（支持中国地区国内手机号）
-<img loading="lazy" src="images/23_1693044806.png" alt="phone" srcset="images/23_1693044806.png?size=small, images/23_1693044806.png?size=medium 1.5x, images/23_1693044806.png?size=large 2x" data-title="phone" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></li>
+<a class="lightgallery" href="/posts/aws-ec2/images/23_1693044806.png?size=large" data-thumbnail="/posts/aws-ec2/images/23_1693044806.png?size=small" data-sub-html="<h2>phone</h2>"><img loading="lazy" src="/posts/aws-ec2/images/23_1693044806.png" alt="phone" srcset="/posts/aws-ec2/images/23_1693044806.png?size=small, /posts/aws-ec2/images/23_1693044806.png?size=medium 1.5x, /posts/aws-ec2/images/23_1693044806.png?size=large 2x" data-title="phone" style="--width: 974px;--aspect-ratio: 974 / 1052;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></li>
 <li>选择支持计划
-<img loading="lazy" src="images/23_1693045029.png" alt="plan" srcset="images/23_1693045029.png?size=small, images/23_1693045029.png?size=medium 1.5x, images/23_1693045029.png?size=large 2x" data-title="plan" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></li>
+<a class="lightgallery" href="/posts/aws-ec2/images/23_1693045029.png?size=large" data-thumbnail="/posts/aws-ec2/images/23_1693045029.png?size=small" data-sub-html="<h2>plan</h2>"><img loading="lazy" src="/posts/aws-ec2/images/23_1693045029.png" alt="plan" srcset="/posts/aws-ec2/images/23_1693045029.png?size=small, /posts/aws-ec2/images/23_1693045029.png?size=medium 1.5x, /posts/aws-ec2/images/23_1693045029.png?size=large 2x" data-title="plan" style="--width: 1308px;--aspect-ratio: 1308 / 1326;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></li>
 <li>完成注册
-<img loading="lazy" src="images/23_1693045100.png" alt="complete" srcset="images/23_1693045100.png?size=small, images/23_1693045100.png?size=medium 1.5x, images/23_1693045100.png?size=large 2x" data-title="complete" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></li>
+<a class="lightgallery" href="/posts/aws-ec2/images/23_1693045100.png?size=large" data-thumbnail="/posts/aws-ec2/images/23_1693045100.png?size=small" data-sub-html="<h2>complete</h2>"><img loading="lazy" src="/posts/aws-ec2/images/23_1693045100.png" alt="complete" srcset="/posts/aws-ec2/images/23_1693045100.png?size=small, /posts/aws-ec2/images/23_1693045100.png?size=medium 1.5x, /posts/aws-ec2/images/23_1693045100.png?size=large 2x" data-title="complete" style="--width: 1136px;--aspect-ratio: 1136 / 754;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></li>
 <li>登录亚马逊云控制台，<a href="https://console.aws.amazon.com/console/home"target="_blank" rel="external nofollow noopener noreferrer">登录地址<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>，选择根用户输入电子邮件地址，点击下一步会让输入密码，输入密码后就可以完成登录了。</li>
 </ol>
 <h2 id="创建-ec2-服务实例" class="heading-element">
-  <a href="#%e5%88%9b%e5%bb%ba-ec2-%e6%9c%8d%e5%8a%a1%e5%ae%9e%e4%be%8b" class="heading-mark"></a>创建 EC2 服务实例</h2><p>点击链接查看 <a href="https://aws.amazon.com/cn/free/?sc_channel=seo&amp;sc_campaign=blog0805"target="_blank" rel="external nofollow noopener noreferrer">亚马逊免费套餐<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>，找到云服务器 EC2，点击立即开始 12 个月免费使用。</p>
-<p><img loading="lazy" src="images/23_1693045572.png" alt="EC2" srcset="images/23_1693045572.png?size=small, images/23_1693045572.png?size=medium 1.5x, images/23_1693045572.png?size=large 2x" data-title="EC2" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+  <a href="#%e5%88%9b%e5%bb%ba-ec2-%e6%9c%8d%e5%8a%a1%e5%ae%9e%e4%be%8b" class="heading-mark"></a>3 创建 EC2 服务实例</h2><p>点击链接查看 <a href="https://aws.amazon.com/cn/free/?sc_channel=seo&amp;sc_campaign=blog0805"target="_blank" rel="external nofollow noopener noreferrer">亚马逊免费套餐<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>，找到云服务器 EC2，点击立即开始 12 个月免费使用。</p>
+<p><a class="lightgallery" href="/posts/aws-ec2/images/23_1693045572.png?size=large" data-thumbnail="/posts/aws-ec2/images/23_1693045572.png?size=small" data-sub-html="<h2>EC2</h2>"><img loading="lazy" src="/posts/aws-ec2/images/23_1693045572.png" alt="EC2" srcset="/posts/aws-ec2/images/23_1693045572.png?size=small, /posts/aws-ec2/images/23_1693045572.png?size=medium 1.5x, /posts/aws-ec2/images/23_1693045572.png?size=large 2x" data-title="EC2" style="--width: 2368px;--aspect-ratio: 2368 / 1146;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></p>
 <p>进行 EC2 服务器主页后，点击页面<strong>创建实例</strong>按钮。</p>
-<p><img loading="lazy" src="images/23_1693045780.png" alt="start-EC2" srcset="images/23_1693045780.png?size=small, images/23_1693045780.png?size=medium 1.5x, images/23_1693045780.png?size=large 2x" data-title="start-EC2" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+<p><a class="lightgallery" href="/posts/aws-ec2/images/23_1693045780.png?size=large" data-thumbnail="/posts/aws-ec2/images/23_1693045780.png?size=small" data-sub-html="<h2>start-EC2</h2>"><img loading="lazy" src="/posts/aws-ec2/images/23_1693045780.png" alt="start-EC2" srcset="/posts/aws-ec2/images/23_1693045780.png?size=small, /posts/aws-ec2/images/23_1693045780.png?size=medium 1.5x, /posts/aws-ec2/images/23_1693045780.png?size=large 2x" data-title="start-EC2" style="--width: 2878px;--aspect-ratio: 2878 / 1294;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></p>
 <p>然后按照页面提示要求，依次填写或选择：</p>
 <ol>
 <li>实例的名称：随便填</li>
@@ -420,13 +420,13 @@
 <li>然后点击右侧侧边栏启动实例，等待片刻实例就创建好了</li>
 </ol>
 <h2 id="连接实例" class="heading-element">
-  <a href="#%e8%bf%9e%e6%8e%a5%e5%ae%9e%e4%be%8b" class="heading-mark"></a>连接实例</h2><p><img loading="lazy" src="images/23_1693046630.png" alt="instance" srcset="images/23_1693046630.png?size=small, images/23_1693046630.png?size=medium 1.5x, images/23_1693046630.png?size=large 2x" data-title="instance" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+  <a href="#%e8%bf%9e%e6%8e%a5%e5%ae%9e%e4%be%8b" class="heading-mark"></a>4 连接实例</h2><p><a class="lightgallery" href="/posts/aws-ec2/images/23_1693046630.png?size=large" data-thumbnail="/posts/aws-ec2/images/23_1693046630.png?size=small" data-sub-html="<h2>instance</h2>"><img loading="lazy" src="/posts/aws-ec2/images/23_1693046630.png" alt="instance" srcset="/posts/aws-ec2/images/23_1693046630.png?size=small, /posts/aws-ec2/images/23_1693046630.png?size=medium 1.5x, /posts/aws-ec2/images/23_1693046630.png?size=large 2x" data-title="instance" style="--width: 954px;--aspect-ratio: 954 / 410;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></p>
 <p>点击上面的实例 ID 进入实例的详情，再点击右上角的连接按钮。</p>
-<p><img loading="lazy" src="images/23_1693046822.png" alt="connect" srcset="images/23_1693046822.png?size=small, images/23_1693046822.png?size=medium 1.5x, images/23_1693046822.png?size=large 2x" data-title="connect" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+<p><a class="lightgallery" href="/posts/aws-ec2/images/23_1693046822.png?size=large" data-thumbnail="/posts/aws-ec2/images/23_1693046822.png?size=small" data-sub-html="<h2>connect</h2>"><img loading="lazy" src="/posts/aws-ec2/images/23_1693046822.png" alt="connect" srcset="/posts/aws-ec2/images/23_1693046822.png?size=small, /posts/aws-ec2/images/23_1693046822.png?size=medium 1.5x, /posts/aws-ec2/images/23_1693046822.png?size=large 2x" data-title="connect" style="--width: 2344px;--aspect-ratio: 2344 / 216;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></p>
 <p>连接成功后，页面会新打开一个窗口，这个窗口就是我们服务器的终端，可以在这里对服务器进行操作。</p>
-<p><img loading="lazy" src="images/23_1693046970.png" alt="cloudshell" srcset="images/23_1693046970.png?size=small, images/23_1693046970.png?size=medium 1.5x, images/23_1693046970.png?size=large 2x" data-title="cloudshell" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+<p><a class="lightgallery" href="/posts/aws-ec2/images/23_1693046970.png?size=large" data-thumbnail="/posts/aws-ec2/images/23_1693046970.png?size=small" data-sub-html="<h2>cloudshell</h2>"><img loading="lazy" src="/posts/aws-ec2/images/23_1693046970.png" alt="cloudshell" srcset="/posts/aws-ec2/images/23_1693046970.png?size=small, /posts/aws-ec2/images/23_1693046970.png?size=medium 1.5x, /posts/aws-ec2/images/23_1693046970.png?size=large 2x" data-title="cloudshell" style="--width: 1408px;--aspect-ratio: 1408 / 514;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></p>
 <h2 id="创建-root-用户角色" class="heading-element">
-  <a href="#%e5%88%9b%e5%bb%ba-root-%e7%94%a8%e6%88%b7%e8%a7%92%e8%89%b2" class="heading-mark"></a>创建 root 用户角色</h2><p>在终端中输入以下命令，创建 root 用户角色。</p>
+  <a href="#%e5%88%9b%e5%bb%ba-root-%e7%94%a8%e6%88%b7%e8%a7%92%e8%89%b2" class="heading-mark"></a>5 创建 root 用户角色</h2><p>在终端中输入以下命令，创建 root 用户角色。</p>
 <div class="highlight" id="id-1"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -480,7 +480,7 @@
 <p>后续操作尽量用 root 用户进行。</p>
 </blockquote>
 <h2 id="安装宝塔面板" class="heading-element">
-  <a href="#%e5%ae%89%e8%a3%85%e5%ae%9d%e5%a1%94%e9%9d%a2%e6%9d%bf" class="heading-mark"></a>安装宝塔面板</h2><p>宝塔面板是一个服务器管理面板，可以通过宝塔面板来管理服务器，比如安装 nginx、mysql、php 等等。</p>
+  <a href="#%e5%ae%89%e8%a3%85%e5%ae%9d%e5%a1%94%e9%9d%a2%e6%9d%bf" class="heading-mark"></a>6 安装宝塔面板</h2><p>宝塔面板是一个服务器管理面板，可以通过宝塔面板来管理服务器，比如安装 nginx、mysql、php 等等。</p>
 <div class="highlight" id="id-6"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -494,7 +494,7 @@
 <li>等待 <code>LAMP</code> 环境安装完毕</li>
 </ol>
 <h2 id="部署-hugo-博客" class="heading-element">
-  <a href="#%e9%83%a8%e7%bd%b2-hugo-%e5%8d%9a%e5%ae%a2" class="heading-mark"></a>部署 Hugo 博客</h2><p>Hugo 博客打包</p>
+  <a href="#%e9%83%a8%e7%bd%b2-hugo-%e5%8d%9a%e5%ae%a2" class="heading-mark"></a>7 部署 Hugo 博客</h2><p>Hugo 博客打包</p>
 <div class="highlight" id="id-7"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -521,12 +521,12 @@
 <li>点击提交</li>
 </ol>
 <p>在浏览器中输入服务器的公网 IP 地址，就可以看到 Hugo 博客了。</p>
-<p><img loading="lazy" src="images/23_1693050865.png" alt="preview" srcset="images/23_1693050865.png?size=small, images/23_1693050865.png?size=medium 1.5x, images/23_1693050865.png?size=large 2x" data-title="preview" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+<p><a class="lightgallery" href="/posts/aws-ec2/images/23_1693050865.png?size=large" data-thumbnail="/posts/aws-ec2/images/23_1693050865.png?size=small" data-sub-html="<h2>preview</h2>"><img loading="lazy" src="/posts/aws-ec2/images/23_1693050865.png" alt="preview" srcset="/posts/aws-ec2/images/23_1693050865.png?size=small, /posts/aws-ec2/images/23_1693050865.png?size=medium 1.5x, /posts/aws-ec2/images/23_1693050865.png?size=large 2x" data-title="preview" style="--width: 2878px;--aspect-ratio: 2878 / 1354;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></p>
 <h2 id="注意事项" class="heading-element">
-  <a href="#%e6%b3%a8%e6%84%8f%e4%ba%8b%e9%a1%b9" class="heading-mark"></a>注意事项</h2><blockquote>
+  <a href="#%e6%b3%a8%e6%84%8f%e4%ba%8b%e9%a1%b9" class="heading-mark"></a>8 注意事项</h2><blockquote>
 <p>亚马逊的服务器每个月免费时长时 <strong>750</strong> 小时，一个月 31 天 x 24 = 744 小时，正常使用是不会超出免费的份额的，但切记不要同时开两个服务器实例，使用时长会累加，不注意可能会超出套餐额度。</p>
 <p>到期后，如果不想继续使用，一定要记得删除实例，不然会一直扣费的。在控制台选中实例，点击实例状态-&gt;终止实例。</p>
 </blockquote>
 <h2 id="总结" class="heading-element">
-  <a href="#%e6%80%bb%e7%bb%93" class="heading-mark"></a>总结</h2><p>有了一台海外服务器，我们还可以做很多事情，比如部署 chatgpt 等等，有了服务器一定要多去探索和学习，这么复杂的申请的流程，不要白白放着让过期了。</p>
+  <a href="#%e6%80%bb%e7%bb%93" class="heading-mark"></a>9 总结</h2><p>有了一台海外服务器，我们还可以做很多事情，比如部署 chatgpt 等等，有了服务器一定要多去探索和学习，这么复杂的申请的流程，不要白白放着让过期了。</p>
 <p>保持探索欲，砥砺前行！</p>]]></description></item></channel></rss>

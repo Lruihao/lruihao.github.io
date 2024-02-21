@@ -1,5 +1,5 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>JavaScript - 标签 | 菠菜眾長</title><link>https://lruihao.cn/tags/javascript/</link><description>JavaScript - 标签 | 菠菜眾長</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><copyright>本站内容采用 CC BY-NC-SA 4.0 国际许可协议。</copyright><lastBuildDate>Thu, 12 Oct 2023 22:37:56 +0800</lastBuildDate><atom:link href="https://lruihao.cn/tags/javascript/" rel="self" type="application/rss+xml"/><item><title>如何给 npm 包打补丁？</title><link>https://lruihao.cn/posts/patch-package/</link><pubDate>Thu, 12 Oct 2023 22:37:56 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/patch-package/</guid><description><![CDATA[<div class="featured-image"><img loading="eager" src="images/featured-image.png" alt="如何给 npm 包打补丁？" title="如何给 npm 包打补丁？" referrerpolicy="no-referrer"/></div><h2 id="背景" class="heading-element">
-  <a href="#%e8%83%8c%e6%99%af" class="heading-mark"></a>背景</h2><p>今天鬼事神差想起去年写的一段 dirty hack 代码，当时是在 <a href="https://github.com/Lruihao/vue-minder-editor-extended"target="_blank" rel="external nofollow noopener noreferrer">vue-minder-editor-extended<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 这个项目为了解决百度开源的 <a href="https://github.com/fex-team/kityminder-core"target="_blank" rel="external nofollow noopener noreferrer">@7polo/kityminder-core<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> npm 包的 bug，但是百度早在 17-18 年就停止更新了，我又不想自己 fork 一份源码然后重新发包，于是当时直接从 node_modules 里面复制出了打包后的源码进行修改，然后放到了项目中 <code>src/script/patch/kityminder.core.js</code>，并因修改了引入：</p>
+  <a href="#%e8%83%8c%e6%99%af" class="heading-mark"></a>1 背景</h2><p>今天鬼事神差想起去年写的一段 dirty hack 代码，当时是在 <a href="https://github.com/Lruihao/vue-minder-editor-extended"target="_blank" rel="external nofollow noopener noreferrer">vue-minder-editor-extended<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 这个项目为了解决百度开源的 <a href="https://github.com/fex-team/kityminder-core"target="_blank" rel="external nofollow noopener noreferrer">@7polo/kityminder-core<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> npm 包的 bug，但是百度早在 17-18 年就停止更新了，我又不想自己 fork 一份源码然后重新发包，于是当时直接从 node_modules 里面复制出了打包后的源码进行修改，然后放到了项目中 <code>src/script/patch/kityminder.core.js</code>，并因修改了引入：</p>
 <div class="highlight" id="id-1"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -12,7 +12,7 @@
 </div>
 </div><p>但是今天刷抖音看到类似的问题，回想起来这种做法真的是太蠢了，于是就想着有没有更好的办法，于是就一番搜索有了这篇文章。</p>
 <h2 id="安装-patch-package" class="heading-element">
-  <a href="#%e5%ae%89%e8%a3%85-patch-package" class="heading-mark"></a>安装 patch-package</h2><div class="highlight" id="id-2"><div class="chroma">
+  <a href="#%e5%ae%89%e8%a3%85-patch-package" class="heading-mark"></a>2 安装 patch-package</h2><div class="highlight" id="id-2"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
@@ -20,9 +20,9 @@
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">npm i patch-package --save-dev</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="修改源码" class="heading-element">
-  <a href="#%e4%bf%ae%e6%94%b9%e6%ba%90%e7%a0%81" class="heading-mark"></a>修改源码</h2><p>在 <code>node_modules</code> 目录下找到需要打补丁的包，然后修改源码，比如我这里修改了 <code>node_modules/@7polo/kityminder-core/dist/kityminder.core.js</code>，修改后直接保存。</p>
+  <a href="#%e4%bf%ae%e6%94%b9%e6%ba%90%e7%a0%81" class="heading-mark"></a>3 修改源码</h2><p>在 <code>node_modules</code> 目录下找到需要打补丁的包，然后修改源码，比如我这里修改了 <code>node_modules/@7polo/kityminder-core/dist/kityminder.core.js</code>，修改后直接保存。</p>
 <h2 id="生成补丁" class="heading-element">
-  <a href="#%e7%94%9f%e6%88%90%e8%a1%a5%e4%b8%81" class="heading-mark"></a>生成补丁</h2><div class="highlight" id="id-3"><div class="chroma">
+  <a href="#%e7%94%9f%e6%88%90%e8%a1%a5%e4%b8%81" class="heading-mark"></a>4 生成补丁</h2><div class="highlight" id="id-3"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
@@ -148,7 +148,7 @@
 </div>
 </div><p>发现其实就是一个 diff 文件，这个文件里面记录了修改的内容，以及修改的位置，这样就可以在安装依赖的时候自动执行补丁了。</p>
 <h2 id="使用补丁" class="heading-element">
-  <a href="#%e4%bd%bf%e7%94%a8%e8%a1%a5%e4%b8%81" class="heading-mark"></a>使用补丁</h2><p>在 <code>package.json</code> 中添加如下内容：</p>
+  <a href="#%e4%bd%bf%e7%94%a8%e8%a1%a5%e4%b8%81" class="heading-mark"></a>5 使用补丁</h2><p>在 <code>package.json</code> 中添加如下内容：</p>
 <div class="highlight" id="id-6"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -165,7 +165,7 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="提交补丁" class="heading-element">
-  <a href="#%e6%8f%90%e4%ba%a4%e8%a1%a5%e4%b8%81" class="heading-mark"></a>提交补丁</h2><div class="highlight" id="id-7"><div class="chroma">
+  <a href="#%e6%8f%90%e4%ba%a4%e8%a1%a5%e4%b8%81" class="heading-mark"></a>6 提交补丁</h2><div class="highlight" id="id-7"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -177,13 +177,13 @@
 </span></span><span class="line"><span class="cl">git push</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="测试" class="heading-element">
-  <a href="#%e6%b5%8b%e8%af%95" class="heading-mark"></a>测试</h2><p>执行一次完整的依赖安装 =&gt; 构建发布，一切符合预期，大功告成~</p>
+  <a href="#%e6%b5%8b%e8%af%95" class="heading-mark"></a>7 测试</h2><p>执行一次完整的依赖安装 =&gt; 构建发布，一切符合预期，大功告成~</p>
 ]]></description></item><item><title>封装 Vue FullScreenToggler 组件</title><link>https://lruihao.cn/posts/vue-fullscreen-toggler/</link><pubDate>Sun, 17 Sep 2023 19:44:07 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/vue-fullscreen-toggler/</guid><description><![CDATA[<p>基于 <a href="https://github.com/mirari/vue-fullscreen"target="_blank" rel="external nofollow noopener noreferrer">vue-fullscreen<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 封装一个的 Vue 全屏/退出全屏切换组件。</p>
 <h2 id="简介" class="heading-element">
-  <a href="#%e7%ae%80%e4%bb%8b" class="heading-mark"></a>简介</h2><p><a href="https://github.com/mirari/vue-fullscreen"target="_blank" rel="external nofollow noopener noreferrer">vue-fullscreen<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 是一个用于将任意页面元素进行全屏切换的 Vue 插件，基于 <a href="https://github.com/sindresorhus/screenfull"target="_blank" rel="external nofollow noopener noreferrer">screenfull<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>。这个插件本身提供了组件、指令以及 API 三种使用方式，具体的使用方法请参考 <a href="https://github.com/mirari/vue-fullscreen"target="_blank" rel="external nofollow noopener noreferrer">vue-fullscreen<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>。</p>
+  <a href="#%e7%ae%80%e4%bb%8b" class="heading-mark"></a>1 简介</h2><p><a href="https://github.com/mirari/vue-fullscreen"target="_blank" rel="external nofollow noopener noreferrer">vue-fullscreen<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 是一个用于将任意页面元素进行全屏切换的 Vue 插件，基于 <a href="https://github.com/sindresorhus/screenfull"target="_blank" rel="external nofollow noopener noreferrer">screenfull<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>。这个插件本身提供了组件、指令以及 API 三种使用方式，具体的使用方法请参考 <a href="https://github.com/mirari/vue-fullscreen"target="_blank" rel="external nofollow noopener noreferrer">vue-fullscreen<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>。</p>
 <h2 id="在线演示httpslruihaogithubiovue-el-demofullscreen" class="heading-element">
-  <a href="#%e5%9c%a8%e7%ba%bf%e6%bc%94%e7%a4%bahttpslruihaogithubiovue-el-demofullscreen" class="heading-mark"></a><a href="https://lruihao.github.io/vue-el-demo/#/fullscreen"target="_blank" rel="external nofollow noopener noreferrer">在线演示<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></h2><h2 id="安装" class="heading-element">
-  <a href="#%e5%ae%89%e8%a3%85" class="heading-mark"></a>安装</h2><div class="highlight" id="id-1"><div class="chroma">
+  <a href="#%e5%9c%a8%e7%ba%bf%e6%bc%94%e7%a4%bahttpslruihaogithubiovue-el-demofullscreen" class="heading-mark"></a>2 <a href="https://lruihao.github.io/vue-el-demo/#/fullscreen"target="_blank" rel="external nofollow noopener noreferrer">在线演示<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></h2><h2 id="安装" class="heading-element">
+  <a href="#%e5%ae%89%e8%a3%85" class="heading-mark"></a>3 安装</h2><div class="highlight" id="id-1"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -195,7 +195,7 @@
 </span></span><span class="line"><span class="cl">yarn add vue-fullscreen@^2.6.1</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="封装组件" class="heading-element">
-  <a href="#%e5%b0%81%e8%a3%85%e7%bb%84%e4%bb%b6" class="heading-mark"></a>封装组件</h2><p><code>vue-fullscreen</code> 有 Vue2 和 Vue3 两个版本，本文将基于其 Vue2 版本的指令使用方式再封装一层。</p>
+  <a href="#%e5%b0%81%e8%a3%85%e7%bb%84%e4%bb%b6" class="heading-mark"></a>4 封装组件</h2><p><code>vue-fullscreen</code> 有 Vue2 和 Vue3 两个版本，本文将基于其 Vue2 版本的指令使用方式再封装一层。</p>
 <p>这个组件会显示为一个切换按钮，通过绑定 <code>target</code> 属性来指定全屏的目标元素，通过 <code>bodyAgent</code> 属性来指定是否使用 <code>document.body</code> 代理全屏元素，目标元素则改为网页全屏，避免弹窗等元素在全屏模式下不可见的问题。</p>
 <div class="details admonition info open">
     <div class="details-summary admonition-title">
@@ -467,14 +467,14 @@
 </span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span></span></span></code></pre></td></tr></table>
 </div>
 </div>]]></description></item><item><title>JS 实现全屏和退出全屏</title><link>https://lruihao.cn/posts/js-fullscreen/</link><pubDate>Fri, 15 Sep 2023 17:29:25 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/js-fullscreen/</guid><description><![CDATA[<h2 id="背景" class="heading-element">
-  <a href="#%e8%83%8c%e6%99%af" class="heading-mark"></a>背景</h2><p>在 Web 开发中，全屏模式可以提供更沉浸式的体验，特别适用于视频播放、游戏展示和演示等场景。通过 JavaScript 的 Fullscreen API，我们可以以编程方式控制元素的全屏状态。</p>
+  <a href="#%e8%83%8c%e6%99%af" class="heading-mark"></a>1 背景</h2><p>在 Web 开发中，全屏模式可以提供更沉浸式的体验，特别适用于视频播放、游戏展示和演示等场景。通过 JavaScript 的 Fullscreen API，我们可以以编程方式控制元素的全屏状态。</p>
 <p>Fullscreen API 是一组用于控制全屏显示的方法和属性，它们允许我们将网页内容以全屏的方式展示给用户，并提供了相应的事件来监听全屏模式的变化。</p>
 <p>在本文中，我们将介绍如何判断浏览器是否支持全屏功能，如何实现进入全屏和退出全屏的功能，以及如何获取当前全屏元素和监听全屏模式的变化。</p>
 <blockquote>
 <p>注意：Fullscreen API 在不同浏览器之间可能存在差异，请在使用时进行兼容性测试和处理。</p>
 </blockquote>
 <h2 id="全屏是否可用" class="heading-element">
-  <a href="#%e5%85%a8%e5%b1%8f%e6%98%af%e5%90%a6%e5%8f%af%e7%94%a8" class="heading-mark"></a>全屏是否可用</h2><p>在使用 Fullscreen API 之前，我们需要先判断当前浏览器是否支持全屏功能。可以通过 <code>document.fullscreenEnabled</code> 属性来检查。</p>
+  <a href="#%e5%85%a8%e5%b1%8f%e6%98%af%e5%90%a6%e5%8f%af%e7%94%a8" class="heading-mark"></a>2 全屏是否可用</h2><p>在使用 Fullscreen API 之前，我们需要先判断当前浏览器是否支持全屏功能。可以通过 <code>document.fullscreenEnabled</code> 属性来检查。</p>
 <p>以下是一个示例：</p>
 <div class="highlight" id="id-1"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -493,7 +493,7 @@
 </div>
 </div><p>详细的 API 说明可以参考 <a href="https://developer.mozilla.org/en-US/docs/Web/API/Fullscreen_API"target="_blank" rel="external nofollow noopener noreferrer">Fullscreen API - MDN Web Docs<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>。</p>
 <h2 id="实现全屏" class="heading-element">
-  <a href="#%e5%ae%9e%e7%8e%b0%e5%85%a8%e5%b1%8f" class="heading-mark"></a>实现全屏</h2><p>要实现全屏，我们可以使用 <code>requestFullscreen()</code> 方法。该方法可用于 DOM 元素，使其进入全屏模式。</p>
+  <a href="#%e5%ae%9e%e7%8e%b0%e5%85%a8%e5%b1%8f" class="heading-mark"></a>3 实现全屏</h2><p>要实现全屏，我们可以使用 <code>requestFullscreen()</code> 方法。该方法可用于 DOM 元素，使其进入全屏模式。</p>
 <p>以下是一个示例：</p>
 <div class="highlight" id="id-2"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -522,7 +522,7 @@
 </div>
 </div><p>详细的 API 说明可以参考 <a href="https://developer.mozilla.org/en-US/docs/Web/API/Element/requestFullscreen"target="_blank" rel="external nofollow noopener noreferrer">Element.requestFullscreen() - MDN Web Docs<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>。</p>
 <h2 id="退出全屏" class="heading-element">
-  <a href="#%e9%80%80%e5%87%ba%e5%85%a8%e5%b1%8f" class="heading-mark"></a>退出全屏</h2><p>当我们需要退出全屏时，可以使用 <code>exitFullscreen()</code> 方法。该方法可用于当前处于全屏状态的元素。</p>
+  <a href="#%e9%80%80%e5%87%ba%e5%85%a8%e5%b1%8f" class="heading-mark"></a>4 退出全屏</h2><p>当我们需要退出全屏时，可以使用 <code>exitFullscreen()</code> 方法。该方法可用于当前处于全屏状态的元素。</p>
 <p>以下是一个示例：</p>
 <div class="highlight" id="id-3"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -549,7 +549,7 @@
 </div>
 </div><p>详细的 API 说明可以参考 <a href="https://developer.mozilla.org/en-US/docs/Web/API/Document/exitFullscreen"target="_blank" rel="external nofollow noopener noreferrer">Document.exitFullscreen() - MDN Web Docs<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>。</p>
 <h2 id="获取全屏元素" class="heading-element">
-  <a href="#%e8%8e%b7%e5%8f%96%e5%85%a8%e5%b1%8f%e5%85%83%e7%b4%a0" class="heading-mark"></a>获取全屏元素</h2><p>在全屏模式下，我们可能需要获取当前处于全屏状态的元素。可以使用<code>document.fullscreenElement</code>属性来获取。</p>
+  <a href="#%e8%8e%b7%e5%8f%96%e5%85%a8%e5%b1%8f%e5%85%83%e7%b4%a0" class="heading-mark"></a>5 获取全屏元素</h2><p>在全屏模式下，我们可能需要获取当前处于全屏状态的元素。可以使用<code>document.fullscreenElement</code>属性来获取。</p>
 <p>以下是一个示例：</p>
 <div class="highlight" id="id-4"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -572,7 +572,7 @@
 </div>
 </div><p>详细的 API 说明可以参考 <a href="https://developer.mozilla.org/en-US/docs/Web/API/Document/fullscreenElement"target="_blank" rel="external nofollow noopener noreferrer">Document.fullscreenElement - MDN Web Docs<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>。</p>
 <h2 id="监听全屏模式变化" class="heading-element">
-  <a href="#%e7%9b%91%e5%90%ac%e5%85%a8%e5%b1%8f%e6%a8%a1%e5%bc%8f%e5%8f%98%e5%8c%96" class="heading-mark"></a>监听全屏模式变化</h2><p>如果我们希望在全屏模式发生变化时得到通知，可以使用 Fullscreen API 提供的事件。</p>
+  <a href="#%e7%9b%91%e5%90%ac%e5%85%a8%e5%b1%8f%e6%a8%a1%e5%bc%8f%e5%8f%98%e5%8c%96" class="heading-mark"></a>6 监听全屏模式变化</h2><p>如果我们希望在全屏模式发生变化时得到通知，可以使用 Fullscreen API 提供的事件。</p>
 <p>以下是一个示例：</p>
 <div class="highlight" id="id-5"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -605,15 +605,15 @@
 </div>
 </div><p>通过添加相应的事件监听器，可以在全屏模式变化时执行自定义的处理函数。</p>
 <h2 id="相关插件" class="heading-element">
-  <a href="#%e7%9b%b8%e5%85%b3%e6%8f%92%e4%bb%b6" class="heading-mark"></a>相关插件</h2><p>了解以上 API 后本来已经准备开始写插件了，不过秉承不重复造轮子的思想，找到了以下两个库，基本满足开发需求了。</p>
+  <a href="#%e7%9b%b8%e5%85%b3%e6%8f%92%e4%bb%b6" class="heading-mark"></a>7 相关插件</h2><p>了解以上 API 后本来已经准备开始写插件了，不过秉承不重复造轮子的思想，找到了以下两个库，基本满足开发需求了。</p>
 <ul>
 <li><a href="https://github.com/sindresorhus/screenfull"target="_blank" rel="external nofollow noopener noreferrer">screenfull<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
 <li><a href="https://github.com/mirari/vue-fullscreen"target="_blank" rel="external nofollow noopener noreferrer">vue-fullscreen<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
 </ul>
 <h2 id="小插曲" class="heading-element">
-  <a href="#%e5%b0%8f%e6%8f%92%e6%9b%b2" class="heading-mark"></a>小插曲</h2><p><code>document.fullscreen</code>、<code>document.fullscreenElement</code>、<code>document.fullscreenEnabled</code> 的 MDN 文档中文翻译已过时，然后顺手提了一个 PR <a href="https://github.com/mdn/translated-content/pull/15859"target="_blank" rel="external nofollow noopener noreferrer">mdn/translated-content#15859<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
+  <a href="#%e5%b0%8f%e6%8f%92%e6%9b%b2" class="heading-mark"></a>8 小插曲</h2><p><code>document.fullscreen</code>、<code>document.fullscreenElement</code>、<code>document.fullscreenEnabled</code> 的 MDN 文档中文翻译已过时，然后顺手提了一个 PR <a href="https://github.com/mdn/translated-content/pull/15859"target="_blank" rel="external nofollow noopener noreferrer">mdn/translated-content#15859<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
 <h2 id="参考链接" class="heading-element">
-  <a href="#%e5%8f%82%e8%80%83%e9%93%be%e6%8e%a5" class="heading-mark"></a>参考链接</h2><ul>
+  <a href="#%e5%8f%82%e8%80%83%e9%93%be%e6%8e%a5" class="heading-mark"></a>9 参考链接</h2><ul>
 <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Fullscreen_API"target="_blank" rel="external nofollow noopener noreferrer">Fullscreen API - MDN Web Docs<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
 <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Element/requestFullscreen"target="_blank" rel="external nofollow noopener noreferrer">Element.requestFullscreen() - MDN Web Docs<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
 <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Document/exitFullscreen"target="_blank" rel="external nofollow noopener noreferrer">Document.exitFullscreen() - MDN Web Docs<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
@@ -621,7 +621,7 @@
 </ul>
 ]]></description></item><item><title>使用 Node.js 自动创建 Vue 的路由</title><link>https://lruihao.cn/posts/gen-router/</link><pubDate>Wed, 14 Jun 2023 00:11:17 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/gen-router/</guid><description><![CDATA[<p>最近在写一个 Vue 插件，需要在项目中创建一些测试页面，由于都是些静态路由，就想到之前看到过的一个项目就是用 Node.js 来自动生成路由的，于是就借鉴过来改了一下。</p>
 <h2 id="源码" class="heading-element">
-  <a href="#%e6%ba%90%e7%a0%81" class="heading-mark"></a>源码</h2><blockquote>
+  <a href="#%e6%ba%90%e7%a0%81" class="heading-mark"></a>1 源码</h2><blockquote>
 <p>Gist: <a href="https://gist.github.com/Lruihao/d8f2984525dc9e78dd6a49e15f49cf38"target="_blank" rel="external nofollow noopener noreferrer">https://gist.github.com/Lruihao/d8f2984525dc9e78dd6a49e15f49cf38<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
 </blockquote>
 <div class="highlight" id="id-1"><div class="chroma">
@@ -792,9 +792,9 @@
 </span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="k">default</span> <span class="nx">router</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="参考" class="heading-element">
-  <a href="#%e5%8f%82%e8%80%83" class="heading-mark"></a>参考</h2><p><a href="https://github.com/sunzsh/vue-el-demo/blob/f5e9a2a9934c7040f4fa72663eb8c24b1e3b20c1/gen-router.js"target="_blank" rel="external nofollow noopener noreferrer">sunzsh/vue-el-demo<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>]]></description></item><item><title>浏览器渲染原理</title><link>https://lruihao.cn/posts/browser-rendering/</link><pubDate>Sun, 05 Feb 2023 21:02:52 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/browser-rendering/</guid><description><![CDATA[<iframe src="files/browser-rendering.pdf" width="100%" height="550"></iframe>
+  <a href="#%e5%8f%82%e8%80%83" class="heading-mark"></a>2 参考</h2><p><a href="https://github.com/sunzsh/vue-el-demo/blob/f5e9a2a9934c7040f4fa72663eb8c24b1e3b20c1/gen-router.js"target="_blank" rel="external nofollow noopener noreferrer">sunzsh/vue-el-demo<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>]]></description></item><item><title>浏览器渲染原理</title><link>https://lruihao.cn/posts/browser-rendering/</link><pubDate>Sun, 05 Feb 2023 21:02:52 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/browser-rendering/</guid><description><![CDATA[<iframe src="files/browser-rendering.pdf" width="100%" height="550"></iframe>
 <h2 id="浏览器是如何渲染页面的" class="heading-element">
-  <a href="#%e6%b5%8f%e8%a7%88%e5%99%a8%e6%98%af%e5%a6%82%e4%bd%95%e6%b8%b2%e6%9f%93%e9%a1%b5%e9%9d%a2%e7%9a%84" class="heading-mark"></a>浏览器是如何渲染页面的？</h2><p>当浏览器的网络线程收到 HTML 文档后，会产生一个渲染任务，并将其传递给渲染主线程的消息队列。</p>
+  <a href="#%e6%b5%8f%e8%a7%88%e5%99%a8%e6%98%af%e5%a6%82%e4%bd%95%e6%b8%b2%e6%9f%93%e9%a1%b5%e9%9d%a2%e7%9a%84" class="heading-mark"></a>1 浏览器是如何渲染页面的？</h2><p>当浏览器的网络线程收到 HTML 文档后，会产生一个渲染任务，并将其传递给渲染主线程的消息队列。</p>
 <p>在事件循环机制的作用下，渲染主线程取出消息队列中的渲染任务，开启渲染流程。</p>
 <hr>
 <p>整个渲染流程分为多个阶段，分别是：HTML 解析、样式计算、布局、分层、绘制、分块、光栅化、画</p>
@@ -840,36 +840,36 @@
 <p>变形发生在合成线程，与渲染主线程无关，这就是<code>transform</code>效率高的本质原因。</p>
 <p>合成线程会把 quad 提交给 GPU 进程，由 GPU 进程产生系统调用，提交给 GPU 硬件，完成最终的屏幕成像。</p>
 <h2 id="什么是-reflow" class="heading-element">
-  <a href="#%e4%bb%80%e4%b9%88%e6%98%af-reflow" class="heading-mark"></a>什么是 reflow？</h2><p>reflow 的本质就是重新计算 layout 树。</p>
+  <a href="#%e4%bb%80%e4%b9%88%e6%98%af-reflow" class="heading-mark"></a>2 什么是 reflow？</h2><p>reflow 的本质就是重新计算 layout 树。</p>
 <p>当进行了会影响布局树的操作后，需要重新计算布局树，会引发 layout。</p>
 <p>为了避免连续的多次操作导致布局树反复计算，浏览器会合并这些操作，当 JS 代码全部完成后再进行统一计算。所以，改动属性造成的 reflow 是异步完成的。</p>
 <p>也同样因为如此，当 JS 获取布局属性时，就可能造成无法获取到最新的布局信息。</p>
 <p>浏览器在反复权衡下，最终决定获取属性立即 reflow。</p>
 <h2 id="什么是-repaint" class="heading-element">
-  <a href="#%e4%bb%80%e4%b9%88%e6%98%af-repaint" class="heading-mark"></a>什么是 repaint？</h2><p>repaint 的本质就是重新根据分层信息计算了绘制指令。</p>
+  <a href="#%e4%bb%80%e4%b9%88%e6%98%af-repaint" class="heading-mark"></a>3 什么是 repaint？</h2><p>repaint 的本质就是重新根据分层信息计算了绘制指令。</p>
 <p>当改动了可见样式后，就需要重新计算，会引发 repaint。</p>
 <p>由于元素的布局信息也属于可见样式，所以 reflow 一定会引起 repaint。</p>
 <h2 id="为什么-transform-的效率高" class="heading-element">
-  <a href="#%e4%b8%ba%e4%bb%80%e4%b9%88-transform-%e7%9a%84%e6%95%88%e7%8e%87%e9%ab%98" class="heading-mark"></a>为什么 transform 的效率高？</h2><p>因为 transform 既不会影响布局也不会影响绘制指令，它影响的只是渲染流程的最后一个「draw」阶段</p>
+  <a href="#%e4%b8%ba%e4%bb%80%e4%b9%88-transform-%e7%9a%84%e6%95%88%e7%8e%87%e9%ab%98" class="heading-mark"></a>4 为什么 transform 的效率高？</h2><p>因为 transform 既不会影响布局也不会影响绘制指令，它影响的只是渲染流程的最后一个「draw」阶段</p>
 <p>由于 draw 阶段在合成线程中，所以 transform 的变化几乎不会影响渲染主线程。反之，渲染主线程无论如何忙碌，也不会影响 transform 的变化。</p>
 ]]></description></item><item><title>浏览器原理 - 事件循环</title><link>https://lruihao.cn/posts/event-loop/</link><pubDate>Wed, 11 Jan 2023 11:16:02 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/event-loop/</guid><description><![CDATA[<div class="featured-image"><img loading="eager" src="images/202208092131410.png" alt="浏览器原理 - 事件循环" title="浏览器原理 - 事件循环" referrerpolicy="no-referrer"/></div><p>最近在抖音上刷到很多次 <a href="http://yuanjin.tech/"target="_blank" rel="external nofollow noopener noreferrer">袁进老师<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 的前端视频，然后就听了一下他的前端大师课，感觉了解一些浏览器原理后，原来工作中的一些疑问也自然解开了。</p>
 <h2 id="浏览器的进程模型" class="heading-element">
-  <a href="#%e6%b5%8f%e8%a7%88%e5%99%a8%e7%9a%84%e8%bf%9b%e7%a8%8b%e6%a8%a1%e5%9e%8b" class="heading-mark"></a>浏览器的进程模型</h2><h3 id="何为进程" class="heading-element">
-  <a href="#%e4%bd%95%e4%b8%ba%e8%bf%9b%e7%a8%8b" class="heading-mark"></a>何为进程？</h3><p>程序运行需要有它自己专属的内存空间，可以把这块内存空间简单的理解为进程</p>
-<p><figure><a class="lightgallery" href="images/202208092057573.png?size=large" data-thumbnail="images/202208092057573.png?size=small" data-sub-html="<h2>进程</h2><p>进程可以简单理解为单独的内存空间</p>"><img loading="lazy" src="images/202208092057573.png" alt="进程" srcset="images/202208092057573.png?size=small, images/202208092057573.png?size=medium 1.5x, images/202208092057573.png?size=large 2x" data-title="进程可以简单理解为单独的内存空间" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a><figcaption class="image-caption">进程</figcaption>
+  <a href="#%e6%b5%8f%e8%a7%88%e5%99%a8%e7%9a%84%e8%bf%9b%e7%a8%8b%e6%a8%a1%e5%9e%8b" class="heading-mark"></a>1 浏览器的进程模型</h2><h3 id="何为进程" class="heading-element">
+  <a href="#%e4%bd%95%e4%b8%ba%e8%bf%9b%e7%a8%8b" class="heading-mark"></a>1.1 何为进程？</h3><p>程序运行需要有它自己专属的内存空间，可以把这块内存空间简单的理解为进程</p>
+<p><figure><a class="lightgallery" href="/posts/event-loop/images/202208092057573.png?size=large" data-thumbnail="/posts/event-loop/images/202208092057573.png?size=small" data-sub-html="<h2>进程</h2><p>进程可以简单理解为单独的内存空间</p>"><img loading="lazy" src="/posts/event-loop/images/202208092057573.png" alt="进程" srcset="/posts/event-loop/images/202208092057573.png?size=small, /posts/event-loop/images/202208092057573.png?size=medium 1.5x, /posts/event-loop/images/202208092057573.png?size=large 2x" data-title="进程可以简单理解为单独的内存空间" style="--width: 1364px;--aspect-ratio: 1364 / 970;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a><figcaption class="image-caption">进程</figcaption>
   </figure></p>
 <p>每个应用至少有一个进程，进程之间相互独立，即使要通信，也需要双方同意。</p>
 <h3 id="何为线程" class="heading-element">
-  <a href="#%e4%bd%95%e4%b8%ba%e7%ba%bf%e7%a8%8b" class="heading-mark"></a>何为线程？</h3><p>有了进程后，就可以运行程序的代码了。</p>
+  <a href="#%e4%bd%95%e4%b8%ba%e7%ba%bf%e7%a8%8b" class="heading-mark"></a>1.2 何为线程？</h3><p>有了进程后，就可以运行程序的代码了。</p>
 <p>运行代码的「人」称之为「线程」。</p>
 <p>一个进程至少有一个线程，所以在进程开启后会自动创建一个线程来运行代码，该线程称之为主线程。</p>
 <p>如果程序需要同时执行多块代码，主线程就会启动更多的线程来执行代码，所以一个进程中可以包含多个线程。</p>
-<p><figure><a class="lightgallery" href="images/202208092108499.png?size=large" data-thumbnail="images/202208092108499.png?size=small" data-sub-html="<h2>线程</h2><p>一个进程可以有 N 个线程</p>"><img loading="lazy" src="images/202208092108499.png" alt="线程" srcset="images/202208092108499.png?size=small, images/202208092108499.png?size=medium 1.5x, images/202208092108499.png?size=large 2x" data-title="一个进程可以有 N 个线程" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a><figcaption class="image-caption">线程</figcaption>
+<p><figure><a class="lightgallery" href="/posts/event-loop/images/202208092108499.png?size=large" data-thumbnail="/posts/event-loop/images/202208092108499.png?size=small" data-sub-html="<h2>线程</h2><p>一个进程可以有 N 个线程</p>"><img loading="lazy" src="/posts/event-loop/images/202208092108499.png" alt="线程" srcset="/posts/event-loop/images/202208092108499.png?size=small, /posts/event-loop/images/202208092108499.png?size=medium 1.5x, /posts/event-loop/images/202208092108499.png?size=large 2x" data-title="一个进程可以有 N 个线程" style="--width: 1704px;--aspect-ratio: 1704 / 992;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a><figcaption class="image-caption">线程</figcaption>
   </figure></p>
 <h3 id="浏览器有哪些进程和线程" class="heading-element">
-  <a href="#%e6%b5%8f%e8%a7%88%e5%99%a8%e6%9c%89%e5%93%aa%e4%ba%9b%e8%bf%9b%e7%a8%8b%e5%92%8c%e7%ba%bf%e7%a8%8b" class="heading-mark"></a>浏览器有哪些进程和线程？</h3><p><strong>浏览器是一个多进程多线程的应用程序</strong>，浏览器内部工作极其复杂。</p>
+  <a href="#%e6%b5%8f%e8%a7%88%e5%99%a8%e6%9c%89%e5%93%aa%e4%ba%9b%e8%bf%9b%e7%a8%8b%e5%92%8c%e7%ba%bf%e7%a8%8b" class="heading-mark"></a>1.3 浏览器有哪些进程和线程？</h3><p><strong>浏览器是一个多进程多线程的应用程序</strong>，浏览器内部工作极其复杂。</p>
 <p>为了避免相互影响，为了减少连环崩溃的几率，当启动浏览器后，它会自动启动多个进程。</p>
-<p><figure><a class="lightgallery" href="images/202208092131410.png?size=large" data-thumbnail="images/202208092131410.png?size=small" data-sub-html="<h2>浏览器进程</h2><p>浏览器进程</p>"><img loading="lazy" src="images/202208092131410.png" alt="浏览器进程" srcset="images/202208092131410.png?size=small, images/202208092131410.png?size=medium 1.5x, images/202208092131410.png?size=large 2x" data-title="浏览器进程" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a><figcaption class="image-caption">浏览器进程</figcaption>
+<p><figure><a class="lightgallery" href="/posts/event-loop/images/202208092131410.png?size=large" data-thumbnail="/posts/event-loop/images/202208092131410.png?size=small" data-sub-html="<h2>浏览器进程</h2><p>浏览器进程</p>"><img loading="lazy" src="/posts/event-loop/images/202208092131410.png" alt="浏览器进程" srcset="/posts/event-loop/images/202208092131410.png?size=small, /posts/event-loop/images/202208092131410.png?size=medium 1.5x, /posts/event-loop/images/202208092131410.png?size=large 2x" data-title="浏览器进程" style="--width: 1518px;--aspect-ratio: 1518 / 1022;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a><figcaption class="image-caption">浏览器进程</figcaption>
   </figure></p>
 <blockquote>
 <p>可以在浏览器的任务管理器中查看当前的所有进程</p>
@@ -894,7 +894,7 @@
 </li>
 </ol>
 <h2 id="渲染主线程是如何工作的" class="heading-element">
-  <a href="#%e6%b8%b2%e6%9f%93%e4%b8%bb%e7%ba%bf%e7%a8%8b%e6%98%af%e5%a6%82%e4%bd%95%e5%b7%a5%e4%bd%9c%e7%9a%84" class="heading-mark"></a>渲染主线程是如何工作的？</h2><p>渲染主线程是浏览器中最繁忙的线程，需要它处理的任务包括但不限于：</p>
+  <a href="#%e6%b8%b2%e6%9f%93%e4%b8%bb%e7%ba%bf%e7%a8%8b%e6%98%af%e5%a6%82%e4%bd%95%e5%b7%a5%e4%bd%9c%e7%9a%84" class="heading-mark"></a>2 渲染主线程是如何工作的？</h2><p>渲染主线程是浏览器中最繁忙的线程，需要它处理的任务包括但不限于：</p>
 <ul>
 <li>解析 HTML</li>
 <li>解析 CSS</li>
@@ -919,7 +919,7 @@
 <li>&hellip;&hellip;</li>
 </ul>
 <p>渲染主线程想出了一个绝妙的主意来处理这个问题：排队</p>
-<p><figure><a class="lightgallery" href="images/202208092230847.png?size=large" data-thumbnail="images/202208092230847.png?size=small" data-sub-html="<h2>消息队列</h2><p>所有要执行的任务都要排队，FIFO</p>"><img loading="lazy" src="images/202208092230847.png" alt="消息队列" srcset="images/202208092230847.png?size=small, images/202208092230847.png?size=medium 1.5x, images/202208092230847.png?size=large 2x" data-title="所有要执行的任务都要排队，FIFO" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a><figcaption class="image-caption">消息队列</figcaption>
+<p><figure><a class="lightgallery" href="/posts/event-loop/images/202208092230847.png?size=large" data-thumbnail="/posts/event-loop/images/202208092230847.png?size=small" data-sub-html="<h2>消息队列</h2><p>所有要执行的任务都要排队，FIFO</p>"><img loading="lazy" src="/posts/event-loop/images/202208092230847.png" alt="消息队列" srcset="/posts/event-loop/images/202208092230847.png?size=small, /posts/event-loop/images/202208092230847.png?size=medium 1.5x, /posts/event-loop/images/202208092230847.png?size=large 2x" data-title="所有要执行的任务都要排队，FIFO" style="--width: 1570px;--aspect-ratio: 1570 / 886;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a><figcaption class="image-caption">消息队列</figcaption>
   </figure></p>
 <ol>
 <li>在最开始的时候，渲染主线程会进入一个无限循环</li>
@@ -928,19 +928,19 @@
 </ol>
 <p>这样一来，就可以让每个任务有条不紊的、持续的进行下去了。<strong>整个过程，被称之为事件循环（消息循环）</strong>。</p>
 <h2 id="若干解释" class="heading-element">
-  <a href="#%e8%8b%a5%e5%b9%b2%e8%a7%a3%e9%87%8a" class="heading-mark"></a>若干解释</h2><h3 id="何为异步" class="heading-element">
-  <a href="#%e4%bd%95%e4%b8%ba%e5%bc%82%e6%ad%a5" class="heading-mark"></a>何为异步？</h3><p>代码在执行过程中，会遇到一些无法立即处理的任务，比如：</p>
+  <a href="#%e8%8b%a5%e5%b9%b2%e8%a7%a3%e9%87%8a" class="heading-mark"></a>3 若干解释</h2><h3 id="何为异步" class="heading-element">
+  <a href="#%e4%bd%95%e4%b8%ba%e5%bc%82%e6%ad%a5" class="heading-mark"></a>3.1 何为异步？</h3><p>代码在执行过程中，会遇到一些无法立即处理的任务，比如：</p>
 <ul>
 <li>计时完成后需要执行的任务 —— <code>setTimeout</code>、<code>setInterval</code></li>
 <li>网络通信完成后需要执行的任务 — <code>XHR</code>、<code>Fetch</code></li>
 <li>用户操作后需要执行的任务 — <code>addEventListener</code></li>
 </ul>
 <p>如果让渲染主线程等待这些任务的时机达到，就会导致主线程长期处于「阻塞」的状态，从而导致浏览器「卡死」</p>
-<p><figure><a class="lightgallery" href="images/202208101043348.png?size=large" data-thumbnail="images/202208101043348.png?size=small" data-sub-html="<h2>同步策略</h2><p>同步策略会导致卡死</p>"><img loading="lazy" src="images/202208101043348.png" alt="同步策略" srcset="images/202208101043348.png?size=small, images/202208101043348.png?size=medium 1.5x, images/202208101043348.png?size=large 2x" data-title="同步策略会导致卡死" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a><figcaption class="image-caption">同步策略</figcaption>
+<p><figure><a class="lightgallery" href="/posts/event-loop/images/202208101043348.png?size=large" data-thumbnail="/posts/event-loop/images/202208101043348.png?size=small" data-sub-html="<h2>同步策略</h2><p>同步策略会导致卡死</p>"><img loading="lazy" src="/posts/event-loop/images/202208101043348.png" alt="同步策略" srcset="/posts/event-loop/images/202208101043348.png?size=small, /posts/event-loop/images/202208101043348.png?size=medium 1.5x, /posts/event-loop/images/202208101043348.png?size=large 2x" data-title="同步策略会导致卡死" style="--width: 1712px;--aspect-ratio: 1712 / 790;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a><figcaption class="image-caption">同步策略</figcaption>
   </figure></p>
 <p><strong>渲染主线程承担着极其重要的工作，无论如何都不能阻塞！</strong></p>
 <p>因此，浏览器选择<strong>异步</strong>来解决这个问题</p>
-<p><figure><a class="lightgallery" href="images/202208101048899.png?size=large" data-thumbnail="images/202208101048899.png?size=small" data-sub-html="<h2>异步策略</h2><p>异步策略，渲染主线程永不阻塞</p>"><img loading="lazy" src="images/202208101048899.png" alt="异步策略" srcset="images/202208101048899.png?size=small, images/202208101048899.png?size=medium 1.5x, images/202208101048899.png?size=large 2x" data-title="异步策略，渲染主线程永不阻塞" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a><figcaption class="image-caption">异步策略</figcaption>
+<p><figure><a class="lightgallery" href="/posts/event-loop/images/202208101048899.png?size=large" data-thumbnail="/posts/event-loop/images/202208101048899.png?size=small" data-sub-html="<h2>异步策略</h2><p>异步策略，渲染主线程永不阻塞</p>"><img loading="lazy" src="/posts/event-loop/images/202208101048899.png" alt="异步策略" srcset="/posts/event-loop/images/202208101048899.png?size=small, /posts/event-loop/images/202208101048899.png?size=medium 1.5x, /posts/event-loop/images/202208101048899.png?size=large 2x" data-title="异步策略，渲染主线程永不阻塞" style="--width: 1740px;--aspect-ratio: 1740 / 848;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a><figcaption class="image-caption">异步策略</figcaption>
   </figure></p>
 <p>使用异步的方式，<strong>渲染主线程永不阻塞</strong></p>
 <div class="details admonition question">
@@ -958,7 +958,7 @@
     </div>
   </div>
 <h3 id="js-为何会阻碍渲染" class="heading-element">
-  <a href="#js-%e4%b8%ba%e4%bd%95%e4%bc%9a%e9%98%bb%e7%a2%8d%e6%b8%b2%e6%9f%93" class="heading-mark"></a>JS 为何会阻碍渲染？</h3><p>先看代码</p>
+  <a href="#js-%e4%b8%ba%e4%bd%95%e4%bc%9a%e9%98%bb%e7%a2%8d%e6%b8%b2%e6%9f%93" class="heading-mark"></a>3.2 JS 为何会阻碍渲染？</h3><p>先看代码</p>
 <div class="highlight" id="id-1"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -1001,7 +1001,7 @@
 </div><p>点击按钮后，会发生什么呢？</p>
 <p>&lt;复制代码自行演示&gt;</p>
 <h3 id="任务有优先级吗" class="heading-element">
-  <a href="#%e4%bb%bb%e5%8a%a1%e6%9c%89%e4%bc%98%e5%85%88%e7%ba%a7%e5%90%97" class="heading-mark"></a>任务有优先级吗？</h3><p>任务没有优先级，在消息队列中先进先出</p>
+  <a href="#%e4%bb%bb%e5%8a%a1%e6%9c%89%e4%bc%98%e5%85%88%e7%ba%a7%e5%90%97" class="heading-mark"></a>3.3 任务有优先级吗？</h3><p>任务没有优先级，在消息队列中先进先出</p>
 <p>但<strong>消息队列是有优先级的</strong></p>
 <p>根据 W3C 的最新解释：</p>
 <ul>
@@ -1019,7 +1019,7 @@
 <li>延时队列：用于存放计时器到达后的回调任务，优先级「中」</li>
 <li>交互队列：用于存放用户操作后产生的事件处理任务，优先级「高」</li>
 </ul>
-<p><figure><a class="lightgallery" href="images/multiple-queues.png?size=large" data-thumbnail="images/multiple-queues.png?size=small" data-sub-html="<h2>多队列演示图</h2><p>微队列、延时队列、交互队列</p>"><img loading="lazy" src="images/multiple-queues.png" alt="多队列演示图" srcset="images/multiple-queues.png?size=small, images/multiple-queues.png?size=medium 1.5x, images/multiple-queues.png?size=large 2x" data-title="微队列、延时队列、交互队列" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a><figcaption class="image-caption">多队列演示图</figcaption>
+<p><figure><a class="lightgallery" href="/posts/event-loop/images/multiple-queues.png?size=large" data-thumbnail="/posts/event-loop/images/multiple-queues.png?size=small" data-sub-html="<h2>多队列演示图</h2><p>微队列、延时队列、交互队列</p>"><img loading="lazy" src="/posts/event-loop/images/multiple-queues.png" alt="多队列演示图" srcset="/posts/event-loop/images/multiple-queues.png?size=small, /posts/event-loop/images/multiple-queues.png?size=medium 1.5x, /posts/event-loop/images/multiple-queues.png?size=large 2x" data-title="微队列、延时队列、交互队列" style="--width: 1232px;--aspect-ratio: 1232 / 676;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a><figcaption class="image-caption">多队列演示图</figcaption>
   </figure></p>
 <p>添加任务到微队列的主要方式主要是使用 Promise、MutationObserver，例如：</p>
 <div class="highlight" id="id-2"><div class="chroma">
@@ -1062,8 +1062,8 @@
     </div>
   </div>]]></description></item><item><title>前端页面内容加密总结</title><link>https://lruihao.cn/posts/encryption-fe/</link><pubDate>Mon, 08 Aug 2022 13:49:22 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/encryption-fe/</guid><description><![CDATA[<div class="featured-image"><img loading="eager" src="https://lruihao.cn/posts/encryption-fe/images/featured-image.png" alt="前端页面内容加密总结" title="前端页面内容加密总结" referrerpolicy="no-referrer"/></div><p>记录一下前端实现页面加密的思路。</p>
 <h2 id="加密基础知识" class="heading-element">
-  <a href="#%e5%8a%a0%e5%af%86%e5%9f%ba%e7%a1%80%e7%9f%a5%e8%af%86" class="heading-mark"></a>加密基础知识</h2><h3 id="双向加密" class="heading-element">
-  <a href="#%e5%8f%8c%e5%90%91%e5%8a%a0%e5%af%86" class="heading-mark"></a>双向加密</h3><p>可还原的加密算法，可以逆向解密。</p>
+  <a href="#%e5%8a%a0%e5%af%86%e5%9f%ba%e7%a1%80%e7%9f%a5%e8%af%86" class="heading-mark"></a>1 加密基础知识</h2><h3 id="双向加密" class="heading-element">
+  <a href="#%e5%8f%8c%e5%90%91%e5%8a%a0%e5%af%86" class="heading-mark"></a>1.1 双向加密</h3><p>可还原的加密算法，可以逆向解密。</p>
 <ol>
 <li>
 <p>对称加密（单密钥加密）</p>
@@ -1078,9 +1078,9 @@
 </li>
 </ol>
 <h3 id="单向加密" class="heading-element">
-  <a href="#%e5%8d%95%e5%90%91%e5%8a%a0%e5%af%86" class="heading-mark"></a>单向加密</h3><p>不可还原的加密算法（暴力撞库除外），常见的算法有：MD5、SHA1、SHA256、SHA512。</p>
+  <a href="#%e5%8d%95%e5%90%91%e5%8a%a0%e5%af%86" class="heading-mark"></a>1.2 单向加密</h3><p>不可还原的加密算法（暴力撞库除外），常见的算法有：MD5、SHA1、SHA256、SHA512。</p>
 <h2 id="页面内容加密" class="heading-element">
-  <a href="#%e9%a1%b5%e9%9d%a2%e5%86%85%e5%ae%b9%e5%8a%a0%e5%af%86" class="heading-mark"></a>页面内容加密</h2><p><figure><a class="lightgallery" href="images/algorithm.jpg?size=large" data-thumbnail="images/algorithm.jpg?size=small" data-sub-html="<h2>内容加密算法</h2><p>内容加密算法</p>"><img loading="lazy" src="images/algorithm.jpg" alt="内容加密算法" srcset="images/algorithm.jpg?size=small, images/algorithm.jpg?size=medium 1.5x, images/algorithm.jpg?size=large 2x" data-title="内容加密算法" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a><figcaption class="image-caption">内容加密算法</figcaption>
+  <a href="#%e9%a1%b5%e9%9d%a2%e5%86%85%e5%ae%b9%e5%8a%a0%e5%af%86" class="heading-mark"></a>2 页面内容加密</h2><p><figure><a class="lightgallery" href="/posts/encryption-fe/images/algorithm.jpg?size=large" data-thumbnail="/posts/encryption-fe/images/algorithm.jpg?size=small" data-sub-html="<h2>内容加密算法</h2><p>内容加密算法</p>"><img loading="lazy" src="/posts/encryption-fe/images/algorithm.jpg" alt="内容加密算法" srcset="/posts/encryption-fe/images/algorithm.jpg?size=small, /posts/encryption-fe/images/algorithm.jpg?size=medium 1.5x, /posts/encryption-fe/images/algorithm.jpg?size=large 2x" data-title="内容加密算法" style="--width: 1024px;--aspect-ratio: 1024 / 768;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a><figcaption class="image-caption">内容加密算法</figcaption>
   </figure></p>
 <ol>
 <li>通过比对密码和输入的 md5 值来判断密码是否输入正确</li>
@@ -1102,7 +1102,7 @@
     </div>
   </div>
 <h2 id="数组方法-some-every-find-filter-map" class="heading-element">
-  <a href="#%e6%95%b0%e7%bb%84%e6%96%b9%e6%b3%95-some-every-find-filter-map" class="heading-mark"></a>数组方法 some, every, find, filter, map</h2><blockquote>
+  <a href="#%e6%95%b0%e7%bb%84%e6%96%b9%e6%b3%95-some-every-find-filter-map" class="heading-mark"></a>1 数组方法 some, every, find, filter, map</h2><blockquote>
 <p>共同点：这几个方法都不会改变原始数组。</p>
 </blockquote>
 <p><strong><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/some"target="_blank" rel="external nofollow noopener noreferrer">some<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></strong></p>
@@ -1273,7 +1273,7 @@
 </span></span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="使用-objecthasown-替代-in-操作符" class="heading-element">
-  <a href="#%e4%bd%bf%e7%94%a8-objecthasown-%e6%9b%bf%e4%bb%a3-in-%e6%93%8d%e4%bd%9c%e7%ac%a6" class="heading-mark"></a>使用 <code>Object.hasOwn</code> 替代 <code>in</code> 操作符</h2><p>有时，我们想知道对象上是否存在某个属性，一般会使用 <code>in</code> 操作符或 <code>obj.hasOwnProperty</code>，但它们都有各自的缺陷。</p>
+  <a href="#%e4%bd%bf%e7%94%a8-objecthasown-%e6%9b%bf%e4%bb%a3-in-%e6%93%8d%e4%bd%9c%e7%ac%a6" class="heading-mark"></a>2 使用 <code>Object.hasOwn</code> 替代 <code>in</code> 操作符</h2><p>有时，我们想知道对象上是否存在某个属性，一般会使用 <code>in</code> 操作符或 <code>obj.hasOwnProperty</code>，但它们都有各自的缺陷。</p>
 <p><strong>in</strong></p>
 <p>如果指定的属性位于对象或其原型链中，<code>in</code> 运算符将返回 <code>true</code>。</p>
 <div class="highlight" id="id-11"><div class="chroma">
@@ -1352,7 +1352,7 @@
 </span></span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="使用--声明私有属性" class="heading-element">
-  <a href="#%e4%bd%bf%e7%94%a8--%e5%a3%b0%e6%98%8e%e7%a7%81%e6%9c%89%e5%b1%9e%e6%80%a7" class="heading-mark"></a>使用 &ldquo;#&rdquo; 声明私有属性</h2><p>以前，我们一般用 <code>_</code> 表示私有属性，但它并不靠谱，还是会被外部修改。</p>
+  <a href="#%e4%bd%bf%e7%94%a8--%e5%a3%b0%e6%98%8e%e7%a7%81%e6%9c%89%e5%b1%9e%e6%80%a7" class="heading-mark"></a>3 使用 &ldquo;#&rdquo; 声明私有属性</h2><p>以前，我们一般用 <code>_</code> 表示私有属性，但它并不靠谱，还是会被外部修改。</p>
 <div class="highlight" id="id-15"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -1451,7 +1451,7 @@
 </span></span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="有用的数字分隔符" class="heading-element">
-  <a href="#%e6%9c%89%e7%94%a8%e7%9a%84%e6%95%b0%e5%ad%97%e5%88%86%e9%9a%94%e7%ac%a6" class="heading-mark"></a>有用的数字分隔符</h2><p>可以使用 <code>_</code> 分隔数字，当然也可以用于计算</p>
+  <a href="#%e6%9c%89%e7%94%a8%e7%9a%84%e6%95%b0%e5%ad%97%e5%88%86%e9%9a%94%e7%ac%a6" class="heading-mark"></a>4 有用的数字分隔符</h2><p>可以使用 <code>_</code> 分隔数字，当然也可以用于计算</p>
 <div class="highlight" id="id-17"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -1491,7 +1491,7 @@
     </div>
   </div>
 <h2 id="---的使用" class="heading-element">
-  <a href="#---%e7%9a%84%e4%bd%bf%e7%94%a8" class="heading-mark"></a>&ldquo;?.&rdquo;, &ldquo;??&rdquo;, &ldquo;??=&rdquo; 的使用</h2><p><strong>可选链 ?.</strong></p>
+  <a href="#---%e7%9a%84%e4%bd%bf%e7%94%a8" class="heading-mark"></a>5 &ldquo;?.&rdquo;, &ldquo;??&rdquo;, &ldquo;??=&rdquo; 的使用</h2><p><strong>可选链 ?.</strong></p>
 <p>以前我们为了简化 <code>if else</code>，通常会写出这样的代码</p>
 <div class="highlight" id="id-19"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1603,7 +1603,7 @@
 </div>
 </div><p>很好理解，这里的 <code>foo ??= 2</code> 等价于 <code>foo = foo ?? 2</code></p>
 <h2 id="使用-bigint-支持大数计算" class="heading-element">
-  <a href="#%e4%bd%bf%e7%94%a8-bigint-%e6%94%af%e6%8c%81%e5%a4%a7%e6%95%b0%e8%ae%a1%e7%ae%97" class="heading-mark"></a>使用 BigInt 支持大数计算</h2><p>JS 中超过 <code>Number.MAX_SAFE_INTEGER</code> 的数字计算将是不安全的。</p>
+  <a href="#%e4%bd%bf%e7%94%a8-bigint-%e6%94%af%e6%8c%81%e5%a4%a7%e6%95%b0%e8%ae%a1%e7%ae%97" class="heading-mark"></a>6 使用 BigInt 支持大数计算</h2><p>JS 中超过 <code>Number.MAX_SAFE_INTEGER</code> 的数字计算将是不安全的。</p>
 <p><strong>Example:</strong></p>
 <div class="highlight" id="id-25"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1648,10 +1648,10 @@
 </span></span></span></code></pre></td></tr></table>
 </div>
 </div><p><em>学无止境，与未来的自己共勉</em></p>]]></description></item><item><title>Lightbox</title><link>https://lruihao.cn/posts/lightbox/</link><pubDate>Mon, 21 Jun 2021 16:18:04 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/lightbox/</guid><description><![CDATA[<h2 id="簡介" class="heading-element">
-  <a href="#%e7%b0%a1%e4%bb%8b" class="heading-mark"></a>簡介</h2><p>Lightbox（燈箱），用来放大显示图片覆盖于当前页面之上。其是用 CSS 来定义图片容器，用一幅半透明的 png 图片实现渐变阴暗的效果。</p>
+  <a href="#%e7%b0%a1%e4%bb%8b" class="heading-mark"></a>1 簡介</h2><p>Lightbox（燈箱），用来放大显示图片覆盖于当前页面之上。其是用 CSS 来定义图片容器，用一幅半透明的 png 图片实现渐变阴暗的效果。</p>
 <p>一般的網頁，圖片是使用 img 標籤寫在 HTML 頁面中，圖片點擊并不會放大，想放大看圖片要麼方法整個網頁，要麼複製圖片鏈接新開窗口，操作繁瑣，而使用 Lightbox 的網站可以点击缩略图浮层显示大图，放大後可点击键盘 ←、→ 键切换图片，也可以鼠标点击左右箭头切换。按下键盘 Esc 键或者点击关闭按钮可輕鬆關閉圖層，圖片流覽的體驗度是遠遠大於未使用的 Lightbox 的網站。</p>
 <h2 id="實現思路" class="heading-element">
-  <a href="#%e5%af%a6%e7%8f%be%e6%80%9d%e8%b7%af" class="heading-mark"></a>實現思路</h2><p>大概思路就在每个图片的点击事件中添加图层与图片副本。</p>
+  <a href="#%e5%af%a6%e7%8f%be%e6%80%9d%e8%b7%af" class="heading-mark"></a>2 實現思路</h2><p>大概思路就在每个图片的点击事件中添加图层与图片副本。</p>
 <div class="highlight" id="id-1"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">  1
@@ -2045,10 +2045,10 @@
 </span></span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="fancybox" class="heading-element">
-  <a href="#fancybox" class="heading-mark"></a>fancybox</h2><p><a href="https://github.com/fancyapps/fancybox"target="_blank" rel="external nofollow noopener noreferrer">fancybox<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 是一個完善的 lightbox 插件<br>
+  <a href="#fancybox" class="heading-mark"></a>3 fancybox</h2><p><a href="https://github.com/fancyapps/fancybox"target="_blank" rel="external nofollow noopener noreferrer">fancybox<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 是一個完善的 lightbox 插件<br>
 jQuery lightbox script for displaying images, videos and more. Touch enabled, responsive and fully customizable.</p>
 <h3 id="quick-start" class="heading-element">
-  <a href="#quick-start" class="heading-mark"></a>Quick start</h3><ol>
+  <a href="#quick-start" class="heading-mark"></a>3.1 Quick start</h3><ol>
 <li>Add latest jQuery and fancyBox files</li>
 </ol>
 <div class="highlight" id="id-2"><div class="chroma">
@@ -2092,7 +2092,7 @@ jQuery lightbox script for displaying images, videos and more. Touch enabled, re
 ]]></description></item><item><title>Cell Watermark</title><link>https://lruihao.cn/projects/cell-watermark/</link><pubDate>Sun, 23 May 2021 17:15:41 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/projects/cell-watermark/</guid><description><![CDATA[<!-- markdownlint-disable -->
 <h1 id="usage" class="heading-element">
   <a href="#usage" class="heading-mark"></a>Usage</h1><h2 id="browser" class="heading-element">
-  <a href="#browser" class="heading-mark"></a>Browser</h2><ol>
+  <a href="#browser" class="heading-mark"></a>1 Browser</h2><ol>
 <li>
 <p>Clone source</p>
 <div class="highlight" id="id-1"><div class="chroma">
@@ -2141,7 +2141,7 @@ jQuery lightbox script for displaying images, videos and more. Touch enabled, re
 </div></li>
 </ol>
 <h2 id="npm" class="heading-element">
-  <a href="#npm" class="heading-mark"></a>NPM</h2><ol>
+  <a href="#npm" class="heading-mark"></a>2 NPM</h2><ol>
 <li>
 <p>Install</p>
 <div class="highlight" id="id-4"><div class="chroma">
@@ -2169,9 +2169,9 @@ jQuery lightbox script for displaying images, videos and more. Touch enabled, re
 </ol>
 <h1 id="class-watermark" class="heading-element">
   <a href="#class-watermark" class="heading-mark"></a>Class: Watermark</h1><h2 id="watermarkoptions" class="heading-element">
-  <a href="#watermarkoptions" class="heading-mark"></a>Watermark(options)</h2><h4 id="new-watermarkoptions" class="heading-element">
-  <a href="#new-watermarkoptions" class="heading-mark"></a>new Watermark(options)</h4><h5 id="parameters" class="heading-element">
-  <a href="#parameters" class="heading-mark"></a>Parameters</h5><table>
+  <a href="#watermarkoptions" class="heading-mark"></a>1 Watermark(options)</h2><h4 id="new-watermarkoptions" class="heading-element">
+  <a href="#new-watermarkoptions" class="heading-mark"></a>1.0.1 new Watermark(options)</h4><h5 id="parameters" class="heading-element">
+  <a href="#parameters" class="heading-mark"></a>1.0.1.1 Parameters</h5><table>
 <thead>
 <tr>
 <th>Name</th>
@@ -2188,7 +2188,7 @@ jQuery lightbox script for displaying images, videos and more. Touch enabled, re
 </tbody>
 </table>
 <h6 id="properties" class="heading-element">
-  <a href="#properties" class="heading-mark"></a>Properties</h6><table>
+  <a href="#properties" class="heading-mark"></a>1.0.1.1.1 Properties</h6><table>
 <thead>
 <tr>
 <th>Name</th>
@@ -2275,10 +2275,10 @@ jQuery lightbox script for displaying images, videos and more. Touch enabled, re
 <p>Author: <a href="https://lruihao.cn"target="_blank" rel="external nofollow noopener noreferrer">Lruihao<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
 </blockquote>
 <h3 id="methods" class="heading-element">
-  <a href="#methods" class="heading-mark"></a>Methods</h3><h4 id="uploadcontent" class="heading-element">
-  <a href="#uploadcontent" class="heading-mark"></a>upload(content)</h4><p>Upload watermark&rsquo;s text content</p>
+  <a href="#methods" class="heading-mark"></a>1.1 Methods</h3><h4 id="uploadcontent" class="heading-element">
+  <a href="#uploadcontent" class="heading-mark"></a>1.1.1 upload(content)</h4><p>Upload watermark&rsquo;s text content</p>
 <h5 id="parameters-1" class="heading-element">
-  <a href="#parameters-1" class="heading-mark"></a>Parameters</h5><table>
+  <a href="#parameters-1" class="heading-mark"></a>1.1.1.1 Parameters</h5><table>
 <thead>
 <tr>
 <th style="text-align:center">Name</th>
@@ -2295,9 +2295,9 @@ jQuery lightbox script for displaying images, videos and more. Touch enabled, re
 </tbody>
 </table>
 <h4 id="renderoptions" class="heading-element">
-  <a href="#renderoptions" class="heading-mark"></a>render(options)</h4><p>Rerender watermark</p>
+  <a href="#renderoptions" class="heading-mark"></a>1.1.2 render(options)</h4><p>Rerender watermark</p>
 <h5 id="parameters-2" class="heading-element">
-  <a href="#parameters-2" class="heading-mark"></a>Parameters</h5><table>
+  <a href="#parameters-2" class="heading-mark"></a>1.1.2.1 Parameters</h5><table>
 <thead>
 <tr>
 <th>Name</th>
@@ -2314,9 +2314,9 @@ jQuery lightbox script for displaying images, videos and more. Touch enabled, re
 </tbody>
 </table>
 <h4 id="destroy" class="heading-element">
-  <a href="#destroy" class="heading-mark"></a>destroy()</h4><p>Force destroy watermark</p>
+  <a href="#destroy" class="heading-mark"></a>1.1.3 destroy()</h4><p>Force destroy watermark</p>
 ]]></description></item><item><title>基于 leancloud-storage 实现的无后端记账本</title><link>https://lruihao.cn/projects/bill-note/</link><pubDate>Tue, 02 Mar 2021 21:46:40 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/projects/bill-note/</guid><description><![CDATA[<h2 id="起因" class="heading-element">
-  <a href="#%e8%b5%b7%e5%9b%a0" class="heading-mark"></a>起因</h2><div class="details admonition info open">
+  <a href="#%e8%b5%b7%e5%9b%a0" class="heading-mark"></a>1 起因</h2><div class="details admonition info open">
     <div class="details-summary admonition-title">
       <i class="icon fa-solid fa-info-circle fa-fw" aria-hidden="true"></i>起因<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i>
     </div>
@@ -2328,15 +2328,15 @@ jQuery lightbox script for displaying images, videos and more. Touch enabled, re
     </div>
   </div>
 <h2 id="經過" class="heading-element">
-  <a href="#%e7%b6%93%e9%81%8e" class="heading-mark"></a>經過</h2><p>作為一個程序猿，怎麼能接受這麼麻煩的記賬方式呢，拿起筆就開始畫，於是有了下面這張圖的公式。簡單說明一下就是：<br>
+  <a href="#%e7%b6%93%e9%81%8e" class="heading-mark"></a>2 經過</h2><p>作為一個程序猿，怎麼能接受這麼麻煩的記賬方式呢，拿起筆就開始畫，於是有了下面這張圖的公式。簡單說明一下就是：<br>
 設前面說的四種組合為：<code>X1, X2, X3, X4</code>，個人實際付款總額為：<code>Y1, Y2, Y3</code>，那麼帶入未知數，我們就可以算出每個人最後結算時的錢：<code>S1, S2, S3</code>，<br>
 綜上所述，很好理解，當 <code>S &gt;= 0</code> 時，收紅包，當 <code>S &lt; 0</code> 時，發紅包。</p>
-<p><img loading="lazy" src="images/gs.jpg" alt="计算公式" srcset="images/gs.jpg?size=small, images/gs.jpg?size=medium 1.5x, images/gs.jpg?size=large 2x" data-title="计算公式" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+<p><a class="lightgallery" href="/projects/bill-note/images/gs.jpg?size=large" data-thumbnail="/projects/bill-note/images/gs.jpg?size=small" data-sub-html="<h2>计算公式</h2>"><img loading="lazy" src="/projects/bill-note/images/gs.jpg" alt="计算公式" srcset="/projects/bill-note/images/gs.jpg?size=small, /projects/bill-note/images/gs.jpg?size=medium 1.5x, /projects/bill-note/images/gs.jpg?size=large 2x" data-title="计算公式" style="--width: 4000px;--aspect-ratio: 4000 / 3000;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></p>
 <p>OK，一個簡單的初中方程式已經到位了，下一步，思考一下，用什麼來運作這個這個方程。來，先跑個題，春節期間，不是每天都要在騰訊文檔上填表記錄活動軌跡嗎？再回來，那不如就用 excel 實現吧，三個人都可以在手機上編輯。好的，說做就做。</p>
 <p>一頓操作，10 minutes later&hellip;<br>
 只新建了一個 excel 文件，O.o! 不會 excel，果斷放棄，另尋他路。</p>
 <h2 id="結果" class="heading-element">
-  <a href="#%e7%b5%90%e6%9e%9c" class="heading-mark"></a>結果</h2><p>回到本職，那不如寫個網站吧，可是畢業後，學生機服務器也過期了，怎麼搞？那就寫個純前端的，數據呢存哪裡？<br>
+  <a href="#%e7%b5%90%e6%9e%9c" class="heading-mark"></a>3 結果</h2><p>回到本職，那不如寫個網站吧，可是畢業後，學生機服務器也過期了，怎麼搞？那就寫個純前端的，數據呢存哪裡？<br>
 別急，重新擼一擼需求先：</p>
 <ul>
 <li>存取消費數據</li>
@@ -2357,7 +2357,7 @@ valine 可以實現無後端，那我是不是也可以，leancloud 文檔走一
         </span>
       </span><svg class="cl-icon-globe" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" width="64" height="64"><path d="M960 512c0 249.408-203.2 448-448 448-244.778667 0-448-198.592-448-448S262.592 64 512 64s448 198.592 448 448" fill="#2196F3"></path><path d="M507.52 718.08c0-8.96-4.48-13.44-13.44-17.92-26.88-8.96-53.76-8.96-76.16-31.381333-4.48-8.96-4.48-17.92-8.96-26.88-8.96-8.96-31.36-13.44-44.8-17.92h-89.6c-13.44-4.48-22.4-22.4-31.36-35.84 0-4.48 0-13.461333-8.96-13.461334-8.96-4.458667-17.92 4.501333-26.88 0-4.48-4.458667-4.48-8.96-4.48-13.418666 0-13.461333 8.96-26.901333 17.92-35.861334 13.44-8.96 26.88 4.48 40.32 4.48 4.48 0 4.48 0 8.96 4.48 13.44 4.48 17.92 22.4 17.92 35.861334v8.96c0 4.48 4.48 4.48 8.96 4.48 4.48-22.4 4.48-44.821333 8.96-67.2 0-26.88 26.88-53.781333 49.28-62.72 8.96-4.458667 13.44 4.501333 22.4 0 26.88-8.96 94.08-35.84 80.64-71.658667-8.96-31.381333-35.84-62.698667-71.68-58.24-8.96 4.501333-13.44 8.96-22.4 13.461333-13.44 8.96-40.32 35.84-53.76 35.84-22.4-4.48-22.4-35.84-17.92-49.301333 4.48-17.92 44.8-76.138667 71.68-67.178667l17.92 17.92c8.96 4.48 22.4 4.48 35.84 4.48 4.48 0 8.96 0 13.44-4.48 4.48-4.48 4.48-4.48 4.48-8.96 0-13.44-13.44-26.901333-22.4-35.861333s-22.4-17.92-35.84-22.378667c-44.8-13.461333-116.48 4.458667-152.32 35.84-35.84 31.36-62.72 85.12-80.64 129.92-8.96 26.88-17.92 62.698667-22.4 94.08-4.48 22.4-8.96 40.32 4.48 62.698667 13.44 26.88 40.32 53.781333 67.2 71.68 17.92 13.44 53.76 13.44 71.68 35.84 13.44 17.941333 8.96 40.32 8.96 62.72 0 26.88 17.92 49.28 26.88 71.658667 4.48 13.461333 8.96 31.381333 13.44 44.821333 0 4.48 4.48 31.36 4.48 35.84 26.88 13.44 49.28 26.901333 80.64 35.861333 4.48 0 22.4-26.901333 22.4-31.381333 13.44-13.44 22.4-31.36 35.84-40.32 8.96-4.48 17.92-8.96 26.88-17.941333 8.96-8.96 13.44-26.88 17.92-40.32 4.48-8.938667 8.96-26.858667 4.48-40.298667M516.48 305.92c4.48 0 8.96-4.48 17.92-8.96 13.44-8.96 26.901333-22.4 40.32-31.36 13.461333-8.96 26.901333-22.4 35.861333-31.36 13.44-8.96 22.4-26.88 26.88-40.341333 4.48-8.96 17.941333-26.88 13.44-40.32-4.48-8.96-26.88-13.44-35.84-17.92C579.2 126.698667 547.84 122.24 512 122.24c-13.44 0-31.36 4.458667-35.84 17.92-4.48 22.4 13.44 17.92 31.36 22.4 0 0 4.48 35.84 4.48 40.32 4.48 22.421333-8.96 35.84-8.96 58.24 0 13.44 0 35.84 8.96 44.8h4.48zM892.8 619.52c4.501333-8.96 4.501333-22.4 8.96-31.36 4.501333-22.421333 4.501333-44.8 4.501333-67.2 0-44.8-4.501333-89.578667-17.92-129.92-8.96-13.44-13.461333-26.88-17.941333-40.341333-8.96-22.378667-22.4-44.8-40.32-62.698667-17.92-22.4-40.341333-85.12-80.64-67.2-13.44 4.501333-22.4 22.421333-31.36 31.381333l-26.88 40.32c-4.501333 4.48-8.96 13.44-4.501333 17.92 0 4.48 4.501333 4.48 8.96 4.48 8.96 4.501333 13.461333 4.501333 22.421333 8.96 4.48 0 8.96 4.501333 4.48 8.96 0 0 0 4.501333-4.48 4.501334-22.421333 22.4-44.8 40.32-67.2 62.698666-4.48 4.48-8.96 13.44-8.96 17.92s4.48 4.48 4.48 8.96c0 4.501333-4.48 4.501333-8.96 8.96-8.96 4.501333-17.92 8.96-22.4 13.461334-4.48 8.96 0 22.4-4.48 31.36-4.48 22.4-17.941333 40.32-26.901333 62.72-8.96 13.418667-13.418667 26.88-22.378667 40.32 0 17.92-4.501333 31.36 4.458667 44.8 22.421333 31.36 62.72 13.44 94.08 26.901333 8.96 4.458667 17.92 4.458667 22.421333 13.418667 13.418667 13.461333 13.418667 35.861333 17.92 49.301333 4.458667 17.92 8.96 35.84 17.92 53.76 4.48 22.421333 13.44 44.821333 17.92 62.72 40.341333-31.36 76.16-67.178667 103.04-112 26.88-31.424 40.341333-67.242667 53.76-103.104" fill="#CDDC39"></path></svg></span></a>
 <h3 id="數據設計" class="heading-element">
-  <a href="#%e6%95%b8%e6%93%9a%e8%a8%ad%e8%a8%88" class="heading-mark"></a>數據設計</h3><p>去 leancloud 创建一个应用，再新增一个 Bill Class, 补充一下字段：</p>
+  <a href="#%e6%95%b8%e6%93%9a%e8%a8%ad%e8%a8%88" class="heading-mark"></a>3.1 數據設計</h3><p>去 leancloud 创建一个应用，再新增一个 Bill Class, 补充一下字段：</p>
 <table>
 <thead>
 <tr>
@@ -2390,8 +2390,8 @@ valine 可以實現無後端，那我是不是也可以，leancloud 文檔走一
 </tbody>
 </table>
 <h3 id="主要邏輯" class="heading-element">
-  <a href="#%e4%b8%bb%e8%a6%81%e9%82%8f%e8%bc%af" class="heading-mark"></a>主要邏輯</h3><h4 id="初始化" class="heading-element">
-  <a href="#%e5%88%9d%e5%a7%8b%e5%8c%96" class="heading-mark"></a>初始化</h4><p>set for yourself.</p>
+  <a href="#%e4%b8%bb%e8%a6%81%e9%82%8f%e8%bc%af" class="heading-mark"></a>3.2 主要邏輯</h3><h4 id="初始化" class="heading-element">
+  <a href="#%e5%88%9d%e5%a7%8b%e5%8c%96" class="heading-mark"></a>3.2.1 初始化</h4><p>set for yourself.</p>
 <div class="highlight" id="id-1"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -2408,7 +2408,7 @@ valine 可以實現無後端，那我是不是也可以，leancloud 文檔走一
 </span></span><span class="line"><span class="cl"><span class="p">});</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h4 id="存數據" class="heading-element">
-  <a href="#%e5%ad%98%e6%95%b8%e6%93%9a" class="heading-mark"></a>存數據</h4><div class="highlight" id="id-2"><div class="chroma">
+  <a href="#%e5%ad%98%e6%95%b8%e6%93%9a" class="heading-mark"></a>3.2.2 存數據</h4><div class="highlight" id="id-2"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -2452,7 +2452,7 @@ valine 可以實現無後端，那我是不是也可以，leancloud 文檔走一
 </span></span><span class="line"><span class="cl"><span class="p">});</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h4 id="取數據" class="heading-element">
-  <a href="#%e5%8f%96%e6%95%b8%e6%93%9a" class="heading-mark"></a>取數據</h4><div class="highlight" id="id-3"><div class="chroma">
+  <a href="#%e5%8f%96%e6%95%b8%e6%93%9a" class="heading-mark"></a>3.2.3 取數據</h4><div class="highlight" id="id-3"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -2578,16 +2578,16 @@ valine 可以實現無後端，那我是不是也可以，leancloud 文檔走一
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="技術棧" class="heading-element">
-  <a href="#%e6%8a%80%e8%a1%93%e6%a3%a7" class="heading-mark"></a>技術棧</h3><ul>
+  <a href="#%e6%8a%80%e8%a1%93%e6%a3%a7" class="heading-mark"></a>3.3 技術棧</h3><ul>
 <li>leancloud-storage</li>
 <li>Vue.js</li>
 <li>HTML,CSS,JS</li>
 </ul>
 <h2 id="總結" class="heading-element">
-  <a href="#%e7%b8%bd%e7%b5%90" class="heading-mark"></a>總結</h2><p>簡單總結一下，登录功能不做，安不安全自己说了算。删除修改功能也不做，直接上 leancloud 操作，css 美化的样式也不写，干净又卫生！<br>
+  <a href="#%e7%b8%bd%e7%b5%90" class="heading-mark"></a>4 總結</h2><p>簡單總結一下，登录功能不做，安不安全自己说了算。删除修改功能也不做，直接上 leancloud 操作，css 美化的样式也不写，干净又卫生！<br>
 然后衍生一下，什么过年斗地主，天炸，麻将，字牌记账系统那不也是同理可得嘛！</p>
 <p>over!</p>
-<p><figure><a class="lightgallery" href="images/demo.jpg?size=large" data-thumbnail="images/demo.jpg?size=small" data-sub-html="<h2>效果</h2><p>Demo</p>"><img loading="lazy" src="images/demo.jpg" alt="效果" srcset="images/demo.jpg?size=small, images/demo.jpg?size=medium 1.5x, images/demo.jpg?size=large 2x" data-title="Demo" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a><figcaption class="image-caption">效果</figcaption>
+<p><figure><a class="lightgallery" href="/projects/bill-note/images/demo.jpg?size=large" data-thumbnail="/projects/bill-note/images/demo.jpg?size=small" data-sub-html="<h2>效果</h2><p>Demo</p>"><img loading="lazy" src="/projects/bill-note/images/demo.jpg" alt="效果" srcset="/projects/bill-note/images/demo.jpg?size=small, /projects/bill-note/images/demo.jpg?size=medium 1.5x, /projects/bill-note/images/demo.jpg?size=large 2x" data-title="Demo" style="--width: 1080px;--aspect-ratio: 1080 / 6005;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a><figcaption class="image-caption">效果</figcaption>
   </figure></p>]]></description></item><item><title>利用腾讯云为静态页面添加“动态”相册</title><link>https://lruihao.cn/projects/cos-album/</link><pubDate>Sun, 24 Nov 2019 10:52:34 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/projects/cos-album/</guid><description><![CDATA[<div class="featured-image"><img loading="eager" src="/projects/cos-album/images/view.png" alt="利用腾讯云为静态页面添加“动态”相册" title="利用腾讯云为静态页面添加“动态”相册" referrerpolicy="no-referrer"/></div><!-- markdownlint-disable MD033 -->
 <div class="details admonition info open">
     <div class="details-summary admonition-title">
@@ -2600,23 +2600,23 @@ valine 可以實現無後端，那我是不是也可以，leancloud 文檔走一
     </div>
   </div>
 <h2 id="创建腾讯云-cos-存储桶" class="heading-element">
-  <a href="#%e5%88%9b%e5%bb%ba%e8%85%be%e8%ae%af%e4%ba%91-cos-%e5%ad%98%e5%82%a8%e6%a1%b6" class="heading-mark"></a>创建腾讯云 cos 存储桶</h2><p>就创建一个 COS 就好了！有几点注意事项：</p>
+  <a href="#%e5%88%9b%e5%bb%ba%e8%85%be%e8%ae%af%e4%ba%91-cos-%e5%ad%98%e5%82%a8%e6%a1%b6" class="heading-mark"></a>1 创建腾讯云 cos 存储桶</h2><p>就创建一个 COS 就好了！有几点注意事项：</p>
 <ol>
 <li>权限设置为共有读私有写</li>
 <li>policy 权限设置整个桶的读操作</li>
 <li>跨域访问 CORS 设置，自己随意</li>
 </ol>
 <h2 id="上传照片" class="heading-element">
-  <a href="#%e4%b8%8a%e4%bc%a0%e7%85%a7%e7%89%87" class="heading-mark"></a>上传照片</h2><p>首先我这个 cos 相册，相册分类就是文件夹分类，所以 cos 桶里面先新建不同的文件夹，<strong>文件夹名称就是相册名称</strong>，
+  <a href="#%e4%b8%8a%e4%bc%a0%e7%85%a7%e7%89%87" class="heading-mark"></a>2 上传照片</h2><p>首先我这个 cos 相册，相册分类就是文件夹分类，所以 cos 桶里面先新建不同的文件夹，<strong>文件夹名称就是相册名称</strong>，
 每个相册里面需要放置一张名称为**“封面.jpg”**的图片作为该相册的封面。</p>
 <h3 id="上传工具" class="heading-element">
-  <a href="#%e4%b8%8a%e4%bc%a0%e5%b7%a5%e5%85%b7" class="heading-mark"></a>上传工具</h3><ul>
+  <a href="#%e4%b8%8a%e4%bc%a0%e5%b7%a5%e5%85%b7" class="heading-mark"></a>2.1 上传工具</h3><ul>
 <li><strong>COSBrowser</strong> GUI 工具，桌面/移动版【官方、推荐】</li>
 <li><strong>COSCMD</strong> 命令行工具【官方】</li>
 <li><strong>PicGo</strong> 图床上传工具【第三方、推荐】</li>
 </ul>
 <h2 id="食用方式" class="heading-element">
-  <a href="#%e9%a3%9f%e7%94%a8%e6%96%b9%e5%bc%8f" class="heading-mark"></a>食用方式</h2><!-- markdownlint-disable MD034 -->
+  <a href="#%e9%a3%9f%e7%94%a8%e6%96%b9%e5%bc%8f" class="heading-mark"></a>3 食用方式</h2><!-- markdownlint-disable MD034 -->
 <a href="http://github.com/Lruihao/cos-album"target="_blank" rel="external nofollow noopener noreferrer" class="card-link"><span class="cl-backdrop" style="--cl-bg-url: url(/images/fixit.min.svg);"></span>
     <span class="cl-content">
       <span class="cl-text">
@@ -2631,7 +2631,7 @@ valine 可以實現無後端，那我是不是也可以，leancloud 文檔走一
 <li>然后，在你的 js 中 new 一个 Cosalbum 对象 ( xmlLink 后不需要添加<code>/</code>)</li>
 </ol>
 <h3 id="step1" class="heading-element">
-  <a href="#step1" class="heading-mark"></a>Step1</h3><div class="highlight" id="id-1"><div class="chroma">
+  <a href="#step1" class="heading-mark"></a>3.1 Step1</h3><div class="highlight" id="id-1"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -2641,7 +2641,7 @@ valine 可以實現無後端，那我是不是也可以，leancloud 文檔走一
 </span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="nx">script</span> <span class="nx">type</span><span class="o">=</span><span class="s2">&#34;text/javascript&#34;</span> <span class="nx">src</span><span class="o">=</span><span class="s2">&#34;cos-album.min.js?v=1.1.2&#34;</span><span class="o">&gt;&lt;</span><span class="err">/script&gt;</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="step2" class="heading-element">
-  <a href="#step2" class="heading-mark"></a>Step2</h3><div class="highlight" id="id-2"><div class="chroma">
+  <a href="#step2" class="heading-mark"></a>3.2 Step2</h3><div class="highlight" id="id-2"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -2663,7 +2663,7 @@ valine 可以實現無後端，那我是不是也可以，leancloud 文檔走一
 </span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="err">/script&gt;</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="params" class="heading-element">
-  <a href="#params" class="heading-mark"></a>Params</h3><table>
+  <a href="#params" class="heading-mark"></a>3.3 Params</h3><table>
 <thead>
 <tr>
 <th style="text-align:left">param</th>
@@ -2762,10 +2762,10 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 </span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p><a href="https://img.lruihao.cn" target="_blank" class="LinkCard">cos-album demo</a></p>
-<p><img loading="lazy" src="images/view.png" alt="大屏显示" srcset="images/view.png?size=small, images/view.png?size=medium 1.5x, images/view.png?size=large 2x" data-title="大屏显示" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/>
-<div id="id-4"><img loading="lazy" src="images/mobile.png" alt="手机显示" srcset="images/mobile.png?size=small, images/mobile.png?size=medium 1.5x, images/mobile.png?size=large 2x" data-title="手机显示" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></div></p>
+<p><a class="lightgallery" href="/projects/cos-album/images/view.png?size=large" data-thumbnail="/projects/cos-album/images/view.png?size=small" data-sub-html="<h2>大屏显示</h2>"><img loading="lazy" src="/projects/cos-album/images/view.png" alt="大屏显示" srcset="/projects/cos-album/images/view.png?size=small, /projects/cos-album/images/view.png?size=medium 1.5x, /projects/cos-album/images/view.png?size=large 2x" data-title="大屏显示" style="--width: 1898px;--aspect-ratio: 1898 / 900;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a>
+<div id="id-4"><a class="lightgallery" href="/projects/cos-album/images/mobile.png?size=large" data-thumbnail="/projects/cos-album/images/mobile.png?size=small" data-sub-html="<h2>手机显示</h2>"><img loading="lazy" src="/projects/cos-album/images/mobile.png" alt="手机显示" srcset="/projects/cos-album/images/mobile.png?size=small, /projects/cos-album/images/mobile.png?size=medium 1.5x, /projects/cos-album/images/mobile.png?size=large 2x" data-title="手机显示" style="--width: 438px;--aspect-ratio: 438 / 776;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></div></p>
 <h2 id="changelog" class="heading-element">
-  <a href="#changelog" class="heading-mark"></a>changelog</h2><ul>
+  <a href="#changelog" class="heading-mark"></a>4 changelog</h2><ul>
 <li>2020-9-28 22:46
 <ol>
 <li>升級：相冊封裝成類，可以更方便 new 出來</li>
@@ -2869,7 +2869,7 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
     </div>
   </div>
 <h2 id="不带任何属性" class="heading-element">
-  <a href="#%e4%b8%8d%e5%b8%a6%e4%bb%bb%e4%bd%95%e5%b1%9e%e6%80%a7" class="heading-mark"></a>不带任何属性</h2><blockquote>
+  <a href="#%e4%b8%8d%e5%b8%a6%e4%bb%bb%e4%bd%95%e5%b1%9e%e6%80%a7" class="heading-mark"></a>1 不带任何属性</h2><blockquote>
 <p>同步模式，又称阻塞模式，我们平时使用的最多的一种方式。当浏览器解析到<code>&lt;script&gt;</code>标签时，浏览器会停止解析其后的内容，而优先下载脚本文件，并执行其中的代码，是个同步阻塞的过程。<br>
 一般建议把<code>&lt;script&gt;</code>标签放在<code>&lt;body&gt;</code>结尾处，这样尽可能减少页面阻塞。<br>
 而如果想要异步执行 script，则可以给其加上 async 或 defer 属性。</p>
@@ -2882,7 +2882,7 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 <pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="defer" class="heading-element">
-  <a href="#defer" class="heading-mark"></a>defer</h2><blockquote>
+  <a href="#defer" class="heading-mark"></a>2 defer</h2><blockquote>
 <p>defer 属性在 HTML 解析期间异步下载文件，并且只在 HTML 解析完成后才执行它。对于 defer，我们可以理解是将外链的 js 放在了页面底部。js 的加载不会阻塞页面的渲染和资源的加载。不过 defer 会按照原本的 js 的顺序执行，<strong>所以如果前后有依赖关系的 js 可以放心使用。</strong></p>
 </blockquote>
 <div class="highlight" id="id-2"><div class="chroma">
@@ -2893,7 +2893,7 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 <pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span> <span class="na">defer</span><span class="p">&gt;</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="async" class="heading-element">
-  <a href="#async" class="heading-mark"></a>async</h2><blockquote>
+  <a href="#async" class="heading-mark"></a>3 async</h2><blockquote>
 <p>async 属性会在 HTML 解析期间异步下载文件，并在完成下载后立即暂停 HTML 解析器去执行 script 中的代码。在执行过程中浏览器处于阻塞状态，响应不了任何需求。<strong>如果 js 前后有依赖性，用 async，就很有可能出错。</strong></p>
 </blockquote>
 <div class="highlight" id="id-3"><div class="chroma">
@@ -2904,21 +2904,21 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 <pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span> <span class="na">async</span><span class="p">&gt;</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="区别" class="heading-element">
-  <a href="#%e5%8c%ba%e5%88%ab" class="heading-mark"></a>区别</h2><h3 id="相同点" class="heading-element">
-  <a href="#%e7%9b%b8%e5%90%8c%e7%82%b9" class="heading-mark"></a>相同点</h3><ol>
+  <a href="#%e5%8c%ba%e5%88%ab" class="heading-mark"></a>4 区别</h2><h3 id="相同点" class="heading-element">
+  <a href="#%e7%9b%b8%e5%90%8c%e7%82%b9" class="heading-mark"></a>4.1 相同点</h3><ol>
 <li>加载文件时不阻塞页面渲染</li>
 <li>对于 inline 的 script 无效（只适用有<code>src</code>的外部 js）</li>
 <li>使用这两个属性的脚本中不能调用 document.write 方法</li>
 <li>有脚本的 onload 的事件回调</li>
 </ol>
 <h3 id="区别点" class="heading-element">
-  <a href="#%e5%8c%ba%e5%88%ab%e7%82%b9" class="heading-mark"></a>区别点</h3><ol>
+  <a href="#%e5%8c%ba%e5%88%ab%e7%82%b9" class="heading-mark"></a>4.2 区别点</h3><ol>
 <li>html4.0 中定义了 defer；html5.0 中定义了 async</li>
 <li>浏览器支持不同</li>
 <li>每一个 async 属性的脚本都在它下载结束之后立刻执行，同时会在 window 的 load 事件之前执行。所以就有可能出现脚本执行顺序被打乱的情况；每一个 defer 属性的脚本都是在页面解析完毕之后，按照原本的顺序执行，同时会在 document 的 DOMContentLoaded 之前执行。</li>
 </ol>
 <h2 id="那么这三种方式各在什么情况下使用呢" class="heading-element">
-  <a href="#%e9%82%a3%e4%b9%88%e8%bf%99%e4%b8%89%e7%a7%8d%e6%96%b9%e5%bc%8f%e5%90%84%e5%9c%a8%e4%bb%80%e4%b9%88%e6%83%85%e5%86%b5%e4%b8%8b%e4%bd%bf%e7%94%a8%e5%91%a2" class="heading-mark"></a>那么这三种方式各在什么情况下使用呢？</h2><p>通常来说，尽可能使用<code>async</code>，然后是<code>defer</code>，最后不使用属性。
+  <a href="#%e9%82%a3%e4%b9%88%e8%bf%99%e4%b8%89%e7%a7%8d%e6%96%b9%e5%bc%8f%e5%90%84%e5%9c%a8%e4%bb%80%e4%b9%88%e6%83%85%e5%86%b5%e4%b8%8b%e4%bd%bf%e7%94%a8%e5%91%a2" class="heading-mark"></a>5 那么这三种方式各在什么情况下使用呢？</h2><p>通常来说，尽可能使用<code>async</code>，然后是<code>defer</code>，最后不使用属性。
 并遵循以下规则：</p>
 <ul>
 <li>如果脚本是模块化的，并且不依赖于任何脚本，则使用<code>async</code>。</li>
@@ -2926,21 +2926,21 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 <li>如果脚本很小并且有<code>async</code>脚本依赖该脚本，则不加属性。</li>
 </ul>
 <h2 id="兼容性" class="heading-element">
-  <a href="#%e5%85%bc%e5%ae%b9%e6%80%a7" class="heading-mark"></a>兼容性</h2><ol>
+  <a href="#%e5%85%bc%e5%ae%b9%e6%80%a7" class="heading-mark"></a>6 兼容性</h2><ol>
 <li>Internet Explorer 10、Firefox、Opera、Chrome 和 Safari 支持 async 属性。</li>
 <li>所有主流浏览器都支持 defer 属性。</li>
 </ol>
 <h2 id="参考" class="heading-element">
-  <a href="#%e5%8f%82%e8%80%83" class="heading-mark"></a>参考</h2><ul>
+  <a href="#%e5%8f%82%e8%80%83" class="heading-mark"></a>7 参考</h2><ul>
 <li><a href="https://www.growingwiththeweb.com/2014/02/async-vs-defer-attributes.html"target="_blank" rel="external nofollow noopener noreferrer">https://www.growingwiththeweb.com/2014/02/async-vs-defer-attributes.html<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
 <li><a href="https://www.jianshu.com/p/17dc82bf08f1"target="_blank" rel="external nofollow noopener noreferrer">https://www.jianshu.com/p/17dc82bf08f1<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
 </ul>]]></description></item><item><title>Web 开发规则，代码规范</title><link>https://lruihao.cn/posts/dev-rules/</link><pubDate>Thu, 15 Aug 2019 18:30:31 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/dev-rules/</guid><description><![CDATA[<h2 id="精神" class="heading-element">
-  <a href="#%e7%b2%be%e7%a5%9e" class="heading-mark"></a>精神</h2><ul>
+  <a href="#%e7%b2%be%e7%a5%9e" class="heading-mark"></a>1 精神</h2><ul>
 <li>绝不写死代码，硬编码</li>
 <li>不留不要用的、垃圾代码</li>
 </ul>
 <h2 id="git" class="heading-element">
-  <a href="#git" class="heading-mark"></a>Git</h2><ul>
+  <a href="#git" class="heading-mark"></a>2 Git</h2><ul>
 <li>Master 的 BUG 必须最少且趋近于零，为最稳定的版本</li>
 <li>每次 Commit 信息应该准确填写。不可模棱两可，eg: 修复 BUG、增加功能</li>
 <li>禁止 Commit IDE 的 project data，e.g: .vscode</li>
@@ -2950,16 +2950,16 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 <p>更多规则详见文档 <a href="/posts/commit-spec/">Commit 规范</a></p>
 </blockquote>
 <h3 id="分支branch" class="heading-element">
-  <a href="#%e5%88%86%e6%94%afbranch" class="heading-mark"></a>分支（Branch）</h3><ul>
+  <a href="#%e5%88%86%e6%94%afbranch" class="heading-mark"></a>2.1 分支（Branch）</h3><ul>
 <li>命名规则：应以此分支主要目的命名（修复什么 BUG，新增特定功能）</li>
 <li>合并后的分支应该删除</li>
 </ul>
 <h3 id="commit" class="heading-element">
-  <a href="#commit" class="heading-mark"></a>commit</h3><ul>
+  <a href="#commit" class="heading-mark"></a>2.2 commit</h3><ul>
 <li>遵循一个功能一个 commit 的原则</li>
 </ul>
 <h2 id="restful" class="heading-element">
-  <a href="#restful" class="heading-mark"></a>Restful</h2><ul>
+  <a href="#restful" class="heading-mark"></a>3 Restful</h2><ul>
 <li>
 <p>资源名词站在 API 的角度思考</p>
 <ul>
@@ -2994,12 +2994,12 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 <p>更多规则详见文档 <a href="/posts/restful/">RESTful</a></p>
 </blockquote>
 <h2 id="命名" class="heading-element">
-  <a href="#%e5%91%bd%e5%90%8d" class="heading-mark"></a>命名</h2><ul>
+  <a href="#%e5%91%bd%e5%90%8d" class="heading-mark"></a>4 命名</h2><ul>
 <li>命名应根据内容做有意义的命名，让后续维护人员可以顾名思义！</li>
 <li>即使不会发生错误，代码英文大小写也需明确区分。</li>
 </ul>
 <h3 id="语意" class="heading-element">
-  <a href="#%e8%af%ad%e6%84%8f" class="heading-mark"></a>语意</h3><table>
+  <a href="#%e8%af%ad%e6%84%8f" class="heading-mark"></a>4.1 语意</h3><table>
 <thead>
 <tr>
 <th style="text-align:left">类型</th>
@@ -3021,7 +3021,7 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 </tbody>
 </table>
 <h3 id="字母与分隔" class="heading-element">
-  <a href="#%e5%ad%97%e6%af%8d%e4%b8%8e%e5%88%86%e9%9a%94" class="heading-mark"></a>字母与分隔</h3><table>
+  <a href="#%e5%ad%97%e6%af%8d%e4%b8%8e%e5%88%86%e9%9a%94" class="heading-mark"></a>4.2 字母与分隔</h3><table>
 <thead>
 <tr>
 <th>语言</th>
@@ -3091,7 +3091,7 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 </tbody>
 </table>
 <h2 id="通用" class="heading-element">
-  <a href="#%e9%80%9a%e7%94%a8" class="heading-mark"></a>通用</h2><ul>
+  <a href="#%e9%80%9a%e7%94%a8" class="heading-mark"></a>5 通用</h2><ul>
 <li>代码编写</li>
 <li><strong>每个函数应该使用块注释，注释应包含函数功能说明、参数说明</strong>。规则见：JSDoc、JavaDoc</li>
 <li>不必要的代码不要写，也应禁止放到注释里面！</li>
@@ -3101,7 +3101,7 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 <li>代码规范、代码排版等可通过 eslint 等工具做统一处理</li>
 </ul>
 <h3 id="正确写法" class="heading-element">
-  <a href="#%e6%ad%a3%e7%a1%ae%e5%86%99%e6%b3%95" class="heading-mark"></a>正确写法</h3><div class="highlight" id="id-2"><div class="chroma">
+  <a href="#%e6%ad%a3%e7%a1%ae%e5%86%99%e6%b3%95" class="heading-mark"></a>5.1 正确写法</h3><div class="highlight" id="id-2"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -3119,7 +3119,7 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="错误写法" class="heading-element">
-  <a href="#%e9%94%99%e8%af%af%e5%86%99%e6%b3%95" class="heading-mark"></a>错误写法</h2><div class="highlight" id="id-3"><div class="chroma">
+  <a href="#%e9%94%99%e8%af%af%e5%86%99%e6%b3%95" class="heading-mark"></a>6 错误写法</h2><div class="highlight" id="id-3"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -3164,8 +3164,8 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 </li>
 </ul>
 <h2 id="html" class="heading-element">
-  <a href="#html" class="heading-mark"></a>HTML</h2><h3 id="代码编写" class="heading-element">
-  <a href="#%e4%bb%a3%e7%a0%81%e7%bc%96%e5%86%99" class="heading-mark"></a>代码编写</h3><ul>
+  <a href="#html" class="heading-mark"></a>7 HTML</h2><h3 id="代码编写" class="heading-element">
+  <a href="#%e4%bb%a3%e7%a0%81%e7%bc%96%e5%86%99" class="heading-mark"></a>7.1 代码编写</h3><ul>
 <li>禁止在 HTML 使用 <code>&lt;style&gt;</code>、<code>&lt;script&gt;</code>，一律使用外部档案引用方式引用 CSS、JavaScript 文件</li>
 <li>HTML 标签需成双成对，有头有尾</li>
 <li>块级标签：<code>&lt;tag&gt;&lt;/tag&gt;</code></li>
@@ -3206,17 +3206,17 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 </span></span><span class="line"><span class="cl">color</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="css" class="heading-element">
-  <a href="#css" class="heading-mark"></a>CSS</h2><blockquote>
+  <a href="#css" class="heading-mark"></a>8 CSS</h2><blockquote>
 <p>CSS 的定义应该独立一个 CSS 文件，禁止使用 <code>&lt;style&gt;</code> 或 <code>style</code> 属性直接在 HTML 中定义样式。</p>
 </blockquote>
 <h2 id="javascript" class="heading-element">
-  <a href="#javascript" class="heading-mark"></a>JavaScript</h2><blockquote>
+  <a href="#javascript" class="heading-mark"></a>9 JavaScript</h2><blockquote>
 <p>禁止使用 HTML 字串，一律使用 Dom 产生 HTML, e.g: <code>document.createDocumentFragment()</code></p>
 </blockquote>
 <h3 id="注释" class="heading-element">
-  <a href="#%e6%b3%a8%e9%87%8a" class="heading-mark"></a>注释</h3><p>JavaScript 注释应该遵循 JSDoc 的标准撰写</p>
+  <a href="#%e6%b3%a8%e9%87%8a" class="heading-mark"></a>9.1 注释</h3><p>JavaScript 注释应该遵循 JSDoc 的标准撰写</p>
 <h4 id="全局变量-global" class="heading-element">
-  <a href="#%e5%85%a8%e5%b1%80%e5%8f%98%e9%87%8f-global" class="heading-mark"></a>全局变量 (Global)</h4><div class="highlight" id="id-5"><div class="chroma">
+  <a href="#%e5%85%a8%e5%b1%80%e5%8f%98%e9%87%8f-global" class="heading-mark"></a>9.1.1 全局变量 (Global)</h4><div class="highlight" id="id-5"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
@@ -3224,7 +3224,7 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 <pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="cm">/* global ZT */</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h4 id="常量-constant" class="heading-element">
-  <a href="#%e5%b8%b8%e9%87%8f-constant" class="heading-mark"></a>常量 (Constant)</h4><div class="highlight" id="id-6"><div class="chroma">
+  <a href="#%e5%b8%b8%e9%87%8f-constant" class="heading-mark"></a>9.1.2 常量 (Constant)</h4><div class="highlight" id="id-6"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -3254,7 +3254,7 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 </span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">REQUEST_URL</span> <span class="o">=</span> <span class="s1">&#39;http://localhost:8080&#39;</span><span class="p">;</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h4 id="函數方法-function-method" class="heading-element">
-  <a href="#%e5%87%bd%e6%95%b8%e6%96%b9%e6%b3%95-function-method" class="heading-mark"></a>函數、方法 (Function, Method)</h4><div class="highlight" id="id-8"><div class="chroma">
+  <a href="#%e5%87%bd%e6%95%b8%e6%96%b9%e6%b3%95-function-method" class="heading-mark"></a>9.1.3 函數、方法 (Function, Method)</h4><div class="highlight" id="id-8"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -3302,23 +3302,23 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="vue" class="heading-element">
-  <a href="#vue" class="heading-mark"></a>Vue</h2><ul>
+  <a href="#vue" class="heading-mark"></a>10 Vue</h2><ul>
 <li><i class="fa-regular fa-square fa-fw" aria-hidden="true"></i> 待补充</li>
 </ul>
 <h2 id="java" class="heading-element">
-  <a href="#java" class="heading-mark"></a>Java</h2><p>Java 注释应该遵循 JavaDoc 的标准撰写</p>
+  <a href="#java" class="heading-mark"></a>11 Java</h2><p>Java 注释应该遵循 JavaDoc 的标准撰写</p>
 <ul>
 <li><i class="fa-regular fa-square fa-fw" aria-hidden="true"></i> 待补充</li>
 </ul>
 <h2 id="php" class="heading-element">
-  <a href="#php" class="heading-mark"></a>PHP</h2><h3 id="前端参数取得" class="heading-element">
-  <a href="#%e5%89%8d%e7%ab%af%e5%8f%82%e6%95%b0%e5%8f%96%e5%be%97" class="heading-mark"></a>前端参数取得</h3><p>参数取得需通过 filter_input 函数取得，不得使用 _GET、_POST</p>
+  <a href="#php" class="heading-mark"></a>12 PHP</h2><h3 id="前端参数取得" class="heading-element">
+  <a href="#%e5%89%8d%e7%ab%af%e5%8f%82%e6%95%b0%e5%8f%96%e5%be%97" class="heading-mark"></a>12.1 前端参数取得</h3><p>参数取得需通过 filter_input 函数取得，不得使用 _GET、_POST</p>
 <h3 id="输出到前台" class="heading-element">
-  <a href="#%e8%be%93%e5%87%ba%e5%88%b0%e5%89%8d%e5%8f%b0" class="heading-mark"></a>输出到前台</h3><p>参数命名必须为：全部小写，不同单字以「_」分隔</p>
+  <a href="#%e8%be%93%e5%87%ba%e5%88%b0%e5%89%8d%e5%8f%b0" class="heading-mark"></a>12.2 输出到前台</h3><p>参数命名必须为：全部小写，不同单字以「_」分隔</p>
 <h3 id="注解" class="heading-element">
-  <a href="#%e6%b3%a8%e8%a7%a3" class="heading-mark"></a>注解</h3><p>PHP 注解应该遵循 PHPDoc 的标准撰写</p>
+  <a href="#%e6%b3%a8%e8%a7%a3" class="heading-mark"></a>12.3 注解</h3><p>PHP 注解应该遵循 PHPDoc 的标准撰写</p>
 <h3 id="成员变量-member" class="heading-element">
-  <a href="#%e6%88%90%e5%91%98%e5%8f%98%e9%87%8f-member" class="heading-mark"></a>成员变量 (Member)</h3><p>成员变量只的是 Class 内的成员变数，我们都会要求替成员变量增加注解说明。通常 Function 的变量除非太特别否则都不需要特别注解说明。</p>
+  <a href="#%e6%88%90%e5%91%98%e5%8f%98%e9%87%8f-member" class="heading-mark"></a>12.4 成员变量 (Member)</h3><p>成员变量只的是 Class 内的成员变数，我们都会要求替成员变量增加注解说明。通常 Function 的变量除非太特别否则都不需要特别注解说明。</p>
 <div class="highlight" id="id-10"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -3349,7 +3349,7 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 </span></span><span class="line"><span class="cl"><span class="nv">$userId</span> <span class="o">=</span> <span class="s1">&#39;Hello&#39;</span><span class="p">;</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="函数方法-function-method" class="heading-element">
-  <a href="#%e5%87%bd%e6%95%b0%e6%96%b9%e6%b3%95-function-method" class="heading-mark"></a>函数、方法 (Function, Method)</h3><div class="highlight" id="id-12"><div class="chroma">
+  <a href="#%e5%87%bd%e6%95%b0%e6%96%b9%e6%b3%95-function-method" class="heading-mark"></a>12.5 函数、方法 (Function, Method)</h3><div class="highlight" id="id-12"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -3399,17 +3399,17 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 </span></span><span class="line"><span class="cl"><span class="p">};</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="python" class="heading-element">
-  <a href="#python" class="heading-mark"></a>Python</h2><ul>
+  <a href="#python" class="heading-mark"></a>13 Python</h2><ul>
 <li><i class="fa-regular fa-square fa-fw" aria-hidden="true"></i> 待补充</li>
 </ul>
 <h2 id="database" class="heading-element">
-  <a href="#database" class="heading-mark"></a>Database</h2><ul>
+  <a href="#database" class="heading-mark"></a>14 Database</h2><ul>
 <li>禁止使用 Table Join。</li>
 <li>禁止使用 Oracle Trigger。</li>
 <li>禁止将查询数据库的 SQL 放在循环中查询</li>
 </ul>
 <h3 id="sql-撰写" class="heading-element">
-  <a href="#sql-%e6%92%b0%e5%86%99" class="heading-mark"></a>SQL 撰写</h3><ul>
+  <a href="#sql-%e6%92%b0%e5%86%99" class="heading-mark"></a>14.1 SQL 撰写</h3><ul>
 <li>属于 SQL 语法使用大写（SELECT，WHERE，INSERT etc..）</li>
 <li>属于使用者自己定义的使用小写（表名 table name，字段名 column name etc..）</li>
 <li>表名、字段名前后需加上 `</li>
@@ -3423,7 +3423,7 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 <pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="o">`</span><span class="k">user</span><span class="o">`</span><span class="w"> </span><span class="k">VALUES</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;b&#39;</span><span class="p">);</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="统一用词" class="heading-element">
-  <a href="#%e7%bb%9f%e4%b8%80%e7%94%a8%e8%af%8d" class="heading-mark"></a>统一用词</h2><blockquote>
+  <a href="#%e7%bb%9f%e4%b8%80%e7%94%a8%e8%af%8d" class="heading-mark"></a>15 统一用词</h2><blockquote>
 <p>系统中常用词，例如弹出框按钮、搜索框等，仅为举例，不限与此。</p>
 </blockquote>
 <table>
@@ -3456,7 +3456,7 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 <p>记录自己在配置 vps 及博客 SSL 证书时遇到的问题。</p>
 </blockquote>
 <h2 id="强制重定向-https" class="heading-element">
-  <a href="#%e5%bc%ba%e5%88%b6%e9%87%8d%e5%ae%9a%e5%90%91-https" class="heading-mark"></a>强制重定向 https</h2><blockquote>
+  <a href="#%e5%bc%ba%e5%88%b6%e9%87%8d%e5%ae%9a%e5%90%91-https" class="heading-mark"></a>1 强制重定向 https</h2><blockquote>
 <p>有一种情况相信很多人都遇到过，就是虽然我们配置了 ssl 证书，但是 https 和 http 地址都是各自都可以单独访问。我们应该也见过类似于 github 的代码托管网站有强制 https 的开关。如果是这种情况我们还可以通过 js 进行 301 定向。</p>
 </blockquote>
 <div class="highlight" id="id-1"><div class="chroma">
@@ -3481,28 +3481,28 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">&lt;/</span><span class="n">script</span><span class="o">&gt;</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="腾讯云-cdn-配置" class="heading-element">
-  <a href="#%e8%85%be%e8%ae%af%e4%ba%91-cdn-%e9%85%8d%e7%bd%ae" class="heading-mark"></a>腾讯云 CDN 配置</h2><blockquote>
+  <a href="#%e8%85%be%e8%ae%af%e4%ba%91-cdn-%e9%85%8d%e7%bd%ae" class="heading-mark"></a>2 腾讯云 CDN 配置</h2><blockquote>
 <p>这个博客后来是转到了腾讯云的 cos 桶存储。当时在桶内静态网站设置的时候，设置强制 https 发现会出错。而且还接入了 CDN，所以今天在 CDN 设置那里也看到了 https 的设置，打开强制 https 就 OK 了。这天在三丰云撸了一个免费的主机，搭了一个 WordPress（想试试 wp 的感觉），然后 vps 的 SSL 问题现在也很简单了，第一步，到腾讯云申请免费证书；第二步，配置 CDN，按步骤来，其中接入方式选择自有源站；第三步，强制 https（可选）。</p>
 </blockquote>
-<p><img loading="lazy" src="images/1.png" alt="Cellvps&amp;ndash;WordPress" srcset="images/1.png?size=small, images/1.png?size=medium 1.5x, images/1.png?size=large 2x" data-title="Cellvps&amp;ndash;WordPress" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
-<p><img loading="lazy" src="images/2.png" alt="CDN 域名管理" srcset="images/2.png?size=small, images/2.png?size=medium 1.5x, images/2.png?size=large 2x" data-title="CDN 域名管理" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>]]></description></item><item><title>web 汇总</title><link>https://lruihao.cn/posts/webbiji/</link><pubDate>Mon, 18 Mar 2019 20:40:55 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/webbiji/</guid><description><![CDATA[<blockquote>
+<p><a class="lightgallery" href="/posts/http2https/images/1.png?size=large" data-thumbnail="/posts/http2https/images/1.png?size=small" data-sub-html="<h2>Cellvps&amp;ndash;WordPress</h2>"><img loading="lazy" src="/posts/http2https/images/1.png" alt="Cellvps&amp;ndash;WordPress" srcset="/posts/http2https/images/1.png?size=small, /posts/http2https/images/1.png?size=medium 1.5x, /posts/http2https/images/1.png?size=large 2x" data-title="Cellvps&amp;ndash;WordPress" style="--width: 1899px;--aspect-ratio: 1899 / 904;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></p>
+<p><a class="lightgallery" href="/posts/http2https/images/2.png?size=large" data-thumbnail="/posts/http2https/images/2.png?size=small" data-sub-html="<h2>CDN 域名管理</h2>"><img loading="lazy" src="/posts/http2https/images/2.png" alt="CDN 域名管理" srcset="/posts/http2https/images/2.png?size=small, /posts/http2https/images/2.png?size=medium 1.5x, /posts/http2https/images/2.png?size=large 2x" data-title="CDN 域名管理" style="--width: 1644px;--aspect-ratio: 1644 / 487;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></p>]]></description></item><item><title>web 汇总</title><link>https://lruihao.cn/posts/webbiji/</link><pubDate>Mon, 18 Mar 2019 20:40:55 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/webbiji/</guid><description><![CDATA[<blockquote>
 <p>下面一些 web 开发的一些总结，还有一些常用到的代码，脚本等！</p>
 </blockquote>
 <h2 id="front-end" class="heading-element">
-  <a href="#front-end" class="heading-mark"></a>front-end</h2><h3 id="html" class="heading-element">
-  <a href="#html" class="heading-mark"></a>html</h3><blockquote>
+  <a href="#front-end" class="heading-mark"></a>1 front-end</h2><h3 id="html" class="heading-element">
+  <a href="#html" class="heading-mark"></a>1.1 html</h3><blockquote>
 <ul>
 <li><a href="https://lruihao.cn/posts/ms-html-css.html"target="_blank" rel="external nofollow noopener noreferrer">HTML+CSS<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
 </ul>
 </blockquote>
 <h4 id="oblique-和-intalic-的区别" class="heading-element">
-  <a href="#oblique-%e5%92%8c-intalic-%e7%9a%84%e5%8c%ba%e5%88%ab" class="heading-mark"></a>oblique 和 intalic 的区别</h4><p>这两个都是<code>font-style</code>属性的值，这两个值都能实现倾斜的效果，但是有区别的。</p>
+  <a href="#oblique-%e5%92%8c-intalic-%e7%9a%84%e5%8c%ba%e5%88%ab" class="heading-mark"></a>1.1.1 oblique 和 intalic 的区别</h4><p>这两个都是<code>font-style</code>属性的值，这两个值都能实现倾斜的效果，但是有区别的。</p>
 <ul>
 <li><code>intalic</code>: 这个是字体的倾斜，相当于<strong>斜体</strong>，字体必须有倾斜属性。</li>
 <li><code>oblique</code>: 这个准确地说是让文字倾斜。相当于<strong>斜字</strong>，字体不一定要有倾斜属性。</li>
 </ul>
 <h4 id="title-显示换行" class="heading-element">
-  <a href="#title-%e6%98%be%e7%a4%ba%e6%8d%a2%e8%a1%8c" class="heading-mark"></a>title 显示换行</h4><p><a href="#" title="第一行&#10; 第二行&#10; 第三行">使用<code>&amp;#10;</code></a>或<a href="#" title="第一排&#13; 第二排&#13; 第三排">使用<code>&amp;#13;</code></a></p>
+  <a href="#title-%e6%98%be%e7%a4%ba%e6%8d%a2%e8%a1%8c" class="heading-mark"></a>1.1.2 title 显示换行</h4><p><a href="#" title="第一行&#10; 第二行&#10; 第三行">使用<code>&amp;#10;</code></a>或<a href="#" title="第一排&#13; 第二排&#13; 第三排">使用<code>&amp;#13;</code></a></p>
 <div class="highlight" id="id-1"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -3513,11 +3513,11 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 </span></span><span class="line"><span class="cl">&lt;a href=&#34;#&#34; title=&#34;第一排&amp;#13; 第二排&amp;#13; 第三排&#34;&gt;使用`&amp;#13;`&lt;/a&gt;</span></span></code></pre></td></tr></table>
 </div>
 </div><h4 id="图片类型选择" class="heading-element">
-  <a href="#%e5%9b%be%e7%89%87%e7%b1%bb%e5%9e%8b%e9%80%89%e6%8b%a9" class="heading-mark"></a>图片类型选择</h4><p><figure><a class="lightgallery" href="images/imgType.jpg?size=large" data-thumbnail="images/imgType.jpg?size=small" data-sub-html="<h2>图片类型选择</h2><p>图片类型选择</p>"><img loading="lazy" src="images/imgType.jpg" alt="图片类型选择" srcset="images/imgType.jpg?size=small, images/imgType.jpg?size=medium 1.5x, images/imgType.jpg?size=large 2x" data-title="图片类型选择" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a><figcaption class="image-caption">图片类型选择</figcaption>
+  <a href="#%e5%9b%be%e7%89%87%e7%b1%bb%e5%9e%8b%e9%80%89%e6%8b%a9" class="heading-mark"></a>1.1.3 图片类型选择</h4><p><figure><a class="lightgallery" href="/posts/webbiji/images/imgType.jpg?size=large" data-thumbnail="/posts/webbiji/images/imgType.jpg?size=small" data-sub-html="<h2>图片类型选择</h2><p>图片类型选择</p>"><img loading="lazy" src="/posts/webbiji/images/imgType.jpg" alt="图片类型选择" srcset="/posts/webbiji/images/imgType.jpg?size=small, /posts/webbiji/images/imgType.jpg?size=medium 1.5x, /posts/webbiji/images/imgType.jpg?size=large 2x" data-title="图片类型选择" style="--width: 800px;--aspect-ratio: 800 / 525;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a><figcaption class="image-caption">图片类型选择</figcaption>
   </figure></p>
 <h3 id="css" class="heading-element">
-  <a href="#css" class="heading-mark"></a>css</h3><h4 id="flexbox" class="heading-element">
-  <a href="#flexbox" class="heading-mark"></a>flexbox</h4><p>Flex 布局将成为未来布局的首选方案，比如说常见的 bootstrap4 的版本就用 flex 替代了 float 来进行排版。<br>
+  <a href="#css" class="heading-mark"></a>1.2 css</h3><h4 id="flexbox" class="heading-element">
+  <a href="#flexbox" class="heading-mark"></a>1.2.1 flexbox</h4><p>Flex 布局将成为未来布局的首选方案，比如说常见的 bootstrap4 的版本就用 flex 替代了 float 来进行排版。<br>
 我在网上看到几个很好的教程，图文并茂，一目了然。</p>
 <blockquote>
 <ul>
@@ -3529,8 +3529,8 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 </ul>
 <p>实在懒癌发作，笔记本上手抄了笔记我就不写学习总结了，还有网友 <a href="http://static.vgee.cn/static/index.html"target="_blank" rel="external nofollow noopener noreferrer">Demo<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 也写了。</p>
 <h3 id="javascript" class="heading-element">
-  <a href="#javascript" class="heading-mark"></a>javascript</h3><h4 id="keydown-和-keypress" class="heading-element">
-  <a href="#keydown-%e5%92%8c-keypress" class="heading-mark"></a>keydown 和 keypress</h4><ul>
+  <a href="#javascript" class="heading-mark"></a>1.3 javascript</h3><h4 id="keydown-和-keypress" class="heading-element">
+  <a href="#keydown-%e5%92%8c-keypress" class="heading-mark"></a>1.3.1 keydown 和 keypress</h4><ul>
 <li><code>keydown</code>：按下键盘键</li>
 <li><code>keypress</code>：紧接着<code>keydown</code>事件触发（只有按下字符键时触发）</li>
 <li>如果用户按下了一个<strong>字符键</strong>不放，就会重复触发<code>keydown</code>和<code>keypress</code>事件，直到用户松开该键为止。</li>
@@ -3538,7 +3538,7 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 </ul>
 <p><a href="https://www.jianshu.com/p/8f839f558319"target="_blank" rel="external nofollow noopener noreferrer">详解键盘事件 (keydown，keypress，keyup)<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
 <h4 id="textcontentinnertext-和-innerhtml-的区别" class="heading-element">
-  <a href="#textcontentinnertext-%e5%92%8c-innerhtml-%e7%9a%84%e5%8c%ba%e5%88%ab" class="heading-mark"></a>textContent、innerText 和 innerHTML 的区别</h4><blockquote>
+  <a href="#textcontentinnertext-%e5%92%8c-innerhtml-%e7%9a%84%e5%8c%ba%e5%88%ab" class="heading-mark"></a>1.3.2 textContent、innerText 和 innerHTML 的区别</h4><blockquote>
 <ol>
 <li>设置标签中的文本内容，应该使用<code>textContent</code>或<code>innerText</code>（更老）属性，区别在于浏览器支援程度</li>
 <li><code>innerHTML</code>能够获得元素内的所有标签内容，也可以设置标签使之生效。（<strong>注意防止 XSS 注入</strong>）</li>
@@ -3573,7 +3573,7 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 </span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="err">/script&gt;</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="图床方案" class="heading-element">
-  <a href="#%e5%9b%be%e5%ba%8a%e6%96%b9%e6%a1%88" class="heading-mark"></a>图床方案</h3><blockquote>
+  <a href="#%e5%9b%be%e5%ba%8a%e6%96%b9%e6%a1%88" class="heading-mark"></a>1.4 图床方案</h3><blockquote>
 <ul>
 <li>自行搭建
 比如使用开源图床 ImgURL 搭建的<code>img.lruihao.cn</code>（<strong>需要服务器</strong>）<br>
@@ -3585,7 +3585,7 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 诸如 sm.ms，腾讯云 COS，阿里云 OSS，七牛云，又拍云，Github，微博图床，ImgURL 图床等等</li>
 </ul>
 <h3 id="font-awesome" class="heading-element">
-  <a href="#font-awesome" class="heading-mark"></a>font-awesome</h3><p>现在使用 5 的版本，可以使用<code>webfont+css</code>或<code>svg+js</code></p>
+  <a href="#font-awesome" class="heading-mark"></a>1.5 font-awesome</h3><p>现在使用 5 的版本，可以使用<code>webfont+css</code>或<code>svg+js</code></p>
 <div class="highlight" id="id-3"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -3608,7 +3608,7 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 </span></span><span class="line"><span class="cl">&lt;/svg&gt;</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="响应式自适应" class="heading-element">
-  <a href="#%e5%93%8d%e5%ba%94%e5%bc%8f%e8%87%aa%e9%80%82%e5%ba%94" class="heading-mark"></a>响应式（自适应）</h3><div class="highlight" id="id-5"><div class="chroma">
+  <a href="#%e5%93%8d%e5%ba%94%e5%bc%8f%e8%87%aa%e9%80%82%e5%ba%94" class="heading-mark"></a>1.6 响应式（自适应）</h3><div class="highlight" id="id-5"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -3669,7 +3669,7 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 </span></span><span class="line"><span class="cl"><span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&#34;stylesheet&#34;</span> <span class="na">type=</span><span class="s">&#34;text/css&#34;</span> <span class="na">href=</span><span class="s">&#34;style_PC.css&#34;</span> <span class="na">media=</span><span class="s">&#34;screen and (min-width: 960px)&#34;</span><span class="nt">/&gt;</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="jquery" class="heading-element">
-  <a href="#jquery" class="heading-mark"></a>jquery</h3><div class="highlight" id="id-9"><div class="chroma">
+  <a href="#jquery" class="heading-mark"></a>1.7 jquery</h3><div class="highlight" id="id-9"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -3691,7 +3691,7 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 </span></span><span class="line"><span class="cl">//还有其他的源 ...</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="qq-推广链接" class="heading-element">
-  <a href="#qq-%e6%8e%a8%e5%b9%bf%e9%93%be%e6%8e%a5" class="heading-mark"></a>QQ 推广链接</h3><blockquote>
+  <a href="#qq-%e6%8e%a8%e5%b9%bf%e9%93%be%e6%8e%a5" class="heading-mark"></a>1.8 QQ 推广链接</h3><blockquote>
 <p><a href="https://shang.qq.com/v3/widget.html"target="_blank" rel="external nofollow noopener noreferrer">QQ 推广<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> <a href="https://qun.qq.com/join.html"target="_blank" rel="external nofollow noopener noreferrer">QQ 群<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
 </blockquote>
 <div class="highlight" id="id-10"><div class="chroma">
@@ -3703,7 +3703,7 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 </div>
 </div><p><a target="_blank" href="https://wpa.qq.com/msgrd?v=3&uin=1074627678&site=qq&menu=yes"><img border="0" src="https://wpa.qq.com/pa?p=2:1074627678:51" alt="点击这里给我发消息" title="点击这里给我发消息"/></a></p>
 <h3 id="google-fonts" class="heading-element">
-  <a href="#google-fonts" class="heading-mark"></a>Google fonts</h3><div class="highlight" id="id-11"><div class="chroma">
+  <a href="#google-fonts" class="heading-mark"></a>1.9 Google fonts</h3><div class="highlight" id="id-11"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -3718,7 +3718,7 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 </span></span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="fancybox" class="heading-element">
-  <a href="#fancybox" class="heading-mark"></a>fancybox</h3><p><a href="https://github.com/fancyapps/fancybox"target="_blank" rel="external nofollow noopener noreferrer">github 介绍<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> <a href="https://www.bootcdn.cn/fancybox/"target="_blank" rel="external nofollow noopener noreferrer">fancybox 源<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
+  <a href="#fancybox" class="heading-mark"></a>1.10 fancybox</h3><p><a href="https://github.com/fancyapps/fancybox"target="_blank" rel="external nofollow noopener noreferrer">github 介绍<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> <a href="https://www.bootcdn.cn/fancybox/"target="_blank" rel="external nofollow noopener noreferrer">fancybox 源<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
 <div class="highlight" id="id-12"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -3729,14 +3729,14 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 </span></span><span class="line"><span class="cl"><span class="nt">&lt;script</span> <span class="na">src=</span><span class="s">&#34;https://cdn.bootcss.com/fancybox/3.5.7/jquery.fancybox.min.js&#34;</span><span class="nt">&gt;&lt;/script&gt;</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="back-end" class="heading-element">
-  <a href="#back-end" class="heading-mark"></a>back-end</h2><blockquote>
+  <a href="#back-end" class="heading-mark"></a>2 back-end</h2><blockquote>
 <p>更多学习内容见 <a href="https://github.com/Lruihao/web-dev-data"target="_blank" rel="external nofollow noopener noreferrer">学习课件<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a><br>
 练习作业 <a href="https://github.com/Lruihao/hw"target="_blank" rel="external nofollow noopener noreferrer">源码<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>+<a href="http://hw.lruihao.cn/"target="_blank" rel="external nofollow noopener noreferrer">Demo<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
 </blockquote>]]></description></item><item><title>模仿知乎卡片式链接</title><link>https://lruihao.cn/posts/linkcard/</link><pubDate>Fri, 15 Mar 2019 15:21:39 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/linkcard/</guid><description><![CDATA[<blockquote>
 <p>模仿知乎的卡片式链接，idea 来自 [兰州小红鸡]</p>
 </blockquote>
 <h2 id="源码" class="heading-element">
-  <a href="#%e6%ba%90%e7%a0%81" class="heading-mark"></a>源码</h2><blockquote>
+  <a href="#%e6%ba%90%e7%a0%81" class="heading-mark"></a>1 源码</h2><blockquote>
 <p><strong>2021/10/2 1:29 更新</strong></p>
 </blockquote>
 <p>这是一种后加载，创建<code>linkcard.js</code>放到<code>source/js/src/</code>，然后在<code>next\layout\_macro\post.swig</code>中引用</p>
@@ -3782,7 +3782,7 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 </span></span><span class="line"><span class="cl"><span class="p">};</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="使用" class="heading-element">
-  <a href="#%e4%bd%bf%e7%94%a8" class="heading-mark"></a>使用</h2><div class="highlight" id="id-2"><div class="chroma">
+  <a href="#%e4%bd%bf%e7%94%a8" class="heading-mark"></a>2 使用</h2><div class="highlight" id="id-2"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -3813,7 +3813,7 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 查了一下百度知道了大概就是 qq 没有抓取到你的网站的 xml。并在其他教程中得到了一个强制提交抓取的 url <code>https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshareget_urlinfo?url=</code> 于是就有了脚本刷新的想法。简陋的写了一下。</p>
 </blockquote>
 <h2 id="批量式刷新" class="heading-element">
-  <a href="#%e6%89%b9%e9%87%8f%e5%bc%8f%e5%88%b7%e6%96%b0" class="heading-mark"></a>批量式刷新</h2><div class="highlight" id="id-1"><div class="chroma">
+  <a href="#%e6%89%b9%e9%87%8f%e5%bc%8f%e5%88%b7%e6%96%b0" class="heading-mark"></a>1 批量式刷新</h2><div class="highlight" id="id-1"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -3901,7 +3901,7 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 </span></span><span class="line"><span class="cl"><span class="p">};</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="单链接刷新" class="heading-element">
-  <a href="#%e5%8d%95%e9%93%be%e6%8e%a5%e5%88%b7%e6%96%b0" class="heading-mark"></a>单链接刷新</h2><div class="highlight" id="id-2"><div class="chroma">
+  <a href="#%e5%8d%95%e9%93%be%e6%8e%a5%e5%88%b7%e6%96%b0" class="heading-mark"></a>2 单链接刷新</h2><div class="highlight" id="id-2"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -3976,9 +3976,9 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="demo" class="heading-element">
-  <a href="#demo" class="heading-mark"></a>demo</h2><p><figure><a class="lightgallery" href="images/1.png?size=large" data-thumbnail="images/1.png?size=small" data-sub-html="<h2>线上 demo 仅做参考请自行下载</h2><p>线上 demo 仅做参考请自行下载</p>"><img loading="lazy" src="images/1.png" alt="线上 demo 仅做参考请自行下载" srcset="images/1.png?size=small, images/1.png?size=medium 1.5x, images/1.png?size=large 2x" data-title="线上 demo 仅做参考请自行下载" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a><figcaption class="image-caption">线上 demo 仅做参考请自行下载</figcaption>
+  <a href="#demo" class="heading-mark"></a>3 demo</h2><p><figure><a class="lightgallery" href="/posts/qqxml/images/1.png?size=large" data-thumbnail="/posts/qqxml/images/1.png?size=small" data-sub-html="<h2>线上 demo 仅做参考请自行下载</h2><p>线上 demo 仅做参考请自行下载</p>"><img loading="lazy" src="/posts/qqxml/images/1.png" alt="线上 demo 仅做参考请自行下载" srcset="/posts/qqxml/images/1.png?size=small, /posts/qqxml/images/1.png?size=medium 1.5x, /posts/qqxml/images/1.png?size=large 2x" data-title="线上 demo 仅做参考请自行下载" style="--width: 1319px;--aspect-ratio: 1319 / 584;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a><figcaption class="image-caption">线上 demo 仅做参考请自行下载</figcaption>
   </figure><br>
-<figure><a class="lightgallery" href="images/2.png?size=large" data-thumbnail="images/2.png?size=small" data-sub-html="<h2>效果</h2><p>效果</p>"><img loading="lazy" src="images/2.png" alt="效果" srcset="images/2.png?size=small, images/2.png?size=medium 1.5x, images/2.png?size=large 2x" data-title="效果" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a><figcaption class="image-caption">效果</figcaption>
+<figure><a class="lightgallery" href="/posts/qqxml/images/2.png?size=large" data-thumbnail="/posts/qqxml/images/2.png?size=small" data-sub-html="<h2>效果</h2><p>效果</p>"><img loading="lazy" src="/posts/qqxml/images/2.png" alt="效果" srcset="/posts/qqxml/images/2.png?size=small, /posts/qqxml/images/2.png?size=medium 1.5x, /posts/qqxml/images/2.png?size=large 2x" data-title="效果" style="--width: 306px;--aspect-ratio: 306 / 412;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a><figcaption class="image-caption">效果</figcaption>
   </figure></p>]]></description></item><item><title>JS 验证码</title><link>https://lruihao.cn/posts/js-vcode/</link><pubDate>Mon, 04 Mar 2019 20:53:09 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/js-vcode/</guid><description><![CDATA[<!-- markdownlint-disable MD033 -->
 <style type="text/css">
 
