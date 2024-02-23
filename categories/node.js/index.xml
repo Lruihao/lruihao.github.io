@@ -1,6 +1,6 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Node.js - 分类 | 菠菜眾長</title><link>https://lruihao.cn/categories/node.js/</link><description>Node.js - 分类 | 菠菜眾長</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><copyright>本站内容采用 CC BY-NC-SA 4.0 国际许可协议。</copyright><lastBuildDate>Tue, 28 Nov 2023 10:48:07 +0800</lastBuildDate><atom:link href="https://lruihao.cn/categories/node.js/" rel="self" type="application/rss+xml"/><item><title>用 Node.js 开发一个轻量脚手架</title><link>https://lruihao.cn/posts/fixit-cli/</link><pubDate>Tue, 28 Nov 2023 10:48:07 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/fixit-cli/</guid><description><![CDATA[<div class="featured-image"><img loading="eager" src="https://lruihao.cn/posts/fixit-cli/images/featured-image.png" alt="用 Node.js 开发一个轻量脚手架" title="用 Node.js 开发一个轻量脚手架" referrerpolicy="no-referrer"/></div><p>本文将介绍如何用 Node.js 开发一个轻量脚手架，以 <a href="https://github.com/hugo-fixit/fixit-cli"target="_blank" rel="external nofollow noopener noreferrer">fixit-cli<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 为例。</p>
 <h2 id="前言" class="heading-element">
-  <a href="#%e5%89%8d%e8%a8%80" class="heading-mark"></a>1 前言</h2><p>在维护 <a href="https://github.com/hugo-fixit/FixIt"target="_blank" rel="external nofollow noopener noreferrer">FixIt<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 这个项目时，很多新人可能第一次接触 Hugo，第一次使用 FixIt 主题，可能觉得无从下手。在之前的工作中，为了避免这个问题，我新增了两个模板项目：</p>
+  <a href="#%e5%89%8d%e8%a8%80" class="heading-mark"></a>前言</h2><p>在维护 <a href="https://github.com/hugo-fixit/FixIt"target="_blank" rel="external nofollow noopener noreferrer">FixIt<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 这个项目时，很多新人可能第一次接触 Hugo，第一次使用 FixIt 主题，可能觉得无从下手。在之前的工作中，为了避免这个问题，我新增了两个模板项目：</p>
 <ul>
 <li><a href="https://github.com/hugo-fixit/hugo-fixit-blog-git"target="_blank" rel="external nofollow noopener noreferrer">hugo-fixit-blog-git<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
 <li><a href="https://github.com/hugo-fixit/hugo-fixit-blog-go"target="_blank" rel="external nofollow noopener noreferrer">hugo-fixit-blog-go<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
@@ -8,14 +8,14 @@
 <p>然并卵哈哈哈🤣，大家似乎都有种惰性，不愿意认真地读一遍 README，即使只需简单几步就能通过 GitHub template 创建一个拥有完整主题配置、自动化部署完善的博客。</p>
 <p>懒惰是人类进步的源泉，想到 Vue CLI、Create React App 这些脚手架，我决定开发一个轻量级的脚手架 <a href="https://github.com/hugo-fixit/fixit-cli"target="_blank" rel="external nofollow noopener noreferrer">fixit-cli<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>，让大家能够快速地上手 FixIt 主题。</p>
 <h2 id="思路" class="heading-element">
-  <a href="#%e6%80%9d%e8%b7%af" class="heading-mark"></a>2 思路</h2><p>fixit-cli 的思路很简单，就是通过命令行交互，让用户输入一些信息，然后根据这些信息生成一个完整的博客项目。</p>
+  <a href="#%e6%80%9d%e8%b7%af" class="heading-mark"></a>思路</h2><p>fixit-cli 的思路很简单，就是通过命令行交互，让用户输入一些信息，然后根据这些信息生成一个完整的博客项目。</p>
 <ul>
 <li><code>fixit create my-blog</code> 创建一个名为 <code>my-blog</code> 的项目</li>
 <li><code>fixit check</code> 检查 FixIt 主题的最新版本</li>
 </ul>
 <h2 id="开发" class="heading-element">
-  <a href="#%e5%bc%80%e5%8f%91" class="heading-mark"></a>3 开发</h2><h3 id="初始化项目" class="heading-element">
-  <a href="#%e5%88%9d%e5%a7%8b%e5%8c%96%e9%a1%b9%e7%9b%ae" class="heading-mark"></a>3.1 初始化项目</h3><div class="highlight" id="id-1"><div class="chroma">
+  <a href="#%e5%bc%80%e5%8f%91" class="heading-mark"></a>开发</h2><h3 id="初始化项目" class="heading-element">
+  <a href="#%e5%88%9d%e5%a7%8b%e5%8c%96%e9%a1%b9%e7%9b%ae" class="heading-mark"></a>初始化项目</h3><div class="highlight" id="id-1"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -28,7 +28,7 @@
 </div>
 </div><p>然后在 <code>package.json</code> 中写点项目信息。</p>
 <h3 id="安装依赖" class="heading-element">
-  <a href="#%e5%ae%89%e8%a3%85%e4%be%9d%e8%b5%96" class="heading-mark"></a>3.2 安装依赖</h3><div class="highlight" id="id-2"><div class="chroma">
+  <a href="#%e5%ae%89%e8%a3%85%e4%be%9d%e8%b5%96" class="heading-mark"></a>安装依赖</h3><div class="highlight" id="id-2"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
@@ -68,7 +68,7 @@
 </table>
 <p>如果需要使用简单的 <code>git clone</code> 下载模板，可以使用 <a href="https://www.npmjs.com/package/download-git-repo"target="_blank" rel="external nofollow noopener noreferrer">download-git-repo<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 替代 <code>simple-git</code>。</p>
 <h3 id="定义一个-cli" class="heading-element">
-  <a href="#%e5%ae%9a%e4%b9%89%e4%b8%80%e4%b8%aa-cli" class="heading-mark"></a>3.3 定义一个 CLI</h3><p>在 <code>package.json</code> 中添加 <code>bin</code> 字段，指定 CLI 的入口文件。</p>
+  <a href="#%e5%ae%9a%e4%b9%89%e4%b8%80%e4%b8%aa-cli" class="heading-mark"></a>定义一个 CLI</h3><p>在 <code>package.json</code> 中添加 <code>bin</code> 字段，指定 CLI 的入口文件。</p>
 <div class="highlight" id="id-3"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -118,7 +118,7 @@
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">npm install -g fixit-cli /Users/cell/workspace/fixit-cli/</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="命令行交互" class="heading-element">
-  <a href="#%e5%91%bd%e4%bb%a4%e8%a1%8c%e4%ba%a4%e4%ba%92" class="heading-mark"></a>3.4 命令行交互</h3><p>先把要实现的命令和选项列出来：</p>
+  <a href="#%e5%91%bd%e4%bb%a4%e8%a1%8c%e4%ba%a4%e4%ba%92" class="heading-mark"></a>命令行交互</h3><p>先把要实现的命令和选项列出来：</p>
 <div class="highlight" id="id-7"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -258,7 +258,7 @@
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">fixit create my-blog</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="源码" class="heading-element">
-  <a href="#%e6%ba%90%e7%a0%81" class="heading-mark"></a>4 源码</h2><p>命令动作的具体实现详见 FixIt CLI 源码。</p>
+  <a href="#%e6%ba%90%e7%a0%81" class="heading-mark"></a>源码</h2><p>命令动作的具体实现详见 FixIt CLI 源码。</p>
 <a href="https://github.com/hugo-fixit/fixit-cli"target="_blank" rel="external nofollow noopener noreferrer" class="card-link"><span class="cl-backdrop" style="--cl-bg-url: url(/images/fixit.min.svg);"></span>
     <span class="cl-content">
       <span class="cl-text">
@@ -268,7 +268,7 @@
           <span class="cl-url">https://github.com/hugo-fixit/fixit-cli</span>
         </span>
       </span><svg class="cl-icon-globe" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" width="64" height="64"><path d="M960 512c0 249.408-203.2 448-448 448-244.778667 0-448-198.592-448-448S262.592 64 512 64s448 198.592 448 448" fill="#2196F3"></path><path d="M507.52 718.08c0-8.96-4.48-13.44-13.44-17.92-26.88-8.96-53.76-8.96-76.16-31.381333-4.48-8.96-4.48-17.92-8.96-26.88-8.96-8.96-31.36-13.44-44.8-17.92h-89.6c-13.44-4.48-22.4-22.4-31.36-35.84 0-4.48 0-13.461333-8.96-13.461334-8.96-4.458667-17.92 4.501333-26.88 0-4.48-4.458667-4.48-8.96-4.48-13.418666 0-13.461333 8.96-26.901333 17.92-35.861334 13.44-8.96 26.88 4.48 40.32 4.48 4.48 0 4.48 0 8.96 4.48 13.44 4.48 17.92 22.4 17.92 35.861334v8.96c0 4.48 4.48 4.48 8.96 4.48 4.48-22.4 4.48-44.821333 8.96-67.2 0-26.88 26.88-53.781333 49.28-62.72 8.96-4.458667 13.44 4.501333 22.4 0 26.88-8.96 94.08-35.84 80.64-71.658667-8.96-31.381333-35.84-62.698667-71.68-58.24-8.96 4.501333-13.44 8.96-22.4 13.461333-13.44 8.96-40.32 35.84-53.76 35.84-22.4-4.48-22.4-35.84-17.92-49.301333 4.48-17.92 44.8-76.138667 71.68-67.178667l17.92 17.92c8.96 4.48 22.4 4.48 35.84 4.48 4.48 0 8.96 0 13.44-4.48 4.48-4.48 4.48-4.48 4.48-8.96 0-13.44-13.44-26.901333-22.4-35.861333s-22.4-17.92-35.84-22.378667c-44.8-13.461333-116.48 4.458667-152.32 35.84-35.84 31.36-62.72 85.12-80.64 129.92-8.96 26.88-17.92 62.698667-22.4 94.08-4.48 22.4-8.96 40.32 4.48 62.698667 13.44 26.88 40.32 53.781333 67.2 71.68 17.92 13.44 53.76 13.44 71.68 35.84 13.44 17.941333 8.96 40.32 8.96 62.72 0 26.88 17.92 49.28 26.88 71.658667 4.48 13.461333 8.96 31.381333 13.44 44.821333 0 4.48 4.48 31.36 4.48 35.84 26.88 13.44 49.28 26.901333 80.64 35.861333 4.48 0 22.4-26.901333 22.4-31.381333 13.44-13.44 22.4-31.36 35.84-40.32 8.96-4.48 17.92-8.96 26.88-17.941333 8.96-8.96 13.44-26.88 17.92-40.32 4.48-8.938667 8.96-26.858667 4.48-40.298667M516.48 305.92c4.48 0 8.96-4.48 17.92-8.96 13.44-8.96 26.901333-22.4 40.32-31.36 13.461333-8.96 26.901333-22.4 35.861333-31.36 13.44-8.96 22.4-26.88 26.88-40.341333 4.48-8.96 17.941333-26.88 13.44-40.32-4.48-8.96-26.88-13.44-35.84-17.92C579.2 126.698667 547.84 122.24 512 122.24c-13.44 0-31.36 4.458667-35.84 17.92-4.48 22.4 13.44 17.92 31.36 22.4 0 0 4.48 35.84 4.48 40.32 4.48 22.421333-8.96 35.84-8.96 58.24 0 13.44 0 35.84 8.96 44.8h4.48zM892.8 619.52c4.501333-8.96 4.501333-22.4 8.96-31.36 4.501333-22.421333 4.501333-44.8 4.501333-67.2 0-44.8-4.501333-89.578667-17.92-129.92-8.96-13.44-13.461333-26.88-17.941333-40.341333-8.96-22.378667-22.4-44.8-40.32-62.698667-17.92-22.4-40.341333-85.12-80.64-67.2-13.44 4.501333-22.4 22.421333-31.36 31.381333l-26.88 40.32c-4.501333 4.48-8.96 13.44-4.501333 17.92 0 4.48 4.501333 4.48 8.96 4.48 8.96 4.501333 13.461333 4.501333 22.421333 8.96 4.48 0 8.96 4.501333 4.48 8.96 0 0 0 4.501333-4.48 4.501334-22.421333 22.4-44.8 40.32-67.2 62.698666-4.48 4.48-8.96 13.44-8.96 17.92s4.48 4.48 4.48 8.96c0 4.501333-4.48 4.501333-8.96 8.96-8.96 4.501333-17.92 8.96-22.4 13.461334-4.48 8.96 0 22.4-4.48 31.36-4.48 22.4-17.941333 40.32-26.901333 62.72-8.96 13.418667-13.418667 26.88-22.378667 40.32 0 17.92-4.501333 31.36 4.458667 44.8 22.421333 31.36 62.72 13.44 94.08 26.901333 8.96 4.458667 17.92 4.458667 22.421333 13.418667 13.418667 13.461333 13.418667 35.861333 17.92 49.301333 4.458667 17.92 8.96 35.84 17.92 53.76 4.48 22.421333 13.44 44.821333 17.92 62.72 40.341333-31.36 76.16-67.178667 103.04-112 26.88-31.424 40.341333-67.242667 53.76-103.104" fill="#CDDC39"></path></svg></span></a>]]></description></item><item><title>如何给 npm 包打补丁？</title><link>https://lruihao.cn/posts/patch-package/</link><pubDate>Thu, 12 Oct 2023 22:37:56 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/patch-package/</guid><description><![CDATA[<div class="featured-image"><img loading="eager" src="images/featured-image.png" alt="如何给 npm 包打补丁？" title="如何给 npm 包打补丁？" referrerpolicy="no-referrer"/></div><h2 id="背景" class="heading-element">
-  <a href="#%e8%83%8c%e6%99%af" class="heading-mark"></a>1 背景</h2><p>今天鬼事神差想起去年写的一段 dirty hack 代码，当时是在 <a href="https://github.com/Lruihao/vue-minder-editor-extended"target="_blank" rel="external nofollow noopener noreferrer">vue-minder-editor-extended<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 这个项目为了解决百度开源的 <a href="https://github.com/fex-team/kityminder-core"target="_blank" rel="external nofollow noopener noreferrer">@7polo/kityminder-core<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> npm 包的 bug，但是百度早在 17-18 年就停止更新了，我又不想自己 fork 一份源码然后重新发包，于是当时直接从 node_modules 里面复制出了打包后的源码进行修改，然后放到了项目中 <code>src/script/patch/kityminder.core.js</code>，并因修改了引入：</p>
+  <a href="#%e8%83%8c%e6%99%af" class="heading-mark"></a>背景</h2><p>今天鬼事神差想起去年写的一段 dirty hack 代码，当时是在 <a href="https://github.com/Lruihao/vue-minder-editor-extended"target="_blank" rel="external nofollow noopener noreferrer">vue-minder-editor-extended<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 这个项目为了解决百度开源的 <a href="https://github.com/fex-team/kityminder-core"target="_blank" rel="external nofollow noopener noreferrer">@7polo/kityminder-core<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> npm 包的 bug，但是百度早在 17-18 年就停止更新了，我又不想自己 fork 一份源码然后重新发包，于是当时直接从 node_modules 里面复制出了打包后的源码进行修改，然后放到了项目中 <code>src/script/patch/kityminder.core.js</code>，并因修改了引入：</p>
 <div class="highlight" id="id-1"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -281,7 +281,7 @@
 </div>
 </div><p>但是今天刷抖音看到类似的问题，回想起来这种做法真的是太蠢了，于是就想着有没有更好的办法，于是就一番搜索有了这篇文章。</p>
 <h2 id="安装-patch-package" class="heading-element">
-  <a href="#%e5%ae%89%e8%a3%85-patch-package" class="heading-mark"></a>2 安装 patch-package</h2><div class="highlight" id="id-2"><div class="chroma">
+  <a href="#%e5%ae%89%e8%a3%85-patch-package" class="heading-mark"></a>安装 patch-package</h2><div class="highlight" id="id-2"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
@@ -289,9 +289,9 @@
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">npm i patch-package --save-dev</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="修改源码" class="heading-element">
-  <a href="#%e4%bf%ae%e6%94%b9%e6%ba%90%e7%a0%81" class="heading-mark"></a>3 修改源码</h2><p>在 <code>node_modules</code> 目录下找到需要打补丁的包，然后修改源码，比如我这里修改了 <code>node_modules/@7polo/kityminder-core/dist/kityminder.core.js</code>，修改后直接保存。</p>
+  <a href="#%e4%bf%ae%e6%94%b9%e6%ba%90%e7%a0%81" class="heading-mark"></a>修改源码</h2><p>在 <code>node_modules</code> 目录下找到需要打补丁的包，然后修改源码，比如我这里修改了 <code>node_modules/@7polo/kityminder-core/dist/kityminder.core.js</code>，修改后直接保存。</p>
 <h2 id="生成补丁" class="heading-element">
-  <a href="#%e7%94%9f%e6%88%90%e8%a1%a5%e4%b8%81" class="heading-mark"></a>4 生成补丁</h2><div class="highlight" id="id-3"><div class="chroma">
+  <a href="#%e7%94%9f%e6%88%90%e8%a1%a5%e4%b8%81" class="heading-mark"></a>生成补丁</h2><div class="highlight" id="id-3"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
@@ -417,7 +417,7 @@
 </div>
 </div><p>发现其实就是一个 diff 文件，这个文件里面记录了修改的内容，以及修改的位置，这样就可以在安装依赖的时候自动执行补丁了。</p>
 <h2 id="使用补丁" class="heading-element">
-  <a href="#%e4%bd%bf%e7%94%a8%e8%a1%a5%e4%b8%81" class="heading-mark"></a>5 使用补丁</h2><p>在 <code>package.json</code> 中添加如下内容：</p>
+  <a href="#%e4%bd%bf%e7%94%a8%e8%a1%a5%e4%b8%81" class="heading-mark"></a>使用补丁</h2><p>在 <code>package.json</code> 中添加如下内容：</p>
 <div class="highlight" id="id-6"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -434,7 +434,7 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="提交补丁" class="heading-element">
-  <a href="#%e6%8f%90%e4%ba%a4%e8%a1%a5%e4%b8%81" class="heading-mark"></a>6 提交补丁</h2><div class="highlight" id="id-7"><div class="chroma">
+  <a href="#%e6%8f%90%e4%ba%a4%e8%a1%a5%e4%b8%81" class="heading-mark"></a>提交补丁</h2><div class="highlight" id="id-7"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -446,10 +446,10 @@
 </span></span><span class="line"><span class="cl">git push</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="测试" class="heading-element">
-  <a href="#%e6%b5%8b%e8%af%95" class="heading-mark"></a>7 测试</h2><p>执行一次完整的依赖安装 =&gt; 构建发布，一切符合预期，大功告成~</p>
+  <a href="#%e6%b5%8b%e8%af%95" class="heading-mark"></a>测试</h2><p>执行一次完整的依赖安装 =&gt; 构建发布，一切符合预期，大功告成~</p>
 ]]></description></item><item><title>使用 Node.js 自动创建 Vue 的路由</title><link>https://lruihao.cn/posts/gen-router/</link><pubDate>Wed, 14 Jun 2023 00:11:17 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/gen-router/</guid><description><![CDATA[<p>最近在写一个 Vue 插件，需要在项目中创建一些测试页面，由于都是些静态路由，就想到之前看到过的一个项目就是用 Node.js 来自动生成路由的，于是就借鉴过来改了一下。</p>
 <h2 id="源码" class="heading-element">
-  <a href="#%e6%ba%90%e7%a0%81" class="heading-mark"></a>1 源码</h2><blockquote>
+  <a href="#%e6%ba%90%e7%a0%81" class="heading-mark"></a>源码</h2><blockquote>
 <p>Gist: <a href="https://gist.github.com/Lruihao/d8f2984525dc9e78dd6a49e15f49cf38"target="_blank" rel="external nofollow noopener noreferrer">https://gist.github.com/Lruihao/d8f2984525dc9e78dd6a49e15f49cf38<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
 </blockquote>
 <div class="highlight" id="id-1"><div class="chroma">
@@ -620,13 +620,13 @@
 </span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="k">default</span> <span class="nx">router</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="参考" class="heading-element">
-  <a href="#%e5%8f%82%e8%80%83" class="heading-mark"></a>2 参考</h2><p><a href="https://github.com/sunzsh/vue-el-demo/blob/f5e9a2a9934c7040f4fa72663eb8c24b1e3b20c1/gen-router.js"target="_blank" rel="external nofollow noopener noreferrer">sunzsh/vue-el-demo<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>]]></description></item><item><title>解决 SourceTree 提交时候 husky 命令失败问题</title><link>https://lruihao.cn/posts/sourcetree-husky/</link><pubDate>Mon, 12 Jun 2023 10:58:44 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/sourcetree-husky/</guid><description><![CDATA[<h2 id="问题描述" class="heading-element">
-  <a href="#%e9%97%ae%e9%a2%98%e6%8f%8f%e8%bf%b0" class="heading-mark"></a>1 问题描述</h2><p>在使用 SourceTree 提交代码的时候，会出现 husky 命令失败的问题（通过命令行提交代码没有问题），如下图所示：</p>
-<p><a class="lightgallery" href="/posts/sourcetree-husky/images/23_1686538807.png?size=large" data-thumbnail="/posts/sourcetree-husky/images/23_1686538807.png?size=small" data-sub-html="<h2>/posts/sourcetree-husky/images/23_1686538807.png</h2>"><img loading="lazy" src="/posts/sourcetree-husky/images/23_1686538807.png" alt="/posts/sourcetree-husky/images/23_1686538807.png" srcset="/posts/sourcetree-husky/images/23_1686538807.png?size=small, /posts/sourcetree-husky/images/23_1686538807.png?size=medium 1.5x, /posts/sourcetree-husky/images/23_1686538807.png?size=large 2x" data-title="/posts/sourcetree-husky/images/23_1686538807.png" style="--width: 1252px;--aspect-ratio: 1252 / 856;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></p>
+  <a href="#%e5%8f%82%e8%80%83" class="heading-mark"></a>参考</h2><p><a href="https://github.com/sunzsh/vue-el-demo/blob/f5e9a2a9934c7040f4fa72663eb8c24b1e3b20c1/gen-router.js"target="_blank" rel="external nofollow noopener noreferrer">sunzsh/vue-el-demo<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>]]></description></item><item><title>解决 SourceTree 提交时候 husky 命令失败问题</title><link>https://lruihao.cn/posts/sourcetree-husky/</link><pubDate>Mon, 12 Jun 2023 10:58:44 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/sourcetree-husky/</guid><description><![CDATA[<h2 id="问题描述" class="heading-element">
+  <a href="#%e9%97%ae%e9%a2%98%e6%8f%8f%e8%bf%b0" class="heading-mark"></a>问题描述</h2><p>在使用 SourceTree 提交代码的时候，会出现 husky 命令失败的问题（通过命令行提交代码没有问题），如下图所示：</p>
+<p><img loading="lazy" src="images/23_1686538807.png" alt="images/23_1686538807.png" srcset="images/23_1686538807.png?size=small, images/23_1686538807.png?size=medium 1.5x, images/23_1686538807.png?size=large 2x" data-title="images/23_1686538807.png" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <p>看错误，是一个 catch 参数的问题，在新版本的 Node 中，catch 参数是可以省略的，但是在旧版本中，catch 参数是必须的。</p>
 <p>由于使用了 nvm 管理 Node 版本，项目中的 Node 是正常的，但是 SourceTree 使用的是系统的 Node，所以会出现这个问题。</p>
 <h2 id="解决方案" class="heading-element">
-  <a href="#%e8%a7%a3%e5%86%b3%e6%96%b9%e6%a1%88" class="heading-mark"></a>2 解决方案</h2><p>知道了问题的原因，解决起来就很简单了，只需要将 SourceTree husky hook 阶段的 Node 版本切换到项目中的 Node 版本即可。</p>
+  <a href="#%e8%a7%a3%e5%86%b3%e6%96%b9%e6%a1%88" class="heading-mark"></a>解决方案</h2><p>知道了问题的原因，解决起来就很简单了，只需要将 SourceTree husky hook 阶段的 Node 版本切换到项目中的 Node 版本即可。</p>
 <p>配置 <code>.huskyrc</code> 文件，内容如下：</p>
 <div class="highlight" id="id-1"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -716,7 +716,7 @@
 </span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">NVM_NODEJS_ORG_MIRROR</span><span class="o">=</span>https://mirrors.ustc.edu.cn/node/</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="参考" class="heading-element">
-  <a href="#%e5%8f%82%e8%80%83" class="heading-mark"></a>3 参考</h2><ul>
+  <a href="#%e5%8f%82%e8%80%83" class="heading-mark"></a>参考</h2><ul>
 <li>&lt;https://wxhboy.cn/2022/04/12/解决 SourceTree 提交时候 husky 命令失败问题/&gt;</li>
 <li><a href="https://github.com/typicode/husky/issues/390#issuecomment-762213421"target="_blank" rel="external nofollow noopener noreferrer">https://github.com/typicode/husky/issues/390#issuecomment-762213421<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
 <li><a href="https://github.com/typicode/husky/issues/904#issuecomment-862184954"target="_blank" rel="external nofollow noopener noreferrer">https://github.com/typicode/husky/issues/904#issuecomment-862184954<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
@@ -732,7 +732,7 @@
     </div>
   </div>
 <h2 id="安装依赖" class="heading-element">
-  <a href="#%e5%ae%89%e8%a3%85%e4%be%9d%e8%b5%96" class="heading-mark"></a>1 安装依赖</h2><div class="highlight" id="id-1"><div class="chroma">
+  <a href="#%e5%ae%89%e8%a3%85%e4%be%9d%e8%b5%96" class="heading-mark"></a>安装依赖</h2><div class="highlight" id="id-1"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
@@ -740,7 +740,7 @@
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">npm install qcloud-cdn-node-sdk</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="编写脚本" class="heading-element">
-  <a href="#%e7%bc%96%e5%86%99%e8%84%9a%e6%9c%ac" class="heading-mark"></a>2 编写脚本</h2><div class="highlight" id="id-2"><div class="chroma">
+  <a href="#%e7%bc%96%e5%86%99%e8%84%9a%e6%9c%ac" class="heading-mark"></a>编写脚本</h2><div class="highlight" id="id-2"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
@@ -797,7 +797,7 @@
 </span></span><span class="line"><span class="cl"><span class="p">);</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="增加快捷指令" class="heading-element">
-  <a href="#%e5%a2%9e%e5%8a%a0%e5%bf%ab%e6%8d%b7%e6%8c%87%e4%bb%a4" class="heading-mark"></a>3 增加快捷指令</h2><p>打开 <code>package.json</code> 增加 <code>scripts</code>:</p>
+  <a href="#%e5%a2%9e%e5%8a%a0%e5%bf%ab%e6%8d%b7%e6%8c%87%e4%bb%a4" class="heading-mark"></a>增加快捷指令</h2><p>打开 <code>package.json</code> 增加 <code>scripts</code>:</p>
 <div class="highlight" id="id-4"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -852,7 +852,7 @@
 等同于 <code>SECRET_ID=$SECRET_ID SECRET_KEY=$SECRET_KEY npm run qcloudcdn</code></p>
 </details>
 <h2 id="配置-github-actions" class="heading-element">
-  <a href="#%e9%85%8d%e7%bd%ae-github-actions" class="heading-mark"></a>4 配置 GitHub Actions</h2><p>在原有 GitHub Actions 中部署后增加一个步骤：</p>
+  <a href="#%e9%85%8d%e7%bd%ae-github-actions" class="heading-mark"></a>配置 GitHub Actions</h2><p>在原有 GitHub Actions 中部署后增加一个步骤：</p>
 <div class="highlight" id="id-6"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -871,15 +871,15 @@
 </div><p>在仓库 Settings &gt; Secrets &gt; Actions 中增加两个 Secret: <code>SECRET_ID</code> 和 <code>SECRET_KEY</code>，原来有配置过的就不用了，比如，我原来的叫 <code>COS_SECRET_ID</code> 和 <code>COS_SECRET_ID</code>，那修改上面配置 env 中的变量名即可。</p>
 <p>最后上传代码，以后更新仓库时就会自动刷新 CDN 缓存了。</p>
 <h2 id="参考资料" class="heading-element">
-  <a href="#%e5%8f%82%e8%80%83%e8%b5%84%e6%96%99" class="heading-mark"></a>5 参考资料</h2><ul>
+  <a href="#%e5%8f%82%e8%80%83%e8%b5%84%e6%96%99" class="heading-mark"></a>参考资料</h2><ul>
 <li><a href="https://github.com/QCloudCDN/CDN_API_DEMO/tree/master/Qcloud_CDN_API/nodejs"target="_blank" rel="external nofollow noopener noreferrer">Qcloud_CDN_API/nodejs<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
 </ul>
 <blockquote>
 <p>本方案使用的旧的 API 请求方式，如果失效，可以参考新的 API，见 <a href="https://cloud.tencent.com/document/sdk"target="_blank" rel="external nofollow noopener noreferrer">SDK 中心<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>。</p>
 </blockquote>]]></description></item><item><title>ttf 字体压缩</title><link>https://lruihao.cn/posts/web-font/</link><pubDate>Wed, 17 Oct 2018 21:38:06 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/web-font/</guid><description><![CDATA[<h2 id="安装-nodejs" class="heading-element">
-  <a href="#%e5%ae%89%e8%a3%85-nodejs" class="heading-mark"></a>1 安装 Node.js</h2><p>font-spider 是 nodejs 的一个模块，所以需要安装 nodejs。</p>
+  <a href="#%e5%ae%89%e8%a3%85-nodejs" class="heading-mark"></a>安装 Node.js</h2><p>font-spider 是 nodejs 的一个模块，所以需要安装 nodejs。</p>
 <h2 id="安装字蛛" class="heading-element">
-  <a href="#%e5%ae%89%e8%a3%85%e5%ad%97%e8%9b%9b" class="heading-mark"></a>2 安装字蛛</h2><p>输入命令</p>
+  <a href="#%e5%ae%89%e8%a3%85%e5%ad%97%e8%9b%9b" class="heading-mark"></a>安装字蛛</h2><p>输入命令</p>
 <div class="highlight" id="id-1"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -888,8 +888,8 @@
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">npm install font-spider -g</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="运行" class="heading-element">
-  <a href="#%e8%bf%90%e8%a1%8c" class="heading-mark"></a>3 运行</h2><p>安装成功之后就开始压缩了
-<a class="lightgallery" href="/posts/web-font/images/menu.png?size=large" data-thumbnail="/posts/web-font/images/menu.png?size=small" data-sub-html="<h2>文件结构</h2>"><img loading="lazy" src="/posts/web-font/images/menu.png" alt="文件结构" srcset="/posts/web-font/images/menu.png?size=small, /posts/web-font/images/menu.png?size=medium 1.5x, /posts/web-font/images/menu.png?size=large 2x" data-title="文件结构" style="--width: 526px;--aspect-ratio: 526 / 164;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></p>
+  <a href="#%e8%bf%90%e8%a1%8c" class="heading-mark"></a>运行</h2><p>安装成功之后就开始压缩了
+<img loading="lazy" src="images/menu.png" alt="文件结构" srcset="images/menu.png?size=small, images/menu.png?size=medium 1.5x, images/menu.png?size=large 2x" data-title="文件结构" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <p>我的 css</p>
 <div class="highlight" id="id-2"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -916,6 +916,6 @@
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">font-spider C:<span class="se">\U</span>sers<span class="se">\李</span>瑞豪<span class="se">\D</span>esktop<span class="se">\x</span>xx<span class="se">\i</span>ndex.html</span></span></code></pre></td></tr></table>
 </div>
-</div><p><a class="lightgallery" href="/posts/web-font/images/jieguo.png?size=large" data-thumbnail="/posts/web-font/images/jieguo.png?size=small" data-sub-html="<h2>执行结果</h2>"><img loading="lazy" src="/posts/web-font/images/jieguo.png" alt="执行结果" srcset="/posts/web-font/images/jieguo.png?size=small, /posts/web-font/images/jieguo.png?size=medium 1.5x, /posts/web-font/images/jieguo.png?size=large 2x" data-title="执行结果" style="--width: 1223px;--aspect-ratio: 1223 / 639;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></p>
+</div><p><img loading="lazy" src="images/jieguo.png" alt="执行结果" srcset="images/jieguo.png?size=small, images/jieguo.png?size=medium 1.5x, images/jieguo.png?size=large 2x" data-title="执行结果" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <p><a href="http://font-spider.org"target="_blank" rel="external nofollow noopener noreferrer">官网<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
 ]]></description></item></channel></rss>
