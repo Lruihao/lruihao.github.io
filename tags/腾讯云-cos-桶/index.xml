@@ -8,7 +8,7 @@
     </div>
   </div>
 <h2 id="準備" class="heading-element">
-  <a href="#%e6%ba%96%e5%82%99" class="heading-mark"></a>準備</h2><p>工作流程涉及到兩個倉庫和一個 cos 桶，例如：</p>
+  <a href="#%e6%ba%96%e5%82%99" class="heading-mark"></a>1 準備</h2><p>工作流程涉及到兩個倉庫和一個 cos 桶，例如：</p>
 <blockquote>
 <ul>
 <li>Lruihao/hugo-blog # Blog source repository</li>
@@ -17,8 +17,8 @@
 </ul>
 </blockquote>
 <h2 id="github-actions" class="heading-element">
-  <a href="#github-actions" class="heading-mark"></a>Github Actions</h2><h3 id="創建-workflows-任務" class="heading-element">
-  <a href="#%e5%89%b5%e5%bb%ba-workflows-%e4%bb%bb%e5%8b%99" class="heading-mark"></a>創建 workflows 任務</h3><p>創建 <code>hugo-site/.github/workflows/deploy.yml</code>, 這個文件會寫一些命令告訴 Github 在我們提交源碼的時候，它要幫我們做哪些事情。</p>
+  <a href="#github-actions" class="heading-mark"></a>2 Github Actions</h2><h3 id="創建-workflows-任務" class="heading-element">
+  <a href="#%e5%89%b5%e5%bb%ba-workflows-%e4%bb%bb%e5%8b%99" class="heading-mark"></a>2.1 創建 workflows 任務</h3><p>創建 <code>hugo-site/.github/workflows/deploy.yml</code>, 這個文件會寫一些命令告訴 Github 在我們提交源碼的時候，它要幫我們做哪些事情。</p>
 <div class="highlight" id="id-1"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -99,7 +99,7 @@
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l">coscmd upload -r -s --delete -f public/ /</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="配置-github-pages-密鑰" class="heading-element">
-  <a href="#%e9%85%8d%e7%bd%ae-github-pages-%e5%af%86%e9%91%b0" class="heading-mark"></a>配置 Github Pages 密鑰</h3><ol>
+  <a href="#%e9%85%8d%e7%bd%ae-github-pages-%e5%af%86%e9%91%b0" class="heading-mark"></a>2.2 配置 Github Pages 密鑰</h3><ol>
 <li>
 <p>為了讓 Lruihao/hugo-blog 提交代碼后自動部署到 Lruihao/lruihao.github.io, 需要生成一對 ssh key.</p>
 <div class="highlight" id="id-2"><div class="chroma">
@@ -124,7 +124,7 @@
 </li>
 </ol>
 <h3 id="配置-cos-密鑰" class="heading-element">
-  <a href="#%e9%85%8d%e7%bd%ae-cos-%e5%af%86%e9%91%b0" class="heading-mark"></a>配置 COS 密鑰</h3><p>打開 Lruihao/hugo-blog 倉庫的 settings, 再点击 Secrets, 然後添加 COS 桶的 <code>secret_id</code> 和 <code>secret_key</code>:</p>
+  <a href="#%e9%85%8d%e7%bd%ae-cos-%e5%af%86%e9%91%b0" class="heading-mark"></a>2.3 配置 COS 密鑰</h3><p>打開 Lruihao/hugo-blog 倉庫的 settings, 再点击 Secrets, 然後添加 COS 桶的 <code>secret_id</code> 和 <code>secret_key</code>:</p>
 <ul>
 <li>COS_SECRET_ID</li>
 <li>COS_SECRET_KEY</li>
@@ -134,7 +134,7 @@
 打開 Lruihao/hugo-blog -&gt; Actions 可以看到構建過程和結果，構建失敗也會收到 Github 發給你的郵件。</p>
 </blockquote>
 <h2 id="cos-自動同步備用" class="heading-element">
-  <a href="#cos-%e8%87%aa%e5%8b%95%e5%90%8c%e6%ad%a5%e5%82%99%e7%94%a8" class="heading-mark"></a>COS 自動同步（備用）</h2><p>本小節內容和 Github Actions 無關，僅作為 COS 備用上傳方式。</p>
+  <a href="#cos-%e8%87%aa%e5%8b%95%e5%90%8c%e6%ad%a5%e5%82%99%e7%94%a8" class="heading-mark"></a>3 COS 自動同步（備用）</h2><p>本小節內容和 Github Actions 無關，僅作為 COS 備用上傳方式。</p>
 <ul>
 <li>COSBrowser</li>
 </ul>
@@ -161,23 +161,23 @@
     </div>
   </div>
 <h2 id="创建腾讯云-cos-存储桶" class="heading-element">
-  <a href="#%e5%88%9b%e5%bb%ba%e8%85%be%e8%ae%af%e4%ba%91-cos-%e5%ad%98%e5%82%a8%e6%a1%b6" class="heading-mark"></a>创建腾讯云 cos 存储桶</h2><p>就创建一个 COS 就好了！有几点注意事项：</p>
+  <a href="#%e5%88%9b%e5%bb%ba%e8%85%be%e8%ae%af%e4%ba%91-cos-%e5%ad%98%e5%82%a8%e6%a1%b6" class="heading-mark"></a>1 创建腾讯云 cos 存储桶</h2><p>就创建一个 COS 就好了！有几点注意事项：</p>
 <ol>
 <li>权限设置为共有读私有写</li>
 <li>policy 权限设置整个桶的读操作</li>
 <li>跨域访问 CORS 设置，自己随意</li>
 </ol>
 <h2 id="上传照片" class="heading-element">
-  <a href="#%e4%b8%8a%e4%bc%a0%e7%85%a7%e7%89%87" class="heading-mark"></a>上传照片</h2><p>首先我这个 cos 相册，相册分类就是文件夹分类，所以 cos 桶里面先新建不同的文件夹，<strong>文件夹名称就是相册名称</strong>，
+  <a href="#%e4%b8%8a%e4%bc%a0%e7%85%a7%e7%89%87" class="heading-mark"></a>2 上传照片</h2><p>首先我这个 cos 相册，相册分类就是文件夹分类，所以 cos 桶里面先新建不同的文件夹，<strong>文件夹名称就是相册名称</strong>，
 每个相册里面需要放置一张名称为**“封面.jpg”**的图片作为该相册的封面。</p>
 <h3 id="上传工具" class="heading-element">
-  <a href="#%e4%b8%8a%e4%bc%a0%e5%b7%a5%e5%85%b7" class="heading-mark"></a>上传工具</h3><ul>
+  <a href="#%e4%b8%8a%e4%bc%a0%e5%b7%a5%e5%85%b7" class="heading-mark"></a>2.1 上传工具</h3><ul>
 <li><strong>COSBrowser</strong> GUI 工具，桌面/移动版【官方、推荐】</li>
 <li><strong>COSCMD</strong> 命令行工具【官方】</li>
 <li><strong>PicGo</strong> 图床上传工具【第三方、推荐】</li>
 </ul>
 <h2 id="食用方式" class="heading-element">
-  <a href="#%e9%a3%9f%e7%94%a8%e6%96%b9%e5%bc%8f" class="heading-mark"></a>食用方式</h2><!-- markdownlint-disable MD034 -->
+  <a href="#%e9%a3%9f%e7%94%a8%e6%96%b9%e5%bc%8f" class="heading-mark"></a>3 食用方式</h2><!-- markdownlint-disable MD034 -->
 <a href="http://github.com/Lruihao/cos-album"target="_blank" rel="external nofollow noopener noreferrer" class="card-link"><span class="cl-backdrop" style="--cl-bg-url: url(/images/fixit.min.svg);"></span>
     <span class="cl-content">
       <span class="cl-text">
@@ -192,7 +192,7 @@
 <li>然后，在你的 js 中 new 一个 Cosalbum 对象 ( xmlLink 后不需要添加<code>/</code>)</li>
 </ol>
 <h3 id="step1" class="heading-element">
-  <a href="#step1" class="heading-mark"></a>Step1</h3><div class="highlight" id="id-1"><div class="chroma">
+  <a href="#step1" class="heading-mark"></a>3.1 Step1</h3><div class="highlight" id="id-1"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -202,7 +202,7 @@
 </span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="nx">script</span> <span class="nx">type</span><span class="o">=</span><span class="s2">&#34;text/javascript&#34;</span> <span class="nx">src</span><span class="o">=</span><span class="s2">&#34;cos-album.min.js?v=1.1.2&#34;</span><span class="o">&gt;&lt;</span><span class="err">/script&gt;</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="step2" class="heading-element">
-  <a href="#step2" class="heading-mark"></a>Step2</h3><div class="highlight" id="id-2"><div class="chroma">
+  <a href="#step2" class="heading-mark"></a>3.2 Step2</h3><div class="highlight" id="id-2"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -224,7 +224,7 @@
 </span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="err">/script&gt;</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="params" class="heading-element">
-  <a href="#params" class="heading-mark"></a>Params</h3><table>
+  <a href="#params" class="heading-mark"></a>3.3 Params</h3><table>
 <thead>
 <tr>
 <th style="text-align:left">param</th>
@@ -323,10 +323,10 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 </span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p><a href="https://img.lruihao.cn" target="_blank" class="LinkCard">cos-album demo</a></p>
-<p><img loading="lazy" src="images/view.png" alt="大屏显示" srcset="images/view.png?size=small, images/view.png?size=medium 1.5x, images/view.png?size=large 2x" data-title="大屏显示" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/>
-<div id="id-4"><img loading="lazy" src="images/mobile.png" alt="手机显示" srcset="images/mobile.png?size=small, images/mobile.png?size=medium 1.5x, images/mobile.png?size=large 2x" data-title="手机显示" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></div></p>
+<p><a class="lightgallery" href="images/view.png?size=large" data-thumbnail="images/view.png?size=small" data-sub-html="<h2>大屏显示</h2>"><img loading="lazy" src="images/view.png" alt="大屏显示" srcset="images/view.png?size=small, images/view.png?size=medium 1.5x, images/view.png?size=large 2x" data-title="大屏显示" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a>
+<div id="id-4"><a class="lightgallery" href="images/mobile.png?size=large" data-thumbnail="images/mobile.png?size=small" data-sub-html="<h2>手机显示</h2>"><img loading="lazy" src="images/mobile.png" alt="手机显示" srcset="images/mobile.png?size=small, images/mobile.png?size=medium 1.5x, images/mobile.png?size=large 2x" data-title="手机显示" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></div></p>
 <h2 id="changelog" class="heading-element">
-  <a href="#changelog" class="heading-mark"></a>changelog</h2><ul>
+  <a href="#changelog" class="heading-mark"></a>4 changelog</h2><ul>
 <li>2020-9-28 22:46
 <ol>
 <li>升級：相冊封裝成類，可以更方便 new 出來</li>
@@ -340,19 +340,19 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 适用于 hexo, hugo 等静态博客的部署。</p>
 </blockquote>
 <h2 id="创建存储桶" class="heading-element">
-  <a href="#%e5%88%9b%e5%bb%ba%e5%ad%98%e5%82%a8%e6%a1%b6" class="heading-mark"></a>创建存储桶</h2><p>打开腾讯云控制台&ndash;云产品&ndash;存储&ndash;对象存储，然后创建存储桶。<br>
-<img loading="lazy" src="images/1.png" alt="images/1.png" srcset="images/1.png?size=small, images/1.png?size=medium 1.5x, images/1.png?size=large 2x" data-title="images/1.png" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+  <a href="#%e5%88%9b%e5%bb%ba%e5%ad%98%e5%82%a8%e6%a1%b6" class="heading-mark"></a>1 创建存储桶</h2><p>打开腾讯云控制台&ndash;云产品&ndash;存储&ndash;对象存储，然后创建存储桶。<br>
+<a class="lightgallery" href="images/1.png?size=large" data-thumbnail="images/1.png?size=small" data-sub-html="<h2>images/1.png</h2>"><img loading="lazy" src="images/1.png" alt="images/1.png" srcset="images/1.png?size=small, images/1.png?size=medium 1.5x, images/1.png?size=large 2x" data-title="images/1.png" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></p>
 <h2 id="开启静态网站设置" class="heading-element">
-  <a href="#%e5%bc%80%e5%90%af%e9%9d%99%e6%80%81%e7%bd%91%e7%ab%99%e8%ae%be%e7%bd%ae" class="heading-mark"></a>开启静态网站设置</h2><p>在基础配置打开静态网站（关掉强制 https)<br>
-<img loading="lazy" src="images/2.png" alt="images/2.png" srcset="images/2.png?size=small, images/2.png?size=medium 1.5x, images/2.png?size=large 2x" data-title="images/2.png" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+  <a href="#%e5%bc%80%e5%90%af%e9%9d%99%e6%80%81%e7%bd%91%e7%ab%99%e8%ae%be%e7%bd%ae" class="heading-mark"></a>2 开启静态网站设置</h2><p>在基础配置打开静态网站（关掉强制 https)<br>
+<a class="lightgallery" href="images/2.png?size=large" data-thumbnail="images/2.png?size=small" data-sub-html="<h2>images/2.png</h2>"><img loading="lazy" src="images/2.png" alt="images/2.png" srcset="images/2.png?size=small, images/2.png?size=medium 1.5x, images/2.png?size=large 2x" data-title="images/2.png" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></p>
 <h2 id="绑定域名" class="heading-element">
-  <a href="#%e7%bb%91%e5%ae%9a%e5%9f%9f%e5%90%8d" class="heading-mark"></a>绑定域名</h2><p><img loading="lazy" src="images/3.png" alt="images/3.png" srcset="images/3.png?size=small, images/3.png?size=medium 1.5x, images/3.png?size=large 2x" data-title="images/3.png" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+  <a href="#%e7%bb%91%e5%ae%9a%e5%9f%9f%e5%90%8d" class="heading-mark"></a>3 绑定域名</h2><p><a class="lightgallery" href="images/3.png?size=large" data-thumbnail="images/3.png?size=small" data-sub-html="<h2>images/3.png</h2>"><img loading="lazy" src="images/3.png" alt="images/3.png" srcset="images/3.png?size=small, images/3.png?size=medium 1.5x, images/3.png?size=large 2x" data-title="images/3.png" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></p>
 <p>SSL 设置<br>
-<img loading="lazy" src="images/4.png" alt="images/4.png" srcset="images/4.png?size=small, images/4.png?size=medium 1.5x, images/4.png?size=large 2x" data-title="images/4.png" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+<a class="lightgallery" href="images/4.png?size=large" data-thumbnail="images/4.png?size=small" data-sub-html="<h2>images/4.png</h2>"><img loading="lazy" src="images/4.png" alt="images/4.png" srcset="images/4.png?size=small, images/4.png?size=medium 1.5x, images/4.png?size=large 2x" data-title="images/4.png" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></p>
 <h2 id="域名解析添加记录" class="heading-element">
-  <a href="#%e5%9f%9f%e5%90%8d%e8%a7%a3%e6%9e%90%e6%b7%bb%e5%8a%a0%e8%ae%b0%e5%bd%95" class="heading-mark"></a>域名解析，添加记录</h2><p>去 dns 服务商添加域名解析记录 CNAME 指向上面的域名</p>
+  <a href="#%e5%9f%9f%e5%90%8d%e8%a7%a3%e6%9e%90%e6%b7%bb%e5%8a%a0%e8%ae%b0%e5%bd%95" class="heading-mark"></a>4 域名解析，添加记录</h2><p>去 dns 服务商添加域名解析记录 CNAME 指向上面的域名</p>
 <h2 id="hexo-设置" class="heading-element">
-  <a href="#hexo-%e8%ae%be%e7%bd%ae" class="heading-mark"></a>hexo 设置</h2><ul>
+  <a href="#hexo-%e8%ae%be%e7%bd%ae" class="heading-mark"></a>5 hexo 设置</h2><ul>
 <li>安装插件</li>
 </ul>
 <div class="highlight" id="id-1"><div class="chroma">
@@ -397,9 +397,9 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 </span></span><span class="line"><span class="cl">hexo g -d</span></span></code></pre></td></tr></table>
 </div>
 </div><p>结果类似于<br>
-<img loading="lazy" src="images/5.png" alt="images/5.png" srcset="images/5.png?size=small, images/5.png?size=medium 1.5x, images/5.png?size=large 2x" data-title="images/5.png" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+<a class="lightgallery" href="images/5.png?size=large" data-thumbnail="images/5.png?size=small" data-sub-html="<h2>images/5.png</h2>"><img loading="lazy" src="images/5.png" alt="images/5.png" srcset="images/5.png?size=small, images/5.png?size=medium 1.5x, images/5.png?size=large 2x" data-title="images/5.png" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></p>
 <h2 id="cdn-刷新" class="heading-element">
-  <a href="#cdn-%e5%88%b7%e6%96%b0" class="heading-mark"></a>CDN 刷新</h2><p>每次更新博客内容完后，都要登陆腾讯云 CDN&ndash;缓存刷新，手动刷新一下 CDN。</p>
+  <a href="#cdn-%e5%88%b7%e6%96%b0" class="heading-mark"></a>6 CDN 刷新</h2><p>每次更新博客内容完后，都要登陆腾讯云 CDN&ndash;缓存刷新，手动刷新一下 CDN。</p>
 <p>用脚本在每次更新后刷新</p>
 <ul>
 <li>安装</li>
@@ -452,7 +452,7 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 </span></span><span class="line"><span class="cl"><span class="p">);</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="自动-cdn-刷新配置推荐" class="heading-element">
-  <a href="#%e8%87%aa%e5%8a%a8-cdn-%e5%88%b7%e6%96%b0%e9%85%8d%e7%bd%ae%e6%8e%a8%e8%8d%90" class="heading-mark"></a>自动 CDN 刷新配置（推荐）</h2><ol>
+  <a href="#%e8%87%aa%e5%8a%a8-cdn-%e5%88%b7%e6%96%b0%e9%85%8d%e7%bd%ae%e6%8e%a8%e8%8d%90" class="heading-mark"></a>7 自动 CDN 刷新配置（推荐）</h2><ol>
 <li>进入腾讯云，找到 函数计算 -&gt; CDN 缓存刷新函数 -&gt; 创建 CDN 缓存刷新函数</li>
 <li>修改 <code>index.js</code> 内容后重新部署</li>
 </ol>

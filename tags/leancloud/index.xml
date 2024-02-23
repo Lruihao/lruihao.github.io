@@ -1,5 +1,5 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Leancloud - 标签 | 菠菜眾長</title><link>https://lruihao.cn/tags/leancloud/</link><description>Leancloud - 标签 | 菠菜眾長</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><copyright>本站内容采用 CC BY-NC-SA 4.0 国际许可协议。</copyright><lastBuildDate>Tue, 02 Mar 2021 21:46:40 +0000</lastBuildDate><atom:link href="https://lruihao.cn/tags/leancloud/" rel="self" type="application/rss+xml"/><item><title>基于 leancloud-storage 实现的无后端记账本</title><link>https://lruihao.cn/projects/bill-note/</link><pubDate>Tue, 02 Mar 2021 21:46:40 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/projects/bill-note/</guid><description><![CDATA[<h2 id="起因" class="heading-element">
-  <a href="#%e8%b5%b7%e5%9b%a0" class="heading-mark"></a>起因</h2><div class="details admonition info open">
+  <a href="#%e8%b5%b7%e5%9b%a0" class="heading-mark"></a>1 起因</h2><div class="details admonition info open">
     <div class="details-summary admonition-title">
       <i class="icon fa-solid fa-info-circle fa-fw" aria-hidden="true"></i>起因<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i>
     </div>
@@ -11,15 +11,15 @@
     </div>
   </div>
 <h2 id="經過" class="heading-element">
-  <a href="#%e7%b6%93%e9%81%8e" class="heading-mark"></a>經過</h2><p>作為一個程序猿，怎麼能接受這麼麻煩的記賬方式呢，拿起筆就開始畫，於是有了下面這張圖的公式。簡單說明一下就是：<br>
+  <a href="#%e7%b6%93%e9%81%8e" class="heading-mark"></a>2 經過</h2><p>作為一個程序猿，怎麼能接受這麼麻煩的記賬方式呢，拿起筆就開始畫，於是有了下面這張圖的公式。簡單說明一下就是：<br>
 設前面說的四種組合為：<code>X1, X2, X3, X4</code>，個人實際付款總額為：<code>Y1, Y2, Y3</code>，那麼帶入未知數，我們就可以算出每個人最後結算時的錢：<code>S1, S2, S3</code>，<br>
 綜上所述，很好理解，當 <code>S &gt;= 0</code> 時，收紅包，當 <code>S &lt; 0</code> 時，發紅包。</p>
-<p><img loading="lazy" src="images/gs.jpg" alt="计算公式" srcset="images/gs.jpg?size=small, images/gs.jpg?size=medium 1.5x, images/gs.jpg?size=large 2x" data-title="计算公式" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+<p><a class="lightgallery" href="images/gs.jpg?size=large" data-thumbnail="images/gs.jpg?size=small" data-sub-html="<h2>计算公式</h2>"><img loading="lazy" src="images/gs.jpg" alt="计算公式" srcset="images/gs.jpg?size=small, images/gs.jpg?size=medium 1.5x, images/gs.jpg?size=large 2x" data-title="计算公式" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></p>
 <p>OK，一個簡單的初中方程式已經到位了，下一步，思考一下，用什麼來運作這個這個方程。來，先跑個題，春節期間，不是每天都要在騰訊文檔上填表記錄活動軌跡嗎？再回來，那不如就用 excel 實現吧，三個人都可以在手機上編輯。好的，說做就做。</p>
 <p>一頓操作，10 minutes later&hellip;<br>
 只新建了一個 excel 文件，O.o! 不會 excel，果斷放棄，另尋他路。</p>
 <h2 id="結果" class="heading-element">
-  <a href="#%e7%b5%90%e6%9e%9c" class="heading-mark"></a>結果</h2><p>回到本職，那不如寫個網站吧，可是畢業後，學生機服務器也過期了，怎麼搞？那就寫個純前端的，數據呢存哪裡？<br>
+  <a href="#%e7%b5%90%e6%9e%9c" class="heading-mark"></a>3 結果</h2><p>回到本職，那不如寫個網站吧，可是畢業後，學生機服務器也過期了，怎麼搞？那就寫個純前端的，數據呢存哪裡？<br>
 別急，重新擼一擼需求先：</p>
 <ul>
 <li>存取消費數據</li>
@@ -40,7 +40,7 @@ valine 可以實現無後端，那我是不是也可以，leancloud 文檔走一
         </span>
       </span><svg class="cl-icon-globe" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" width="64" height="64"><path d="M960 512c0 249.408-203.2 448-448 448-244.778667 0-448-198.592-448-448S262.592 64 512 64s448 198.592 448 448" fill="#2196F3"></path><path d="M507.52 718.08c0-8.96-4.48-13.44-13.44-17.92-26.88-8.96-53.76-8.96-76.16-31.381333-4.48-8.96-4.48-17.92-8.96-26.88-8.96-8.96-31.36-13.44-44.8-17.92h-89.6c-13.44-4.48-22.4-22.4-31.36-35.84 0-4.48 0-13.461333-8.96-13.461334-8.96-4.458667-17.92 4.501333-26.88 0-4.48-4.458667-4.48-8.96-4.48-13.418666 0-13.461333 8.96-26.901333 17.92-35.861334 13.44-8.96 26.88 4.48 40.32 4.48 4.48 0 4.48 0 8.96 4.48 13.44 4.48 17.92 22.4 17.92 35.861334v8.96c0 4.48 4.48 4.48 8.96 4.48 4.48-22.4 4.48-44.821333 8.96-67.2 0-26.88 26.88-53.781333 49.28-62.72 8.96-4.458667 13.44 4.501333 22.4 0 26.88-8.96 94.08-35.84 80.64-71.658667-8.96-31.381333-35.84-62.698667-71.68-58.24-8.96 4.501333-13.44 8.96-22.4 13.461333-13.44 8.96-40.32 35.84-53.76 35.84-22.4-4.48-22.4-35.84-17.92-49.301333 4.48-17.92 44.8-76.138667 71.68-67.178667l17.92 17.92c8.96 4.48 22.4 4.48 35.84 4.48 4.48 0 8.96 0 13.44-4.48 4.48-4.48 4.48-4.48 4.48-8.96 0-13.44-13.44-26.901333-22.4-35.861333s-22.4-17.92-35.84-22.378667c-44.8-13.461333-116.48 4.458667-152.32 35.84-35.84 31.36-62.72 85.12-80.64 129.92-8.96 26.88-17.92 62.698667-22.4 94.08-4.48 22.4-8.96 40.32 4.48 62.698667 13.44 26.88 40.32 53.781333 67.2 71.68 17.92 13.44 53.76 13.44 71.68 35.84 13.44 17.941333 8.96 40.32 8.96 62.72 0 26.88 17.92 49.28 26.88 71.658667 4.48 13.461333 8.96 31.381333 13.44 44.821333 0 4.48 4.48 31.36 4.48 35.84 26.88 13.44 49.28 26.901333 80.64 35.861333 4.48 0 22.4-26.901333 22.4-31.381333 13.44-13.44 22.4-31.36 35.84-40.32 8.96-4.48 17.92-8.96 26.88-17.941333 8.96-8.96 13.44-26.88 17.92-40.32 4.48-8.938667 8.96-26.858667 4.48-40.298667M516.48 305.92c4.48 0 8.96-4.48 17.92-8.96 13.44-8.96 26.901333-22.4 40.32-31.36 13.461333-8.96 26.901333-22.4 35.861333-31.36 13.44-8.96 22.4-26.88 26.88-40.341333 4.48-8.96 17.941333-26.88 13.44-40.32-4.48-8.96-26.88-13.44-35.84-17.92C579.2 126.698667 547.84 122.24 512 122.24c-13.44 0-31.36 4.458667-35.84 17.92-4.48 22.4 13.44 17.92 31.36 22.4 0 0 4.48 35.84 4.48 40.32 4.48 22.421333-8.96 35.84-8.96 58.24 0 13.44 0 35.84 8.96 44.8h4.48zM892.8 619.52c4.501333-8.96 4.501333-22.4 8.96-31.36 4.501333-22.421333 4.501333-44.8 4.501333-67.2 0-44.8-4.501333-89.578667-17.92-129.92-8.96-13.44-13.461333-26.88-17.941333-40.341333-8.96-22.378667-22.4-44.8-40.32-62.698667-17.92-22.4-40.341333-85.12-80.64-67.2-13.44 4.501333-22.4 22.421333-31.36 31.381333l-26.88 40.32c-4.501333 4.48-8.96 13.44-4.501333 17.92 0 4.48 4.501333 4.48 8.96 4.48 8.96 4.501333 13.461333 4.501333 22.421333 8.96 4.48 0 8.96 4.501333 4.48 8.96 0 0 0 4.501333-4.48 4.501334-22.421333 22.4-44.8 40.32-67.2 62.698666-4.48 4.48-8.96 13.44-8.96 17.92s4.48 4.48 4.48 8.96c0 4.501333-4.48 4.501333-8.96 8.96-8.96 4.501333-17.92 8.96-22.4 13.461334-4.48 8.96 0 22.4-4.48 31.36-4.48 22.4-17.941333 40.32-26.901333 62.72-8.96 13.418667-13.418667 26.88-22.378667 40.32 0 17.92-4.501333 31.36 4.458667 44.8 22.421333 31.36 62.72 13.44 94.08 26.901333 8.96 4.458667 17.92 4.458667 22.421333 13.418667 13.418667 13.461333 13.418667 35.861333 17.92 49.301333 4.458667 17.92 8.96 35.84 17.92 53.76 4.48 22.421333 13.44 44.821333 17.92 62.72 40.341333-31.36 76.16-67.178667 103.04-112 26.88-31.424 40.341333-67.242667 53.76-103.104" fill="#CDDC39"></path></svg></span></a>
 <h3 id="數據設計" class="heading-element">
-  <a href="#%e6%95%b8%e6%93%9a%e8%a8%ad%e8%a8%88" class="heading-mark"></a>數據設計</h3><p>去 leancloud 创建一个应用，再新增一个 Bill Class, 补充一下字段：</p>
+  <a href="#%e6%95%b8%e6%93%9a%e8%a8%ad%e8%a8%88" class="heading-mark"></a>3.1 數據設計</h3><p>去 leancloud 创建一个应用，再新增一个 Bill Class, 补充一下字段：</p>
 <table>
 <thead>
 <tr>
@@ -73,8 +73,8 @@ valine 可以實現無後端，那我是不是也可以，leancloud 文檔走一
 </tbody>
 </table>
 <h3 id="主要邏輯" class="heading-element">
-  <a href="#%e4%b8%bb%e8%a6%81%e9%82%8f%e8%bc%af" class="heading-mark"></a>主要邏輯</h3><h4 id="初始化" class="heading-element">
-  <a href="#%e5%88%9d%e5%a7%8b%e5%8c%96" class="heading-mark"></a>初始化</h4><p>set for yourself.</p>
+  <a href="#%e4%b8%bb%e8%a6%81%e9%82%8f%e8%bc%af" class="heading-mark"></a>3.2 主要邏輯</h3><h4 id="初始化" class="heading-element">
+  <a href="#%e5%88%9d%e5%a7%8b%e5%8c%96" class="heading-mark"></a>3.2.1 初始化</h4><p>set for yourself.</p>
 <div class="highlight" id="id-1"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -91,7 +91,7 @@ valine 可以實現無後端，那我是不是也可以，leancloud 文檔走一
 </span></span><span class="line"><span class="cl"><span class="p">});</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h4 id="存數據" class="heading-element">
-  <a href="#%e5%ad%98%e6%95%b8%e6%93%9a" class="heading-mark"></a>存數據</h4><div class="highlight" id="id-2"><div class="chroma">
+  <a href="#%e5%ad%98%e6%95%b8%e6%93%9a" class="heading-mark"></a>3.2.2 存數據</h4><div class="highlight" id="id-2"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -135,7 +135,7 @@ valine 可以實現無後端，那我是不是也可以，leancloud 文檔走一
 </span></span><span class="line"><span class="cl"><span class="p">});</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h4 id="取數據" class="heading-element">
-  <a href="#%e5%8f%96%e6%95%b8%e6%93%9a" class="heading-mark"></a>取數據</h4><div class="highlight" id="id-3"><div class="chroma">
+  <a href="#%e5%8f%96%e6%95%b8%e6%93%9a" class="heading-mark"></a>3.2.3 取數據</h4><div class="highlight" id="id-3"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -261,13 +261,13 @@ valine 可以實現無後端，那我是不是也可以，leancloud 文檔走一
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="技術棧" class="heading-element">
-  <a href="#%e6%8a%80%e8%a1%93%e6%a3%a7" class="heading-mark"></a>技術棧</h3><ul>
+  <a href="#%e6%8a%80%e8%a1%93%e6%a3%a7" class="heading-mark"></a>3.3 技術棧</h3><ul>
 <li>leancloud-storage</li>
 <li>Vue.js</li>
 <li>HTML,CSS,JS</li>
 </ul>
 <h2 id="總結" class="heading-element">
-  <a href="#%e7%b8%bd%e7%b5%90" class="heading-mark"></a>總結</h2><p>簡單總結一下，登录功能不做，安不安全自己说了算。删除修改功能也不做，直接上 leancloud 操作，css 美化的样式也不写，干净又卫生！<br>
+  <a href="#%e7%b8%bd%e7%b5%90" class="heading-mark"></a>4 總結</h2><p>簡單總結一下，登录功能不做，安不安全自己说了算。删除修改功能也不做，直接上 leancloud 操作，css 美化的样式也不写，干净又卫生！<br>
 然后衍生一下，什么过年斗地主，天炸，麻将，字牌记账系统那不也是同理可得嘛！</p>
 <p>over!</p>
 <p><figure><a class="lightgallery" href="images/demo.jpg?size=large" data-thumbnail="images/demo.jpg?size=small" data-sub-html="<h2>效果</h2><p>Demo</p>"><img loading="lazy" src="images/demo.jpg" alt="效果" srcset="images/demo.jpg?size=small, images/demo.jpg?size=medium 1.5x, images/demo.jpg?size=large 2x" data-title="Demo" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a><figcaption class="image-caption">效果</figcaption>

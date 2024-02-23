@@ -1,14 +1,14 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>菠菜眾長</title><link>https://lruihao.cn/</link><description>Lruihao's Note 李瑞豪的博客：探索、分享、记录自己在工作生活学习到一些东西。人知道得越多，就就会发现无知的越多。有更广袤世界可以探索，真是莫大的快乐啊！</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><copyright>本站内容采用 CC BY-NC-SA 4.0 国际许可协议。</copyright><lastBuildDate>Wed, 21 Feb 2024 10:00:13 +0800</lastBuildDate><atom:link href="https://lruihao.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>聊聊 Chrome 新增的 sizes="auto" 属性</title><link>https://lruihao.cn/posts/auto-sizes/</link><pubDate>Wed, 21 Feb 2024 10:00:13 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/auto-sizes/</guid><description><![CDATA[<p>聊聊 Chrome 新增的 sizes=&ldquo;auto&rdquo; 属性。</p>
 <h2 id="前景" class="heading-element">
-  <a href="#%e5%89%8d%e6%99%af" class="heading-mark"></a>前景</h2><p>起因是网友给 FixIt 提了一个 issue <a href="https://github.com/hugo-fixit/FixIt/issues/411"target="_blank" rel="external nofollow noopener noreferrer">hugo-fixit/FixIt#411<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>，说图片比例异常，我一回想，最近没动过图片的代码，于是用 Safari 和 Edge 试了一下，发现没问题，那么基本可以确定是 Chrome 新版的问题了。</p>
+  <a href="#%e5%89%8d%e6%99%af" class="heading-mark"></a>1 前景</h2><p>起因是网友给 FixIt 提了一个 issue <a href="https://github.com/hugo-fixit/FixIt/issues/411"target="_blank" rel="external nofollow noopener noreferrer">hugo-fixit/FixIt#411<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>，说图片比例异常，我一回想，最近没动过图片的代码，于是用 Safari 和 Edge 试了一下，发现没问题，那么基本可以确定是 Chrome 新版的问题了。</p>
 <p>经查，从 Chrome (121.0.6167.85) 开始，给 img size=&ldquo;auto&rdquo; 加了一个默认样式，恰巧 FixIt 主题之前用到了 <a href="https://github.com/aFarkas/lazysizes"target="_blank" rel="external nofollow noopener noreferrer">lazysizes.js<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 这个库来做图片懒加载，也用了 size=&ldquo;auto&rdquo; 这个属性，于是就导致图片宽高比异常了。</p>
 <p>解决办法：既然 FixIt 并没有再使用 lazysizes.js 来做图片懒加载，那么就直接去掉 size=&ldquo;auto&rdquo; 这个属性就好了。</p>
 <p>好，问题解决了，那么就来看看这个 size=&ldquo;auto&rdquo; 到底是什么。</p>
 <h2 id="简介" class="heading-element">
-  <a href="#%e7%ae%80%e4%bb%8b" class="heading-mark"></a>简介</h2><p>在网页开发中，我们通常会遇到需要对网页上的元素，尤其是图片进行布局和尺寸调整的情况。在 HTML 中，我们可以利用一些内置的属性来帮助我们完成这项工作，而 sizes 就是其中之一。sizes 属性定义了用于描述其中 <code>&lt;img&gt;</code>、<code>&lt;source&gt;</code> 元素 display size，以及 <code>&lt;link&gt;</code> 元素 viewport 的 source 大小。换句话说，它是一种设定网页元素尺寸的机制。</p>
+  <a href="#%e7%ae%80%e4%bb%8b" class="heading-mark"></a>2 简介</h2><p>在网页开发中，我们通常会遇到需要对网页上的元素，尤其是图片进行布局和尺寸调整的情况。在 HTML 中，我们可以利用一些内置的属性来帮助我们完成这项工作，而 sizes 就是其中之一。sizes 属性定义了用于描述其中 <code>&lt;img&gt;</code>、<code>&lt;source&gt;</code> 元素 display size，以及 <code>&lt;link&gt;</code> 元素 viewport 的 source 大小。换句话说，它是一种设定网页元素尺寸的机制。</p>
 <p>编写、阅读和维护响应式图片的 sizes 属性是最繁琐的部分；对于懒加载的图片，auto-sizes 是对平台的一个很好的补充。据统计，目前已有十分之一的 sizes 属性正在使用 auto，但是是通过 lazysizes.js（一个用于支持图片懒加载的库）。</p>
 <h2 id="详解" class="heading-element">
-  <a href="#%e8%af%a6%e8%a7%a3" class="heading-mark"></a>详解</h2><p>sizes 支持了 &ldquo;auto&rdquo; 值，那么情况就会变得稍微有些复杂。所谓的 &ldquo;auto&rdquo; 模式，实际上是一种让浏览器自动设定图片尺寸的模式。在这种模式下，浏览器会试图选择最合适的尺寸来显示图片，以获得最佳的用户体验。它的应用场景主要是在网站设计和开发过程中，需要灵活设定元素尺寸，尤其是图片的尺寸，以便于在不同设备和浏览器环境下，都能呈现出良好的布局和视觉效果。</p>
+  <a href="#%e8%af%a6%e8%a7%a3" class="heading-mark"></a>3 详解</h2><p>sizes 支持了 &ldquo;auto&rdquo; 值，那么情况就会变得稍微有些复杂。所谓的 &ldquo;auto&rdquo; 模式，实际上是一种让浏览器自动设定图片尺寸的模式。在这种模式下，浏览器会试图选择最合适的尺寸来显示图片，以获得最佳的用户体验。它的应用场景主要是在网站设计和开发过程中，需要灵活设定元素尺寸，尤其是图片的尺寸，以便于在不同设备和浏览器环境下，都能呈现出良好的布局和视觉效果。</p>
 <p>根据 <a href="https://html.spec.whatwg.org/#sizes-attributes"target="_blank" rel="external nofollow noopener noreferrer">HTML 规范 4.8.4.2.2 Sizes attributes<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 的提示：</p>
 <div class="details admonition note open">
     <div class="details-summary admonition-title">
@@ -49,22 +49,22 @@
 <li>每当 <code>&lt;img&gt;</code> 标签的布局尺寸发生变化，sizes=&ldquo;auto&rdquo; 的值就会进行更新，这可能会触发新的资源加载。</li>
 <li>一旦加载新的资源，这个资源就会有新的自然尺寸，这可能会影响 <code>&lt;img&gt;</code> 的布局尺寸，导致 sizes=&ldquo;auto&rdquo; 的值更新，然后可能会触发又一次的资源加载；新加载的资源会有新的自然尺寸，这样以此类推&hellip;等等。</li>
 </ol>
-<p><img loading="lazy" src="images/resource-selection.png" alt="Resource Selection" srcset="images/resource-selection.png?size=small, images/resource-selection.png?size=medium 1.5x, images/resource-selection.png?size=large 2x" data-title="Resource Selection" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+<p><a class="lightgallery" href="images/resource-selection.png?size=large" data-thumbnail="images/resource-selection.png?size=small" data-sub-html="<h2>Resource Selection</h2>"><img loading="lazy" src="images/resource-selection.png" alt="Resource Selection" srcset="images/resource-selection.png?size=small, images/resource-selection.png?size=medium 1.5x, images/resource-selection.png?size=large 2x" data-title="Resource Selection" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></p>
 <p>关于 sizes=&ldquo;auto&rdquo; 的规范讨论其实主要就是：那些能通过这种方式让 srcset 中的每一个资源依次被加载的极端情况。</p>
 <p>Simon Pieters，撰写了 auto-sizes 规范的人，曾经巧妙并勇敢地尝试定义可能触发循环依赖的所有情况，同时也采用了一些无法让作者察觉或是感到奇怪的解决方式来避开这些问题。但是，当真正落实到实现的时候，这些权宜之计并没有站住脚。最后，大家都认为唯一的解决方法是做出一个明确的切割：规定加载资源的自然尺寸绝对不能影响其所对应的 <code>&lt;img&gt;</code> 的布局，这一点在涉及到 sizes=&ldquo;auto&rdquo; 时尤为重要。</p>
-<p><img loading="lazy" src="images/css-containment.png" alt="CSS Containment" srcset="images/css-containment.png?size=small, images/css-containment.png?size=medium 1.5x, images/css-containment.png?size=large 2x" data-title="CSS Containment" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+<p><a class="lightgallery" href="images/css-containment.png?size=large" data-thumbnail="images/css-containment.png?size=small" data-sub-html="<h2>CSS Containment</h2>"><img loading="lazy" src="images/css-containment.png" alt="CSS Containment" srcset="images/css-containment.png?size=small, images/css-containment.png?size=medium 1.5x, images/css-containment.png?size=large 2x" data-title="CSS Containment" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></p>
 <p>幸运的是，我们有一个相对较新的特性，它就是“尺寸包含”（size containment），专门用来解决这个问题。</p>
-<p><img loading="lazy" src="images/size-containment.png" alt="Size Containment" srcset="images/size-containment.png?size=small, images/size-containment.png?size=medium 1.5x, images/size-containment.png?size=large 2x" data-title="Size Containment" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+<p><a class="lightgallery" href="images/size-containment.png?size=large" data-thumbnail="images/size-containment.png?size=small" data-sub-html="<h2>Size Containment</h2>"><img loading="lazy" src="images/size-containment.png" alt="Size Containment" srcset="images/size-containment.png?size=small, images/size-containment.png?size=medium 1.5x, images/size-containment.png?size=large 2x" data-title="Size Containment" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></p>
 <p>所以，现在 Chrome 的 UA stylesheet 中的内容就变成了上面那段 CSS 代码的样子。</p>
 <p>对于为什么选择 300×150，是因为这就是 <code>&lt;video&gt;</code> 和 <code>&lt;canvas&gt;</code> 标签所采取的方式；所有这些元素都会使用这种相对小一些但又不为零的默认尺寸，目的在于鼓励你优化你的布局。</p>
 <h2 id="参考链接" class="heading-element">
-  <a href="#%e5%8f%82%e8%80%83%e9%93%be%e6%8e%a5" class="heading-mark"></a>参考链接</h2><ul>
+  <a href="#%e5%8f%82%e8%80%83%e9%93%be%e6%8e%a5" class="heading-mark"></a>4 参考链接</h2><ul>
 <li><a href="https://html.spec.whatwg.org/#sizes-attributes"target="_blank" rel="external nofollow noopener noreferrer">HTML 规范 4.8.4.2.2 Sizes attributes<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
 <li><a href="https://github.com/whatwg/html/issues/9448"target="_blank" rel="external nofollow noopener noreferrer">whatwg/html#9448<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
 <li><a href="https://issues.chromium.org/issues/41495139"target="_blank" rel="external nofollow noopener noreferrer">Chromium#41495139<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
 </ul>]]></description></item><item><title>2023 年度总结</title><link>https://lruihao.cn/years/2023/</link><pubDate>Fri, 09 Feb 2024 14:07:24 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/years/2023/</guid><description><![CDATA[<p>与其说是年度总结，不如说是一年中难得的一次和自己对话的机会。</p>
 <h2 id="2023-年做了些什么" class="heading-element">
-  <a href="#2023-%e5%b9%b4%e5%81%9a%e4%ba%86%e4%ba%9b%e4%bb%80%e4%b9%88" class="heading-mark"></a>2023 年做了些什么</h2><p>工作上，这一年都挺累的，忙碌一年，技术似乎依然停滞不前。当然，这些都是次要的，对于工作，完成既定目标才是关键。</p>
+  <a href="#2023-%e5%b9%b4%e5%81%9a%e4%ba%86%e4%ba%9b%e4%bb%80%e4%b9%88" class="heading-mark"></a>1 2023 年做了些什么</h2><p>工作上，这一年都挺累的，忙碌一年，技术似乎依然停滞不前。当然，这些都是次要的，对于工作，完成既定目标才是关键。</p>
 <p>既然无人推动新技术引用，那就自己来，大型项目想要脱胎换骨，不是一朝一夕的事情。所以，我在可以从一些插件入手，这些插件是独立的项目，技术栈不受限于项目本身，可以尝试新技术。</p>
 <p>开源上，虽然这一年工作很忙，但是也同样花了大量的业余时间在开源项目上。</p>
 <ul>
@@ -74,7 +74,7 @@
 <li>&hellip;</li>
 </ul>
 <h2 id="生活百无聊赖" class="heading-element">
-  <a href="#%e7%94%9f%e6%b4%bb%e7%99%be%e6%97%a0%e8%81%8a%e8%b5%96" class="heading-mark"></a>生活百无聊赖</h2><p>羡慕朋友们逐渐步入下一个阶段，而我却依然在原地踏步。</p>
+  <a href="#%e7%94%9f%e6%b4%bb%e7%99%be%e6%97%a0%e8%81%8a%e8%b5%96" class="heading-mark"></a>2 生活百无聊赖</h2><p>羡慕朋友们逐渐步入下一个阶段，而我却依然在原地踏步。</p>
 <p>这一年，我似乎没有什么新的收获，也没有什么新的体验。</p>
 <p>异地的原因，恋爱似乎也是一种奢望。进展缓慢，观念的不一致，甚至是对未来的不确定，都是阻碍。</p>
 <p>“我不是你的救赎，你自己才是”</p>
@@ -82,13 +82,13 @@
 <p>或许终究活成朋友口中“你们怎么像网友？”的样子。</p>
 <p>可怎么会不爱呢，啥时候能带你回家。</p>
 <h2 id="何去何从" class="heading-element">
-  <a href="#%e4%bd%95%e5%8e%bb%e4%bd%95%e4%bb%8e" class="heading-mark"></a>何去何从</h2><p>未知带来的迷茫，事隔经年，我依然没有找到答案。</p>
+  <a href="#%e4%bd%95%e5%8e%bb%e4%bd%95%e4%bb%8e" class="heading-mark"></a>3 何去何从</h2><p>未知带来的迷茫，事隔经年，我依然没有找到答案。</p>
 <p>说起期待，情绪稳定，家庭和睦，家人健康。我只能想到这些。</p>
 <p>算了，思绪复杂不知何去何从。</p>
 <p>随他去吧，一切随缘。</p>
 <p>心若有所向往，何惧道阻且长。</p>]]></description></item><item><title>记一次 Debug 第三方包的过程</title><link>https://lruihao.cn/posts/900d5e4/</link><pubDate>Wed, 17 Jan 2024 14:57:48 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/900d5e4/</guid><description><![CDATA[<div class="featured-image"><img loading="eager" src="https://lruihao.cn/posts/900d5e4/images/featured-image.png" alt="记一次 Debug 第三方包的过程" title="记一次 Debug 第三方包的过程" referrerpolicy="no-referrer"/></div><p>在完成一个 code diff 需求时，发现所使用的插件不足以完成预期的需求。当然最终还是顺利完成了，详见 <a href="https://lruihao.github.io/vue-el-demo/#/code-diff"target="_blank" rel="external nofollow noopener noreferrer">code diff demo<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>。</p>
 <h2 id="需求" class="heading-element">
-  <a href="#%e9%9c%80%e6%b1%82" class="heading-mark"></a>需求</h2><p>使用 <a href="https://github.com/Shimada666/v-code-diff"target="_blank" rel="external nofollow noopener noreferrer">v-code-diff<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 组件，来开发一个接口请求结果比对的功能。</p>
+  <a href="#%e9%9c%80%e6%b1%82" class="heading-mark"></a>1 需求</h2><p>使用 <a href="https://github.com/Shimada666/v-code-diff"target="_blank" rel="external nofollow noopener noreferrer">v-code-diff<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 组件，来开发一个接口请求结果比对的功能。</p>
 <p>开发过程中，发现虽然它的 1.8.0 版本提供了具名插槽 <code>stat</code>，但是插槽并没有回传值，于是乎，看了一下它的源码，提了一个 PR 加了一个作用域，见 <a href="https://github.com/Shimada666/v-code-diff/pull/119"target="_blank" rel="external nofollow noopener noreferrer">Shimada666/v-code-diff#119<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>，作者很快也就合并了。</p>
 <p>这样就简化了原插槽的使用：</p>
 <div class="highlight" id="id-1"><div class="chroma">
@@ -120,7 +120,7 @@
 </div>
 </div><p>但这只是完成需求路上的一个小插曲，真正的难点在于“比对结果时，支持关键词过滤的功能”，也就是如果比对结果中有包含关键词的行，则忽略该行的 diff。</p>
 <h2 id="师必有名" class="heading-element">
-  <a href="#%e5%b8%88%e5%bf%85%e6%9c%89%e5%90%8d" class="heading-mark"></a>师必有名</h2><p>“赵若献璧，乃惧怕我邦，不难臣服；若是不献，再去征讨，方算出师有名。”</p>
+  <a href="#%e5%b8%88%e5%bf%85%e6%9c%89%e5%90%8d" class="heading-mark"></a>2 师必有名</h2><p>“赵若献璧，乃惧怕我邦，不难臣服；若是不献，再去征讨，方算出师有名。”</p>
 <p>自古战事都讲究师必有名，其实在代码世界也一样，得考虑这个需求是否通用，不然即使提交 PR 给原作者，也大概率不会合并。我自己也有开源，如果遇到定制化很重的需求，往往只会以一个 <code>wontfix</code> 的标签收尾。</p>
 <p>所以，我先去查了有没有类似的工具或者产品有过类似的需求。</p>
 <p>很快就找到了 Linux 的 <code>diff</code> 指令的 <code>--ignore-matching-lines</code> 参数有类似的功能。</p>
@@ -133,7 +133,7 @@
 </div>
 </div><p>上面的命令在比较两个文件时，会忽略包含 <code>time</code> 的行。</p>
 <h2 id="出师有名" class="heading-element">
-  <a href="#%e5%87%ba%e5%b8%88%e6%9c%89%e5%90%8d" class="heading-mark"></a>出师有名</h2><p>既然有了参考，那么就可以开始动手了。</p>
+  <a href="#%e5%87%ba%e5%b8%88%e6%9c%89%e5%90%8d" class="heading-mark"></a>3 出师有名</h2><p>既然有了参考，那么就可以开始动手了。</p>
 <p>多的先不管，先把 <a href="https://github.com/Shimada666/v-code-diff"target="_blank" rel="external nofollow noopener noreferrer">v-code-diff<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 的源码拉下来运行起来。</p>
 <div class="highlight" id="id-3"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -187,7 +187,7 @@
 </div>
 </div><p>ok，顺利启动！</p>
 <h2 id="一招制敌" class="heading-element">
-  <a href="#%e4%b8%80%e6%8b%9b%e5%88%b6%e6%95%8c" class="heading-mark"></a>一招制敌</h2><p>然后开始阅读源码，寻找突破点。</p>
+  <a href="#%e4%b8%80%e6%8b%9b%e5%88%b6%e6%95%8c" class="heading-mark"></a>4 一招制敌</h2><p>然后开始阅读源码，寻找突破点。</p>
 <p>two hours later&hellip;</p>
 <p>经过一段时间阅读，虽然没有用过 TypeScript 以及 Composition API，但是对于读懂逻辑影响不大，很多就找到了突破口。</p>
 <p>既然忽略关键词是为了让有差异的行不显示，那么正常的行就无需处理，只要找到有差异的行处理的阶段，然后加入关键词过滤的逻辑就可以了。</p>
@@ -195,9 +195,9 @@
 <p>最后简单测试一个在 Vue2.x、Vue2.7 以及 Vue3.x 的 demo，然后顺手把文档也完善一下，就可以提交 PR 给原作者了。详见 <a href="https://github.com/Shimada666/v-code-diff/pull/121"target="_blank" rel="external nofollow noopener noreferrer">Shimada666/v-code-diff#121<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>。</p>
 <p>在等待了短暂几天后，原作者也是很快合并了 PR，并发布了新的版本 1.9.0，这样我们就可以在自己项目中升级使用了。</p>
 <h2 id="备用方案" class="heading-element">
-  <a href="#%e5%a4%87%e7%94%a8%e6%96%b9%e6%a1%88" class="heading-mark"></a>备用方案</h2><p>如果作者觉得需求不妥，我们也可以 fork 一份，然后改名发包，或者只是简单的打包成一个 js 文件，然后放到自己的项目中使用。</p>
+  <a href="#%e5%a4%87%e7%94%a8%e6%96%b9%e6%a1%88" class="heading-mark"></a>5 备用方案</h2><p>如果作者觉得需求不妥，我们也可以 fork 一份，然后改名发包，或者只是简单的打包成一个 js 文件，然后放到自己的项目中使用。</p>
 <h2 id="总结" class="heading-element">
-  <a href="#%e6%80%bb%e7%bb%93" class="heading-mark"></a>总结</h2><p>磨刀不误砍柴工，磨刀的过程也是砍柴的过程，找到根本原因，才能事半功倍。</p>
+  <a href="#%e6%80%bb%e7%bb%93" class="heading-mark"></a>6 总结</h2><p>磨刀不误砍柴工，磨刀的过程也是砍柴的过程，找到根本原因，才能事半功倍。</p>
 <p>比如，VS Code 的开发团队在使用 Electron 开发 VS Code 时，发现 Electron 的功能并不足以满足 VS Code 的开发需求，他们也是先参与到 Electron 的开发中，完善 Electron 后再使用 Electron 开发 VS Code 的。</p>
 <p>经常逛 GitHub，潜移默化中，我也养成了看源码的习惯，遇到 BUG 时先想的是 PR，然后再是 issue，今年还提交了一下其他的 PR。</p>
 <ul>
@@ -207,7 +207,7 @@
 <li><a href="https://github.com/SchemaStore/schemastore/pull/3463"target="_blank" rel="external nofollow noopener noreferrer">SchemaStore/schemastore#3463<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
 </ul>]]></description></item><item><title>为什么很多教程中都有 foo bar？</title><link>https://lruihao.cn/posts/20b75e9/</link><pubDate>Wed, 17 Jan 2024 09:58:58 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/20b75e9/</guid><description><![CDATA[<p>foo 和 bar 是在编程中常用的元变量（metasyntactic variables），它们是在教程和示例代码中用来代表任意的函数或者变量的名称。类似的元变量还有 baz，qux，quux，corge，grault，garply，waldo，fred，plugh，xyzzy 和 thud 等。</p>
 <h2 id="foo-和-bar" class="heading-element">
-  <a href="#foo-%e5%92%8c-bar" class="heading-mark"></a>foo 和 bar</h2><p>这些名称起源于 MIT，然后通过 Hacker 文化传播开来。它们主要的用途是作为示例代码的占位符，这样编程教程或者文档可以更专注于解释语法和逻辑，而不需要花费太多的精力去考虑如何命名这些函数或变量。</p>
+  <a href="#foo-%e5%92%8c-bar" class="heading-mark"></a>1 foo 和 bar</h2><p>这些名称起源于 MIT，然后通过 Hacker 文化传播开来。它们主要的用途是作为示例代码的占位符，这样编程教程或者文档可以更专注于解释语法和逻辑，而不需要花费太多的精力去考虑如何命名这些函数或变量。</p>
 <p>这就像是在其他文字中使用&quot;John Doe&quot; 或 &ldquo;Jane Doe&quot;来代表一个非特定的人一样。在编程的世界中，foo 和 bar 就扮演了类似的角色。</p>
 <p>例如，如果我们要解释 JavaScript 中函数的使用，我们可能会写出这样的代码：</p>
 <div class="highlight" id="id-1"><div class="chroma">
@@ -226,7 +226,7 @@
 </div>
 </div><p>在这个例子中，foo 是一个函数名，bar 是一个参数名，它们都可以被替换为任何合法的函数名和参数名，而不改变代码逻辑。</p>
 <h2 id="quick-brown-fox" class="heading-element">
-  <a href="#quick-brown-fox" class="heading-mark"></a>quick brown fox</h2><p>另外，还常常看到一个这样的句子：</p>
+  <a href="#quick-brown-fox" class="heading-mark"></a>2 quick brown fox</h2><p>另外，还常常看到一个这样的句子：</p>
 <div class="highlight" id="id-2"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -237,7 +237,7 @@
 </div><p>相应中文可简译为“快狐跨懒狗”，完整翻译则是“那只敏捷的棕毛狐狸跃过了那只懒狗”，是一个著名的英语全字母句，常用于测试字体显示效果和键盘是否故障。此句也常以“quick brown fox”做为指代简称。</p>
 <p>简而言之，这些都是英文世界里一些约定俗成的用语，类似于中文里的“张三李四”、“甲乙丙丁”等等。</p>]]></description></item><item><title>git submodule: already exists in the index</title><link>https://lruihao.cn/posts/6550187/</link><pubDate>Thu, 11 Jan 2024 10:30:04 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/6550187/</guid><description><![CDATA[<p>Git 报错 &ldquo;git submodule: already exists in the index&rdquo; 的解决方法。</p>
 <h2 id="问题" class="heading-element">
-  <a href="#%e9%97%ae%e9%a2%98" class="heading-mark"></a>问题</h2><p>在 <a href="https://github.com/hugo-fixit/docs.git"target="_blank" rel="external nofollow noopener noreferrer">hugo-fixit/docs<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>，里我增通过软连接的方式引入了 <a href="https://github.com/hugo-fixit/FixIt.git"target="_blank" rel="external nofollow noopener noreferrer">hugo-fixit/FixIt<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>，位于 <code>themes/FixIt</code> 目录下。</p>
+  <a href="#%e9%97%ae%e9%a2%98" class="heading-mark"></a>1 问题</h2><p>在 <a href="https://github.com/hugo-fixit/docs.git"target="_blank" rel="external nofollow noopener noreferrer">hugo-fixit/docs<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>，里我增通过软连接的方式引入了 <a href="https://github.com/hugo-fixit/FixIt.git"target="_blank" rel="external nofollow noopener noreferrer">hugo-fixit/FixIt<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>，位于 <code>themes/FixIt</code> 目录下。</p>
 <p>然后为了把主题开发和主题文档分离（<a href="https://github.com/hugo-fixit/FixIt/issues/404"target="_blank" rel="external nofollow noopener noreferrer">#404<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>），我想通过 <code>git submodule</code> 的方式引入主题，于是我先把 <code>themes/FixIt</code> 目录删除，然后执行：</p>
 <div class="highlight" id="id-1"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -255,7 +255,7 @@
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">fatal: <span class="s1">&#39;themes/FixIt&#39;</span> already exists in the index</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="解决方法" class="heading-element">
-  <a href="#%e8%a7%a3%e5%86%b3%e6%96%b9%e6%b3%95" class="heading-mark"></a>解决方法</h2><div class="highlight" id="id-3"><div class="chroma">
+  <a href="#%e8%a7%a3%e5%86%b3%e6%96%b9%e6%b3%95" class="heading-mark"></a>2 解决方法</h2><div class="highlight" id="id-3"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
@@ -271,9 +271,9 @@
     </div>
   </div>
 <h2 id="效果" class="heading-element">
-  <a href="#%e6%95%88%e6%9e%9c" class="heading-mark"></a>效果</h2><p>在线演示：<a href="https://lruihao.github.io/vue-el-demo/#/card-collapse"target="_blank" rel="external nofollow noopener noreferrer">https://lruihao.github.io/vue-el-demo/#/card-collapse<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
+  <a href="#%e6%95%88%e6%9e%9c" class="heading-mark"></a>1 效果</h2><p>在线演示：<a href="https://lruihao.github.io/vue-el-demo/#/card-collapse"target="_blank" rel="external nofollow noopener noreferrer">https://lruihao.github.io/vue-el-demo/#/card-collapse<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
 <h2 id="实现过程" class="heading-element">
-  <a href="#%e5%ae%9e%e7%8e%b0%e8%bf%87%e7%a8%8b" class="heading-mark"></a>实现过程</h2><p>一开始想着使用 Vue 的自定义指令功能来实现，但是动手之前还是习惯性地先看 el-card 的源码，如下所示：</p>
+  <a href="#%e5%ae%9e%e7%8e%b0%e8%bf%87%e7%a8%8b" class="heading-mark"></a>2 实现过程</h2><p>一开始想着使用 Vue 的自定义指令功能来实现，但是动手之前还是习惯性地先看 el-card 的源码，如下所示：</p>
 <div class="highlight" id="id-1"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -327,7 +327,7 @@
 </div>
 </div><p>这一看源码这么简单，直接改得了，还用啥自定义指令，开干！</p>
 <h2 id="实现方式" class="heading-element">
-  <a href="#%e5%ae%9e%e7%8e%b0%e6%96%b9%e5%bc%8f" class="heading-mark"></a>实现方式</h2><ol>
+  <a href="#%e5%ae%9e%e7%8e%b0%e6%96%b9%e5%bc%8f" class="heading-mark"></a>3 实现方式</h2><ol>
 <li>通过继承 el-card 组件来实现，这样就不用改 el-card 的源码了，也不用担心升级 Element 时会被覆盖掉。</li>
 <li>然后在继承的组件中添加一个 <code>isCollapse</code> 属性来控制折叠状态。</li>
 </ol>
@@ -502,7 +502,7 @@
 </span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="使用方法" class="heading-element">
-  <a href="#%e4%bd%bf%e7%94%a8%e6%96%b9%e6%b3%95" class="heading-mark"></a>使用方法</h2><p>在 <code>main.js</code> 中引入：</p>
+  <a href="#%e4%bd%bf%e7%94%a8%e6%96%b9%e6%b3%95" class="heading-mark"></a>4 使用方法</h2><p>在 <code>main.js</code> 中引入：</p>
 <div class="highlight" id="id-4"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -606,9 +606,335 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span></span></span></code></pre></td></tr></table>
 </div>
-</div>]]></description></item><item><title>用 Node.js 开发一个轻量脚手架</title><link>https://lruihao.cn/posts/fixit-cli/</link><pubDate>Tue, 28 Nov 2023 10:48:07 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/fixit-cli/</guid><description><![CDATA[<div class="featured-image"><img loading="eager" src="https://lruihao.cn/posts/fixit-cli/images/featured-image.png" alt="用 Node.js 开发一个轻量脚手架" title="用 Node.js 开发一个轻量脚手架" referrerpolicy="no-referrer"/></div><p>本文将介绍如何用 Node.js 开发一个轻量脚手架，以 <a href="https://github.com/hugo-fixit/fixit-cli"target="_blank" rel="external nofollow noopener noreferrer">fixit-cli<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 为例。</p>
+</div>]]></description></item><item><title>尝试在 Python 中使用 Amazon Titan 文本模型</title><link>https://lruihao.cn/posts/d8ae205/</link><pubDate>Fri, 22 Dec 2023 19:58:47 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/d8ae205/</guid><description><![CDATA[<!-- markdownlint-disable-file no-duplicate-heading-->
+<p>本文将通过 Python 代码探索 Amazon Titan 文本模型系列（包括 Express、Lite 和 Embedding）。</p>
+<h2 id="认识-amazon-titan" class="heading-element">
+  <a href="#%e8%ae%a4%e8%af%86-amazon-titan" class="heading-mark"></a>1 认识 Amazon Titan</h2><p><a href="https://aws.amazon.com/cn/bedrock/titan/"target="_blank" rel="external nofollow noopener noreferrer">Amazon Titan<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 是来自亚马逊云科技的高性能基础模型。<a href="https://aws.amazon.com/cn/bedrock/"target="_blank" rel="external nofollow noopener noreferrer">Amazon Bedrock<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 独有的 Amazon Titan 系列模型融合了 Amazon 25 年来，在其业务范围内积累的人工智能和机器学习创新的经验。Amazon Titan 基础模型（FM）通过完全托管的 API 为客户提供广泛的高性能图像、多模式和文本模型选择。Amazon Titan 模型由 AWS 创建并在大型数据集上进行预训练，使其成为强大的通用模型，旨在支持各种用例，同时还支持负责任地使用 AI。你可以按原样使用，也可以根据自己的数据私下进行自定义。</p>
+<p>Amazon Titan 文本模型系列包括：</p>
+<ul>
+<li>Titan Text Express</li>
+<li>Titan Text Lite</li>
+<li>Titan Text Embeddings</li>
+<li>Titan 多模态嵌入</li>
+<li>Titan Image Generator（预览版）</li>
+</ul>
+<p>本文主要探索 Express、Lite 和 Embeddings。更多细节和其他模型请访问 <a href="https://aws.amazon.com/cn/bedrock/titan/"target="_blank" rel="external nofollow noopener noreferrer">Amazon Titan 文本模型系列<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>。</p>
+<p>如果你还没有注册亚马逊云科技账户，可以参考本文最后一节 <a href="#register-aws">注册亚马逊云科技账户</a>。</p>
+<h2 id="环境准备" class="heading-element">
+  <a href="#%e7%8e%af%e5%a2%83%e5%87%86%e5%a4%87" class="heading-mark"></a>2 环境准备</h2><p>我正在使用配置了 AWS Credential 的 vscode 本地环境。</p>
+<h3 id="安装最新的-python" class="heading-element">
+  <a href="#%e5%ae%89%e8%a3%85%e6%9c%80%e6%96%b0%e7%9a%84-python" class="heading-mark"></a>2.1 安装最新的 Python</h3><div class="highlight" id="id-1"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">python --version
+</span></span><span class="line"><span class="cl"><span class="c1"># Python 3.11.5</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="升级-pip" class="heading-element">
+  <a href="#%e5%8d%87%e7%ba%a7-pip" class="heading-mark"></a>2.2 升级 pip</h3><div class="highlight" id="id-2"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">pip install --upgrade pip</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="安装依赖" class="heading-element">
+  <a href="#%e5%ae%89%e8%a3%85%e4%be%9d%e8%b5%96" class="heading-mark"></a>2.3 安装依赖</h3><div class="highlight" id="id-3"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">pip install --no-build-isolation --force-reinstall <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    <span class="s2">&#34;boto3&gt;=1.33.6&#34;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    <span class="s2">&#34;awscli&gt;=1.31.6&#34;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    <span class="s2">&#34;botocore&gt;=1.33.6&#34;</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="加载库" class="heading-element">
+  <a href="#%e5%8a%a0%e8%bd%bd%e5%ba%93" class="heading-mark"></a>2.4 加载库</h3><div class="highlight" id="id-4"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">json</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">os</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">sys</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">boto3</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">botocore</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">bedrock</span> <span class="o">=</span> <span class="n">boto3</span><span class="o">.</span><span class="n">client</span><span class="p">(</span><span class="n">service_name</span><span class="o">=</span><span class="s2">&#34;bedrock&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">bedrock_runtime</span> <span class="o">=</span> <span class="n">boto3</span><span class="o">.</span><span class="n">client</span><span class="p">(</span><span class="n">service_name</span><span class="o">=</span><span class="s2">&#34;bedrock-runtime&#34;</span><span class="p">)</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="express" class="heading-element">
+  <a href="#express" class="heading-mark"></a>3 Titan 文本模型 - Express</h2><h3 id="设置-prompt" class="heading-element">
+  <a href="#%e8%ae%be%e7%bd%ae-prompt" class="heading-mark"></a>3.1 设置 Prompt</h3><div class="highlight" id="id-5"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="line"><span class="cl"><span class="c1"># 写一个关于 AWS Lambda 的文章</span>
+</span></span><span class="line"><span class="cl"><span class="n">express_prompt</span> <span class="o">=</span> <span class="s2">&#34;write article about AWS Lambda&#34;</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="配置模型" class="heading-element">
+  <a href="#%e9%85%8d%e7%bd%ae%e6%a8%a1%e5%9e%8b" class="heading-mark"></a>3.2 配置模型</h3><div class="highlight" id="id-6"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="line"><span class="cl"><span class="n">body</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;inputText&#34;</span><span class="p">:</span> <span class="n">express_prompt</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;textGenerationConfig&#34;</span><span class="p">:</span> <span class="p">{</span>  
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;maxTokenCount&#34;</span><span class="p">:</span> <span class="mi">128</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;stopSequences&#34;</span><span class="p">:</span> <span class="p">[],</span> <span class="c1"># 定义指示模型结束文本生成的短语</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;temperature&#34;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="c1"># 温度控制随机性；较高的值会增加多样性，较低的值会提高可预测性</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;topP&#34;</span><span class="p">:</span> <span class="mf">0.9</span> <span class="c1"># Top P 是一种文本生成技术，从分布中最可能的标记中采样</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">})</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="调用模型" class="heading-element">
+  <a href="#%e8%b0%83%e7%94%a8%e6%a8%a1%e5%9e%8b" class="heading-mark"></a>3.3 调用模型</h3><div class="highlight" id="id-7"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="line"><span class="cl"><span class="n">response</span> <span class="o">=</span> <span class="n">bedrock_runtime</span><span class="o">.</span><span class="n">invoke_model</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">modelId</span><span class="o">=</span><span class="s2">&#34;amazon.titan-text-express-v1&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">accept</span><span class="o">=</span><span class="s2">&#34;application/json&#34;</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">    <span class="n">contentType</span><span class="o">=</span><span class="s2">&#34;application/json&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="解析配置" class="heading-element">
+  <a href="#%e8%a7%a3%e6%9e%90%e9%85%8d%e7%bd%ae" class="heading-mark"></a>3.4 解析配置</h3><div class="highlight" id="id-8"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="line"><span class="cl"><span class="n">response_body</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;body&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl"><span class="n">outputText</span> <span class="o">=</span> <span class="n">response_body</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;results&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;outputText&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 代码 text = outputText[outputText.index(&#39;\n&#39;)+1:] 提取 outputText 字符串中第一个换行符后面的子字符串。这对于第一个换行符之前的初始内容不相关并且您想要捕获其后面的文本的情况非常有用。index(&#39;\n&#39;)+1 定位第一个换行符的位置，切片 [index+1:] 取出后续文本，将其赋值给变量 text</span>
+</span></span><span class="line"><span class="cl"><span class="n">text</span> <span class="o">=</span> <span class="n">outputText</span><span class="p">[</span><span class="n">outputText</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">:]</span>
+</span></span><span class="line"><span class="cl"><span class="n">about_lambda</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">about_lambda</span><span class="p">)</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="运行结果" class="heading-element">
+  <a href="#%e8%bf%90%e8%a1%8c%e7%bb%93%e6%9e%9c" class="heading-mark"></a>3.5 运行结果</h3><div class="highlight" id="id-9"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-plain" data-lang="plain"><span class="line"><span class="cl">AWS Lambda is a serverless computing service provided by Amazon Web Services (AWS). It allows developers to run code in response to events without the need to manage any infrastructure. In this article, we will explore the features and benefits of AWS Lambda, as well as how to use it to build serverless applications.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Features and Benefits of AWS Lambda:
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Serverless Computing: AWS Lambda is a serverless computing service, which means that developers do not have to worry about managing servers, operating systems, or infrastructure. Lambda runs the code in an environment that is managed by AWS, and scales automatically based</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="lite" class="heading-element">
+  <a href="#lite" class="heading-mark"></a>4 Titan 文本模型 - Lite</h2><h3 id="设置-prompt-1" class="heading-element">
+  <a href="#%e8%ae%be%e7%bd%ae-prompt-1" class="heading-mark"></a>4.1 设置 Prompt</h3><div class="highlight" id="id-10"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="line"><span class="cl"><span class="c1"># AWS DynamoDB 和 AWS Redis 两个 AWS 服务的区别</span>
+</span></span><span class="line"><span class="cl"><span class="n">lite_prompt</span> <span class="o">=</span> <span class="s2">&#34;2 difference between AWS DynamoDB and AWS Redis&#34;</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="配置模型-1" class="heading-element">
+  <a href="#%e9%85%8d%e7%bd%ae%e6%a8%a1%e5%9e%8b-1" class="heading-mark"></a>4.2 配置模型</h3><div class="highlight" id="id-11"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="line"><span class="cl"><span class="n">body</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;inputText&#34;</span><span class="p">:</span> <span class="n">lite_prompt</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;textGenerationConfig&#34;</span><span class="p">:</span> <span class="p">{</span>  
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;maxTokenCount&#34;</span><span class="p">:</span> <span class="mi">128</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;stopSequences&#34;</span><span class="p">:</span> <span class="p">[],</span> <span class="c1"># 定义指示模型结束文本生成的短语</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;temperature&#34;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="c1"># 温度控制随机性；较高的值会增加多样性，较低的值会提高可预测性</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;topP&#34;</span><span class="p">:</span> <span class="mf">0.9</span> <span class="c1"># Top P 是一种文本生成技术，从分布中最可能的标记中采样</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">})</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="调用模型-1" class="heading-element">
+  <a href="#%e8%b0%83%e7%94%a8%e6%a8%a1%e5%9e%8b-1" class="heading-mark"></a>4.3 调用模型</h3><div class="highlight" id="id-12"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="line"><span class="cl"><span class="n">response</span> <span class="o">=</span> <span class="n">bedrock_runtime</span><span class="o">.</span><span class="n">invoke_model</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">modelId</span><span class="o">=</span><span class="s2">&#34;amazon.titan-text-lite-v1&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">accept</span><span class="o">=</span><span class="s2">&#34;application/json&#34;</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">    <span class="n">contentType</span><span class="o">=</span><span class="s2">&#34;application/json&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="解析配置-1" class="heading-element">
+  <a href="#%e8%a7%a3%e6%9e%90%e9%85%8d%e7%bd%ae-1" class="heading-mark"></a>4.4 解析配置</h3><div class="highlight" id="id-13"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="line"><span class="cl"><span class="n">response_body</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;body&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl"><span class="n">outputText</span> <span class="o">=</span> <span class="n">response_body</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;results&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;outputText&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">text</span> <span class="o">=</span> <span class="n">outputText</span><span class="p">[</span><span class="n">outputText</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">:]</span>
+</span></span><span class="line"><span class="cl"><span class="n">compare_dynamodb_redis</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">compare_dynamodb_redis</span><span class="p">)</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="运行结果-1" class="heading-element">
+  <a href="#%e8%bf%90%e8%a1%8c%e7%bb%93%e6%9e%9c-1" class="heading-mark"></a>4.5 运行结果</h3><div class="highlight" id="id-14"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-plain" data-lang="plain"><span class="line"><span class="cl">Amazon DynamoDB is a fully managed NoSQL database service in the cloud that offers fast and predictable performance with seamless scalability. It is designed to run high-performance applications at any scale. On the other hand, Amazon Redis is a fully managed in-memory data structure store that provides real-time analytics, caching, and key-value data storage. It is suitable for applications that require fast data retrieval and low latency.</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="embeddings" class="heading-element">
+  <a href="#embeddings" class="heading-mark"></a>5 Titan 文本模型 - Embeddings</h2><h3 id="设置-prompt-2" class="heading-element">
+  <a href="#%e8%ae%be%e7%bd%ae-prompt-2" class="heading-mark"></a>5.1 设置 Prompt</h3><div class="highlight" id="id-15"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="line"><span class="cl"><span class="c1"># AWS re:Invent 2023 是我们今年最大的云活动，在内华达州拉斯维加斯举行，包括主题演讲、创新讲座、构建者实验室、研讨会、技术和可持续发展演示</span>
+</span></span><span class="line"><span class="cl"><span class="n">embed_prompt</span> <span class="o">=</span> <span class="s2">&#34;AWS re:Invent 2023, our biggest cloud event of the year, in Las Vegas, Nevada, featured keynotes, innovation talks, builder labs, workshops, tech and sustainability demos&#34;</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="配置模型-2" class="heading-element">
+  <a href="#%e9%85%8d%e7%bd%ae%e6%a8%a1%e5%9e%8b-2" class="heading-mark"></a>5.2 配置模型</h3><div class="highlight" id="id-16"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="line"><span class="cl"><span class="n">body</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;inputText&#34;</span><span class="p">:</span> <span class="n">embed_prompt</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl"><span class="p">})</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="调用模型-2" class="heading-element">
+  <a href="#%e8%b0%83%e7%94%a8%e6%a8%a1%e5%9e%8b-2" class="heading-mark"></a>5.3 调用模型</h3><div class="highlight" id="id-17"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="line"><span class="cl"><span class="n">response</span> <span class="o">=</span> <span class="n">bedrock_runtime</span><span class="o">.</span><span class="n">invoke_model</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">modelId</span><span class="o">=</span><span class="s2">&#34;amazon.titan-embed-text-v1&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">accept</span><span class="o">=</span><span class="s2">&#34;application/json&#34;</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">    <span class="n">contentType</span><span class="o">=</span><span class="s2">&#34;application/json&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="解析配置-2" class="heading-element">
+  <a href="#%e8%a7%a3%e6%9e%90%e9%85%8d%e7%bd%ae-2" class="heading-mark"></a>5.4 解析配置</h3><div class="highlight" id="id-18"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="line"><span class="cl"><span class="n">response_body</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;body&#34;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl"><span class="n">embedding_output</span> <span class="o">=</span> <span class="n">response_body</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;embedding&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 此代码从响应正文中检索“嵌入”向量，并打印其长度以及前三个和最后三个值的预览，显示嵌入向量的片段</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;You can find the Embedding Vector </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">embedding_output</span><span class="p">)</span><span class="si">}</span><span class="s2"> values</span><span class="se">\n</span><span class="si">{</span><span class="n">embedding_output</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span><span class="o">+</span><span class="p">[</span><span class="s1">&#39;...&#39;</span><span class="p">]</span><span class="o">+</span><span class="n">embedding_output</span><span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">:]</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="运行结果-2" class="heading-element">
+  <a href="#%e8%bf%90%e8%a1%8c%e7%bb%93%e6%9e%9c-2" class="heading-mark"></a>5.5 运行结果</h3><div class="highlight" id="id-19"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-plain" data-lang="plain"><span class="line"><span class="cl">You can find the Embedding Vector 1536 values
+</span></span><span class="line"><span class="cl">[0.40429688, -0.38085938, 0.19726562, &#39;...&#39;, 0.2109375, 0.012573242, 0.18847656]</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="register-aws" class="heading-element">
+  <a href="#register-aws" class="heading-mark"></a>6 注册亚马逊云科技账户</h2><p>打开 <a href="https://aws.amazon.com/cn/q/?sc_channel=seo&amp;sc_campaign=blog1210"target="_blank" rel="external nofollow noopener noreferrer">亚马逊云科技账号注册地址<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>，点击右上角创建 AWS 账户。</p>
+<p><a class="lightgallery" href="../aws-ec2/images/23_1693042834.png?size=large" data-thumbnail="../aws-ec2/images/23_1693042834.png?size=small" data-sub-html="<h2>创建 AWS 账户</h2>"><img loading="lazy" src="../aws-ec2/images/23_1693042834.png" alt="创建 AWS 账户" srcset="../aws-ec2/images/23_1693042834.png?size=small, ../aws-ec2/images/23_1693042834.png?size=medium 1.5x, ../aws-ec2/images/23_1693042834.png?size=large 2x" data-title="创建 AWS 账户" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></p>
+<ol>
+<li>填写邮件地址和账号名称（支持使用国内的邮箱）
+<a class="lightgallery" href="../aws-ec2/images/23_1693043425.png?size=large" data-thumbnail="../aws-ec2/images/23_1693043425.png?size=small" data-sub-html="<h2>login</h2>"><img loading="lazy" src="../aws-ec2/images/23_1693043425.png" alt="login" srcset="../aws-ec2/images/23_1693043425.png?size=small, ../aws-ec2/images/23_1693043425.png?size=medium 1.5x, ../aws-ec2/images/23_1693043425.png?size=large 2x" data-title="login" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></li>
+<li>验证邮件
+<a class="lightgallery" href="../aws-ec2/images/23_1693043626.png?size=large" data-thumbnail="../aws-ec2/images/23_1693043626.png?size=small" data-sub-html="<h2>valid</h2>"><img loading="lazy" src="../aws-ec2/images/23_1693043626.png" alt="valid" srcset="../aws-ec2/images/23_1693043626.png?size=small, ../aws-ec2/images/23_1693043626.png?size=medium 1.5x, ../aws-ec2/images/23_1693043626.png?size=large 2x" data-title="valid" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></li>
+<li>输入密码
+<a class="lightgallery" href="../aws-ec2/images/23_1693043910.png?size=large" data-thumbnail="../aws-ec2/images/23_1693043910.png?size=small" data-sub-html="<h2>password</h2>"><img loading="lazy" src="../aws-ec2/images/23_1693043910.png" alt="password" srcset="../aws-ec2/images/23_1693043910.png?size=small, ../aws-ec2/images/23_1693043910.png?size=medium 1.5x, ../aws-ec2/images/23_1693043910.png?size=large 2x" data-title="password" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></li>
+<li>联系人信息
+<a class="lightgallery" href="../aws-ec2/images/23_1693044220.png?size=large" data-thumbnail="../aws-ec2/images/23_1693044220.png?size=small" data-sub-html="<h2>contact</h2>"><img loading="lazy" src="../aws-ec2/images/23_1693044220.png" alt="contact" srcset="../aws-ec2/images/23_1693044220.png?size=small, ../aws-ec2/images/23_1693044220.png?size=medium 1.5x, ../aws-ec2/images/23_1693044220.png?size=large 2x" data-title="contact" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></li>
+<li>付款信息（Visa）
+<a class="lightgallery" href="../aws-ec2/images/23_1693044537.png?size=large" data-thumbnail="../aws-ec2/images/23_1693044537.png?size=small" data-sub-html="<h2>payment</h2>"><img loading="lazy" src="../aws-ec2/images/23_1693044537.png" alt="payment" srcset="../aws-ec2/images/23_1693044537.png?size=small, ../aws-ec2/images/23_1693044537.png?size=medium 1.5x, ../aws-ec2/images/23_1693044537.png?size=large 2x" data-title="payment" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></li>
+<li>验证手机号（支持中国地区国内手机号）
+<a class="lightgallery" href="../aws-ec2/images/23_1693044806.png?size=large" data-thumbnail="../aws-ec2/images/23_1693044806.png?size=small" data-sub-html="<h2>phone</h2>"><img loading="lazy" src="../aws-ec2/images/23_1693044806.png" alt="phone" srcset="../aws-ec2/images/23_1693044806.png?size=small, ../aws-ec2/images/23_1693044806.png?size=medium 1.5x, ../aws-ec2/images/23_1693044806.png?size=large 2x" data-title="phone" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></li>
+<li>选择支持计划
+<a class="lightgallery" href="../aws-ec2/images/23_1693045029.png?size=large" data-thumbnail="../aws-ec2/images/23_1693045029.png?size=small" data-sub-html="<h2>plan</h2>"><img loading="lazy" src="../aws-ec2/images/23_1693045029.png" alt="plan" srcset="../aws-ec2/images/23_1693045029.png?size=small, ../aws-ec2/images/23_1693045029.png?size=medium 1.5x, ../aws-ec2/images/23_1693045029.png?size=large 2x" data-title="plan" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></li>
+<li>完成注册
+<a class="lightgallery" href="../aws-ec2/images/23_1693045100.png?size=large" data-thumbnail="../aws-ec2/images/23_1693045100.png?size=small" data-sub-html="<h2>complete</h2>"><img loading="lazy" src="../aws-ec2/images/23_1693045100.png" alt="complete" srcset="../aws-ec2/images/23_1693045100.png?size=small, ../aws-ec2/images/23_1693045100.png?size=medium 1.5x, ../aws-ec2/images/23_1693045100.png?size=large 2x" data-title="complete" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></li>
+<li>登录亚马逊云科技控制台，<a href="https://console.aws.amazon.com/console/home"target="_blank" rel="external nofollow noopener noreferrer">登录地址<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>，选择根用户输入电子邮件地址，点击下一步会让输入密码，输入密码后就可以完成登录了。</li>
+</ol>]]></description></item><item><title>用 Node.js 开发一个轻量脚手架</title><link>https://lruihao.cn/posts/fixit-cli/</link><pubDate>Tue, 28 Nov 2023 10:48:07 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/fixit-cli/</guid><description><![CDATA[<div class="featured-image"><img loading="eager" src="https://lruihao.cn/posts/fixit-cli/images/featured-image.png" alt="用 Node.js 开发一个轻量脚手架" title="用 Node.js 开发一个轻量脚手架" referrerpolicy="no-referrer"/></div><p>本文将介绍如何用 Node.js 开发一个轻量脚手架，以 <a href="https://github.com/hugo-fixit/fixit-cli"target="_blank" rel="external nofollow noopener noreferrer">fixit-cli<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 为例。</p>
 <h2 id="前言" class="heading-element">
-  <a href="#%e5%89%8d%e8%a8%80" class="heading-mark"></a>前言</h2><p>在维护 <a href="https://github.com/hugo-fixit/FixIt"target="_blank" rel="external nofollow noopener noreferrer">FixIt<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 这个项目时，很多新人可能第一次接触 Hugo，第一次使用 FixIt 主题，可能觉得无从下手。在之前的工作中，为了避免这个问题，我新增了两个模板项目：</p>
+  <a href="#%e5%89%8d%e8%a8%80" class="heading-mark"></a>1 前言</h2><p>在维护 <a href="https://github.com/hugo-fixit/FixIt"target="_blank" rel="external nofollow noopener noreferrer">FixIt<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 这个项目时，很多新人可能第一次接触 Hugo，第一次使用 FixIt 主题，可能觉得无从下手。在之前的工作中，为了避免这个问题，我新增了两个模板项目：</p>
 <ul>
 <li><a href="https://github.com/hugo-fixit/hugo-fixit-blog-git"target="_blank" rel="external nofollow noopener noreferrer">hugo-fixit-blog-git<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
 <li><a href="https://github.com/hugo-fixit/hugo-fixit-blog-go"target="_blank" rel="external nofollow noopener noreferrer">hugo-fixit-blog-go<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
@@ -616,14 +942,14 @@
 <p>然并卵哈哈哈🤣，大家似乎都有种惰性，不愿意认真地读一遍 README，即使只需简单几步就能通过 GitHub template 创建一个拥有完整主题配置、自动化部署完善的博客。</p>
 <p>懒惰是人类进步的源泉，想到 Vue CLI、Create React App 这些脚手架，我决定开发一个轻量级的脚手架 <a href="https://github.com/hugo-fixit/fixit-cli"target="_blank" rel="external nofollow noopener noreferrer">fixit-cli<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>，让大家能够快速地上手 FixIt 主题。</p>
 <h2 id="思路" class="heading-element">
-  <a href="#%e6%80%9d%e8%b7%af" class="heading-mark"></a>思路</h2><p>fixit-cli 的思路很简单，就是通过命令行交互，让用户输入一些信息，然后根据这些信息生成一个完整的博客项目。</p>
+  <a href="#%e6%80%9d%e8%b7%af" class="heading-mark"></a>2 思路</h2><p>fixit-cli 的思路很简单，就是通过命令行交互，让用户输入一些信息，然后根据这些信息生成一个完整的博客项目。</p>
 <ul>
 <li><code>fixit create my-blog</code> 创建一个名为 <code>my-blog</code> 的项目</li>
 <li><code>fixit check</code> 检查 FixIt 主题的最新版本</li>
 </ul>
 <h2 id="开发" class="heading-element">
-  <a href="#%e5%bc%80%e5%8f%91" class="heading-mark"></a>开发</h2><h3 id="初始化项目" class="heading-element">
-  <a href="#%e5%88%9d%e5%a7%8b%e5%8c%96%e9%a1%b9%e7%9b%ae" class="heading-mark"></a>初始化项目</h3><div class="highlight" id="id-1"><div class="chroma">
+  <a href="#%e5%bc%80%e5%8f%91" class="heading-mark"></a>3 开发</h2><h3 id="初始化项目" class="heading-element">
+  <a href="#%e5%88%9d%e5%a7%8b%e5%8c%96%e9%a1%b9%e7%9b%ae" class="heading-mark"></a>3.1 初始化项目</h3><div class="highlight" id="id-1"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -636,7 +962,7 @@
 </div>
 </div><p>然后在 <code>package.json</code> 中写点项目信息。</p>
 <h3 id="安装依赖" class="heading-element">
-  <a href="#%e5%ae%89%e8%a3%85%e4%be%9d%e8%b5%96" class="heading-mark"></a>安装依赖</h3><div class="highlight" id="id-2"><div class="chroma">
+  <a href="#%e5%ae%89%e8%a3%85%e4%be%9d%e8%b5%96" class="heading-mark"></a>3.2 安装依赖</h3><div class="highlight" id="id-2"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
@@ -676,7 +1002,7 @@
 </table>
 <p>如果需要使用简单的 <code>git clone</code> 下载模板，可以使用 <a href="https://www.npmjs.com/package/download-git-repo"target="_blank" rel="external nofollow noopener noreferrer">download-git-repo<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 替代 <code>simple-git</code>。</p>
 <h3 id="定义一个-cli" class="heading-element">
-  <a href="#%e5%ae%9a%e4%b9%89%e4%b8%80%e4%b8%aa-cli" class="heading-mark"></a>定义一个 CLI</h3><p>在 <code>package.json</code> 中添加 <code>bin</code> 字段，指定 CLI 的入口文件。</p>
+  <a href="#%e5%ae%9a%e4%b9%89%e4%b8%80%e4%b8%aa-cli" class="heading-mark"></a>3.3 定义一个 CLI</h3><p>在 <code>package.json</code> 中添加 <code>bin</code> 字段，指定 CLI 的入口文件。</p>
 <div class="highlight" id="id-3"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -726,7 +1052,7 @@
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">npm install -g fixit-cli /Users/cell/workspace/fixit-cli/</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="命令行交互" class="heading-element">
-  <a href="#%e5%91%bd%e4%bb%a4%e8%a1%8c%e4%ba%a4%e4%ba%92" class="heading-mark"></a>命令行交互</h3><p>先把要实现的命令和选项列出来：</p>
+  <a href="#%e5%91%bd%e4%bb%a4%e8%a1%8c%e4%ba%a4%e4%ba%92" class="heading-mark"></a>3.4 命令行交互</h3><p>先把要实现的命令和选项列出来：</p>
 <div class="highlight" id="id-7"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -866,7 +1192,7 @@
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">fixit create my-blog</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="源码" class="heading-element">
-  <a href="#%e6%ba%90%e7%a0%81" class="heading-mark"></a>源码</h2><p>命令动作的具体实现详见 FixIt CLI 源码。</p>
+  <a href="#%e6%ba%90%e7%a0%81" class="heading-mark"></a>4 源码</h2><p>命令动作的具体实现详见 FixIt CLI 源码。</p>
 <a href="https://github.com/hugo-fixit/fixit-cli"target="_blank" rel="external nofollow noopener noreferrer" class="card-link"><span class="cl-backdrop" style="--cl-bg-url: url(/images/fixit.min.svg);"></span>
     <span class="cl-content">
       <span class="cl-text">
@@ -875,9 +1201,62 @@
           <svg class="cl-icon-link" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" width="16" height="16"><path d="M574 665.4c-3.1-3.1-8.2-3.1-11.3 0L446.5 781.6c-53.8 53.8-144.6 59.5-204 0-59.5-59.5-53.8-150.2 0-204l116.2-116.2c3.1-3.1 3.1-8.2 0-11.3l-39.8-39.8c-3.1-3.1-8.2-3.1-11.3 0L191.4 526.5c-84.6 84.6-84.6 221.5 0 306s221.5 84.6 306 0l116.2-116.2c3.1-3.1 3.1-8.2 0-11.3L574 665.4zM832.6 191.4c-84.6-84.6-221.5-84.6-306 0L410.3 307.6c-3.1 3.1-3.1 8.2 0 11.3l39.7 39.7c3.1 3.1 8.2 3.1 11.3 0l116.2-116.2c53.8-53.8 144.6-59.5 204 0 59.5 59.5 53.8 150.2 0 204L665.3 562.6c-3.1 3.1-3.1 8.2 0 11.3l39.8 39.8c3.1 3.1 8.2 3.1 11.3 0l116.2-116.2c84.5-84.6 84.5-221.5 0-306.1z" fill="#a9a9b3"></path><path d="M610.1 372.3c-3.1-3.1-8.2-3.1-11.3 0L372.3 598.7c-3.1 3.1-3.1 8.2 0 11.3l39.6 39.6c3.1 3.1 8.2 3.1 11.3 0l226.4-226.4c3.1-3.1 3.1-8.2 0-11.3l-39.5-39.6z" fill="#a9a9b3"></path></svg>
           <span class="cl-url">https://github.com/hugo-fixit/fixit-cli</span>
         </span>
-      </span><svg class="cl-icon-globe" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" width="64" height="64"><path d="M960 512c0 249.408-203.2 448-448 448-244.778667 0-448-198.592-448-448S262.592 64 512 64s448 198.592 448 448" fill="#2196F3"></path><path d="M507.52 718.08c0-8.96-4.48-13.44-13.44-17.92-26.88-8.96-53.76-8.96-76.16-31.381333-4.48-8.96-4.48-17.92-8.96-26.88-8.96-8.96-31.36-13.44-44.8-17.92h-89.6c-13.44-4.48-22.4-22.4-31.36-35.84 0-4.48 0-13.461333-8.96-13.461334-8.96-4.458667-17.92 4.501333-26.88 0-4.48-4.458667-4.48-8.96-4.48-13.418666 0-13.461333 8.96-26.901333 17.92-35.861334 13.44-8.96 26.88 4.48 40.32 4.48 4.48 0 4.48 0 8.96 4.48 13.44 4.48 17.92 22.4 17.92 35.861334v8.96c0 4.48 4.48 4.48 8.96 4.48 4.48-22.4 4.48-44.821333 8.96-67.2 0-26.88 26.88-53.781333 49.28-62.72 8.96-4.458667 13.44 4.501333 22.4 0 26.88-8.96 94.08-35.84 80.64-71.658667-8.96-31.381333-35.84-62.698667-71.68-58.24-8.96 4.501333-13.44 8.96-22.4 13.461333-13.44 8.96-40.32 35.84-53.76 35.84-22.4-4.48-22.4-35.84-17.92-49.301333 4.48-17.92 44.8-76.138667 71.68-67.178667l17.92 17.92c8.96 4.48 22.4 4.48 35.84 4.48 4.48 0 8.96 0 13.44-4.48 4.48-4.48 4.48-4.48 4.48-8.96 0-13.44-13.44-26.901333-22.4-35.861333s-22.4-17.92-35.84-22.378667c-44.8-13.461333-116.48 4.458667-152.32 35.84-35.84 31.36-62.72 85.12-80.64 129.92-8.96 26.88-17.92 62.698667-22.4 94.08-4.48 22.4-8.96 40.32 4.48 62.698667 13.44 26.88 40.32 53.781333 67.2 71.68 17.92 13.44 53.76 13.44 71.68 35.84 13.44 17.941333 8.96 40.32 8.96 62.72 0 26.88 17.92 49.28 26.88 71.658667 4.48 13.461333 8.96 31.381333 13.44 44.821333 0 4.48 4.48 31.36 4.48 35.84 26.88 13.44 49.28 26.901333 80.64 35.861333 4.48 0 22.4-26.901333 22.4-31.381333 13.44-13.44 22.4-31.36 35.84-40.32 8.96-4.48 17.92-8.96 26.88-17.941333 8.96-8.96 13.44-26.88 17.92-40.32 4.48-8.938667 8.96-26.858667 4.48-40.298667M516.48 305.92c4.48 0 8.96-4.48 17.92-8.96 13.44-8.96 26.901333-22.4 40.32-31.36 13.461333-8.96 26.901333-22.4 35.861333-31.36 13.44-8.96 22.4-26.88 26.88-40.341333 4.48-8.96 17.941333-26.88 13.44-40.32-4.48-8.96-26.88-13.44-35.84-17.92C579.2 126.698667 547.84 122.24 512 122.24c-13.44 0-31.36 4.458667-35.84 17.92-4.48 22.4 13.44 17.92 31.36 22.4 0 0 4.48 35.84 4.48 40.32 4.48 22.421333-8.96 35.84-8.96 58.24 0 13.44 0 35.84 8.96 44.8h4.48zM892.8 619.52c4.501333-8.96 4.501333-22.4 8.96-31.36 4.501333-22.421333 4.501333-44.8 4.501333-67.2 0-44.8-4.501333-89.578667-17.92-129.92-8.96-13.44-13.461333-26.88-17.941333-40.341333-8.96-22.378667-22.4-44.8-40.32-62.698667-17.92-22.4-40.341333-85.12-80.64-67.2-13.44 4.501333-22.4 22.421333-31.36 31.381333l-26.88 40.32c-4.501333 4.48-8.96 13.44-4.501333 17.92 0 4.48 4.501333 4.48 8.96 4.48 8.96 4.501333 13.461333 4.501333 22.421333 8.96 4.48 0 8.96 4.501333 4.48 8.96 0 0 0 4.501333-4.48 4.501334-22.421333 22.4-44.8 40.32-67.2 62.698666-4.48 4.48-8.96 13.44-8.96 17.92s4.48 4.48 4.48 8.96c0 4.501333-4.48 4.501333-8.96 8.96-8.96 4.501333-17.92 8.96-22.4 13.461334-4.48 8.96 0 22.4-4.48 31.36-4.48 22.4-17.941333 40.32-26.901333 62.72-8.96 13.418667-13.418667 26.88-22.378667 40.32 0 17.92-4.501333 31.36 4.458667 44.8 22.421333 31.36 62.72 13.44 94.08 26.901333 8.96 4.458667 17.92 4.458667 22.421333 13.418667 13.418667 13.461333 13.418667 35.861333 17.92 49.301333 4.458667 17.92 8.96 35.84 17.92 53.76 4.48 22.421333 13.44 44.821333 17.92 62.72 40.341333-31.36 76.16-67.178667 103.04-112 26.88-31.424 40.341333-67.242667 53.76-103.104" fill="#CDDC39"></path></svg></span></a>]]></description></item><item><title>SSH 提交签名验证</title><link>https://lruihao.cn/posts/ssh-sign/</link><pubDate>Sun, 22 Oct 2023 18:59:31 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/ssh-sign/</guid><description><![CDATA[<p>Git 支持使用 GPG 来签名提交记录。但 GPG 用起来很复杂，一直赖得搞。Git 从 2.34 开始支持使用 SSH 签名，所以本文将介绍如何使用 SSH 对提交进行签名。</p>
+      </span><svg class="cl-icon-globe" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" width="64" height="64"><path d="M960 512c0 249.408-203.2 448-448 448-244.778667 0-448-198.592-448-448S262.592 64 512 64s448 198.592 448 448" fill="#2196F3"></path><path d="M507.52 718.08c0-8.96-4.48-13.44-13.44-17.92-26.88-8.96-53.76-8.96-76.16-31.381333-4.48-8.96-4.48-17.92-8.96-26.88-8.96-8.96-31.36-13.44-44.8-17.92h-89.6c-13.44-4.48-22.4-22.4-31.36-35.84 0-4.48 0-13.461333-8.96-13.461334-8.96-4.458667-17.92 4.501333-26.88 0-4.48-4.458667-4.48-8.96-4.48-13.418666 0-13.461333 8.96-26.901333 17.92-35.861334 13.44-8.96 26.88 4.48 40.32 4.48 4.48 0 4.48 0 8.96 4.48 13.44 4.48 17.92 22.4 17.92 35.861334v8.96c0 4.48 4.48 4.48 8.96 4.48 4.48-22.4 4.48-44.821333 8.96-67.2 0-26.88 26.88-53.781333 49.28-62.72 8.96-4.458667 13.44 4.501333 22.4 0 26.88-8.96 94.08-35.84 80.64-71.658667-8.96-31.381333-35.84-62.698667-71.68-58.24-8.96 4.501333-13.44 8.96-22.4 13.461333-13.44 8.96-40.32 35.84-53.76 35.84-22.4-4.48-22.4-35.84-17.92-49.301333 4.48-17.92 44.8-76.138667 71.68-67.178667l17.92 17.92c8.96 4.48 22.4 4.48 35.84 4.48 4.48 0 8.96 0 13.44-4.48 4.48-4.48 4.48-4.48 4.48-8.96 0-13.44-13.44-26.901333-22.4-35.861333s-22.4-17.92-35.84-22.378667c-44.8-13.461333-116.48 4.458667-152.32 35.84-35.84 31.36-62.72 85.12-80.64 129.92-8.96 26.88-17.92 62.698667-22.4 94.08-4.48 22.4-8.96 40.32 4.48 62.698667 13.44 26.88 40.32 53.781333 67.2 71.68 17.92 13.44 53.76 13.44 71.68 35.84 13.44 17.941333 8.96 40.32 8.96 62.72 0 26.88 17.92 49.28 26.88 71.658667 4.48 13.461333 8.96 31.381333 13.44 44.821333 0 4.48 4.48 31.36 4.48 35.84 26.88 13.44 49.28 26.901333 80.64 35.861333 4.48 0 22.4-26.901333 22.4-31.381333 13.44-13.44 22.4-31.36 35.84-40.32 8.96-4.48 17.92-8.96 26.88-17.941333 8.96-8.96 13.44-26.88 17.92-40.32 4.48-8.938667 8.96-26.858667 4.48-40.298667M516.48 305.92c4.48 0 8.96-4.48 17.92-8.96 13.44-8.96 26.901333-22.4 40.32-31.36 13.461333-8.96 26.901333-22.4 35.861333-31.36 13.44-8.96 22.4-26.88 26.88-40.341333 4.48-8.96 17.941333-26.88 13.44-40.32-4.48-8.96-26.88-13.44-35.84-17.92C579.2 126.698667 547.84 122.24 512 122.24c-13.44 0-31.36 4.458667-35.84 17.92-4.48 22.4 13.44 17.92 31.36 22.4 0 0 4.48 35.84 4.48 40.32 4.48 22.421333-8.96 35.84-8.96 58.24 0 13.44 0 35.84 8.96 44.8h4.48zM892.8 619.52c4.501333-8.96 4.501333-22.4 8.96-31.36 4.501333-22.421333 4.501333-44.8 4.501333-67.2 0-44.8-4.501333-89.578667-17.92-129.92-8.96-13.44-13.461333-26.88-17.941333-40.341333-8.96-22.378667-22.4-44.8-40.32-62.698667-17.92-22.4-40.341333-85.12-80.64-67.2-13.44 4.501333-22.4 22.421333-31.36 31.381333l-26.88 40.32c-4.501333 4.48-8.96 13.44-4.501333 17.92 0 4.48 4.501333 4.48 8.96 4.48 8.96 4.501333 13.461333 4.501333 22.421333 8.96 4.48 0 8.96 4.501333 4.48 8.96 0 0 0 4.501333-4.48 4.501334-22.421333 22.4-44.8 40.32-67.2 62.698666-4.48 4.48-8.96 13.44-8.96 17.92s4.48 4.48 4.48 8.96c0 4.501333-4.48 4.501333-8.96 8.96-8.96 4.501333-17.92 8.96-22.4 13.461334-4.48 8.96 0 22.4-4.48 31.36-4.48 22.4-17.941333 40.32-26.901333 62.72-8.96 13.418667-13.418667 26.88-22.378667 40.32 0 17.92-4.501333 31.36 4.458667 44.8 22.421333 31.36 62.72 13.44 94.08 26.901333 8.96 4.458667 17.92 4.458667 22.421333 13.418667 13.418667 13.461333 13.418667 35.861333 17.92 49.301333 4.458667 17.92 8.96 35.84 17.92 53.76 4.48 22.421333 13.44 44.821333 17.92 62.72 40.341333-31.36 76.16-67.178667 103.04-112 26.88-31.424 40.341333-67.242667 53.76-103.104" fill="#CDDC39"></path></svg></span></a>]]></description></item><item><title>探索 AWS 云上一站式解决方案免费使用</title><link>https://lruihao.cn/posts/aws-solution/</link><pubDate>Sat, 18 Nov 2023 12:52:37 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/aws-solution/</guid><description><![CDATA[<p>在如今云计算蓬勃发展的时代，创新成长型企业正积极寻求一站式的云上解决方案，以提高效率、降低成本并实现快速发展。AWS（亚马逊云科技）作为全球领先的云服务提供商，为创新成长型企业提供一站式云上解决方案，助力创新成长型企业在不同发展阶段实现低成本上云，实现快速发展。本文将探索一下 AWS 云上一站式解决方案的免费使用。</p>
+<h2 id="简介" class="heading-element">
+  <a href="#%e7%ae%80%e4%bb%8b" class="heading-mark"></a>1 简介</h2><ul>
+<li>AWS 官网地址：<a href="https://aws.amazon.com/cn/campaigns/smb-cloud-one-stop-solution-paid-search/?sc_channel=seo&amp;sc_campaign=blog1104"target="_blank" rel="external nofollow noopener noreferrer">企业云上一站式解决方案_创新成长企业加速中心 - AWS 云服务<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+</ul>
+<p>目前已经给出 11 种使用场景和解决方案，分别是：</p>
+<ul>
+<li><a href="https://aws.amazon.com/cn/campaigns/smb-cloud-one-stop-solution-paid-search/watch-the-video-zhaoyunxi/?sc_channel=seo&amp;sc_campaign=blog1104"target="_blank" rel="external nofollow noopener noreferrer">亚马逊云科技 Stable Diffusion WebUI 一键部署方案<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+<li><a href="https://aws.amazon.com/cn/campaigns/smb-cloud-one-stop-solution-paid-search/watch-the-video-xiongjunfeng/?sc_channel=seo&amp;sc_campaign=blog1104"target="_blank" rel="external nofollow noopener noreferrer">基于智能搜索的大语言模型增强方案<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+<li><a href="https://aws.amazon.com/cn/campaigns/smb-cloud-one-stop-solution-paid-search/watch-the-video-lisiyuan/?sc_channel=seo&amp;sc_campaign=blog1104"target="_blank" rel="external nofollow noopener noreferrer">Stable Diffusion 亚马逊云科技 插件解决方案<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+<li><a href="https://aws.amazon.com/cn/campaigns/smb-cloud-one-stop-solution-paid-search/watch-the-video-hanxiaoyong/?sc_channel=seo&amp;sc_campaign=blog1104"target="_blank" rel="external nofollow noopener noreferrer">玩转免费试用 - 全球领先云服务的那些羊毛<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+<li><a href="https://aws.amazon.com/cn/campaigns/smb-cloud-one-stop-solution-paid-search/watch-the-video-wangbeichen/?sc_channel=seo&amp;sc_campaign=blog1104"target="_blank" rel="external nofollow noopener noreferrer">快速搭建容量高达 35GB 的免费个人网盘<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+<li><a href="https://aws.amazon.com/cn/campaigns/smb-cloud-one-stop-solution-paid-search/watch-the-video-wangjinglai/?sc_channel=seo&amp;sc_campaign=blog1104"target="_blank" rel="external nofollow noopener noreferrer">呼叫中心也免费？没错！<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+<li><a href="https://aws.amazon.com/cn/campaigns/smb-cloud-one-stop-solution-paid-search/watch-the-video-suzhe/?sc_channel=seo&amp;sc_campaign=blog1104"target="_blank" rel="external nofollow noopener noreferrer">使用 Amazon Lightsail 构建 WordPress 网站<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+<li><a href="https://aws.amazon.com/cn/campaigns/smb-cloud-one-stop-solution-paid-search/watch-the-video-lilong/?sc_channel=seo&amp;sc_campaign=blog1104"target="_blank" rel="external nofollow noopener noreferrer">零代码一键部署多语言视频字幕解决方案<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+<li><a href="https://aws.amazon.com/cn/campaigns/smb-cloud-one-stop-solution-paid-search/watch-the-video-xuwei/?sc_channel=seo&amp;sc_campaign=blog1104"target="_blank" rel="external nofollow noopener noreferrer">Serverless 轻松搭建多人在线游戏小程序<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+<li><a href="https://aws.amazon.com/cn/campaigns/smb-cloud-one-stop-solution-paid-search/watch-the-video-hewenan/?sc_channel=seo&amp;sc_campaign=blog1104"target="_blank" rel="external nofollow noopener noreferrer">通知必达 - 无服务器通知方案<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+<li><a href="https://aws.amazon.com/cn/campaigns/smb-cloud-one-stop-solution-paid-search/watch-the-video-luhaoyu/?sc_channel=seo&amp;sc_campaign=blog1104"target="_blank" rel="external nofollow noopener noreferrer">轻松使用开箱即用的 AI 功能 - AI Solution Kit<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+</ul>
+<p>从以上列表标题就能看出，不仅含括了近些年比较火的“生成式 AI”相关一站式解决方案，还有一些比较常见的“网盘”、“呼叫中心”、“WordPress 网站”等等。</p>
+<h2 id="玩转免费试用" class="heading-element">
+  <a href="#%e7%8e%a9%e8%bd%ac%e5%85%8d%e8%b4%b9%e8%af%95%e7%94%a8" class="heading-mark"></a>2 玩转免费试用</h2><p>视频讲解详细链接：<a href="https://aws.amazon.com/cn/campaigns/smb-cloud-one-stop-solution-paid-search/watch-the-video-hanxiaoyong/?sc_channel=seo&amp;sc_campaign=blog1104"target="_blank" rel="external nofollow noopener noreferrer">玩转免费试用 - 全球领先云服务的那些羊毛<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
+<p>这个视频主要讲解了 AWS 的免费试用。很多公司都是从小到大到独角兽这样的成长，最初的时候学习自研，搭建一个系统其实可以从很多的一些免费的云服务开始，或者对于一些个人或者学生，如果想找工作，想试用云计算，也可以免费申请 AWS 的账号来使用。</p>
+<h3 id="免费云服务种类" class="heading-element">
+  <a href="#%e5%85%8d%e8%b4%b9%e4%ba%91%e6%9c%8d%e5%8a%a1%e7%a7%8d%e7%b1%bb" class="heading-mark"></a>2.1 免费云服务种类</h3><p>从 AWS 官网的数据来看，截止 2023 年 11 月 18 日，亚马逊云科技已经提供了 246 种云服务：</p>
+<p><a class="lightgallery" href="images/23_1700464182.png?size=large" data-thumbnail="images/23_1700464182.png?size=small" data-sub-html="<h2>AWS 全部服务</h2>"><img loading="lazy" src="images/23_1700464182.png" alt="AWS 全部服务" srcset="images/23_1700464182.png?size=small, images/23_1700464182.png?size=medium 1.5x, images/23_1700464182.png?size=large 2x" data-title="AWS 全部服务" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></p>
+<p>当然并不是所有的都是免费的，但是有免费的服务占比很大，其中免费的服务有 93 种。</p>
+<p><a class="lightgallery" href="images/23_1700464456.png?size=large" data-thumbnail="images/23_1700464456.png?size=small" data-sub-html="<h2>AWS 免费服务</h2>"><img loading="lazy" src="images/23_1700464456.png" alt="AWS 免费服务" srcset="images/23_1700464456.png?size=small, images/23_1700464456.png?size=medium 1.5x, images/23_1700464456.png?size=large 2x" data-title="AWS 免费服务" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></p>
+<p>免费额度也很宽限，不同云服务的免费额度不一样，比如亚马逊云服务器，有免费一年的，云电话有免费接打电话 90 分钟，短信免费试用 2 个月等。</p>
+<p>另外也有永久免费的服务，这一块应该是大家最感兴趣的，比如 Lambda 服务，如果一个月调用不超过一百万次的话，这是永久免费的，对于初创企业内部服务或者学习个人来说，这个额度是足够的。再有就是，SES 邮件服务，每个月外发次数可用 62000 次，对于小型服务运营，这个也是远远足够的了。</p>
+<p>免费的服务还有很多，涵盖广泛的产品种类：计算、数据库、存储、容器、机器学习等等。</p>
+<p><figure><a class="lightgallery" href="images/23_1700465041.png?size=large" data-thumbnail="images/23_1700465041.png?size=small" data-sub-html="<h2>免费服务种类</h2><p>免费种类几乎囊括以提供服务的所有种类</p>"><img loading="lazy" src="images/23_1700465041.png" alt="免费服务种类" srcset="images/23_1700465041.png?size=small, images/23_1700465041.png?size=medium 1.5x, images/23_1700465041.png?size=large 2x" data-title="免费种类几乎囊括以提供服务的所有种类" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a><figcaption class="image-caption">免费服务种类</figcaption>
+  </figure></p>
+<h3 id="免费云服务可以做什么" class="heading-element">
+  <a href="#%e5%85%8d%e8%b4%b9%e4%ba%91%e6%9c%8d%e5%8a%a1%e5%8f%af%e4%bb%a5%e5%81%9a%e4%bb%80%e4%b9%88" class="heading-mark"></a>2.2 免费云服务可以做什么</h3><p>从上图可以基本可以看出涵盖面还是很广的，如果大家有什么新的 ideas 或者说想去尝试某种服务的话，综合运用以上服务，是完全可以零成本实现的。</p>
+<p>我们还可以做很多事情，比如：</p>
+<ul>
+<li>学习亚马逊云科技的产品</li>
+<li>尝试新的产品</li>
+<li>验证你的创意方案</li>
+</ul>
+<p>不仅仅是学习，你可以利用它搭建出一些比较高级实用的工具，比如个人网站、个人网盘：</p>
+<ul>
+<li><a href="https://aws.amazon.com/cn/campaigns/smb-cloud-one-stop-solution-paid-search/watch-the-video-suzhe/?sc_channel=seo&amp;sc_campaign=blog1104"target="_blank" rel="external nofollow noopener noreferrer">使用 Amazon Lightsail 构建 WordPress 网站<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+<li><a href="https://aws.amazon.com/cn/campaigns/smb-cloud-one-stop-solution-paid-search/watch-the-video-wangbeichen/?sc_channel=seo&amp;sc_campaign=blog1104"target="_blank" rel="external nofollow noopener noreferrer">快速搭建容量高达 35GB 的免费个人网盘<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+</ul>
+<p>甚至轻松搭建多人在线的”大炮打蚊子“的小游戏、轻松使用开箱即用的 AI 功能、零代码为视频生成多语言字幕，亦或是建造一个免费的呼叫中心：</p>
+<ul>
+<li><a href="https://aws.amazon.com/cn/campaigns/smb-cloud-one-stop-solution-paid-search/watch-the-video-xuwei/?sc_channel=seo&amp;sc_campaign=blog1104"target="_blank" rel="external nofollow noopener noreferrer">Serverless 轻松搭建多人在线游戏小程序<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+<li><a href="https://aws.amazon.com/cn/campaigns/smb-cloud-one-stop-solution-paid-search/watch-the-video-luhaoyu/?sc_channel=seo&amp;sc_campaign=blog1104"target="_blank" rel="external nofollow noopener noreferrer">轻松使用开箱即用的 AI 功能 - AI Solution Kit<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+<li><a href="https://aws.amazon.com/cn/campaigns/smb-cloud-one-stop-solution-paid-search/watch-the-video-wangjinglai/?sc_channel=seo&amp;sc_campaign=blog1104"target="_blank" rel="external nofollow noopener noreferrer">呼叫中心也免费？没错！<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+</ul>
+<p>另外还有其他更多的免费一站式云服务方案也都很不错，这里不一一例举了。</p>
+<p>对于初创企业或者有兴趣的这方面工作，但是苦于没有资源尝试的朋友们可以前往 <a href="https://aws.amazon.com/cn/campaigns/smb-cloud-one-stop-solution-paid-search/?sc_channel=seo&amp;sc_campaign=blog1104"target="_blank" rel="external nofollow noopener noreferrer">官网<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 观看视频详细讲解了解更多详细信息。</p>]]></description></item><item><title>SSH 提交签名验证</title><link>https://lruihao.cn/posts/ssh-sign/</link><pubDate>Sun, 22 Oct 2023 18:59:31 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/ssh-sign/</guid><description><![CDATA[<p>Git 支持使用 GPG 来签名提交记录。但 GPG 用起来很复杂，一直赖得搞。Git 从 2.34 开始支持使用 SSH 签名，所以本文将介绍如何使用 SSH 对提交进行签名。</p>
 <h2 id="操作步骤" class="heading-element">
-  <a href="#%e6%93%8d%e4%bd%9c%e6%ad%a5%e9%aa%a4" class="heading-mark"></a>操作步骤</h2><p>可以使用 SSH 通过自己生成的 SSH 密钥对提交进行签名。有关详细信息，请查看 <code>user.Signingkey</code> 的 <a href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-usersigningKey"target="_blank" rel="external nofollow noopener noreferrer">Git 参考文档<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>。如果已使用 SSH 密钥向 GitHub 进行了身份验证，还可以再次上传该相同密钥以用作签名密钥。可以添加到帐户的签名密钥数没有限制。</p>
+  <a href="#%e6%93%8d%e4%bd%9c%e6%ad%a5%e9%aa%a4" class="heading-mark"></a>1 操作步骤</h2><p>可以使用 SSH 通过自己生成的 SSH 密钥对提交进行签名。有关详细信息，请查看 <code>user.Signingkey</code> 的 <a href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-usersigningKey"target="_blank" rel="external nofollow noopener noreferrer">Git 参考文档<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>。如果已使用 SSH 密钥向 GitHub 进行了身份验证，还可以再次上传该相同密钥以用作签名密钥。可以添加到帐户的签名密钥数没有限制。</p>
 <p>GitHub 使用 <a href="https://github.com/github/ssh_data"target="_blank" rel="external nofollow noopener noreferrer">ssh_data<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>（一种开放源代码 Ruby 库）来确认本地签名的提交和标记是否根据在 GitHub.com 上添加到帐户的公钥进行加密验证。</p>
 <blockquote>
 <p>注意：SSH 签名验证可用于 Git 2.34 或更高版本。若要更新 Git 版本，请参阅 <a href="https://git-scm.com/downloads"target="_blank" rel="external nofollow noopener noreferrer">Git<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 网站。</p>
@@ -892,7 +1271,7 @@
 <li><a href="https://docs.github.com/zh/authentication/managing-commit-signature-verification/signing-tags"target="_blank" rel="external nofollow noopener noreferrer">对标记签名<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
 </ol>
 <h2 id="检查现有-ssh-密钥" class="heading-element">
-  <a href="#%e6%a3%80%e6%9f%a5%e7%8e%b0%e6%9c%89-ssh-%e5%af%86%e9%92%a5" class="heading-mark"></a>检查现有 SSH 密钥</h2><ol>
+  <a href="#%e6%a3%80%e6%9f%a5%e7%8e%b0%e6%9c%89-ssh-%e5%af%86%e9%92%a5" class="heading-mark"></a>2 检查现有 SSH 密钥</h2><ol>
 <li>
 <p>打开终端。</p>
 </li>
@@ -918,7 +1297,7 @@
 </li>
 </ol>
 <h2 id="生成新的-ssh-密钥" class="heading-element">
-  <a href="#%e7%94%9f%e6%88%90%e6%96%b0%e7%9a%84-ssh-%e5%af%86%e9%92%a5" class="heading-mark"></a>生成新的 SSH 密钥</h2><div class="details admonition note open">
+  <a href="#%e7%94%9f%e6%88%90%e6%96%b0%e7%9a%84-ssh-%e5%af%86%e9%92%a5" class="heading-mark"></a>3 生成新的 SSH 密钥</h2><div class="details admonition note open">
     <div class="details-summary admonition-title">
       <i class="icon fa-solid fa-pencil-alt fa-fw" aria-hidden="true"></i>注意<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i>
     </div>
@@ -982,9 +1361,9 @@
 </ol>
 <p>更多请查看 <a href="https://docs.github.com/zh/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent"target="_blank" rel="external nofollow noopener noreferrer">生成新的 SSH 密钥<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>。</p>
 <h2 id="新增-ssh-密钥到-github-帐户" class="heading-element">
-  <a href="#%e6%96%b0%e5%a2%9e-ssh-%e5%af%86%e9%92%a5%e5%88%b0-github-%e5%b8%90%e6%88%b7" class="heading-mark"></a>新增 SSH 密钥到 GitHub 帐户</h2><p>注意：添加 SSH 密钥的类型选择 <code>Signing Key</code>，细节略，详见 <a href="https://docs.github.com/zh/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account"target="_blank" rel="external nofollow noopener noreferrer">将 SSH 签名密钥添加到 GitHub 帐户<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>。</p>
+  <a href="#%e6%96%b0%e5%a2%9e-ssh-%e5%af%86%e9%92%a5%e5%88%b0-github-%e5%b8%90%e6%88%b7" class="heading-mark"></a>4 新增 SSH 密钥到 GitHub 帐户</h2><p>注意：添加 SSH 密钥的类型选择 <code>Signing Key</code>，细节略，详见 <a href="https://docs.github.com/zh/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account"target="_blank" rel="external nofollow noopener noreferrer">将 SSH 签名密钥添加到 GitHub 帐户<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>。</p>
 <h2 id="将-ssh-密钥告知-git" class="heading-element">
-  <a href="#%e5%b0%86-ssh-%e5%af%86%e9%92%a5%e5%91%8a%e7%9f%a5-git" class="heading-mark"></a>将 SSH 密钥告知 Git</h2><ol>
+  <a href="#%e5%b0%86-ssh-%e5%af%86%e9%92%a5%e5%91%8a%e7%9f%a5-git" class="heading-mark"></a>5 将 SSH 密钥告知 Git</h2><ol>
 <li>
 <p>打开终端。</p>
 </li>
@@ -1010,7 +1389,7 @@
 </div></li>
 </ol>
 <h2 id="对提交签名" class="heading-element">
-  <a href="#%e5%af%b9%e6%8f%90%e4%ba%a4%e7%ad%be%e5%90%8d" class="heading-mark"></a>对提交签名</h2><p>当本地分支中的提交更改时，可以将 <code>-S</code> 添加到 <code>git commit</code> 命令：</p>
+  <a href="#%e5%af%b9%e6%8f%90%e4%ba%a4%e7%ad%be%e5%90%8d" class="heading-mark"></a>6 对提交签名</h2><p>当本地分支中的提交更改时，可以将 <code>-S</code> 添加到 <code>git commit</code> 命令：</p>
 <div class="highlight" id="id-9"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -1038,7 +1417,7 @@
 </div>
 </div><p>在本地完成创建提交后，将其推送到 GitHub 上的远程仓库，在 GitHub 上查看提交记录就能看到 <code>Verified</code> 的标志了。</p>
 <h2 id="对标记签名" class="heading-element">
-  <a href="#%e5%af%b9%e6%a0%87%e8%ae%b0%e7%ad%be%e5%90%8d" class="heading-mark"></a>对标记签名</h2><p>若要对标记进行签名，请将 <code>-s</code> 添加到 <code>git tag</code> 命令。</p>
+  <a href="#%e5%af%b9%e6%a0%87%e8%ae%b0%e7%ad%be%e5%90%8d" class="heading-mark"></a>7 对标记签名</h2><p>若要对标记进行签名，请将 <code>-s</code> 添加到 <code>git tag</code> 命令。</p>
 <div class="highlight" id="id-12"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -1071,7 +1450,7 @@
 </span></span><span class="line"><span class="cl">git config --global tag.gpgsign true</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="其他" class="heading-element">
-  <a href="#%e5%85%b6%e4%bb%96" class="heading-mark"></a>其他</h2><p>创建可信公钥列表文件：</p>
+  <a href="#%e5%85%b6%e4%bb%96" class="heading-mark"></a>8 其他</h2><p>创建可信公钥列表文件：</p>
 <div class="highlight" id="id-15"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -1123,7 +1502,7 @@
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git log --show-signature</span></span></code></pre></td></tr></table>
 </div>
 </div>]]></description></item><item><title>如何给 npm 包打补丁？</title><link>https://lruihao.cn/posts/patch-package/</link><pubDate>Thu, 12 Oct 2023 22:37:56 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/patch-package/</guid><description><![CDATA[<div class="featured-image"><img loading="eager" src="images/featured-image.png" alt="如何给 npm 包打补丁？" title="如何给 npm 包打补丁？" referrerpolicy="no-referrer"/></div><h2 id="背景" class="heading-element">
-  <a href="#%e8%83%8c%e6%99%af" class="heading-mark"></a>背景</h2><p>今天鬼事神差想起去年写的一段 dirty hack 代码，当时是在 <a href="https://github.com/Lruihao/vue-minder-editor-extended"target="_blank" rel="external nofollow noopener noreferrer">vue-minder-editor-extended<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 这个项目为了解决百度开源的 <a href="https://github.com/fex-team/kityminder-core"target="_blank" rel="external nofollow noopener noreferrer">@7polo/kityminder-core<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> npm 包的 bug，但是百度早在 17-18 年就停止更新了，我又不想自己 fork 一份源码然后重新发包，于是当时直接从 node_modules 里面复制出了打包后的源码进行修改，然后放到了项目中 <code>src/script/patch/kityminder.core.js</code>，并因修改了引入：</p>
+  <a href="#%e8%83%8c%e6%99%af" class="heading-mark"></a>1 背景</h2><p>今天鬼事神差想起去年写的一段 dirty hack 代码，当时是在 <a href="https://github.com/Lruihao/vue-minder-editor-extended"target="_blank" rel="external nofollow noopener noreferrer">vue-minder-editor-extended<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 这个项目为了解决百度开源的 <a href="https://github.com/fex-team/kityminder-core"target="_blank" rel="external nofollow noopener noreferrer">@7polo/kityminder-core<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> npm 包的 bug，但是百度早在 17-18 年就停止更新了，我又不想自己 fork 一份源码然后重新发包，于是当时直接从 node_modules 里面复制出了打包后的源码进行修改，然后放到了项目中 <code>src/script/patch/kityminder.core.js</code>，并因修改了引入：</p>
 <div class="highlight" id="id-1"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -1136,7 +1515,7 @@
 </div>
 </div><p>但是今天刷抖音看到类似的问题，回想起来这种做法真的是太蠢了，于是就想着有没有更好的办法，于是就一番搜索有了这篇文章。</p>
 <h2 id="安装-patch-package" class="heading-element">
-  <a href="#%e5%ae%89%e8%a3%85-patch-package" class="heading-mark"></a>安装 patch-package</h2><div class="highlight" id="id-2"><div class="chroma">
+  <a href="#%e5%ae%89%e8%a3%85-patch-package" class="heading-mark"></a>2 安装 patch-package</h2><div class="highlight" id="id-2"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
@@ -1144,9 +1523,9 @@
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">npm i patch-package --save-dev</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="修改源码" class="heading-element">
-  <a href="#%e4%bf%ae%e6%94%b9%e6%ba%90%e7%a0%81" class="heading-mark"></a>修改源码</h2><p>在 <code>node_modules</code> 目录下找到需要打补丁的包，然后修改源码，比如我这里修改了 <code>node_modules/@7polo/kityminder-core/dist/kityminder.core.js</code>，修改后直接保存。</p>
+  <a href="#%e4%bf%ae%e6%94%b9%e6%ba%90%e7%a0%81" class="heading-mark"></a>3 修改源码</h2><p>在 <code>node_modules</code> 目录下找到需要打补丁的包，然后修改源码，比如我这里修改了 <code>node_modules/@7polo/kityminder-core/dist/kityminder.core.js</code>，修改后直接保存。</p>
 <h2 id="生成补丁" class="heading-element">
-  <a href="#%e7%94%9f%e6%88%90%e8%a1%a5%e4%b8%81" class="heading-mark"></a>生成补丁</h2><div class="highlight" id="id-3"><div class="chroma">
+  <a href="#%e7%94%9f%e6%88%90%e8%a1%a5%e4%b8%81" class="heading-mark"></a>4 生成补丁</h2><div class="highlight" id="id-3"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
@@ -1272,7 +1651,7 @@
 </div>
 </div><p>发现其实就是一个 diff 文件，这个文件里面记录了修改的内容，以及修改的位置，这样就可以在安装依赖的时候自动执行补丁了。</p>
 <h2 id="使用补丁" class="heading-element">
-  <a href="#%e4%bd%bf%e7%94%a8%e8%a1%a5%e4%b8%81" class="heading-mark"></a>使用补丁</h2><p>在 <code>package.json</code> 中添加如下内容：</p>
+  <a href="#%e4%bd%bf%e7%94%a8%e8%a1%a5%e4%b8%81" class="heading-mark"></a>5 使用补丁</h2><p>在 <code>package.json</code> 中添加如下内容：</p>
 <div class="highlight" id="id-6"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -1289,7 +1668,7 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="提交补丁" class="heading-element">
-  <a href="#%e6%8f%90%e4%ba%a4%e8%a1%a5%e4%b8%81" class="heading-mark"></a>提交补丁</h2><div class="highlight" id="id-7"><div class="chroma">
+  <a href="#%e6%8f%90%e4%ba%a4%e8%a1%a5%e4%b8%81" class="heading-mark"></a>6 提交补丁</h2><div class="highlight" id="id-7"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -1301,10 +1680,10 @@
 </span></span><span class="line"><span class="cl">git push</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="测试" class="heading-element">
-  <a href="#%e6%b5%8b%e8%af%95" class="heading-mark"></a>测试</h2><p>执行一次完整的依赖安装 =&gt; 构建发布，一切符合预期，大功告成~</p>
+  <a href="#%e6%b5%8b%e8%af%95" class="heading-mark"></a>7 测试</h2><p>执行一次完整的依赖安装 =&gt; 构建发布，一切符合预期，大功告成~</p>
 ]]></description></item><item><title>拖拽式仪表盘系列总结</title><link>https://lruihao.cn/posts/dashboard-summary/</link><pubDate>Thu, 12 Oct 2023 21:25:18 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/dashboard-summary/</guid><description><![CDATA[<p>当今，仪表盘已成为许多应用程序和软件界面中常见的设计元素。它们提供了一种直观且用户友好的方式来呈现和操作数据。无论是在数据分析、业务管理还是可视化报告等领域，拖拽式仪表盘都能为用户提供灵活性和个性化的体验。</p>
 <h2 id="特点和功能" class="heading-element">
-  <a href="#%e7%89%b9%e7%82%b9%e5%92%8c%e5%8a%9f%e8%83%bd" class="heading-mark"></a>特点和功能</h2><p>拖拽式仪表盘的主要特点是使用拖拽和放置操作来构建和定制用户界面。具体功能包括：</p>
+  <a href="#%e7%89%b9%e7%82%b9%e5%92%8c%e5%8a%9f%e8%83%bd" class="heading-mark"></a>1 特点和功能</h2><p>拖拽式仪表盘的主要特点是使用拖拽和放置操作来构建和定制用户界面。具体功能包括：</p>
 <ul>
 <li>
 <p>拖拽元素：用户可以从预定义的元素列表中选择并将其拖拽到仪表盘上。这些元素可以是图表、指标、过滤器、小部件等。</p>
@@ -1320,7 +1699,7 @@
 </li>
 </ul>
 <h2 id="优势和益处" class="heading-element">
-  <a href="#%e4%bc%98%e5%8a%bf%e5%92%8c%e7%9b%8a%e5%a4%84" class="heading-mark"></a>优势和益处</h2><p>拖拽式仪表盘具有多个优势，使其成为用户和开发者的首选选择：</p>
+  <a href="#%e4%bc%98%e5%8a%bf%e5%92%8c%e7%9b%8a%e5%a4%84" class="heading-mark"></a>2 优势和益处</h2><p>拖拽式仪表盘具有多个优势，使其成为用户和开发者的首选选择：</p>
 <ul>
 <li>
 <p>用户友好：拖拽式操作使得构建和定制仪表盘变得直观和简单，无需复杂的编码或技术知识。</p>
@@ -1339,7 +1718,7 @@
 </li>
 </ul>
 <h2 id="应用领域" class="heading-element">
-  <a href="#%e5%ba%94%e7%94%a8%e9%a2%86%e5%9f%9f" class="heading-mark"></a>应用领域</h2><p>拖拽式仪表盘在许多领域中都得到广泛应用，包括但不限于：</p>
+  <a href="#%e5%ba%94%e7%94%a8%e9%a2%86%e5%9f%9f" class="heading-mark"></a>3 应用领域</h2><p>拖拽式仪表盘在许多领域中都得到广泛应用，包括但不限于：</p>
 <ul>
 <li>
 <p>数据分析和报告：拖拽式仪表盘使数据分析师和业务用户能够轻松构建个性化的数据报表和仪表盘，以实时监控和分析关键指标。</p>
@@ -1361,9 +1740,9 @@
 </li>
 </ul>
 <h2 id="未来发展" class="heading-element">
-  <a href="#%e6%9c%aa%e6%9d%a5%e5%8f%91%e5%b1%95" class="heading-mark"></a>未来发展</h2><p>拖拽式仪表盘是一种强大而灵活的工具，为用户提供了以直观和个性化的方式展示和操作数据的能力。它们在各个领域中都发挥着重要作用，帮助用户快速洞察数据、做出决策并优化业务流程。随着技术的不断发展，拖拽式仪表盘的功能和性能将进一步增强，为用户提供更多可能性和创新的数据可视化体验。</p>
+  <a href="#%e6%9c%aa%e6%9d%a5%e5%8f%91%e5%b1%95" class="heading-mark"></a>4 未来发展</h2><p>拖拽式仪表盘是一种强大而灵活的工具，为用户提供了以直观和个性化的方式展示和操作数据的能力。它们在各个领域中都发挥着重要作用，帮助用户快速洞察数据、做出决策并优化业务流程。随着技术的不断发展，拖拽式仪表盘的功能和性能将进一步增强，为用户提供更多可能性和创新的数据可视化体验。</p>
 <h2 id="收获与总结" class="heading-element">
-  <a href="#%e6%94%b6%e8%8e%b7%e4%b8%8e%e6%80%bb%e7%bb%93" class="heading-mark"></a>收获与总结</h2><p>在开发拖拽式仪表盘的过程中，我学到了很多东西，包括但不限于：更加深入 Vue.js 的使用，包括组件、插槽、指令、混入、依赖注入等。</p>
+  <a href="#%e6%94%b6%e8%8e%b7%e4%b8%8e%e6%80%bb%e7%bb%93" class="heading-mark"></a>5 收获与总结</h2><p>在开发拖拽式仪表盘的过程中，我学到了很多东西，包括但不限于：更加深入 Vue.js 的使用，包括组件、插槽、指令、混入、依赖注入等。</p>
 <p>独立设计和开发一个完整的功能、思考的过程比最终的结果更加有趣。比如以前没尝试过的自定义 HooK、Provide/Inject 等。还有，相比于以前的工作，大多是由后端主导逻辑，这次的工作是从设计到开发完全由前端主导，逻辑可控，之后维护起来也会更加简单。</p>
 <p>并且未来方便之后不同的同事开发不同的仪表盘组件，我写了完整详细的文档，包括方法参数、属性配置、事件钩子等，方便他们快速上手。</p>
 <p>一步步完善每个小功能的过程中，也写下了几篇前驱文章：</p>
@@ -1380,7 +1759,7 @@
 <p>总的来说，拖拽式仪表盘这个功能还是很有趣的，这也使得我孜孜不倦地去开发完善。</p>
 ]]></description></item><item><title>拖拽式仪表盘 - 组件开发</title><link>https://lruihao.cn/posts/dashborad-widget-usage/</link><pubDate>Thu, 12 Oct 2023 20:07:56 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/dashborad-widget-usage/</guid><description><![CDATA[<p>本文介绍将如何开发一个仪表盘组件，以及组件开发的灵感来源。</p>
 <h2 id="第一个组件" class="heading-element">
-  <a href="#%e7%ac%ac%e4%b8%80%e4%b8%aa%e7%bb%84%e4%bb%b6" class="heading-mark"></a>第一个组件</h2><p>先通过一个简单的便利贴组件为例，介绍如何开发一个仪表盘组件。</p>
+  <a href="#%e7%ac%ac%e4%b8%80%e4%b8%aa%e7%bb%84%e4%bb%b6" class="heading-mark"></a>1 第一个组件</h2><p>先通过一个简单的便利贴组件为例，介绍如何开发一个仪表盘组件。</p>
 <p>Talk is cheap. Show you the code.</p>
 <div class="highlight" id="id-1"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1815,7 +2194,7 @@
 <p>组件中注入了 <code>$dashboard</code> 对象，用于在组件中调用仪表盘的方法。</p>
 <p>最后，通过 <code>update:params</code> 事件将用户配置的参数传递给仪表盘，仪表盘会将参数保存到数据库中，下次加载仪表盘时会将参数回传给组件。</p>
 <h2 id="万物皆组件" class="heading-element">
-  <a href="#%e4%b8%87%e7%89%a9%e7%9a%86%e7%bb%84%e4%bb%b6" class="heading-mark"></a>万物皆组件</h2><p>系统中的仪表盘，除了承载业务组件外，还可以承载一些系统级别的组件，发挥想象力，将任何 idea 开发成为仪表盘的组件，比如：</p>
+  <a href="#%e4%b8%87%e7%89%a9%e7%9a%86%e7%bb%84%e4%bb%b6" class="heading-mark"></a>2 万物皆组件</h2><p>系统中的仪表盘，除了承载业务组件外，还可以承载一些系统级别的组件，发挥想象力，将任何 idea 开发成为仪表盘的组件，比如：</p>
 <ul>
 <li>时钟</li>
 <li>天气</li>
@@ -1836,7 +2215,7 @@
   </figure></p>]]></description></item><item><title>拖拽式仪表盘 - 模板使用</title><link>https://lruihao.cn/posts/dashborad-template-usage/</link><pubDate>Thu, 12 Oct 2023 20:07:20 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/dashborad-template-usage/</guid><description><![CDATA[<div class="featured-image"><img loading="eager" src="https://lruihao.cn/posts/dashborad-template-usage/images/featured-image.png" alt="拖拽式仪表盘 - 模板使用" title="拖拽式仪表盘 - 模板使用" referrerpolicy="no-referrer"/></div><p>本文将通过一个简单的例子，介绍如何使用仪表盘模板。</p>
 <p>Talk is cheap. Show you the code.</p>
 <h2 id="代码" class="heading-element">
-  <a href="#%e4%bb%a3%e7%a0%81" class="heading-mark"></a>代码</h2><div class="highlight" id="id-1"><div class="chroma">
+  <a href="#%e4%bb%a3%e7%a0%81" class="heading-mark"></a>1 代码</h2><div class="highlight" id="id-1"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -1946,15 +2325,15 @@
 </span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="效果" class="heading-element">
-  <a href="#%e6%95%88%e6%9e%9c" class="heading-mark"></a>效果</h2><p><figure><a class="lightgallery" href="images/dashboard-demo.gif?size=large" data-thumbnail="images/dashboard-demo.gif?size=small" data-sub-html="<h2>工作台仪表盘动画</h2><p>画质感人，讲究看吧～</p>"><img loading="lazy" src="images/dashboard-demo.gif" alt="工作台仪表盘动画" srcset="images/dashboard-demo.gif?size=small, images/dashboard-demo.gif?size=medium 1.5x, images/dashboard-demo.gif?size=large 2x" data-title="画质感人，讲究看吧～" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a><figcaption class="image-caption">工作台仪表盘动画</figcaption>
+  <a href="#%e6%95%88%e6%9e%9c" class="heading-mark"></a>2 效果</h2><p><figure><a class="lightgallery" href="images/dashboard-demo.gif?size=large" data-thumbnail="images/dashboard-demo.gif?size=small" data-sub-html="<h2>工作台仪表盘动画</h2><p>画质感人，讲究看吧～</p>"><img loading="lazy" src="images/dashboard-demo.gif" alt="工作台仪表盘动画" srcset="images/dashboard-demo.gif?size=small, images/dashboard-demo.gif?size=medium 1.5x, images/dashboard-demo.gif?size=large 2x" data-title="画质感人，讲究看吧～" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a><figcaption class="image-caption">工作台仪表盘动画</figcaption>
   </figure></p>]]></description></item><item><title>拖拽式仪表盘 - 组件配置文档</title><link>https://lruihao.cn/posts/dashborad-widget-docs/</link><pubDate>Thu, 12 Oct 2023 19:41:23 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/dashborad-widget-docs/</guid><description><![CDATA[<p>本文将对 Dashboard 组件的使用方法进行介绍。</p>
 <h2 id="a-note-on-terminology" class="heading-element">
-  <a href="#a-note-on-terminology" class="heading-mark"></a>A note on terminology</h2><p>“Widget（小部件）”和“Component（组件）”都是计算机科学中常见的术语，用于描述可重复使用的用户界面元素。Widget 通常更简单，具有预定义的样式和功能，而 Component 可以更灵活、可定制，并具有更丰富的行为和交互性。Widget 更倾向于描述独立的、自包含的小型组件，而 Component 则更倾向于描述较大规模的、可组合的用户界面元素。</p>
+  <a href="#a-note-on-terminology" class="heading-mark"></a>1 A note on terminology</h2><p>“Widget（小部件）”和“Component（组件）”都是计算机科学中常见的术语，用于描述可重复使用的用户界面元素。Widget 通常更简单，具有预定义的样式和功能，而 Component 可以更灵活、可定制，并具有更丰富的行为和交互性。Widget 更倾向于描述独立的、自包含的小型组件，而 Component 则更倾向于描述较大规模的、可组合的用户界面元素。</p>
 <p>Vue 项目通常选用 Component，与之相比仪表盘组件功能更加局限，使用 Widget 来描述显然更符合实际情况。</p>
 <h2 id="widget-example" class="heading-element">
-  <a href="#widget-example" class="heading-mark"></a>Widget Example</h2><p>完整例子详见 <a href="https://github.com/Lruihao/vue-el-demo/blob/main/src/components/Dashboard/widgets/example.vue"target="_blank" rel="external nofollow noopener noreferrer"><code>@/components/Dashboard/widgets/example.vue</code><i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 组件。</p>
+  <a href="#widget-example" class="heading-mark"></a>2 Widget Example</h2><p>完整例子详见 <a href="https://github.com/Lruihao/vue-el-demo/blob/main/src/components/Dashboard/widgets/example.vue"target="_blank" rel="external nofollow noopener noreferrer"><code>@/components/Dashboard/widgets/example.vue</code><i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 组件。</p>
 <h2 id="inject" class="heading-element">
-  <a href="#inject" class="heading-mark"></a>Inject</h2><p>dashboard 组件及其后代组件可以通过注入 <code>$dashboard</code> 访问容器中的属性或方法。</p>
+  <a href="#inject" class="heading-mark"></a>3 Inject</h2><p>dashboard 组件及其后代组件可以通过注入 <code>$dashboard</code> 访问容器中的属性或方法。</p>
 <ul>
 <li><code>$dashboard</code> (Object): 当前 dashboard 容器实例</li>
 </ul>
@@ -1989,7 +2368,7 @@
 </span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="props" class="heading-element">
-  <a href="#props" class="heading-mark"></a>Props</h2><p>容器中的组件可以接收一些上层传递的参数，如下：</p>
+  <a href="#props" class="heading-mark"></a>4 Props</h2><p>容器中的组件可以接收一些上层传递的参数，如下：</p>
 <table>
 <thead>
 <tr>
@@ -2012,7 +2391,7 @@
 </tbody>
 </table>
 <h2 id="widget-properties" class="heading-element">
-  <a href="#widget-properties" class="heading-mark"></a>Widget Properties</h2><table>
+  <a href="#widget-properties" class="heading-mark"></a>5 Widget Properties</h2><table>
 <thead>
 <tr>
 <th>属性</th>
@@ -2122,7 +2501,7 @@
 </tbody>
 </table>
 <h2 id="widget-events" class="heading-element">
-  <a href="#widget-events" class="heading-mark"></a>Widget Events</h2><table>
+  <a href="#widget-events" class="heading-mark"></a>6 Widget Events</h2><table>
 <thead>
 <tr>
 <th>事件名</th>
@@ -2184,7 +2563,7 @@
 </ul>
 </blockquote>
 <h2 id="widget-styles" class="heading-element">
-  <a href="#widget-styles" class="heading-mark"></a>Widget Styles</h2><p>组件默认含有 <code>box-shadow</code>、<code>background-color</code> 等样式，可在组件根节点通过以下样式调整或根据实际情况自行覆盖。</p>
+  <a href="#widget-styles" class="heading-mark"></a>7 Widget Styles</h2><p>组件默认含有 <code>box-shadow</code>、<code>background-color</code> 等样式，可在组件根节点通过以下样式调整或根据实际情况自行覆盖。</p>
 <table>
 <thead>
 <tr>
@@ -2207,14 +2586,14 @@
 </tbody>
 </table>
 <h2 id="widget-directory" class="heading-element">
-  <a href="#widget-directory" class="heading-mark"></a>Widget Directory</h2><p>dashboard 组件统一存放目录：</p>
+  <a href="#widget-directory" class="heading-mark"></a>8 Widget Directory</h2><p>dashboard 组件统一存放目录：</p>
 <ul>
 <li>通用组件：<code>@/components/Dashboard/widgets/</code></li>
 <li>模块组件：<code>@/views/{module_name}/widgets/</code></li>
 </ul>
 <!-- link reference definition -->]]></description></item><item><title>拖拽式仪表盘 - 布局模板文档</title><link>https://lruihao.cn/posts/dashborad-template-docs/</link><pubDate>Thu, 12 Oct 2023 19:27:49 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/dashborad-template-docs/</guid><description><![CDATA[<p><code>Dashboard</code> 组件 <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> 是一个公共模板组件，用于快速创建 Dashboard 页面。</p>
 <h2 id="basic-usage" class="heading-element">
-  <a href="#basic-usage" class="heading-mark"></a>Basic Usage</h2><ol>
+  <a href="#basic-usage" class="heading-mark"></a>1 Basic Usage</h2><ol>
 <li>
 <p>每个模块的 dashboard 页面可继承 <code>Dashboard</code> 组件，如：</p>
 <div class="highlight" id="id-1"><div class="chroma">
@@ -2332,7 +2711,7 @@
 <p>完整例子详见 <a href="https://github.com/Lruihao/vue-el-demo/blob/main/src/views/dashboard/index.vue"target="_blank" rel="external nofollow noopener noreferrer"><code>@/views/dashboard/index.vue</code><i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 页面。</p>
 </blockquote>
 <h2 id="export" class="heading-element">
-  <a href="#export" class="heading-mark"></a>Export</h2><ul>
+  <a href="#export" class="heading-mark"></a>2 Export</h2><ul>
 <li><code>registerComponents</code> (Function): 注册组件（widget.disabled 为 true 的组件不注册）
 <ul>
 <li>param <code>requireComponents</code> (Function): require.context 函数</li>
@@ -2341,12 +2720,12 @@
 </li>
 </ul>
 <h2 id="provide" class="heading-element">
-  <a href="#provide" class="heading-mark"></a>Provide</h2><p>提供当前 dashboard 实例给后代组件注入，用于后代组件访问容器内的属性或方法。</p>
+  <a href="#provide" class="heading-mark"></a>3 Provide</h2><p>提供当前 dashboard 实例给后代组件注入，用于后代组件访问容器内的属性或方法。</p>
 <ul>
 <li><code>$dashboard</code> (Object): 当前 dashboard 容器实例</li>
 </ul>
 <h2 id="data-properties" class="heading-element">
-  <a href="#data-properties" class="heading-mark"></a>Data Properties</h2><ul>
+  <a href="#data-properties" class="heading-mark"></a>4 Data Properties</h2><ul>
 <li><code>componentsList</code> (Array): 组件列表 e.g. [{ category: &lsquo;分类名称&rsquo;, components: [组件列表] }]</li>
 <li><code>isCollapse</code> (Boolean): 是否折叠侧边栏</li>
 <li><code>colNum</code> (Number): 栅格列数</li>
@@ -2373,15 +2752,15 @@
 <li><code>menuCollapse</code> (Boolean): 是否折叠组件分类菜单</li>
 </ul>
 <h2 id="computed-properties" class="heading-element">
-  <a href="#computed-properties" class="heading-mark"></a>Computed Properties</h2><ul>
+  <a href="#computed-properties" class="heading-mark"></a>5 Computed Properties</h2><ul>
 <li><code>selectedDashboardId</code> (Number): 已选中的仪表盘 ID</li>
 <li><code>components</code> (Array): 所有已注册组件，用于 dashboard 布局中的组件渲染，包含 <code>hidden</code> 为 <code>true</code> 的组件</li>
 <li><code>componentsListAvailable</code> (Array): 过滤后的组件列表，用于组件列表显示，过滤 <code>hidden</code> 为 <code>true</code> 的组件，过滤组件列表为空的分类</li>
 <li><code>componentsByCategory</code> (Array): 根据 selectedCategory 获取对应的组件列表</li>
 </ul>
 <h2 id="methods" class="heading-element">
-  <a href="#methods" class="heading-mark"></a>Methods</h2><h3 id="notifymessage-type--success" class="heading-element">
-  <a href="#notifymessage-type--success" class="heading-mark"></a>notify(message, type = &lsquo;success&rsquo;)</h3><p>dashboard 显示通知</p>
+  <a href="#methods" class="heading-mark"></a>6 Methods</h2><h3 id="notifymessage-type--success" class="heading-element">
+  <a href="#notifymessage-type--success" class="heading-mark"></a>6.1 notify(message, type = &lsquo;success&rsquo;)</h3><p>dashboard 显示通知</p>
 <table>
 <thead>
 <tr>
@@ -2404,7 +2783,7 @@
 </tbody>
 </table>
 <h3 id="addcomponentscategory-components-isprepend--false" class="heading-element">
-  <a href="#addcomponentscategory-components-isprepend--false" class="heading-mark"></a>addComponents(category, components, isPrepend = false)</h3><p>添加组件列表及分类</p>
+  <a href="#addcomponentscategory-components-isprepend--false" class="heading-mark"></a>6.2 addComponents(category, components, isPrepend = false)</h3><p>添加组件列表及分类</p>
 <table>
 <thead>
 <tr>
@@ -2432,7 +2811,7 @@
 </tbody>
 </table>
 <h3 id="selectcategorycategory" class="heading-element">
-  <a href="#selectcategorycategory" class="heading-mark"></a>selectCategory(category)</h3><p>选中组件分类时显示对应的组件列表</p>
+  <a href="#selectcategorycategory" class="heading-mark"></a>6.3 selectCategory(category)</h3><p>选中组件分类时显示对应的组件列表</p>
 <table>
 <thead>
 <tr>
@@ -2450,7 +2829,7 @@
 </tbody>
 </table>
 <h3 id="switchdashboardid" class="heading-element">
-  <a href="#switchdashboardid" class="heading-mark"></a>switchDashboard(id)</h3><p>切换仪表盘</p>
+  <a href="#switchdashboardid" class="heading-mark"></a>6.4 switchDashboard(id)</h3><p>切换仪表盘</p>
 <table>
 <thead>
 <tr>
@@ -2468,7 +2847,7 @@
 </tbody>
 </table>
 <h3 id="handlecommandtype" class="heading-element">
-  <a href="#handlecommandtype" class="heading-mark"></a>handleCommand(type)</h3><p>处理仪表盘操作</p>
+  <a href="#handlecommandtype" class="heading-mark"></a>6.5 handleCommand(type)</h3><p>处理仪表盘操作</p>
 <table>
 <thead>
 <tr>
@@ -2486,17 +2865,17 @@
 </tbody>
 </table>
 <h3 id="guide" class="heading-element">
-  <a href="#guide" class="heading-mark"></a>guide()</h3><p>打开新手引导</p>
+  <a href="#guide" class="heading-mark"></a>6.6 guide()</h3><p>打开新手引导</p>
 <h3 id="refreshallitems" class="heading-element">
-  <a href="#refreshallitems" class="heading-mark"></a>refreshAllItems()</h3><p>刷新容器内所有组件的数据</p>
+  <a href="#refreshallitems" class="heading-mark"></a>6.7 refreshAllItems()</h3><p>刷新容器内所有组件的数据</p>
 <h3 id="clearlayout" class="heading-element">
-  <a href="#clearlayout" class="heading-mark"></a>clearLayout()</h3><p>清空布局</p>
+  <a href="#clearlayout" class="heading-mark"></a>6.8 clearLayout()</h3><p>清空布局</p>
 <h3 id="idincrement" class="heading-element">
-  <a href="#idincrement" class="heading-mark"></a>idIncrement()</h3><p>生成一个自增的 id，用于组件的唯一标识 i</p>
+  <a href="#idincrement" class="heading-mark"></a>6.9 idIncrement()</h3><p>生成一个自增的 id，用于组件的唯一标识 i</p>
 <h3 id="sortitems" class="heading-element">
-  <a href="#sortitems" class="heading-mark"></a>sortItems()</h3><p>对 layout 数据进行排序，按照 y 坐标从小到大，x 坐标从小到大的顺序</p>
+  <a href="#sortitems" class="heading-mark"></a>6.10 sortItems()</h3><p>对 layout 数据进行排序，按照 y 坐标从小到大，x 坐标从小到大的顺序</p>
 <h3 id="additemcomponent-widget" class="heading-element">
-  <a href="#additemcomponent-widget" class="heading-mark"></a>addItem(component, widget)</h3><p>添加组件到 layout 中</p>
+  <a href="#additemcomponent-widget" class="heading-mark"></a>6.11 addItem(component, widget)</h3><p>添加组件到 layout 中</p>
 <table>
 <thead>
 <tr>
@@ -2519,7 +2898,7 @@
 </tbody>
 </table>
 <h3 id="removeitemi-save--true" class="heading-element">
-  <a href="#removeitemi-save--true" class="heading-mark"></a>removeItem(i, save = true)</h3><p>从 layout 中移除组件</p>
+  <a href="#removeitemi-save--true" class="heading-mark"></a>6.12 removeItem(i, save = true)</h3><p>从 layout 中移除组件</p>
 <table>
 <thead>
 <tr>
@@ -2542,7 +2921,7 @@
 </tbody>
 </table>
 <h3 id="confirmremoveitemi" class="heading-element">
-  <a href="#confirmremoveitemi" class="heading-mark"></a>confirmRemoveItem(i)</h3><p>用户删除组件双重确认</p>
+  <a href="#confirmremoveitemi" class="heading-mark"></a>6.13 confirmRemoveItem(i)</h3><p>用户删除组件双重确认</p>
 <table>
 <thead>
 <tr>
@@ -2560,7 +2939,7 @@
 </tbody>
 </table>
 <h3 id="hashookcomponent-hook" class="heading-element">
-  <a href="#hashookcomponent-hook" class="heading-mark"></a>hasHook(component, hook)</h3><p>判断组件是否有配置对应的 hook</p>
+  <a href="#hashookcomponent-hook" class="heading-mark"></a>6.14 hasHook(component, hook)</h3><p>判断组件是否有配置对应的 hook</p>
 <table>
 <thead>
 <tr>
@@ -2583,7 +2962,7 @@
 </tbody>
 </table>
 <h3 id="triggerhookitem-hook-args---save--false" class="heading-element">
-  <a href="#triggerhookitem-hook-args---save--false" class="heading-mark"></a>triggerHook(item, hook, args = [], save = false)</h3><p>容器内的组件触发对应的 hook</p>
+  <a href="#triggerhookitem-hook-args---save--false" class="heading-mark"></a>6.15 triggerHook(item, hook, args = [], save = false)</h3><p>容器内的组件触发对应的 hook</p>
 <table>
 <thead>
 <tr>
@@ -2616,7 +2995,7 @@
 </tbody>
 </table>
 <h3 id="mouseingridx-y" class="heading-element">
-  <a href="#mouseingridx-y" class="heading-mark"></a>mouseInGrid(x, y)</h3><p>判断鼠标是否在容器内</p>
+  <a href="#mouseingridx-y" class="heading-mark"></a>6.16 mouseInGrid(x, y)</h3><p>判断鼠标是否在容器内</p>
 <table>
 <thead>
 <tr>
@@ -2639,7 +3018,7 @@
 </tbody>
 </table>
 <h3 id="removeunexistitemsfromlayout" class="heading-element">
-  <a href="#removeunexistitemsfromlayout" class="heading-mark"></a>removeUnExistItems(fromLayout)</h3><p>移除 layout 中不存在于所有已注册组件的组件</p>
+  <a href="#removeunexistitemsfromlayout" class="heading-mark"></a>6.17 removeUnExistItems(fromLayout)</h3><p>移除 layout 中不存在于所有已注册组件的组件</p>
 <table>
 <thead>
 <tr>
@@ -2657,7 +3036,7 @@
 </tbody>
 </table>
 <h3 id="dragstarte" class="heading-element">
-  <a href="#dragstarte" class="heading-mark"></a>dragStart(e)</h3><p>开始拖动 组件/侧栏 时，设置拖动来源</p>
+  <a href="#dragstarte" class="heading-mark"></a>6.18 dragStart(e)</h3><p>开始拖动 组件/侧栏 时，设置拖动来源</p>
 <table>
 <thead>
 <tr>
@@ -2675,7 +3054,7 @@
 </tbody>
 </table>
 <h3 id="dragende" class="heading-element">
-  <a href="#dragende" class="heading-mark"></a>dragEnd(e)</h3><p>结束拖动 组件/侧栏 时，清空拖动来源</p>
+  <a href="#dragende" class="heading-mark"></a>6.19 dragEnd(e)</h3><p>结束拖动 组件/侧栏 时，清空拖动来源</p>
 <table>
 <thead>
 <tr>
@@ -2693,7 +3072,7 @@
 </tbody>
 </table>
 <h3 id="dragcomponent-widget-e" class="heading-element">
-  <a href="#dragcomponent-widget-e" class="heading-mark"></a>drag(component, widget, e)</h3><p>拖动组件时，记录拖动的组件信息和显示拖动轨迹</p>
+  <a href="#dragcomponent-widget-e" class="heading-mark"></a>6.20 drag(component, widget, e)</h3><p>拖动组件时，记录拖动的组件信息和显示拖动轨迹</p>
 <table>
 <thead>
 <tr>
@@ -2721,7 +3100,7 @@
 </tbody>
 </table>
 <h3 id="ondragoverdashboarde" class="heading-element">
-  <a href="#ondragoverdashboarde" class="heading-mark"></a>onDragoverDashboard(e)</h3><p>拖动组件经过容器时，阻止默认事件</p>
+  <a href="#ondragoverdashboarde" class="heading-mark"></a>6.21 onDragoverDashboard(e)</h3><p>拖动组件经过容器时，阻止默认事件</p>
 <table>
 <thead>
 <tr>
@@ -2739,7 +3118,7 @@
 </tbody>
 </table>
 <h3 id="ondropdashboarde" class="heading-element">
-  <a href="#ondropdashboarde" class="heading-mark"></a>onDropDashboard(e)</h3><p>拖动 组件/侧栏 放置到容器内时的拖放事件</p>
+  <a href="#ondropdashboarde" class="heading-mark"></a>6.22 onDropDashboard(e)</h3><p>拖动 组件/侧栏 放置到容器内时的拖放事件</p>
 <table>
 <thead>
 <tr>
@@ -2757,17 +3136,17 @@
 </tbody>
 </table>
 <h3 id="getdashboard" class="heading-element">
-  <a href="#getdashboard" class="heading-mark"></a>getDashboard()</h3><p>通过 route 获取 dashboard 数组（后端自动获取组织 ID）</p>
+  <a href="#getdashboard" class="heading-mark"></a>6.23 getDashboard()</h3><p>通过 route 获取 dashboard 数组（后端自动获取组织 ID）</p>
 <h3 id="savedashboard" class="heading-element">
-  <a href="#savedashboard" class="heading-mark"></a>saveDashboard()</h3><p>保存 dashboard</p>
+  <a href="#savedashboard" class="heading-mark"></a>6.24 saveDashboard()</h3><p>保存 dashboard</p>
 <h3 id="adddashboard" class="heading-element">
-  <a href="#adddashboard" class="heading-mark"></a>addDashboard()</h3><p>新增 dashboard</p>
+  <a href="#adddashboard" class="heading-mark"></a>6.25 addDashboard()</h3><p>新增 dashboard</p>
 <h3 id="updatedashboard" class="heading-element">
-  <a href="#updatedashboard" class="heading-mark"></a>updateDashboard()</h3><p>更新 dashboard</p>
+  <a href="#updatedashboard" class="heading-mark"></a>6.26 updateDashboard()</h3><p>更新 dashboard</p>
 <h3 id="deletedashboard" class="heading-element">
-  <a href="#deletedashboard" class="heading-mark"></a>deleteDashboard()</h3><p>删除 dashboard</p>
+  <a href="#deletedashboard" class="heading-mark"></a>6.27 deleteDashboard()</h3><p>删除 dashboard</p>
 <h2 id="appendix-a-data-dictionary" class="heading-element">
-  <a href="#appendix-a-data-dictionary" class="heading-mark"></a>Appendix A: Data Dictionary</h2><p>仅供参考</p>
+  <a href="#appendix-a-data-dictionary" class="heading-mark"></a>7 Appendix A: Data Dictionary</h2><p>仅供参考</p>
 <table>
 <thead>
 <tr>
@@ -2856,7 +3235,7 @@
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">)</span><span class="w"> </span><span class="n">ENGINE</span><span class="o">=</span><span class="n">InnoDB</span><span class="w"> </span><span class="n">AUTO_INCREMENT</span><span class="o">=</span><span class="mi">40</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="n">CHARSET</span><span class="o">=</span><span class="n">utf8</span><span class="w"> </span><span class="k">COMMENT</span><span class="o">=</span><span class="s1">&#39;Dashboard 组件布局数据&#39;</span><span class="p">;</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="appendix-b-api-reference" class="heading-element">
-  <a href="#appendix-b-api-reference" class="heading-mark"></a>Appendix B: API Reference</h2><p>详见 <a href="https://github.com/Lruihao/vue-el-demo/blob/main/src/api/dashboard.js"target="_blank" rel="external nofollow noopener noreferrer">dashboard.js<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
+  <a href="#appendix-b-api-reference" class="heading-mark"></a>8 Appendix B: API Reference</h2><p>详见 <a href="https://github.com/Lruihao/vue-el-demo/blob/main/src/api/dashboard.js"target="_blank" rel="external nofollow noopener noreferrer">dashboard.js<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
 <!-- link reference definition -->
 <!-- footnote reference definition -->
 <div class="footnotes" role="doc-endnotes">
@@ -2868,19 +3247,19 @@
 </ol>
 </div>
 ]]></description></item><item><title>拖拽式仪表盘 - 功能需求分析</title><link>https://lruihao.cn/posts/dashboard-analysis/</link><pubDate>Thu, 12 Oct 2023 15:37:30 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/dashboard-analysis/</guid><description><![CDATA[<h2 id="仪表盘简介" class="heading-element">
-  <a href="#%e4%bb%aa%e8%a1%a8%e7%9b%98%e7%ae%80%e4%bb%8b" class="heading-mark"></a>仪表盘简介</h2><p>仪表盘（dashboard）作为一种直观、灵活的数据可视化工具，正在越来越多地应用于各种领域，帮助用户实时监控和分析数据。常见于各类数据分析平台、数据可视化平台、数据大屏等场景。</p>
+  <a href="#%e4%bb%aa%e8%a1%a8%e7%9b%98%e7%ae%80%e4%bb%8b" class="heading-mark"></a>1 仪表盘简介</h2><p>仪表盘（dashboard）作为一种直观、灵活的数据可视化工具，正在越来越多地应用于各种领域，帮助用户实时监控和分析数据。常见于各类数据分析平台、数据可视化平台、数据大屏等场景。</p>
 <p>传统的仪表盘往往是开发者固定好的，用户只能使用，无法自定义。而拖拽式仪表盘则可以让用户自由地选择、拖拽、调整仪表盘中的各种组件，从而实现自定义的仪表盘。</p>
 <h2 id="功能需求" class="heading-element">
-  <a href="#%e5%8a%9f%e8%83%bd%e9%9c%80%e6%b1%82" class="heading-mark"></a>功能需求</h2><p>由于本系列文章写作在设计和开发之后，所以先一睹为快，看看最终的效果：<a href="https://lruihao.github.io/vue-el-demo/#/dashboard/index"target="_blank" rel="external nofollow noopener noreferrer">在线 Demo<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
+  <a href="#%e5%8a%9f%e8%83%bd%e9%9c%80%e6%b1%82" class="heading-mark"></a>2 功能需求</h2><p>由于本系列文章写作在设计和开发之后，所以先一睹为快，看看最终的效果：<a href="https://lruihao.github.io/vue-el-demo/#/dashboard/index"target="_blank" rel="external nofollow noopener noreferrer">在线 Demo<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
 <p>技术背景是基于 Vue2 实现，功能需求大致如下：</p>
 <h3 id="布局需求" class="heading-element">
-  <a href="#%e5%b8%83%e5%b1%80%e9%9c%80%e6%b1%82" class="heading-mark"></a>布局需求</h3><p>仪表盘布局是拖拽式仪表盘的核心功能之一。布局应该是一个可复用的模板，因为对于一个中后台系统，往往会有多个仪表盘，所有基础功能应该提炼出来，以便于快速复用。</p>
+  <a href="#%e5%b8%83%e5%b1%80%e9%9c%80%e6%b1%82" class="heading-mark"></a>2.1 布局需求</h3><p>仪表盘布局是拖拽式仪表盘的核心功能之一。布局应该是一个可复用的模板，因为对于一个中后台系统，往往会有多个仪表盘，所有基础功能应该提炼出来，以便于快速复用。</p>
 <ul>
 <li>组件拖放到布局容器中时，用户应能够自由拖拽、调整组件的大小和位置，也可以对组件进行排序、刷新、删除等操作</li>
 <li>允许创建、删除、复制布局，每个布局可以有不同的组件排列</li>
 </ul>
 <h3 id="组件需求" class="heading-element">
-  <a href="#%e7%bb%84%e4%bb%b6%e9%9c%80%e6%b1%82" class="heading-mark"></a>组件需求</h3><ul>
+  <a href="#%e7%bb%84%e4%bb%b6%e9%9c%80%e6%b1%82" class="heading-mark"></a>2.2 组件需求</h3><ul>
 <li>统一的配置项（宽高、是否可调整大小、各种事件钩子等）</li>
 <li>组件分类</li>
 <li>自动加载组件列表</li>
@@ -2892,7 +3271,7 @@
 <p>组件需要有分类，例如：模块 A 的组件、模块 B 的组件等。因为虽然系统中的每个模块的仪表盘只需要显示当前模块相关的图表组件，但是整个系统的仪表盘需要显示各个模块的图表统计数据，所以需要对组件进行分类。</p>
 <p>另外，应该有一个通用分类，用于存放所有模块都可以使用的组件。例如：便签、天气组件、时间组件等。</p>
 <h3 id="布局和组件交互" class="heading-element">
-  <a href="#%e5%b8%83%e5%b1%80%e5%92%8c%e7%bb%84%e4%bb%b6%e4%ba%a4%e4%ba%92" class="heading-mark"></a>布局和组件交互</h3><p>仪表盘布局内通常有多个组件，布局和组件之间可能需要进行交互，例如：</p>
+  <a href="#%e5%b8%83%e5%b1%80%e5%92%8c%e7%bb%84%e4%bb%b6%e4%ba%a4%e4%ba%92" class="heading-mark"></a>2.3 布局和组件交互</h3><p>仪表盘布局内通常有多个组件，布局和组件之间可能需要进行交互，例如：</p>
 <ul>
 <li>点击总的刷新按钮，所有组件都刷新；点击某个组件的刷新按钮，只刷新当前组件</li>
 <li>点击某个组件的设置按钮，弹出设置框，设置当前组件的配置项保存到当前布局数据中</li>
@@ -2900,7 +3279,7 @@
 <li>……</li>
 </ul>
 <h3 id="用户角色和权限管理需求" class="heading-element">
-  <a href="#%e7%94%a8%e6%88%b7%e8%a7%92%e8%89%b2%e5%92%8c%e6%9d%83%e9%99%90%e7%ae%a1%e7%90%86%e9%9c%80%e6%b1%82" class="heading-mark"></a>用户角色和权限管理需求</h3><p>在拖拽式仪表盘中，不同用户角色可能具有不同的访问权限和操作权限。</p>
+  <a href="#%e7%94%a8%e6%88%b7%e8%a7%92%e8%89%b2%e5%92%8c%e6%9d%83%e9%99%90%e7%ae%a1%e7%90%86%e9%9c%80%e6%b1%82" class="heading-mark"></a>2.4 用户角色和权限管理需求</h3><p>在拖拽式仪表盘中，不同用户角色可能具有不同的访问权限和操作权限。</p>
 <p>管理员拥有完整的权限：</p>
 <ul>
 <li>可以查看所有仪表盘</li>
@@ -2916,7 +3295,7 @@
 <li>其他模块的仪表盘只能查看和刷新，不能编辑</li>
 </ul>
 <h2 id="总结" class="heading-element">
-  <a href="#%e6%80%bb%e7%bb%93" class="heading-mark"></a>总结</h2><p>通过分析，简单来说，拖拽式仪表盘的功能需求主要包括：</p>
+  <a href="#%e6%80%bb%e7%bb%93" class="heading-mark"></a>3 总结</h2><p>通过分析，简单来说，拖拽式仪表盘的功能需求主要包括：</p>
 <ul>
 <li>布局需求</li>
 <li>组件需求</li>
@@ -2926,12 +3305,12 @@
 <p>了解清楚需求后，下一篇文章将探讨拖拽式仪表盘的布局模板设计。</p>
 ]]></description></item><item><title>给你的 Markdown 挑挑刺</title><link>https://lruihao.cn/posts/markdownlint/</link><pubDate>Wed, 11 Oct 2023 14:26:48 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/markdownlint/</guid><description><![CDATA[<p>会写 Markdown 的人很多，但写得好 Markdown 的人却很少。有没有什么工具能充当「秘书」，检查文件中的 Markdown 语法和风格，并且提出解决方案、自动修复问题，甚至自动补齐中英文之间的「盘古之白」呢？本文介绍的 Markdown 语法检查器就能做到。</p>
 <h2 id="引言" class="heading-element">
-  <a href="#%e5%bc%95%e8%a8%80" class="heading-mark"></a>引言</h2><p><strong>会写</strong> Markdown 的人很多，但<strong>写得好</strong> Markdown 的人却很少。这一方面是 Markdown 生态系统自身的问题：<a href="https://www.w3.org/community/markdown/wiki/MarkdownImplementations"target="_blank" rel="external nofollow noopener noreferrer">语法变种和实现方式<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 五花八门，互不兼容甚至相互矛盾。</p>
+  <a href="#%e5%bc%95%e8%a8%80" class="heading-mark"></a>1 引言</h2><p><strong>会写</strong> Markdown 的人很多，但<strong>写得好</strong> Markdown 的人却很少。这一方面是 Markdown 生态系统自身的问题：<a href="https://www.w3.org/community/markdown/wiki/MarkdownImplementations"target="_blank" rel="external nofollow noopener noreferrer">语法变种和实现方式<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 五花八门，互不兼容甚至相互矛盾。</p>
 <p>另一方面，也鲜有人愿意花时间去仔细阅读 Markdown 的技术规范；大多数人都只是读了一两篇「速成」，就自我批准出师了，对于一些细节问题并未关注；如果在写作中遇到，也是凭想象和直觉随意判断。</p>
 <p>由此，就产生了大量语法天马行空、版面张牙舞爪，让读者和排版软件都困惑不已的 Markdown 文件。</p>
 <p>既然 JavaScript 有 ESLint，Python 有 PyLint，是不是 Markdown 也有 markdownlint 呢？答案是肯定的！</p>
 <h2 id="示例" class="heading-element">
-  <a href="#%e7%a4%ba%e4%be%8b" class="heading-mark"></a>示例</h2><p>本博客源码已引入 markdownlint 规范，可下载本博客源码查看配置。</p>
+  <a href="#%e7%a4%ba%e4%be%8b" class="heading-mark"></a>2 示例</h2><p>本博客源码已引入 markdownlint 规范，可下载本博客源码查看配置。</p>
 <a href="http://github.com/Lruihao/hugo-blog"target="_blank" rel="external nofollow noopener noreferrer" class="card-link"><span class="cl-backdrop" style="--cl-bg-url: url(/images/fixit.min.svg);"></span>
     <span class="cl-content">
       <span class="cl-text">
@@ -2942,7 +3321,7 @@
         </span>
       </span><svg class="cl-icon-globe" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" width="64" height="64"><path d="M960 512c0 249.408-203.2 448-448 448-244.778667 0-448-198.592-448-448S262.592 64 512 64s448 198.592 448 448" fill="#2196F3"></path><path d="M507.52 718.08c0-8.96-4.48-13.44-13.44-17.92-26.88-8.96-53.76-8.96-76.16-31.381333-4.48-8.96-4.48-17.92-8.96-26.88-8.96-8.96-31.36-13.44-44.8-17.92h-89.6c-13.44-4.48-22.4-22.4-31.36-35.84 0-4.48 0-13.461333-8.96-13.461334-8.96-4.458667-17.92 4.501333-26.88 0-4.48-4.458667-4.48-8.96-4.48-13.418666 0-13.461333 8.96-26.901333 17.92-35.861334 13.44-8.96 26.88 4.48 40.32 4.48 4.48 0 4.48 0 8.96 4.48 13.44 4.48 17.92 22.4 17.92 35.861334v8.96c0 4.48 4.48 4.48 8.96 4.48 4.48-22.4 4.48-44.821333 8.96-67.2 0-26.88 26.88-53.781333 49.28-62.72 8.96-4.458667 13.44 4.501333 22.4 0 26.88-8.96 94.08-35.84 80.64-71.658667-8.96-31.381333-35.84-62.698667-71.68-58.24-8.96 4.501333-13.44 8.96-22.4 13.461333-13.44 8.96-40.32 35.84-53.76 35.84-22.4-4.48-22.4-35.84-17.92-49.301333 4.48-17.92 44.8-76.138667 71.68-67.178667l17.92 17.92c8.96 4.48 22.4 4.48 35.84 4.48 4.48 0 8.96 0 13.44-4.48 4.48-4.48 4.48-4.48 4.48-8.96 0-13.44-13.44-26.901333-22.4-35.861333s-22.4-17.92-35.84-22.378667c-44.8-13.461333-116.48 4.458667-152.32 35.84-35.84 31.36-62.72 85.12-80.64 129.92-8.96 26.88-17.92 62.698667-22.4 94.08-4.48 22.4-8.96 40.32 4.48 62.698667 13.44 26.88 40.32 53.781333 67.2 71.68 17.92 13.44 53.76 13.44 71.68 35.84 13.44 17.941333 8.96 40.32 8.96 62.72 0 26.88 17.92 49.28 26.88 71.658667 4.48 13.461333 8.96 31.381333 13.44 44.821333 0 4.48 4.48 31.36 4.48 35.84 26.88 13.44 49.28 26.901333 80.64 35.861333 4.48 0 22.4-26.901333 22.4-31.381333 13.44-13.44 22.4-31.36 35.84-40.32 8.96-4.48 17.92-8.96 26.88-17.941333 8.96-8.96 13.44-26.88 17.92-40.32 4.48-8.938667 8.96-26.858667 4.48-40.298667M516.48 305.92c4.48 0 8.96-4.48 17.92-8.96 13.44-8.96 26.901333-22.4 40.32-31.36 13.461333-8.96 26.901333-22.4 35.861333-31.36 13.44-8.96 22.4-26.88 26.88-40.341333 4.48-8.96 17.941333-26.88 13.44-40.32-4.48-8.96-26.88-13.44-35.84-17.92C579.2 126.698667 547.84 122.24 512 122.24c-13.44 0-31.36 4.458667-35.84 17.92-4.48 22.4 13.44 17.92 31.36 22.4 0 0 4.48 35.84 4.48 40.32 4.48 22.421333-8.96 35.84-8.96 58.24 0 13.44 0 35.84 8.96 44.8h4.48zM892.8 619.52c4.501333-8.96 4.501333-22.4 8.96-31.36 4.501333-22.421333 4.501333-44.8 4.501333-67.2 0-44.8-4.501333-89.578667-17.92-129.92-8.96-13.44-13.461333-26.88-17.941333-40.341333-8.96-22.378667-22.4-44.8-40.32-62.698667-17.92-22.4-40.341333-85.12-80.64-67.2-13.44 4.501333-22.4 22.421333-31.36 31.381333l-26.88 40.32c-4.501333 4.48-8.96 13.44-4.501333 17.92 0 4.48 4.501333 4.48 8.96 4.48 8.96 4.501333 13.461333 4.501333 22.421333 8.96 4.48 0 8.96 4.501333 4.48 8.96 0 0 0 4.501333-4.48 4.501334-22.421333 22.4-44.8 40.32-67.2 62.698666-4.48 4.48-8.96 13.44-8.96 17.92s4.48 4.48 4.48 8.96c0 4.501333-4.48 4.501333-8.96 8.96-8.96 4.501333-17.92 8.96-22.4 13.461334-4.48 8.96 0 22.4-4.48 31.36-4.48 22.4-17.941333 40.32-26.901333 62.72-8.96 13.418667-13.418667 26.88-22.378667 40.32 0 17.92-4.501333 31.36 4.458667 44.8 22.421333 31.36 62.72 13.44 94.08 26.901333 8.96 4.458667 17.92 4.458667 22.421333 13.418667 13.418667 13.461333 13.418667 35.861333 17.92 49.301333 4.458667 17.92 8.96 35.84 17.92 53.76 4.48 22.421333 13.44 44.821333 17.92 62.72 40.341333-31.36 76.16-67.178667 103.04-112 26.88-31.424 40.341333-67.242667 53.76-103.104" fill="#CDDC39"></path></svg></span></a>
 <h2 id="引入-markdownlint" class="heading-element">
-  <a href="#%e5%bc%95%e5%85%a5-markdownlint" class="heading-mark"></a>引入 markdownlint</h2><p>markdownlint 是一个 Markdown 语法检查工具，它可以检查 Markdown 文件中的语法错误，以及一些不规范的写法，让 Markdown 干净又卫生。</p>
+  <a href="#%e5%bc%95%e5%85%a5-markdownlint" class="heading-mark"></a>3 引入 markdownlint</h2><p>markdownlint 是一个 Markdown 语法检查工具，它可以检查 Markdown 文件中的语法错误，以及一些不规范的写法，让 Markdown 干净又卫生。</p>
 <p>markdownlint 有两个版本，分别是 <a href="https://github.com/mivok"target="_blank" rel="external nofollow noopener noreferrer">Mark Harrison<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 基于 Ruby 的 <a href="https://github.com/markdownlint/markdownlint"target="_blank" rel="external nofollow noopener noreferrer">原版<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 和 <a href="https://github.com/DavidAnson"target="_blank" rel="external nofollow noopener noreferrer">David Anson<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 基于 Node.js 的 <a href="https://github.com/DavidAnson/markdownlint"target="_blank" rel="external nofollow noopener noreferrer">移植版<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>。Node.js 版在人气和活跃程度上后来居上，本文也以 Node.js 版为例。</p>
 <p>markdownlint 可以在多个场景下使用，包括：</p>
 <ul>
@@ -2952,11 +3331,11 @@
 </ul>
 <p>本文主要的目的是介绍 markdownlint-cli2 的使用，因为它可以在项目中集成，方便团队协作。</p>
 <h3 id="markdownlint-cli-历史" class="heading-element">
-  <a href="#markdownlint-cli-%e5%8e%86%e5%8f%b2" class="heading-mark"></a>markdownlint cli 历史</h3><p>根据 David 的博客<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>，在大约 2015 年左右 <a href="https://github.com/igorshubovych"target="_blank" rel="external nofollow noopener noreferrer">Igor Shubovych<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 和他探讨了开发 CLI 工具的想法，当时，David 还没做好准备，所以 Igor 独自开发了 <a href="https://github.com/igorshubovych/markdownlint-cli"target="_blank" rel="external nofollow noopener noreferrer">markdownlint-cli<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 这个 CLI 工具。</p>
+  <a href="#markdownlint-cli-%e5%8e%86%e5%8f%b2" class="heading-mark"></a>3.1 markdownlint cli 历史</h3><p>根据 David 的博客<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>，在大约 2015 年左右 <a href="https://github.com/igorshubovych"target="_blank" rel="external nofollow noopener noreferrer">Igor Shubovych<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 和他探讨了开发 CLI 工具的想法，当时，David 还没做好准备，所以 Igor 独自开发了 <a href="https://github.com/igorshubovych/markdownlint-cli"target="_blank" rel="external nofollow noopener noreferrer">markdownlint-cli<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 这个 CLI 工具。</p>
 <p>经过两年的发展，越来越多的人开始使用 markdownlint-cli，于是 David 开始给 markdownlint-cli 项目贡献代码，添加新功能，并在之后三年里成为了主要的维护人员。直到 2020 年，David 觉得在别人的项目中，很难改变一些事情（可能涉及向后兼容性的问题），因此他重新建立了一个名叫 <a href="https://github.com/DavidAnson/markdownlint-cli2"target="_blank" rel="external nofollow noopener noreferrer">markdownlint-cli2<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 的项目，在 markdownlint-cli 的基础上进行了改进，使其具有更快的执行速度、更灵活的配置和更少的依赖等优点。</p>
 <p>目前，这两个工具仍然随着 markdownlint 的更新而更新。如果已经在使用 markdownlint-cli 的旧项目，可以继续使用它，以避免出现未知的问题。而对于新引入的项目，可以考虑使用更强大的 markdownlint-cli2。</p>
 <h3 id="安装-markdownlint-cli2" class="heading-element">
-  <a href="#%e5%ae%89%e8%a3%85-markdownlint-cli2" class="heading-mark"></a>安装 markdownlint-cli2</h3><div class="highlight" id="id-1"><div class="chroma">
+  <a href="#%e5%ae%89%e8%a3%85-markdownlint-cli2" class="heading-mark"></a>3.2 安装 markdownlint-cli2</h3><div class="highlight" id="id-1"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
@@ -3298,7 +3677,7 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="安装-lint-staged" class="heading-element">
-  <a href="#%e5%ae%89%e8%a3%85-lint-staged" class="heading-mark"></a>安装 lint-staged</h3><div class="highlight" id="id-6"><div class="chroma">
+  <a href="#%e5%ae%89%e8%a3%85-lint-staged" class="heading-mark"></a>3.3 安装 lint-staged</h3><div class="highlight" id="id-6"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
@@ -3318,7 +3697,7 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="安装-husky" class="heading-element">
-  <a href="#%e5%ae%89%e8%a3%85-husky" class="heading-mark"></a>安装 husky</h3><div class="highlight" id="id-8"><div class="chroma">
+  <a href="#%e5%ae%89%e8%a3%85-husky" class="heading-mark"></a>3.4 安装 husky</h3><div class="highlight" id="id-8"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
@@ -3341,15 +3720,15 @@
 </div>
 </div><p>这样每次提交代码时，就会自动检查并修复 content 目录下的所有 markdown 文件中的语法错误。</p>
 <h2 id="引入-autocorrect" class="heading-element">
-  <a href="#%e5%bc%95%e5%85%a5-autocorrect" class="heading-mark"></a>引入 AutoCorrect</h2><h3 id="盘古之白" class="heading-element">
-  <a href="#%e7%9b%98%e5%8f%a4%e4%b9%8b%e7%99%bd" class="heading-mark"></a>盘古之白</h3><p>在很多中文社区，中英文之间要手动加空格，俗称「盘古之白」，都是不成文的风格要求。这项要求是否合理、又该如何满足，是很有价值的话题，但超出了本文的讨论范围<sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup>。</p>
+  <a href="#%e5%bc%95%e5%85%a5-autocorrect" class="heading-mark"></a>4 引入 AutoCorrect</h2><h3 id="盘古之白" class="heading-element">
+  <a href="#%e7%9b%98%e5%8f%a4%e4%b9%8b%e7%99%bd" class="heading-mark"></a>4.1 盘古之白</h3><p>在很多中文社区，中英文之间要手动加空格，俗称「盘古之白」，都是不成文的风格要求。这项要求是否合理、又该如何满足，是很有价值的话题，但超出了本文的讨论范围<sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup>。</p>
 <p>这里，只简单概括通说：中英文之间加入空隙，是为了实现视觉上的区隔，更加美观和易读。理想情况下，这种「空隙」应当由排版引擎自动加入，宽度宜为 1/4 个全角空格（em）。但由于数字排版环境复杂多变，在大多数时候（包括最常见的网页环境）不能指望排版引擎有这种能力，因此只能退而求其次，手动插入一个半角空格（因其宽度<strong>通常</strong>接近于 1/4 em），达到类似效果。</p>
 <p>如果想要在中英文之间手动加空格，有什么自动检查和补全的方法吗？</p>
 <p>答案是当然有，而且选择也不止一个。</p>
 <h3 id="pangujs" class="heading-element">
-  <a href="#pangujs" class="heading-mark"></a>pangu.js</h3><p>其中，最著名的可能是 <a href="https://github.com/vinta/pangu.js/"target="_blank" rel="external nofollow noopener noreferrer">pangu.js<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 项目。如果你用过一个叫做「<a href="https://chrome.google.com/webstore/detail/%e7%82%ba%e4%bb%80%e9%ba%bc%e4%bd%a0%e5%80%91%e5%b0%b1%e6%98%af%e4%b8%8d%e8%83%bd%e5%8a%a0%e5%80%8b%e7%a9%ba%e6%a0%bc%e5%91%a2%ef%bc%9f/paphcfdffjnbcgkokihcdjliihicmbpd?hl=zh-CN"target="_blank" rel="external nofollow noopener noreferrer">为什么你们就是不能加个空格呢？<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>」的浏览器插件，那你也就用过 pangu.js —— 它正是出自同一位作者之手、以 pangu.js 为底层支撑的。Hugo FixIt 主题也内置了 pangu.js 以自动优化博客文章内容中西混排。</p>
+  <a href="#pangujs" class="heading-mark"></a>4.2 pangu.js</h3><p>其中，最著名的可能是 <a href="https://github.com/vinta/pangu.js/"target="_blank" rel="external nofollow noopener noreferrer">pangu.js<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 项目。如果你用过一个叫做「<a href="https://chrome.google.com/webstore/detail/%e7%82%ba%e4%bb%80%e9%ba%bc%e4%bd%a0%e5%80%91%e5%b0%b1%e6%98%af%e4%b8%8d%e8%83%bd%e5%8a%a0%e5%80%8b%e7%a9%ba%e6%a0%bc%e5%91%a2%ef%bc%9f/paphcfdffjnbcgkokihcdjliihicmbpd?hl=zh-CN"target="_blank" rel="external nofollow noopener noreferrer">为什么你们就是不能加个空格呢？<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>」的浏览器插件，那你也就用过 pangu.js —— 它正是出自同一位作者之手、以 pangu.js 为底层支撑的。Hugo FixIt 主题也内置了 pangu.js 以自动优化博客文章内容中西混排。</p>
 <h3 id="autocorrect" class="heading-element">
-  <a href="#autocorrect" class="heading-mark"></a>AutoCorrect</h3><p>另一个选择是 <a href="https://github.com/huacnlee/autocorrect"target="_blank" rel="external nofollow noopener noreferrer">AutoCorrect<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>。与主要关注文本内容的 pangu.js 相比，AutoCorrect 出生于 Ruby 语言的中文社区，因此从一开始就考虑到了编程代码中的中英混排场景（可以参见该项目的 <a href="https://github.com/huacnlee/autocorrect/tree/main/tests/fixtures"target="_blank" rel="external nofollow noopener noreferrer">测试文件<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>），通用性更强。</p>
+  <a href="#autocorrect" class="heading-mark"></a>4.3 AutoCorrect</h3><p>另一个选择是 <a href="https://github.com/huacnlee/autocorrect"target="_blank" rel="external nofollow noopener noreferrer">AutoCorrect<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>。与主要关注文本内容的 pangu.js 相比，AutoCorrect 出生于 Ruby 语言的中文社区，因此从一开始就考虑到了编程代码中的中英混排场景（可以参见该项目的 <a href="https://github.com/huacnlee/autocorrect/tree/main/tests/fixtures"target="_blank" rel="external nofollow noopener noreferrer">测试文件<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>），通用性更强。</p>
 <p>pangu.js 和 AutoCorrect 的对比：</p>
 <table>
 <thead>
@@ -3383,7 +3762,7 @@
 </ul>
 <p>我在博客、VSCode、浏览器插件中都使用了 pangu.js，长期以来，就会发现很多问题，它的便捷同时也带来了“暴力”，处理规则不可控，这一直让我很头疼，所以本文尝试使用 AutoCorrect 替代 pangu.js。事实上，AutoCorrect 的效果确实更好。</p>
 <h3 id="use-autocorrect-in-npm" class="heading-element">
-  <a href="#use-autocorrect-in-npm" class="heading-mark"></a>Use AutoCorrect in NPM</h3><p>安装 <code>autocorrect-node</code>：</p>
+  <a href="#use-autocorrect-in-npm" class="heading-mark"></a>4.4 Use AutoCorrect in NPM</h3><p>安装 <code>autocorrect-node</code>：</p>
 <div class="highlight" id="id-10"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -3462,7 +3841,7 @@
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">一二三,四五六.七八九</span><span class="p">:</span><span class="w"> </span><span class="m">0</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="总结" class="heading-element">
-  <a href="#%e6%80%bb%e7%bb%93" class="heading-mark"></a>总结</h2><p>本文主要介绍了 markdownlint-cli2 和 AutoCorrect 两个工具，前者用于检查 Markdown 语法和风格，后者用于自动补齐中英文之间的「盘古之白」。这两个工具都可以在项目中集成，方便统一规范、团队协作。</p>
+  <a href="#%e6%80%bb%e7%bb%93" class="heading-mark"></a>5 总结</h2><p>本文主要介绍了 markdownlint-cli2 和 AutoCorrect 两个工具，前者用于检查 Markdown 语法和风格，后者用于自动补齐中英文之间的「盘古之白」。这两个工具都可以在项目中集成，方便统一规范、团队协作。</p>
 <!-- footnote reference definition -->
 <div class="footnotes" role="doc-endnotes">
 <hr>
@@ -3478,21 +3857,21 @@
 </li>
 </ol>
 </div>]]></description></item><item><title>认知复杂度（Cognitive Complexity）</title><link>https://lruihao.cn/posts/cognitive-complexity/</link><pubDate>Sun, 08 Oct 2023 09:52:44 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/cognitive-complexity/</guid><description><![CDATA[<div class="featured-image"><img loading="eager" src="https://lruihao.cn/posts/cognitive-complexity/images/featured-image.png" alt="认知复杂度（Cognitive Complexity）" title="认知复杂度（Cognitive Complexity）" referrerpolicy="no-referrer"/></div><h2 id="摘要" class="heading-element">
-  <a href="#%e6%91%98%e8%a6%81" class="heading-mark"></a>摘要</h2><p>循环复杂度（Cyclomatic Complexity）最初被制定为衡量模块控制流的“可测试性和可维护性”的一种度量标准。虽然它在衡量前者方面表现出色，但其底层的数学模型在产生衡量后者的值方面不尽如人意。本文介绍了一种新的度量标准，它摒弃了使用数学模型评估代码的做法，以弥补循环复杂度的不足之处，并产生更准确地反映方法、类和应用程序的相对难度的度量标准。</p>
+  <a href="#%e6%91%98%e8%a6%81" class="heading-mark"></a>1 摘要</h2><p>循环复杂度（Cyclomatic Complexity）最初被制定为衡量模块控制流的“可测试性和可维护性”的一种度量标准。虽然它在衡量前者方面表现出色，但其底层的数学模型在产生衡量后者的值方面不尽如人意。本文介绍了一种新的度量标准，它摒弃了使用数学模型评估代码的做法，以弥补循环复杂度的不足之处，并产生更准确地反映方法、类和应用程序的相对难度的度量标准。</p>
 <h3 id="术语说明" class="heading-element">
-  <a href="#%e6%9c%af%e8%af%ad%e8%af%b4%e6%98%8e" class="heading-mark"></a>术语说明</h3><p>虽然认知复杂度（Cognitive Complexity）是一种语言中立的度量标准，同样适用于文件和类，以及方法、过程、函数等等，但为了方便起见，本文中使用面向对象的术语“类”和“方法”。</p>
+  <a href="#%e6%9c%af%e8%af%ad%e8%af%b4%e6%98%8e" class="heading-mark"></a>1.1 术语说明</h3><p>虽然认知复杂度（Cognitive Complexity）是一种语言中立的度量标准，同样适用于文件和类，以及方法、过程、函数等等，但为了方便起见，本文中使用面向对象的术语“类”和“方法”。</p>
 <hr>
 <h2 id="引言" class="heading-element">
-  <a href="#%e5%bc%95%e8%a8%80" class="heading-mark"></a>引言</h2><p>循环复杂度（Cyclomatic Complexity）是一种用于衡量代码中控制流的度量标准，它最初是由 Thomas J. McCabe 在 1976 年提出的。<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> 该度量标准的目的是衡量代码的“可测试性和可维护性”。虽然它在衡量前者方面表现出色，但其底层的数学模型在产生衡量后者的值方面不尽如人意。本文介绍了一种新的度量标准，它摒弃了使用数学模型评估代码的做法，以弥补循环复杂度的不足之处，并产生更准确地反映方法、类和应用程序的相对难度的度量标准。</p>
+  <a href="#%e5%bc%95%e8%a8%80" class="heading-mark"></a>2 引言</h2><p>循环复杂度（Cyclomatic Complexity）是一种用于衡量代码中控制流的度量标准，它最初是由 Thomas J. McCabe 在 1976 年提出的。<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> 该度量标准的目的是衡量代码的“可测试性和可维护性”。虽然它在衡量前者方面表现出色，但其底层的数学模型在产生衡量后者的值方面不尽如人意。本文介绍了一种新的度量标准，它摒弃了使用数学模型评估代码的做法，以弥补循环复杂度的不足之处，并产生更准确地反映方法、类和应用程序的相对难度的度量标准。</p>
 <p>与此同时，循环复杂度已经不再全面。它于 1976 年在 Fortran 环境中制定，不包括像 <code>try/catch</code> 和 <code>lambda</code> 这样的现代语言结构。</p>
 <p>最后，由于每个方法的最小循环复杂度分数为 1，我们无法知道具有高聚合循环复杂度的任何给定类是一个大型、易于维护的域类，还是一个具有复杂控制流的小型类。除了类级别之外，广泛认可的观点是应用程序的循环复杂度得分与其代码行数总和相关。换句话说，循环复杂度在方法级别以上几乎没有用处。</p>
 <p>为了解决这些问题，认知复杂度（Cognitive Complexity）已经被制定出来，以解决现代语言结构的问题，并产生在类和应用程序级别上有意义的值。更重要的是，它摒弃了基于数学模型评估代码的做法，以便能够提供与程序员对理解流程所需的心智或认知努力的直觉相符的控制流评估。</p>
 <h2 id="问题示例" class="heading-element">
-  <a href="#%e9%97%ae%e9%a2%98%e7%a4%ba%e4%be%8b" class="heading-mark"></a>问题示例</h2><p>从一个示例开始讨论认知复杂度可以帮助理解它的应用对象。下面的两个方法具有相同的循环复杂度，但在可理解性方面却存在明显的差异。</p>
-<p><img loading="lazy" src="images/23_1696818696.png" alt="An illustration of the problem" srcset="images/23_1696818696.png?size=small, images/23_1696818696.png?size=medium 1.5x, images/23_1696818696.png?size=large 2x" data-title="An illustration of the problem" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+  <a href="#%e9%97%ae%e9%a2%98%e7%a4%ba%e4%be%8b" class="heading-mark"></a>3 问题示例</h2><p>从一个示例开始讨论认知复杂度可以帮助理解它的应用对象。下面的两个方法具有相同的循环复杂度，但在可理解性方面却存在明显的差异。</p>
+<p><a class="lightgallery" href="images/23_1696818696.png?size=large" data-thumbnail="images/23_1696818696.png?size=small" data-sub-html="<h2>An illustration of the problem</h2>"><img loading="lazy" src="images/23_1696818696.png" alt="An illustration of the problem" srcset="images/23_1696818696.png?size=small, images/23_1696818696.png?size=medium 1.5x, images/23_1696818696.png?size=large 2x" data-title="An illustration of the problem" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></p>
 <p>循环复杂度的数学模型给予这两个方法相同的权重，然而直观上很明显，sumOfPrimes 方法的控制流比 getWords 方法更难理解。这就是为什么认知复杂度放弃了使用数学模型评估控制流的做法，而采用了一组简单的规则，将程序员的直觉转化为数字。</p>
 <h2 id="基本准则和方法" class="heading-element">
-  <a href="#%e5%9f%ba%e6%9c%ac%e5%87%86%e5%88%99%e5%92%8c%e6%96%b9%e6%b3%95" class="heading-mark"></a>基本准则和方法</h2><p>根据三个基本规则来评估认知复杂度得分：</p>
+  <a href="#%e5%9f%ba%e6%9c%ac%e5%87%86%e5%88%99%e5%92%8c%e6%96%b9%e6%b3%95" class="heading-mark"></a>4 基本准则和方法</h2><p>根据三个基本规则来评估认知复杂度得分：</p>
 <ol>
 <li>忽略允许多个语句可读性缩写成一个的结构</li>
 <li>每次中断代码的线性流程时增加一个（加一）</li>
@@ -3508,13 +3887,13 @@
 <p>虽然在数学上，增量的类型没有影响，每个增量都会将最终得分增加一点，但对被计数的特征类别进行区分可以更容易地理解嵌套增量适用和不适用的地方。</p>
 <p>这些规则及其背后的原则在以下章节中进一步详细介绍。</p>
 <h2 id="忽略简写" class="heading-element">
-  <a href="#%e5%bf%bd%e7%95%a5%e7%ae%80%e5%86%99" class="heading-mark"></a>忽略简写</h2><p>在制定认知复杂度的过程中，一个指导原则是它应该激励良好的编码实践。也就是说，它应该忽略或减少使代码更易读的特性。</p>
+  <a href="#%e5%bf%bd%e7%95%a5%e7%ae%80%e5%86%99" class="heading-mark"></a>5 忽略简写</h2><p>在制定认知复杂度的过程中，一个指导原则是它应该激励良好的编码实践。也就是说，它应该忽略或减少使代码更易读的特性。</p>
 <p>方法的结构本身就是一个很好的例子。将代码分解为方法可以将多个语句压缩为一个具有描述性名称的调用，即“简写（shorthand）”。因此，认知复杂度不会针对方法进行增量计算。</p>
 <p>认知复杂度还忽略许多编程语言中常见的空合并运算符，因为它们允许将多行代码缩减为一行。例如，下面两个代码示例执行相同的操作：</p>
-<p><img loading="lazy" src="images/23_1696826535.png" alt="ignore shorthand" srcset="images/23_1696826535.png?size=small, images/23_1696826535.png?size=medium 1.5x, images/23_1696826535.png?size=large 2x" data-title="ignore shorthand" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+<p><a class="lightgallery" href="images/23_1696826535.png?size=large" data-thumbnail="images/23_1696826535.png?size=small" data-sub-html="<h2>ignore shorthand</h2>"><img loading="lazy" src="images/23_1696826535.png" alt="ignore shorthand" srcset="images/23_1696826535.png?size=small, images/23_1696826535.png?size=medium 1.5x, images/23_1696826535.png?size=large 2x" data-title="ignore shorthand" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></p>
 <p>左侧版本的含义需要一些时间来理解，而一旦理解了空合并语法，右侧版本就立即清晰明了。因此，认知复杂度忽略了空合并运算符。</p>
 <h2 id="中断线性流程" class="heading-element">
-  <a href="#%e4%b8%ad%e6%96%ad%e7%ba%bf%e6%80%a7%e6%b5%81%e7%a8%8b" class="heading-mark"></a>中断线性流程</h2><p>在制定认知复杂度的过程中，另一个指导原则是打破代码从上到下、从左到右的正常线性流程的结构会使维护者在理解代码时需要付出更多的努力。为了认可这种额外的努力，认知复杂度对以下结构进行结构增量评估：</p>
+  <a href="#%e4%b8%ad%e6%96%ad%e7%ba%bf%e6%80%a7%e6%b5%81%e7%a8%8b" class="heading-mark"></a>6 中断线性流程</h2><p>在制定认知复杂度的过程中，另一个指导原则是打破代码从上到下、从左到右的正常线性流程的结构会使维护者在理解代码时需要付出更多的努力。为了认可这种额外的努力，认知复杂度对以下结构进行结构增量评估：</p>
 <ul>
 <li>循环结构：<code>for</code>、<code>while</code>、<code>do while</code>、&hellip;</li>
 <li>条件判断：三元运算符、<code>if</code>、<code>#if</code>、<code>#ifdef</code>、&hellip;</li>
@@ -3526,14 +3905,14 @@
 <p>对于这些结构，不会评估嵌套增量，因为在阅读条件语句时已经承担了心理成本。</p>
 <p>这些增量目标对于那些习惯于圈复杂度的人来说可能会很熟悉。此外，认知复杂度还会增加以下方面的复杂度：</p>
 <h3 id="捕获catches" class="heading-element">
-  <a href="#%e6%8d%95%e8%8e%b7catches" class="heading-mark"></a>捕获（Catches）</h3><p><code>catch</code> 语句与 <code>if</code> 语句一样，代表了控制流程中的一种分支。因此，每个 <code>catch</code> 子句都会对认知复杂度进行结构增量评估。请注意，无论捕获了多少种异常类型，每个 <code>catch</code> 子句只会给认知复杂度得分增加一个点。<code>try</code> 和 <code>finally</code> 块则完全被忽略。</p>
+  <a href="#%e6%8d%95%e8%8e%b7catches" class="heading-mark"></a>6.1 捕获（Catches）</h3><p><code>catch</code> 语句与 <code>if</code> 语句一样，代表了控制流程中的一种分支。因此，每个 <code>catch</code> 子句都会对认知复杂度进行结构增量评估。请注意，无论捕获了多少种异常类型，每个 <code>catch</code> 子句只会给认知复杂度得分增加一个点。<code>try</code> 和 <code>finally</code> 块则完全被忽略。</p>
 <h3 id="开关switches" class="heading-element">
-  <a href="#%e5%bc%80%e5%85%b3switches" class="heading-mark"></a>开关（Switches）</h3><p>一个 <code>switch</code> 语句及其所有的 <code>case</code> 合并会导致一个单独的结构增量。</p>
+  <a href="#%e5%bc%80%e5%85%b3switches" class="heading-mark"></a>6.2 开关（Switches）</h3><p>一个 <code>switch</code> 语句及其所有的 <code>case</code> 合并会导致一个单独的结构增量。</p>
 <p>在圈复杂度中，<code>switch</code> 语句被视为类似于 <code>if-else</code> <code>if</code> 链的模拟。也就是说，<code>switch</code> 语句中的每个 <code>case</code> 都会导致增量，因为它在控制流的数学模型中引起了一个分支。</p>
 <p>但是从维护者的角度来看，一个 <code>switch</code> 语句，它将一个变量与一组明确命名的字面值进行比较，比一个 <code>if-else</code> <code>if</code> 链容易理解得多，因为后者可能进行任意数量的比较，使用任意数量的变量和值。</p>
 <p>简而言之，必须仔细阅读 <code>if-else</code> <code>if</code> 链，而 <code>switch</code> 语句通常可以一目了然地理解。</p>
 <h3 id="逻辑运算符序列sequences-of-logical-operators" class="heading-element">
-  <a href="#%e9%80%bb%e8%be%91%e8%bf%90%e7%ae%97%e7%ac%a6%e5%ba%8f%e5%88%97sequences-of-logical-operators" class="heading-mark"></a>逻辑运算符序列（Sequences of logical operators）</h3><p>出于类似的原因，认知复杂度不会对每个二进制逻辑运算符进行增量计算。相反，它对每个二进制逻辑运算符序列进行基本增量评估。例如，考虑以下几对示例：</p>
+  <a href="#%e9%80%bb%e8%be%91%e8%bf%90%e7%ae%97%e7%ac%a6%e5%ba%8f%e5%88%97sequences-of-logical-operators" class="heading-mark"></a>6.3 逻辑运算符序列（Sequences of logical operators）</h3><p>出于类似的原因，认知复杂度不会对每个二进制逻辑运算符进行增量计算。相反，它对每个二进制逻辑运算符序列进行基本增量评估。例如，考虑以下几对示例：</p>
 <div class="highlight" id="id-1"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -3584,40 +3963,40 @@
 </div>
 </div><p>虽然相对于圈复杂度，认知复杂度对相同的运算符提供了一种“折扣”，但它会对所有的二元布尔运算符序列进行增量计算，例如变量赋值、方法调用和返回语句中的序列。</p>
 <h3 id="递归recursion" class="heading-element">
-  <a href="#%e9%80%92%e5%bd%92recursion" class="heading-mark"></a>递归（Recursion）</h3><p>与圈复杂度不同，认知复杂度对递归循环中的每个方法（无论是直接递归还是间接递归）都会增加一个基本增量。</p>
+  <a href="#%e9%80%92%e5%bd%92recursion" class="heading-mark"></a>6.4 递归（Recursion）</h3><p>与圈复杂度不同，认知复杂度对递归循环中的每个方法（无论是直接递归还是间接递归）都会增加一个基本增量。</p>
 <p>这个决定有两个动机。首先，递归代表了一种“元循环（meta-loop）”，而认知复杂度对循环进行增量计算。其次，认知复杂度旨在估计理解方法控制流的相对难度，即使对一些经验丰富的程序员来说，递归也很难理解。</p>
 <h3 id="跳转到标签jumps-to-labels" class="heading-element">
-  <a href="#%e8%b7%b3%e8%bd%ac%e5%88%b0%e6%a0%87%e7%ad%bejumps-to-labels" class="heading-mark"></a>跳转到标签（Jumps to labels）</h3><p>使用 <code>goto</code> 语句会给认知复杂度增加一个基本增量，同样的，使用带有标签的 <code>break</code> 或 <code>continue</code> 语句以及其他多级跳转（如某些语言中的带有数字的 <code>break</code> 或 <code>continue</code> 语句）也会增加增量。但是，因为提前返回通常可以使代码更清晰，其他跳转或提前退出不会增加增量。</p>
+  <a href="#%e8%b7%b3%e8%bd%ac%e5%88%b0%e6%a0%87%e7%ad%bejumps-to-labels" class="heading-mark"></a>6.5 跳转到标签（Jumps to labels）</h3><p>使用 <code>goto</code> 语句会给认知复杂度增加一个基本增量，同样的，使用带有标签的 <code>break</code> 或 <code>continue</code> 语句以及其他多级跳转（如某些语言中的带有数字的 <code>break</code> 或 <code>continue</code> 语句）也会增加增量。但是，因为提前返回通常可以使代码更清晰，其他跳转或提前退出不会增加增量。</p>
 <h2 id="嵌套流程中的增量" class="heading-element">
-  <a href="#%e5%b5%8c%e5%a5%97%e6%b5%81%e7%a8%8b%e4%b8%ad%e7%9a%84%e5%a2%9e%e9%87%8f" class="heading-mark"></a>嵌套流程中的增量</h2><p>直观上很明显，一系列线性的五个 <code>if</code> 和 <code>for</code> 结构比相同的五个结构连续嵌套更容易理解，而不管每个系列中的执行路径数量如何。因为这样的嵌套增加了理解代码的心理需求，认知复杂度对其进行了嵌套增量的评估。</p>
+  <a href="#%e5%b5%8c%e5%a5%97%e6%b5%81%e7%a8%8b%e4%b8%ad%e7%9a%84%e5%a2%9e%e9%87%8f" class="heading-mark"></a>7 嵌套流程中的增量</h2><p>直观上很明显，一系列线性的五个 <code>if</code> 和 <code>for</code> 结构比相同的五个结构连续嵌套更容易理解，而不管每个系列中的执行路径数量如何。因为这样的嵌套增加了理解代码的心理需求，认知复杂度对其进行了嵌套增量的评估。</p>
 <p>具体来说，每当一个导致结构增量或混合增量的结构嵌套在另一个这样的结构内部时，每个嵌套级别都会增加一个嵌套增量。例如，在下面的示例中，对于方法本身或 <code>try</code> 语句，都没有嵌套增量，因为这两个结构都不会导致结构增量或混合增量：</p>
-<p><img loading="lazy" src="images/23_1696904025.png" alt="Illustration 1 of &amp;ldquo;Increment for nested flow-break structures&amp;rdquo;" srcset="images/23_1696904025.png?size=small, images/23_1696904025.png?size=medium 1.5x, images/23_1696904025.png?size=large 2x" data-title="Illustration 1 of &amp;ldquo;Increment for nested flow-break structures&amp;rdquo;" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+<p><a class="lightgallery" href="images/23_1696904025.png?size=large" data-thumbnail="images/23_1696904025.png?size=small" data-sub-html="<h2>Illustration 1 of &amp;ldquo;Increment for nested flow-break structures&amp;rdquo;</h2>"><img loading="lazy" src="images/23_1696904025.png" alt="Illustration 1 of &amp;ldquo;Increment for nested flow-break structures&amp;rdquo;" srcset="images/23_1696904025.png?size=small, images/23_1696904025.png?size=medium 1.5x, images/23_1696904025.png?size=large 2x" data-title="Illustration 1 of &amp;ldquo;Increment for nested flow-break structures&amp;rdquo;" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></p>
 <p>然而，<code>if</code>、<code>for</code>、<code>while</code>和<code>catch</code>结构都会受到结构增量和嵌套增量的影响。
 此外，顶层方法会被忽略，并且 <code>lambda</code> 表达式、嵌套方法和类似特性不会导致结构增量，但当这些方法嵌套在其他类似方法的结构内部时，会增加嵌套级别：</p>
-<p><img loading="lazy" src="images/23_1696904298.png" alt="Illustration 2 of &amp;ldquo;Increment for nested flow-break structures&amp;rdquo;" srcset="images/23_1696904298.png?size=small, images/23_1696904298.png?size=medium 1.5x, images/23_1696904298.png?size=large 2x" data-title="Illustration 2 of &amp;ldquo;Increment for nested flow-break structures&amp;rdquo;" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+<p><a class="lightgallery" href="images/23_1696904298.png?size=large" data-thumbnail="images/23_1696904298.png?size=small" data-sub-html="<h2>Illustration 2 of &amp;ldquo;Increment for nested flow-break structures&amp;rdquo;</h2>"><img loading="lazy" src="images/23_1696904298.png" alt="Illustration 2 of &amp;ldquo;Increment for nested flow-break structures&amp;rdquo;" srcset="images/23_1696904298.png?size=small, images/23_1696904298.png?size=medium 1.5x, images/23_1696904298.png?size=large 2x" data-title="Illustration 2 of &amp;ldquo;Increment for nested flow-break structures&amp;rdquo;" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></p>
 <h2 id="影响" class="heading-element">
-  <a href="#%e5%bd%b1%e5%93%8d" class="heading-mark"></a>影响</h2><p>认知复杂度的主要目标是计算方法分数，以更准确地反映方法的相对可理解性，并且其次目标是处理现代语言结构并生成在方法级别以上有价值的度量标准。可以证明，处理现代语言结构的目标已经实现。下面将对另外两个目标进行详细讨论。</p>
+  <a href="#%e5%bd%b1%e5%93%8d" class="heading-mark"></a>8 影响</h2><p>认知复杂度的主要目标是计算方法分数，以更准确地反映方法的相对可理解性，并且其次目标是处理现代语言结构并生成在方法级别以上有价值的度量标准。可以证明，处理现代语言结构的目标已经实现。下面将对另外两个目标进行详细讨论。</p>
 <h3 id="直观地正确的复杂性分数" class="heading-element">
-  <a href="#%e7%9b%b4%e8%a7%82%e5%9c%b0%e6%ad%a3%e7%a1%ae%e7%9a%84%e5%a4%8d%e6%9d%82%e6%80%a7%e5%88%86%e6%95%b0" class="heading-mark"></a>直观地“正确”的复杂性分数</h3><p>这次讨论始于一对具有相等圈复杂度但明显不同可理解性的方法。现在是重新审视这些方法并计算它们的认知复杂度分数的时候了。</p>
-<p><img loading="lazy" src="images/23_1696904888.png" alt="Intuitively ‘right’ complexity scores" srcset="images/23_1696904888.png?size=small, images/23_1696904888.png?size=medium 1.5x, images/23_1696904888.png?size=large 2x" data-title="Intuitively ‘right’ complexity scores" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+  <a href="#%e7%9b%b4%e8%a7%82%e5%9c%b0%e6%ad%a3%e7%a1%ae%e7%9a%84%e5%a4%8d%e6%9d%82%e6%80%a7%e5%88%86%e6%95%b0" class="heading-mark"></a>8.1 直观地“正确”的复杂性分数</h3><p>这次讨论始于一对具有相等圈复杂度但明显不同可理解性的方法。现在是重新审视这些方法并计算它们的认知复杂度分数的时候了。</p>
+<p><a class="lightgallery" href="images/23_1696904888.png?size=large" data-thumbnail="images/23_1696904888.png?size=small" data-sub-html="<h2>Intuitively ‘right’ complexity scores</h2>"><img loading="lazy" src="images/23_1696904888.png" alt="Intuitively ‘right’ complexity scores" srcset="images/23_1696904888.png?size=small, images/23_1696904888.png?size=medium 1.5x, images/23_1696904888.png?size=large 2x" data-title="Intuitively ‘right’ complexity scores" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></p>
 <p>认知复杂度算法给出了这两个方法明显不同的分数，这些分数更能反映它们相对可理解性的差异。</p>
 <h3 id="高于方法级别的有价值的指标" class="heading-element">
-  <a href="#%e9%ab%98%e4%ba%8e%e6%96%b9%e6%b3%95%e7%ba%a7%e5%88%ab%e7%9a%84%e6%9c%89%e4%bb%b7%e5%80%bc%e7%9a%84%e6%8c%87%e6%a0%87" class="heading-mark"></a>高于方法级别的有价值的指标</h3><p>此外，由于认知复杂度不会针对方法结构增加增量，聚合的数值变得有用起来。现在，通过比较它们的度量值，你可以轻松区分一个包含大量简单的 <code>getter</code> 和 <code>setter</code> 的领域类和一个包含复杂控制流的类。因此，认知复杂度成为衡量类和应用程序相对可理解性的工具。</p>
+  <a href="#%e9%ab%98%e4%ba%8e%e6%96%b9%e6%b3%95%e7%ba%a7%e5%88%ab%e7%9a%84%e6%9c%89%e4%bb%b7%e5%80%bc%e7%9a%84%e6%8c%87%e6%a0%87" class="heading-mark"></a>8.2 高于方法级别的有价值的指标</h3><p>此外，由于认知复杂度不会针对方法结构增加增量，聚合的数值变得有用起来。现在，通过比较它们的度量值，你可以轻松区分一个包含大量简单的 <code>getter</code> 和 <code>setter</code> 的领域类和一个包含复杂控制流的类。因此，认知复杂度成为衡量类和应用程序相对可理解性的工具。</p>
 <h2 id="结论" class="heading-element">
-  <a href="#%e7%bb%93%e8%ae%ba" class="heading-mark"></a>结论</h2><p>编写和维护代码是人类过程，它们的输出必须符合数学模型，但它们本身并不适合数学模型。这就是为什么数学模型不足以评估它们所需努力的原因。</p>
+  <a href="#%e7%bb%93%e8%ae%ba" class="heading-mark"></a>9 结论</h2><p>编写和维护代码是人类过程，它们的输出必须符合数学模型，但它们本身并不适合数学模型。这就是为什么数学模型不足以评估它们所需努力的原因。</p>
 <p>认知复杂度打破了使用数学模型评估软件可维护性的做法。它起源于圈复杂度所设定的先例，但使用人类判断来评估应该如何计算结构，并决定整体模型应该加入什么内容。结果，它产生了方法复杂度分数，相对于以前的模型，程序员认为这些分数更公平地评估了可理解性。</p>
 <p>此外，因为认知复杂度对于一个方法没有“进入成本”的要求，它不仅在方法级别产生了这些更公平的相对评估，还在类和应用程序级别上产生了相应的评估。</p>
 <h2 id="参考文献" class="heading-element">
-  <a href="#%e5%8f%82%e8%80%83%e6%96%87%e7%8c%ae" class="heading-mark"></a>参考文献</h2><p>本文翻译自 G. Ann Campbell 的文章“{Cognitive Complexity} a new way of measuring understandability”<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>，原文发表于 2023 年 8 月 29 日，版本号为 1.7。</p>
+  <a href="#%e5%8f%82%e8%80%83%e6%96%87%e7%8c%ae" class="heading-mark"></a>10 参考文献</h2><p>本文翻译自 G. Ann Campbell 的文章“{Cognitive Complexity} a new way of measuring understandability”<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>，原文发表于 2023 年 8 月 29 日，版本号为 1.7。</p>
 <h2 id="附录-a补偿用法" class="heading-element">
-  <a href="#%e9%99%84%e5%bd%95-a%e8%a1%a5%e5%81%bf%e7%94%a8%e6%b3%95" class="heading-mark"></a>附录 A：补偿用法</h2><p>认知复杂度被设计为一种与语言无关的度量标准，但不可忽视的是不同的编程语言提供了不同的特性。例如，COBOL 中没有 <code>else if</code> 结构，而 JavaScript 直到最近也缺乏类似的结构。不幸的是，这些缺陷并不能阻止开发人员需要这些结构或者试图用手头的工具构建类似的结构。在这种情况下，严格遵守认知复杂度规则会导致不成比例的高分。</p>
+  <a href="#%e9%99%84%e5%bd%95-a%e8%a1%a5%e5%81%bf%e7%94%a8%e6%b3%95" class="heading-mark"></a>11 附录 A：补偿用法</h2><p>认知复杂度被设计为一种与语言无关的度量标准，但不可忽视的是不同的编程语言提供了不同的特性。例如，COBOL 中没有 <code>else if</code> 结构，而 JavaScript 直到最近也缺乏类似的结构。不幸的是，这些缺陷并不能阻止开发人员需要这些结构或者试图用手头的工具构建类似的结构。在这种情况下，严格遵守认知复杂度规则会导致不成比例的高分。</p>
 <p>因此，为了不惩罚一种语言相对于另一种语言的使用，对于语言的缺陷，即在考虑的语言中普遍使用并且在大多数现代语言中都是期望的结构，但在该语言中缺失的结构（例如 COBOL 缺少的 <code>else if</code>），可以进行例外处理。</p>
 <p>另一方面，当一种语言创新引入一个特性时，例如 Java 7 可以一次捕获多个异常类型，其他语言中缺乏这种创新不应被视为缺陷，因此不应有例外。</p>
 <p>这意味着如果一次捕获多个异常类型成为一种常见预期的语言特性，那么对于不提供该功能的语言中的“额外”<code>catch</code> 子句可能会添加例外。这种可能性并没有排除，但对于是否添加这样的未来例外的评估应该以保守为原则。换句话说，新的例外应该慢慢引入。</p>
 <p>另一方面，如果 COBOL 标准的未来版本添加了&quot;else if&quot;结构，应尽快放弃 COBOL 的&quot;else &hellip; if&quot;例外（如下所述）。</p>
 <p>到目前为止，已经确定了三个例外情况：</p>
 <h3 id="cobol-missing-else-if" class="heading-element">
-  <a href="#cobol-missing-else-if" class="heading-mark"></a>COBOL: Missing <code>else if</code></h3><p>对于缺乏 <code>else if</code> 结构的 COBOL 语言，一个 <code>else</code> 子句中如果只包含一个 <code>if</code> 语句，则不会增加嵌套惩罚。此外，<code>else</code> 本身不会增加复杂度。也就是说，如果 <code>else</code> 后面紧跟着 <code>if</code> 语句，尽管从语法上讲它并不是 <code>else if</code>，但在计算复杂度时会视作 <code>else if</code>。</p>
+  <a href="#cobol-missing-else-if" class="heading-mark"></a>11.1 COBOL: Missing <code>else if</code></h3><p>对于缺乏 <code>else if</code> 结构的 COBOL 语言，一个 <code>else</code> 子句中如果只包含一个 <code>if</code> 语句，则不会增加嵌套惩罚。此外，<code>else</code> 本身不会增加复杂度。也就是说，如果 <code>else</code> 后面紧跟着 <code>if</code> 语句，尽管从语法上讲它并不是 <code>else if</code>，但在计算复杂度时会视作 <code>else if</code>。</p>
 <p>例如：</p>
 <div class="highlight" id="id-4"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -3653,19 +4032,19 @@
 </span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="c">ENDIF.</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="javascript-missing-class-structures" class="heading-element">
-  <a href="#javascript-missing-class-structures" class="heading-mark"></a>JavaScript: Missing class structures</h3><p>尽管 ECMAScript 6 规范最近为 JavaScript 添加了类的功能，但这个特性尚未被广泛采用。实际上，许多流行的框架要求继续使用一种补偿习惯用法：使用外部函数作为替代，创建一种命名空间或伪类。为了不对 JavaScript 用户进行惩罚，当外部函数仅用作声明机制时（即它们只包含顶级的声明），它们将被忽略。</p>
+  <a href="#javascript-missing-class-structures" class="heading-mark"></a>11.2 JavaScript: Missing class structures</h3><p>尽管 ECMAScript 6 规范最近为 JavaScript 添加了类的功能，但这个特性尚未被广泛采用。实际上，许多流行的框架要求继续使用一种补偿习惯用法：使用外部函数作为替代，创建一种命名空间或伪类。为了不对 JavaScript 用户进行惩罚，当外部函数仅用作声明机制时（即它们只包含顶级的声明），它们将被忽略。</p>
 <p>然而，如果一个函数位于顶级（即不嵌套在子函数内部），并且包含需要进行结构增加的语句，那么说明它不仅仅是纯粹的声明使用。因此，这类函数应该接受标准处理。</p>
 <p>例如：</p>
-<p><img loading="lazy" src="images/23_1696907520.png" alt="ES5 class" srcset="images/23_1696907520.png?size=small, images/23_1696907520.png?size=medium 1.5x, images/23_1696907520.png?size=large 2x" data-title="ES5 class" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+<p><a class="lightgallery" href="images/23_1696907520.png?size=large" data-thumbnail="images/23_1696907520.png?size=small" data-sub-html="<h2>ES5 class</h2>"><img loading="lazy" src="images/23_1696907520.png" alt="ES5 class" srcset="images/23_1696907520.png?size=small, images/23_1696907520.png?size=medium 1.5x, images/23_1696907520.png?size=large 2x" data-title="ES5 class" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></p>
 <h3 id="python-decorators" class="heading-element">
-  <a href="#python-decorators" class="heading-mark"></a>Python: Decorators</h3><p>Python 的装饰器习惯用法允许在不修改函数本身的情况下向现有函数添加额外的行为。这是通过在装饰器中使用嵌套函数来实现的，嵌套函数提供了额外的行为。</p>
+  <a href="#python-decorators" class="heading-mark"></a>11.3 Python: Decorators</h3><p>Python 的装饰器习惯用法允许在不修改函数本身的情况下向现有函数添加额外的行为。这是通过在装饰器中使用嵌套函数来实现的，嵌套函数提供了额外的行为。</p>
 <p>为了不对使用其语言的 Python 开发人员进行惩罚，已经添加了一个例外。然而，已经试图对例外进行明确定义。具体来说，要符合例外的条件，一个函数只能包含一个嵌套函数和一个 <code>return</code> 语句。</p>
 <p>例如：</p>
-<p><img loading="lazy" src="images/23_1696907633.png" alt="Python decorator" srcset="images/23_1696907633.png?size=small, images/23_1696907633.png?size=medium 1.5x, images/23_1696907633.png?size=large 2x" data-title="Python decorator" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+<p><a class="lightgallery" href="images/23_1696907633.png?size=large" data-thumbnail="images/23_1696907633.png?size=small" data-sub-html="<h2>Python decorator</h2>"><img loading="lazy" src="images/23_1696907633.png" alt="Python decorator" srcset="images/23_1696907633.png?size=small, images/23_1696907633.png?size=medium 1.5x, images/23_1696907633.png?size=large 2x" data-title="Python decorator" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></p>
 <h2 id="附录-b规范" class="heading-element">
-  <a href="#%e9%99%84%e5%bd%95-b%e8%a7%84%e8%8c%83" class="heading-mark"></a>附录 B：规范</h2><p>本节的目的是对增加认知复杂度的结构和情况进行简明列举，但需考虑 <strong>附录 A</strong> 中列出的例外情况。这旨在提供一个全面的列表，但并非穷尽所有编程语言。也就是说，如果某种语言对关键字有非典型的拼写，例如用 <code>elif</code> 表示 <code>else if</code>，那么在此处的省略并不意味着在规范中忽略该结构。</p>
+  <a href="#%e9%99%84%e5%bd%95-b%e8%a7%84%e8%8c%83" class="heading-mark"></a>12 附录 B：规范</h2><p>本节的目的是对增加认知复杂度的结构和情况进行简明列举，但需考虑 <strong>附录 A</strong> 中列出的例外情况。这旨在提供一个全面的列表，但并非穷尽所有编程语言。也就是说，如果某种语言对关键字有非典型的拼写，例如用 <code>elif</code> 表示 <code>else if</code>，那么在此处的省略并不意味着在规范中忽略该结构。</p>
 <h3 id="b1-增量increments" class="heading-element">
-  <a href="#b1-%e5%a2%9e%e9%87%8fincrements" class="heading-mark"></a>B1. 增量（Increments）</h3><p>对于以下每个结构，都会增加复杂度的计数：</p>
+  <a href="#b1-%e5%a2%9e%e9%87%8fincrements" class="heading-mark"></a>12.1 B1. 增量（Increments）</h3><p>对于以下每个结构，都会增加复杂度的计数：</p>
 <ul>
 <li><code>if</code>、<code>else if</code>、<code>else</code> 条件语句和三元运算符</li>
 <li><code>switch</code></li>
@@ -3677,7 +4056,7 @@
 <li>递归循环中的每个方法</li>
 </ul>
 <h3 id="b2-嵌套级别nesting-level" class="heading-element">
-  <a href="#b2-%e5%b5%8c%e5%a5%97%e7%ba%a7%e5%88%abnesting-level" class="heading-mark"></a>B2. 嵌套级别（Nesting level）</h3><p>以下结构会增加嵌套层级的计数：</p>
+  <a href="#b2-%e5%b5%8c%e5%a5%97%e7%ba%a7%e5%88%abnesting-level" class="heading-mark"></a>12.2 B2. 嵌套级别（Nesting level）</h3><p>以下结构会增加嵌套层级的计数：</p>
 <ul>
 <li><code>if</code>、<code>else if</code>、<code>else</code> 条件语句和三元运算符</li>
 <li><code>switch</code></li>
@@ -3687,7 +4066,7 @@
 <li>嵌套方法和类似方法的结构，如 <code>lambda</code> 表达式。</li>
 </ul>
 <h3 id="b3-嵌套增量nesting-increments" class="heading-element">
-  <a href="#b3-%e5%b5%8c%e5%a5%97%e5%a2%9e%e9%87%8fnesting-increments" class="heading-mark"></a>B3. 嵌套增量（Nesting increments）</h3><p>以下结构将根据其在 B2 结构内的嵌套深度而增加相应的嵌套层级计数：</p>
+  <a href="#b3-%e5%b5%8c%e5%a5%97%e5%a2%9e%e9%87%8fnesting-increments" class="heading-mark"></a>12.3 B3. 嵌套增量（Nesting increments）</h3><p>以下结构将根据其在 B2 结构内的嵌套深度而增加相应的嵌套层级计数：</p>
 <ul>
 <li><code>if</code> 条件语句和三元运算符</li>
 <li><code>switch</code></li>
@@ -3696,17 +4075,17 @@
 <li><code>catch</code></li>
 </ul>
 <h2 id="附录-c示例" class="heading-element">
-  <a href="#%e9%99%84%e5%bd%95-c%e7%a4%ba%e4%be%8b" class="heading-mark"></a>附录 C：示例</h2><blockquote>
+  <a href="#%e9%99%84%e5%bd%95-c%e7%a4%ba%e4%be%8b" class="heading-mark"></a>13 附录 C：示例</h2><blockquote>
 <p><strong>Note</strong>
 译者注：在各大 IDE 中可以安装 SonarLint 插件，以便在编码过程中实时检查代码质量，<a href="https://www.sonarsource.com/products/sonarlint/?gads_campaign=SL-Class02-Brand&amp;gads_ad_group=SonarLint&amp;gads_keyword=sonarlint&amp;gclid=CjwKCAjwyY6pBhA9EiwAMzmfwba_MRBC_UXg_im757z_Om_T6Jfd_vt_gVuNL-Wxh9S0HVKKqK7nRhoCl5UQAvD_BwE"target="_blank" rel="external nofollow noopener noreferrer">详见<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
 </blockquote>
 <p>来自 SonarJava 分析器中的 <code>org.sonar.java.resolve.JavaSymbol.java</code>：</p>
-<p><img loading="lazy" src="images/23_1696908636.png" alt="org.sonar.java.resolve.JavaSymbol.java" srcset="images/23_1696908636.png?size=small, images/23_1696908636.png?size=medium 1.5x, images/23_1696908636.png?size=large 2x" data-title="org.sonar.java.resolve.JavaSymbol.java" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+<p><a class="lightgallery" href="images/23_1696908636.png?size=large" data-thumbnail="images/23_1696908636.png?size=small" data-sub-html="<h2>org.sonar.java.resolve.JavaSymbol.java</h2>"><img loading="lazy" src="images/23_1696908636.png" alt="org.sonar.java.resolve.JavaSymbol.java" srcset="images/23_1696908636.png?size=small, images/23_1696908636.png?size=medium 1.5x, images/23_1696908636.png?size=large 2x" data-title="org.sonar.java.resolve.JavaSymbol.java" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></p>
 <p>来自 sonar-persistit 中的 <code>com.persistit.TimelyResource.java</code>：</p>
-<p><img loading="lazy" src="images/23_1696908742.png" alt="com.persistit.TimelyResource.java" srcset="images/23_1696908742.png?size=small, images/23_1696908742.png?size=medium 1.5x, images/23_1696908742.png?size=large 2x" data-title="com.persistit.TimelyResource.java" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+<p><a class="lightgallery" href="images/23_1696908742.png?size=large" data-thumbnail="images/23_1696908742.png?size=small" data-sub-html="<h2>com.persistit.TimelyResource.java</h2>"><img loading="lazy" src="images/23_1696908742.png" alt="com.persistit.TimelyResource.java" srcset="images/23_1696908742.png?size=small, images/23_1696908742.png?size=medium 1.5x, images/23_1696908742.png?size=large 2x" data-title="com.persistit.TimelyResource.java" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></p>
 <p>来自 SonarQube 中的 <code>org.sonar.api.utils.WildcardPattern.java</code>：</p>
 <p>来自 YUI 中的 <code>model.js</code>：</p>
-<p><img loading="lazy" src="images/23_1696908890.png" alt="model.js" srcset="images/23_1696908890.png?size=small, images/23_1696908890.png?size=medium 1.5x, images/23_1696908890.png?size=large 2x" data-title="model.js" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+<p><a class="lightgallery" href="images/23_1696908890.png?size=large" data-thumbnail="images/23_1696908890.png?size=small" data-sub-html="<h2>model.js</h2>"><img loading="lazy" src="images/23_1696908890.png" alt="model.js" srcset="images/23_1696908890.png?size=small, images/23_1696908890.png?size=medium 1.5x, images/23_1696908890.png?size=large 2x" data-title="model.js" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></p>
 <div class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
@@ -3719,14 +4098,14 @@
 </ol>
 </div>]]></description></item><item><title>写作技巧：如何搭建文章的框架结构？</title><link>https://lruihao.cn/posts/article-structure/</link><pubDate>Tue, 26 Sep 2023 15:17:52 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/article-structure/</guid><description><![CDATA[<p>最近读了张鑫旭大佬的掘金小册《技术写作指南》，学到了很多写作技巧，其中感触最深的就是“技巧：如何搭建文章的框架结构”这一小节，这篇文章就来分享一下。</p>
 <h2 id="方法论的作用" class="heading-element">
-  <a href="#%e6%96%b9%e6%b3%95%e8%ae%ba%e7%9a%84%e4%bd%9c%e7%94%a8" class="heading-mark"></a>方法论的作用</h2><p>所谓方法论，通俗点讲就是套路，虽然限制了天才的火花，但是保证了合格的下限。</p>
+  <a href="#%e6%96%b9%e6%b3%95%e8%ae%ba%e7%9a%84%e4%bd%9c%e7%94%a8" class="heading-mark"></a>1 方法论的作用</h2><p>所谓方法论，通俗点讲就是套路，虽然限制了天才的火花，但是保证了合格的下限。</p>
 <p>这个不难理解，拿武侠举例，每个门派都有剑招或者拳法，招式都是固定的，这个固定的招式就可以看成是方法论，而武功的最高境界是无招胜有招，讲求见招拆招，是不希望有固定的套路的。</p>
 <p>但是，这些固定的招数你又不能不学，因为天才总是少数，而学习固定的招式，至少可以保证门派弟子比路人强一截。</p>
 <p>学习如何说话，学习如何写作也是类似的，对于那些天生会说话，天生会写作的人而言，方法论反而是个桎梏，会限制他们的发挥。</p>
 <p>但是对于原本不是这块料的人而言，方法论可以让你迅速进入学习的正轨，保证了实践结果不至于太差。</p>
 <p>张鑫旭大佬结合自己的写作经验，总结出了一套核心思想，并抽象出了若干写作方法论。</p>
 <h2 id="核心思想" class="heading-element">
-  <a href="#%e6%a0%b8%e5%bf%83%e6%80%9d%e6%83%b3" class="heading-mark"></a>核心思想</h2><p>文章书写的核心思想无非这两个：</p>
+  <a href="#%e6%a0%b8%e5%bf%83%e6%80%9d%e6%83%b3" class="heading-mark"></a>2 核心思想</h2><p>文章书写的核心思想无非这两个：</p>
 <ol>
 <li>
 <p>文字前后连贯；</p>
@@ -3738,54 +4117,54 @@
 <p>这些核心思想和人类的认知特点正好是相匹配的。</p>
 <p>&hellip;</p>
 <h2 id="具体的写作套路" class="heading-element">
-  <a href="#%e5%85%b7%e4%bd%93%e7%9a%84%e5%86%99%e4%bd%9c%e5%a5%97%e8%b7%af" class="heading-mark"></a>具体的写作套路</h2><p>这里按照文章类型的不同讲下可以拿来套用的写作路数。</p>
+  <a href="#%e5%85%b7%e4%bd%93%e7%9a%84%e5%86%99%e4%bd%9c%e5%a5%97%e8%b7%af" class="heading-mark"></a>3 具体的写作套路</h2><p>这里按照文章类型的不同讲下可以拿来套用的写作路数。</p>
 <p>正所谓一图胜千言，每一种写作结构都做了示意图。</p>
 <h3 id="1-技术科普" class="heading-element">
-  <a href="#1-%e6%8a%80%e6%9c%af%e7%a7%91%e6%99%ae" class="heading-mark"></a>1. 技术科普</h3><p>技术科普是人人都可以创作的一种文章类型，这类文章适合新人阅读，受众广泛。</p>
+  <a href="#1-%e6%8a%80%e6%9c%af%e7%a7%91%e6%99%ae" class="heading-mark"></a>3.1 1. 技术科普</h3><p>技术科普是人人都可以创作的一种文章类型，这类文章适合新人阅读，受众广泛。</p>
 <p>这类文章结构可以如下图这般搭建：</p>
 <div class="mermaid" id="id-1"></div><p>很多在线文档也是按照这个结构撰写的。</p>
 <h3 id="2-原理剖析" class="heading-element">
-  <a href="#2-%e5%8e%9f%e7%90%86%e5%89%96%e6%9e%90" class="heading-mark"></a>2. 原理剖析</h3><p>原理剖析类的文章对于创作者加深对当前技术的理解很有帮助，虽然受众不一定广泛，但是对于自身的学习却很有帮助。</p>
+  <a href="#2-%e5%8e%9f%e7%90%86%e5%89%96%e6%9e%90" class="heading-mark"></a>3.2 2. 原理剖析</h3><p>原理剖析类的文章对于创作者加深对当前技术的理解很有帮助，虽然受众不一定广泛，但是对于自身的学习却很有帮助。</p>
 <p>通常，这类文章可以遵循由表及里，层层深入的架构策略，方便他人的学习与理解。</p>
 <div class="mermaid" id="id-2"></div><h3 id="3-功能实现" class="heading-element">
-  <a href="#3-%e5%8a%9f%e8%83%bd%e5%ae%9e%e7%8e%b0" class="heading-mark"></a>3. 功能实现</h3><p>我们所有的互联网产品都是通过一个又一个的功能实现的，比方说“鼠标经过按钮变色”就属于一个功能，点击按钮复制内容也属于功能。</p>
+  <a href="#3-%e5%8a%9f%e8%83%bd%e5%ae%9e%e7%8e%b0" class="heading-mark"></a>3.3 3. 功能实现</h3><p>我们所有的互联网产品都是通过一个又一个的功能实现的，比方说“鼠标经过按钮变色”就属于一个功能，点击按钮复制内容也属于功能。</p>
 <p>所有这些功能的实现都可以创作成文章，而这些文章会成为搜索引擎流量来源大户。</p>
 <p>因为很多开发者在实现某一个功能的时候，都习惯先去找找有没有现成的代码可以直接拿来使用。</p>
 <p>这就要求我们在文章中一定要放代码，最后配上演示页面，然后为了吸引用户继续阅读，通常会把实现好的效果放在最前面，即上面提到的亮点前置。</p>
 <p>所以，可以尝试使用下图所示的文章结构：</p>
 <div class="mermaid" id="id-3"></div><h3 id="4-使用教程" class="heading-element">
-  <a href="#4-%e4%bd%bf%e7%94%a8%e6%95%99%e7%a8%8b" class="heading-mark"></a>4. 使用教程</h3><p>每个人对教程的理解不一样，在我的写作认知中，教程专指针对小白的那种奶妈式的教学文章，会非常详细与具体，会有大量的配图与案例，生怕对方走错一步就不知道接下来该怎么办。</p>
+  <a href="#4-%e4%bd%bf%e7%94%a8%e6%95%99%e7%a8%8b" class="heading-mark"></a>3.4 4. 使用教程</h3><p>每个人对教程的理解不一样，在我的写作认知中，教程专指针对小白的那种奶妈式的教学文章，会非常详细与具体，会有大量的配图与案例，生怕对方走错一步就不知道接下来该怎么办。</p>
 <p>这类文章其实按部就班呈现就可以了：</p>
 <div class="mermaid" id="id-4"></div><h3 id="5-问题解决" class="heading-element">
-  <a href="#5-%e9%97%ae%e9%a2%98%e8%a7%a3%e5%86%b3" class="heading-mark"></a>5. 问题解决</h3><p>如果问题解决的过程是写给公司内部的人（尤其是领导）看的，或者说写作的目的是炫一把自己解决问题的能力，则自己的<strong>思考过程</strong>一定要重点阐述。</p>
+  <a href="#5-%e9%97%ae%e9%a2%98%e8%a7%a3%e5%86%b3" class="heading-mark"></a>3.5 5. 问题解决</h3><p>如果问题解决的过程是写给公司内部的人（尤其是领导）看的，或者说写作的目的是炫一把自己解决问题的能力，则自己的<strong>思考过程</strong>一定要重点阐述。</p>
 <p>如果你写作的目的很单纯，就是希望帮助外面遇到同样问题的人，那就可以多讲讲问题产生的原因，以及如何解决即可，别人对你的思考过程并不在意。</p>
 <p>下面这个文章结构示意图是按照内部创作的背景设计的，强调个人在整个过程中的能动性。</p>
 <div class="mermaid" id="id-5"></div><p>如果你是对外创作，则可以根据侧重点不同，微调写作结构。</p>
 <h3 id="6-项目总结" class="heading-element">
-  <a href="#6-%e9%a1%b9%e7%9b%ae%e6%80%bb%e7%bb%93" class="heading-mark"></a>6. 项目总结</h3><p>项目总结一定是对内的，即使我们在外网看到一些大公司团队发的项目总结类的文章，也是内销转出口。</p>
+  <a href="#6-%e9%a1%b9%e7%9b%ae%e6%80%bb%e7%bb%93" class="heading-mark"></a>3.6 6. 项目总结</h3><p>项目总结一定是对内的，即使我们在外网看到一些大公司团队发的项目总结类的文章，也是内销转出口。</p>
 <p>这类文章一般看起来都很高大上，但读完一阵空虚，啥也没学到。</p>
 <p>这是正常且理所当然的，因为项目总结的目的本质上就是一种职场邀功炫技手段，而不是技术传道。</p>
 <p>所以，这类文章的难点不在于结构设计，而是如何通过不会让人反感的朴实无华的语言透露出项目牛逼、项目人员牛逼的信息。</p>
 <div class="mermaid" id="id-6"></div><h3 id="7-会议记录" class="heading-element">
-  <a href="#7-%e4%bc%9a%e8%ae%ae%e8%ae%b0%e5%bd%95" class="heading-mark"></a>7. 会议记录</h3><p>国内每年都会有很多技术峰会，当然，这几年因为口罩原因，多以线上为主了。</p>
+  <a href="#7-%e4%bc%9a%e8%ae%ae%e8%ae%b0%e5%bd%95" class="heading-mark"></a>3.7 7. 会议记录</h3><p>国内每年都会有很多技术峰会，当然，这几年因为口罩原因，多以线上为主了。</p>
 <p>然后各个城市还有不少免费的技术沙龙，各个技术社区也会有一些免费的线上活动，一些知名行业从业者也会不定期直播，因此，只要你有兴趣，都可以作为观众参与其中。</p>
 <p>参加完了，是不是可以写篇文章记录下呢？</p>
 <p>跟大家讲，这种文章不需要技术含量，但是访问量相当的高，因为人都是懒惰的，总希望以最低的成本收获最多的东西。</p>
 <p>一看，嘿，这个不错，我只要花几分钟看一下，就能学到别人花好几个小时学到的东西，何乐而不为呢？哪怕什么都没学到，至少满足了自己的好奇心，怎么看都不亏。</p>
 <p>而这类文章的内容结构也比较固定，就按照时间进行组织就好了，会议的按会议时间，直播的按直播时间。</p>
 <div class="mermaid" id="id-7"></div><h3 id="8-工具测评" class="heading-element">
-  <a href="#8-%e5%b7%a5%e5%85%b7%e6%b5%8b%e8%af%84" class="heading-mark"></a>8. 工具测评</h3><p>这类文章也非常适合新手创作，大家应该也都见过，比方说某某框架初体验、A 框架和 B 框架我该使用哪个？</p>
+  <a href="#8-%e5%b7%a5%e5%85%b7%e6%b5%8b%e8%af%84" class="heading-mark"></a>3.8 8. 工具测评</h3><p>这类文章也非常适合新手创作，大家应该也都见过，比方说某某框架初体验、A 框架和 B 框架我该使用哪个？</p>
 <p>这类文章的核心价值就在于评测，你以一个过来人的身份，是否建议读者使用这个工具之类的。</p>
 <p>但评测是否中肯可信，还需要一些证明，这些证明就可以通过展示使用过程和最终效果来完成。</p>
 <p>下图是可以参考使用的一种框架结构：</p>
 <div class="mermaid" id="id-8"></div><h3 id="9-技术人文" class="heading-element">
-  <a href="#9-%e6%8a%80%e6%9c%af%e4%ba%ba%e6%96%87" class="heading-mark"></a>9. 技术人文</h3><p>如果是技术人文，则情况就会变得复杂，因为技术人文所包含的写作范围非常广泛，例如软技能分享、心理困惑答疑、职业发展指导、行业发展看法等都属于技术人文的写作范畴，而不同的主题所需要的框架结构都是不一样的。</p>
+  <a href="#9-%e6%8a%80%e6%9c%af%e4%ba%ba%e6%96%87" class="heading-mark"></a>3.9 9. 技术人文</h3><p>如果是技术人文，则情况就会变得复杂，因为技术人文所包含的写作范围非常广泛，例如软技能分享、心理困惑答疑、职业发展指导、行业发展看法等都属于技术人文的写作范畴，而不同的主题所需要的框架结构都是不一样的。</p>
 <p>很多文章可以从其他类型的文章中找到可以借鉴的套路，这里，我就单纯地展示下观点类的技术文章的写作结构：</p>
 <div class="mermaid" id="id-9"></div><h3 id="10-职场故事" class="heading-element">
-  <a href="#10-%e8%81%8c%e5%9c%ba%e6%95%85%e4%ba%8b" class="heading-mark"></a>10. 职场故事</h3><p>职场故事通常都是当事人的真实经历，是比较好写的，按照时间线讲好每个时间段的故事即可，如果分享的是刚编的故事，也可以遵循这个套路：</p>
+  <a href="#10-%e8%81%8c%e5%9c%ba%e6%95%85%e4%ba%8b" class="heading-mark"></a>3.10 10. 职场故事</h3><p>职场故事通常都是当事人的真实经历，是比较好写的，按照时间线讲好每个时间段的故事即可，如果分享的是刚编的故事，也可以遵循这个套路：</p>
 <div class="mermaid" id="id-10"></div><p>当然，还有其他类型的技术文章，例如技术八卦、行业新闻等，我就不一一展示了，基本上都是有迹可循的。</p>
 <h2 id="没有固定的套路" class="heading-element">
-  <a href="#%e6%b2%a1%e6%9c%89%e5%9b%ba%e5%ae%9a%e7%9a%84%e5%a5%97%e8%b7%af" class="heading-mark"></a>没有固定的套路</h2><p>回到本文一开始的那个观点，写作其实是没有固定的套路的，这就像武功招式一样，这一套剑法必中其要害，结果人家穿了软猬甲，刀枪不入，是不是需要变化和调整？</p>
+  <a href="#%e6%b2%a1%e6%9c%89%e5%9b%ba%e5%ae%9a%e7%9a%84%e5%a5%97%e8%b7%af" class="heading-mark"></a>4 没有固定的套路</h2><p>回到本文一开始的那个观点，写作其实是没有固定的套路的，这就像武功招式一样，这一套剑法必中其要害，结果人家穿了软猬甲，刀枪不入，是不是需要变化和调整？</p>
 <p>写作也是这样，现实世界总是多变的，理想的条件总是难以满足，所以，套路虽好用，但也要学会应变。比方说：</p>
 <ol>
 <li>不同的账号主体</li>
