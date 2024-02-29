@@ -1,4 +1,206 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>JavaScript - 分类 | 菠菜眾長</title><link>https://lruihao.cn/categories/javascript/</link><description>JavaScript - 分类 | 菠菜眾長</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><copyright>本站内容采用 CC BY-NC-SA 4.0 国际许可协议。</copyright><lastBuildDate>Wed, 10 Jan 2024 17:06:54 +0800</lastBuildDate><atom:link href="https://lruihao.cn/categories/javascript/" rel="self" type="application/rss+xml"/><item><title>给 el-card 添加折叠功能</title><link>https://lruihao.cn/posts/el-card-collapse/</link><pubDate>Wed, 10 Jan 2024 17:06:54 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/el-card-collapse/</guid><description><![CDATA[<div class="details admonition question open">
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>JavaScript - 分类 | 菠菜眾長</title><link>https://lruihao.cn/categories/javascript/</link><description>JavaScript - 分类 | 菠菜眾長</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><copyright>本站内容采用 CC BY-NC-SA 4.0 国际许可协议。</copyright><lastBuildDate>Thu, 29 Feb 2024 16:46:00 +0800</lastBuildDate><atom:link href="https://lruihao.cn/categories/javascript/" rel="self" type="application/rss+xml"/><item><title>实现类似于 Element UI 表格的溢出文本提示功能</title><link>https://lruihao.cn/posts/overflow-tooltip/</link><pubDate>Thu, 29 Feb 2024 16:46:00 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/overflow-tooltip/</guid><description><![CDATA[<p>在 Element UI 的表格组件中，当表格列的内容过长时，设置 <code>show-overflow-tooltip</code> 会自动显示一个 tooltip 来展示完整的内容。这个功能在实际项目中也是非常常见的，那么我们该如何实现这个功能呢？</p>
+<h2 id="demo" class="heading-element">
+  <a href="#demo" class="heading-mark"></a>1 Demo</h2><p>先来看一下效果：<a href="http://lruihao.github.io/vue-el-demo/#/overflow-tooltip"target="_blank" rel="external nofollow noopener noreferrer">demo<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
+<h2 id="实现代码" class="heading-element">
+  <a href="#%e5%ae%9e%e7%8e%b0%e4%bb%a3%e7%a0%81" class="heading-mark"></a>2 实现代码</h2><p>直接贴上完整的代码，通过一个自定义指定 <code>v-overflow-tooltip</code> 来实现：</p>
+<div class="highlight" id="id-1"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">plugin</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">install</span><span class="p">(</span><span class="nx">Vue</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">Vue</span><span class="p">.</span><span class="nx">directive</span><span class="p">(</span><span class="s1">&#39;overflow-tooltip&#39;</span><span class="p">,</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">inserted</span><span class="o">:</span> <span class="p">(</span><span class="nx">el</span><span class="p">,</span> <span class="nx">binding</span><span class="p">,</span> <span class="nx">vnode</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// 设置内容
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">if</span> <span class="p">(</span><span class="nx">el</span><span class="p">.</span><span class="nx">innerText</span> <span class="o">===</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="nx">el</span><span class="p">.</span><span class="nx">innerText</span> <span class="o">=</span> <span class="nx">binding</span><span class="p">.</span><span class="nx">value</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// 设置元素样式
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nb">Object</span><span class="p">.</span><span class="nx">assign</span><span class="p">(</span><span class="nx">el</span><span class="p">.</span><span class="nx">style</span><span class="p">,</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="nx">overflow</span><span class="o">:</span> <span class="s1">&#39;hidden&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nx">textOverflow</span><span class="o">:</span> <span class="s1">&#39;ellipsis&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nx">whiteSpace</span><span class="o">:</span> <span class="s1">&#39;nowrap&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="p">})</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="kr">const</span> <span class="nx">elComputed</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">defaultView</span><span class="p">.</span><span class="nx">getComputedStyle</span><span class="p">(</span><span class="nx">el</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="kr">const</span> <span class="nx">padding</span> <span class="o">=</span> <span class="nb">parseInt</span><span class="p">(</span><span class="nx">elComputed</span><span class="p">.</span><span class="nx">paddingLeft</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="s1">&#39;px&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">))</span> <span class="o">+</span> <span class="nb">parseInt</span><span class="p">(</span><span class="nx">elComputed</span><span class="p">.</span><span class="nx">paddingRight</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="s1">&#39;px&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">        <span class="kr">const</span> <span class="nx">range</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createRange</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">range</span><span class="p">.</span><span class="nx">setStart</span><span class="p">(</span><span class="nx">el</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">range</span><span class="p">.</span><span class="nx">setEnd</span><span class="p">(</span><span class="nx">el</span><span class="p">,</span> <span class="nx">el</span><span class="p">.</span><span class="nx">childNodes</span><span class="p">.</span><span class="nx">length</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="kr">const</span> <span class="nx">rangeWidth</span> <span class="o">=</span> <span class="nx">range</span><span class="p">.</span><span class="nx">getBoundingClientRect</span><span class="p">().</span><span class="nx">width</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="nx">rangeWidth</span> <span class="o">+</span> <span class="nx">padding</span> <span class="o">&gt;</span> <span class="nx">el</span><span class="p">.</span><span class="nx">offsetWidth</span> <span class="o">||</span> <span class="nx">el</span><span class="p">.</span><span class="nx">scrollWidth</span> <span class="o">&gt;</span> <span class="nx">el</span><span class="p">.</span><span class="nx">offsetWidth</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="c1">// 鼠标移入时，将浮沉元素插入到 body 中
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>          <span class="nx">el</span><span class="p">.</span><span class="nx">onmouseenter</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">// 创建浮层元素并设置样式
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="kr">const</span> <span class="nx">vcTooltipDom</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;div&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">Object</span><span class="p">.</span><span class="nx">assign</span><span class="p">(</span><span class="nx">vcTooltipDom</span><span class="p">.</span><span class="nx">style</span><span class="p">,</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">              <span class="nx">position</span><span class="o">:</span> <span class="s1">&#39;absolute&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">              <span class="nx">background</span><span class="o">:</span> <span class="s1">&#39;#303133&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">              <span class="nx">color</span><span class="o">:</span> <span class="s1">&#39;#fff&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">              <span class="nx">fontSize</span><span class="o">:</span> <span class="s1">&#39;12px&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">              <span class="nx">zIndex</span><span class="o">:</span> <span class="s1">&#39;2000&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">              <span class="nx">padding</span><span class="o">:</span> <span class="s1">&#39;10px&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">              <span class="nx">borderRadius</span><span class="o">:</span> <span class="s1">&#39;4px&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">              <span class="nx">lineHeight</span><span class="o">:</span> <span class="mf">1.2</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">              <span class="nx">minHeight</span><span class="o">:</span> <span class="s1">&#39;10px&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">              <span class="nx">wordWrap</span><span class="o">:</span> <span class="s1">&#39;break-word&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="p">})</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">// 设置 id 方便寻找
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="nx">vcTooltipDom</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="s1">&#39;vc-tooltip&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">// 将浮层插入到 body 中
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">vcTooltipDom</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">// 浮层中的文字 通过属性值传递动态的显示文案
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;vc-tooltip&#39;</span><span class="p">).</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="nx">binding</span><span class="p">.</span><span class="nx">value</span>
+</span></span><span class="line"><span class="cl">          <span class="p">}</span>
+</span></span><span class="line"><span class="cl">          <span class="c1">// 鼠标移动时，动态修改浮沉的位置属性
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>          <span class="nx">el</span><span class="p">.</span><span class="nx">onmousemove</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="kr">const</span> <span class="nx">vcTooltipDom</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;vc-tooltip&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">vcTooltipDom</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">top</span> <span class="o">=</span> <span class="nx">e</span><span class="p">.</span><span class="nx">clientY</span> <span class="o">+</span> <span class="mi">15</span> <span class="o">+</span> <span class="s1">&#39;px&#39;</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">vcTooltipDom</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">left</span> <span class="o">=</span> <span class="nx">e</span><span class="p">.</span><span class="nx">clientX</span> <span class="o">+</span> <span class="mi">15</span> <span class="o">+</span> <span class="s1">&#39;px&#39;</span>
+</span></span><span class="line"><span class="cl">          <span class="p">}</span>
+</span></span><span class="line"><span class="cl">          <span class="c1">// 鼠标移出时将浮层元素销毁
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>          <span class="nx">el</span><span class="p">.</span><span class="nx">onmouseleave</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">// 找到浮层元素并移出
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="kr">const</span> <span class="nx">vcTooltipDom</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;vc-tooltip&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">vcTooltipDom</span> <span class="o">&amp;&amp;</span> <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">removeChild</span><span class="p">(</span><span class="nx">vcTooltipDom</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">          <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">})</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">let</span> <span class="nx">GlobalVue</span> <span class="o">=</span> <span class="kc">null</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="nb">window</span> <span class="o">!==</span> <span class="s1">&#39;undefined&#39;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">GlobalVue</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">Vue</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">global</span> <span class="o">!==</span> <span class="s1">&#39;undefined&#39;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">GlobalVue</span> <span class="o">=</span> <span class="nx">global</span><span class="p">.</span><span class="nx">Vue</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="nx">GlobalVue</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">GlobalVue</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">plugin</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="k">default</span> <span class="nx">plugin</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>使用很简单，导入并注册之后，就可以在需要的地方使用 <code>v-overflow-tooltip</code> 指令了：</p>
+<div class="highlight" id="id-2"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">import</span> <span class="nx">overflowTooltip</span> <span class="nx">from</span> <span class="s1">&#39;@/directives/overflow-tooltip&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">Vue</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">overflowTooltip</span><span class="p">)</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>比如说：</p>
+<div class="highlight" id="id-3"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">span</span> <span class="na">v-overflow-tooltip</span><span class="o">=</span><span class="s">&#34;content&#34;</span> <span class="na">style</span><span class="o">=</span><span class="s">&#34;display: inline-block; width: 100px;&#34;</span> <span class="p">/&gt;</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="实现原理" class="heading-element">
+  <a href="#%e5%ae%9e%e7%8e%b0%e5%8e%9f%e7%90%86" class="heading-mark"></a>3 实现原理</h2><ol>
+<li>通过 <code>getComputedStyle</code> 获取元素的 <code>padding</code> 值，然后通过 <code>createRange</code> 获取元素的宽度。</li>
+<li>如果元素的内容宽度大于元素的宽度，那么就显示 tooltip。</li>
+<li>鼠标移入时，将浮沉元素插入到 <code>body</code> 中，鼠标移动时，动态修改浮沉的位置属性，鼠标移出时将浮层元素销毁。</li>
+</ol>
+<p>其中最关键的一段代码是：</p>
+<div class="highlight" id="id-4"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">range</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createRange</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="nx">range</span><span class="p">.</span><span class="nx">setStart</span><span class="p">(</span><span class="nx">el</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nx">range</span><span class="p">.</span><span class="nx">setEnd</span><span class="p">(</span><span class="nx">el</span><span class="p">,</span> <span class="nx">el</span><span class="p">.</span><span class="nx">childNodes</span><span class="p">.</span><span class="nx">length</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">rangeWidth</span> <span class="o">=</span> <span class="nx">range</span><span class="p">.</span><span class="nx">getBoundingClientRect</span><span class="p">().</span><span class="nx">width</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>这段代码是通过 <code>createRange</code> 设置元素的范围，然后通过 <code>getBoundingClientRect</code> 获取元素的宽度。</p>]]></description></item><item><title>给 el-card 添加折叠功能</title><link>https://lruihao.cn/posts/el-card-collapse/</link><pubDate>Wed, 10 Jan 2024 17:06:54 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/el-card-collapse/</guid><description><![CDATA[<div class="details admonition question open">
     <div class="details-summary admonition-title">
       <i class="icon fa-solid fa-question-circle fa-fw" aria-hidden="true"></i>出发点<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i>
     </div>
@@ -3873,38 +4075,4 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/javascript&#34;</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;/js/src/crash-cheat.js&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span></span></span></code></pre></td></tr></table>
 </div>
-</div><p>重新部署博客就可以了。</p>]]></description></item><item><title>hexo 博客自定义 console log</title><link>https://lruihao.cn/posts/console-log/</link><pubDate>Sat, 04 Aug 2018 16:19:06 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/console-log/</guid><description><![CDATA[<p>看到知乎，百度的页面 F12 检查后都会有一些有趣的招聘信息。于是乎我也想给我的博客加一个。<br>
-我主要用到的工具：</p>
-<ul>
-<li>console.log()</li>
-<li>Notepad++</li>
-<li><a href="http://picascii.com"target="_blank" rel="external nofollow noopener noreferrer">在线图片转文字工具<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
-</ul>
-<h2 id="用法" class="heading-element">
-  <a href="#%e7%94%a8%e6%b3%95" class="heading-mark"></a>1 用法</h2><p>用 js 在<code>&lt;body&gt;&lt;/body&gt;</code>使用 console.log() 就行了，hexo 的主题文件在<code>_layout.swig</code>里，所以我们打开该文件，在该位置，添加 js 就行了；</p>
-<p><a class="lightgallery" href="images/console.png?size=large" data-thumbnail="images/console.png?size=small" data-sub-html="<h2>images/console.png</h2><p>console</p>"><img loading="lazy" src="images/console.png" alt="images/console.png" srcset="images/console.png?size=small, images/console.png?size=medium 1.5x, images/console.png?size=large 2x" data-title="console" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></p>
-<h2 id="图案" class="heading-element">
-  <a href="#%e5%9b%be%e6%a1%88" class="heading-mark"></a>2 图案</h2><p>我用的我自己的一张照片（电脑上照片就那么几张。)，然后用 在线图片转文字工具 转字符，<br>
-选择文件，设置大小，然后生成，</p>
-<p><a class="lightgallery" href="images/QQ1.png?size=large" data-thumbnail="images/QQ1.png?size=small" data-sub-html="<h2>images/QQ1.png</h2><p>1</p>"><img loading="lazy" src="images/QQ1.png" alt="images/QQ1.png" srcset="images/QQ1.png?size=small, images/QQ1.png?size=medium 1.5x, images/QQ1.png?size=large 2x" data-title="1" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a><br>
-<a class="lightgallery" href="images/QQ2.png?size=large" data-thumbnail="images/QQ2.png?size=small" data-sub-html="<h2>images/QQ2.png</h2><p>2</p>"><img loading="lazy" src="images/QQ2.png" alt="images/QQ2.png" srcset="images/QQ2.png?size=small, images/QQ2.png?size=medium 1.5x, images/QQ2.png?size=large 2x" data-title="2" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></p>
-<p>生成后，复制 TXT 文件（下面那个框，上面的是 HTML 代码）<br>
-<a class="lightgallery" href="images/QQ3.png?size=large" data-thumbnail="images/QQ3.png?size=small" data-sub-html="<h2>images/QQ3.png</h2><p>3</p>"><img loading="lazy" src="images/QQ3.png" alt="images/QQ3.png" srcset="images/QQ3.png?size=small, images/QQ3.png?size=medium 1.5x, images/QQ3.png?size=large 2x" data-title="3" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a><br>
-粘贴到 Notepad++ 里面，然后按图操作；<br>
-<a class="lightgallery" href="images/QQ4.png?size=large" data-thumbnail="images/QQ4.png?size=small" data-sub-html="<h2>images/QQ4.png</h2><p>4</p>"><img loading="lazy" src="images/QQ4.png" alt="images/QQ4.png" srcset="images/QQ4.png?size=small, images/QQ4.png?size=medium 1.5x, images/QQ4.png?size=large 2x" data-title="4" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a><br>
-Ctrl+H 替换<br>
-<a class="lightgallery" href="images/QQ5.png?size=large" data-thumbnail="images/QQ5.png?size=small" data-sub-html="<h2>images/QQ5.png</h2><p>5</p>"><img loading="lazy" src="images/QQ5.png" alt="images/QQ5.png" srcset="images/QQ5.png?size=small, images/QQ5.png?size=medium 1.5x, images/QQ5.png?size=large 2x" data-title="5" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a><br>
-<a class="lightgallery" href="images/QQ6.png?size=large" data-thumbnail="images/QQ6.png?size=small" data-sub-html="<h2>images/QQ6.png</h2><p>6</p>"><img loading="lazy" src="images/QQ6.png" alt="images/QQ6.png" srcset="images/QQ6.png?size=small, images/QQ6.png?size=medium 1.5x, images/QQ6.png?size=large 2x" data-title="6" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a><br>
-最后就变成一个字符串了。</p>
-<h2 id="效果图" class="heading-element">
-  <a href="#%e6%95%88%e6%9e%9c%e5%9b%be" class="heading-mark"></a>3 效果图</h2><p><a class="lightgallery" href="images/QQ7.png?size=large" data-thumbnail="images/QQ7.png?size=small" data-sub-html="<h2>images/QQ7.png</h2><p>7</p>"><img loading="lazy" src="images/QQ7.png" alt="images/QQ7.png" srcset="images/QQ7.png?size=small, images/QQ7.png?size=medium 1.5x, images/QQ7.png?size=large 2x" data-title="7" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a><br>
-<a href="https://lruihao.cn"target="_blank" rel="external nofollow noopener noreferrer">线上 demo<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>, 按 F12 找到 console</p>
-<h2 id="我的-txt" class="heading-element">
-  <a href="#%e6%88%91%e7%9a%84-txt" class="heading-mark"></a>4 我的 txt</h2><div class="highlight" id="id-1"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-txt" data-lang="txt"><span class="line"><span class="cl">\n`              @@#``@@@@@@@@@@@@@@@@@@##,`   \n`              @@#`;@@@@@@@@@@@@@@@@@@@&#39;:&#39;   \n`              @@#`@@@@@@@@@@@@@@@@@@@#+#;`  \n`              @@#`@@@@@@@@@@@@@@@@@@###@&#39;.  \n`              @@+.@@@@@@@@@@@@@@@@@@@@@##,  \n`              @@#,@@@@@@@@@@@@@@@@@@@@@@#,  \n`              #@#:@@@@@@@@@@@@@@@@@@@@@@@,  \n`              #@#&#39;@@@@@@@@@@@@@@@@@@@@@@@.  \n`              +@#;@@@@@@@@@@@@@@@@@@@@@@#   \n`          `;: ;@#&#39;@@@@@@@@@@@@@@@@@@+&#39;+@&#39;   \n`    `,,;&#39;;&#39;+&#39;;&#39;@@+:@@@@@@@@@@@@##@#&#39;,.:#;   \n,, ``    ``..,:;@@#&#39;@@@@@@@@#####@@@@#:`:.   \n`       `````:++@@@@@@@@@@@@@###@@@@#+,..    \n        ``````.#@@@@@@@@@@@@@@#@@@#++#&#39;``    \n`    ```.,,:,.`:@@@@@@@@@@@@@###@@@##&#39;.`     \n``..`````..,::;+@@@@@@@@@@@@#+`::+##&#39;`.      \n`      ````.```,@@@@@@@@@@@##;``.,&#39;;` `      \n``.;@@@@@@@@@@@@@@@@@@@@@@###;``..``````     \n#@@@@@@@@@@@@@@@@@@@@@@@@##@#;``,``,.``      \n@@@@@@@@@@@@@@@@@@@.`````..``.. +` `:`       \n@+&#39;&#39;++#####@@#`.@@@``````` ` `,```  ``       \n&#39;;;;;&#39;+##+&#39;+.`;+@@@,..```` `` :,.            \n;::,,:;+#++``,,#@@@&#39;..``````` ,`.``          \n;,,,,...&#39;#.,,..#@@@#,,.`````` .````          \n:,,,,....`,::;&#39;&#39;+#@#;,..`````````.``         \n:,,,.....&#39;##++&#39;&#39;&#39;;:+&#39;:,.`..,,...`            \n:,,,...#####+&#39;+#@@@&#39;.&#39;;+:.  ` ``             \n;,,.`&#39;####&#39;#,`.`+@@@+&#39;``` `.`                \n;,.`#@@@#+:&#39;+++##+@##@,,,,`                  \n&#39;,.#@@###&#39;&#39;&#39;&#39;;:,.```,+#.                     \n+,#@@@####;,,..```````````````         `.:,::\n+@@@@###+;,,..``````````````````          `.,\n#@@@##+&#39;,,,........``````````````            \n@@@@#+:,,,,`........``````````               \n@@@#+:,,,,.`````.....``````````           `` \n@@##&#39;:,......`````....```  `````          ```\n@@@#&#39;:,....,..``````..````    ```         ```\n@@@#&#39;,....,,,..```````````     ```         ..\n@@@#,.....,,,,.``  ````````   ``````         \n@@@+....,,,,,..`````````````   ``````````    \n@@@:....,,,,.LiRuihao````````  ```````````` \n#@@,....,,,,.Always Be Yourself !````````````\n,##,,...,::,.````````````..``````   `......``\n,&#39;#,,..,,:::.`````````........``````   `.,,..\n\n 你好！\n 欢迎进入什么都不会的李瑞豪的个人网站！\nhttps://lruihao.cn\nhttps://www.lruihao.cn\nhttps://lruihao.github.io\nhttps://liruihao.coding.me\n\n\n\n</span></span></code></pre></td></tr></table>
-</div>
-</div><p>其他个人网站，个人博客也是可以的。</p>]]></description></item></channel></rss>
+</div><p>重新部署博客就可以了。</p>]]></description></item></channel></rss>
