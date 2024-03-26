@@ -1,9 +1,10 @@
 # 菠菜眾長
 
-共计 232 篇文章
+共计 233 篇文章
 
 ## 2024
 
+- 03-26 [写文档时英文标题什么时候要大写？](https://lruihao.cn/posts/c6bc2d5/ "2024-03-26 12:23:44")
 - 02-29 [实现类似于 Element UI 表格的溢出文本提示功能](https://lruihao.cn/posts/overflow-tooltip/ "2024-02-29 16:46:00")
 - 02-21 [聊聊 Chrome 新增的 sizes="auto" 属性](https://lruihao.cn/posts/auto-sizes/ "2024-02-21 10:00:13")
 - 02-09 [2023 年度总结](https://lruihao.cn/years/2023/ "2024-02-09 14:07:24")
