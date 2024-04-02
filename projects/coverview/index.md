@@ -44,7 +44,7 @@
 - 尝试实现拖拽文本或者图标 [#9](https://github.com/Lruihao/CoverView/issues/9)
 - 设置自定义平台封面图片的宽高比、适配常用尺寸宽高比 [#10](https://github.com/Lruihao/CoverView/issues/10)
 
-现在 demo 版本已经上线，Unsplash API 的 `production` 版本还在审核中，最后传承开源精神开源出来出来，并保留了原作者 commit 记录聊表敬意。
+现在 demo 版本已经上线，Unsplash API 的 `production` 版本还在审核中，最后传承开源精神开源出来，并保留了原作者 commit 记录聊表敬意。
 
 {{&lt; link href=&#34;https://github.com/Lruihao/CoverView&#34; content=&#34;🛠 Create awesome cover images for your blog posts quickly.&#34; card=true &gt;}}
 
