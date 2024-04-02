@@ -1,9 +1,12 @@
 # 菠菜眾長
 
-共计 233 篇文章
+共计 234 篇文章
 
 ## 2024
 
+共计 9 篇文章
+
+- 04-02 [用五天时间给自己制作一个封面图生成工具](https://lruihao.cn/projects/coverview/ "2024-04-02 18:05:34")
 - 03-26 [写文档时英文标题什么时候要大写？](https://lruihao.cn/posts/c6bc2d5/ "2024-03-26 12:23:44")
 - 02-29 [实现类似于 Element UI 表格的溢出文本提示功能](https://lruihao.cn/posts/overflow-tooltip/ "2024-02-29 16:46:00")
 - 02-21 [聊聊 Chrome 新增的 sizes="auto" 属性](https://lruihao.cn/posts/auto-sizes/ "2024-02-21 10:00:13")
@@ -14,6 +17,8 @@
 - 01-10 [给 el-card 添加折叠功能](https://lruihao.cn/posts/el-card-collapse/ "2024-01-10 17:06:54")
 
 ## 2023
+
+共计 31 篇文章
 
 - 12-22 [尝试在 Python 中使用 Amazon Titan 文本模型](https://lruihao.cn/posts/d8ae205/ "2023-12-22 19:58:47")
 - 11-28 [用 Node.js 开发一个轻量脚手架](https://lruihao.cn/posts/fixit-cli/ "2023-11-28 10:48:07")
@@ -49,6 +54,8 @@
 
 ## 2022
 
+共计 15 篇文章
+
 - 12-17 [2022 年度总结](https://lruihao.cn/years/2022/ "2022-12-17 01:01:30")
 - 12-15 [安装 Homebrew 后导致系统中原有的 npm 和 npx 失效](https://lruihao.cn/posts/homebrew-npm/ "2022-12-15 15:33:30")
 - 08-31 [Beego 安装及配置](https://lruihao.cn/posts/beego-install/ "2022-08-31 09:32:44")
@@ -67,6 +74,8 @@
 
 ## 2021
 
+共计 14 篇文章
+
 - 12-22 [Getting Things Done for ios App Reminders and Github issues](https://lruihao.cn/posts/gtd/ "2021-12-22 20:17:42")
 - 10-05 [Sublime 剪贴板图片粘贴插件 —— Markdown 必备](https://lruihao.cn/posts/subl_imgpaste2/ "2021-10-05 21:54:06")
 - 10-05 [Hugo 添加知乎卡片式链接 Shortcodes](https://lruihao.cn/posts/hugo-cardlink/ "2021-10-05 19:33:13")
@@ -84,6 +93,8 @@
 
 ## 2020
 
+共计 7 篇文章
+
 - 07-25 [cell-blog 功能介绍与安装](https://lruihao.cn/projects/cell-blog/ "2020-07-25 20:51:11")
 - 07-25 [cell-blog 开发记录](https://lruihao.cn/posts/cell-blog-dev/ "2020-07-25 20:42:42")
 - 03-26 [使用 Python 刷 csdn 访问量](https://lruihao.cn/posts/csdnvisiter/ "2020-03-26 11:08:38")
@@ -93,6 +104,8 @@
 - 01-16 [SQL 总结](https://lruihao.cn/posts/sql/ "2020-01-16 19:28:05")
 
 ## 2019
+
+共计 68 篇文章
 
 - 11-24 [利用腾讯云为静态页面添加“动态”相册](https://lruihao.cn/projects/cos-album/ "2019-11-24 10:52:34")
 - 11-14 [RESTful](https://lruihao.cn/posts/restful/ "2019-11-14 19:06:05")
@@ -164,6 +177,8 @@
 - 01-12 [2018 年度总结](https://lruihao.cn/years/2018/ "2019-01-12 11:09:52")
 
 ## 2018
+
+共计 90 篇文章
 
 - 12-10 [英语语法--形式倒装](https://lruihao.cn/posts/inversion-3/ "2018-12-10 21:52:30")
 - 12-10 [英语语法--完全倒装](https://lruihao.cn/posts/inversion-2/ "2018-12-10 21:14:51")
