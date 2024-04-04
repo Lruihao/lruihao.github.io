@@ -1,4 +1,25 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>JavaScript - 分类 | 菠菜眾長</title><link>https://lruihao.cn/categories/javascript/</link><description>JavaScript - 分类 | 菠菜眾長</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><copyright>本站内容采用 CC BY-NC-SA 4.0 国际许可协议。</copyright><lastBuildDate>Thu, 29 Feb 2024 16:46:00 +0800</lastBuildDate><atom:link href="https://lruihao.cn/categories/javascript/" rel="self" type="application/rss+xml"/><item><title>实现类似于 Element UI 表格的溢出文本提示功能</title><link>https://lruihao.cn/posts/overflow-tooltip/</link><pubDate>Thu, 29 Feb 2024 16:46:00 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/overflow-tooltip/</guid><description><![CDATA[<p>在 Element UI 的表格组件中，当表格列的内容过长时，设置 <code>show-overflow-tooltip</code> 会自动显示一个 tooltip 来展示完整的内容。这个功能在实际项目中也是非常常见的，那么我们该如何实现这个功能呢？</p>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>JavaScript - 分类 | 菠菜眾長</title><link>https://lruihao.cn/categories/javascript/</link><description>JavaScript - 分类 | 菠菜眾長</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><copyright>本站内容采用 CC BY-NC-SA 4.0 国际许可协议。</copyright><lastBuildDate>Thu, 04 Apr 2024 13:23:37 +0800</lastBuildDate><atom:link href="https://lruihao.cn/categories/javascript/" rel="self" type="application/rss+xml"/><item><title>临时决定再写一个小工具 - 网站预览图生成器</title><link>https://lruihao.cn/posts/d651bdd/</link><pubDate>Thu, 04 Apr 2024 13:23:37 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/d651bdd/</guid><description><![CDATA[<div class="featured-image"><img loading="eager" src="https://lruihao.cn/posts/d651bdd/images/cover.webp" alt="临时决定再写一个小工具 - 网站预览图生成器" title="临时决定再写一个小工具 - 网站预览图生成器" referrerpolicy="no-referrer"/></div><p>开发完 <a href="https://github.com/Lruihao/CoverView"target="_blank" rel="external nofollow noopener noreferrer">CoverView<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>之后，在调整博客文章封面图的时候，我发现首页的多端缩略图还是只能自己 P 图诶，于是我又决定再写一个小工具，用来生成网站预览图。。</p>
+<h2 id="在线体验" class="heading-element">
+  <a href="#%e5%9c%a8%e7%ba%bf%e4%bd%93%e9%aa%8c" class="heading-mark"></a>1 在线体验</h2><ul>
+<li><a href="https://lruihao.github.io/vue-el-demo/#/apple-devices-preview"target="_blank" rel="external nofollow noopener noreferrer">vue-el-demo#apple-devices-preview<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+<li><a href="https://github.com/Lruihao/vue-el-demo/blob/main/src/views/apple-devices-preview.vue"target="_blank" rel="external nofollow noopener noreferrer">源码<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+</ul>
+<h2 id="实现原理" class="heading-element">
+  <a href="#%e5%ae%9e%e7%8e%b0%e5%8e%9f%e7%90%86" class="heading-mark"></a>2 实现原理</h2><p>实现原理很简单，就是先写好布局，然后每个设备里面套一个 iframe，然后通过 iframe 的 <code>src</code> 属性来加载网页。</p>
+<h2 id="卡壳点" class="heading-element">
+  <a href="#%e5%8d%a1%e5%a3%b3%e7%82%b9" class="heading-mark"></a>3 卡壳点</h2><ul>
+<li>iframe 存在跨域问题。</li>
+<li>在将 DOM 转图片的时候，iframe 里面的内容无法转换，尝试了 <code>html2canvas</code> 和 <code>dom-to-image-more</code> 都不行，放弃了，改为用浏览器插件 <code>Fireshot</code> 截图。</li>
+</ul>
+<p>一个未尝试的思路，如果跨域问题得以解决，转换图片的步骤可以分解为：</p>
+<ol>
+<li>拿到每个 iframe 里的 body 内容，转为图片，然后将图片相对定位到对应的设备 iframe 里</li>
+<li>隐藏原理的 iframe</li>
+<li>最后将父容器的 DOM 转为图片</li>
+</ol>
+<h2 id="效果图" class="heading-element">
+  <a href="#%e6%95%88%e6%9e%9c%e5%9b%be" class="heading-mark"></a>4 效果图</h2><p>输入不同设备的 URL，选择背景颜色，点击预览，然后自行截图即可，比如用 <code>Fireshot</code> 插件捕获可见区域。</p>
+<p><a class="lightgallery" href="images/screenshot.webp?size=large" data-thumbnail="images/screenshot.webp?size=small" data-sub-html="<h2>screenshot</h2>"><img loading="lazy" src="images/screenshot.webp" alt="screenshot" srcset="images/screenshot.webp?size=small, images/screenshot.webp?size=medium 1.5x, images/screenshot.webp?size=large 2x" data-title="screenshot" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></p>]]></description></item><item><title>实现类似于 Element UI 表格的溢出文本提示功能</title><link>https://lruihao.cn/posts/overflow-tooltip/</link><pubDate>Thu, 29 Feb 2024 16:46:00 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/overflow-tooltip/</guid><description><![CDATA[<p>在 Element UI 的表格组件中，当表格列的内容过长时，设置 <code>show-overflow-tooltip</code> 会自动显示一个 tooltip 来展示完整的内容。这个功能在实际项目中也是非常常见的，那么我们该如何实现这个功能呢？</p>
 <h2 id="demo" class="heading-element">
   <a href="#demo" class="heading-mark"></a>1 Demo</h2><p>先来看一下效果：<a href="http://lruihao.github.io/vue-el-demo/#/overflow-tooltip"target="_blank" rel="external nofollow noopener noreferrer">demo<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
 <h2 id="实现代码" class="heading-element">
@@ -3985,94 +4006,4 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 <li>Alt+X: 关闭</li>
 <li>Alt+↑: 增加亮度</li>
 <li>Alt+↓: 降低亮度</li>
-</ol>]]></description></item><item><title>网页离开时改变标题“崩溃欺骗”</title><link>https://lruihao.cn/posts/crash-cheat/</link><pubDate>Wed, 26 Sep 2018 16:36:08 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/crash-cheat/</guid><description><![CDATA[<blockquote>
-<p>从暑假到现在有好几个小伙伴问我博客的标题怎么变来变去的，不想再和每个人都说一遍了，耽误时间，索性写一下。</p>
-</blockquote>
-<h2 id="创建一个-js-文件" class="heading-element">
-  <a href="#%e5%88%9b%e5%bb%ba%e4%b8%80%e4%b8%aa-js-%e6%96%87%e4%bb%b6" class="heading-mark"></a>1 创建一个 js 文件</h2><p>我们先创建一个 js 文件，我们用记事本就好了，然后改个文件名，不妨就叫<code>crash-cheat.js</code>吧，你们可以随意！<br>
-然后把文件放到 source 文件夹的 js 文件夹的 src 里面。（我用的 next 主题，放这里统一存放，其他主题随意）</p>
-<p>崩溃欺骗 (Jquery 版）</p>
-<div class="highlight" id="id-1"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">OriginTitle</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">title</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">titleTime</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="nb">document</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;visibilitychange&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">hidden</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;[rel=&#34;icon&#34;]&#39;</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;href&#39;</span><span class="p">,</span> <span class="s1">&#39;https://i.loli.net/2018/08/24/5b7fcb00ed9bf.png&#39;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="nb">document</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="s1">&#39;怎么回事╭(°A°`)╮&#39;</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">clearTimeout</span><span class="p">(</span><span class="nx">titleTime</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">$</span><span class="p">(</span><span class="s2">&#34;[rel=&#39;icon&#39;]&#34;</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;href&#39;</span><span class="p">,</span> <span class="s1">&#39;https://i.loli.net/2018/09/25/5baa4f21661e7.png&#39;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="nb">document</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="s1">&#39;小老弟 (ฅ&gt;ω&lt;*ฅ)&#39;</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">titleTime</span> <span class="o">=</span> <span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">      <span class="nb">document</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="nx">OriginTitle</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">      <span class="nx">$</span><span class="p">(</span><span class="s2">&#34;[rel=&#39;icon&#39;]&#34;</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;href&#39;</span><span class="p">,</span> <span class="s1">&#39;/images/favicon-32x32-next.png&#39;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="p">},</span> <span class="mi">2000</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">});</span></span></span></code></pre></td></tr></table>
-</div>
-</div><p>崩溃欺骗 (JS 版）</p>
-<div class="highlight" id="id-2"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">oldTitle</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">title</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">titleTime</span><span class="p">;</span> <span class="c1">//標題恢復計時器
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nb">document</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;visibilitychange&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">hidden</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">&#34;[rel=&#39;icon&#39;]&#34;</span><span class="p">).</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s1">&#39;href&#39;</span><span class="p">,</span> <span class="s1">&#39;/images/icons/favicon-32.png&#39;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="nb">document</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="s1">&#39;網站崩潰了！&#39;</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">clearTimeout</span><span class="p">(</span><span class="nx">titleTime</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nb">document</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="s1">&#39;其實並沒有！&#39;</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">&#34;[rel=&#39;icon&#39;]&#34;</span><span class="p">).</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s1">&#39;href&#39;</span><span class="p">,</span> <span class="s1">&#39;/images/icons/crash.png&#39;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">titleTime</span> <span class="o">=</span> <span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">      <span class="nb">document</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="nx">oldTitle</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="p">},</span> <span class="mi">1000</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">});</span></span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="使用" class="heading-element">
-  <a href="#%e4%bd%bf%e7%94%a8" class="heading-mark"></a>2 使用</h2><p>在<code>hexo\themes\hexo-theme-next\layout</code>文件路径找到<code>layout.swig</code>文件，其他有些主题用的是<code>.ejs</code>后缀，一样的。<br>
-然后打开文件，在<code>&lt;body&gt;&lt;/body&gt;</code>之间加入调用刚刚的 js。</p>
-<div class="highlight" id="id-3"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/javascript&#34;</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;/js/src/crash-cheat.js&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span></span></span></code></pre></td></tr></table>
-</div>
-</div><p>重新部署博客就可以了。</p>]]></description></item></channel></rss>
+</ol>]]></description></item></channel></rss>

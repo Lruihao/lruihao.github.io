@@ -1,4 +1,25 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Vue2 - 标签 | 菠菜眾長</title><link>https://lruihao.cn/tags/vue2/</link><description>Vue2 - 标签 | 菠菜眾長</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><copyright>本站内容采用 CC BY-NC-SA 4.0 国际许可协议。</copyright><lastBuildDate>Thu, 29 Feb 2024 16:46:00 +0800</lastBuildDate><atom:link href="https://lruihao.cn/tags/vue2/" rel="self" type="application/rss+xml"/><item><title>实现类似于 Element UI 表格的溢出文本提示功能</title><link>https://lruihao.cn/posts/overflow-tooltip/</link><pubDate>Thu, 29 Feb 2024 16:46:00 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/overflow-tooltip/</guid><description><![CDATA[<p>在 Element UI 的表格组件中，当表格列的内容过长时，设置 <code>show-overflow-tooltip</code> 会自动显示一个 tooltip 来展示完整的内容。这个功能在实际项目中也是非常常见的，那么我们该如何实现这个功能呢？</p>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Vue2 - 标签 | 菠菜眾長</title><link>https://lruihao.cn/tags/vue2/</link><description>Vue2 - 标签 | 菠菜眾長</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><copyright>本站内容采用 CC BY-NC-SA 4.0 国际许可协议。</copyright><lastBuildDate>Thu, 04 Apr 2024 13:23:37 +0800</lastBuildDate><atom:link href="https://lruihao.cn/tags/vue2/" rel="self" type="application/rss+xml"/><item><title>临时决定再写一个小工具 - 网站预览图生成器</title><link>https://lruihao.cn/posts/d651bdd/</link><pubDate>Thu, 04 Apr 2024 13:23:37 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/d651bdd/</guid><description><![CDATA[<div class="featured-image"><img loading="eager" src="https://lruihao.cn/posts/d651bdd/images/cover.webp" alt="临时决定再写一个小工具 - 网站预览图生成器" title="临时决定再写一个小工具 - 网站预览图生成器" referrerpolicy="no-referrer"/></div><p>开发完 <a href="https://github.com/Lruihao/CoverView"target="_blank" rel="external nofollow noopener noreferrer">CoverView<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>之后，在调整博客文章封面图的时候，我发现首页的多端缩略图还是只能自己 P 图诶，于是我又决定再写一个小工具，用来生成网站预览图。。</p>
+<h2 id="在线体验" class="heading-element">
+  <a href="#%e5%9c%a8%e7%ba%bf%e4%bd%93%e9%aa%8c" class="heading-mark"></a>1 在线体验</h2><ul>
+<li><a href="https://lruihao.github.io/vue-el-demo/#/apple-devices-preview"target="_blank" rel="external nofollow noopener noreferrer">vue-el-demo#apple-devices-preview<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+<li><a href="https://github.com/Lruihao/vue-el-demo/blob/main/src/views/apple-devices-preview.vue"target="_blank" rel="external nofollow noopener noreferrer">源码<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+</ul>
+<h2 id="实现原理" class="heading-element">
+  <a href="#%e5%ae%9e%e7%8e%b0%e5%8e%9f%e7%90%86" class="heading-mark"></a>2 实现原理</h2><p>实现原理很简单，就是先写好布局，然后每个设备里面套一个 iframe，然后通过 iframe 的 <code>src</code> 属性来加载网页。</p>
+<h2 id="卡壳点" class="heading-element">
+  <a href="#%e5%8d%a1%e5%a3%b3%e7%82%b9" class="heading-mark"></a>3 卡壳点</h2><ul>
+<li>iframe 存在跨域问题。</li>
+<li>在将 DOM 转图片的时候，iframe 里面的内容无法转换，尝试了 <code>html2canvas</code> 和 <code>dom-to-image-more</code> 都不行，放弃了，改为用浏览器插件 <code>Fireshot</code> 截图。</li>
+</ul>
+<p>一个未尝试的思路，如果跨域问题得以解决，转换图片的步骤可以分解为：</p>
+<ol>
+<li>拿到每个 iframe 里的 body 内容，转为图片，然后将图片相对定位到对应的设备 iframe 里</li>
+<li>隐藏原理的 iframe</li>
+<li>最后将父容器的 DOM 转为图片</li>
+</ol>
+<h2 id="效果图" class="heading-element">
+  <a href="#%e6%95%88%e6%9e%9c%e5%9b%be" class="heading-mark"></a>4 效果图</h2><p>输入不同设备的 URL，选择背景颜色，点击预览，然后自行截图即可，比如用 <code>Fireshot</code> 插件捕获可见区域。</p>
+<p><a class="lightgallery" href="images/screenshot.webp?size=large" data-thumbnail="images/screenshot.webp?size=small" data-sub-html="<h2>screenshot</h2>"><img loading="lazy" src="images/screenshot.webp" alt="screenshot" srcset="images/screenshot.webp?size=small, images/screenshot.webp?size=medium 1.5x, images/screenshot.webp?size=large 2x" data-title="screenshot" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></p>]]></description></item><item><title>实现类似于 Element UI 表格的溢出文本提示功能</title><link>https://lruihao.cn/posts/overflow-tooltip/</link><pubDate>Thu, 29 Feb 2024 16:46:00 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/overflow-tooltip/</guid><description><![CDATA[<p>在 Element UI 的表格组件中，当表格列的内容过长时，设置 <code>show-overflow-tooltip</code> 会自动显示一个 tooltip 来展示完整的内容。这个功能在实际项目中也是非常常见的，那么我们该如何实现这个功能呢？</p>
 <h2 id="demo" class="heading-element">
   <a href="#demo" class="heading-mark"></a>1 Demo</h2><p>先来看一下效果：<a href="http://lruihao.github.io/vue-el-demo/#/overflow-tooltip"target="_blank" rel="external nofollow noopener noreferrer">demo<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
 <h2 id="实现代码" class="heading-element">
