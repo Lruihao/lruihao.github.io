@@ -1,4 +1,231 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>菠菜眾長</title><link>https://lruihao.cn/</link><description>Lruihao's Note 李瑞豪的博客：探索、分享、记录自己在工作生活学习到一些东西。人知道得越多，就就会发现无知的越多。有更广袤世界可以探索，真是莫大的快乐啊！</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><copyright>本站内容采用 CC BY-NC-SA 4.0 国际许可协议。</copyright><lastBuildDate>Thu, 04 Apr 2024 13:23:37 +0800</lastBuildDate><atom:link href="https://lruihao.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>临时决定再写一个小工具 - 网站预览图生成器</title><link>https://lruihao.cn/posts/d651bdd/</link><pubDate>Thu, 04 Apr 2024 13:23:37 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/d651bdd/</guid><description><![CDATA[<div class="featured-image"><img loading="eager" src="https://lruihao.cn/posts/d651bdd/images/cover.webp" alt="临时决定再写一个小工具 - 网站预览图生成器" title="临时决定再写一个小工具 - 网站预览图生成器" referrerpolicy="no-referrer"/></div><p>开发完 <a href="https://github.com/Lruihao/CoverView"target="_blank" rel="external nofollow noopener noreferrer">CoverView<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>之后，在调整博客文章封面图的时候，我发现首页的多端缩略图还是只能自己 P 图诶，于是我又决定再写一个小工具，用来生成网站预览图。。</p>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>菠菜眾長</title><link>https://lruihao.cn/</link><description>Lruihao's Note 李瑞豪的博客：探索、分享、记录自己在工作生活学习到一些东西。人知道得越多，就就会发现无知的越多。有更广袤世界可以探索，真是莫大的快乐啊！</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><copyright>本站内容采用 CC BY-NC-SA 4.0 国际许可协议。</copyright><lastBuildDate>Wed, 17 Apr 2024 12:51:35 +0800</lastBuildDate><atom:link href="https://lruihao.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>利用 Vercel 反代 Gravatar 实现镜像加速</title><link>https://lruihao.cn/posts/3fd72ec/</link><pubDate>Wed, 17 Apr 2024 12:51:35 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/3fd72ec/</guid><description><![CDATA[<p>在开发和部署网站时，经常会遇到加载外部资源较慢的问题。其中之一就是加载 Gravatar 头像图片时可能会受到网络延迟的影响。为了解决这个问题，我们可以利用 Vercel 平台的反向代理功能来实现镜像加速。</p>
+<h2 id="思路" class="heading-element">
+  <a href="#%e6%80%9d%e8%b7%af" class="heading-mark"></a>1 思路</h2><ol>
+<li>解析请求的 URL，并将其 host 修改为我们要代理的目标域名（这里是 <code>www.gravatar.com</code>）。</li>
+<li>获取原始请求的方法、头部信息，并创建一个新的请求头部对象。</li>
+<li>将新请求头部对象中的 Host 字段设置为目标域名，并将 Referer 字段设置为原始请求的 URL。</li>
+<li>使用修改后的 URL、方法和头部信息发送请求到目标域名。</li>
+<li>获取原始响应的状态码、头部信息和响应体，并克隆原始响应对象。</li>
+<li>检查请求的 Referer 来源域名是否合法，如果不合法则返回一个 403 Forbidden 的响应。</li>
+<li>设置新的响应头部信息，包括允许的请求方法、请求头部和缓存控制策略。</li>
+<li>构造最终的响应对象，其中响应体为原始响应的内容，状态码和头部信息为修改后的值。</li>
+<li>返回最终的响应对象。</li>
+</ol>
+<p>安装上面的思路，理论上我们可以反代任何一个网站，并且支持设置 CORS 策略。GitHub 上也有类似的项目，比如 <a href="https://github.com/gaowanlu/google"target="_blank" rel="external nofollow noopener noreferrer">https://github.com/gaowanlu/google<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>.</p>
+<blockquote>
+<p>当然，网络不是非法之地，不要滥用这个功能反代一些不合法的网站哦。</p>
+</blockquote>
+<h2 id="实现" class="heading-element">
+  <a href="#%e5%ae%9e%e7%8e%b0" class="heading-mark"></a>2 实现</h2><img alt="Lruihao gravatar" src="https://gravatar.lruihao.cn/avatar/fee47a2f4f2cc71f99a02b0a73ecfee0?s=128" />
+<p>⬆️ <code>https://gravatar.lruihao.cn/avatar/fee47a2f4f2cc71f99a02b0a73ecfee0?s=64</code></p>
+<p>实现 API 代码：</p>
+<div class="highlight" id="id-1"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span><span class="lnt">79
+</span><span class="lnt">80
+</span><span class="lnt">81
+</span><span class="lnt">82
+</span><span class="lnt">83
+</span><span class="lnt">84
+</span><span class="lnt">85
+</span><span class="lnt">86
+</span><span class="lnt">87
+</span><span class="lnt">88
+</span><span class="lnt">89
+</span><span class="lnt">90
+</span><span class="lnt">91
+</span><span class="lnt">92
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">allowedReferrers</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;lruihao.cn&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;gravatar-x.vercel.app&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;-lrh-dev.vercel.app&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;-cell-x.vercel.app&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;localhost&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">];</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">upstream</span> <span class="o">=</span> <span class="s2">&#34;www.gravatar.com&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * whether the hostname is allowed
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @param {String} hostname 
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @returns 
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">isAllowedHost</span><span class="p">(</span><span class="nx">hostname</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">regExp</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">RegExp</span><span class="p">(</span><span class="nx">allowedReferrers</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="s2">&#34;|&#34;</span><span class="p">),</span> <span class="s2">&#34;g&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// if hostname matches allowed referrers
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">hostname</span> <span class="o">||</span> <span class="nx">regExp</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="nx">hostname</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="k">for</span> <span class="p">(</span><span class="kr">const</span> <span class="nx">referrer</span> <span class="k">of</span> <span class="nx">allowedReferrers</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// if hostname ends with allowed referrers
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="nx">hostname</span><span class="p">.</span><span class="nx">endsWith</span><span class="p">(</span><span class="nx">referrer</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">return</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="kc">false</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">async</span> <span class="kd">function</span> <span class="nx">fetchAndApply</span><span class="p">(</span><span class="nx">request</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">let</span> <span class="nx">response</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">let</span> <span class="nx">url</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">URL</span><span class="p">(</span><span class="nx">request</span><span class="p">.</span><span class="nx">url</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="nx">url</span><span class="p">.</span><span class="nx">host</span> <span class="o">=</span> <span class="nx">upstream</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">let</span> <span class="nx">method</span> <span class="o">=</span> <span class="nx">request</span><span class="p">.</span><span class="nx">method</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">let</span> <span class="nx">request_headers</span> <span class="o">=</span> <span class="nx">request</span><span class="p">.</span><span class="nx">headers</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">let</span> <span class="nx">new_request_headers</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Headers</span><span class="p">(</span><span class="nx">request_headers</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">new_request_headers</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s2">&#34;Host&#34;</span><span class="p">,</span> <span class="nx">upstream</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">new_request_headers</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s2">&#34;Referer&#34;</span><span class="p">,</span> <span class="nx">url</span><span class="p">.</span><span class="nx">href</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">let</span> <span class="nx">original_response</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">fetch</span><span class="p">(</span><span class="nx">url</span><span class="p">.</span><span class="nx">href</span><span class="p">,</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">method</span><span class="o">:</span> <span class="nx">method</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">headers</span><span class="o">:</span> <span class="nx">new_request_headers</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="p">});</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="kd">let</span> <span class="nx">original_response_clone</span> <span class="o">=</span> <span class="nx">original_response</span><span class="p">.</span><span class="nx">clone</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">let</span> <span class="nx">original_text</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">let</span> <span class="nx">response_headers</span> <span class="o">=</span> <span class="nx">original_response</span><span class="p">.</span><span class="nx">headers</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">let</span> <span class="nx">new_response_headers</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Headers</span><span class="p">(</span><span class="nx">response_headers</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">let</span> <span class="nx">status</span> <span class="o">=</span> <span class="nx">original_response</span><span class="p">.</span><span class="nx">status</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">hostname</span> <span class="o">=</span> <span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">try</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">return</span> <span class="k">new</span> <span class="nx">URL</span><span class="p">(</span><span class="nx">request</span><span class="p">.</span><span class="nx">headers</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">&#34;Referer&#34;</span><span class="p">)).</span><span class="nx">hostname</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">return</span> <span class="s2">&#34;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">})();</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">isAllowedHost</span><span class="p">(</span><span class="nx">hostname</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="k">new</span> <span class="nx">Response</span><span class="p">(</span><span class="sb">`403 Forbidden: </span><span class="si">${</span><span class="nx">hostname</span><span class="si">}</span><span class="sb">`</span><span class="p">,</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">headers</span><span class="o">:</span> <span class="p">{</span> <span class="s2">&#34;Content-Type&#34;</span><span class="o">:</span> <span class="s2">&#34;text/html&#34;</span> <span class="p">},</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">status</span><span class="o">:</span> <span class="mi">403</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">statusText</span><span class="o">:</span> <span class="s2">&#34;Forbidden&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">});</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">// new_response_headers.set(&#34;access-control-allow-origin&#34;, &#34;https://lruihao.cn&#34;);
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">new_response_headers</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s2">&#34;Access-Control-Allow-Methods&#34;</span><span class="p">,</span> <span class="s2">&#34;GET, POST, OPTIONS&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">new_response_headers</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s2">&#34;Access-Control-Allow-Headers&#34;</span><span class="p">,</span> <span class="s2">&#34;Content-Type&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">new_response_headers</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;Cache-Control&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;max-age=600, s-maxage=2592000, stale-while-revalidate&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">new_response_headers</span><span class="p">.</span><span class="k">delete</span><span class="p">(</span><span class="s2">&#34;link&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="nx">original_text</span> <span class="o">=</span> <span class="nx">original_response_clone</span><span class="p">.</span><span class="nx">body</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="nx">response</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Response</span><span class="p">(</span><span class="nx">original_text</span><span class="p">,</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">status</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">headers</span><span class="o">:</span> <span class="nx">new_response_headers</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="p">});</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="nx">response</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="kr">const</span> <span class="nx">config</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">runtime</span><span class="o">:</span> <span class="s2">&#34;experimental-edge&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="k">default</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">req</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="nx">fetchAndApply</span><span class="p">(</span><span class="nx">req</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>配置 <code>vercel.json</code> 文件：</p>
+<div class="highlight" id="id-2"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;rewrites&#34;</span><span class="p">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span> <span class="nt">&#34;source&#34;</span><span class="p">:</span> <span class="s2">&#34;/avatar/(.*)&#34;</span><span class="p">,</span> <span class="nt">&#34;destination&#34;</span><span class="p">:</span> <span class="s2">&#34;api/gravatar&#34;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>完整代码可以在 <a href="https://github.com/Lruihao/vercel-gravatar"target="_blank" rel="external nofollow noopener noreferrer">GitHub<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 上查看。</p>
+<p>最后部署到 Vercel 平台即可。</p>]]></description></item><item><title>临时决定再写一个小工具 - 网站预览图生成器</title><link>https://lruihao.cn/posts/d651bdd/</link><pubDate>Thu, 04 Apr 2024 13:23:37 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/d651bdd/</guid><description><![CDATA[<div class="featured-image"><img loading="eager" src="https://lruihao.cn/posts/d651bdd/images/cover.webp" alt="临时决定再写一个小工具 - 网站预览图生成器" title="临时决定再写一个小工具 - 网站预览图生成器" referrerpolicy="no-referrer"/></div><p>开发完 <a href="https://github.com/Lruihao/CoverView"target="_blank" rel="external nofollow noopener noreferrer">CoverView<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>之后，在调整博客文章封面图的时候，我发现首页的多端缩略图还是只能自己 P 图诶，于是我又决定再写一个小工具，用来生成网站预览图。。</p>
 <h2 id="在线体验" class="heading-element">
   <a href="#%e5%9c%a8%e7%ba%bf%e4%bd%93%e9%aa%8c" class="heading-mark"></a>1 在线体验</h2><ul>
 <li><a href="https://lruihao.github.io/vue-el-demo/#/apple-devices-preview"target="_blank" rel="external nofollow noopener noreferrer">vue-el-demo#apple-devices-preview<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
@@ -3002,659 +3229,4 @@
 <li>通用组件：<code>@/components/Dashboard/widgets/</code></li>
 <li>模块组件：<code>@/views/{module_name}/widgets/</code></li>
 </ul>
-<!-- link reference definition -->]]></description></item><item><title>拖拽式仪表盘 - 布局模板文档</title><link>https://lruihao.cn/posts/dashborad-template-docs/</link><pubDate>Thu, 12 Oct 2023 19:27:49 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/dashborad-template-docs/</guid><description><![CDATA[<p><code>Dashboard</code> 组件 <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> 是一个公共模板组件，用于快速创建 Dashboard 页面。</p>
-<h2 id="basic-usage" class="heading-element">
-  <a href="#basic-usage" class="heading-mark"></a>1 Basic Usage</h2><ol>
-<li>
-<p>每个模块的 dashboard 页面可继承 <code>Dashboard</code> 组件，如：</p>
-<div class="highlight" id="id-1"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span><span class="lnt">8
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="nx">Dashboard</span> <span class="nx">from</span> <span class="s1">&#39;@/components/Dashboard&#39;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="k">default</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Dashboard&#39;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">  <span class="kr">extends</span><span class="o">:</span> <span class="nx">Dashboard</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span></span></span></code></pre></td></tr></table>
-</div>
-</div></li>
-<li>
-<p>使用 <code>registerComponents</code> 函数注册组件，通用组件模板中默认已导入，模块组件需要自行导入，如：</p>
-<div class="highlight" id="id-2"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="nx">Dashboard</span><span class="p">,</span> <span class="p">{</span> <span class="nx">registerComponents</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@/components/Dashboard&#39;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">// 加载 widgets 目录下所有组件
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">requireComponents</span> <span class="o">=</span> <span class="nx">require</span><span class="p">.</span><span class="nx">context</span><span class="p">(</span><span class="s1">&#39;./widgets&#39;</span><span class="p">,</span> <span class="kc">true</span><span class="p">,</span> <span class="sr">/\.vue$/</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">components</span> <span class="o">=</span> <span class="nx">registerComponents</span><span class="p">(</span><span class="nx">requireComponents</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="k">default</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Dashboard&#39;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">  <span class="kr">extends</span><span class="o">:</span> <span class="nx">Dashboard</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">created</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="c1">// 加载组件列表
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">this</span><span class="p">.</span><span class="nx">addComponents</span><span class="p">(</span><span class="s1">&#39;组件分类&#39;</span><span class="p">,</span> <span class="nx">components</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">  <span class="p">},</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span></span></span></code></pre></td></tr></table>
-</div>
-</div></li>
-<li>
-<p>设置默认布局</p>
-<div class="highlight" id="id-3"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="nx">Dashboard</span><span class="p">,</span> <span class="p">{</span> <span class="nx">registerComponents</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@/components/Dashboard&#39;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">// ...
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
-</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="k">default</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Dashboard&#39;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">  <span class="kr">extends</span><span class="o">:</span> <span class="nx">Dashboard</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">data</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">      <span class="c1">// 设置默认布局
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="nx">defaultLayout</span><span class="o">:</span> <span class="p">[</span>
-</span></span><span class="line"><span class="cl">        <span class="p">{</span> <span class="nx">i</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">component</span><span class="o">:</span> <span class="s1">&#39;ExampleWidget&#39;</span><span class="p">,</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;便利贴&#39;</span><span class="p">,</span> <span class="nx">x</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">y</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">w</span><span class="o">:</span> <span class="mi">8</span><span class="p">,</span> <span class="nx">h</span><span class="o">:</span> <span class="mi">8</span><span class="p">,</span> <span class="nx">params</span><span class="o">:</span> <span class="p">{</span> <span class="nx">content</span><span class="o">:</span> <span class="s1">&#39;hello world!&#39;</span> <span class="p">}},</span>
-</span></span><span class="line"><span class="cl">        <span class="c1">// ...
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="p">],</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">  <span class="p">},</span>
-</span></span><span class="line"><span class="cl">  <span class="c1">// ...
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span></span></span></code></pre></td></tr></table>
-</div>
-</div></li>
-</ol>
-<blockquote>
-<p>完整例子详见 <a href="https://github.com/Lruihao/vue-el-demo/blob/main/src/views/dashboard/index.vue"target="_blank" rel="external nofollow noopener noreferrer"><code>@/views/dashboard/index.vue</code><i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 页面。</p>
-</blockquote>
-<h2 id="export" class="heading-element">
-  <a href="#export" class="heading-mark"></a>2 Export</h2><ul>
-<li><code>registerComponents</code> (Function): 注册组件（widget.disabled 为 true 的组件不注册）
-<ul>
-<li>param <code>requireComponents</code> (Function): require.context 函数</li>
-<li>return (Array) 已注册的组件列表</li>
-</ul>
-</li>
-</ul>
-<h2 id="provide" class="heading-element">
-  <a href="#provide" class="heading-mark"></a>3 Provide</h2><p>提供当前 dashboard 实例给后代组件注入，用于后代组件访问容器内的属性或方法。</p>
-<ul>
-<li><code>$dashboard</code> (Object): 当前 dashboard 容器实例</li>
-</ul>
-<h2 id="data-properties" class="heading-element">
-  <a href="#data-properties" class="heading-mark"></a>4 Data Properties</h2><ul>
-<li><code>componentsList</code> (Array): 组件列表 e.g. [{ category: &lsquo;分类名称&rsquo;, components: [组件列表] }]</li>
-<li><code>isCollapse</code> (Boolean): 是否折叠侧边栏</li>
-<li><code>colNum</code> (Number): 栅格列数</li>
-<li><code>rowHeight</code> (Number): 栅格行高</li>
-<li><code>gaps</code> (Array): 栅格间隙 [水平间隙，垂直间隙] e.g. [8, 8]</li>
-<li><code>dashboardGrid</code> (Element): 可接收拖放的栅格容器</li>
-<li><code>dashboardList</code> (Array): 仪表盘列表</li>
-<li><code>dashboard</code> (Object): 仪表盘数据
-<ul>
-<li><code>id</code> (Number): 仪表盘 ID</li>
-<li><code>route</code> (String): 路由名称</li>
-<li><code>name</code> (String): 仪表盘名称</li>
-<li><code>layout</code> (Array): 组件布局数据</li>
-<li><code>aside</code> (String): 侧边栏位置（left 或 right）</li>
-<li><code>compact</code> (Boolean): 是否垂直压缩布局</li>
-<li><code>isDefault</code> (Boolean): 是否默认布局</li>
-</ul>
-</li>
-<li><code>responsive</code> (Boolean): 是否响应式布局</li>
-<li><code>loading</code> (Boolean): 是否正在加载/保存布局数据</li>
-<li><code>defaultLayout</code> (Array): 默认布局组件数据</li>
-<li><code>hasEditPermission</code> (Boolean): 是否有编辑权限</li>
-<li><code>selectedCategory</code> (String): 已选中的组件分类</li>
-<li><code>menuCollapse</code> (Boolean): 是否折叠组件分类菜单</li>
-</ul>
-<h2 id="computed-properties" class="heading-element">
-  <a href="#computed-properties" class="heading-mark"></a>5 Computed Properties</h2><ul>
-<li><code>selectedDashboardId</code> (Number): 已选中的仪表盘 ID</li>
-<li><code>components</code> (Array): 所有已注册组件，用于 dashboard 布局中的组件渲染，包含 <code>hidden</code> 为 <code>true</code> 的组件</li>
-<li><code>componentsListAvailable</code> (Array): 过滤后的组件列表，用于组件列表显示，过滤 <code>hidden</code> 为 <code>true</code> 的组件，过滤组件列表为空的分类</li>
-<li><code>componentsByCategory</code> (Array): 根据 selectedCategory 获取对应的组件列表</li>
-</ul>
-<h2 id="methods" class="heading-element">
-  <a href="#methods" class="heading-mark"></a>6 Methods</h2><h3 id="notifymessage-type--success" class="heading-element">
-  <a href="#notifymessage-type--success" class="heading-mark"></a>6.1 notify(message, type = &lsquo;success&rsquo;)</h3><p>dashboard 显示通知</p>
-<table>
-<thead>
-<tr>
-<th>参数</th>
-<th>类型</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>message</td>
-<td><code>String</code></td>
-<td>通知内容</td>
-</tr>
-<tr>
-<td>type</td>
-<td><code>String</code></td>
-<td>通知类型，可选值：<code>success</code>、<code>warning</code>、<code>info</code>、<code>error</code></td>
-</tr>
-</tbody>
-</table>
-<h3 id="addcomponentscategory-components-isprepend--false" class="heading-element">
-  <a href="#addcomponentscategory-components-isprepend--false" class="heading-mark"></a>6.2 addComponents(category, components, isPrepend = false)</h3><p>添加组件列表及分类</p>
-<table>
-<thead>
-<tr>
-<th>参数</th>
-<th>类型</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>category</td>
-<td><code>String</code></td>
-<td>组件分类</td>
-</tr>
-<tr>
-<td>components</td>
-<td><code>Array</code></td>
-<td>组件列表</td>
-</tr>
-<tr>
-<td>isPrepend</td>
-<td><code>Boolean</code></td>
-<td>是否追加到组件列表开头</td>
-</tr>
-</tbody>
-</table>
-<h3 id="selectcategorycategory" class="heading-element">
-  <a href="#selectcategorycategory" class="heading-mark"></a>6.3 selectCategory(category)</h3><p>选中组件分类时显示对应的组件列表</p>
-<table>
-<thead>
-<tr>
-<th>参数</th>
-<th>类型</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>category</td>
-<td><code>String</code></td>
-<td>组件分类</td>
-</tr>
-</tbody>
-</table>
-<h3 id="switchdashboardid" class="heading-element">
-  <a href="#switchdashboardid" class="heading-mark"></a>6.4 switchDashboard(id)</h3><p>切换仪表盘</p>
-<table>
-<thead>
-<tr>
-<th>参数</th>
-<th>类型</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>id</td>
-<td><code>Number/String</code></td>
-<td>仪表盘 ID 或者 &rsquo;new’</td>
-</tr>
-</tbody>
-</table>
-<h3 id="handlecommandtype" class="heading-element">
-  <a href="#handlecommandtype" class="heading-mark"></a>6.5 handleCommand(type)</h3><p>处理仪表盘操作</p>
-<table>
-<thead>
-<tr>
-<th>参数</th>
-<th>类型</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>type</td>
-<td><code>String</code></td>
-<td>操作类型，可选值：<code>copy</code>、<code>edit</code>、<code>delete</code></td>
-</tr>
-</tbody>
-</table>
-<h3 id="guide" class="heading-element">
-  <a href="#guide" class="heading-mark"></a>6.6 guide()</h3><p>打开新手引导</p>
-<h3 id="refreshallitems" class="heading-element">
-  <a href="#refreshallitems" class="heading-mark"></a>6.7 refreshAllItems()</h3><p>刷新容器内所有组件的数据</p>
-<h3 id="clearlayout" class="heading-element">
-  <a href="#clearlayout" class="heading-mark"></a>6.8 clearLayout()</h3><p>清空布局</p>
-<h3 id="idincrement" class="heading-element">
-  <a href="#idincrement" class="heading-mark"></a>6.9 idIncrement()</h3><p>生成一个自增的 id，用于组件的唯一标识 i</p>
-<h3 id="sortitems" class="heading-element">
-  <a href="#sortitems" class="heading-mark"></a>6.10 sortItems()</h3><p>对 layout 数据进行排序，按照 y 坐标从小到大，x 坐标从小到大的顺序</p>
-<h3 id="additemcomponent-widget" class="heading-element">
-  <a href="#additemcomponent-widget" class="heading-mark"></a>6.11 addItem(component, widget)</h3><p>添加组件到 layout 中</p>
-<table>
-<thead>
-<tr>
-<th>参数</th>
-<th>类型</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>component</td>
-<td><code>String</code></td>
-<td>组件名称，对应组件的 name 属性</td>
-</tr>
-<tr>
-<td>widget</td>
-<td><code>Object</code></td>
-<td>组件配置对象，对应组件的 widget 属性</td>
-</tr>
-</tbody>
-</table>
-<h3 id="removeitemi-save--true" class="heading-element">
-  <a href="#removeitemi-save--true" class="heading-mark"></a>6.12 removeItem(i, save = true)</h3><p>从 layout 中移除组件</p>
-<table>
-<thead>
-<tr>
-<th>参数</th>
-<th>类型</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>i</td>
-<td><code>String</code></td>
-<td>组件的唯一标识</td>
-</tr>
-<tr>
-<td>save</td>
-<td><code>Boolean</code></td>
-<td>是否立即保存布局数据</td>
-</tr>
-</tbody>
-</table>
-<h3 id="confirmremoveitemi" class="heading-element">
-  <a href="#confirmremoveitemi" class="heading-mark"></a>6.13 confirmRemoveItem(i)</h3><p>用户删除组件双重确认</p>
-<table>
-<thead>
-<tr>
-<th>参数</th>
-<th>类型</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>i</td>
-<td><code>String</code></td>
-<td>组件的唯一标识</td>
-</tr>
-</tbody>
-</table>
-<h3 id="hashookcomponent-hook" class="heading-element">
-  <a href="#hashookcomponent-hook" class="heading-mark"></a>6.14 hasHook(component, hook)</h3><p>判断组件是否有配置对应的 hook</p>
-<table>
-<thead>
-<tr>
-<th>参数</th>
-<th>类型</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>component</td>
-<td><code>String</code></td>
-<td>组件名称，对应组件的 name 属性</td>
-</tr>
-<tr>
-<td>hook</td>
-<td><code>String</code></td>
-<td>需要判断的 hook 名称</td>
-</tr>
-</tbody>
-</table>
-<h3 id="triggerhookitem-hook-args---save--false" class="heading-element">
-  <a href="#triggerhookitem-hook-args---save--false" class="heading-mark"></a>6.15 triggerHook(item, hook, args = [], save = false)</h3><p>容器内的组件触发对应的 hook</p>
-<table>
-<thead>
-<tr>
-<th>参数</th>
-<th>类型</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>item</td>
-<td><code>Object</code></td>
-<td>组件实例数据，<a href="https://jbaysolutions.github.io/vue-grid-layout/zh/guide/properties.html#griditem"target="_blank" rel="external nofollow noopener noreferrer">参考文档<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></td>
-</tr>
-<tr>
-<td>hook</td>
-<td><code>String</code></td>
-<td>需要触发的 hook 名称</td>
-</tr>
-<tr>
-<td>args</td>
-<td><code>Array</code></td>
-<td>传递给 hook 的其他参数</td>
-</tr>
-<tr>
-<td>save</td>
-<td><code>Boolean</code></td>
-<td>触发 hook 后是否立即保存布局数据</td>
-</tr>
-</tbody>
-</table>
-<h3 id="mouseingridx-y" class="heading-element">
-  <a href="#mouseingridx-y" class="heading-mark"></a>6.16 mouseInGrid(x, y)</h3><p>判断鼠标是否在容器内</p>
-<table>
-<thead>
-<tr>
-<th>参数</th>
-<th>类型</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>x</td>
-<td><code>Number</code></td>
-<td>鼠标 x 坐标</td>
-</tr>
-<tr>
-<td>y</td>
-<td><code>Number</code></td>
-<td>鼠标 y 坐标</td>
-</tr>
-</tbody>
-</table>
-<h3 id="removeunexistitemsfromlayout" class="heading-element">
-  <a href="#removeunexistitemsfromlayout" class="heading-mark"></a>6.17 removeUnExistItems(fromLayout)</h3><p>移除 layout 中不存在于所有已注册组件的组件</p>
-<table>
-<thead>
-<tr>
-<th>参数</th>
-<th>类型</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>fromLayout</td>
-<td><code>Object</code></td>
-<td>layout 数据</td>
-</tr>
-</tbody>
-</table>
-<h3 id="dragstarte" class="heading-element">
-  <a href="#dragstarte" class="heading-mark"></a>6.18 dragStart(e)</h3><p>开始拖动 组件/侧栏 时，设置拖动来源</p>
-<table>
-<thead>
-<tr>
-<th>参数</th>
-<th>类型</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>e</td>
-<td><code>Event</code></td>
-<td>event</td>
-</tr>
-</tbody>
-</table>
-<h3 id="dragende" class="heading-element">
-  <a href="#dragende" class="heading-mark"></a>6.19 dragEnd(e)</h3><p>结束拖动 组件/侧栏 时，清空拖动来源</p>
-<table>
-<thead>
-<tr>
-<th>参数</th>
-<th>类型</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>e</td>
-<td><code>Event</code></td>
-<td>event</td>
-</tr>
-</tbody>
-</table>
-<h3 id="dragcomponent-widget-e" class="heading-element">
-  <a href="#dragcomponent-widget-e" class="heading-mark"></a>6.20 drag(component, widget, e)</h3><p>拖动组件时，记录拖动的组件信息和显示拖动轨迹</p>
-<table>
-<thead>
-<tr>
-<th>参数</th>
-<th>类型</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>component</td>
-<td><code>String</code></td>
-<td>组件名称，对应组件的 name 属性</td>
-</tr>
-<tr>
-<td>widget</td>
-<td><code>Object</code></td>
-<td>组件配置对象，对应组件的 widget 属性</td>
-</tr>
-<tr>
-<td>e</td>
-<td><code>Event</code></td>
-<td>event</td>
-</tr>
-</tbody>
-</table>
-<h3 id="ondragoverdashboarde" class="heading-element">
-  <a href="#ondragoverdashboarde" class="heading-mark"></a>6.21 onDragoverDashboard(e)</h3><p>拖动组件经过容器时，阻止默认事件</p>
-<table>
-<thead>
-<tr>
-<th>参数</th>
-<th>类型</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>e</td>
-<td><code>Event</code></td>
-<td>event</td>
-</tr>
-</tbody>
-</table>
-<h3 id="ondropdashboarde" class="heading-element">
-  <a href="#ondropdashboarde" class="heading-mark"></a>6.22 onDropDashboard(e)</h3><p>拖动 组件/侧栏 放置到容器内时的拖放事件</p>
-<table>
-<thead>
-<tr>
-<th>参数</th>
-<th>类型</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>e</td>
-<td><code>Event</code></td>
-<td>event</td>
-</tr>
-</tbody>
-</table>
-<h3 id="getdashboard" class="heading-element">
-  <a href="#getdashboard" class="heading-mark"></a>6.23 getDashboard()</h3><p>通过 route 获取 dashboard 数组（后端自动获取组织 ID）</p>
-<h3 id="savedashboard" class="heading-element">
-  <a href="#savedashboard" class="heading-mark"></a>6.24 saveDashboard()</h3><p>保存 dashboard</p>
-<h3 id="adddashboard" class="heading-element">
-  <a href="#adddashboard" class="heading-mark"></a>6.25 addDashboard()</h3><p>新增 dashboard</p>
-<h3 id="updatedashboard" class="heading-element">
-  <a href="#updatedashboard" class="heading-mark"></a>6.26 updateDashboard()</h3><p>更新 dashboard</p>
-<h3 id="deletedashboard" class="heading-element">
-  <a href="#deletedashboard" class="heading-mark"></a>6.27 deleteDashboard()</h3><p>删除 dashboard</p>
-<h2 id="appendix-a-data-dictionary" class="heading-element">
-  <a href="#appendix-a-data-dictionary" class="heading-mark"></a>7 Appendix A: Data Dictionary</h2><p>仅供参考</p>
-<table>
-<thead>
-<tr>
-<th>字段名</th>
-<th>字段类型</th>
-<th>字段说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>id</td>
-<td>int</td>
-<td>仪表盘 ID</td>
-</tr>
-<tr>
-<td>route</td>
-<td>varchar(150)</td>
-<td>仪表盘路由</td>
-</tr>
-<tr>
-<td>layout</td>
-<td>longtext</td>
-<td>仪表盘布局</td>
-</tr>
-<tr>
-<td>organization_id</td>
-<td>bigint</td>
-<td>组织 ID</td>
-</tr>
-<tr>
-<td>create_time</td>
-<td>datetime</td>
-<td>创建时间</td>
-</tr>
-<tr>
-<td>update_time</td>
-<td>datetime</td>
-<td>更新时间</td>
-</tr>
-<tr>
-<td>aside</td>
-<td>varchar(15)</td>
-<td>侧栏位置</td>
-</tr>
-<tr>
-<td>compact</td>
-<td>varchar(5)</td>
-<td>压缩布局</td>
-</tr>
-<tr>
-<td>name</td>
-<td>varchar(250)</td>
-<td>仪表盘名称</td>
-</tr>
-</tbody>
-</table>
-<div class="highlight" id="id-4"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="o">`</span><span class="n">dashboard</span><span class="o">`</span><span class="w"> </span><span class="p">(</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="o">`</span><span class="n">id</span><span class="o">`</span><span class="w"> </span><span class="nb">int</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span><span class="w"> </span><span class="n">unsigned</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="n">AUTO_INCREMENT</span><span class="p">,</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="o">`</span><span class="n">route</span><span class="o">`</span><span class="w"> </span><span class="nb">varchar</span><span class="p">(</span><span class="mi">150</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="w"> </span><span class="k">COMMENT</span><span class="w"> </span><span class="s1">&#39;dashborad 名称&#39;</span><span class="p">,</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="o">`</span><span class="n">layout</span><span class="o">`</span><span class="w"> </span><span class="n">longtext</span><span class="w"> </span><span class="k">COMMENT</span><span class="w"> </span><span class="s1">&#39;dashborad 布局 JSON&#39;</span><span class="p">,</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="o">`</span><span class="n">organization_id</span><span class="o">`</span><span class="w"> </span><span class="nb">bigint</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="s1">&#39;0&#39;</span><span class="w"> </span><span class="k">COMMENT</span><span class="w"> </span><span class="s1">&#39;组织 id&#39;</span><span class="p">,</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="o">`</span><span class="n">create_time</span><span class="o">`</span><span class="w"> </span><span class="n">datetime</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="k">CURRENT_TIMESTAMP</span><span class="w"> </span><span class="k">COMMENT</span><span class="w"> </span><span class="s1">&#39;创建时间&#39;</span><span class="p">,</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="o">`</span><span class="n">update_time</span><span class="o">`</span><span class="w"> </span><span class="n">datetime</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="k">CURRENT_TIMESTAMP</span><span class="w"> </span><span class="k">COMMENT</span><span class="w"> </span><span class="s1">&#39;更新时间&#39;</span><span class="p">,</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="o">`</span><span class="n">aside</span><span class="o">`</span><span class="w"> </span><span class="nb">varchar</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">COMMENT</span><span class="w"> </span><span class="s1">&#39;侧栏位置&#39;</span><span class="p">,</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="o">`</span><span class="n">compact</span><span class="o">`</span><span class="w"> </span><span class="nb">varchar</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="s1">&#39;false&#39;</span><span class="w"> </span><span class="k">COMMENT</span><span class="w"> </span><span class="s1">&#39;压缩布局&#39;</span><span class="p">,</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="o">`</span><span class="n">name</span><span class="o">`</span><span class="w"> </span><span class="nb">varchar</span><span class="p">(</span><span class="mi">250</span><span class="p">)</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">COMMENT</span><span class="w"> </span><span class="s1">&#39;仪表盘名称&#39;</span><span class="p">,</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="p">(</span><span class="o">`</span><span class="n">id</span><span class="o">`</span><span class="p">),</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="k">KEY</span><span class="w"> </span><span class="o">`</span><span class="n">name</span><span class="o">`</span><span class="w"> </span><span class="p">(</span><span class="o">`</span><span class="n">route</span><span class="o">`</span><span class="p">)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">)</span><span class="w"> </span><span class="n">ENGINE</span><span class="o">=</span><span class="n">InnoDB</span><span class="w"> </span><span class="n">AUTO_INCREMENT</span><span class="o">=</span><span class="mi">40</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="n">CHARSET</span><span class="o">=</span><span class="n">utf8</span><span class="w"> </span><span class="k">COMMENT</span><span class="o">=</span><span class="s1">&#39;Dashboard 组件布局数据&#39;</span><span class="p">;</span></span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="appendix-b-api-reference" class="heading-element">
-  <a href="#appendix-b-api-reference" class="heading-mark"></a>8 Appendix B: API Reference</h2><p>详见 <a href="https://github.com/Lruihao/vue-el-demo/blob/main/src/api/dashboard.js"target="_blank" rel="external nofollow noopener noreferrer">dashboard.js<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
-<!-- link reference definition -->
-<!-- footnote reference definition -->
-<div class="footnotes" role="doc-endnotes">
-<hr>
-<ol>
-<li id="fn:1">
-<p>基于 Vue2 和 <a href="https://jbaysolutions.github.io/vue-grid-layout/zh/"target="_blank" rel="external nofollow noopener noreferrer">vue-grid-layout<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 开发的拖拽式 Dashboard 模板，<a href="https://github.com/Lruihao/vue-el-demo/tree/main/src/components/Dashboard"target="_blank" rel="external nofollow noopener noreferrer">查看源码<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>。&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
-</li>
-</ol>
-</div>
-]]></description></item></channel></rss>
+<!-- link reference definition -->]]></description></item></channel></rss>
