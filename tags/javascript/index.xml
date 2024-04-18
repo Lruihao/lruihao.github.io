@@ -1,6 +1,6 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>JavaScript - 标签 | 菠菜眾長</title><link>https://lruihao.cn/tags/javascript/</link><description>JavaScript - 标签 | 菠菜眾長</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><copyright>本站内容采用 CC BY-NC-SA 4.0 国际许可协议。</copyright><lastBuildDate>Thu, 12 Oct 2023 22:37:56 +0800</lastBuildDate><atom:link href="https://lruihao.cn/tags/javascript/" rel="self" type="application/rss+xml"/><item><title>如何给 npm 包打补丁？</title><link>https://lruihao.cn/posts/patch-package/</link><pubDate>Thu, 12 Oct 2023 22:37:56 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/patch-package/</guid><description><![CDATA[<div class="featured-image"><img loading="eager" src="images/featured-image.png" alt="如何给 npm 包打补丁？" title="如何给 npm 包打补丁？" referrerpolicy="no-referrer"/></div><h2 id="背景" class="heading-element">
   <a href="#%e8%83%8c%e6%99%af" class="heading-mark"></a>1 背景</h2><p>今天鬼事神差想起去年写的一段 dirty hack 代码，当时是在 <a href="https://github.com/Lruihao/vue-minder-editor-extended"target="_blank" rel="external nofollow noopener noreferrer">vue-minder-editor-extended<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 这个项目为了解决百度开源的 <a href="https://github.com/fex-team/kityminder-core"target="_blank" rel="external nofollow noopener noreferrer">@7polo/kityminder-core<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> npm 包的 bug，但是百度早在 17-18 年就停止更新了，我又不想自己 fork 一份源码然后重新发包，于是当时直接从 node_modules 里面复制出了打包后的源码进行修改，然后放到了项目中 <code>src/script/patch/kityminder.core.js</code>，并因修改了引入：</p>
-<div class="highlight" id="id-1"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -12,7 +12,7 @@
 </div>
 </div><p>但是今天刷抖音看到类似的问题，回想起来这种做法真的是太蠢了，于是就想着有没有更好的办法，于是就一番搜索有了这篇文章。</p>
 <h2 id="安装-patch-package" class="heading-element">
-  <a href="#%e5%ae%89%e8%a3%85-patch-package" class="heading-mark"></a>2 安装 patch-package</h2><div class="highlight" id="id-2"><div class="chroma">
+  <a href="#%e5%ae%89%e8%a3%85-patch-package" class="heading-mark"></a>2 安装 patch-package</h2><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
@@ -22,7 +22,7 @@
 </div><h2 id="修改源码" class="heading-element">
   <a href="#%e4%bf%ae%e6%94%b9%e6%ba%90%e7%a0%81" class="heading-mark"></a>3 修改源码</h2><p>在 <code>node_modules</code> 目录下找到需要打补丁的包，然后修改源码，比如我这里修改了 <code>node_modules/@7polo/kityminder-core/dist/kityminder.core.js</code>，修改后直接保存。</p>
 <h2 id="生成补丁" class="heading-element">
-  <a href="#%e7%94%9f%e6%88%90%e8%a1%a5%e4%b8%81" class="heading-mark"></a>4 生成补丁</h2><div class="highlight" id="id-3"><div class="chroma">
+  <a href="#%e7%94%9f%e6%88%90%e8%a1%a5%e4%b8%81" class="heading-mark"></a>4 生成补丁</h2><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
@@ -30,7 +30,7 @@
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">npx patch-package @7polo/kityminder-core</span></span></code></pre></td></tr></table>
 </div>
 </div><p>此时在根目录下会得到如下文件：</p>
-<div class="highlight" id="id-4"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -42,7 +42,7 @@
 </span></span><span class="line"><span class="cl">└── package.json</span></span></code></pre></td></tr></table>
 </div>
 </div><p>想看看这个补丁文件里面是什么东西，打开 <code>patches/@7polo-kityminder-core+1.4.53.patch</code>，内容如下：</p>
-<div class="highlight" id="id-5"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -149,7 +149,7 @@
 </div><p>发现其实就是一个 diff 文件，这个文件里面记录了修改的内容，以及修改的位置，这样就可以在安装依赖的时候自动执行补丁了。</p>
 <h2 id="使用补丁" class="heading-element">
   <a href="#%e4%bd%bf%e7%94%a8%e8%a1%a5%e4%b8%81" class="heading-mark"></a>5 使用补丁</h2><p>在 <code>package.json</code> 中添加如下内容：</p>
-<div class="highlight" id="id-6"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -165,7 +165,7 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="提交补丁" class="heading-element">
-  <a href="#%e6%8f%90%e4%ba%a4%e8%a1%a5%e4%b8%81" class="heading-mark"></a>6 提交补丁</h2><div class="highlight" id="id-7"><div class="chroma">
+  <a href="#%e6%8f%90%e4%ba%a4%e8%a1%a5%e4%b8%81" class="heading-mark"></a>6 提交补丁</h2><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -183,7 +183,7 @@
   <a href="#%e7%ae%80%e4%bb%8b" class="heading-mark"></a>1 简介</h2><p><a href="https://github.com/mirari/vue-fullscreen"target="_blank" rel="external nofollow noopener noreferrer">vue-fullscreen<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 是一个用于将任意页面元素进行全屏切换的 Vue 插件，基于 <a href="https://github.com/sindresorhus/screenfull"target="_blank" rel="external nofollow noopener noreferrer">screenfull<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>。这个插件本身提供了组件、指令以及 API 三种使用方式，具体的使用方法请参考 <a href="https://github.com/mirari/vue-fullscreen"target="_blank" rel="external nofollow noopener noreferrer">vue-fullscreen<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>。</p>
 <h2 id="在线演示httpslruihaogithubiovue-el-demofullscreen" class="heading-element">
   <a href="#%e5%9c%a8%e7%ba%bf%e6%bc%94%e7%a4%bahttpslruihaogithubiovue-el-demofullscreen" class="heading-mark"></a>2 <a href="https://lruihao.github.io/vue-el-demo/#/fullscreen"target="_blank" rel="external nofollow noopener noreferrer">在线演示<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></h2><h2 id="安装" class="heading-element">
-  <a href="#%e5%ae%89%e8%a3%85" class="heading-mark"></a>3 安装</h2><div class="highlight" id="id-1"><div class="chroma">
+  <a href="#%e5%ae%89%e8%a3%85" class="heading-mark"></a>3 安装</h2><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -205,7 +205,7 @@
       <div class="admonition-content"><code>vue-fullscreen</code> 插件处理弹窗等元素在全屏模式下不可见问题的方案是通过 <code>teleport</code> 修饰符将目标元素移动到 <code>document.body</code> 下，从而避免层级遮挡问题。个人不太喜欢这种改变 DOM 结构的方式，所以封装的插件新增一个参数 <code>bodyAgent</code>，当设置为 <code>true</code> 时，会使用 <code>document.body</code> 代理全屏元素，目标元素则改为网页全屏，此时 <code>document.fullscreenElement</code> 为 <code>document.body</code> 而不是真实设置的 <code>target</code> 元素。</div>
     </div>
   </div>
-<div class="highlight" id="id-2"><div class="chroma">
+<div class="highlight" title="FullScreenToggler.vue"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">  1
 </span><span class="lnt">  2
@@ -431,7 +431,7 @@
 </span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>使用方式如下：</p>
-<div class="highlight" id="id-3"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -476,7 +476,7 @@
 <h2 id="全屏是否可用" class="heading-element">
   <a href="#%e5%85%a8%e5%b1%8f%e6%98%af%e5%90%a6%e5%8f%af%e7%94%a8" class="heading-mark"></a>2 全屏是否可用</h2><p>在使用 Fullscreen API 之前，我们需要先判断当前浏览器是否支持全屏功能。可以通过 <code>document.fullscreenEnabled</code> 属性来检查。</p>
 <p>以下是一个示例：</p>
-<div class="highlight" id="id-1"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -495,7 +495,7 @@
 <h2 id="实现全屏" class="heading-element">
   <a href="#%e5%ae%9e%e7%8e%b0%e5%85%a8%e5%b1%8f" class="heading-mark"></a>3 实现全屏</h2><p>要实现全屏，我们可以使用 <code>requestFullscreen()</code> 方法。该方法可用于 DOM 元素，使其进入全屏模式。</p>
 <p>以下是一个示例：</p>
-<div class="highlight" id="id-2"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -524,7 +524,7 @@
 <h2 id="退出全屏" class="heading-element">
   <a href="#%e9%80%80%e5%87%ba%e5%85%a8%e5%b1%8f" class="heading-mark"></a>4 退出全屏</h2><p>当我们需要退出全屏时，可以使用 <code>exitFullscreen()</code> 方法。该方法可用于当前处于全屏状态的元素。</p>
 <p>以下是一个示例：</p>
-<div class="highlight" id="id-3"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -551,7 +551,7 @@
 <h2 id="获取全屏元素" class="heading-element">
   <a href="#%e8%8e%b7%e5%8f%96%e5%85%a8%e5%b1%8f%e5%85%83%e7%b4%a0" class="heading-mark"></a>5 获取全屏元素</h2><p>在全屏模式下，我们可能需要获取当前处于全屏状态的元素。可以使用<code>document.fullscreenElement</code>属性来获取。</p>
 <p>以下是一个示例：</p>
-<div class="highlight" id="id-4"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -574,7 +574,7 @@
 <h2 id="监听全屏模式变化" class="heading-element">
   <a href="#%e7%9b%91%e5%90%ac%e5%85%a8%e5%b1%8f%e6%a8%a1%e5%bc%8f%e5%8f%98%e5%8c%96" class="heading-mark"></a>6 监听全屏模式变化</h2><p>如果我们希望在全屏模式发生变化时得到通知，可以使用 Fullscreen API 提供的事件。</p>
 <p>以下是一个示例：</p>
-<div class="highlight" id="id-5"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -624,7 +624,7 @@
   <a href="#%e6%ba%90%e7%a0%81" class="heading-mark"></a>1 源码</h2><blockquote>
 <p>Gist: <a href="https://gist.github.com/Lruihao/d8f2984525dc9e78dd6a49e15f49cf38"target="_blank" rel="external nofollow noopener noreferrer">https://gist.github.com/Lruihao/d8f2984525dc9e78dd6a49e15f49cf38<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
 </blockquote>
-<div class="highlight" id="id-1"><div class="chroma">
+<div class="highlight" title="gen-router.js"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -744,7 +744,7 @@
 </span></span><span class="line"><span class="cl"><span class="p">})</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>生成效果如下：</p>
-<div class="highlight" id="id-2"><div class="chroma">
+<div class="highlight" title="router.js"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -959,7 +959,7 @@
   </div>
 <h3 id="js-为何会阻碍渲染" class="heading-element">
   <a href="#js-%e4%b8%ba%e4%bd%95%e4%bc%9a%e9%98%bb%e7%a2%8d%e6%b8%b2%e6%9f%93" class="heading-mark"></a>3.2 JS 为何会阻碍渲染？</h3><p>先看代码</p>
-<div class="highlight" id="id-1"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -1022,7 +1022,7 @@
 <p><figure><a class="lightgallery" href="images/multiple-queues.png?size=large" data-thumbnail="images/multiple-queues.png?size=small" data-sub-html="<h2>多队列演示图</h2><p>微队列、延时队列、交互队列</p>"><img loading="lazy" src="images/multiple-queues.png" alt="多队列演示图" srcset="images/multiple-queues.png?size=small, images/multiple-queues.png?size=medium 1.5x, images/multiple-queues.png?size=large 2x" data-title="微队列、延时队列、交互队列" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a><figcaption class="image-caption">多队列演示图</figcaption>
   </figure></p>
 <p>添加任务到微队列的主要方式主要是使用 Promise、MutationObserver，例如：</p>
-<div class="highlight" id="id-2"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -1108,14 +1108,14 @@
 <p><strong><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/some"target="_blank" rel="external nofollow noopener noreferrer">some<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></strong></p>
 <p><code>some()</code> 方法测试数组中是不是至少有 1 个元素通过了被提供的函数测试，它返回一个布尔值。</p>
 <p>数组中有至少一个元素通过回调函数的测试就会返回 <code>true</code>，所有元素都没有通过回调函数的测试返回值才会为 <code>false</code>。</p>
-<div class="highlight" id="id-1"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">arr</span><span class="p">.</span><span class="nx">some</span><span class="p">(</span><span class="nx">callback</span><span class="p">(</span><span class="nx">element</span><span class="p">[,</span> <span class="nx">index</span><span class="p">[,</span> <span class="nx">array</span><span class="p">]])[,</span> <span class="nx">thisArg</span><span class="p">])</span></span></span></code></pre></td></tr></table>
 </div>
-</div><div class="highlight" id="id-2"><div class="chroma">
+</div><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -1139,14 +1139,14 @@
 </blockquote>
 <p><code>every()</code> 方法测试一个数组内的所有元素是否都能通过某个指定函数的测试，它返回一个布尔值。</p>
 <p>如果回调函数的每一次返回都为 <a href="https://developer.mozilla.org/zh-CN/docs/Glossary/Truthy"target="_blank" rel="external nofollow noopener noreferrer">truthy<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 值，返回 <code>true</code> ，否则返回 <code>false</code>。</p>
-<div class="highlight" id="id-3"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">arr</span><span class="p">.</span><span class="nx">every</span><span class="p">(</span><span class="nx">callback</span><span class="p">(</span><span class="nx">element</span><span class="p">[,</span> <span class="nx">index</span><span class="p">[,</span> <span class="nx">array</span><span class="p">]])[,</span> <span class="nx">thisArg</span><span class="p">])</span></span></span></code></pre></td></tr></table>
 </div>
-</div><div class="highlight" id="id-4"><div class="chroma">
+</div><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -1169,14 +1169,14 @@
 <p>助记：功能和 <code>some()</code> 类似，<code>some()</code> 返回布尔值，<code>find()</code> 返回<strong>找到</strong>的元素</p>
 </blockquote>
 <p><code>find()</code> 方法返回数组中满足提供的测试函数的第一个元素的值，否则返回 <a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/undefined"target="_blank" rel="external nofollow noopener noreferrer"><code>undefined</code><i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>。</p>
-<div class="highlight" id="id-5"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">arr</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="nx">callback</span><span class="p">[,</span> <span class="nx">thisArg</span><span class="p">])</span></span></span></code></pre></td></tr></table>
 </div>
-</div><div class="highlight" id="id-6"><div class="chroma">
+</div><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -1210,14 +1210,14 @@
 </blockquote>
 <p><code>filter()</code> 方法创建一个新数组，其包含通过所提供函数实现的测试的所有元素。</p>
 <p>返回值是一个新的、由通过测试的元素组成的数组，如果没有任何数组元素通过测试，则返回空数组。</p>
-<div class="highlight" id="id-7"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">newArray</span> <span class="o">=</span> <span class="nx">arr</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">callback</span><span class="p">(</span><span class="nx">element</span><span class="p">[,</span> <span class="nx">index</span><span class="p">[,</span> <span class="nx">array</span><span class="p">]])[,</span> <span class="nx">thisArg</span><span class="p">])</span></span></span></code></pre></td></tr></table>
 </div>
-</div><div class="highlight" id="id-8"><div class="chroma">
+</div><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -1241,7 +1241,7 @@
 </blockquote>
 <p><code>map()</code> 方法创建一个新数组，这个新数组由原数组中的每个元素都调用一次提供的函数后的返回值组成。</p>
 <p>返回值是一个新的、由通过测试的元素组成的数组，如果没有任何数组元素通过测试，则返回空数组。</p>
-<div class="highlight" id="id-9"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -1252,7 +1252,7 @@
 </span></span><span class="line"><span class="cl"> <span class="c1">// Return element for new_array
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}[,</span> <span class="nx">thisArg</span><span class="p">])</span></span></span></code></pre></td></tr></table>
 </div>
-</div><div class="highlight" id="id-10"><div class="chroma">
+</div><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -1276,7 +1276,7 @@
   <a href="#%e4%bd%bf%e7%94%a8-objecthasown-%e6%9b%bf%e4%bb%a3-in-%e6%93%8d%e4%bd%9c%e7%ac%a6" class="heading-mark"></a>2 使用 <code>Object.hasOwn</code> 替代 <code>in</code> 操作符</h2><p>有时，我们想知道对象上是否存在某个属性，一般会使用 <code>in</code> 操作符或 <code>obj.hasOwnProperty</code>，但它们都有各自的缺陷。</p>
 <p><strong>in</strong></p>
 <p>如果指定的属性位于对象或其原型链中，<code>in</code> 运算符将返回 <code>true</code>。</p>
-<div class="highlight" id="id-11"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -1300,7 +1300,7 @@
 </div>
 </div><p><strong>obj.hasOwnProperty</strong></p>
 <p><code>hasOwnProperty</code> 方法会返回一个布尔值，表示对象<strong>自身属性</strong>中是否具有对应的值（原型链上的属性不会读取）。</p>
-<div class="highlight" id="id-12"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -1323,7 +1323,7 @@
 </span></span></span></code></pre></td></tr></table>
 </div>
 </div><p><code>obj.hasOwnProperty</code> 已经可以过滤掉原型链上的属性，但在某些情况下，它还是不安全。</p>
-<div class="highlight" id="id-13"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -1335,7 +1335,7 @@
 </div>
 </div><p><strong>Object.hasOwn</strong></p>
 <p>别急，我们可以使用 <code>Object.hasOwn</code> 来避免这两个问题，这比 <code>obj.hasOwnProperty</code> 方法更加方便、安全。</p>
-<div class="highlight" id="id-14"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -1353,7 +1353,7 @@
 </div>
 </div><h2 id="使用--声明私有属性" class="heading-element">
   <a href="#%e4%bd%bf%e7%94%a8--%e5%a3%b0%e6%98%8e%e7%a7%81%e6%9c%89%e5%b1%9e%e6%80%a7" class="heading-mark"></a>3 使用 &ldquo;#&rdquo; 声明私有属性</h2><p>以前，我们一般用 <code>_</code> 表示私有属性，但它并不靠谱，还是会被外部修改。</p>
-<div class="highlight" id="id-15"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -1402,7 +1402,7 @@
 </span></span></span></code></pre></td></tr></table>
 </div>
 </div><p><strong>使用 <code>#</code> 实现真正私有属性</strong></p>
-<div class="highlight" id="id-16"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -1452,7 +1452,7 @@
 </div>
 </div><h2 id="有用的数字分隔符" class="heading-element">
   <a href="#%e6%9c%89%e7%94%a8%e7%9a%84%e6%95%b0%e5%ad%97%e5%88%86%e9%9a%94%e7%ac%a6" class="heading-mark"></a>4 有用的数字分隔符</h2><p>可以使用 <code>_</code> 分隔数字，当然也可以用于计算</p>
-<div class="highlight" id="id-17"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -1472,7 +1472,7 @@
 </span></span><span class="line"><span class="cl"><span class="c1">// expected output: true
 </span></span></span></code></pre></td></tr></table>
 </div>
-</div><div class="highlight" id="id-18"><div class="chroma">
+</div><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -1493,7 +1493,7 @@
 <h2 id="---的使用" class="heading-element">
   <a href="#---%e7%9a%84%e4%bd%bf%e7%94%a8" class="heading-mark"></a>5 &ldquo;?.&rdquo;, &ldquo;??&rdquo;, &ldquo;??=&rdquo; 的使用</h2><p><strong>可选链 ?.</strong></p>
 <p>以前我们为了简化 <code>if else</code>，通常会写出这样的代码</p>
-<div class="highlight" id="id-19"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -1509,7 +1509,7 @@
 </span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">title</span> <span class="o">=</span> <span class="nx">$title</span> <span class="o">?</span> <span class="nx">title</span><span class="p">.</span><span class="nx">innerText</span> <span class="o">:</span> <span class="kc">undefined</span><span class="p">;</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>使用 <code>?.</code> 简化 <code>&amp;&amp;</code> 和三元运算符</p>
-<div class="highlight" id="id-20"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -1526,7 +1526,7 @@
 </div>
 </div><p><strong>空值合并运算符 ??</strong></p>
 <p>之前给变量赋默认值时，我们一般会用 <code>||</code> 来写，比如</p>
-<div class="highlight" id="id-21"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -1547,7 +1547,7 @@
 </span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>所以，<code>||</code> 有时候并不是很安全，所以我们不得不加判断</p>
-<div class="highlight" id="id-22"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -1560,7 +1560,7 @@
 </span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>现在使用 <code>??</code> 可以使代码更加优雅</p>
-<div class="highlight" id="id-23"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -1581,7 +1581,7 @@
 </span></span></span></code></pre></td></tr></table>
 </div>
 </div><p><strong>空值赋值运算符 ??=</strong></p>
-<div class="highlight" id="id-24"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -1605,7 +1605,7 @@
 <h2 id="使用-bigint-支持大数计算" class="heading-element">
   <a href="#%e4%bd%bf%e7%94%a8-bigint-%e6%94%af%e6%8c%81%e5%a4%a7%e6%95%b0%e8%ae%a1%e7%ae%97" class="heading-mark"></a>6 使用 BigInt 支持大数计算</h2><p>JS 中超过 <code>Number.MAX_SAFE_INTEGER</code> 的数字计算将是不安全的。</p>
 <p><strong>Example:</strong></p>
-<div class="highlight" id="id-25"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -1618,7 +1618,7 @@
 </span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>使用 <code>BigInt</code> 完全可以避免这个问题</p>
-<div class="highlight" id="id-26"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -1631,7 +1631,7 @@
 </span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>要创建一个 BigInt，可以在一个整数的末尾添加字符<code>n</code>，或者调用函数 <code>BigInt()</code>。</p>
-<div class="highlight" id="id-27"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -1652,7 +1652,7 @@
 <p>一般的網頁，圖片是使用 img 標籤寫在 HTML 頁面中，圖片點擊并不會放大，想放大看圖片要麼方法整個網頁，要麼複製圖片鏈接新開窗口，操作繁瑣，而使用 Lightbox 的網站可以点击缩略图浮层显示大图，放大後可点击键盘 ←、→ 键切换图片，也可以鼠标点击左右箭头切换。按下键盘 Esc 键或者点击关闭按钮可輕鬆關閉圖層，圖片流覽的體驗度是遠遠大於未使用的 Lightbox 的網站。</p>
 <h2 id="實現思路" class="heading-element">
   <a href="#%e5%af%a6%e7%8f%be%e6%80%9d%e8%b7%af" class="heading-mark"></a>2 實現思路</h2><p>大概思路就在每个图片的点击事件中添加图层与图片副本。</p>
-<div class="highlight" id="id-1"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">  1
 </span><span class="lnt">  2
@@ -2051,7 +2051,7 @@ jQuery lightbox script for displaying images, videos and more. Touch enabled, re
   <a href="#quick-start" class="heading-mark"></a>3.1 Quick start</h3><ol>
 <li>Add latest jQuery and fancyBox files</li>
 </ol>
-<div class="highlight" id="id-2"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -2067,7 +2067,7 @@ jQuery lightbox script for displaying images, videos and more. Touch enabled, re
 </div><ol start="2">
 <li>Create links</li>
 </ol>
-<div class="highlight" id="id-3"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -2095,7 +2095,7 @@ jQuery lightbox script for displaying images, videos and more. Touch enabled, re
   <a href="#browser" class="heading-mark"></a>1 Browser</h2><ol>
 <li>
 <p>Clone source</p>
-<div class="highlight" id="id-1"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
@@ -2105,7 +2105,7 @@ jQuery lightbox script for displaying images, videos and more. Touch enabled, re
 </div></li>
 <li>
 <p>Load <code>Watermark</code></p>
-<div class="highlight" id="id-2"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -2123,7 +2123,7 @@ jQuery lightbox script for displaying images, videos and more. Touch enabled, re
 </div></li>
 <li>
 <p>Initialization</p>
-<div class="highlight" id="id-3"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -2144,7 +2144,7 @@ jQuery lightbox script for displaying images, videos and more. Touch enabled, re
   <a href="#npm" class="heading-mark"></a>2 NPM</h2><ol>
 <li>
 <p>Install</p>
-<div class="highlight" id="id-4"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
@@ -2154,7 +2154,7 @@ jQuery lightbox script for displaying images, videos and more. Touch enabled, re
 </div></li>
 <li>
 <p>Import</p>
-<div class="highlight" id="id-5"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -2392,7 +2392,7 @@ valine 可以實現無後端，那我是不是也可以，leancloud 文檔走一
 <h3 id="主要邏輯" class="heading-element">
   <a href="#%e4%b8%bb%e8%a6%81%e9%82%8f%e8%bc%af" class="heading-mark"></a>3.2 主要邏輯</h3><h4 id="初始化" class="heading-element">
   <a href="#%e5%88%9d%e5%a7%8b%e5%8c%96" class="heading-mark"></a>3.2.1 初始化</h4><p>set for yourself.</p>
-<div class="highlight" id="id-1"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -2408,7 +2408,7 @@ valine 可以實現無後端，那我是不是也可以，leancloud 文檔走一
 </span></span><span class="line"><span class="cl"><span class="p">});</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h4 id="存數據" class="heading-element">
-  <a href="#%e5%ad%98%e6%95%b8%e6%93%9a" class="heading-mark"></a>3.2.2 存數據</h4><div class="highlight" id="id-2"><div class="chroma">
+  <a href="#%e5%ad%98%e6%95%b8%e6%93%9a" class="heading-mark"></a>3.2.2 存數據</h4><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -2452,7 +2452,7 @@ valine 可以實現無後端，那我是不是也可以，leancloud 文檔走一
 </span></span><span class="line"><span class="cl"><span class="p">});</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h4 id="取數據" class="heading-element">
-  <a href="#%e5%8f%96%e6%95%b8%e6%93%9a" class="heading-mark"></a>3.2.3 取數據</h4><div class="highlight" id="id-3"><div class="chroma">
+  <a href="#%e5%8f%96%e6%95%b8%e6%93%9a" class="heading-mark"></a>3.2.3 取數據</h4><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -2631,7 +2631,7 @@ valine 可以實現無後端，那我是不是也可以，leancloud 文檔走一
 <li>然后，在你的 js 中 new 一个 Cosalbum 对象 ( xmlLink 后不需要添加<code>/</code>)</li>
 </ol>
 <h3 id="step1" class="heading-element">
-  <a href="#step1" class="heading-mark"></a>3.1 Step1</h3><div class="highlight" id="id-1"><div class="chroma">
+  <a href="#step1" class="heading-mark"></a>3.1 Step1</h3><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -2641,7 +2641,7 @@ valine 可以實現無後端，那我是不是也可以，leancloud 文檔走一
 </span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="nx">script</span> <span class="nx">type</span><span class="o">=</span><span class="s2">&#34;text/javascript&#34;</span> <span class="nx">src</span><span class="o">=</span><span class="s2">&#34;cos-album.min.js?v=1.1.2&#34;</span><span class="o">&gt;&lt;</span><span class="err">/script&gt;</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="step2" class="heading-element">
-  <a href="#step2" class="heading-mark"></a>3.2 Step2</h3><div class="highlight" id="id-2"><div class="chroma">
+  <a href="#step2" class="heading-mark"></a>3.2 Step2</h3><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -2714,7 +2714,7 @@ valine 可以實現無後端，那我是不是也可以，leancloud 文檔走一
 <p><code>viewport</code> 视个人情况添加。<br>
 hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用等等，这里不再展开。<br>
 <strong><em>注：代码设定不加载根目录文件，所以可以利用静态服务把源码部署在根目录，配合 PicGo、COSBrowser 上传来搭建个人图床。</em></strong></p>
-<div class="highlight" id="id-3"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -2763,7 +2763,7 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 </div>
 </div><p><a href="https://img.lruihao.cn" target="_blank" class="LinkCard">cos-album demo</a></p>
 <p><a class="lightgallery" href="images/view.png?size=large" data-thumbnail="images/view.png?size=small" data-sub-html="<h2>大屏显示</h2>"><img loading="lazy" src="images/view.png" alt="大屏显示" srcset="images/view.png?size=small, images/view.png?size=medium 1.5x, images/view.png?size=large 2x" data-title="大屏显示" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a>
-<div id="id-4"><a class="lightgallery" href="images/mobile.png?size=large" data-thumbnail="images/mobile.png?size=small" data-sub-html="<h2>手机显示</h2>"><img loading="lazy" src="images/mobile.png" alt="手机显示" srcset="images/mobile.png?size=small, images/mobile.png?size=medium 1.5x, images/mobile.png?size=large 2x" data-title="手机显示" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></div></p>
+<div id="id-1"><a class="lightgallery" href="images/mobile.png?size=large" data-thumbnail="images/mobile.png?size=small" data-sub-html="<h2>手机显示</h2>"><img loading="lazy" src="images/mobile.png" alt="手机显示" srcset="images/mobile.png?size=small, images/mobile.png?size=medium 1.5x, images/mobile.png?size=large 2x" data-title="手机显示" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></div></p>
 <h2 id="changelog" class="heading-element">
   <a href="#changelog" class="heading-mark"></a>4 changelog</h2><ul>
 <li>2020-9-28 22:46
@@ -2780,7 +2780,7 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 <blockquote>
 <p>话不多说，直接贴码！</p>
 </blockquote>
-<div class="highlight" id="id-1"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -2874,7 +2874,7 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 一般建议把<code>&lt;script&gt;</code>标签放在<code>&lt;body&gt;</code>结尾处，这样尽可能减少页面阻塞。<br>
 而如果想要异步执行 script，则可以给其加上 async 或 defer 属性。</p>
 </blockquote>
-<div class="highlight" id="id-1"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
@@ -2885,7 +2885,7 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
   <a href="#defer" class="heading-mark"></a>2 defer</h2><blockquote>
 <p>defer 属性在 HTML 解析期间异步下载文件，并且只在 HTML 解析完成后才执行它。对于 defer，我们可以理解是将外链的 js 放在了页面底部。js 的加载不会阻塞页面的渲染和资源的加载。不过 defer 会按照原本的 js 的顺序执行，<strong>所以如果前后有依赖关系的 js 可以放心使用。</strong></p>
 </blockquote>
-<div class="highlight" id="id-2"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
@@ -2896,7 +2896,7 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
   <a href="#async" class="heading-mark"></a>3 async</h2><blockquote>
 <p>async 属性会在 HTML 解析期间异步下载文件，并在完成下载后立即暂停 HTML 解析器去执行 script 中的代码。在执行过程中浏览器处于阻塞状态，响应不了任何需求。<strong>如果 js 前后有依赖性，用 async，就很有可能出错。</strong></p>
 </blockquote>
-<div class="highlight" id="id-3"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
@@ -2981,7 +2981,7 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 <p>URL 中一律不带 id 参数</p>
 </li>
 </ul>
-<div class="highlight" id="id-1"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -3101,7 +3101,7 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 <li>代码规范、代码排版等可通过 eslint 等工具做统一处理</li>
 </ul>
 <h3 id="正确写法" class="heading-element">
-  <a href="#%e6%ad%a3%e7%a1%ae%e5%86%99%e6%b3%95" class="heading-mark"></a>5.1 正确写法</h3><div class="highlight" id="id-2"><div class="chroma">
+  <a href="#%e6%ad%a3%e7%a1%ae%e5%86%99%e6%b3%95" class="heading-mark"></a>5.1 正确写法</h3><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -3119,7 +3119,7 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="错误写法" class="heading-element">
-  <a href="#%e9%94%99%e8%af%af%e5%86%99%e6%b3%95" class="heading-mark"></a>6 错误写法</h2><div class="highlight" id="id-3"><div class="chroma">
+  <a href="#%e9%94%99%e8%af%af%e5%86%99%e6%b3%95" class="heading-mark"></a>6 错误写法</h2><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -3172,7 +3172,7 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 <li>单标签：<code>&lt;tag /&gt;</code></li>
 <li>禁止使用已被 HTML 舍弃的旧标签、属性，如：</li>
 </ul>
-<div class="highlight" id="id-4"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -3216,7 +3216,7 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 <h3 id="注释" class="heading-element">
   <a href="#%e6%b3%a8%e9%87%8a" class="heading-mark"></a>9.1 注释</h3><p>JavaScript 注释应该遵循 JSDoc 的标准撰写</p>
 <h4 id="全局变量-global" class="heading-element">
-  <a href="#%e5%85%a8%e5%b1%80%e5%8f%98%e9%87%8f-global" class="heading-mark"></a>9.1.1 全局变量 (Global)</h4><div class="highlight" id="id-5"><div class="chroma">
+  <a href="#%e5%85%a8%e5%b1%80%e5%8f%98%e9%87%8f-global" class="heading-mark"></a>9.1.1 全局变量 (Global)</h4><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
@@ -3224,7 +3224,7 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 <pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="cm">/* global ZT */</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h4 id="常量-constant" class="heading-element">
-  <a href="#%e5%b8%b8%e9%87%8f-constant" class="heading-mark"></a>9.1.2 常量 (Constant)</h4><div class="highlight" id="id-6"><div class="chroma">
+  <a href="#%e5%b8%b8%e9%87%8f-constant" class="heading-mark"></a>9.1.2 常量 (Constant)</h4><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -3238,7 +3238,7 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 </span></span></span><span class="line"><span class="cl"><span class="cm"> */</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p><strong>Example</strong></p>
-<div class="highlight" id="id-7"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -3254,7 +3254,7 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 </span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">REQUEST_URL</span> <span class="o">=</span> <span class="s1">&#39;http://localhost:8080&#39;</span><span class="p">;</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h4 id="函數方法-function-method" class="heading-element">
-  <a href="#%e5%87%bd%e6%95%b8%e6%96%b9%e6%b3%95-function-method" class="heading-mark"></a>9.1.3 函數、方法 (Function, Method)</h4><div class="highlight" id="id-8"><div class="chroma">
+  <a href="#%e5%87%bd%e6%95%b8%e6%96%b9%e6%b3%95-function-method" class="heading-mark"></a>9.1.3 函數、方法 (Function, Method)</h4><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -3274,7 +3274,7 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 </span></span></span><span class="line"><span class="cl"><span class="cm"> */</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p><strong>Example</strong></p>
-<div class="highlight" id="id-9"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -3319,7 +3319,7 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
   <a href="#%e6%b3%a8%e8%a7%a3" class="heading-mark"></a>12.3 注解</h3><p>PHP 注解应该遵循 PHPDoc 的标准撰写</p>
 <h3 id="成员变量-member" class="heading-element">
   <a href="#%e6%88%90%e5%91%98%e5%8f%98%e9%87%8f-member" class="heading-mark"></a>12.4 成员变量 (Member)</h3><p>成员变量只的是 Class 内的成员变数，我们都会要求替成员变量增加注解说明。通常 Function 的变量除非太特别否则都不需要特别注解说明。</p>
-<div class="highlight" id="id-10"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -3333,7 +3333,7 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 </span></span></span><span class="line"><span class="cl"><span class="sd"> */</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p><strong>Example</strong></p>
-<div class="highlight" id="id-11"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -3349,7 +3349,7 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 </span></span><span class="line"><span class="cl"><span class="nv">$userId</span> <span class="o">=</span> <span class="s1">&#39;Hello&#39;</span><span class="p">;</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="函数方法-function-method" class="heading-element">
-  <a href="#%e5%87%bd%e6%95%b0%e6%96%b9%e6%b3%95-function-method" class="heading-mark"></a>12.5 函数、方法 (Function, Method)</h3><div class="highlight" id="id-12"><div class="chroma">
+  <a href="#%e5%87%bd%e6%95%b0%e6%96%b9%e6%b3%95-function-method" class="heading-mark"></a>12.5 函数、方法 (Function, Method)</h3><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -3369,7 +3369,7 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 </span></span></span><span class="line"><span class="cl"><span class="sd"> */</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p><strong>Example</strong></p>
-<div class="highlight" id="id-13"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -3415,7 +3415,7 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 <li>表名、字段名前后需加上 `</li>
 </ul>
 <p><strong>Example</strong></p>
-<div class="highlight" id="id-14"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
@@ -3459,7 +3459,7 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
   <a href="#%e5%bc%ba%e5%88%b6%e9%87%8d%e5%ae%9a%e5%90%91-https" class="heading-mark"></a>1 强制重定向 https</h2><blockquote>
 <p>有一种情况相信很多人都遇到过，就是虽然我们配置了 ssl 证书，但是 https 和 http 地址都是各自都可以单独访问。我们应该也见过类似于 github 的代码托管网站有强制 https 的开关。如果是这种情况我们还可以通过 js 进行 301 定向。</p>
 </blockquote>
-<div class="highlight" id="id-1"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -3503,7 +3503,7 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 </ul>
 <h4 id="title-显示换行" class="heading-element">
   <a href="#title-%e6%98%be%e7%a4%ba%e6%8d%a2%e8%a1%8c" class="heading-mark"></a>1.1.2 title 显示换行</h4><p><a href="#" title="第一行&#10; 第二行&#10; 第三行">使用<code>&amp;#10;</code></a>或<a href="#" title="第一排&#13; 第二排&#13; 第三排">使用<code>&amp;#13;</code></a></p>
-<div class="highlight" id="id-1"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -3545,7 +3545,7 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 </ol>
 </blockquote>
 <p>如果某个属性在浏览器中不支持，那么这个属性的类型是<code>undefined</code>，判断这个属性的类型是不是<code>undefined</code>，就知道浏览器是否支持。</p>
-<div class="highlight" id="id-2"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -3586,7 +3586,7 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 </ul>
 <h3 id="font-awesome" class="heading-element">
   <a href="#font-awesome" class="heading-mark"></a>1.5 font-awesome</h3><p>现在使用 5 的版本，可以使用<code>webfont+css</code>或<code>svg+js</code></p>
-<div class="highlight" id="id-3"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
@@ -3594,7 +3594,7 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 <pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&#34;stylesheet&#34;</span> <span class="na">href=</span><span class="s">&#34;https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css&#34;</span><span class="nt">&gt;</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>其他的图标 js</p>
-<div class="highlight" id="id-4"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -3608,7 +3608,7 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 </span></span><span class="line"><span class="cl">&lt;/svg&gt;</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="响应式自适应" class="heading-element">
-  <a href="#%e5%93%8d%e5%ba%94%e5%bc%8f%e8%87%aa%e9%80%82%e5%ba%94" class="heading-mark"></a>1.6 响应式（自适应）</h3><div class="highlight" id="id-5"><div class="chroma">
+  <a href="#%e5%93%8d%e5%ba%94%e5%bc%8f%e8%87%aa%e9%80%82%e5%ba%94" class="heading-mark"></a>1.6 响应式（自适应）</h3><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -3617,7 +3617,7 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 <pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&#34;stylesheet&#34;</span> <span class="na">href=</span><span class="s">&#34;https://apps.bdimg.com/libs/bootstrap/3.3.4/css/bootstrap.min.css&#34;</span><span class="nt">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="nt">&lt;script</span> <span class="na">src=</span><span class="s">&#34;https://apps.bdimg.com/libs/bootstrap/3.3.4/js/bootstrap.min.js&#34;</span><span class="nt">&gt;</span></span></span></code></pre></td></tr></table>
 </div>
-</div><div class="highlight" id="id-6"><div class="chroma">
+</div><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
@@ -3633,7 +3633,7 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 </ul>
 </blockquote>
 <p>css3 写法 @media（宽度具体调整）</p>
-<div class="highlight" id="id-7"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -3655,7 +3655,7 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>link 引入不同 css</p>
-<div class="highlight" id="id-8"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -3669,7 +3669,7 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 </span></span><span class="line"><span class="cl"><span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&#34;stylesheet&#34;</span> <span class="na">type=</span><span class="s">&#34;text/css&#34;</span> <span class="na">href=</span><span class="s">&#34;style_PC.css&#34;</span> <span class="na">media=</span><span class="s">&#34;screen and (min-width: 960px)&#34;</span><span class="nt">/&gt;</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="jquery" class="heading-element">
-  <a href="#jquery" class="heading-mark"></a>1.7 jquery</h3><div class="highlight" id="id-9"><div class="chroma">
+  <a href="#jquery" class="heading-mark"></a>1.7 jquery</h3><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -3694,7 +3694,7 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
   <a href="#qq-%e6%8e%a8%e5%b9%bf%e9%93%be%e6%8e%a5" class="heading-mark"></a>1.8 QQ 推广链接</h3><blockquote>
 <p><a href="https://shang.qq.com/v3/widget.html"target="_blank" rel="external nofollow noopener noreferrer">QQ 推广<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> <a href="https://qun.qq.com/join.html"target="_blank" rel="external nofollow noopener noreferrer">QQ 群<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
 </blockquote>
-<div class="highlight" id="id-10"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
@@ -3703,7 +3703,7 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 </div>
 </div><p><a target="_blank" href="https://wpa.qq.com/msgrd?v=3&uin=1074627678&site=qq&menu=yes"><img border="0" src="https://wpa.qq.com/pa?p=2:1074627678:51" alt="点击这里给我发消息" title="点击这里给我发消息"/></a></p>
 <h3 id="google-fonts" class="heading-element">
-  <a href="#google-fonts" class="heading-mark"></a>1.9 Google fonts</h3><div class="highlight" id="id-11"><div class="chroma">
+  <a href="#google-fonts" class="heading-mark"></a>1.9 Google fonts</h3><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -3719,7 +3719,7 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 </div>
 </div><h3 id="fancybox" class="heading-element">
   <a href="#fancybox" class="heading-mark"></a>1.10 fancybox</h3><p><a href="https://github.com/fancyapps/fancybox"target="_blank" rel="external nofollow noopener noreferrer">github 介绍<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> <a href="https://www.bootcdn.cn/fancybox/"target="_blank" rel="external nofollow noopener noreferrer">fancybox 源<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
-<div class="highlight" id="id-12"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -3740,7 +3740,7 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 <p><strong>2021/10/2 1:29 更新</strong></p>
 </blockquote>
 <p>这是一种后加载，创建<code>linkcard.js</code>放到<code>source/js/src/</code>，然后在<code>next\layout\_macro\post.swig</code>中引用</p>
-<div class="highlight" id="id-1"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -3782,7 +3782,7 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 </span></span><span class="line"><span class="cl"><span class="p">};</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="使用" class="heading-element">
-  <a href="#%e4%bd%bf%e7%94%a8" class="heading-mark"></a>2 使用</h2><div class="highlight" id="id-2"><div class="chroma">
+  <a href="#%e4%bd%bf%e7%94%a8" class="heading-mark"></a>2 使用</h2><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -3792,7 +3792,7 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 </span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/javascript&#34;</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;/js/src/card-link.js&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>html 链接写法，a 标签加上<code>class=&quot;card-link&quot;</code></p>
-<div class="highlight" id="id-3"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
@@ -3813,7 +3813,7 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 查了一下百度知道了大概就是 qq 没有抓取到你的网站的 xml。并在其他教程中得到了一个强制提交抓取的 url <code>https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshareget_urlinfo?url=</code> 于是就有了脚本刷新的想法。简陋的写了一下。</p>
 </blockquote>
 <h2 id="批量式刷新" class="heading-element">
-  <a href="#%e6%89%b9%e9%87%8f%e5%bc%8f%e5%88%b7%e6%96%b0" class="heading-mark"></a>1 批量式刷新</h2><div class="highlight" id="id-1"><div class="chroma">
+  <a href="#%e6%89%b9%e9%87%8f%e5%bc%8f%e5%88%b7%e6%96%b0" class="heading-mark"></a>1 批量式刷新</h2><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -3901,7 +3901,7 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 </span></span><span class="line"><span class="cl"><span class="p">};</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="单链接刷新" class="heading-element">
-  <a href="#%e5%8d%95%e9%93%be%e6%8e%a5%e5%88%b7%e6%96%b0" class="heading-mark"></a>2 单链接刷新</h2><div class="highlight" id="id-2"><div class="chroma">
+  <a href="#%e5%8d%95%e9%93%be%e6%8e%a5%e5%88%b7%e6%96%b0" class="heading-mark"></a>2 单链接刷新</h2><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -3914,7 +3914,7 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 </span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;button&#34;</span> <span class="na">value</span><span class="o">=</span><span class="s">&#34;疯狂刷新&#34;</span> <span class="na">onclick</span><span class="o">=</span><span class="s">&#34;yanzheng()&#34;</span> <span class="p">/&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span></span></span></code></pre></td></tr></table>
 </div>
-</div><div class="highlight" id="id-3"><div class="chroma">
+</div><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -4042,7 +4042,7 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
     <br/>请点击验证码处：↑
 </div>
 <p>验证码 JS 来源互联网</p>
-<div class="highlight" id="id-1"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2

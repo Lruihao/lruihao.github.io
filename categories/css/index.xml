@@ -16,7 +16,7 @@
   <a href="#%e5%ae%9e%e7%ba%bf%e7%bd%91%e6%a0%bc" class="heading-mark"></a>3 实线网格</h2><p>这个效果，我最初是在刷掘金的时候发现的，掘金文章内容区的背景一个实线网格，呈现出的效果类似一页学生时代的记事本，当时觉得很有意思，于是扒下来当作了现在博客文章内容的背景。</p>
 <p>实线网格的实现思路是使用 <code>linear-gradient</code> 来绘制横向和纵向的网格线，然后通过 <code>background-size</code> 来控制网格线的间距。</p>
 <p>具体代码如下：</p>
-<div class="highlight" id="id-1"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -39,7 +39,7 @@
 </blockquote>
 <h2 id="点阵网格" class="heading-element">
   <a href="#%e7%82%b9%e9%98%b5%e7%bd%91%e6%a0%bc" class="heading-mark"></a>5 点阵网格</h2><p>这里把渐变修改为径向渐变就实现点点背景了，原理和前面说的都是一样的。</p>
-<div class="highlight" id="id-2"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -54,7 +54,7 @@
 </div>
 </div><h2 id="总结" class="heading-element">
   <a href="#%e6%80%bb%e7%bb%93" class="heading-mark"></a>6 总结</h2><p>最后为了实现我在实际开发中的需求，我还需要控制网格宽度为容器的 1/24，这里就需要使用 <code>calc()</code> 函数来计算了。</p>
-<div class="highlight" id="id-3"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -69,7 +69,7 @@
 </span></span><span class="line"><span class="cl"><span class="nt">background-size</span><span class="o">:</span> <span class="nt">calc</span><span class="o">((</span><span class="nt">100</span><span class="o">%</span> <span class="nt">-</span> <span class="nt">8px</span><span class="o">)</span> <span class="o">/</span> <span class="nt">24</span><span class="o">)</span> <span class="nt">48px</span><span class="o">;</span>
 </span></span><span class="line"><span class="cl"><span class="nt">background-position</span><span class="o">:</span> <span class="nt">4px</span> <span class="nt">4px</span><span class="o">;</span></span></span></code></pre></td></tr></table>
 </div>
-</div><div class="highlight" id="id-4"><div class="chroma">
+</div><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -94,7 +94,7 @@
   <a href="#%e5%a5%87%e6%80%9d%e6%b7%ab%e6%8a%80" class="heading-mark"></a>2 奇思淫技</h2><ol>
 <li>
 <p>由于 <strong>Scss 区分大小写而 CSS 不区分</strong>，所以为了不让 Scss 中的函数覆盖 CSS 的函数，我们可以使用除了 <code>max</code> 以外的 2<sup>3</sup> - 1 种写法，这样就能使用原生 CSS 的 <code>max</code> 函数来比较了，就不会报错了。</p>
-<div class="highlight" id="id-1"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -109,7 +109,7 @@
 <li>
 <p>使用 Scss 没有的 CSS 函数 <a href="https://developer.mozilla.org/zh-CN/docs/web/css/clamp"target="_blank" rel="external nofollow noopener noreferrer"><code>clamp</code><i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>:</p>
 <p><code>clamp(MIN, VAL, MAX)</code> 其实就是表示 <code>max(MIN, min(VAL, MAX))</code></p>
-<div class="highlight" id="id-2"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -123,7 +123,7 @@
 </div></li>
 <li>
 <p>使用 <code>unquote($string)</code> 函数让 Scss 删除字符串最前和最后的单引号或双引号</p>
-<div class="highlight" id="id-3"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -138,7 +138,7 @@
 </ol>
 <h2 id="by-the-way" class="heading-element">
   <a href="#by-the-way" class="heading-mark"></a>3 By the way</h2><p>如果需要在 CSS 函数内部恢复 <code>Scss</code> 解析（引用 <code>Scss</code> 变量），只需用 <code>#{...}</code> 包围 Scss 代码。</p>
-<div class="highlight" id="id-4"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -154,7 +154,7 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>上面的 Scss 将解析成 以下无效的 CSS 代码：</p>
-<div class="highlight" id="id-5"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -166,7 +166,7 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>用 <code>#{...}</code> 包围 Scss 变量</p>
-<div class="highlight" id="id-6"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2

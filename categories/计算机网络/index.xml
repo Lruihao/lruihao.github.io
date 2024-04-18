@@ -32,7 +32,7 @@ Idempotent：每次执行操作时，GET 只有读取 Resource，不会改变到
 <p>范例：建立使用者</p>
 <p>执行第一次时：建立一个 name = &ldquo;李四&rdquo; 的 user，但其 id = 1，执行第二次时：建立一个 name = &ldquo;李四&rdquo; 的 user，但其 id = 2，发送同样的请求，可每次都是不同的 Resource</p>
 <p>建立使用者前不需要建立任何的东西，就可以建立使用者了，使用者是可以完全独立的存在</p>
-<div class="highlight" id="id-1"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -55,7 +55,7 @@ Idempotent：每次执行操作时，GET 只有读取 Resource，不会改变到
 <p>资料结构：一对多的关系</p>
 <p>范例：Add a public key on behalf of a user 增加一个代表使用者的公钥 (<a href="https://gitea.com/api/swagger#/admin/adminCreatePublicKey"target="_blank" rel="external nofollow noopener noreferrer">Gitea API<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>)</p>
 <p>增加这个公钥之前，使用者必须存在，公钥必须归属于某个使用者之下，公钥跟姓名一样，使用相同电脑的公钥就会相同，但不表示是同一个使用者，故公钥也会有自己的 ID 我每次增加公钥时，都将生成不同的公钥 ID</p>
-<div class="highlight" id="id-2"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -90,7 +90,7 @@ Idempotent：每次执行操作时，GET 只有读取 Resource，不会改变到
 <p>范例：增加使用者与角色的关系</p>
 <p>增加使用者跟角色的关系前，使用者跟角色都必须存在；增加使用者跟角色的关系前，使用者跟角色可以独立存在，
 使用者 12262 跟 角色 2 的关系最多只能有一条关系（使用者 12262 有 角色 2)，最少没有关系（使用者 12262 没有 角色 2 ) ，执行第二次操作时，使用者 12262 跟 角色 2 的从属关系仍然存在，也不会跑出第二条 使用者 12262 跟 角色 2 的从属关系</p>
-<div class="highlight" id="id-3"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -111,7 +111,7 @@ Idempotent：每次执行操作时，GET 只有读取 Resource，不会改变到
 <li>
 <p>范例：Follow a user 关注一个使用者 (<a href="https://gitea.com/api/swagger#/user/userCurrentPutFollow"target="_blank" rel="external nofollow noopener noreferrer">Gitea API<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>)</p>
 <p>增加关注关系时，关注者与被关注者（都是使用者）都必须存在；关注者 12262 跟被关注者 12231 的关系最多只能有一条关系（12262 关注 12231），最少没有关系（12262 不关注 12231），执行第二次操作时，关注者 12262 跟被关注者 12231 的关注关系仍然存在，也不会跑出第二条关注者 12262 跟被关注者 12231 的关注关系</p>
-<div class="highlight" id="id-4"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -131,7 +131,7 @@ Idempotent：每次执行操作时，GET 只有读取 Resource，不会改变到
 <p>范例：编辑使用者</p>
 <p>编辑使用者，使用者已经存在，且我们可能有纪录编辑时间、编辑人、编辑 IP，所以每次的编辑都会造成不一样的结果
 第一次编辑使用者，更新时间变为 08:00，编辑人 12262，IP 172.18.0.66 第二次编辑使用者，更新时间变为 09:00，编辑人 12263，IP 172.18.0.67</p>
-<div class="highlight" id="id-5"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -162,7 +162,7 @@ Idempotent：每次执行操作时，GET 只有读取 Resource，不会改变到
 <li>
 <p>范例：删除使用者</p>
 <p>第一次删除使用者 12262，删除使用者 12262, 第二次删除使用者 12262，还是删除使用者 12262，只不过使用者 12262 不存在了</p>
-<div class="highlight" id="id-6"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
