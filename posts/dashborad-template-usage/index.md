@@ -66,7 +66,7 @@ export default {
 
 ## 效果
 
-![工作台仪表盘动画](images/dashboard-demo.gif &#34;画质感人，讲究看吧～&#34;)
+![工作台仪表盘动画](images/dashboard-demo.gif &#34;画质感人，将就看吧～&#34;)
 
 
 ---
