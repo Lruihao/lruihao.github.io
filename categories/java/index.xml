@@ -1,8 +1,11 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Java - 分类 | 菠菜眾長</title><link>https://lruihao.cn/categories/java/</link><description>Java - 分类 | 菠菜眾長</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><copyright>本站内容采用 CC BY-NC-SA 4.0 国际许可协议。</copyright><lastBuildDate>Wed, 08 May 2019 20:55:02 +0000</lastBuildDate><atom:link href="https://lruihao.cn/categories/java/" rel="self" type="application/rss+xml"/><item><title>java 实现一个单线程的资源下载器</title><link>https://lruihao.cn/posts/singlethreaddown/</link><pubDate>Wed, 08 May 2019 20:55:02 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/singlethreaddown/</guid><description><![CDATA[<div class="featured-image"><img loading="eager" src="images/1.png" alt="java 实现一个单线程的资源下载器" title="java 实现一个单线程的资源下载器" referrerpolicy="no-referrer"/></div><blockquote>
 <p>实现一个简单的基于单线程的资源下载器，如图所示，用户可以任意指定下载资源的链接地址，系统根据该地址判断资源是否存在，如果存在，则将该资源下载到本地。</p>
 </blockquote>
-<h2 id="gui-设计基本流程" class="heading-element">
-  <a href="#gui-%e8%ae%be%e8%ae%a1%e5%9f%ba%e6%9c%ac%e6%b5%81%e7%a8%8b" class="heading-mark"></a>1 GUI 设计基本流程</h2><p>先记录一下 GUI 设计的基本流程：</p>
+<h2 id="gui-设计基本流程" class="heading-element"><span>1 GUI 设计基本流程</span>
+  <a href="#gui-%e8%ae%be%e8%ae%a1%e5%9f%ba%e6%9c%ac%e6%b5%81%e7%a8%8b" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>先记录一下 GUI 设计的基本流程：</p>
 <ol>
 <li>根据需要从相应的顶层容器继承（如果创建窗体就继承 JFrame，对话框就继承 JDialog），新建一个子类。</li>
 <li>然后设置顶层容器的属性，包括大小、位置、标题和关闭事件等。</li>
@@ -10,8 +13,11 @@
 <li>向顶层容器上添加 GUI 组件，并设置布局。（通常利用 JPanel 组件先作为微型容器）</li>
 <li>创建新建子类的实例，调用 setVisible(true) 方法显示页面。（也可以直接在子类中设置 setVisible(true)）</li>
 </ol>
-<h2 id="实现代码" class="heading-element">
-  <a href="#%e5%ae%9e%e7%8e%b0%e4%bb%a3%e7%a0%81" class="heading-mark"></a>2 实现代码</h2><div class="highlight"><div class="chroma">
+<h2 id="实现代码" class="heading-element"><span>2 实现代码</span>
+  <a href="#%e5%ae%9e%e7%8e%b0%e4%bb%a3%e7%a0%81" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -202,8 +208,11 @@
 </span></span></span><span class="line"><span class="cl"><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="运行结果测试" class="heading-element">
-  <a href="#%e8%bf%90%e8%a1%8c%e7%bb%93%e6%9e%9c%e6%b5%8b%e8%af%95" class="heading-mark"></a>3 运行结果测试</h2><p>通过<code>https://github.com/Lruihao/Grocery/raw/master/fonts/MMT_last.ttf</code>下载沐目体 ttf 字体文件，稍微等待一下弹出对话框“下载完毕”，经检查下载内容正常。</p>
+</div><h2 id="运行结果测试" class="heading-element"><span>3 运行结果测试</span>
+  <a href="#%e8%bf%90%e8%a1%8c%e7%bb%93%e6%9e%9c%e6%b5%8b%e8%af%95" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>通过<code>https://github.com/Lruihao/Grocery/raw/master/fonts/MMT_last.ttf</code>下载沐目体 ttf 字体文件，稍微等待一下弹出对话框“下载完毕”，经检查下载内容正常。</p>
 <p><a class="lightgallery" href="images/1.png?size=large" data-thumbnail="images/1.png?size=small" data-sub-html="<h2>运行效果</h2>"><img loading="lazy" src="images/1.png" alt="运行效果" srcset="images/1.png?size=small, images/1.png?size=medium 1.5x, images/1.png?size=large 2x" data-title="运行效果" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></p>]]></description></item><item><title>java 通过 URL 和 URLConnection 访问网页资源</title><link>https://lruihao.cn/posts/java-urlreader/</link><pubDate>Mon, 06 May 2019 17:41:35 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/java-urlreader/</guid><description><![CDATA[<blockquote>
 <p>该例中首先生成一个 URL 对象 lrh，指向 RUI 豪小栈，然后再调用 lrh.openStream() 方法生成该 URL 的一个输入流，这是一个字节流，在此基础上进一步通过 InputStreamReader 和 BufferedReader 构造一个带缓冲功能的字符流，并通过这个字符流对象读取该 URL 的 html 内容，进而输出到桌面文件和控制台屏幕。URLConnection 类也可以用来对由 URL 引用的资源进行读写操作，前提是先通过 connect() 方法建立连接，然后再去获取响应头信息或响应内容。</p>
 </blockquote>
@@ -308,8 +317,11 @@
 <p>基本功能：给定一个密钥，读取文件内容，加密后，输出到另外一个文件。</p>
 <p>这里使用文件输入流读取文件内容，然后每个字节和密码进行异或简单加密。加密完成，使用文件输出流写入另一个文件中。解密和加密方法一样。利用的是对同一个数异或两遍其值不变的性质。因此一个程序可以完成加密和解密功能。只需修改文件名即可。</p>
 </blockquote>
-<h2 id="文件加密解密" class="heading-element">
-  <a href="#%e6%96%87%e4%bb%b6%e5%8a%a0%e5%af%86%e8%a7%a3%e5%af%86" class="heading-mark"></a>1 文件加密解密</h2><div class="highlight"><div class="chroma">
+<h2 id="文件加密解密" class="heading-element"><span>1 文件加密解密</span>
+  <a href="#%e6%96%87%e4%bb%b6%e5%8a%a0%e5%af%86%e8%a7%a3%e5%af%86" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -404,8 +416,11 @@
 </span></span></span><span class="line"><span class="cl"><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="文件复制" class="heading-element">
-  <a href="#%e6%96%87%e4%bb%b6%e5%a4%8d%e5%88%b6" class="heading-mark"></a>2 文件复制</h2><div class="highlight"><div class="chroma">
+</div><h2 id="文件复制" class="heading-element"><span>2 文件复制</span>
+  <a href="#%e6%96%87%e4%bb%b6%e5%a4%8d%e5%88%b6" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -553,8 +568,11 @@
 </span></span></span><span class="line"><span class="cl"><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
-</div>]]></description></item><item><title>模拟借书系统（java 异常练习）</title><link>https://lruihao.cn/posts/javaexception/</link><pubDate>Wed, 01 May 2019 16:52:21 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/javaexception/</guid><description><![CDATA[<div class="featured-image"><img loading="eager" src="/posts/javaexception/images/1.png" alt="模拟借书系统（java 异常练习）" title="模拟借书系统（java 异常练习）" referrerpolicy="no-referrer"/></div><h2 id="实现代码" class="heading-element">
-  <a href="#%e5%ae%9e%e7%8e%b0%e4%bb%a3%e7%a0%81" class="heading-mark"></a>1 实现代码</h2><blockquote>
+</div>]]></description></item><item><title>模拟借书系统（java 异常练习）</title><link>https://lruihao.cn/posts/javaexception/</link><pubDate>Wed, 01 May 2019 16:52:21 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/javaexception/</guid><description><![CDATA[<div class="featured-image"><img loading="eager" src="/posts/javaexception/images/1.png" alt="模拟借书系统（java 异常练习）" title="模拟借书系统（java 异常练习）" referrerpolicy="no-referrer"/></div><h2 id="实现代码" class="heading-element"><span>1 实现代码</span>
+  <a href="#%e5%ae%9e%e7%8e%b0%e4%bb%a3%e7%a0%81" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><blockquote>
 <p>这里的异常主要是<code>InputMismatchException</code>, 可以直接捕获该异常，我直接捕获了父类异常。</p>
 </blockquote>
 <div class="highlight"><div class="chroma">
@@ -797,8 +815,11 @@
 </span></span></span><span class="line"><span class="cl"><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="大致运行效果" class="heading-element">
-  <a href="#%e5%a4%a7%e8%87%b4%e8%bf%90%e8%a1%8c%e6%95%88%e6%9e%9c" class="heading-mark"></a>2 大致运行效果</h2><p><a class="lightgallery" href="images/2.png?size=large" data-thumbnail="images/2.png?size=small" data-sub-html="<h2>运行效果</h2>"><img loading="lazy" src="images/2.png" alt="运行效果" srcset="images/2.png?size=small, images/2.png?size=medium 1.5x, images/2.png?size=large 2x" data-title="运行效果" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></p>]]></description></item><item><title>用记事本编写第一个 java 程序</title><link>https://lruihao.cn/posts/hellojava/</link><pubDate>Fri, 19 Apr 2019 19:49:54 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/hellojava/</guid><description><![CDATA[<blockquote>
+</div><h2 id="大致运行效果" class="heading-element"><span>2 大致运行效果</span>
+  <a href="#%e5%a4%a7%e8%87%b4%e8%bf%90%e8%a1%8c%e6%95%88%e6%9e%9c" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p><a class="lightgallery" href="images/2.png?size=large" data-thumbnail="images/2.png?size=small" data-sub-html="<h2>运行效果</h2>"><img loading="lazy" src="images/2.png" alt="运行效果" srcset="images/2.png?size=small, images/2.png?size=medium 1.5x, images/2.png?size=large 2x" data-title="运行效果" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></p>]]></description></item><item><title>用记事本编写第一个 java 程序</title><link>https://lruihao.cn/posts/hellojava/</link><pubDate>Fri, 19 Apr 2019 19:49:54 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/hellojava/</guid><description><![CDATA[<blockquote>
 <p>之所以用记事本来写不是为了装 X 或者什么的。反而恰恰是返璞归真，因为在用 java 语言进行程序开发时，首先是以纯文本的方式编写所有的 java 源程序，并保存成以<code>.java</code>为后缀的文件；然后将这些源程序用<code>javac</code>编译成<code>.class</code>后缀名的字节代码文件；字节代码不是被本地处理器执行的代码，而是能够被 java 虚拟机（JVM）执行的代码。最后用 java 运行工具在 JVM 执行 java 应用程序。<br>
 由于 JVM 可以运行在不同的操作系统上，因此同一个字节代码文件可以跨平台运行。</p>
 </blockquote>
@@ -807,8 +828,11 @@
 <li>java</li>
 </ul>
 <p><a class="lightgallery" href="images/2.png?size=large" data-thumbnail="images/2.png?size=small" data-sub-html="<h2>hello</h2>"><img loading="lazy" src="images/2.png" alt="hello" srcset="images/2.png?size=small, images/2.png?size=medium 1.5x, images/2.png?size=large 2x" data-title="hello" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></p>
-<h2 id="编写-java" class="heading-element">
-  <a href="#%e7%bc%96%e5%86%99-java" class="heading-mark"></a>1 编写 java</h2><p>用记事本编辑 java 文件，并且把后缀改成<code>.java</code>，文件名和类名要一样。</p>
+<h2 id="编写-java" class="heading-element"><span>1 编写 java</span>
+  <a href="#%e7%bc%96%e5%86%99-java" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>用记事本编辑 java 文件，并且把后缀改成<code>.java</code>，文件名和类名要一样。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -824,9 +848,15 @@
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="p">}</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="打开-cmd" class="heading-element">
-  <a href="#%e6%89%93%e5%bc%80-cmd" class="heading-mark"></a>2 打开 cmd</h2><p><a class="lightgallery" href="images/1.png?size=large" data-thumbnail="images/1.png?size=small" data-sub-html="<h2>cmd</h2>"><img loading="lazy" src="images/1.png" alt="cmd" srcset="images/1.png?size=small, images/1.png?size=medium 1.5x, images/1.png?size=large 2x" data-title="cmd" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></p>]]></description></item><item><title>java 正则表达式练习</title><link>https://lruihao.cn/posts/java-regex/</link><pubDate>Thu, 18 Apr 2019 22:04:21 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/java-regex/</guid><description><![CDATA[<h2 id="邮箱" class="heading-element">
-  <a href="#%e9%82%ae%e7%ae%b1" class="heading-mark"></a>1 邮箱</h2><div class="highlight"><div class="chroma">
+</div><h2 id="打开-cmd" class="heading-element"><span>2 打开 cmd</span>
+  <a href="#%e6%89%93%e5%bc%80-cmd" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p><a class="lightgallery" href="images/1.png?size=large" data-thumbnail="images/1.png?size=small" data-sub-html="<h2>cmd</h2>"><img loading="lazy" src="images/1.png" alt="cmd" srcset="images/1.png?size=small, images/1.png?size=medium 1.5x, images/1.png?size=large 2x" data-title="cmd" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></p>]]></description></item><item><title>java 正则表达式练习</title><link>https://lruihao.cn/posts/java-regex/</link><pubDate>Thu, 18 Apr 2019 22:04:21 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/java-regex/</guid><description><![CDATA[<h2 id="邮箱" class="heading-element"><span>1 邮箱</span>
+  <a href="#%e9%82%ae%e7%ae%b1" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -872,8 +902,11 @@
 <pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">admin</span><span class="nd">@lruihao.cn</span><span class="w"> </span><span class="n">匹配结果</span><span class="err">：</span><span class="kc">true</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">lruihao</span><span class="p">.</span><span class="na">cn</span><span class="w"> </span><span class="n">匹配结果</span><span class="err">：</span><span class="kc">false</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="电话" class="heading-element">
-  <a href="#%e7%94%b5%e8%af%9d" class="heading-mark"></a>2 电话</h2><div class="highlight"><div class="chroma">
+</div><h2 id="电话" class="heading-element"><span>2 电话</span>
+  <a href="#%e7%94%b5%e8%af%9d" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -997,8 +1030,11 @@
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">b</span><span class="p">;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="身份证" class="heading-element">
-  <a href="#%e8%ba%ab%e4%bb%bd%e8%af%81" class="heading-mark"></a>3 身份证</h2><div class="highlight"><div class="chroma">
+</div><h2 id="身份证" class="heading-element"><span>3 身份证</span>
+  <a href="#%e8%ba%ab%e4%bb%bd%e8%af%81" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -1011,18 +1047,30 @@
 </span></span></span><span class="line"><span class="cl"><span class="w">           </span><span class="s">&#34;(([1|2][0-9]{3}[0|1][0-9][0-3][0-9][0-9]{3}&#34;</span><span class="w"> </span><span class="o">+</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">           </span><span class="s">&#34;[Xx0-9])|([0-9]{2}[0|1][0-9][0-3][0-9][0-9]{3}))&#34;</span><span class="p">;</span></span></span></code></pre></td></tr></table>
 </div>
-</div>]]></description></item><item><title>java 常用类</title><link>https://lruihao.cn/posts/stringbuffer/</link><pubDate>Sun, 14 Apr 2019 10:12:44 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/stringbuffer/</guid><description><![CDATA[<h2 id="stringbufferstringbuilder掌握" class="heading-element">
-  <a href="#stringbufferstringbuilder%e6%8e%8c%e6%8f%a1" class="heading-mark"></a>1 StringBuffer/StringBuilder（掌握）</h2><h3 id="stringbuffer-是线程安全的可变字符串" class="heading-element">
-  <a href="#stringbuffer-%e6%98%af%e7%ba%bf%e7%a8%8b%e5%ae%89%e5%85%a8%e7%9a%84%e5%8f%af%e5%8f%98%e5%ad%97%e7%ac%a6%e4%b8%b2" class="heading-mark"></a>1.1 StringBuffer 是线程安全的可变字符串</h3><p>StringBuilder 是线程不安全的可变字符串。<br>
+</div>]]></description></item><item><title>java 常用类</title><link>https://lruihao.cn/posts/stringbuffer/</link><pubDate>Sun, 14 Apr 2019 10:12:44 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/stringbuffer/</guid><description><![CDATA[<h2 id="stringbufferstringbuilder掌握" class="heading-element"><span>1 StringBuffer/StringBuilder（掌握）</span>
+  <a href="#stringbufferstringbuilder%e6%8e%8c%e6%8f%a1" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><h3 id="stringbuffer-是线程安全的可变字符串" class="heading-element"><span>1.1 StringBuffer 是线程安全的可变字符串</span>
+  <a href="#stringbuffer-%e6%98%af%e7%ba%bf%e7%a8%8b%e5%ae%89%e5%85%a8%e7%9a%84%e5%8f%af%e5%8f%98%e5%ad%97%e7%ac%a6%e4%b8%b2" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>StringBuilder 是线程不安全的可变字符串。<br>
 和 StringBuffer 的功能一样。就是效率高一些，但是不安全。</p>
-<h3 id="构造方法" class="heading-element">
-  <a href="#%e6%9e%84%e9%80%a0%e6%96%b9%e6%b3%95" class="heading-mark"></a>1.2 构造方法</h3><ul>
+<h3 id="构造方法" class="heading-element"><span>1.2 构造方法</span>
+  <a href="#%e6%9e%84%e9%80%a0%e6%96%b9%e6%b3%95" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><ul>
 <li>StringBuffer sb = new StringBuffer();</li>
 <li>StringBuffer sb = new StringBuffer(50);</li>
 <li>StringBuffer sb = new StringBuffer(&ldquo;hello&rdquo;);</li>
 </ul>
-<h3 id="成员方法自己补齐方法和意思" class="heading-element">
-  <a href="#%e6%88%90%e5%91%98%e6%96%b9%e6%b3%95%e8%87%aa%e5%b7%b1%e8%a1%a5%e9%bd%90%e6%96%b9%e6%b3%95%e5%92%8c%e6%84%8f%e6%80%9d" class="heading-mark"></a>1.3 成员方法：（自己补齐方法和意思）</h3><ul>
+<h3 id="成员方法自己补齐方法和意思" class="heading-element"><span>1.3 成员方法：（自己补齐方法和意思）</span>
+  <a href="#%e6%88%90%e5%91%98%e6%96%b9%e6%b3%95%e8%87%aa%e5%b7%b1%e8%a1%a5%e9%bd%90%e6%96%b9%e6%b3%95%e5%92%8c%e6%84%8f%e6%80%9d" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><ul>
 <li>添加功能<br>
 public StringBuffer append(String str): 追加字符串<br>
 public StringBuffer insert(int offset,String str): 在指定位置插入字符串</li>
@@ -1037,16 +1085,25 @@ public StringBuffer reverse(): 反转</li>
 public String substring(int start): 从指定索引到末尾的字符串<br>
 public String substring(int start,int end): 从指定索引开始到指定索引结束的字符串</li>
 </ul>
-<h3 id="案例" class="heading-element">
-  <a href="#%e6%a1%88%e4%be%8b" class="heading-mark"></a>1.4 案例</h3><ul>
+<h3 id="案例" class="heading-element"><span>1.4 案例</span>
+  <a href="#%e6%a1%88%e4%be%8b" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><ul>
 <li>String 和 StringBuffer 的相互转换，通过构造即可。</li>
 <li>把数组转成指定的字符串格式</li>
 <li>把字符串反转</li>
 <li>判断一个字符串是否是对称字符串</li>
 </ul>
-<h2 id="数组高级部分理解" class="heading-element">
-  <a href="#%e6%95%b0%e7%bb%84%e9%ab%98%e7%ba%a7%e9%83%a8%e5%88%86%e7%90%86%e8%a7%a3" class="heading-mark"></a>2 数组高级部分（理解）</h2><h3 id="排序" class="heading-element">
-  <a href="#%e6%8e%92%e5%ba%8f" class="heading-mark"></a>2.1 排序</h3><ul>
+<h2 id="数组高级部分理解" class="heading-element"><span>2 数组高级部分（理解）</span>
+  <a href="#%e6%95%b0%e7%bb%84%e9%ab%98%e7%ba%a7%e9%83%a8%e5%88%86%e7%90%86%e8%a7%a3" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><h3 id="排序" class="heading-element"><span>2.1 排序</span>
+  <a href="#%e6%8e%92%e5%ba%8f" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><ul>
 <li>冒泡排序
 <blockquote>
 <p>相邻元素，两两比较，大的往后放。</p>
@@ -1169,8 +1226,11 @@ public String substring(int start,int end): 从指定索引开始到指定索引
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="查找" class="heading-element">
-  <a href="#%e6%9f%a5%e6%89%be" class="heading-mark"></a>2.2 查找</h3><ul>
+</div><h3 id="查找" class="heading-element"><span>2.2 查找</span>
+  <a href="#%e6%9f%a5%e6%89%be" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><ul>
 <li>基本查找<br>
 数组无序</li>
 <li>二分查找<br>
@@ -1223,11 +1283,20 @@ public String substring(int start,int end): 从指定索引开始到指定索引
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">mid</span><span class="p">;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="arrays-工具类掌握" class="heading-element">
-  <a href="#arrays-%e5%b7%a5%e5%85%b7%e7%b1%bb%e6%8e%8c%e6%8f%a1" class="heading-mark"></a>3 Arrays 工具类（掌握）</h2><h3 id="arrays-是针对数组进行操作的工具类提供了排序和查找等功能" class="heading-element">
-  <a href="#arrays-%e6%98%af%e9%92%88%e5%af%b9%e6%95%b0%e7%bb%84%e8%bf%9b%e8%a1%8c%e6%93%8d%e4%bd%9c%e7%9a%84%e5%b7%a5%e5%85%b7%e7%b1%bb%e6%8f%90%e4%be%9b%e4%ba%86%e6%8e%92%e5%ba%8f%e5%92%8c%e6%9f%a5%e6%89%be%e7%ad%89%e5%8a%9f%e8%83%bd" class="heading-mark"></a>3.1 Arrays 是针对数组进行操作的工具类，提供了排序和查找等功能</h3><!-- markdownlint-disable MD024 -->
-<h3 id="成员方法自己补齐方法和意思-1" class="heading-element">
-  <a href="#%e6%88%90%e5%91%98%e6%96%b9%e6%b3%95%e8%87%aa%e5%b7%b1%e8%a1%a5%e9%bd%90%e6%96%b9%e6%b3%95%e5%92%8c%e6%84%8f%e6%80%9d-1" class="heading-mark"></a>3.2 成员方法：（自己补齐方法和意思）</h3><ul>
+</div><h2 id="arrays-工具类掌握" class="heading-element"><span>3 Arrays 工具类（掌握）</span>
+  <a href="#arrays-%e5%b7%a5%e5%85%b7%e7%b1%bb%e6%8e%8c%e6%8f%a1" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><h3 id="arrays-是针对数组进行操作的工具类提供了排序和查找等功能" class="heading-element"><span>3.1 Arrays 是针对数组进行操作的工具类，提供了排序和查找等功能</span>
+  <a href="#arrays-%e6%98%af%e9%92%88%e5%af%b9%e6%95%b0%e7%bb%84%e8%bf%9b%e8%a1%8c%e6%93%8d%e4%bd%9c%e7%9a%84%e5%b7%a5%e5%85%b7%e7%b1%bb%e6%8f%90%e4%be%9b%e4%ba%86%e6%8e%92%e5%ba%8f%e5%92%8c%e6%9f%a5%e6%89%be%e7%ad%89%e5%8a%9f%e8%83%bd" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><!-- markdownlint-disable MD024 -->
+<h3 id="成员方法自己补齐方法和意思-1" class="heading-element"><span>3.2 成员方法：（自己补齐方法和意思）</span>
+  <a href="#%e6%88%90%e5%91%98%e6%96%b9%e6%b3%95%e8%87%aa%e5%b7%b1%e8%a1%a5%e9%bd%90%e6%96%b9%e6%b3%95%e5%92%8c%e6%84%8f%e6%80%9d-1" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><ul>
 <li>把数组转成字符串
 public static String toString(): 将任意类型数据转换成字符串</li>
 <li>排序
@@ -1235,12 +1304,24 @@ public static void sort()：</li>
 <li>二分查找
 public static int binarySearch(int[] arr,int key)</li>
 </ul>
-<h3 id="案例-1" class="heading-element">
-  <a href="#%e6%a1%88%e4%be%8b-1" class="heading-mark"></a>3.3 案例</h3><p>把字符串中的字符进行排序</p>
-<h2 id="基本类型包装类掌握" class="heading-element">
-  <a href="#%e5%9f%ba%e6%9c%ac%e7%b1%bb%e5%9e%8b%e5%8c%85%e8%a3%85%e7%b1%bb%e6%8e%8c%e6%8f%a1" class="heading-mark"></a>4 基本类型包装类（掌握）</h2><h3 id="为了让我们对基本类型进行更多的操作java-针对每种基本类型提供了对应的包装类类型" class="heading-element">
-  <a href="#%e4%b8%ba%e4%ba%86%e8%ae%a9%e6%88%91%e4%bb%ac%e5%af%b9%e5%9f%ba%e6%9c%ac%e7%b1%bb%e5%9e%8b%e8%bf%9b%e8%a1%8c%e6%9b%b4%e5%a4%9a%e7%9a%84%e6%93%8d%e4%bd%9cjava-%e9%92%88%e5%af%b9%e6%af%8f%e7%a7%8d%e5%9f%ba%e6%9c%ac%e7%b1%bb%e5%9e%8b%e6%8f%90%e4%be%9b%e4%ba%86%e5%af%b9%e5%ba%94%e7%9a%84%e5%8c%85%e8%a3%85%e7%b1%bb%e7%b1%bb%e5%9e%8b" class="heading-mark"></a>4.1 为了让我们对基本类型进行更多的操作，java 针对每种基本类型提供了对应的包装类类型</h3><h3 id="分别是哪些呢" class="heading-element">
-  <a href="#%e5%88%86%e5%88%ab%e6%98%af%e5%93%aa%e4%ba%9b%e5%91%a2" class="heading-mark"></a>4.2 分别是哪些呢？</h3><div class="highlight"><div class="chroma">
+<h3 id="案例-1" class="heading-element"><span>3.3 案例</span>
+  <a href="#%e6%a1%88%e4%be%8b-1" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>把字符串中的字符进行排序</p>
+<h2 id="基本类型包装类掌握" class="heading-element"><span>4 基本类型包装类（掌握）</span>
+  <a href="#%e5%9f%ba%e6%9c%ac%e7%b1%bb%e5%9e%8b%e5%8c%85%e8%a3%85%e7%b1%bb%e6%8e%8c%e6%8f%a1" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><h3 id="为了让我们对基本类型进行更多的操作java-针对每种基本类型提供了对应的包装类类型" class="heading-element"><span>4.1 为了让我们对基本类型进行更多的操作，java 针对每种基本类型提供了对应的包装类类型</span>
+  <a href="#%e4%b8%ba%e4%ba%86%e8%ae%a9%e6%88%91%e4%bb%ac%e5%af%b9%e5%9f%ba%e6%9c%ac%e7%b1%bb%e5%9e%8b%e8%bf%9b%e8%a1%8c%e6%9b%b4%e5%a4%9a%e7%9a%84%e6%93%8d%e4%bd%9cjava-%e9%92%88%e5%af%b9%e6%af%8f%e7%a7%8d%e5%9f%ba%e6%9c%ac%e7%b1%bb%e5%9e%8b%e6%8f%90%e4%be%9b%e4%ba%86%e5%af%b9%e5%ba%94%e7%9a%84%e5%8c%85%e8%a3%85%e7%b1%bb%e7%b1%bb%e5%9e%8b" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><h3 id="分别是哪些呢" class="heading-element"><span>4.2 分别是哪些呢？</span>
+  <a href="#%e5%88%86%e5%88%ab%e6%98%af%e5%93%aa%e4%ba%9b%e5%91%a2" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -1263,8 +1344,11 @@ public static int binarySearch(int[] arr,int key)</li>
 </span></span><span class="line"><span class="cl">  boolean    Boolean
 </span></span><span class="line"><span class="cl">特殊：void    Void</span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="integer" class="heading-element">
-  <a href="#integer" class="heading-mark"></a>4.3 Integer</h3><ul>
+</div><h3 id="integer" class="heading-element"><span>4.3 Integer</span>
+  <a href="#integer" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><ul>
 <li>构造方法
 <ul>
 <li>Integer i = new Integer(100);</li>
@@ -1307,8 +1391,11 @@ int-&gt;String: String.valueOf() 或 Integer.toString()</li>
 <li>byte 缓存池面试题<br>
 byte,short,char&mdash;&gt;小于 127，否则报 -6 的错误（查看 JDK)</li>
 </ul>
-<h3 id="character" class="heading-element">
-  <a href="#character" class="heading-mark"></a>4.4 Character</h3><ul>
+<h3 id="character" class="heading-element"><span>4.4 Character</span>
+  <a href="#character" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><ul>
 <li>构造方法<br>
 Character ch = new Character(&lsquo;a&rsquo;);</li>
 <li>成员方法（自己补齐方法和意思）
@@ -1329,15 +1416,21 @@ public Char toLowerCase(Char ch)</li>
 ]]></description></item><item><title>Java 父类子类的对象初始化过程</title><link>https://lruihao.cn/posts/substatus/</link><pubDate>Thu, 21 Mar 2019 13:36:25 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/substatus/</guid><description><![CDATA[<blockquote>
 <p>摘要：Java 基本的对象初始化过程，子类的初始化，以及涉及到父类和子类的转化时可能引起混乱的情况。</p>
 </blockquote>
-<h2 id="基本初始化过程" class="heading-element">
-  <a href="#%e5%9f%ba%e6%9c%ac%e5%88%9d%e5%a7%8b%e5%8c%96%e8%bf%87%e7%a8%8b" class="heading-mark"></a>1 基本初始化过程</h2><p>对于一个简单类的初始化过程是：<br>
+<h2 id="基本初始化过程" class="heading-element"><span>1 基本初始化过程</span>
+  <a href="#%e5%9f%ba%e6%9c%ac%e5%88%9d%e5%a7%8b%e5%8c%96%e8%bf%87%e7%a8%8b" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>对于一个简单类的初始化过程是：<br>
 <code>static 修饰的模块（static 变量和 static 块） =&gt; 按照代码顺序依次执行。</code><br>
 ↓<br>
 <code>实例变量  及非 static 模块 =&gt; 按照代码顺序依次执行。</code><br>
 ↓<br>
 <code>构造函数 =&gt; 执行对应的构造函数。</code></p>
-<h2 id="子类的初始化过程" class="heading-element">
-  <a href="#%e5%ad%90%e7%b1%bb%e7%9a%84%e5%88%9d%e5%a7%8b%e5%8c%96%e8%bf%87%e7%a8%8b" class="heading-mark"></a>2 子类的初始化过程</h2><p><code>父类 static 修饰的模块</code><br>
+<h2 id="子类的初始化过程" class="heading-element"><span>2 子类的初始化过程</span>
+  <a href="#%e5%ad%90%e7%b1%bb%e7%9a%84%e5%88%9d%e5%a7%8b%e5%8c%96%e8%bf%87%e7%a8%8b" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p><code>父类 static 修饰的模块</code><br>
 ↓<br>
 <code>子类 static 修饰模块</code><br>
 ↓<br>
@@ -1439,8 +1532,11 @@ public Char toLowerCase(Char ch)</li>
 <li>类型通配符一般使用问号<code>?</code>代替具体的类型<code>实</code>参，注意不是类型形参。</li>
 </ul>
 </blockquote>
-<h2 id="代码" class="heading-element">
-  <a href="#%e4%bb%a3%e7%a0%81" class="heading-mark"></a>1 代码</h2><div class="highlight"><div class="chroma">
+<h2 id="代码" class="heading-element"><span>1 代码</span>
+  <a href="#%e4%bb%a3%e7%a0%81" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -1523,8 +1619,11 @@ public Char toLowerCase(Char ch)</li>
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="p">}</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="运行结果" class="heading-element">
-  <a href="#%e8%bf%90%e8%a1%8c%e7%bb%93%e6%9e%9c" class="heading-mark"></a>2 运行结果</h2><div class="highlight"><div class="chroma">
+</div><h2 id="运行结果" class="heading-element"><span>2 运行结果</span>
+  <a href="#%e8%bf%90%e8%a1%8c%e7%bb%93%e6%9e%9c" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -1542,8 +1641,11 @@ public Char toLowerCase(Char ch)</li>
 </div>]]></description></item><item><title>匿名类在可视化界面中的应用</title><link>https://lruihao.cn/posts/qframe/</link><pubDate>Fri, 15 Mar 2019 22:31:28 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/qframe/</guid><description><![CDATA[<blockquote>
 <p>java 中匿名类用的最多的地方就是可视化界面设计中，特别是将<code>事件监听器</code>注册到某个组件上的时候。</p>
 </blockquote>
-<h2 id="代码" class="heading-element">
-  <a href="#%e4%bb%a3%e7%a0%81" class="heading-mark"></a>1 代码</h2><div class="highlight"><div class="chroma">
+<h2 id="代码" class="heading-element"><span>1 代码</span>
+  <a href="#%e4%bb%a3%e7%a0%81" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -1615,10 +1717,16 @@ public Char toLowerCase(Char ch)</li>
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>创建一个可视化界面，界面中有一个按钮，单击按钮显示“单击了新建按钮”。</p>
-<h2 id="结果" class="heading-element">
-  <a href="#%e7%bb%93%e6%9e%9c" class="heading-mark"></a>2 结果</h2><p><a class="lightgallery" href="/posts/qframe/images/1.png?size=large" data-thumbnail="/posts/qframe/images/1.png?size=small" data-sub-html="<h2>结果</h2>"><img loading="lazy" src="/posts/qframe/images/1.png" alt="结果" srcset="/posts/qframe/images/1.png?size=small, /posts/qframe/images/1.png?size=medium 1.5x, /posts/qframe/images/1.png?size=large 2x" data-title="结果" style="--width: 968px;--aspect-ratio: 968 / 432;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></p>
-<h2 id="参考" class="heading-element">
-  <a href="#%e5%8f%82%e8%80%83" class="heading-mark"></a>3 参考</h2><ul>
+<h2 id="结果" class="heading-element"><span>2 结果</span>
+  <a href="#%e7%bb%93%e6%9e%9c" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p><a class="lightgallery" href="images/1.png?size=large" data-thumbnail="images/1.png?size=small" data-sub-html="<h2>结果</h2>"><img loading="lazy" src="images/1.png" alt="结果" srcset="images/1.png?size=small, images/1.png?size=medium 1.5x, images/1.png?size=large 2x" data-title="结果" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></p>
+<h2 id="参考" class="heading-element"><span>3 参考</span>
+  <a href="#%e5%8f%82%e8%80%83" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><ul>
 <li><a href="https://www.cnblogs.com/fantasy01/p/3911488.html"target="_blank" rel="external nofollow noopener noreferrer">JOptionPane 的使用<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
 </ul>]]></description></item><item><title>java 继承 test</title><link>https://lruihao.cn/posts/jicheng/</link><pubDate>Thu, 24 Jan 2019 15:07:50 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/jicheng/</guid><description><![CDATA[<div class="details admonition quote open">
     <div class="details-summary admonition-title">
@@ -1640,8 +1748,11 @@ public Char toLowerCase(Char ch)</li>
 </div>
     </div>
   </div>
-<h2 id="java-中的继承特点" class="heading-element">
-  <a href="#java-%e4%b8%ad%e7%9a%84%e7%bb%a7%e6%89%bf%e7%89%b9%e7%82%b9" class="heading-mark"></a>1 java 中的继承特点</h2><blockquote>
+<h2 id="java-中的继承特点" class="heading-element"><span>1 java 中的继承特点</span>
+  <a href="#java-%e4%b8%ad%e7%9a%84%e7%bb%a7%e6%89%bf%e7%89%b9%e7%82%b9" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><blockquote>
 <p>Java 只支持单继承，不支持多继承。Java 支持多层继承（继承体系）</p>
 </blockquote>
 <div class="highlight"><div class="chroma">
@@ -1685,8 +1796,11 @@ public Char toLowerCase(Char ch)</li>
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="p">}</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="java-中的继承注意事项" class="heading-element">
-  <a href="#java-%e4%b8%ad%e7%9a%84%e7%bb%a7%e6%89%bf%e6%b3%a8%e6%84%8f%e4%ba%8b%e9%a1%b9" class="heading-mark"></a>2 java 中的继承注意事项</h2><ol>
+</div><h2 id="java-中的继承注意事项" class="heading-element"><span>2 java 中的继承注意事项</span>
+  <a href="#java-%e4%b8%ad%e7%9a%84%e7%bb%a7%e6%89%bf%e6%b3%a8%e6%84%8f%e4%ba%8b%e9%a1%b9" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><ol>
 <li>子类只能继承父类所有非私有的成员（成员方法和成员变量）</li>
 <li>子类不能继承父类的构造方法，但是可以通过 super 关键字去访问父类构造方法。</li>
 <li>不要为了部分功能而去继承</li>
@@ -1705,8 +1819,11 @@ public Char toLowerCase(Char ch)</li>
 </span></span><span class="line"><span class="cl">Dog,Animal  对
 </span></span><span class="line"><span class="cl">Dog,Pig  错</span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="继承" class="heading-element">
-  <a href="#%e7%bb%a7%e6%89%bf" class="heading-mark"></a>3 继承</h2><blockquote>
+</div><h2 id="继承" class="heading-element"><span>3 继承</span>
+  <a href="#%e7%bb%a7%e6%89%bf" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><blockquote>
 <p>继承间的构造方法关系：创建子类对象，会先去访问父类的构造方法。对父类的数据进行初始化。</p>
 </blockquote>
 <div class="highlight"><div class="chroma">
@@ -1784,8 +1901,11 @@ public Char toLowerCase(Char ch)</li>
 </span></span><span class="line"><span class="cl">20
 </span></span><span class="line"><span class="cl">10</span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="代码块" class="heading-element">
-  <a href="#%e4%bb%a3%e7%a0%81%e5%9d%97" class="heading-mark"></a>4 代码块</h2><blockquote>
+</div><h2 id="代码块" class="heading-element"><span>4 代码块</span>
+  <a href="#%e4%bb%a3%e7%a0%81%e5%9d%97" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><blockquote>
 <p>代码块的执行顺序：静态代码块 &ndash;&gt; 构造代码块 &ndash;&gt; 构造方法<br>
 代码的执行特点：静态代码块只执行一次，构造代码块每次调用构造方法都执行。</p>
 </blockquote>
@@ -1892,8 +2012,11 @@ public Char toLowerCase(Char ch)</li>
 </span></span><span class="line"><span class="cl">子类构造代码块
 </span></span><span class="line"><span class="cl">子类构造方法</span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="继承间的成员关系" class="heading-element">
-  <a href="#%e7%bb%a7%e6%89%bf%e9%97%b4%e7%9a%84%e6%88%90%e5%91%98%e5%85%b3%e7%b3%bb" class="heading-mark"></a>5 继承间的成员关系</h2><ul>
+</div><h2 id="继承间的成员关系" class="heading-element"><span>5 继承间的成员关系</span>
+  <a href="#%e7%bb%a7%e6%89%bf%e9%97%b4%e7%9a%84%e6%88%90%e5%91%98%e5%85%b3%e7%b3%bb" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><ul>
 <li>
 <p>成员方法
 不同名称：非常简单，一看就知道调用谁<br>
@@ -1912,9 +2035,15 @@ public Char toLowerCase(Char ch)</li>
 </blockquote>
 </li>
 </ul>
-<h2 id="注意事项" class="heading-element">
-  <a href="#%e6%b3%a8%e6%84%8f%e4%ba%8b%e9%a1%b9" class="heading-mark"></a>6 注意事项</h2><p><strong>子类中所有的构造方法默认都会访问父类中空参数的构造方法。为什么呢？因为子类会继承父类中的数据，可能还会使用父类的数据。所以，子类初始化之前，一定要先完成父类数据的初始化。</strong></p>]]></description></item><item><title>Arrays 类及基本使用</title><link>https://lruihao.cn/posts/java-arrays/</link><pubDate>Fri, 18 Jan 2019 13:13:10 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/java-arrays/</guid><description><![CDATA[<h2 id="主要方法" class="heading-element">
-  <a href="#%e4%b8%bb%e8%a6%81%e6%96%b9%e6%b3%95" class="heading-mark"></a>1 主要方法</h2><ul>
+<h2 id="注意事项" class="heading-element"><span>6 注意事项</span>
+  <a href="#%e6%b3%a8%e6%84%8f%e4%ba%8b%e9%a1%b9" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p><strong>子类中所有的构造方法默认都会访问父类中空参数的构造方法。为什么呢？因为子类会继承父类中的数据，可能还会使用父类的数据。所以，子类初始化之前，一定要先完成父类数据的初始化。</strong></p>]]></description></item><item><title>Arrays 类及基本使用</title><link>https://lruihao.cn/posts/java-arrays/</link><pubDate>Fri, 18 Jan 2019 13:13:10 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/java-arrays/</guid><description><![CDATA[<h2 id="主要方法" class="heading-element"><span>1 主要方法</span>
+  <a href="#%e4%b8%bb%e8%a6%81%e6%96%b9%e6%b3%95" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><ul>
 <li>static type[] copyof(type[] original,int length)</li>
 <li>static int binarysearch(type[] a,type key)</li>
 <li>static boolean equals(type[] a,type[] b)</li>
@@ -1922,8 +2051,11 @@ public Char toLowerCase(Char ch)</li>
 <li>static void fill(type[] a,int fromindex,int toindex,type val)</li>
 <li>static void sort(type[] a)</li>
 </ul>
-<h2 id="实例代码" class="heading-element">
-  <a href="#%e5%ae%9e%e4%be%8b%e4%bb%a3%e7%a0%81" class="heading-mark"></a>2 实例代码</h2><div class="highlight"><div class="chroma">
+<h2 id="实例代码" class="heading-element"><span>2 实例代码</span>
+  <a href="#%e5%ae%9e%e4%be%8b%e4%bb%a3%e7%a0%81" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -2044,8 +2176,11 @@ public Char toLowerCase(Char ch)</li>
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="p">}</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="程序运行结果" class="heading-element">
-  <a href="#%e7%a8%8b%e5%ba%8f%e8%bf%90%e8%a1%8c%e7%bb%93%e6%9e%9c" class="heading-mark"></a>3 程序运行结果</h2><div class="highlight"><div class="chroma">
+</div><h2 id="程序运行结果" class="heading-element"><span>3 程序运行结果</span>
+  <a href="#%e7%a8%8b%e5%ba%8f%e8%bf%90%e8%a1%8c%e7%bb%93%e6%9e%9c" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -2129,8 +2264,11 @@ int number = (int)(Math.random()*100)+1;</li>
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="p">}</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="小游戏" class="heading-element">
-  <a href="#%e5%b0%8f%e6%b8%b8%e6%88%8f" class="heading-mark"></a>0.1 小游戏</h3><blockquote>
+</div><h3 id="小游戏" class="heading-element"><span>0.1 小游戏</span>
+  <a href="#%e5%b0%8f%e6%b8%b8%e6%88%8f" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><blockquote>
 <p>该游戏可以由程序随机产生或由用户输入四个 0 到 9 之间的数字，且不重复。玩游戏者通过游戏提示输入八次来匹配上面所输入的数字。A 表示位置正确且数字正确，B 表示数字正确而位置不正确。<br>
 算法： 可以直接算出 A 类的数目，但是 B 类的数目直接算出或许会很麻烦，正好我们可以先算出 C 类数目恰好减去 A 类就是 B 类了。</p>
 </blockquote>
@@ -2287,8 +2425,11 @@ int number = (int)(Math.random()*100)+1;</li>
 </span></span></span><span class="line"><span class="cl"><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="一次游戏过程" class="heading-element">
-  <a href="#%e4%b8%80%e6%ac%a1%e6%b8%b8%e6%88%8f%e8%bf%87%e7%a8%8b" class="heading-mark"></a>0.2 一次游戏过程</h3><div class="highlight"><div class="chroma">
+</div><h3 id="一次游戏过程" class="heading-element"><span>0.2 一次游戏过程</span>
+  <a href="#%e4%b8%80%e6%ac%a1%e6%b8%b8%e6%88%8f%e8%bf%87%e7%a8%8b" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -2321,8 +2462,11 @@ int number = (int)(Math.random()*100)+1;</li>
 </span></span><span class="line"><span class="cl">1 6 7 5
 </span></span><span class="line"><span class="cl">恭喜猜对啦！</span></span></code></pre></td></tr></table>
 </div>
-</div>]]></description></item><item><title>面向对象基础知识总结</title><link>https://lruihao.cn/posts/duixiang/</link><pubDate>Tue, 15 Jan 2019 16:07:31 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/duixiang/</guid><description><![CDATA[<h2 id="面向对象思想理解" class="heading-element">
-  <a href="#%e9%9d%a2%e5%90%91%e5%af%b9%e8%b1%a1%e6%80%9d%e6%83%b3%e7%90%86%e8%a7%a3" class="heading-mark"></a>1 面向对象思想（理解）</h2><ol>
+</div>]]></description></item><item><title>面向对象基础知识总结</title><link>https://lruihao.cn/posts/duixiang/</link><pubDate>Tue, 15 Jan 2019 16:07:31 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/duixiang/</guid><description><![CDATA[<h2 id="面向对象思想理解" class="heading-element"><span>1 面向对象思想（理解）</span>
+  <a href="#%e9%9d%a2%e5%90%91%e5%af%b9%e8%b1%a1%e6%80%9d%e6%83%b3%e7%90%86%e8%a7%a3" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><ol>
 <li>面向对象是基于面向过程的一种编程思想</li>
 <li>思想特点：<br>
 A: 是一种更符合我们思考习惯的思想<br>
@@ -2335,8 +2479,11 @@ C: 买电脑</li>
 <li>举例并代码体现
 把大象装进冰箱</li>
 </ol>
-<h2 id="类与对象掌握" class="heading-element">
-  <a href="#%e7%b1%bb%e4%b8%8e%e5%af%b9%e8%b1%a1%e6%8e%8c%e6%8f%a1" class="heading-mark"></a>2 类与对象（掌握）</h2><ol>
+<h2 id="类与对象掌握" class="heading-element"><span>2 类与对象（掌握）</span>
+  <a href="#%e7%b1%bb%e4%b8%8e%e5%af%b9%e8%b1%a1%e6%8e%8c%e6%8f%a1" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><ol>
 <li>我们学习编程是为了把现实世界的事物用编程语言描述来实现信息化。</li>
 <li>现实世界事物是如何表达的呢？
 属性：外在特征<br>
@@ -2349,8 +2496,11 @@ C: 买电脑</li>
 学生 类<br>
 张三 对象</li>
 </ol>
-<h2 id="类的组成掌握" class="heading-element">
-  <a href="#%e7%b1%bb%e7%9a%84%e7%bb%84%e6%88%90%e6%8e%8c%e6%8f%a1" class="heading-mark"></a>3 类的组成（掌握）</h2><ol>
+<h2 id="类的组成掌握" class="heading-element"><span>3 类的组成（掌握）</span>
+  <a href="#%e7%b1%bb%e7%9a%84%e7%bb%84%e6%88%90%e6%8e%8c%e6%8f%a1" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><ol>
 <li>成员变量<br>
 其实就是变量，只不过定义在类中，方法外，并且可以不用初始化。</li>
 <li>成员方法<br>
@@ -2375,16 +2525,22 @@ C: 买电脑</li>
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">study</span><span class="p">()</span><span class="w"> </span><span class="p">{}</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="类的使用掌握" class="heading-element">
-  <a href="#%e7%b1%bb%e7%9a%84%e4%bd%bf%e7%94%a8%e6%8e%8c%e6%8f%a1" class="heading-mark"></a>4 类的使用（掌握）</h2><ol>
+</div><h2 id="类的使用掌握" class="heading-element"><span>4 类的使用（掌握）</span>
+  <a href="#%e7%b1%bb%e7%9a%84%e4%bd%bf%e7%94%a8%e6%8e%8c%e6%8f%a1" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><ol>
 <li>创建对象<br>
 格式：类名 对象名 = new 类名 ();</li>
 <li>使用成员<br>
 成员变量：对象名。变量名；
 成员方法：对象名。方法名 (&hellip;);</li>
 </ol>
-<h2 id="成员变量和局部变量的区别理解" class="heading-element">
-  <a href="#%e6%88%90%e5%91%98%e5%8f%98%e9%87%8f%e5%92%8c%e5%b1%80%e9%83%a8%e5%8f%98%e9%87%8f%e7%9a%84%e5%8c%ba%e5%88%ab%e7%90%86%e8%a7%a3" class="heading-mark"></a>5 成员变量和局部变量的区别（理解）</h2><ol>
+<h2 id="成员变量和局部变量的区别理解" class="heading-element"><span>5 成员变量和局部变量的区别（理解）</span>
+  <a href="#%e6%88%90%e5%91%98%e5%8f%98%e9%87%8f%e5%92%8c%e5%b1%80%e9%83%a8%e5%8f%98%e9%87%8f%e7%9a%84%e5%8c%ba%e5%88%ab%e7%90%86%e8%a7%a3" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><ol>
 <li>在类中的位置不同<br>
 A: 成员变量 类中，方法外<br>
 B: 局部变量 方法的形式参数，或者方法体中</li>
@@ -2398,22 +2554,31 @@ B: 局部变量 随着方法的调用而存在，随着方法的调用完毕而�
 A: 成员变量 有默认初始化值<br>
 B: 局部变量 没有默认值，必须先声明，赋值，最后才能使用</li>
 </ol>
-<h2 id="形式参数问题理解" class="heading-element">
-  <a href="#%e5%bd%a2%e5%bc%8f%e5%8f%82%e6%95%b0%e9%97%ae%e9%a2%98%e7%90%86%e8%a7%a3" class="heading-mark"></a>6 形式参数问题（理解）</h2><ol>
+<h2 id="形式参数问题理解" class="heading-element"><span>6 形式参数问题（理解）</span>
+  <a href="#%e5%bd%a2%e5%bc%8f%e5%8f%82%e6%95%b0%e9%97%ae%e9%a2%98%e7%90%86%e8%a7%a3" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><ol>
 <li>基本类型<br>
 基本类型作为形式参数，需要的是该基本类型的值。</li>
 <li>引用类型<br>
 引用类型作为形式参数，需要的是该引用类型的地址值。（对象）</li>
 </ol>
-<h2 id="匿名对象理解" class="heading-element">
-  <a href="#%e5%8c%bf%e5%90%8d%e5%af%b9%e8%b1%a1%e7%90%86%e8%a7%a3" class="heading-mark"></a>7 匿名对象（理解）</h2><ol>
+<h2 id="匿名对象理解" class="heading-element"><span>7 匿名对象（理解）</span>
+  <a href="#%e5%8c%bf%e5%90%8d%e5%af%b9%e8%b1%a1%e7%90%86%e8%a7%a3" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><ol>
 <li>匿名对象：没有名字的对象。是对象的简化书写方式。</li>
 <li>使用场景<br>
 A: 调用方法，仅仅只调用一次<br>
 B: 作为实际参数传递</li>
 </ol>
-<h2 id="封装掌握" class="heading-element">
-  <a href="#%e5%b0%81%e8%a3%85%e6%8e%8c%e6%8f%a1" class="heading-mark"></a>8 封装（掌握）</h2><ol>
+<h2 id="封装掌握" class="heading-element"><span>8 封装（掌握）</span>
+  <a href="#%e5%b0%81%e8%a3%85%e6%8e%8c%e6%8f%a1" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><ol>
 <li>隐藏实现细节，提供公共的访问方式</li>
 <li>好处：<br>
 A: 隐藏实现细节，提供公共的访问方式<br>
@@ -2423,8 +2588,11 @@ C: 提高了代码的安全性</li>
 A: 把成员变量隐藏<br>
 B: 给出该成员变量对应的公共访问方式</li>
 </ol>
-<h2 id="private-关键字掌握" class="heading-element">
-  <a href="#private-%e5%85%b3%e9%94%ae%e5%ad%97%e6%8e%8c%e6%8f%a1" class="heading-mark"></a>9 private 关键字（掌握）</h2><ol>
+<h2 id="private-关键字掌握" class="heading-element"><span>9 private 关键字（掌握）</span>
+  <a href="#private-%e5%85%b3%e9%94%ae%e5%ad%97%e6%8e%8c%e6%8f%a1" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><ol>
 <li>是一个权限修饰符</li>
 <li>可以修饰类的成员（成员变量和成员方法）</li>
 <li>仅仅在本类中可以访问，对外提供对应的 GetXXX()，SetXXX() 等方法</li>
@@ -2479,8 +2647,11 @@ B: 给出该成员变量对应的公共访问方式</li>
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">study</span><span class="p">()</span><span class="w"> </span><span class="p">{}</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="this-关键字掌握" class="heading-element">
-  <a href="#this-%e5%85%b3%e9%94%ae%e5%ad%97%e6%8e%8c%e6%8f%a1" class="heading-mark"></a>10 this 关键字（掌握）</h2><ol>
+</div><h2 id="this-关键字掌握" class="heading-element"><span>10 this 关键字（掌握）</span>
+  <a href="#this-%e5%85%b3%e9%94%ae%e5%ad%97%e6%8e%8c%e6%8f%a1" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><ol>
 <li>this：代表本类的对象</li>
 <li>应用场景：<br>
 解决了局部变量隐藏成员变量的问题。<br>
@@ -2598,8 +2769,11 @@ B: 给出该成员变量对应的公共访问方式</li>
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="构造方法掌握" class="heading-element">
-  <a href="#%e6%9e%84%e9%80%a0%e6%96%b9%e6%b3%95%e6%8e%8c%e6%8f%a1" class="heading-mark"></a>11 构造方法（掌握）</h2><ol>
+</div><h2 id="构造方法掌握" class="heading-element"><span>11 构造方法（掌握）</span>
+  <a href="#%e6%9e%84%e9%80%a0%e6%96%b9%e6%b3%95%e6%8e%8c%e6%8f%a1" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><ol>
 <li>作用：对对象的数据进行初始化。</li>
 <li>特点：<br>
 A: 方法名和类名相同<br>
@@ -2709,8 +2883,11 @@ B: 带参</li>
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="对象的初始化过程理解" class="heading-element">
-  <a href="#%e5%af%b9%e8%b1%a1%e7%9a%84%e5%88%9d%e5%a7%8b%e5%8c%96%e8%bf%87%e7%a8%8b%e7%90%86%e8%a7%a3" class="heading-mark"></a>12 对象的初始化过程（理解）</h2><ul>
+</div><h2 id="对象的初始化过程理解" class="heading-element"><span>12 对象的初始化过程（理解）</span>
+  <a href="#%e5%af%b9%e8%b1%a1%e7%9a%84%e5%88%9d%e5%a7%8b%e5%8c%96%e8%bf%87%e7%a8%8b%e7%90%86%e8%a7%a3" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><ul>
 <li>Student s = new Student(); 做了哪些事情<br>
 A: 加载 Student.class 文件进内存<br>
 B: 在栈中为 s 开辟空间<br>
@@ -2720,8 +2897,11 @@ E: 为学生对象的成员变量赋显示值<br>
 F: 通过构造方法给成员变量赋值<br>
 G: 对象构造完毕，把地址赋值给 s 变量</li>
 </ul>
-<h2 id="static-关键字掌握" class="heading-element">
-  <a href="#static-%e5%85%b3%e9%94%ae%e5%ad%97%e6%8e%8c%e6%8f%a1" class="heading-mark"></a>13 static 关键字（掌握）</h2><ol>
+<h2 id="static-关键字掌握" class="heading-element"><span>13 static 关键字（掌握）</span>
+  <a href="#static-%e5%85%b3%e9%94%ae%e5%ad%97%e6%8e%8c%e6%8f%a1" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><ol>
 <li>是一个状态修饰符。静态的意思</li>
 <li>它可以修饰成员变量和成员方法</li>
 <li>特点：<br>
@@ -3041,8 +3221,11 @@ B: 静态成员方法<br>
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="p">}</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="静态成员变量和普通成员变量的区别理解" class="heading-element">
-  <a href="#%e9%9d%99%e6%80%81%e6%88%90%e5%91%98%e5%8f%98%e9%87%8f%e5%92%8c%e6%99%ae%e9%80%9a%e6%88%90%e5%91%98%e5%8f%98%e9%87%8f%e7%9a%84%e5%8c%ba%e5%88%ab%e7%90%86%e8%a7%a3" class="heading-mark"></a>14 静态成员变量和普通成员变量的区别（理解）</h2><ol>
+</div><h2 id="静态成员变量和普通成员变量的区别理解" class="heading-element"><span>14 静态成员变量和普通成员变量的区别（理解）</span>
+  <a href="#%e9%9d%99%e6%80%81%e6%88%90%e5%91%98%e5%8f%98%e9%87%8f%e5%92%8c%e6%99%ae%e9%80%9a%e6%88%90%e5%91%98%e5%8f%98%e9%87%8f%e7%9a%84%e5%8c%ba%e5%88%ab%e7%90%86%e8%a7%a3" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><ol>
 <li>所属不同<br>
 静态属于类的，称为类变量<br>
 非静态属于对象的，称为对象变量，实例变量</li>
@@ -3056,8 +3239,11 @@ B: 静态成员方法<br>
 静态可以通过类名调用，也可以通过对象名调用。建议通过类名调用<br>
 非静态只能通过对象名调用</li>
 </ol>
-<h2 id="main-方法是静态的理解" class="heading-element">
-  <a href="#main-%e6%96%b9%e6%b3%95%e6%98%af%e9%9d%99%e6%80%81%e7%9a%84%e7%90%86%e8%a7%a3" class="heading-mark"></a>15 main 方法是静态的（理解）</h2><div class="highlight"><div class="chroma">
+<h2 id="main-方法是静态的理解" class="heading-element"><span>15 main 方法是静态的（理解）</span>
+  <a href="#main-%e6%96%b9%e6%b3%95%e6%98%af%e9%9d%99%e6%80%81%e7%9a%84%e7%90%86%e8%a7%a3" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
@@ -3070,8 +3256,11 @@ void: 被 jvm 调用，不需要给 jvm 返回值<br>
 main: 一个通用的名称，虽然不是关键字，但是被 jvm 识别<br>
 String[] args:<br>
 早期出现是为了接收键盘录入数据的。</p>
-<h2 id="实例" class="heading-element">
-  <a href="#%e5%ae%9e%e4%be%8b" class="heading-mark"></a>16 实例</h2><div class="highlight"><div class="chroma">
+<h2 id="实例" class="heading-element"><span>16 实例</span>
+  <a href="#%e5%ae%9e%e4%be%8b" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -3344,8 +3533,11 @@ String[] args:<br>
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="p">}</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="java-类中的成员变量和方法访问权限" class="heading-element">
-  <a href="#java-%e7%b1%bb%e4%b8%ad%e7%9a%84%e6%88%90%e5%91%98%e5%8f%98%e9%87%8f%e5%92%8c%e6%96%b9%e6%b3%95%e8%ae%bf%e9%97%ae%e6%9d%83%e9%99%90" class="heading-mark"></a>17 java 类中的成员变量和方法访问权限</h2><table>
+</div><h2 id="java-类中的成员变量和方法访问权限" class="heading-element"><span>17 java 类中的成员变量和方法访问权限</span>
+  <a href="#java-%e7%b1%bb%e4%b8%ad%e7%9a%84%e6%88%90%e5%91%98%e5%8f%98%e9%87%8f%e5%92%8c%e6%96%b9%e6%b3%95%e8%ae%bf%e9%97%ae%e6%9d%83%e9%99%90" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><table>
 <thead>
 <tr>
 <th style="text-align:center">关键词</th>
@@ -3389,8 +3581,11 @@ String[] args:<br>
 ]]></description></item><item><title>java 水仙花数（循环）</title><link>https://lruihao.cn/posts/java-range/</link><pubDate>Mon, 14 Jan 2019 17:30:24 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/java-range/</guid><description><![CDATA[<blockquote>
 <p>水仙花数（Narcissistic number）也被称为超完全数字不变数（pluperfect digital invariant, PPDI）、自恋数、自幂数、阿姆斯壮数或阿姆斯特朗数（Armstrong number），水仙花数是指一个 3 位数，它的每个位上的数字的 3 次幂之和等于它本身（例如：1^3 + 5^3+ 3^3 = 153）。</p>
 </blockquote>
-<h2 id="定义" class="heading-element">
-  <a href="#%e5%ae%9a%e4%b9%89" class="heading-mark"></a>1 定义</h2><p>水仙花数只是自幂数的一种，严格来说 3 位数的 3 次幂数才称为水仙花数。<br>
+<h2 id="定义" class="heading-element"><span>1 定义</span>
+  <a href="#%e5%ae%9a%e4%b9%89" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>水仙花数只是自幂数的一种，严格来说 3 位数的 3 次幂数才称为水仙花数。<br>
 附：其他位数的自幂数名字<br>
 一位自幂数：独身数<br>
 两位自幂数：没有<br>
@@ -3489,8 +3684,11 @@ String[] args:<br>
 </span></span><span class="line"><span class="cl">8 位的水仙花数有：24678050  24678051  88593477
 </span></span><span class="line"><span class="cl">9 位的水仙花数有：146511208</span></span></code></pre></td></tr></table>
 </div>
-</div>]]></description></item><item><title>java 录入数据</title><link>https://lruihao.cn/posts/java-input/</link><pubDate>Mon, 14 Jan 2019 15:33:46 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/java-input/</guid><description><![CDATA[<h2 id="记忆格式" class="heading-element">
-  <a href="#%e8%ae%b0%e5%bf%86%e6%a0%bc%e5%bc%8f" class="heading-mark"></a>1 记忆格式</h2><p>(1) 导包：<br>
+</div>]]></description></item><item><title>java 录入数据</title><link>https://lruihao.cn/posts/java-input/</link><pubDate>Mon, 14 Jan 2019 15:33:46 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/java-input/</guid><description><![CDATA[<h2 id="记忆格式" class="heading-element"><span>1 记忆格式</span>
+  <a href="#%e8%ae%b0%e5%bf%86%e6%a0%bc%e5%bc%8f" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>(1) 导包：<br>
 import java.util.Scanner;<br>
 注意：位置在 class 的上面。<br>
 (2) 创建键盘录入对象：<br>
@@ -3502,8 +3700,11 @@ A: 求两个数据的和<br>
 B: 获取两个数据中较大的值<br>
 C: 获取三个数据中较大的值<br>
 D: 比较两个数是否相等</p>
-<h2 id="实例" class="heading-element">
-  <a href="#%e5%ae%9e%e4%be%8b" class="heading-mark"></a>2 实例</h2><div class="highlight"><div class="chroma">
+<h2 id="实例" class="heading-element"><span>2 实例</span>
+  <a href="#%e5%ae%9e%e4%be%8b" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -3584,19 +3785,31 @@ D: 比较两个数是否相等</p>
 </span></span><span class="line"><span class="cl">i 和 j 相等
 </span></span><span class="line"><span class="cl">MAXijk=6</span></span></code></pre></td></tr></table>
 </div>
-</div>]]></description></item><item><title>java 标识符</title><link>https://lruihao.cn/posts/biaoshi/</link><pubDate>Mon, 14 Jan 2019 15:07:57 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/biaoshi/</guid><description><![CDATA[<h2 id="标识符" class="heading-element">
-  <a href="#%e6%a0%87%e8%af%86%e7%ac%a6" class="heading-mark"></a>1 标识符</h2><p>给类，接口，方法或者变量起名字的符号</p>
-<h2 id="组成规则" class="heading-element">
-  <a href="#%e7%bb%84%e6%88%90%e8%a7%84%e5%88%99" class="heading-mark"></a>2 组成规则</h2><p>A: 英文字母大小写<br>
+</div>]]></description></item><item><title>java 标识符</title><link>https://lruihao.cn/posts/biaoshi/</link><pubDate>Mon, 14 Jan 2019 15:07:57 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/biaoshi/</guid><description><![CDATA[<h2 id="标识符" class="heading-element"><span>1 标识符</span>
+  <a href="#%e6%a0%87%e8%af%86%e7%ac%a6" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>给类，接口，方法或者变量起名字的符号</p>
+<h2 id="组成规则" class="heading-element"><span>2 组成规则</span>
+  <a href="#%e7%bb%84%e6%88%90%e8%a7%84%e5%88%99" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>A: 英文字母大小写<br>
 B: 数字<br>
 C:_和$</p>
-<h2 id="注意事项" class="heading-element">
-  <a href="#%e6%b3%a8%e6%84%8f%e4%ba%8b%e9%a1%b9" class="heading-mark"></a>3 注意事项</h2><p>A: 不能以数字开头<br>
+<h2 id="注意事项" class="heading-element"><span>3 注意事项</span>
+  <a href="#%e6%b3%a8%e6%84%8f%e4%ba%8b%e9%a1%b9" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>A: 不能以数字开头<br>
 B: 不能是 Java 中的关键字<br>
 C: 区分大小写<br>
 Student,student 这是两个名称</p>
-<h2 id="常见命名方式" class="heading-element">
-  <a href="#%e5%b8%b8%e8%a7%81%e5%91%bd%e5%90%8d%e6%96%b9%e5%bc%8f" class="heading-mark"></a>4 常见命名方式</h2><p>A: 包 其实就是文件夹，用于解决相同类名问题<br>
+<h2 id="常见命名方式" class="heading-element"><span>4 常见命名方式</span>
+  <a href="#%e5%b8%b8%e8%a7%81%e5%91%bd%e5%90%8d%e6%96%b9%e5%bc%8f" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>A: 包 其实就是文件夹，用于解决相同类名问题<br>
 全部小写<br>
 单级：com<br>
 多级：cn.itcast<br>

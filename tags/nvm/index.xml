@@ -1,10 +1,16 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>nvm - 标签 | 菠菜眾長</title><link>https://lruihao.cn/tags/nvm/</link><description>nvm - 标签 | 菠菜眾長</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><copyright>本站内容采用 CC BY-NC-SA 4.0 国际许可协议。</copyright><lastBuildDate>Mon, 12 Jun 2023 10:58:44 +0800</lastBuildDate><atom:link href="https://lruihao.cn/tags/nvm/" rel="self" type="application/rss+xml"/><item><title>解决 SourceTree 提交时候 husky 命令失败问题</title><link>https://lruihao.cn/posts/sourcetree-husky/</link><pubDate>Mon, 12 Jun 2023 10:58:44 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/sourcetree-husky/</guid><description><![CDATA[<h2 id="问题描述" class="heading-element">
-  <a href="#%e9%97%ae%e9%a2%98%e6%8f%8f%e8%bf%b0" class="heading-mark"></a>1 问题描述</h2><p>在使用 SourceTree 提交代码的时候，会出现 husky 命令失败的问题（通过命令行提交代码没有问题），如下图所示：</p>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>nvm - 标签 | 菠菜眾長</title><link>https://lruihao.cn/tags/nvm/</link><description>nvm - 标签 | 菠菜眾長</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><copyright>本站内容采用 CC BY-NC-SA 4.0 国际许可协议。</copyright><lastBuildDate>Mon, 12 Jun 2023 10:58:44 +0800</lastBuildDate><atom:link href="https://lruihao.cn/tags/nvm/" rel="self" type="application/rss+xml"/><item><title>解决 SourceTree 提交时候 husky 命令失败问题</title><link>https://lruihao.cn/posts/sourcetree-husky/</link><pubDate>Mon, 12 Jun 2023 10:58:44 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/sourcetree-husky/</guid><description><![CDATA[<h2 id="问题描述" class="heading-element"><span>1 问题描述</span>
+  <a href="#%e9%97%ae%e9%a2%98%e6%8f%8f%e8%bf%b0" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>在使用 SourceTree 提交代码的时候，会出现 husky 命令失败的问题（通过命令行提交代码没有问题），如下图所示：</p>
 <p><a class="lightgallery" href="images/23_1686538807.png?size=large" data-thumbnail="images/23_1686538807.png?size=small" data-sub-html="<h2>images/23_1686538807.png</h2>"><img loading="lazy" src="images/23_1686538807.png" alt="images/23_1686538807.png" srcset="images/23_1686538807.png?size=small, images/23_1686538807.png?size=medium 1.5x, images/23_1686538807.png?size=large 2x" data-title="images/23_1686538807.png" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></p>
 <p>看错误，是一个 catch 参数的问题，在新版本的 Node 中，catch 参数是可以省略的，但是在旧版本中，catch 参数是必须的。</p>
 <p>由于使用了 nvm 管理 Node 版本，项目中的 Node 是正常的，但是 SourceTree 使用的是系统的 Node，所以会出现这个问题。</p>
-<h2 id="解决方案" class="heading-element">
-  <a href="#%e8%a7%a3%e5%86%b3%e6%96%b9%e6%a1%88" class="heading-mark"></a>2 解决方案</h2><p>知道了问题的原因，解决起来就很简单了，只需要将 SourceTree husky hook 阶段的 Node 版本切换到项目中的 Node 版本即可。</p>
+<h2 id="解决方案" class="heading-element"><span>2 解决方案</span>
+  <a href="#%e8%a7%a3%e5%86%b3%e6%96%b9%e6%a1%88" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>知道了问题的原因，解决起来就很简单了，只需要将 SourceTree husky hook 阶段的 Node 版本切换到项目中的 Node 版本即可。</p>
 <p>配置 <code>.huskyrc</code> 文件，内容如下：</p>
 <div class="highlight" title="~/.huskyrc"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -93,8 +99,11 @@
 </span></span><span class="line"><span class="cl"><span class="c1"># https://github.com/nvm-sh/nvm#use-a-mirror-of-node-binaries</span>
 </span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">NVM_NODEJS_ORG_MIRROR</span><span class="o">=</span>https://mirrors.ustc.edu.cn/node/</span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="参考" class="heading-element">
-  <a href="#%e5%8f%82%e8%80%83" class="heading-mark"></a>3 参考</h2><ul>
+</div><h2 id="参考" class="heading-element"><span>3 参考</span>
+  <a href="#%e5%8f%82%e8%80%83" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><ul>
 <li>&lt;https://wxhboy.cn/2022/04/12/解决 SourceTree 提交时候 husky 命令失败问题/&gt;</li>
 <li><a href="https://github.com/typicode/husky/issues/390#issuecomment-762213421"target="_blank" rel="external nofollow noopener noreferrer">https://github.com/typicode/husky/issues/390#issuecomment-762213421<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
 <li><a href="https://github.com/typicode/husky/issues/904#issuecomment-862184954"target="_blank" rel="external nofollow noopener noreferrer">https://github.com/typicode/husky/issues/904#issuecomment-862184954<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
@@ -108,12 +117,21 @@
       <div class="admonition-content">前面一段时间，安装了 Homebrew, 但是今天切换 node 版本到 system version (8.10.0) 后，发现虽然 node 版本切换成功，但是 node 版本对应的 npm 和 npx 版本不相符，下面记录一下问题排查过程。</div>
     </div>
   </div>
-<h2 id="罪魁祸首" class="heading-element">
-  <a href="#%e7%bd%aa%e9%ad%81%e7%a5%b8%e9%a6%96" class="heading-mark"></a>1 罪魁祸首</h2><p>首先定位到这次问题的根本原因是安装 Homebrew 导致的，这点可以很快也很明确地定位到，因为以前安装 Homebrew 也遇到了这个问题，但是当时的做法是卸载 Homebrew 避免冲突。</p>
-<h2 id="why" class="heading-element">
-  <a href="#why" class="heading-mark"></a>2 Why</h2><p>分析为啥会冲突，Homebrew 安装的工程中也会默认一部分依赖的二进制文件，npm 和 npx 也在其中，所以这导致了 Homebrew 的安装 npm 和 npx 覆盖了系统中 node 的 npm 和 npx 进而导致 node 和 npm 版本不一致，无法使用 npm 启动项目。</p>
-<h2 id="where" class="heading-element">
-  <a href="#where" class="heading-mark"></a>3 Where</h2><p>找一下目前 npm 和 npx 的二进制文件在哪。</p>
+<h2 id="罪魁祸首" class="heading-element"><span>1 罪魁祸首</span>
+  <a href="#%e7%bd%aa%e9%ad%81%e7%a5%b8%e9%a6%96" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>首先定位到这次问题的根本原因是安装 Homebrew 导致的，这点可以很快也很明确地定位到，因为以前安装 Homebrew 也遇到了这个问题，但是当时的做法是卸载 Homebrew 避免冲突。</p>
+<h2 id="why" class="heading-element"><span>2 Why</span>
+  <a href="#why" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>分析为啥会冲突，Homebrew 安装的工程中也会默认一部分依赖的二进制文件，npm 和 npx 也在其中，所以这导致了 Homebrew 的安装 npm 和 npx 覆盖了系统中 node 的 npm 和 npx 进而导致 node 和 npm 版本不一致，无法使用 npm 启动项目。</p>
+<h2 id="where" class="heading-element"><span>3 Where</span>
+  <a href="#where" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>找一下目前 npm 和 npx 的二进制文件在哪。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -127,8 +145,11 @@
 </span></span><span class="line"><span class="cl">which npm         <span class="c1"># /opt/homebrew/bin/npm</span>
 </span></span><span class="line"><span class="cl">which npx         <span class="c1"># /opt/homebrew/bin/npx</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="how" class="heading-element">
-  <a href="#how" class="heading-mark"></a>4 How</h2><p>很明显前面的猜测是对的，那就打开这个目录看看：</p>
+</div><h2 id="how" class="heading-element"><span>4 How</span>
+  <a href="#how" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>很明显前面的猜测是对的，那就打开这个目录看看：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -156,8 +177,11 @@
 </span></span><span class="line"><span class="cl">npx -v</span></span></code></pre></td></tr></table>
 </div>
 </div><p>一切正常了，可以用 npm 继续启动原来的项目了。</p>]]></description></item><item><title>Mac 上的开发配置总结</title><link>https://lruihao.cn/posts/config4mac/</link><pubDate>Fri, 29 Jul 2022 20:22:44 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/config4mac/</guid><description><![CDATA[<p>记录一下使用 Mac 作为生产工具开发的一些基本配置和经验。</p>
-<h2 id="配置文件" class="heading-element">
-  <a href="#%e9%85%8d%e7%bd%ae%e6%96%87%e4%bb%b6" class="heading-mark"></a>1 配置文件</h2><p>Mac 上有很多配置文件都可以用来保存环境变量等配置，根据自己的理解记录了四个文件的用途：</p>
+<h2 id="配置文件" class="heading-element"><span>1 配置文件</span>
+  <a href="#%e9%85%8d%e7%bd%ae%e6%96%87%e4%bb%b6" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>Mac 上有很多配置文件都可以用来保存环境变量等配置，根据自己的理解记录了四个文件的用途：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -174,8 +198,11 @@
 </span></span><span class="line"><span class="cl"><span class="c1"># $ZSH_CUSTOM/*.zsh  自定义 zsh 脚本，在 zsh 启动时会自动执行</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>编辑最多的应该是 <code>~/.bash_profile</code> 和 <code>~/.zshrc</code>, 基本上建议所有的个人配置都放在 <code>~/.bash_profile</code> 中，然后在 <code>~/.zshrc</code> 最后执行 <code>source ~/.bash_profile</code>, 这样也方便将自己的个人环境变量配置备份。</p>
-<h2 id="常用命令" class="heading-element">
-  <a href="#%e5%b8%b8%e7%94%a8%e5%91%bd%e4%bb%a4" class="heading-mark"></a>2 常用命令</h2><div class="highlight"><div class="chroma">
+<h2 id="常用命令" class="heading-element"><span>2 常用命令</span>
+  <a href="#%e5%b8%b8%e7%94%a8%e5%91%bd%e4%bb%a4" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -200,8 +227,11 @@
 </span></span><span class="line"><span class="cl">lsof -i:<span class="nv">$your_port</span>  <span class="c1"># 1. 查看使用端口进程</span>
 </span></span><span class="line"><span class="cl"><span class="nb">kill</span> -9 <span class="nv">$your_PID</span>   <span class="c1"># 2. 释放进程</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="node" class="heading-element">
-  <a href="#node" class="heading-mark"></a>3 Node</h2><div class="highlight"><div class="chroma">
+</div><h2 id="node" class="heading-element"><span>3 Node</span>
+  <a href="#node" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -310,8 +340,11 @@
 </span></span><span class="line"><span class="cl"><span class="c1"># 13.1.7 版本 下载链接可能会拼错导致 404，要设置成 https://registry.npmmirror.com/-/binary/electron/v</span>
 </span></span><span class="line"><span class="cl">npm config <span class="nb">set</span> <span class="nv">electron_mirror</span><span class="o">=</span>https://npmmirror.com/mirrors/electron/</span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="sourcetree" class="heading-element">
-  <a href="#sourcetree" class="heading-mark"></a>4 SourceTree</h2><p>Custom actions</p>
+</div><h2 id="sourcetree" class="heading-element"><span>4 SourceTree</span>
+  <a href="#sourcetree" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>Custom actions</p>
 <ul>
 <li>Script target: <code>/bin/bash</code></li>
 <li>Parameters: <code>/Users/liruihao/workspace/.shell/sync_tags.sh</code></li>
@@ -388,8 +421,11 @@
 </div>
     </div>
   </div>
-<h2 id="terminal" class="heading-element">
-  <a href="#terminal" class="heading-mark"></a>5 Terminal</h2><ul>
+<h2 id="terminal" class="heading-element"><span>5 Terminal</span>
+  <a href="#terminal" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><ul>
 <li>Terminal: 系统自带</li>
 <li>Shell: zsh</li>
 <li>美化：<a href="https://github.com/ohmyzsh/ohmyzsh"target="_blank" rel="external nofollow noopener noreferrer">ohmyzsh<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
@@ -402,8 +438,11 @@
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">vim <span class="nv">$PREFIX</span>/etc/motd</span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="sublime-text-3" class="heading-element">
-  <a href="#sublime-text-3" class="heading-mark"></a>6 sublime-text 3</h2><div class="highlight"><div class="chroma">
+</div><h2 id="sublime-text-3" class="heading-element"><span>6 sublime-text 3</span>
+  <a href="#sublime-text-3" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -422,13 +461,19 @@
 </span></span><span class="line"><span class="cl"><span class="nb">alias</span> <span class="nv">subl</span><span class="o">=</span><span class="s2">&#34;&#39;/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl&#39;&#34;</span>
 </span></span><span class="line"><span class="cl"><span class="nb">source</span> ~/.bash_profile <span class="c1"># 每打开一个命令窗口，需要先让命令生效</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="startup" class="heading-element">
-  <a href="#startup" class="heading-mark"></a>7 开机自启动</h2><ol>
+</div><h2 id="startup" class="heading-element"><span>7 开机自启动</span>
+  <a href="#startup" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><ol>
 <li>系统偏好设置 -&gt; 用户与群组 -&gt; 登录项 -&gt; 增删可执行文件 (需配置默认启动软件)</li>
 <li>将 shell 命令添加到 <code>/System/Library/StartupItems/</code> 或 <code>/Library/StartupItems/</code> 文件夹（测试无效）</li>
 </ol>
-<h2 id="备份" class="heading-element">
-  <a href="#%e5%a4%87%e4%bb%bd" class="heading-mark"></a>8 备份</h2><div class="highlight" title="~/.bash_profile"><div class="chroma">
+<h2 id="备份" class="heading-element"><span>8 备份</span>
+  <a href="#%e5%a4%87%e4%bb%bd" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><div class="highlight" title="~/.bash_profile"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2

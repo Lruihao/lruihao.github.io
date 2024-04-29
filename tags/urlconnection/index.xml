@@ -1,8 +1,11 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>URLConnection - 标签 | 菠菜眾長</title><link>https://lruihao.cn/tags/urlconnection/</link><description>URLConnection - 标签 | 菠菜眾長</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><copyright>本站内容采用 CC BY-NC-SA 4.0 国际许可协议。</copyright><lastBuildDate>Wed, 08 May 2019 20:55:02 +0000</lastBuildDate><atom:link href="https://lruihao.cn/tags/urlconnection/" rel="self" type="application/rss+xml"/><item><title>java 实现一个单线程的资源下载器</title><link>https://lruihao.cn/posts/singlethreaddown/</link><pubDate>Wed, 08 May 2019 20:55:02 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/singlethreaddown/</guid><description><![CDATA[<div class="featured-image"><img loading="eager" src="images/1.png" alt="java 实现一个单线程的资源下载器" title="java 实现一个单线程的资源下载器" referrerpolicy="no-referrer"/></div><blockquote>
 <p>实现一个简单的基于单线程的资源下载器，如图所示，用户可以任意指定下载资源的链接地址，系统根据该地址判断资源是否存在，如果存在，则将该资源下载到本地。</p>
 </blockquote>
-<h2 id="gui-设计基本流程" class="heading-element">
-  <a href="#gui-%e8%ae%be%e8%ae%a1%e5%9f%ba%e6%9c%ac%e6%b5%81%e7%a8%8b" class="heading-mark"></a>1 GUI 设计基本流程</h2><p>先记录一下 GUI 设计的基本流程：</p>
+<h2 id="gui-设计基本流程" class="heading-element"><span>1 GUI 设计基本流程</span>
+  <a href="#gui-%e8%ae%be%e8%ae%a1%e5%9f%ba%e6%9c%ac%e6%b5%81%e7%a8%8b" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>先记录一下 GUI 设计的基本流程：</p>
 <ol>
 <li>根据需要从相应的顶层容器继承（如果创建窗体就继承 JFrame，对话框就继承 JDialog），新建一个子类。</li>
 <li>然后设置顶层容器的属性，包括大小、位置、标题和关闭事件等。</li>
@@ -10,8 +13,11 @@
 <li>向顶层容器上添加 GUI 组件，并设置布局。（通常利用 JPanel 组件先作为微型容器）</li>
 <li>创建新建子类的实例，调用 setVisible(true) 方法显示页面。（也可以直接在子类中设置 setVisible(true)）</li>
 </ol>
-<h2 id="实现代码" class="heading-element">
-  <a href="#%e5%ae%9e%e7%8e%b0%e4%bb%a3%e7%a0%81" class="heading-mark"></a>2 实现代码</h2><div class="highlight"><div class="chroma">
+<h2 id="实现代码" class="heading-element"><span>2 实现代码</span>
+  <a href="#%e5%ae%9e%e7%8e%b0%e4%bb%a3%e7%a0%81" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -202,8 +208,11 @@
 </span></span></span><span class="line"><span class="cl"><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="运行结果测试" class="heading-element">
-  <a href="#%e8%bf%90%e8%a1%8c%e7%bb%93%e6%9e%9c%e6%b5%8b%e8%af%95" class="heading-mark"></a>3 运行结果测试</h2><p>通过<code>https://github.com/Lruihao/Grocery/raw/master/fonts/MMT_last.ttf</code>下载沐目体 ttf 字体文件，稍微等待一下弹出对话框“下载完毕”，经检查下载内容正常。</p>
+</div><h2 id="运行结果测试" class="heading-element"><span>3 运行结果测试</span>
+  <a href="#%e8%bf%90%e8%a1%8c%e7%bb%93%e6%9e%9c%e6%b5%8b%e8%af%95" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>通过<code>https://github.com/Lruihao/Grocery/raw/master/fonts/MMT_last.ttf</code>下载沐目体 ttf 字体文件，稍微等待一下弹出对话框“下载完毕”，经检查下载内容正常。</p>
 <p><a class="lightgallery" href="images/1.png?size=large" data-thumbnail="images/1.png?size=small" data-sub-html="<h2>运行效果</h2>"><img loading="lazy" src="images/1.png" alt="运行效果" srcset="images/1.png?size=small, images/1.png?size=medium 1.5x, images/1.png?size=large 2x" data-title="运行效果" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></p>]]></description></item><item><title>java 通过 URL 和 URLConnection 访问网页资源</title><link>https://lruihao.cn/posts/java-urlreader/</link><pubDate>Mon, 06 May 2019 17:41:35 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/java-urlreader/</guid><description><![CDATA[<blockquote>
 <p>该例中首先生成一个 URL 对象 lrh，指向 RUI 豪小栈，然后再调用 lrh.openStream() 方法生成该 URL 的一个输入流，这是一个字节流，在此基础上进一步通过 InputStreamReader 和 BufferedReader 构造一个带缓冲功能的字符流，并通过这个字符流对象读取该 URL 的 html 内容，进而输出到桌面文件和控制台屏幕。URLConnection 类也可以用来对由 URL 引用的资源进行读写操作，前提是先通过 connect() 方法建立连接，然后再去获取响应头信息或响应内容。</p>
 </blockquote>
