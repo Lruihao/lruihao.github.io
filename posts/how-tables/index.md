@@ -1,4 +1,4 @@
-# how many tables-HDU-1213（并查集求连通域数目）
+# How Many Tables-HDU-1213（并查集求连通域数目）
 
 
 并查集求连通域数目，初始化 sum=n；

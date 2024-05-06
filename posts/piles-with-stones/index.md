@@ -1,4 +1,4 @@
-# Piles-with-stones
+# Piles-With-Stones
 
 
 Codeforces Round #500 (Div. 2)  

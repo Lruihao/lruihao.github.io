@@ -1,4 +1,4 @@
-# script 的三种加载方式 (async, defer)
+# Script 的三种加载方式 (Async, Defer)
 
 
 {{&lt; admonition note &gt;}}

@@ -1,4 +1,4 @@
-# hexo-theme-next @modified LRH
+# Hexo-Theme-Next @Modified LRH
 
 
 &lt;!-- markdownlint-disable-file --&gt;

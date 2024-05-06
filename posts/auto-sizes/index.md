@@ -1,4 +1,4 @@
-# 聊聊 Chrome 新增的 sizes=&#34;auto&#34; 属性
+# 聊聊 Chrome 新增的 Sizes=&#34;auto&#34; 属性
 
 
 聊聊 Chrome 新增的 sizes=&#34;auto&#34; 属性。

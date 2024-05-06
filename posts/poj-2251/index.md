@@ -1,4 +1,4 @@
-# poj-2251-Dungeon Master（三维 bfs 最短路）
+# Poj-2251-Dungeon Master（三维 Bfs 最短路）
 
 
 [英文原题链接](http://poj.org/problem?id=2251)

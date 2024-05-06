@@ -1,4 +1,4 @@
-# sort 排序
+# Sort 排序
 
 
 sort 使用`#include&lt;algorithm&gt;`头文件，

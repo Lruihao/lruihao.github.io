@@ -1,4 +1,4 @@
-# The-suspects-POJ-1611（并查集）
+# The-Suspects-POJ-1611（并查集）
 
 
 ## 题目链接：[The-suspects](http://poj.org/problem?id=1611)

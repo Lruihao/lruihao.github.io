@@ -1,4 +1,4 @@
-# Leading and Trailing-lightoj1282（快速幂 &#43; 对数运算）
+# Leading and Trailing-Lightoj1282（快速幂 &#43; 对数运算）
 
 
 ## [题目链接](https://vjudge.net/contest/238979#problem/E)

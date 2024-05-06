@@ -1,4 +1,4 @@
-# 安装 pyinstaller 出错的解决办法及 csdn 工具实例打包
+# 安装 Pyinstaller 出错的解决办法及 Csdn 工具实例打包
 
 
 &gt; 用过命令`pip install pyinstaller`安装失败，此包依赖于 pywin32，安装前需要先`pip install pywin32`, 我安装了还是出错，稍微百度了一下也没有看到解决办法。

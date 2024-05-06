@@ -1,4 +1,4 @@
-# cell-blog 功能介绍与安装
+# Cell-Blog 功能介绍与安装
 
 
 &gt; 基于 Laravel7 开发，Markdown 语法的个人独立博客。[Cell Blog](https://github.com/Lruihao/cell-blog), 也是我的毕业设计作品，目前已開源。

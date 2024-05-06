@@ -1,4 +1,4 @@
-# Heavy Transportation-poj1797(dijkstra 或最大生成树）
+# Heavy Transportation-Poj1797(dijkstra 或最大生成树）
 
 
 [题目链接](http://poj.org/problem?id=1797)

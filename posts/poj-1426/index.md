@@ -1,4 +1,4 @@
-# poj-1426-Find The Multiple(dfs)
+# Poj-1426-Find the Multiple(dfs)
 
 
 ## Find The Multiple

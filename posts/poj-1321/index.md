@@ -1,4 +1,4 @@
-# poj-1321 棋盘问题（dfs）
+# Poj-1321 棋盘问题（dfs）
 
 
 Time Limit: 1000MS  

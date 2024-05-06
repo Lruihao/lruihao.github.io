@@ -1,4 +1,4 @@
-# poj-3984-迷宫问题 (bfs 路径）
+# Poj-3984-迷宫问题 (Bfs 路径）
 
 
 [迷宫问题](http://poj.org/problem?id=3984)

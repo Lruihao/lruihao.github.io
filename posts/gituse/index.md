@@ -1,4 +1,4 @@
-# 使用 Git 上传代码到 github, coding 等仓库
+# 使用 Git 上传代码到 Github, Coding 等仓库
 
 
 ### config

@@ -1,4 +1,4 @@
-# java 猜数字小游戏（Math 类）
+# Java 猜数字小游戏（Math 类）
 
 
 &gt; 大一刚学 c 的时候以前写过 [c 语言版](https://github.com/Lruihao/Grocery/tree/master/C%26C%2B%2B) 的。

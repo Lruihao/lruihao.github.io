@@ -1,4 +1,4 @@
-# wireless network-POJ-2236（并查集）
+# Wireless Network-POJ-2236（并查集）
 
 
 ## 题目链接：[wireless network](http://poj.org/problem?id=2236)

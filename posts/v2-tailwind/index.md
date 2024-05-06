@@ -1,4 +1,4 @@
-# Vue2 &#43; tailwindcss 初始化
+# Vue2 &#43; Tailwindcss 初始化
 
 
 ## 新建 Vue2 项目

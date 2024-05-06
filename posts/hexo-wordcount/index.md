@@ -1,4 +1,4 @@
-# hexo next 主题添加字数统计（2018）
+# Hexo Next 主题添加字数统计（2018）
 
 
 {{&lt; admonition warning &gt;}}

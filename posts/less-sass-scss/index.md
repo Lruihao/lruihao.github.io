@@ -1,4 +1,4 @@
-# less&amp;sass&amp;scss
+# Less&amp;sass&amp;scss
 
 
 &gt; Sass 和 Less 都屬於 **CSS 前置處理器**，CSS 前置處理器定義了一種新的語言，其基本思想是，用一種專門的程式設計語言，為 CSS 增加了一些程式設計的特性，將 CSS 作為目標生成檔，然後開發者就只要使用這種語言進行 CSS 的編碼工作。  

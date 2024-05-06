@@ -1,4 +1,4 @@
-# A.Easy h-index
+# A.Easy H-Index
 
 
 ## A. Easy h-index

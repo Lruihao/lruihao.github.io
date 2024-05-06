@@ -1,4 +1,4 @@
-# vps 配置 ssl 及 https 重定向
+# Vps 配置 Ssl 及 Https 重定向
 
 
 &gt; 记录自己在配置 vps 及博客 SSL 证书时遇到的问题。

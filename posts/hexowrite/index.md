@@ -1,4 +1,4 @@
-# hexo 添加图片，音乐，链接，视频
+# Hexo 添加图片，音乐，链接，视频
 
 
 &gt; **如果实在搞得头晕直接去 [简书](https://www.jianshu.com/) 写文章，再把简书生成的 md 文章复制过来就好了（简书是个不错的 Markdown 在线编辑器），还可以去 [马克飞象，专为印象笔记打造的 Markdown 编辑器](https://maxiang.io/)，[typora 也是不错的](https://www.typora.io/#)，突然发现 [csdn](https://www.csdn.net/) 也支持 Markdown 编译器了**

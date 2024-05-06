@@ -1,4 +1,4 @@
-# 基于 leancloud-storage 实现的无后端记账本
+# 基于 Leancloud-Storage 实现的无后端记账本
 
 
 ## 起因

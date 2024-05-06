@@ -1,4 +1,4 @@
-# 为什么很多教程中都有 foo bar？
+# 为什么很多教程中都有 Foo Bar？
 
 
 foo 和 bar 是在编程中常用的元变量（metasyntactic variables），它们是在教程和示例代码中用来代表任意的函数或者变量的名称。类似的元变量还有 baz，qux，quux，corge，grault，garply，waldo，fred，plugh，xyzzy 和 thud 等。

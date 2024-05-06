@@ -1,4 +1,4 @@
-# linux 文件权限
+# Linux 文件权限
 
 
 记录 linux 系统下文件权限相关的内容，Mac OS 下类似。

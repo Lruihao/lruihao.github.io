@@ -1,4 +1,4 @@
-# hexo&#43;github 搭建个人博客及美化
+# Hexo&#43;github 搭建个人博客及美化
 
 
 **[更多关于 hexo](/categories/hexo/)**

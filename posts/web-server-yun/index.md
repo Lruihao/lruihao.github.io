@@ -1,4 +1,4 @@
-# 云服务器 CentOS 系统搭建 web 服务
+# 云服务器 CentOS 系统搭建 Web 服务
 
 
 ### 搭建 Apache web 服务

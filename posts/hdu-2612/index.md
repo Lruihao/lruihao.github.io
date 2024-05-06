@@ -1,4 +1,4 @@
-# hdu-2612-Find a way（双 bfs）
+# Hdu-2612-Find a Way（双 Bfs）
 
 
 [Find a way](http://acm.hdu.edu.cn/showproblem.php?pid=2612)

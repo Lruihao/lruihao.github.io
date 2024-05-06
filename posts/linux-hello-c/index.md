@@ -1,4 +1,4 @@
-# linux 编程初体验
+# Linux 编程初体验
 
 
 &gt; 在 Linux 上编译 c 语言文件。

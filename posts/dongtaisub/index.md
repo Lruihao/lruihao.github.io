@@ -1,4 +1,4 @@
-# hexo 个性化 - next 主题动态显示 subtitle
+# Hexo 个性化 - Next 主题动态显示 Subtitle
 
 
 &gt; 本文适合我这种纯小白。

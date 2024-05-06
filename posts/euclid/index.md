@@ -1,4 +1,4 @@
-# The equation-SGU106（扩展欧几里得）
+# The Equation-SGU106（扩展欧几里得）
 
 
 ## 题意

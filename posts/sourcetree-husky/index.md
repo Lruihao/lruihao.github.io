@@ -1,4 +1,4 @@
-# 解决 SourceTree 提交时候 husky 命令失败问题
+# 解决 SourceTree 提交时候 Husky 命令失败问题
 
 
 ## 问题描述

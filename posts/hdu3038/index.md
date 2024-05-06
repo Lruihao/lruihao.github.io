@@ -1,4 +1,4 @@
-# How Many Answers Are Wrong-hdu3038（带权并查集）
+# How Many Answers Are Wrong-Hdu3038（带权并查集）
 
 
 题目链接：[How Many Answers Are Wrong](http://acm.hdu.edu.cn/showproblem.php?pid=3038)  

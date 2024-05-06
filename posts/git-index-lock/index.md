@@ -1,4 +1,4 @@
-# git index.lock
+# Git Index.lock
 
 
 在 git 没有运行完成之前强制关闭，下次提交的时候会产以下生错误，或者类似的。

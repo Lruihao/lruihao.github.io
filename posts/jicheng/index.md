@@ -1,4 +1,4 @@
-# java 继承 test
+# Java 继承 Test
 
 
 {{&lt; admonition quote &gt;}}

@@ -1,4 +1,4 @@
-# 条件注释判断浏览器版本&lt;!--[if lt IE 9]&gt;;
+# 条件注释判断浏览器版本&lt;!--[If Lt IE 9]&gt;;
 
 
 &gt; &lt;p&gt;&lt;span&gt;&amp;lt;!--[if !IE]&amp;gt;&amp;lt;!--&amp;gt; 除 IE 外都可识别 &amp;lt;!--&amp;lt;![endif]--&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span&gt;&amp;lt;!--[if IE]&amp;gt; 所有的 IE 可识别 &amp;lt;![endif]--&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span&gt;&amp;lt;!--[if IE 6]&amp;gt; 仅 IE6 可识别 &amp;lt;![endif]--&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span&gt;&amp;lt;!--[if lt IE 6]&amp;gt; IE6 以及 IE6 以下版本可识别 &amp;lt;![endif]--&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span&gt;&amp;lt;!--[if gte IE 6]&amp;gt; IE6 以及 IE6 以上版本可识别 &amp;lt;![endif]--&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span&gt;&amp;lt;!--[if IE 7]&amp;gt; 仅 IE7 可识别 &amp;lt;![endif]--&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span&gt;&amp;lt;!--[if lt IE 7]&amp;gt; IE7 以及 IE7 以下版本可识别 &amp;lt;![endif]--&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span&gt;&amp;lt;!--[if gte IE 7]&amp;gt; IE7 以及 IE7 以上版本可识别 &amp;lt;![endif]--&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span&gt;&amp;lt;!--[if IE 8]&amp;gt; 仅 IE8 可识别 &amp;lt;![endif]--&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span&gt;&amp;lt;!--[if IE 9]&amp;gt; 仅 IE9 可识别 &amp;lt;![endif]--&amp;gt;&lt;/span&gt;&lt;/p&gt;

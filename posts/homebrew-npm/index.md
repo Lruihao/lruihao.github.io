@@ -1,4 +1,4 @@
-# 安装 Homebrew 后导致系统中原有的 npm 和 npx 失效
+# 安装 Homebrew 后导致系统中原有的 Npm 和 Npx 失效
 
 
 {{&lt; admonition question &gt;}}

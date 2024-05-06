@@ -1,4 +1,4 @@
-# ubuntu &#43; windows 双系统默认启动项设置
+# Ubuntu &#43; Windows 双系统默认启动项设置
 
 
 &gt; 双系统默认启动项是 Ubuntu，而日常使用最多的还是 Windows，所以说很不方便，一不小心就开机到 Ubuntu 去了。今天来设置一下。

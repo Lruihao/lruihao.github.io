@@ -1,4 +1,4 @@
-# 给 el-card 添加折叠功能
+# 给 El-Card 添加折叠功能
 
 
 {{&lt; admonition question &#34;出发点&#34; &gt;}}

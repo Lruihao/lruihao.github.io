@@ -1,4 +1,4 @@
-# git submodule: already exists in the index
+# Git Submodule: Already Exists in the Index
 
 
 Git 报错 &#34;git submodule: already exists in the index&#34; 的解决方法。

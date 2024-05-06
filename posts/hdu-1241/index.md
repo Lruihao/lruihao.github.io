@@ -1,4 +1,4 @@
-# hdu-1241-Oil Deposits (dfs)
+# Hdu-1241-Oil Deposits (Dfs)
 
 
 ## [Oil Deposits](http://acm.hdu.edu.cn/showproblem.php?pid=1241)

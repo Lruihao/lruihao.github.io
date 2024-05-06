@@ -1,4 +1,4 @@
-# B.Higher h-index
+# B.Higher H-Index
 
 
 ## B. Higher h-index

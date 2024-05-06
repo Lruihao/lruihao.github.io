@@ -1,4 +1,4 @@
-# Getting Things Done for ios App Reminders and Github issues
+# Getting Things Done for Ios App Reminders and Github Issues
 
 
 {{&lt; admonition quote &#34;quote&#34; true &gt;}}

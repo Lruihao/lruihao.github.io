@@ -1,4 +1,4 @@
-# Til the Cows Come Home-poj2387(dijkstra 判断重边）
+# Til the Cows Come Home-Poj2387(dijkstra 判断重边）
 
 
 [题目链接](http://poj.org/problem?id=2387)

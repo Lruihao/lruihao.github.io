@@ -1,4 +1,4 @@
-# linux/centos 下的安装 git
+# Linux/Centos 下的安装 Git
 
 
 ### 下载 git

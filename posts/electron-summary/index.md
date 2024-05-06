@@ -1,4 +1,4 @@
-# electron 踩坑总结
+# Electron 踩坑总结
 
 
 总结一下最近 electron 开发遇到的问题和一些重要知识点。

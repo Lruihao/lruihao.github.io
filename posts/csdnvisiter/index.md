@@ -1,4 +1,4 @@
-# 使用 Python 刷 csdn 访问量
+# 使用 Python 刷 Csdn 访问量
 
 
 &gt; 使用 python 模拟浏览器行为刷 csdn 访问量，脚本仅做学习，请勿滥用~

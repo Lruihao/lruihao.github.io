@@ -1,4 +1,4 @@
-# Hugo 使用 GitHub Actions 部署到 GithHb Pages 和 腾讯云 cos 桶
+# Hugo 使用 GitHub Actions 部署到 GithHb Pages 和 腾讯云 Cos 桶
 
 
 {{&lt; admonition quote &#34;解決痛點&#34;&gt;}}
