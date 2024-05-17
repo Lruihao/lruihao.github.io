@@ -27,7 +27,10 @@ class ValineHacker {
   };
 
   init() {
-    const comments = document.querySelector('#comments')
+    const comments = document.querySelector('#comments');
+    if (!comments) {
+      return;
+    }
     const comment = document.createElement('div');
     comment.id = 'valine';
     comment.classList.add('comment');
