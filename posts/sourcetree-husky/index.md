@@ -5,7 +5,7 @@
 
 在使用 SourceTree 提交代码的时候，会出现 husky 命令失败的问题（通过命令行提交代码没有问题），如下图所示：
 
-![](images/23_1686538807.png)
+![问题截图](images/23_1686538807.png)
 
 看错误，是一个 catch 参数的问题，在新版本的 Node 中，catch 参数是可以省略的，但是在旧版本中，catch 参数是必须的。
 
@@ -66,7 +66,7 @@ export NVM_NODEJS_ORG_MIRROR=https://mirrors.ustc.edu.cn/node/
 
 ## 参考
 
-- &lt;https://wxhboy.cn/2022/04/12/解决 SourceTree 提交时候 husky 命令失败问题/&gt;
+- [解决 SourceTree 提交时候 husky 命令失败问题](https://wxhboy.cn/2022/04/12/%E8%A7%A3%E5%86%B3SourceTree%E6%8F%90%E4%BA%A4%E6%97%B6%E5%80%99husky%E5%91%BD%E4%BB%A4%E5%A4%B1%E8%B4%A5%E9%97%AE%E9%A2%98/)
 - &lt;https://github.com/typicode/husky/issues/390#issuecomment-762213421&gt;
 - &lt;https://github.com/typicode/husky/issues/904#issuecomment-862184954&gt;
 - &lt;https://github.com/nvm-sh/nvm#deeper-shell-integration&gt;
