@@ -12,6 +12,7 @@ const RENDERER = {
 
   init: function () {
     this.setParameters();
+    this.setStyle();
     this.reconstructMethods();
     this.setup();
     this.bindEvent();
@@ -19,12 +20,32 @@ const RENDERER = {
   },
   setParameters: function () {
     this.window = window;
-    this.container = document.getElementById("flyfish");
+    this.container = document.createElement("div");
+    this.container.id = "flyfish";
     this.canvas = document.createElement("canvas");
     this.context = this.canvas.getContext("2d");
     this.points = [];
     this.fishes = [];
     this.watchIds = [];
+    document.querySelector('.footer').appendChild(this.container);
+  },
+  setStyle: function () {
+    const style = document.createElement("style");
+    style.innerHTML = `
+    .footer {
+      position: relative;
+    }
+    #flyfish {
+      position: absolute;
+      width: 100%;
+      height: 230px;
+      overflow: hidden;
+      left: 0;
+      bottom: 0;
+      z-index: -1;
+      pointer-events: none;
+    }`;
+    document.querySelector("head").appendChild(style);
   },
   createSurfacePoints: function () {
     const count = Math.round(this.width / this.POINT_INTERVAL);
