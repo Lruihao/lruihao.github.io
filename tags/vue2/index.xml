@@ -165,6 +165,7 @@
 </span><span class="lnt">119
 </span><span class="lnt">120
 </span><span class="lnt">121
+</span><span class="lnt">122
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">setTooltip</span> <span class="o">=</span> <span class="p">(</span><span class="nx">el</span><span class="p">,</span> <span class="nx">binding</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
@@ -211,24 +212,25 @@
 </span></span><span class="line"><span class="cl">    <span class="kd">let</span> <span class="nx">offsetX</span> <span class="o">=</span> <span class="nx">e</span><span class="p">.</span><span class="nx">clientX</span> <span class="o">+</span> <span class="mi">15</span>
 </span></span><span class="line"><span class="cl">    <span class="kd">let</span> <span class="nx">offsetY</span> <span class="o">=</span> <span class="nx">e</span><span class="p">.</span><span class="nx">clientY</span> <span class="o">+</span> <span class="mi">15</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">// 判断是否超出视窗边界（横向）
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">clientX</span> <span class="o">+</span> <span class="nx">vcTooltipDom</span><span class="p">.</span><span class="nx">offsetWidth</span> <span class="o">&gt;</span> <span class="nb">document</span><span class="p">.</span><span class="nx">documentElement</span><span class="p">.</span><span class="nx">clientWidth</span><span class="p">)</span> <span class="p">{</span>
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="nx">offsetX</span> <span class="o">+</span> <span class="nx">vcTooltipDom</span><span class="p">.</span><span class="nx">offsetWidth</span> <span class="o">&gt;</span> <span class="nb">document</span><span class="p">.</span><span class="nx">documentElement</span><span class="p">.</span><span class="nx">clientWidth</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">      <span class="nx">offsetX</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">documentElement</span><span class="p">.</span><span class="nx">clientWidth</span> <span class="o">-</span> <span class="nx">vcTooltipDom</span><span class="p">.</span><span class="nx">offsetWidth</span> <span class="o">-</span> <span class="nx">padding</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">documentElement</span><span class="p">.</span><span class="nx">clientWidth</span> <span class="o">-</span> <span class="nx">vcTooltipDom</span><span class="p">.</span><span class="nx">offsetWidth</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nx">offsetX</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">      <span class="nx">offsetX</span> <span class="o">=</span> <span class="nx">padding</span>
 </span></span><span class="line"><span class="cl">      <span class="nx">vcTooltipDom</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">width</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">documentElement</span><span class="p">.</span><span class="nx">clientWidth</span> <span class="o">-</span> <span class="nx">padding</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">+</span> <span class="s1">&#39;px&#39;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">// 判断是否超出视窗边界（纵向）
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">clientY</span> <span class="o">+</span> <span class="nx">vcTooltipDom</span><span class="p">.</span><span class="nx">offsetHeight</span> <span class="o">&gt;</span> <span class="nb">document</span><span class="p">.</span><span class="nx">documentElement</span><span class="p">.</span><span class="nx">clientHeight</span><span class="p">)</span> <span class="p">{</span>
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="nx">offsetY</span> <span class="o">+</span> <span class="nx">vcTooltipDom</span><span class="p">.</span><span class="nx">offsetHeight</span> <span class="o">&gt;</span> <span class="nb">document</span><span class="p">.</span><span class="nx">documentElement</span><span class="p">.</span><span class="nx">clientHeight</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">      <span class="nx">offsetY</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">documentElement</span><span class="p">.</span><span class="nx">clientHeight</span> <span class="o">-</span> <span class="nx">vcTooltipDom</span><span class="p">.</span><span class="nx">offsetHeight</span> <span class="o">-</span> <span class="nx">padding</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">documentElement</span><span class="p">.</span><span class="nx">clientHeight</span> <span class="o">-</span> <span class="nx">vcTooltipDom</span><span class="p">.</span><span class="nx">offsetHeight</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nx">offsetY</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">      <span class="nx">offsetY</span> <span class="o">=</span> <span class="nx">padding</span>
 </span></span><span class="line"><span class="cl">      <span class="nx">vcTooltipDom</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">height</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">documentElement</span><span class="p">.</span><span class="nx">clientHeight</span> <span class="o">-</span> <span class="nx">padding</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">+</span> <span class="s1">&#39;px&#39;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="nx">vcTooltipDom</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">left</span> <span class="o">=</span> <span class="nx">offsetX</span> <span class="o">+</span> <span class="s1">&#39;px&#39;</span>
 </span></span><span class="line"><span class="cl">    <span class="nx">vcTooltipDom</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">top</span> <span class="o">=</span> <span class="nx">offsetY</span> <span class="o">+</span> <span class="s1">&#39;px&#39;</span>
-</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 注：当浮层元素和窗口大小差不多时，浮层会覆盖原本的内容，导致浮层闪一下就不见了
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="p">}</span>
 </span></span><span class="line"><span class="cl">  <span class="c1">// 鼠标移出时将浮层元素销毁
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">el</span><span class="p">.</span><span class="nx">onmouseleave</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">isEllipsis</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="p">}</span>
@@ -314,7 +316,7 @@
 </h2><ol>
 <li>通过 <code>getComputedStyle</code> 获取元素的 <code>padding</code> 值，然后通过 <code>createRange</code> 获取元素的宽度。</li>
 <li>如果元素的内容宽度大于元素的宽度，那么就显示 tooltip。</li>
-<li>鼠标移入时，将浮沉元素插入到 <code>body</code> 中，鼠标移动时，动态修改浮沉的位置属性，鼠标移出时将浮层元素销毁。</li>
+<li>鼠标移入时，将浮层元素插入到 <code>body</code> 中，鼠标移动时，动态修改浮沉的位置属性，鼠标移出时将浮层元素销毁。（浮层需要做边界检测）</li>
 </ol>
 <p>其中最关键的一段代码是：</p>
 <div class="highlight"><div class="chroma">

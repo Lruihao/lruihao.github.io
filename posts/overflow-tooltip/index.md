@@ -58,23 +58,24 @@ const setTooltip = (el, binding) =&gt; {
     let offsetX = e.clientX &#43; 15
     let offsetY = e.clientY &#43; 15
     // 判断是否超出视窗边界（横向）
-    if (e.clientX &#43; vcTooltipDom.offsetWidth &gt; document.documentElement.clientWidth) {
+    if (offsetX &#43; vcTooltipDom.offsetWidth &gt; document.documentElement.clientWidth) {
       offsetX = document.documentElement.clientWidth - vcTooltipDom.offsetWidth - padding
     }
-    if (document.documentElement.clientWidth - vcTooltipDom.offsetWidth &lt;= 0) {
+    if (offsetX &lt;= 0) {
       offsetX = padding
       vcTooltipDom.style.width = document.documentElement.clientWidth - padding * 2 &#43; &#39;px&#39;
     }
     // 判断是否超出视窗边界（纵向）
-    if (e.clientY &#43; vcTooltipDom.offsetHeight &gt; document.documentElement.clientHeight) {
+    if (offsetY &#43; vcTooltipDom.offsetHeight &gt; document.documentElement.clientHeight) {
       offsetY = document.documentElement.clientHeight - vcTooltipDom.offsetHeight - padding
     }
-    if (document.documentElement.clientHeight - vcTooltipDom.offsetHeight &lt;= 0) {
+    if (offsetY &lt;= 0) {
       offsetY = padding
       vcTooltipDom.style.height = document.documentElement.clientHeight - padding * 2 &#43; &#39;px&#39;
     }
     vcTooltipDom.style.left = offsetX &#43; &#39;px&#39;
     vcTooltipDom.style.top = offsetY &#43; &#39;px&#39;
+    // 注：当浮层元素和窗口大小差不多时，浮层会覆盖原本的内容，导致浮层闪一下就不见了
   }
   // 鼠标移出时将浮层元素销毁
   el.onmouseleave = function() {
@@ -154,7 +155,7 @@ Vue.use(overflowTooltip)
 
 1. 通过 `getComputedStyle` 获取元素的 `padding` 值，然后通过 `createRange` 获取元素的宽度。
 2. 如果元素的内容宽度大于元素的宽度，那么就显示 tooltip。
-3. 鼠标移入时，将浮沉元素插入到 `body` 中，鼠标移动时，动态修改浮沉的位置属性，鼠标移出时将浮层元素销毁。
+3. 鼠标移入时，将浮层元素插入到 `body` 中，鼠标移动时，动态修改浮沉的位置属性，鼠标移出时将浮层元素销毁。（浮层需要做边界检测）
 
 其中最关键的一段代码是：
 
