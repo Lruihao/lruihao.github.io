@@ -73,7 +73,6 @@ const setTooltip = (el, binding) =&gt; {
       offsetY = padding
       vcTooltipDom.style.height = document.documentElement.clientHeight - padding * 2 &#43; &#39;px&#39;
     }
-    console.log(offsetX, e.clientX, vcTooltipDom.offsetWidth)
     vcTooltipDom.style.left = offsetX &#43; &#39;px&#39;
     vcTooltipDom.style.top = offsetY &#43; &#39;px&#39;
   }
