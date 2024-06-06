@@ -1,5 +1,5 @@
 <!doctype html><html itemscope itemtype=http://schema.org/WebPage lang=zh-CN><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=2"><meta name=robots content="noodp"><title>实现类似于 Element UI 表格的溢出文本提示功能 | 菠菜眾長</title><meta name=author content="Lruihao">
-<meta name=author-link content="https://github.com/Lruihao"><meta name=description content="在 Element UI 的表格组件中，当表格列的内容过长时，设置 show-overflow-tooltip 会自动显示一个 tooltip 来展示完整的内容。这个功能在实际项目中也是非常常见的，那么我们该如何实现这个功能呢？"><meta name=keywords content='Vue2'><meta itemprop=name content="实现类似于 Element UI 表格的溢出文本提示功能"><meta itemprop=description content="在 Element UI 的表格组件中，当表格列的内容过长时，设置 show-overflow-tooltip 会自动显示一个 tooltip 来展示完整的内容。这个功能在实际项目中也是非常常见的，那么我们该如何实现这个功能呢？"><meta itemprop=datePublished content="2024-02-29T16:46:00+08:00"><meta itemprop=dateModified content="2024-02-29T16:59:53+08:00"><meta itemprop=wordCount content="709"><meta itemprop=image content="https://lruihao.cn/images/apple-devices-preview.webp"><meta itemprop=keywords content="Vue2"><meta property="og:url" content="https://lruihao.cn/posts/overflow-tooltip/"><meta property="og:site_name" content="菠菜眾長"><meta property="og:title" content="实现类似于 Element UI 表格的溢出文本提示功能"><meta property="og:description" content="在 Element UI 的表格组件中，当表格列的内容过长时，设置 show-overflow-tooltip 会自动显示一个 tooltip 来展示完整的内容。这个功能在实际项目中也是非常常见的，那么我们该如何实现这个功能呢？"><meta property="og:locale" content="zh_CN"><meta property="og:type" content="article"><meta property="article:section" content="posts"><meta property="article:published_time" content="2024-02-29T16:46:00+08:00"><meta property="article:modified_time" content="2024-02-29T16:59:53+08:00"><meta property="article:tag" content="Vue2"><meta property="og:image" content="https://lruihao.cn/images/apple-devices-preview.webp"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://lruihao.cn/images/apple-devices-preview.webp"><meta name=twitter:title content="实现类似于 Element UI 表格的溢出文本提示功能"><meta name=twitter:description content="在 Element UI 的表格组件中，当表格列的内容过长时，设置 show-overflow-tooltip 会自动显示一个 tooltip 来展示完整的内容。这个功能在实际项目中也是非常常见的，那么我们该如何实现这个功能呢？"><meta name=application-name content="菠菜眾長"><meta name=apple-mobile-web-app-title content="菠菜眾長"><meta name=theme-color data-light=#ffffff data-dark=#252627 content="#ffffff"><meta name=msapplication-TileColor content="#da532c"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=manifest href=/site.webmanifest><link rel=canonical href=https://lruihao.cn/posts/overflow-tooltip/><link rel=prev href=https://lruihao.cn/posts/auto-sizes/><link rel=next href=https://lruihao.cn/posts/c6bc2d5/><link rel=stylesheet href=/css/style.min.css><link rel=preload href=https://unpkg.com/@fortawesome/fontawesome-free@6.4.2/css/all.min.css as=style onload='this.removeAttribute("onload"),this.rel="stylesheet"'><noscript><link rel=stylesheet href=https://unpkg.com/@fortawesome/fontawesome-free@6.4.2/css/all.min.css></noscript><link rel=preload href=https://unpkg.com/animate.css@4.1.1/animate.min.css as=style onload='this.removeAttribute("onload"),this.rel="stylesheet"'><noscript><link rel=stylesheet href=https://unpkg.com/animate.css@4.1.1/animate.min.css></noscript><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"实现类似于 Element UI 表格的溢出文本提示功能","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/lruihao.cn\/posts\/overflow-tooltip\/"},"image":[{"@type":"ImageObject","url":"https:\/\/lruihao.cn\/images\/apple-devices-preview.webp","width":2880,"height":1508}],"genre":"posts","keywords":"Vue2","wordcount":709,"url":"https:\/\/lruihao.cn\/posts\/overflow-tooltip\/","datePublished":"2024-02-29T16:46:00+08:00","dateModified":"2024-02-29T16:59:53+08:00","license":"本站内容采用 CC BY-NC-SA 4.0 国际许可协议。","publisher":{"@type":"Organization","name":"Lruihao","logo":"https:\/\/lruihao.cn\/images\/avatar.jpg"},"author":{"@type":"Person","name":"Lruihao"},"description":""}</script></head><body data-header-desktop=sticky data-header-mobile=auto><script>(window.localStorage?.getItem("theme")?localStorage.getItem("theme")==="dark":"auto"==="auto"?window.matchMedia("(prefers-color-scheme: dark)").matches:"auto"==="dark")&&document.body.setAttribute("data-theme","dark")</script><div class=wrapper data-page-style=normal><header class="desktop animate__faster" id=header-desktop><div class=header-wrapper data-github-corner=right><div class=header-title><a href=/ title=菠菜眾長><img loading=lazy src=/logo.webp alt=菠菜眾長 data-title=菠菜眾長 width=26 height=26 class=logo style="background:url(/images/loading.min.svg)no-repeat 50%" onload='this.title=this.dataset.title;for(const e of["style","data-title","onerror","onload"])this.removeAttribute(e);this.dataset.lazyloaded=""' onerror='this.title=this.dataset.title;for(const e of["style","data-title","onerror","onload"])this.removeAttribute(e)'><span class=header-title-text>菠菜众长</span></a><span class=header-subtitle>李瑞豪的博客</span></div><nav><ul class=menu><li class="menu-item has-children"><a class=menu-link href=/archives/><i class="fa-solid fa-archive fa-fw fa-sm" aria-hidden=true></i> 归档</a><i class="dropdown-icon fa-solid fa-chevron-down" aria-hidden=true></i><ul class=sub-menu><li class=menu-item><a class=menu-link href=/categories/><i class="fa-solid fa-folder-tree fa-fw fa-sm" aria-hidden=true></i> 分类</a></li><li class=menu-item><a class=menu-link href=/collections/><i class="fa-solid fa-layer-group fa-fw fa-sm" aria-hidden=true></i> 合集</a></li><li class=menu-item><a class=menu-link href=/tags/><i class="fa-solid fa-tags fa-fw fa-sm" aria-hidden=true></i> 标签</a></li></ul></li><li class=menu-item><a class=menu-link href=/friends/ title=友情链接><i class="fa-solid fa-users-viewfinder fa-fw fa-sm" aria-hidden=true></i> 友链</a></li><li class=menu-item><a class=menu-link href=/guestbook/><i class="fa-regular fa-comments fa-fw fa-sm" aria-hidden=true></i> 留言</a></li><li class="menu-item has-children"><a class=menu-link href=/about/><i class="fa-regular fa-id-card fa-fw fa-sm" aria-hidden=true></i> 關於</a><i class="dropdown-icon fa-solid fa-chevron-down" aria-hidden=true></i><ul class=sub-menu><li class=menu-item><a class=menu-link href=/projects/ title=我的作品集><i class="fa-solid fa-laptop-code fa-fw fa-sm" aria-hidden=true></i> 我的作品</a></li><li class=menu-item><a class=menu-link href=/years/ title=我的年度总结><i class="fa-regular fa-newspaper fa-fw fa-sm" aria-hidden=true></i> 年度总结</a></li></ul></li><li class="menu-item delimiter"></li><li class="menu-item search" id=search-desktop><input type=text placeholder=搜索文章标题或内容…… id=search-input-desktop>
+<meta name=author-link content="https://github.com/Lruihao"><meta name=description content="在 Element UI 的表格组件中，当表格列的内容过长时，设置 show-overflow-tooltip 会自动显示一个 tooltip 来展示完整的内容。这个功能在实际项目中也是非常常见的，那么我们该如何实现这个功能呢？"><meta name=keywords content='Vue2'><meta itemprop=name content="实现类似于 Element UI 表格的溢出文本提示功能"><meta itemprop=description content="在 Element UI 的表格组件中，当表格列的内容过长时，设置 show-overflow-tooltip 会自动显示一个 tooltip 来展示完整的内容。这个功能在实际项目中也是非常常见的，那么我们该如何实现这个功能呢？"><meta itemprop=datePublished content="2024-02-29T16:46:00+08:00"><meta itemprop=dateModified content="2024-06-06T18:09:34+08:00"><meta itemprop=wordCount content="957"><meta itemprop=image content="https://lruihao.cn/images/apple-devices-preview.webp"><meta itemprop=keywords content="Vue2"><meta property="og:url" content="https://lruihao.cn/posts/overflow-tooltip/"><meta property="og:site_name" content="菠菜眾長"><meta property="og:title" content="实现类似于 Element UI 表格的溢出文本提示功能"><meta property="og:description" content="在 Element UI 的表格组件中，当表格列的内容过长时，设置 show-overflow-tooltip 会自动显示一个 tooltip 来展示完整的内容。这个功能在实际项目中也是非常常见的，那么我们该如何实现这个功能呢？"><meta property="og:locale" content="zh_CN"><meta property="og:type" content="article"><meta property="article:section" content="posts"><meta property="article:published_time" content="2024-02-29T16:46:00+08:00"><meta property="article:modified_time" content="2024-06-06T18:09:34+08:00"><meta property="article:tag" content="Vue2"><meta property="og:image" content="https://lruihao.cn/images/apple-devices-preview.webp"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://lruihao.cn/images/apple-devices-preview.webp"><meta name=twitter:title content="实现类似于 Element UI 表格的溢出文本提示功能"><meta name=twitter:description content="在 Element UI 的表格组件中，当表格列的内容过长时，设置 show-overflow-tooltip 会自动显示一个 tooltip 来展示完整的内容。这个功能在实际项目中也是非常常见的，那么我们该如何实现这个功能呢？"><meta name=application-name content="菠菜眾長"><meta name=apple-mobile-web-app-title content="菠菜眾長"><meta name=theme-color data-light=#ffffff data-dark=#252627 content="#ffffff"><meta name=msapplication-TileColor content="#da532c"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=manifest href=/site.webmanifest><link rel=canonical href=https://lruihao.cn/posts/overflow-tooltip/><link rel=prev href=https://lruihao.cn/posts/auto-sizes/><link rel=next href=https://lruihao.cn/posts/c6bc2d5/><link rel=stylesheet href=/css/style.min.css><link rel=preload href=https://unpkg.com/@fortawesome/fontawesome-free@6.4.2/css/all.min.css as=style onload='this.removeAttribute("onload"),this.rel="stylesheet"'><noscript><link rel=stylesheet href=https://unpkg.com/@fortawesome/fontawesome-free@6.4.2/css/all.min.css></noscript><link rel=preload href=https://unpkg.com/animate.css@4.1.1/animate.min.css as=style onload='this.removeAttribute("onload"),this.rel="stylesheet"'><noscript><link rel=stylesheet href=https://unpkg.com/animate.css@4.1.1/animate.min.css></noscript><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"实现类似于 Element UI 表格的溢出文本提示功能","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/lruihao.cn\/posts\/overflow-tooltip\/"},"image":[{"@type":"ImageObject","url":"https:\/\/lruihao.cn\/images\/apple-devices-preview.webp","width":2880,"height":1508}],"genre":"posts","keywords":"Vue2","wordcount":957,"url":"https:\/\/lruihao.cn\/posts\/overflow-tooltip\/","datePublished":"2024-02-29T16:46:00+08:00","dateModified":"2024-06-06T18:09:34+08:00","license":"本站内容采用 CC BY-NC-SA 4.0 国际许可协议。","publisher":{"@type":"Organization","name":"Lruihao","logo":"https:\/\/lruihao.cn\/images\/avatar.jpg"},"author":{"@type":"Person","name":"Lruihao"},"description":""}</script></head><body data-header-desktop=sticky data-header-mobile=auto><script>(window.localStorage?.getItem("theme")?localStorage.getItem("theme")==="dark":"auto"==="auto"?window.matchMedia("(prefers-color-scheme: dark)").matches:"auto"==="dark")&&document.body.setAttribute("data-theme","dark")</script><div class=wrapper data-page-style=normal><header class="desktop animate__faster" id=header-desktop><div class=header-wrapper data-github-corner=right><div class=header-title><a href=/ title=菠菜眾長><img loading=lazy src=/logo.webp alt=菠菜眾長 data-title=菠菜眾長 width=26 height=26 class=logo style="background:url(/images/loading.min.svg)no-repeat 50%" onload='this.title=this.dataset.title;for(const e of["style","data-title","onerror","onload"])this.removeAttribute(e);this.dataset.lazyloaded=""' onerror='this.title=this.dataset.title;for(const e of["style","data-title","onerror","onload"])this.removeAttribute(e)'><span class=header-title-text>菠菜众长</span></a><span class=header-subtitle>李瑞豪的博客</span></div><nav><ul class=menu><li class="menu-item has-children"><a class=menu-link href=/archives/><i class="fa-solid fa-archive fa-fw fa-sm" aria-hidden=true></i> 归档</a><i class="dropdown-icon fa-solid fa-chevron-down" aria-hidden=true></i><ul class=sub-menu><li class=menu-item><a class=menu-link href=/categories/><i class="fa-solid fa-folder-tree fa-fw fa-sm" aria-hidden=true></i> 分类</a></li><li class=menu-item><a class=menu-link href=/collections/><i class="fa-solid fa-layer-group fa-fw fa-sm" aria-hidden=true></i> 合集</a></li><li class=menu-item><a class=menu-link href=/tags/><i class="fa-solid fa-tags fa-fw fa-sm" aria-hidden=true></i> 标签</a></li></ul></li><li class=menu-item><a class=menu-link href=/friends/ title=友情链接><i class="fa-solid fa-users-viewfinder fa-fw fa-sm" aria-hidden=true></i> 友链</a></li><li class=menu-item><a class=menu-link href=/guestbook/><i class="fa-regular fa-comments fa-fw fa-sm" aria-hidden=true></i> 留言</a></li><li class="menu-item has-children"><a class=menu-link href=/about/><i class="fa-regular fa-id-card fa-fw fa-sm" aria-hidden=true></i> 關於</a><i class="dropdown-icon fa-solid fa-chevron-down" aria-hidden=true></i><ul class=sub-menu><li class=menu-item><a class=menu-link href=/projects/ title=我的作品集><i class="fa-solid fa-laptop-code fa-fw fa-sm" aria-hidden=true></i> 我的作品</a></li><li class=menu-item><a class=menu-link href=/years/ title=我的年度总结><i class="fa-regular fa-newspaper fa-fw fa-sm" aria-hidden=true></i> 年度总结</a></li></ul></li><li class="menu-item delimiter"></li><li class="menu-item search" id=search-desktop><input type=text placeholder=搜索文章标题或内容…… id=search-input-desktop>
 <a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-desktop title=搜索><i class="fa-solid fa-search fa-fw" aria-hidden=true></i>
 </a><a href=javascript:void(0); class="search-button search-clear" id=search-clear-desktop title=清空><i class="fa-solid fa-times-circle fa-fw" aria-hidden=true></i>
 </a><span class="search-button search-loading" id=search-loading-desktop><i class="fa-solid fa-spinner fa-fw fa-spin" aria-hidden=true></i></span></li><li class="menu-item theme-switch" title=切换主题><i class="fa-solid fa-adjust fa-fw" aria-hidden=true></i></li></ul></nav></div></header><header class="mobile animate__faster" id=header-mobile><div class=header-container><div class=header-wrapper><div class=header-title><a href=/ title=菠菜眾長><img loading=lazy src=/logo.webp alt=菠菜眾長 data-title=菠菜眾長 width=26 height=26 class=logo style="background:url(/images/loading.min.svg)no-repeat 50%" onload='this.title=this.dataset.title;for(const e of["style","data-title","onerror","onload"])this.removeAttribute(e);this.dataset.lazyloaded=""' onerror='this.title=this.dataset.title;for(const e of["style","data-title","onerror","onload"])this.removeAttribute(e)'><span class=header-title-text>菠菜众长</span></a><span class=header-subtitle>李瑞豪的博客</span></div><div class=menu-toggle id=menu-toggle-mobile><span></span><span></span><span></span></div></div><nav><ul class=menu id=menu-mobile><li class=search-wrapper><div class="search mobile" id=search-mobile><input type=text placeholder=搜索文章标题或内容…… id=search-input-mobile>
@@ -7,152 +7,240 @@
 </a><a href=javascript:void(0); class="search-button search-clear" id=search-clear-mobile title=清空><i class="fa-solid fa-times-circle fa-fw" aria-hidden=true></i>
 </a><span class="search-button search-loading" id=search-loading-mobile><i class="fa-solid fa-spinner fa-fw fa-spin" aria-hidden=true></i></span></div><a href=javascript:void(0); class=search-cancel id=search-cancel-mobile>取消</a></li><li class=menu-item><span class=nested-item><a class=menu-link href=/archives/><i class="fa-solid fa-archive fa-fw fa-sm" aria-hidden=true></i> 归档</a>
 <i class="dropdown-icon fa-solid fa-chevron-right" aria-hidden=true></i></span><ul class=sub-menu><li class=menu-item><a class=menu-link href=/categories/><i class="fa-solid fa-folder-tree fa-fw fa-sm" aria-hidden=true></i> 分类</a></li><li class=menu-item><a class=menu-link href=/collections/><i class="fa-solid fa-layer-group fa-fw fa-sm" aria-hidden=true></i> 合集</a></li><li class=menu-item><a class=menu-link href=/tags/><i class="fa-solid fa-tags fa-fw fa-sm" aria-hidden=true></i> 标签</a></li></ul></li><li class=menu-item><a class=menu-link href=/friends/ title=友情链接><i class="fa-solid fa-users-viewfinder fa-fw fa-sm" aria-hidden=true></i> 友链</a></li><li class=menu-item><a class=menu-link href=/guestbook/><i class="fa-regular fa-comments fa-fw fa-sm" aria-hidden=true></i> 留言</a></li><li class=menu-item><span class=nested-item><a class=menu-link href=/about/><i class="fa-regular fa-id-card fa-fw fa-sm" aria-hidden=true></i> 關於</a>
-<i class="dropdown-icon fa-solid fa-chevron-right" aria-hidden=true></i></span><ul class=sub-menu><li class=menu-item><a class=menu-link href=/projects/ title=我的作品集><i class="fa-solid fa-laptop-code fa-fw fa-sm" aria-hidden=true></i> 我的作品</a></li><li class=menu-item><a class=menu-link href=/years/ title=我的年度总结><i class="fa-regular fa-newspaper fa-fw fa-sm" aria-hidden=true></i> 年度总结</a></li></ul></li><li class="menu-item text-center"><a class=menu-link href=https://github.com/Lruihao/hugo-blog title=GitHub rel="noopener noreferrer" target=_blank><i class='fa-brands fa-github fa-fw' aria-hidden=true></i></a></li><li class="menu-item menu-system"><span class="menu-system-item theme-switch" title=切换主题><i class="fa-solid fa-adjust fa-fw" aria-hidden=true></i></span></li></ul></nav></div></header><div class="search-dropdown desktop"><div id=search-dropdown-desktop></div></div><div class="search-dropdown mobile"><div id=search-dropdown-mobile></div></div><nav aria-label=breadcrumb class="breadcrumb-container sticky"><ol class=breadcrumb><li class=breadcrumb-item><a href=/posts/ title=Posts>文章</a></li><li class="breadcrumb-item active" aria-current=page>实现类似于 Element UI 表格的溢出文本提示功能</li></ol></nav><main class=container><aside class="aside-collection animate__animated animate__fadeIn animate__faster" aria-label=合集></aside><article class="page single"><div class=header><h1 class="single-title animate__animated animate__flipInX"><span>实现类似于 Element UI 表格的溢出文本提示功能</span></h1></div><div class=post-meta><div class=post-meta-line><span class=post-author><a href=https://github.com/Lruihao title=作者 target=_blank rel="external nofollow noopener noreferrer author" class=author><img loading=lazy src="https://cravatar.cn/avatar/fee47a2f4f2cc71f99a02b0a73ecfee0?s=32&amp;d=mp" alt=Lruihao data-title=Lruihao width=20 height=20 class=avatar style="background:url(/images/loading.min.svg)no-repeat 50%" onload='this.title=this.dataset.title;for(const e of["style","data-title","onerror","onload"])this.removeAttribute(e);this.dataset.lazyloaded=""' onerror='this.title=this.dataset.title;for(const e of["style","data-title","onerror","onload"])this.removeAttribute(e)'>&nbsp;Lruihao</a></span><span class=post-included-in>&nbsp;收录于 <a href=/categories/vue.js/ class=post-category title="分类 - Vue.js"><i class="fa-regular fa-folder fa-fw" aria-hidden=true></i> Vue.js</a>&ensp;<a href=/categories/javascript/ class=post-category title="分类 - JavaScript"><i class="fa-regular fa-folder fa-fw" aria-hidden=true></i> JavaScript</a></span></div><div class=post-meta-line><span title="发布于 2024-02-29 16:46:00"><i class="fa-solid fa-calendar-days fa-fw me-1" aria-hidden=true></i><time datetime=2024-02-29>2024-02-29</time></span>&nbsp;<span title="更新于 2024-02-29 16:59:53"><i class="fa-regular fa-calendar-check fa-fw me-1" aria-hidden=true></i><time datetime=2024-02-29>2024-02-29</time></span>&nbsp;<span title="709 字"><i class="fa-solid fa-pencil-alt fa-fw me-1" aria-hidden=true></i>约 800 字</span>&nbsp;<span><i class="fa-regular fa-clock fa-fw me-1" aria-hidden=true></i>预计阅读 2 分钟</span>&nbsp;<span id=busuanzi_container_page_pv class="busuanzi_visitors comment-visitors" data-flag-title="实现类似于 Element UI 表格的溢出文本提示功能">
+<i class="dropdown-icon fa-solid fa-chevron-right" aria-hidden=true></i></span><ul class=sub-menu><li class=menu-item><a class=menu-link href=/projects/ title=我的作品集><i class="fa-solid fa-laptop-code fa-fw fa-sm" aria-hidden=true></i> 我的作品</a></li><li class=menu-item><a class=menu-link href=/years/ title=我的年度总结><i class="fa-regular fa-newspaper fa-fw fa-sm" aria-hidden=true></i> 年度总结</a></li></ul></li><li class="menu-item text-center"><a class=menu-link href=https://github.com/Lruihao/hugo-blog title=GitHub rel="noopener noreferrer" target=_blank><i class='fa-brands fa-github fa-fw' aria-hidden=true></i></a></li><li class="menu-item menu-system"><span class="menu-system-item theme-switch" title=切换主题><i class="fa-solid fa-adjust fa-fw" aria-hidden=true></i></span></li></ul></nav></div></header><div class="search-dropdown desktop"><div id=search-dropdown-desktop></div></div><div class="search-dropdown mobile"><div id=search-dropdown-mobile></div></div><nav aria-label=breadcrumb class="breadcrumb-container sticky"><ol class=breadcrumb><li class=breadcrumb-item><a href=/posts/ title=Posts>文章</a></li><li class="breadcrumb-item active" aria-current=page>实现类似于 Element UI 表格的溢出文本提示功能</li></ol></nav><main class=container><aside class="aside-collection animate__animated animate__fadeIn animate__faster" aria-label=合集></aside><article class="page single"><div class=header><h1 class="single-title animate__animated animate__flipInX"><span>实现类似于 Element UI 表格的溢出文本提示功能</span></h1></div><div class=post-meta><div class=post-meta-line><span class=post-author><a href=https://github.com/Lruihao title=作者 target=_blank rel="external nofollow noopener noreferrer author" class=author><img loading=lazy src="https://cravatar.cn/avatar/fee47a2f4f2cc71f99a02b0a73ecfee0?s=32&amp;d=mp" alt=Lruihao data-title=Lruihao width=20 height=20 class=avatar style="background:url(/images/loading.min.svg)no-repeat 50%" onload='this.title=this.dataset.title;for(const e of["style","data-title","onerror","onload"])this.removeAttribute(e);this.dataset.lazyloaded=""' onerror='this.title=this.dataset.title;for(const e of["style","data-title","onerror","onload"])this.removeAttribute(e)'>&nbsp;Lruihao</a></span><span class=post-included-in>&nbsp;收录于 <a href=/categories/vue.js/ class=post-category title="分类 - Vue.js"><i class="fa-regular fa-folder fa-fw" aria-hidden=true></i> Vue.js</a>&ensp;<a href=/categories/javascript/ class=post-category title="分类 - JavaScript"><i class="fa-regular fa-folder fa-fw" aria-hidden=true></i> JavaScript</a></span></div><div class=post-meta-line><span title="发布于 2024-02-29 16:46:00"><i class="fa-solid fa-calendar-days fa-fw me-1" aria-hidden=true></i><time datetime=2024-02-29>2024-02-29</time></span>&nbsp;<span title="更新于 2024-06-06 18:09:34"><i class="fa-regular fa-calendar-check fa-fw me-1" aria-hidden=true></i><time datetime=2024-06-06>2024-06-06</time></span>&nbsp;<span title="957 字"><i class="fa-solid fa-pencil-alt fa-fw me-1" aria-hidden=true></i>约 1000 字</span>&nbsp;<span><i class="fa-regular fa-clock fa-fw me-1" aria-hidden=true></i>预计阅读 2 分钟</span>&nbsp;<span id=busuanzi_container_page_pv class="busuanzi_visitors comment-visitors" data-flag-title="实现类似于 Element UI 表格的溢出文本提示功能">
 <i class="fa-regular fa-eye fa-fw me-1" aria-hidden=true></i><span id=busuanzi_value_page_pv>-</span>&nbsp;次阅读
 </span>&nbsp;</div></div><div class="details toc" id=toc-static data-kept=false><div class="details-summary toc-title"><span>目录</span>
-<span><i class="details-icon fa-solid fa-angle-right" aria-hidden=true></i></span></div><div class="details-content toc-content" id=toc-content-static><nav id=TableOfContents><ol><li><a href=#demo>Demo</a></li><li><a href=#实现代码>实现代码</a></li><li><a href=#实现原理>实现原理</a></li></ol></nav></div></div><div class=content id=content data-end-flag=（本文完）><div class="details admonition note open"><div class="details-summary admonition-title"><i class="icon fa-solid fa-pencil-alt fa-fw" aria-hidden=true></i>注意<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden=true></i></div><div class=details-content><div class=admonition-content>本文最后更新于 2024-02-29，文中内容可能已过时。</div></div></div><p>在 Element UI 的表格组件中，当表格列的内容过长时，设置 <code>show-overflow-tooltip</code> 会自动显示一个 tooltip 来展示完整的内容。这个功能在实际项目中也是非常常见的，那么我们该如何实现这个功能呢？</p><h2 id=demo class=heading-element><span>1 Demo</span>
+<span><i class="details-icon fa-solid fa-angle-right" aria-hidden=true></i></span></div><div class="details-content toc-content" id=toc-content-static><nav id=TableOfContents><ol><li><a href=#demo>Demo</a></li><li><a href=#实现代码>实现代码</a></li><li><a href=#实现原理>实现原理</a></li></ol></nav></div></div><div class=content id=content data-end-flag=（本文完）><p>在 Element UI 的表格组件中，当表格列的内容过长时，设置 <code>show-overflow-tooltip</code> 会自动显示一个 tooltip 来展示完整的内容。这个功能在实际项目中也是非常常见的，那么我们该如何实现这个功能呢？</p><h2 id=demo class=heading-element><span>1 Demo</span>
 <a href=#demo class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h2><p>先来看一下效果：<a href=http://lruihao.github.io/vue-el-demo/#/overflow-tooltip target=_blank rel="external nofollow noopener noreferrer">demo<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden=true></i></a></p><h2 id=实现代码 class=heading-element><span>2 实现代码</span>
-<a href=#%e5%ae%9e%e7%8e%b0%e4%bb%a3%e7%a0%81 class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h2><p>直接贴上完整的代码，通过一个自定义指定 <code>v-overflow-tooltip</code> 来实现：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
-</span><span class=lnt> 2
-</span><span class=lnt> 3
-</span><span class=lnt> 4
-</span><span class=lnt> 5
-</span><span class=lnt> 6
-</span><span class=lnt> 7
-</span><span class=lnt> 8
-</span><span class=lnt> 9
-</span><span class=lnt>10
-</span><span class=lnt>11
-</span><span class=lnt>12
-</span><span class=lnt>13
-</span><span class=lnt>14
-</span><span class=lnt>15
-</span><span class=lnt>16
-</span><span class=lnt>17
-</span><span class=lnt>18
-</span><span class=lnt>19
-</span><span class=lnt>20
-</span><span class=lnt>21
-</span><span class=lnt>22
-</span><span class=lnt>23
-</span><span class=lnt>24
-</span><span class=lnt>25
-</span><span class=lnt>26
-</span><span class=lnt>27
-</span><span class=lnt>28
-</span><span class=lnt>29
-</span><span class=lnt>30
-</span><span class=lnt>31
-</span><span class=lnt>32
-</span><span class=lnt>33
-</span><span class=lnt>34
-</span><span class=lnt>35
-</span><span class=lnt>36
-</span><span class=lnt>37
-</span><span class=lnt>38
-</span><span class=lnt>39
-</span><span class=lnt>40
-</span><span class=lnt>41
-</span><span class=lnt>42
-</span><span class=lnt>43
-</span><span class=lnt>44
-</span><span class=lnt>45
-</span><span class=lnt>46
-</span><span class=lnt>47
-</span><span class=lnt>48
-</span><span class=lnt>49
-</span><span class=lnt>50
-</span><span class=lnt>51
-</span><span class=lnt>52
-</span><span class=lnt>53
-</span><span class=lnt>54
-</span><span class=lnt>55
-</span><span class=lnt>56
-</span><span class=lnt>57
-</span><span class=lnt>58
-</span><span class=lnt>59
-</span><span class=lnt>60
-</span><span class=lnt>61
-</span><span class=lnt>62
-</span><span class=lnt>63
-</span><span class=lnt>64
-</span><span class=lnt>65
-</span><span class=lnt>66
-</span><span class=lnt>67
-</span><span class=lnt>68
-</span><span class=lnt>69
-</span><span class=lnt>70
-</span><span class=lnt>71
-</span><span class=lnt>72
-</span><span class=lnt>73
-</span><span class=lnt>74
-</span><span class=lnt>75
-</span><span class=lnt>76
-</span><span class=lnt>77
-</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=line><span class=cl><span class=kr>const</span> <span class=nx>plugin</span> <span class=o>=</span> <span class=p>{</span>
+<a href=#%e5%ae%9e%e7%8e%b0%e4%bb%a3%e7%a0%81 class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h2><p>直接贴上完整的代码，通过一个自定义指定 <code>v-overflow-tooltip</code> 来实现：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>  1
+</span><span class=lnt>  2
+</span><span class=lnt>  3
+</span><span class=lnt>  4
+</span><span class=lnt>  5
+</span><span class=lnt>  6
+</span><span class=lnt>  7
+</span><span class=lnt>  8
+</span><span class=lnt>  9
+</span><span class=lnt> 10
+</span><span class=lnt> 11
+</span><span class=lnt> 12
+</span><span class=lnt> 13
+</span><span class=lnt> 14
+</span><span class=lnt> 15
+</span><span class=lnt> 16
+</span><span class=lnt> 17
+</span><span class=lnt> 18
+</span><span class=lnt> 19
+</span><span class=lnt> 20
+</span><span class=lnt> 21
+</span><span class=lnt> 22
+</span><span class=lnt> 23
+</span><span class=lnt> 24
+</span><span class=lnt> 25
+</span><span class=lnt> 26
+</span><span class=lnt> 27
+</span><span class=lnt> 28
+</span><span class=lnt> 29
+</span><span class=lnt> 30
+</span><span class=lnt> 31
+</span><span class=lnt> 32
+</span><span class=lnt> 33
+</span><span class=lnt> 34
+</span><span class=lnt> 35
+</span><span class=lnt> 36
+</span><span class=lnt> 37
+</span><span class=lnt> 38
+</span><span class=lnt> 39
+</span><span class=lnt> 40
+</span><span class=lnt> 41
+</span><span class=lnt> 42
+</span><span class=lnt> 43
+</span><span class=lnt> 44
+</span><span class=lnt> 45
+</span><span class=lnt> 46
+</span><span class=lnt> 47
+</span><span class=lnt> 48
+</span><span class=lnt> 49
+</span><span class=lnt> 50
+</span><span class=lnt> 51
+</span><span class=lnt> 52
+</span><span class=lnt> 53
+</span><span class=lnt> 54
+</span><span class=lnt> 55
+</span><span class=lnt> 56
+</span><span class=lnt> 57
+</span><span class=lnt> 58
+</span><span class=lnt> 59
+</span><span class=lnt> 60
+</span><span class=lnt> 61
+</span><span class=lnt> 62
+</span><span class=lnt> 63
+</span><span class=lnt> 64
+</span><span class=lnt> 65
+</span><span class=lnt> 66
+</span><span class=lnt> 67
+</span><span class=lnt> 68
+</span><span class=lnt> 69
+</span><span class=lnt> 70
+</span><span class=lnt> 71
+</span><span class=lnt> 72
+</span><span class=lnt> 73
+</span><span class=lnt> 74
+</span><span class=lnt> 75
+</span><span class=lnt> 76
+</span><span class=lnt> 77
+</span><span class=lnt> 78
+</span><span class=lnt> 79
+</span><span class=lnt> 80
+</span><span class=lnt> 81
+</span><span class=lnt> 82
+</span><span class=lnt> 83
+</span><span class=lnt> 84
+</span><span class=lnt> 85
+</span><span class=lnt> 86
+</span><span class=lnt> 87
+</span><span class=lnt> 88
+</span><span class=lnt> 89
+</span><span class=lnt> 90
+</span><span class=lnt> 91
+</span><span class=lnt> 92
+</span><span class=lnt> 93
+</span><span class=lnt> 94
+</span><span class=lnt> 95
+</span><span class=lnt> 96
+</span><span class=lnt> 97
+</span><span class=lnt> 98
+</span><span class=lnt> 99
+</span><span class=lnt>100
+</span><span class=lnt>101
+</span><span class=lnt>102
+</span><span class=lnt>103
+</span><span class=lnt>104
+</span><span class=lnt>105
+</span><span class=lnt>106
+</span><span class=lnt>107
+</span><span class=lnt>108
+</span><span class=lnt>109
+</span><span class=lnt>110
+</span><span class=lnt>111
+</span><span class=lnt>112
+</span><span class=lnt>113
+</span><span class=lnt>114
+</span><span class=lnt>115
+</span><span class=lnt>116
+</span><span class=lnt>117
+</span><span class=lnt>118
+</span><span class=lnt>119
+</span><span class=lnt>120
+</span><span class=lnt>121
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=line><span class=cl><span class=kr>const</span> <span class=nx>setTooltip</span> <span class=o>=</span> <span class=p>(</span><span class=nx>el</span><span class=p>,</span> <span class=nx>binding</span><span class=p>)</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=c1>// 设置内容
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=nx>el</span><span class=p>.</span><span class=nx>innerText</span> <span class=o>=</span> <span class=nx>binding</span><span class=p>.</span><span class=nx>value</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=kr>const</span> <span class=nx>elComputed</span> <span class=o>=</span> <span class=nb>document</span><span class=p>.</span><span class=nx>defaultView</span><span class=p>.</span><span class=nx>getComputedStyle</span><span class=p>(</span><span class=nx>el</span><span class=p>,</span> <span class=s1>&#39;&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>  <span class=kr>const</span> <span class=nx>padding</span> <span class=o>=</span> <span class=nb>parseInt</span><span class=p>(</span><span class=nx>elComputed</span><span class=p>.</span><span class=nx>paddingLeft</span><span class=p>.</span><span class=nx>replace</span><span class=p>(</span><span class=s1>&#39;px&#39;</span><span class=p>,</span> <span class=s1>&#39;&#39;</span><span class=p>))</span> <span class=o>+</span> <span class=nb>parseInt</span><span class=p>(</span><span class=nx>elComputed</span><span class=p>.</span><span class=nx>paddingRight</span><span class=p>.</span><span class=nx>replace</span><span class=p>(</span><span class=s1>&#39;px&#39;</span><span class=p>,</span> <span class=s1>&#39;&#39;</span><span class=p>))</span>
+</span></span><span class=line><span class=cl>  <span class=kr>const</span> <span class=nx>range</span> <span class=o>=</span> <span class=nb>document</span><span class=p>.</span><span class=nx>createRange</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>  <span class=nx>range</span><span class=p>.</span><span class=nx>setStart</span><span class=p>(</span><span class=nx>el</span><span class=p>,</span> <span class=mi>0</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>  <span class=nx>range</span><span class=p>.</span><span class=nx>setEnd</span><span class=p>(</span><span class=nx>el</span><span class=p>,</span> <span class=nx>el</span><span class=p>.</span><span class=nx>childNodes</span><span class=p>.</span><span class=nx>length</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>  <span class=kr>const</span> <span class=nx>rangeWidth</span> <span class=o>=</span> <span class=nx>range</span><span class=p>.</span><span class=nx>getBoundingClientRect</span><span class=p>().</span><span class=nx>width</span>
+</span></span><span class=line><span class=cl>  <span class=kr>const</span> <span class=nx>isEllipsis</span> <span class=o>=</span> <span class=nx>rangeWidth</span> <span class=o>+</span> <span class=nx>padding</span> <span class=o>&gt;</span> <span class=nx>el</span><span class=p>.</span><span class=nx>offsetWidth</span> <span class=o>||</span> <span class=nx>el</span><span class=p>.</span><span class=nx>scrollWidth</span> <span class=o>&gt;</span> <span class=nx>el</span><span class=p>.</span><span class=nx>offsetWidth</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=c1>// 鼠标移入时，将浮层元素插入到 body 中
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=nx>el</span><span class=p>.</span><span class=nx>onmouseenter</span> <span class=o>=</span> <span class=kd>function</span><span class=p>(</span><span class=nx>e</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=p>(</span><span class=o>!</span><span class=nx>isEllipsis</span><span class=p>)</span> <span class=p>{</span> <span class=k>return</span> <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=c1>// 创建浮层元素并设置样式
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=kr>const</span> <span class=nx>vcTooltipDom</span> <span class=o>=</span> <span class=nb>document</span><span class=p>.</span><span class=nx>createElement</span><span class=p>(</span><span class=s1>&#39;div&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=nb>Object</span><span class=p>.</span><span class=nx>assign</span><span class=p>(</span><span class=nx>vcTooltipDom</span><span class=p>.</span><span class=nx>style</span><span class=p>,</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>      <span class=nx>position</span><span class=o>:</span> <span class=s1>&#39;absolute&#39;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>      <span class=nx>background</span><span class=o>:</span> <span class=s1>&#39;#303133&#39;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>      <span class=nx>color</span><span class=o>:</span> <span class=s1>&#39;#fff&#39;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>      <span class=nx>fontSize</span><span class=o>:</span> <span class=s1>&#39;12px&#39;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>      <span class=nx>zIndex</span><span class=o>:</span> <span class=s1>&#39;6000&#39;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>      <span class=nx>padding</span><span class=o>:</span> <span class=s1>&#39;10px&#39;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>      <span class=nx>borderRadius</span><span class=o>:</span> <span class=s1>&#39;4px&#39;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>      <span class=nx>lineHeight</span><span class=o>:</span> <span class=mf>1.2</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>      <span class=nx>minHeight</span><span class=o>:</span> <span class=s1>&#39;10px&#39;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>      <span class=nx>wordWrap</span><span class=o>:</span> <span class=s1>&#39;break-word&#39;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=p>})</span>
+</span></span><span class=line><span class=cl>    <span class=c1>// 设置 id 方便寻找
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=nx>vcTooltipDom</span><span class=p>.</span><span class=nx>setAttribute</span><span class=p>(</span><span class=s1>&#39;id&#39;</span><span class=p>,</span> <span class=s1>&#39;vc-tooltip&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=c1>// 将浮层插入到 body 中
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=nb>document</span><span class=p>.</span><span class=nx>body</span><span class=p>.</span><span class=nx>appendChild</span><span class=p>(</span><span class=nx>vcTooltipDom</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=c1>// 浮层中的文字 通过属性值传递动态的显示文案
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=nb>document</span><span class=p>.</span><span class=nx>getElementById</span><span class=p>(</span><span class=s1>&#39;vc-tooltip&#39;</span><span class=p>).</span><span class=nx>innerHTML</span> <span class=o>=</span> <span class=nx>binding</span><span class=p>.</span><span class=nx>value</span>
+</span></span><span class=line><span class=cl>  <span class=p>}</span>
+</span></span><span class=line><span class=cl>  <span class=c1>// 鼠标移动时，动态修改浮沉的位置属性
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=nx>el</span><span class=p>.</span><span class=nx>onmousemove</span> <span class=o>=</span> <span class=kd>function</span><span class=p>(</span><span class=nx>e</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=p>(</span><span class=o>!</span><span class=nx>isEllipsis</span><span class=p>)</span> <span class=p>{</span> <span class=k>return</span> <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=kr>const</span> <span class=nx>vcTooltipDom</span> <span class=o>=</span> <span class=nb>document</span><span class=p>.</span><span class=nx>getElementById</span><span class=p>(</span><span class=s1>&#39;vc-tooltip&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=kr>const</span> <span class=nx>padding</span> <span class=o>=</span> <span class=mi>5</span>
+</span></span><span class=line><span class=cl>    <span class=kd>let</span> <span class=nx>offsetX</span> <span class=o>=</span> <span class=nx>e</span><span class=p>.</span><span class=nx>clientX</span> <span class=o>+</span> <span class=mi>15</span>
+</span></span><span class=line><span class=cl>    <span class=kd>let</span> <span class=nx>offsetY</span> <span class=o>=</span> <span class=nx>e</span><span class=p>.</span><span class=nx>clientY</span> <span class=o>+</span> <span class=mi>15</span>
+</span></span><span class=line><span class=cl>    <span class=c1>// 判断是否超出视窗边界（横向）
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=k>if</span> <span class=p>(</span><span class=nx>offsetX</span> <span class=o>+</span> <span class=nx>vcTooltipDom</span><span class=p>.</span><span class=nx>offsetWidth</span> <span class=o>&gt;</span> <span class=nb>document</span><span class=p>.</span><span class=nx>documentElement</span><span class=p>.</span><span class=nx>clientWidth</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>      <span class=nx>offsetX</span> <span class=o>=</span> <span class=nb>document</span><span class=p>.</span><span class=nx>documentElement</span><span class=p>.</span><span class=nx>clientWidth</span> <span class=o>-</span> <span class=nx>vcTooltipDom</span><span class=p>.</span><span class=nx>offsetWidth</span> <span class=o>-</span> <span class=nx>padding</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=p>(</span><span class=nx>offsetX</span> <span class=o>&lt;</span> <span class=mi>0</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>      <span class=nx>offsetX</span> <span class=o>=</span> <span class=nx>padding</span>
+</span></span><span class=line><span class=cl>      <span class=nx>vcTooltipDom</span><span class=p>.</span><span class=nx>style</span><span class=p>.</span><span class=nx>width</span> <span class=o>=</span> <span class=nb>document</span><span class=p>.</span><span class=nx>documentElement</span><span class=p>.</span><span class=nx>clientWidth</span> <span class=o>-</span> <span class=nx>padding</span> <span class=o>*</span> <span class=mi>2</span> <span class=o>+</span> <span class=s1>&#39;px&#39;</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=c1>// 判断是否超出视窗边界（纵向）
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=k>if</span> <span class=p>(</span><span class=nx>offsetY</span> <span class=o>+</span> <span class=nx>vcTooltipDom</span><span class=p>.</span><span class=nx>offsetHeight</span> <span class=o>&gt;</span> <span class=nb>document</span><span class=p>.</span><span class=nx>documentElement</span><span class=p>.</span><span class=nx>clientHeight</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>      <span class=nx>offsetY</span> <span class=o>=</span> <span class=nb>document</span><span class=p>.</span><span class=nx>documentElement</span><span class=p>.</span><span class=nx>clientHeight</span> <span class=o>-</span> <span class=nx>vcTooltipDom</span><span class=p>.</span><span class=nx>offsetHeight</span> <span class=o>-</span> <span class=nx>padding</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=p>(</span><span class=nx>offsetY</span> <span class=o>&lt;</span> <span class=mi>0</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>      <span class=nx>offsetY</span> <span class=o>=</span> <span class=nx>padding</span>
+</span></span><span class=line><span class=cl>      <span class=nx>vcTooltipDom</span><span class=p>.</span><span class=nx>style</span><span class=p>.</span><span class=nx>height</span> <span class=o>=</span> <span class=nb>document</span><span class=p>.</span><span class=nx>documentElement</span><span class=p>.</span><span class=nx>clientHeight</span> <span class=o>-</span> <span class=nx>padding</span> <span class=o>*</span> <span class=mi>2</span> <span class=o>+</span> <span class=s1>&#39;px&#39;</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=nx>vcTooltipDom</span><span class=p>.</span><span class=nx>style</span><span class=p>.</span><span class=nx>left</span> <span class=o>=</span> <span class=nx>offsetX</span> <span class=o>+</span> <span class=s1>&#39;px&#39;</span>
+</span></span><span class=line><span class=cl>    <span class=nx>vcTooltipDom</span><span class=p>.</span><span class=nx>style</span><span class=p>.</span><span class=nx>top</span> <span class=o>=</span> <span class=nx>offsetY</span> <span class=o>+</span> <span class=s1>&#39;px&#39;</span>
+</span></span><span class=line><span class=cl>  <span class=p>}</span>
+</span></span><span class=line><span class=cl>  <span class=c1>// 鼠标移出时将浮层元素销毁
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=nx>el</span><span class=p>.</span><span class=nx>onmouseleave</span> <span class=o>=</span> <span class=kd>function</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=p>(</span><span class=o>!</span><span class=nx>isEllipsis</span><span class=p>)</span> <span class=p>{</span> <span class=k>return</span> <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=c1>// 找到浮层元素并移出
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=kr>const</span> <span class=nx>vcTooltipDom</span> <span class=o>=</span> <span class=nb>document</span><span class=p>.</span><span class=nx>getElementById</span><span class=p>(</span><span class=s1>&#39;vc-tooltip&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=nx>vcTooltipDom</span> <span class=o>&amp;&amp;</span> <span class=nb>document</span><span class=p>.</span><span class=nx>body</span><span class=p>.</span><span class=nx>removeChild</span><span class=p>(</span><span class=nx>vcTooltipDom</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>  <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kr>const</span> <span class=nx>plugin</span> <span class=o>=</span> <span class=p>{</span>
 </span></span><span class=line><span class=cl>  <span class=nx>install</span><span class=p>(</span><span class=nx>Vue</span><span class=p>)</span> <span class=p>{</span>
 </span></span><span class=line><span class=cl>    <span class=nx>Vue</span><span class=p>.</span><span class=nx>directive</span><span class=p>(</span><span class=s1>&#39;overflow-tooltip&#39;</span><span class=p>,</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>      <span class=nx>inserted</span><span class=o>:</span> <span class=p>(</span><span class=nx>el</span><span class=p>,</span> <span class=nx>binding</span><span class=p>,</span> <span class=nx>vnode</span><span class=p>)</span> <span class=p>=&gt;</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>        <span class=c1>// 设置内容
-</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=k>if</span> <span class=p>(</span><span class=nx>el</span><span class=p>.</span><span class=nx>innerText</span> <span class=o>===</span> <span class=s1>&#39;&#39;</span><span class=p>)</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>          <span class=nx>el</span><span class=p>.</span><span class=nx>innerText</span> <span class=o>=</span> <span class=nx>binding</span><span class=p>.</span><span class=nx>value</span>
-</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>      <span class=nx>inserted</span><span class=o>:</span> <span class=p>(</span><span class=nx>el</span><span class=p>,</span> <span class=nx>binding</span><span class=p>)</span> <span class=p>=&gt;</span> <span class=p>{</span>
 </span></span><span class=line><span class=cl>        <span class=c1>// 设置元素样式
 </span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=nb>Object</span><span class=p>.</span><span class=nx>assign</span><span class=p>(</span><span class=nx>el</span><span class=p>.</span><span class=nx>style</span><span class=p>,</span> <span class=p>{</span>
 </span></span><span class=line><span class=cl>          <span class=nx>overflow</span><span class=o>:</span> <span class=s1>&#39;hidden&#39;</span><span class=p>,</span>
 </span></span><span class=line><span class=cl>          <span class=nx>textOverflow</span><span class=o>:</span> <span class=s1>&#39;ellipsis&#39;</span><span class=p>,</span>
 </span></span><span class=line><span class=cl>          <span class=nx>whiteSpace</span><span class=o>:</span> <span class=s1>&#39;nowrap&#39;</span><span class=p>,</span>
 </span></span><span class=line><span class=cl>        <span class=p>})</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>        <span class=kr>const</span> <span class=nx>elComputed</span> <span class=o>=</span> <span class=nb>document</span><span class=p>.</span><span class=nx>defaultView</span><span class=p>.</span><span class=nx>getComputedStyle</span><span class=p>(</span><span class=nx>el</span><span class=p>,</span> <span class=s1>&#39;&#39;</span><span class=p>)</span>
-</span></span><span class=line><span class=cl>        <span class=kr>const</span> <span class=nx>padding</span> <span class=o>=</span> <span class=nb>parseInt</span><span class=p>(</span><span class=nx>elComputed</span><span class=p>.</span><span class=nx>paddingLeft</span><span class=p>.</span><span class=nx>replace</span><span class=p>(</span><span class=s1>&#39;px&#39;</span><span class=p>,</span> <span class=s1>&#39;&#39;</span><span class=p>))</span> <span class=o>+</span> <span class=nb>parseInt</span><span class=p>(</span><span class=nx>elComputed</span><span class=p>.</span><span class=nx>paddingRight</span><span class=p>.</span><span class=nx>replace</span><span class=p>(</span><span class=s1>&#39;px&#39;</span><span class=p>,</span> <span class=s1>&#39;&#39;</span><span class=p>))</span>
-</span></span><span class=line><span class=cl>        <span class=kr>const</span> <span class=nx>range</span> <span class=o>=</span> <span class=nb>document</span><span class=p>.</span><span class=nx>createRange</span><span class=p>()</span>
-</span></span><span class=line><span class=cl>        <span class=nx>range</span><span class=p>.</span><span class=nx>setStart</span><span class=p>(</span><span class=nx>el</span><span class=p>,</span> <span class=mi>0</span><span class=p>)</span>
-</span></span><span class=line><span class=cl>        <span class=nx>range</span><span class=p>.</span><span class=nx>setEnd</span><span class=p>(</span><span class=nx>el</span><span class=p>,</span> <span class=nx>el</span><span class=p>.</span><span class=nx>childNodes</span><span class=p>.</span><span class=nx>length</span><span class=p>)</span>
-</span></span><span class=line><span class=cl>        <span class=kr>const</span> <span class=nx>rangeWidth</span> <span class=o>=</span> <span class=nx>range</span><span class=p>.</span><span class=nx>getBoundingClientRect</span><span class=p>().</span><span class=nx>width</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=p>(</span><span class=nx>rangeWidth</span> <span class=o>+</span> <span class=nx>padding</span> <span class=o>&gt;</span> <span class=nx>el</span><span class=p>.</span><span class=nx>offsetWidth</span> <span class=o>||</span> <span class=nx>el</span><span class=p>.</span><span class=nx>scrollWidth</span> <span class=o>&gt;</span> <span class=nx>el</span><span class=p>.</span><span class=nx>offsetWidth</span><span class=p>)</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>          <span class=c1>// 鼠标移入时，将浮沉元素插入到 body 中
-</span></span></span><span class=line><span class=cl><span class=c1></span>          <span class=nx>el</span><span class=p>.</span><span class=nx>onmouseenter</span> <span class=o>=</span> <span class=kd>function</span> <span class=p>(</span><span class=nx>e</span><span class=p>)</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>            <span class=c1>// 创建浮层元素并设置样式
-</span></span></span><span class=line><span class=cl><span class=c1></span>            <span class=kr>const</span> <span class=nx>vcTooltipDom</span> <span class=o>=</span> <span class=nb>document</span><span class=p>.</span><span class=nx>createElement</span><span class=p>(</span><span class=s1>&#39;div&#39;</span><span class=p>)</span>
-</span></span><span class=line><span class=cl>            <span class=nb>Object</span><span class=p>.</span><span class=nx>assign</span><span class=p>(</span><span class=nx>vcTooltipDom</span><span class=p>.</span><span class=nx>style</span><span class=p>,</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>              <span class=nx>position</span><span class=o>:</span> <span class=s1>&#39;absolute&#39;</span><span class=p>,</span>
-</span></span><span class=line><span class=cl>              <span class=nx>background</span><span class=o>:</span> <span class=s1>&#39;#303133&#39;</span><span class=p>,</span>
-</span></span><span class=line><span class=cl>              <span class=nx>color</span><span class=o>:</span> <span class=s1>&#39;#fff&#39;</span><span class=p>,</span>
-</span></span><span class=line><span class=cl>              <span class=nx>fontSize</span><span class=o>:</span> <span class=s1>&#39;12px&#39;</span><span class=p>,</span>
-</span></span><span class=line><span class=cl>              <span class=nx>zIndex</span><span class=o>:</span> <span class=s1>&#39;2000&#39;</span><span class=p>,</span>
-</span></span><span class=line><span class=cl>              <span class=nx>padding</span><span class=o>:</span> <span class=s1>&#39;10px&#39;</span><span class=p>,</span>
-</span></span><span class=line><span class=cl>              <span class=nx>borderRadius</span><span class=o>:</span> <span class=s1>&#39;4px&#39;</span><span class=p>,</span>
-</span></span><span class=line><span class=cl>              <span class=nx>lineHeight</span><span class=o>:</span> <span class=mf>1.2</span><span class=p>,</span>
-</span></span><span class=line><span class=cl>              <span class=nx>minHeight</span><span class=o>:</span> <span class=s1>&#39;10px&#39;</span><span class=p>,</span>
-</span></span><span class=line><span class=cl>              <span class=nx>wordWrap</span><span class=o>:</span> <span class=s1>&#39;break-word&#39;</span><span class=p>,</span>
-</span></span><span class=line><span class=cl>            <span class=p>})</span>
-</span></span><span class=line><span class=cl>            <span class=c1>// 设置 id 方便寻找
-</span></span></span><span class=line><span class=cl><span class=c1></span>            <span class=nx>vcTooltipDom</span><span class=p>.</span><span class=nx>setAttribute</span><span class=p>(</span><span class=s1>&#39;id&#39;</span><span class=p>,</span> <span class=s1>&#39;vc-tooltip&#39;</span><span class=p>)</span>
-</span></span><span class=line><span class=cl>            <span class=c1>// 将浮层插入到 body 中
-</span></span></span><span class=line><span class=cl><span class=c1></span>            <span class=nb>document</span><span class=p>.</span><span class=nx>body</span><span class=p>.</span><span class=nx>appendChild</span><span class=p>(</span><span class=nx>vcTooltipDom</span><span class=p>)</span>
-</span></span><span class=line><span class=cl>            <span class=c1>// 浮层中的文字 通过属性值传递动态的显示文案
-</span></span></span><span class=line><span class=cl><span class=c1></span>            <span class=nb>document</span><span class=p>.</span><span class=nx>getElementById</span><span class=p>(</span><span class=s1>&#39;vc-tooltip&#39;</span><span class=p>).</span><span class=nx>innerHTML</span> <span class=o>=</span> <span class=nx>binding</span><span class=p>.</span><span class=nx>value</span>
+</span></span><span class=line><span class=cl>        <span class=c1>// 监控元素可见性变化
+</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=kr>const</span> <span class=nx>observer</span> <span class=o>=</span> <span class=k>new</span> <span class=nx>IntersectionObserver</span><span class=p>((</span><span class=nx>entries</span><span class=p>)</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>          <span class=k>if</span> <span class=p>(</span><span class=nx>entries</span><span class=p>[</span><span class=mi>0</span><span class=p>].</span><span class=nx>isIntersecting</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=nx>setTooltip</span><span class=p>(</span><span class=nx>el</span><span class=p>,</span> <span class=nx>binding</span><span class=p>)</span>
 </span></span><span class=line><span class=cl>          <span class=p>}</span>
-</span></span><span class=line><span class=cl>          <span class=c1>// 鼠标移动时，动态修改浮沉的位置属性
-</span></span></span><span class=line><span class=cl><span class=c1></span>          <span class=nx>el</span><span class=p>.</span><span class=nx>onmousemove</span> <span class=o>=</span> <span class=kd>function</span> <span class=p>(</span><span class=nx>e</span><span class=p>)</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>            <span class=kr>const</span> <span class=nx>vcTooltipDom</span> <span class=o>=</span> <span class=nb>document</span><span class=p>.</span><span class=nx>getElementById</span><span class=p>(</span><span class=s1>&#39;vc-tooltip&#39;</span><span class=p>)</span>
-</span></span><span class=line><span class=cl>            <span class=nx>vcTooltipDom</span><span class=p>.</span><span class=nx>style</span><span class=p>.</span><span class=nx>top</span> <span class=o>=</span> <span class=nx>e</span><span class=p>.</span><span class=nx>clientY</span> <span class=o>+</span> <span class=mi>15</span> <span class=o>+</span> <span class=s1>&#39;px&#39;</span>
-</span></span><span class=line><span class=cl>            <span class=nx>vcTooltipDom</span><span class=p>.</span><span class=nx>style</span><span class=p>.</span><span class=nx>left</span> <span class=o>=</span> <span class=nx>e</span><span class=p>.</span><span class=nx>clientX</span> <span class=o>+</span> <span class=mi>15</span> <span class=o>+</span> <span class=s1>&#39;px&#39;</span>
-</span></span><span class=line><span class=cl>          <span class=p>}</span>
-</span></span><span class=line><span class=cl>          <span class=c1>// 鼠标移出时将浮层元素销毁
-</span></span></span><span class=line><span class=cl><span class=c1></span>          <span class=nx>el</span><span class=p>.</span><span class=nx>onmouseleave</span> <span class=o>=</span> <span class=kd>function</span> <span class=p>()</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>            <span class=c1>// 找到浮层元素并移出
-</span></span></span><span class=line><span class=cl><span class=c1></span>            <span class=kr>const</span> <span class=nx>vcTooltipDom</span> <span class=o>=</span> <span class=nb>document</span><span class=p>.</span><span class=nx>getElementById</span><span class=p>(</span><span class=s1>&#39;vc-tooltip&#39;</span><span class=p>)</span>
-</span></span><span class=line><span class=cl>            <span class=nx>vcTooltipDom</span> <span class=o>&amp;&amp;</span> <span class=nb>document</span><span class=p>.</span><span class=nx>body</span><span class=p>.</span><span class=nx>removeChild</span><span class=p>(</span><span class=nx>vcTooltipDom</span><span class=p>)</span>
-</span></span><span class=line><span class=cl>          <span class=p>}</span>
-</span></span><span class=line><span class=cl>        <span class=p>}</span>
-</span></span><span class=line><span class=cl>      <span class=p>}</span>
+</span></span><span class=line><span class=cl>        <span class=p>})</span>
+</span></span><span class=line><span class=cl>        <span class=nx>observer</span><span class=p>.</span><span class=nx>observe</span><span class=p>(</span><span class=nx>el</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=c1>// 监控元素宽度变化
+</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=kr>const</span> <span class=nx>resizeObserver</span> <span class=o>=</span> <span class=k>new</span> <span class=nx>ResizeObserver</span><span class=p>(()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>          <span class=nx>setTooltip</span><span class=p>(</span><span class=nx>el</span><span class=p>,</span> <span class=nx>binding</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=p>})</span>
+</span></span><span class=line><span class=cl>        <span class=nx>resizeObserver</span><span class=p>.</span><span class=nx>observe</span><span class=p>(</span><span class=nx>el</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=c1>// 设置浮层内容
+</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=nx>setTooltip</span><span class=p>(</span><span class=nx>el</span><span class=p>,</span> <span class=nx>binding</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>      <span class=p>},</span>
+</span></span><span class=line><span class=cl>      <span class=nx>update</span><span class=o>:</span> <span class=p>(</span><span class=nx>el</span><span class=p>,</span> <span class=nx>binding</span><span class=p>)</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=c1>// 更新浮层内容
+</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=nx>setTooltip</span><span class=p>(</span><span class=nx>el</span><span class=p>,</span> <span class=nx>binding</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>      <span class=p>},</span>
+</span></span><span class=line><span class=cl>      <span class=nx>unbind</span><span class=o>:</span> <span class=p>(</span><span class=nx>el</span><span class=p>)</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>el</span><span class=p>.</span><span class=nx>onmouseenter</span> <span class=o>=</span> <span class=kc>null</span>
+</span></span><span class=line><span class=cl>        <span class=nx>el</span><span class=p>.</span><span class=nx>onmousemove</span> <span class=o>=</span> <span class=kc>null</span>
+</span></span><span class=line><span class=cl>        <span class=nx>el</span><span class=p>.</span><span class=nx>onmouseleave</span> <span class=o>=</span> <span class=kc>null</span>
+</span></span><span class=line><span class=cl>      <span class=p>},</span>
 </span></span><span class=line><span class=cl>    <span class=p>})</span>
 </span></span><span class=line><span class=cl>  <span class=p>}</span>
 </span></span><span class=line><span class=cl><span class=p>}</span>
-</span></span><span class=line><span class=cl>
 </span></span><span class=line><span class=cl>
 </span></span><span class=line><span class=cl><span class=kd>let</span> <span class=nx>GlobalVue</span> <span class=o>=</span> <span class=kc>null</span>
 </span></span><span class=line><span class=cl><span class=k>if</span> <span class=p>(</span><span class=k>typeof</span> <span class=nb>window</span> <span class=o>!==</span> <span class=s1>&#39;undefined&#39;</span><span class=p>)</span> <span class=p>{</span>
@@ -178,7 +266,7 @@
 </span></span><span class=line><span class=cl><span class=nx>range</span><span class=p>.</span><span class=nx>setStart</span><span class=p>(</span><span class=nx>el</span><span class=p>,</span> <span class=mi>0</span><span class=p>)</span>
 </span></span><span class=line><span class=cl><span class=nx>range</span><span class=p>.</span><span class=nx>setEnd</span><span class=p>(</span><span class=nx>el</span><span class=p>,</span> <span class=nx>el</span><span class=p>.</span><span class=nx>childNodes</span><span class=p>.</span><span class=nx>length</span><span class=p>)</span>
 </span></span><span class=line><span class=cl><span class=kr>const</span> <span class=nx>rangeWidth</span> <span class=o>=</span> <span class=nx>range</span><span class=p>.</span><span class=nx>getBoundingClientRect</span><span class=p>().</span><span class=nx>width</span></span></span></code></pre></td></tr></table></div></div><p>这段代码是通过 <code>createRange</code> 设置元素的范围，然后通过 <code>getBoundingClientRect</code> 获取元素的宽度。</p></div><hr class=awesome-hr><h2 id=see-also>相关内容</h2><ul><li><a href=/posts/900d5e4/ title="记一次 Debug 第三方包的过程">记一次 Debug 第三方包的过程</a></li><li><a href=/posts/el-card-collapse/ title="给 El-Card 添加折叠功能">给 El-Card 添加折叠功能</a></li><li><a href=/posts/dashboard-summary/ title=拖拽式仪表盘系列总结>拖拽式仪表盘系列总结</a></li><li><a href=/posts/dashborad-widget-usage/ title="拖拽式仪表盘 - 组件开发">拖拽式仪表盘 - 组件开发</a></li><li><a href=/posts/dashborad-template-usage/ title="拖拽式仪表盘 - 模板使用">拖拽式仪表盘 - 模板使用</a></li></ul><div class=post-reward><div class=comment>Buy me a coffee~</div><input type=checkbox class=reward-input name=reward id=fi-reward hidden>
-<label class=reward-button for=fi-reward><i class="fa-solid fa-qrcode fa-fw" aria-hidden=true></i>赞赏</label><div class=reward-ways data-mode=fixed><div><img loading=lazy src=/images/alipay.jpg alt="Lruihao 支付宝" data-title="Lruihao 支付宝" style="background:url(/images/loading.min.svg)no-repeat 50%" onload='this.title=this.dataset.title;for(const e of["style","data-title","onerror","onload"])this.removeAttribute(e);this.dataset.lazyloaded=""' onerror='this.title=this.dataset.title;for(const e of["style","data-title","onerror","onload"])this.removeAttribute(e)'><span data-animation>支付宝</span></div><div><img loading=lazy src=/images/wechatpay.jpg alt="Lruihao 微信" data-title="Lruihao 微信" style="background:url(/images/loading.min.svg)no-repeat 50%" onload='this.title=this.dataset.title;for(const e of["style","data-title","onerror","onload"])this.removeAttribute(e);this.dataset.lazyloaded=""' onerror='this.title=this.dataset.title;for(const e of["style","data-title","onerror","onload"])this.removeAttribute(e)'><span data-animation>微信</span></div></div></div><div class=post-footer id=post-footer><div class=post-info><div class=post-info-line><div class=post-info-mod><span title="更新于 2024-02-29 16:59:53">更新于 2024-02-29&nbsp;<a class=git-hash href=https://github.com/Lruihao/hugo-blog/commit/4bbd2c7c3ccbac456d73b80ac178765f2eaf4dd6 rel="external nofollow noopener noreferrer" target=_blank title="commit by Cell(1024@lruihao.cn) 4bbd2c7c3ccbac456d73b80ac178765f2eaf4dd6: Docs: 新增文章“实现类似于 Element UI 表格的溢出文本提示功能”"><i class="fa-solid fa-hashtag fa-fw" aria-hidden=true></i>4bbd2c7</a></span></div><div class=post-info-license><span><a rel="license external nofollow noopener noreferrer" href=https://creativecommons.org/licenses/by-nc-sa/4.0/ target=_blank>CC BY-NC-SA 4.0</a></span></div></div><div class=post-info-line><div class=post-info-md><span><a href=/posts/overflow-tooltip/index.md title=阅读原始文档 class=link-to-markdown>阅读原始文档</a></span><span><a href="https://github.com/Lruihao/hugo-blog/blob/docs/content/posts/_frontend/_vue.js/overflow-tooltip.md?plain=1" title=查看源码 target=_blank rel="external nofollow noopener noreferrer" class=link-to-source>查看源码</a></span><span><a href=https://github.com/Lruihao/hugo-blog/edit/docs/content/posts/_frontend/_vue.js/overflow-tooltip.md title=编辑此页 target=_blank rel="external nofollow noopener noreferrer" class=link-to-edit>编辑此页</a></span><span><a href="https://github.com/Lruihao/hugo-blog/issues/new?title=[BUG]%20%E5%AE%9E%E7%8E%B0%E7%B1%BB%E4%BC%BC%E4%BA%8E+Element+UI+%E8%A1%A8%E6%A0%BC%E7%9A%84%E6%BA%A2%E5%87%BA%E6%96%87%E6%9C%AC%E6%8F%90%E7%A4%BA%E5%8A%9F%E8%83%BD&amp;body=%7cField%7cValue%7c%0A%7c-%7c-%7c%0A%7cTitle%7c%E5%AE%9E%E7%8E%B0%E7%B1%BB%E4%BC%BC%E4%BA%8E+Element+UI+%E8%A1%A8%E6%A0%BC%E7%9A%84%E6%BA%A2%E5%87%BA%E6%96%87%E6%9C%AC%E6%8F%90%E7%A4%BA%E5%8A%9F%E8%83%BD%7c%0A%7cURL%7chttps://lruihao.cn/posts/overflow-tooltip/%7c%0A%7cFilename%7chttps://github.com/Lruihao/hugo-blog/blob/docs/content/posts/_frontend/_vue.js/overflow-tooltip.md?plain=1%7c" title=报告问题 target=_blank rel="external nofollow noopener noreferrer" class=link-to-report>报告问题</a></span></div><div class=post-info-share><span><a href=javascript:void(0); title="分享到 X" data-sharer=twitter data-url=https://lruihao.cn/posts/overflow-tooltip/ data-title="实现类似于 Element UI 表格的溢出文本提示功能" data-hashtags=Vue2><i class="fa-brands fa-x-twitter fa-fw" aria-hidden=true></i></a>
+<label class=reward-button for=fi-reward><i class="fa-solid fa-qrcode fa-fw" aria-hidden=true></i>赞赏</label><div class=reward-ways data-mode=fixed><div><img loading=lazy src=/images/alipay.jpg alt="Lruihao 支付宝" data-title="Lruihao 支付宝" style="background:url(/images/loading.min.svg)no-repeat 50%" onload='this.title=this.dataset.title;for(const e of["style","data-title","onerror","onload"])this.removeAttribute(e);this.dataset.lazyloaded=""' onerror='this.title=this.dataset.title;for(const e of["style","data-title","onerror","onload"])this.removeAttribute(e)'><span data-animation>支付宝</span></div><div><img loading=lazy src=/images/wechatpay.jpg alt="Lruihao 微信" data-title="Lruihao 微信" style="background:url(/images/loading.min.svg)no-repeat 50%" onload='this.title=this.dataset.title;for(const e of["style","data-title","onerror","onload"])this.removeAttribute(e);this.dataset.lazyloaded=""' onerror='this.title=this.dataset.title;for(const e of["style","data-title","onerror","onload"])this.removeAttribute(e)'><span data-animation>微信</span></div></div></div><div class=post-footer id=post-footer><div class=post-info><div class=post-info-line><div class=post-info-mod><span title="更新于 2024-06-06 18:09:34">更新于 2024-06-06&nbsp;<a class=git-hash href=https://github.com/Lruihao/hugo-blog/commit/b4c9fbfd40ce043a8c6da6f20eb2520f833626dc rel="external nofollow noopener noreferrer" target=_blank title="commit by Cell(1024@lruihao.cn) b4c9fbfd40ce043a8c6da6f20eb2520f833626dc: Docs: 更新文章“实现类似于 Element UI 表格的溢出文本提示功能”"><i class="fa-solid fa-hashtag fa-fw" aria-hidden=true></i>b4c9fbf</a></span></div><div class=post-info-license><span><a rel="license external nofollow noopener noreferrer" href=https://creativecommons.org/licenses/by-nc-sa/4.0/ target=_blank>CC BY-NC-SA 4.0</a></span></div></div><div class=post-info-line><div class=post-info-md><span><a href=/posts/overflow-tooltip/index.md title=阅读原始文档 class=link-to-markdown>阅读原始文档</a></span><span><a href="https://github.com/Lruihao/hugo-blog/blob/docs/content/posts/_frontend/_vue.js/overflow-tooltip.md?plain=1" title=查看源码 target=_blank rel="external nofollow noopener noreferrer" class=link-to-source>查看源码</a></span><span><a href=https://github.com/Lruihao/hugo-blog/edit/docs/content/posts/_frontend/_vue.js/overflow-tooltip.md title=编辑此页 target=_blank rel="external nofollow noopener noreferrer" class=link-to-edit>编辑此页</a></span><span><a href="https://github.com/Lruihao/hugo-blog/issues/new?title=[BUG]%20%E5%AE%9E%E7%8E%B0%E7%B1%BB%E4%BC%BC%E4%BA%8E+Element+UI+%E8%A1%A8%E6%A0%BC%E7%9A%84%E6%BA%A2%E5%87%BA%E6%96%87%E6%9C%AC%E6%8F%90%E7%A4%BA%E5%8A%9F%E8%83%BD&amp;body=%7cField%7cValue%7c%0A%7c-%7c-%7c%0A%7cTitle%7c%E5%AE%9E%E7%8E%B0%E7%B1%BB%E4%BC%BC%E4%BA%8E+Element+UI+%E8%A1%A8%E6%A0%BC%E7%9A%84%E6%BA%A2%E5%87%BA%E6%96%87%E6%9C%AC%E6%8F%90%E7%A4%BA%E5%8A%9F%E8%83%BD%7c%0A%7cURL%7chttps://lruihao.cn/posts/overflow-tooltip/%7c%0A%7cFilename%7chttps://github.com/Lruihao/hugo-blog/blob/docs/content/posts/_frontend/_vue.js/overflow-tooltip.md?plain=1%7c" title=报告问题 target=_blank rel="external nofollow noopener noreferrer" class=link-to-report>报告问题</a></span></div><div class=post-info-share><span><a href=javascript:void(0); title="分享到 X" data-sharer=twitter data-url=https://lruihao.cn/posts/overflow-tooltip/ data-title="实现类似于 Element UI 表格的溢出文本提示功能" data-hashtags=Vue2><i class="fa-brands fa-x-twitter fa-fw" aria-hidden=true></i></a>
 <a href=javascript:void(0); title="分享到 Facebook" data-sharer=facebook data-url=https://lruihao.cn/posts/overflow-tooltip/ data-hashtag=Vue2><i class="fa-brands fa-facebook-square fa-fw" aria-hidden=true></i></a>
 <a href=javascript:void(0); title="分享到 Linkedin" data-sharer=linkedin data-url=https://lruihao.cn/posts/overflow-tooltip/><i class="fa-brands fa-linkedin fa-fw" aria-hidden=true></i></a>
 <a href=javascript:void(0); title="分享到 微博" data-sharer=weibo data-url=https://lruihao.cn/posts/overflow-tooltip/ data-title="实现类似于 Element UI 表格的溢出文本提示功能" data-ralateuid=liahao><i class="fa-brands fa-weibo fa-fw" aria-hidden=true></i></a>
