@@ -58,21 +58,22 @@ const setTooltip = (el, binding) =&gt; {
     let offsetX = e.clientX &#43; 15
     let offsetY = e.clientY &#43; 15
     // 判断是否超出视窗边界（横向）
-    if (offsetX &#43; vcTooltipDom.offsetWidth &gt; document.documentElement.clientWidth) {
+    if (e.clientX &#43; vcTooltipDom.offsetWidth &gt; document.documentElement.clientWidth) {
       offsetX = document.documentElement.clientWidth - vcTooltipDom.offsetWidth - padding
     }
-    if (offsetX &lt; 0) {
+    if (document.documentElement.clientWidth - vcTooltipDom.offsetWidth &lt;= 0) {
       offsetX = padding
       vcTooltipDom.style.width = document.documentElement.clientWidth - padding * 2 &#43; &#39;px&#39;
     }
     // 判断是否超出视窗边界（纵向）
-    if (offsetY &#43; vcTooltipDom.offsetHeight &gt; document.documentElement.clientHeight) {
+    if (e.clientY &#43; vcTooltipDom.offsetHeight &gt; document.documentElement.clientHeight) {
       offsetY = document.documentElement.clientHeight - vcTooltipDom.offsetHeight - padding
     }
-    if (offsetY &lt; 0) {
+    if (document.documentElement.clientHeight - vcTooltipDom.offsetHeight &lt;= 0) {
       offsetY = padding
       vcTooltipDom.style.height = document.documentElement.clientHeight - padding * 2 &#43; &#39;px&#39;
     }
+    console.log(offsetX, e.clientX, vcTooltipDom.offsetWidth)
     vcTooltipDom.style.left = offsetX &#43; &#39;px&#39;
     vcTooltipDom.style.top = offsetY &#43; &#39;px&#39;
   }
