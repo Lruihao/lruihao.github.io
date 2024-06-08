@@ -1,11 +1,12 @@
 # 菠菜眾長
 
-共计 238 篇文章
+共计 239 篇文章
 
 ## 2024
 
-共计 13 篇文章
+共计 14 篇文章
 
+- 06-09 [架构之基：从根儿上了解设计原则](https://lruihao.cn/posts/design-principles/ "2024-06-09 02:24:31")
 - 06-06 [怎么生成暗黑模式和明亮模式的 SVG 图片？](https://lruihao.cn/posts/svg-dark-light/ "2024-06-06 22:13:26")
 - 05-20 [坐高铁去柳州吃螺狮粉](https://lruihao.cn/posts/404d6a2/ "2024-05-20 11:41:03")
 - 04-17 [利用 Vercel 反代 Gravatar 实现镜像加速](https://lruihao.cn/posts/3fd72ec/ "2024-04-17 12:51:35")

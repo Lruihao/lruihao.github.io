@@ -1,4 +1,588 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>所有文章 | 菠菜眾長</title><link>https://lruihao.cn/posts/</link><description>所有文章 | 菠菜眾長</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><copyright>本站内容采用 CC BY-NC-SA 4.0 国际许可协议。</copyright><lastBuildDate>Thu, 06 Jun 2024 22:13:26 +0800</lastBuildDate><atom:link href="https://lruihao.cn/posts/" rel="self" type="application/rss+xml"/><item><title>在 Vue 项目中更优雅地使用 icon</title><link>https://lruihao.cn/posts/vue-svg-icon/</link><pubDate>Thu, 14 Sep 2023 11:24:48 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/vue-svg-icon/</guid><description><![CDATA[<h2 id="前言" class="heading-element"><span>1 前言</span>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>所有文章 | 菠菜眾長</title><link>https://lruihao.cn/posts/</link><description>所有文章 | 菠菜眾長</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><copyright>本站内容采用 CC BY-NC-SA 4.0 国际许可协议。</copyright><lastBuildDate>Sun, 09 Jun 2024 02:24:31 +0800</lastBuildDate><atom:link href="https://lruihao.cn/posts/" rel="self" type="application/rss+xml"/><item><title>架构之基：从根儿上了解设计原则</title><link>https://lruihao.cn/posts/design-principles/</link><pubDate>Sun, 09 Jun 2024 02:24:31 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/design-principles/</guid><description><![CDATA[<p>本文节选自 <strong>奔波儿灞取经</strong> 的《<a href="https://juejin.cn/book/7196580339181944872"target="_blank" rel="external nofollow noopener noreferrer">程序员的必修课<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>》，文中的“我”指原作者奔波儿灞取经。</p>
+<hr>
+<blockquote>
+<p>设计模式不是必须的，但是如果你的代码是“非一次性的”，那么它就是必须的。</p>
+</blockquote>
+<p>对于大多数开发者来说，代码都是需要维护的，而不是写一遍就放起来不管了。既然需要维护，就要不断地读读改改，那就不是一次性的，那么怎么让他“读读改改”起来方便些呢？嗯，<strong>设计模式</strong>！</p>
+<p>设计模式切记不要死记硬背，不要生搬硬套，否则不如不学。而且不要一上来就说：要用 xxx 模式！需求还没出，你猴急个锤子，难不成是你刚学会这个模式，想拿来练练手，就想把它硬塞到需求里去吗？</p>
+<p>那么，如果需求已经出了呢？也别急，先想想，想好了怎么写，选择哪种设计模式；如果没有合适的，套不进去，那就别套了，只要方便维护，就是好的设计，不一定非要去套现有的设计模式。</p>
+<p>当然，要想正确地使用设计模式，还是先得透彻地了解了它们。因此，接下来我们就先来了解下设计模式的“祖宗”：<strong>六大设计原则</strong>。</p>
+<h2 id="单一职责原则srp" class="heading-element"><span>1 单一职责原则（SRP）</span>
+  <a href="#%e5%8d%95%e4%b8%80%e8%81%8c%e8%b4%a3%e5%8e%9f%e5%88%99srp" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><blockquote>
+<p>单一职责原则（Single Responsibility Principle，简称 SRP）：一个类只干一件事。</p>
+</blockquote>
+<p>可以看到，单一职责的核心就是：<strong>只做一件事</strong>。不过，关键点就是这个“事”的范围不好定义。</p>
+<p>比如，写一个音乐播放器，一个类负责播放，一个类负责停止，这也满足单一职责。但是，这个职责太小了。那么，如果把播放、停止、甚至下载歌曲，都塞进一个类里面呢，那就太大了。所以，职责的范围很重要，只要确定好了这个范围，那这个原则就已经实现了 90%。</p>
+<p>那么，这个范围怎么确定呢？我们可以这么理解：<strong>一些相关的、关联性比较强的，就把它们当作同一种职责，放到一个单独的类（文件）里</strong>。</p>
+<p>那么，怎么确定是否相关呢？看需求！这个只能看需求，没有别的方法。如果需求没有明确，那么我们就要联系现实来决定，毕竟程序的本质就是模拟现实。</p>
+<p>比如，我在 2015 年实习的时候，IBM 公司有个考勤系统，需要添加一个指纹打卡功能。需求是这样的：<code>部门主管以下的员工可以用指纹来打卡</code>。</p>
+<p>那么，这个“打卡功能”是属于员工的，是属于打卡器的？换句话说，这个打卡的函数，是写在员工类里面呢，还是写在打卡器类里面呢？需求没说啊。</p>
+<p>那么，我们就联系现实来决定。</p>
+<p>在现实生活中，应该是一个打卡器放在门口，员工向打卡器录入指纹，来进行打卡，说白了就是：“员工使用打卡器来打卡”，也就是：“员工使用打卡器”“打卡器打卡”，所以，打卡功能是打卡器的，员工只是使用它的这个功能。所以，这个函数应该定义在打卡器里面，员工调用打卡器的这个函数来进行打卡。</p>
+<p>如果有人不爽，非要定义在员工类里面呢？你可以这么干。不过，后来需求改变成：非员工，比如保洁人员，也需要每天打卡签到。这时候，那位非常有个性有特色的人，估计脑瓜子嗡嗡的了吧。</p>
+<p><strong>单一职责不仅可以用在类（文件）里面，也可以用在函数里面。</strong></p>
+<p>比如，现在需要写一个校验函数，校验用户的性别和年龄，必须是 18 岁及以上的男性才有资格，很简单的我们可以这么写：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">boolean</span><span class="w"> </span><span class="nf">checkSexAndAge</span><span class="p">(</span><span class="kt">boolean</span><span class="w"> </span><span class="n">isMan</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">age</span><span class="p">){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">isMan</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">age</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">18</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>使用：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">private</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">login</span><span class="p">(){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">checkSexAndAge</span><span class="p">(</span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="n">17</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">tips</span><span class="p">(</span><span class="s">&#34;不是 18 岁以上的男性&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>这里有人有意见了，说这样写不太好，因为每个校验的地方都要自己弹出提示，这样就是很多重复的代码，所以提示这个逻辑应该放在<code>checkSexAndAge()</code>这个函数里面去，也就是下面这样：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">boolean</span><span class="w"> </span><span class="nf">checkSexAndAge</span><span class="p">(</span><span class="kt">boolean</span><span class="w"> </span><span class="n">isMan</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">age</span><span class="p">){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">isMan</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">age</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">18</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">tips</span><span class="p">(</span><span class="s">&#34;不是 18 岁以上的男性&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="kc">false</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>这样简直美滋滋，任何时候只要直接调<code>checkSexAndAge()</code>就行，判断了还自带提示。这在目前当然是完美的，虽然方法名不太合适。</p>
+<p>如果有一天，我们的需求变成了：年龄不满足就开启未成年人保护模式，不需要弹出提示。我们直接删除<code>tips()</code>这个调用吗？这样不太好，如果别的地方也调用了这个方法，并且需要提示，就完了。所以我们应该有两个方法：方法 A 只检测，方法 B 使用 A 的检测结果并弹出提示。代码如下所示：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">// 判断加提示</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">boolean</span><span class="w"> </span><span class="nf">checkAndTips</span><span class="p">(</span><span class="kt">boolean</span><span class="w"> </span><span class="n">isMan</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">age</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">checkSexAndAge</span><span class="p">(</span><span class="n">isMan</span><span class="p">,</span><span class="w"> </span><span class="n">age</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">tips</span><span class="p">(</span><span class="s">&#34;不是 18 岁以上的男性&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="kc">false</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// 新方法，只做逻辑判断</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">boolean</span><span class="w"> </span><span class="nf">checkSexAndAge</span><span class="p">(</span><span class="kt">boolean</span><span class="w"> </span><span class="n">isMan</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">age</span><span class="p">){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">isMan</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">age</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">18</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>这里我们只抽离了一个方法，但是却反映出了单一职责的好处：职责越单一，因为修改而引起的问题就越少。换句话说就是：<strong>需求的粒度跟单一职责的优势成正比，需求越详细，越能看出单一职责的好处</strong>。所以我们要尽量避免大方法、大类、大模块，因为一个类越大，涉及的东西就越多，用到它的地方就越多，那么这个类就不能轻易修改，因为一旦修改，涉及的地方就越多，就越危险，所以我们一定要尽量避免。其实 MVC 就是一个宏观的、大的单一职责思想。</p>
+<blockquote>
+<p>单一职责不仅适用于类和文件，还适用于函数、模块等，这是一种思想，一定要掌握。</p>
+</blockquote>
+<h2 id="里氏置换原则lsp" class="heading-element"><span>2 里氏置换原则（LSP）</span>
+  <a href="#%e9%87%8c%e6%b0%8f%e7%bd%ae%e6%8d%a2%e5%8e%9f%e5%88%99lsp" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><blockquote>
+<p>里氏置换原则（Liskov Substitution Principle，简称 LSP）：凡是使用基类的地方都必须能透明地使用子类。</p>
+</blockquote>
+<p>用人话说就是：用子类替换父类不会改变原有逻辑。众所周知，面向对象有三大基本原则：封装、继承和多态。子类本来就继承了父类，用到父类的地方替换成子类肯定没问题啊，这个原则不是废话吗，不一定！因为子类有自己的特色，也就是多态，如果这个特色太特色的话，就不适合了。</p>
+<p>比如，“我用电脑工作和游戏”，改成“我用苹果电脑工作，用联想电脑打游戏”，没问题！</p>
+<p>但是如果“我开车上班，坐车下班”，改成“我开玩具车上班，坐遥控车下班”，这个可能吗？</p>
+<p>但是，玩具车和遥控车也是“车”的子类啊，它俩也是车啊。</p>
+<p>那么这个问题出在哪里呢？明明所有的定义都是 OK 的。这是因为<strong>子类太特色了</strong>。</p>
+<p>我们定义的<strong>车</strong>，其出发点是“能跑”，也就是说，只要能跑的都是“车”，都是它的子类，所以，玩具车和遥控车都能跑，也都是车的子类。但是，车都能载人吗？猛一看，都能！仔细一想，玩具车不能！所以，我们上述 Demo 中用到的是车的“载人”功能，而不是车的“能跑”功能，所以，玩具车就不合适了。</p>
+<p>那么，怎么改呢？有如下两种方法：</p>
+<ul>
+<li>提取一个可载人的接口 <code>interface IManned</code>，明确表示哪些车可以载人；</li>
+<li>提取一个二级父类 <code>class MannedCar</code>，表示该类车可以载人。</li>
+</ul>
+<p>公共点就是：<strong>把“可载人”这个点明确出来</strong>。</p>
+<p>所以，里氏置换更简洁的说法就是：<strong>子类可以有自己的特色，但是不能太反常，如果子类的特色跟父类差太多，那么就应该细化父类或者剥离接口</strong>。</p>
+<blockquote>
+<p>可以看到，里氏置换原则就是对继承的校验，不恰当的继承关系就不满足里氏置换原则，所以，如果我们无法确定某两个类之间是否应该用继承关系时，就可以套用里氏置换原则来校验下。</p>
+</blockquote>
+<h2 id="依赖倒置原则dip" class="heading-element"><span>3 依赖倒置原则（DIP）</span>
+  <a href="#%e4%be%9d%e8%b5%96%e5%80%92%e7%bd%ae%e5%8e%9f%e5%88%99dip" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><blockquote>
+<p>依赖倒置原则（Dipendence Inversion Principle，简称 DIP）：面向接口编程或面向抽象编程。</p>
+</blockquote>
+<p>依赖倒置的官方定义：高层不应该依赖底层，两者都应该依赖抽象；抽象不应该依赖细节，细节应该依赖抽象。其实狭义的说就是：面向接口编程，广义的说就是：面向抽象编程。也就是说，我们在使用类的时候，优先考虑使用抽象类或接口。具体一点就是：成员变量、函数参数和返回值都尽量定义成接口。</p>
+<p>为什么要这么干呢？这么干有什么好处呢？</p>
+<p>我们知道，接口都是抽象的，抽象的就是不确定的，不确定的就是可变的。而我们的大部分代码都是“非一次性的”，也都是需要改变的，所以，接口正合适。</p>
+<p>换句话说，<strong>接口就是具有某种功能的某种东西</strong>，是什么我不管，只要具有这种功能就行，而我们需要的，也就是具有这种功能的东西。</p>
+<p>比如，我需要给手机充个电，我需要的是一个“能充电的东西”，而你却对外说：“我需要个充电宝！”如果有人没有充电宝，只有电源呢，他就不认你了。在这里，你把我需要的东西<strong>具象化</strong>了，也就是把范围缩小了，范围越小越精确，就越不容易改变，这明显是不对的。</p>
+<p>再比如，现在我要提供一个音乐播放器，我直接使用移动端的 <code>MediaPlayer</code>，很容易就写出了如下代码：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">class</span> <span class="nc">MediaPlayer</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">play</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">path</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">stop</span><span class="p">(){}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">pause</span><span class="p">(){}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">resume</span><span class="p">(){}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>三分钟就写完了，使用方直接调用：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">class</span> <span class="nc">User</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">MediaPlayer</span><span class="w"> </span><span class="n">mediaPlayer</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">play</span><span class="p">(){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">mediaplayer</span><span class="p">.</span><span class="na">play</span><span class="p">(</span><span class="s">&#34;xxx&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>完事之后某一天，主管又问：“咱们的播放器不好用，能用那个开源的吗？”</p>
+<p>当然可以，于是就去改，但是发现，要改的地方太多了，我不但要改<code>MedidPlayer</code>这个类，甚至调用我播放器的人也需要改他的<code>User</code>类，我在别人眼里的段位又低了！</p>
+<p>这时候就应该反思了，其实<code>User</code>这个类，不在乎你的播放器是怎么写的，它只关心能不能播放、停止、暂停、恢复，说白了，它要的是一个<strong>具有这种功能的某种东西</strong>，而不是具有这种功能的这种东西。</p>
+<p>好，上接口！</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">interface</span> <span class="nc">IPlayer</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">play</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">path</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">stop</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">pause</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">resume</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>User</code>使用：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">class</span> <span class="nc">User</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">IPlayer</span><span class="w"> </span><span class="n">player</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">play</span><span class="p">(){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">player</span><span class="p">.</span><span class="na">play</span><span class="p">(</span><span class="s">&#34;xxx&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>此时<code>User</code>只依赖于<code>IPlayer</code>，而不依赖具体的实现。不管你是啥，只要具有播放器的功能就行，后面不管你怎么改变<code>IPlayer</code>的实现，<code>User</code>都不需要改变。</p>
+<p>所以，我们可以看到面向接口的好处：<strong>低耦合，易拓展</strong>。因为接口是抽象的，依赖接口就是依赖抽象，不依赖细节，所以实现的细节怎么改都对我无影响，所以耦合就低；又因为接口是顶层的，就更容易拓展下层的细节实现。</p>
+<h2 id="接口隔离原则isp" class="heading-element"><span>4 接口隔离原则（ISP）</span>
+  <a href="#%e6%8e%a5%e5%8f%a3%e9%9a%94%e7%a6%bb%e5%8e%9f%e5%88%99isp" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><blockquote>
+<p>接口隔离原则（Interface Segregation Principle，简称 ISP）：接口尽量小，尽量单一，说白了就是接口粒度要细。</p>
+</blockquote>
+<p>接口隔离要求接口的功能要单一，这听起来怎么就是单一职责原则呢，它们有区别吗？</p>
+<p>有！</p>
+<p>单一职责原则针对的是“职责”，说白了就是功能块，一个职责可能有多个功能；接口隔离原则针对的是“功能”，也就是一个接口只负责一个“功能”，比如，老师的职责是讲课和改作业，如果用单一职责原则就是一个接口里面包含了讲课和改作业这两个方法；如果用接口隔离原则就是两个接口，一个讲课的接口和一个改作业的接口。换句话说就是：接口隔离原则是单一职责的单一职责原则。</p>
+<p>举个例子，还是音乐播放器，我们定义了一个接口：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">interface</span> <span class="nc">IPlayer</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">//开始</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">play</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">url</span><span class="p">);</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">//停止</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">stop</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">//暂停</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">pause</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">//复原</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">resume</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">//获取歌曲时长</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">String</span><span class="w"> </span><span class="nf">getSongTime</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>这正是单一职责原则，因为这个接口只定义了音乐播放相关的东西，但是却不满足接口隔离原则，因为一个接口干了多件事，假如我们现在有个歌曲展示器<code>SongDisplayer</code>，只需要展示歌曲的时长，也就是只需要<code>getSongTime()</code>这个函数，我们让它直接实现<code>IPlayer</code>接口吗？肯定不行！因为里面的其他函数是不需要的，也不应该有的。这就要用到接口隔离原则了，我们直接将<code>IPlayer</code>接口再进行拆分，如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">//音乐播放器就仅限于对播放的控制</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">interface</span> <span class="nc">IPlayer</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">//开始</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">play</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">path</span><span class="p">);</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">//停止</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">stop</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">//暂停</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">pause</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">//复原</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">resume</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">...</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">//歌曲展示器就仅限于对歌曲信息的展示</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">interface</span> <span class="nc">ISongDisplayer</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">//获取歌曲时长</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">String</span><span class="w"> </span><span class="nf">getSongTime</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">//获取歌曲名字</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">String</span><span class="w"> </span><span class="nf">getSongName</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">//其他</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">...</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>这样拆分后，我们的播放器就同时实现上面两个接口，而歌曲展示器只需要实现<code>ISongDisplayer</code>即可。</p>
+<p>但是，我们根本不知道将来会出什么样的需求，怎么能提前预测并做好接口隔离呢？</p>
+<p>不需要提前做！因为接口隔离更多时候是个后置操作，说白了，更多时候是在问题发生的时候再去拆接口，所以是个后置操作，就像我们上面的修改，也没费多大劲，顶多就是多写一个接口，复制一部分代码，修改几个实现关系而已，根本没动业务上的代码，所以不必纠结，大多时候我们保证单一职责即可。</p>
+<blockquote>
+<p>总之一句话：接口要尽量小，尽量单一。</p>
+</blockquote>
+<h2 id="最少知识原则lkp" class="heading-element"><span>5 最少知识原则（LKP）</span>
+  <a href="#%e6%9c%80%e5%b0%91%e7%9f%a5%e8%af%86%e5%8e%9f%e5%88%99lkp" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><blockquote>
+<p>最少知识原则（Least Knowledge Principle，简称 LKP），也叫迪米特法则（LOD）：一个对象应该对其他对象有最少的了解，说白了就是，只关联自己需要的。</p>
+</blockquote>
+<p>就像语文老师，只关心语文成绩即可，非要关心数学，怪不得头发都掉光了。</p>
+<p>废话不说，我们来看个 Demo，又是那个音乐播放器，原本应该是这样的：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">interface</span> <span class="nc">IPlayer</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">play</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">path</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">....</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">class</span> <span class="nc">User</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">....</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">play</span><span class="p">(){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">player</span><span class="p">.</span><span class="na">play</span><span class="p">(</span><span class="n">song</span><span class="p">.</span><span class="na">path</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">....</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">class</span> <span class="nc">Song</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">path</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">name</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">....</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>可以看到，播放时，只需要一个<code>path</code>即可。但是有人聪明，我直接把<code>Song</code>给他传过去不行吗？这样后面万一需要<code>Song</code>里面的其他变量，比如<code>name</code>啥的，我也不用改函数了，好有道理啊！</p>
+<p>突然有一天，要求可以播放用户通过聊天发送过来的歌曲，这个歌曲没有名字，点击就下载到本地，只有一个路径了，这个时候你怎么办呢？你当然可以用这个路径去创建一个<code>Song</code>然后丢进去，但是这样绕了一圈不就增加了复杂度吗？再万一将来某天要修改<code>Song</code>这个类呢，你的播放器也跟着修改了。</p>
+<p>其实，播放器需要的只是一个播放的路径，至于其他的，它根本不关心。如果真的需要，你再提供，但也只需要提供它需要的，不要有任何附加内容。否则，一旦那些附加内容变化了，也间接导致播放器自身的变化，这是不应该的。</p>
+<blockquote>
+<p>我们应该只关联自己直接用到的，而不关联那些不需要的，如此一来，那些发生在我们关联范围外的事，就不会引起我们的任何改变，这样就大大提升了代码的健壮性。</p>
+</blockquote>
+<h2 id="开放闭合原则ocp" class="heading-element"><span>6 开放闭合原则（OCP）</span>
+  <a href="#%e5%bc%80%e6%94%be%e9%97%ad%e5%90%88%e5%8e%9f%e5%88%99ocp" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><blockquote>
+<p>开放闭合原则（Open Close Principle，简称 OCP）：一个类应该对扩展开放，对修改关闭。换句话说就是：应该多扩展代码，少修改代码。</p>
+</blockquote>
+<p>开闭原则是<strong>最理想</strong>的原则，是所有设计模式的最终目标，基本不可能实现。它要求我们的任何改动都不修改老代码，而只添加新代码，这样就不会对老逻辑有任何影响，从而使得代码更加安全。</p>
+<p>有人说，我们的代码不是一次性的，肯定是要修改的，怎么可能不修改呢？没错，肯定是需要修改的，但是合理运用开闭原则可以做到少修改，改得越少风险越小。</p>
+<p>举个例子，比如我在面试百度的时候，要手写一个计算器，只需要支持简单的加减法就行，如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Calculator</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">calculate</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">left</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">right</span><span class="p">,</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">option</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">//加法</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="s">&#34;+&#34;</span><span class="p">.</span><span class="na">equals</span><span class="p">(</span><span class="n">option</span><span class="p">))</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">left</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">right</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">//减法</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="s">&#34;-&#34;</span><span class="p">.</span><span class="na">equals</span><span class="p">(</span><span class="n">option</span><span class="p">))</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">left</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">right</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">throw</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">IllegalArgumentException</span><span class="p">(</span><span class="s">&#34;不支持的运算&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>代码简单粗暴，直接使用<code>if</code>判断就完事。但是，如果将来要支持其他运算呢？嗯，继续添加<code>if</code>分支？可以，但是不太好，谁能保证你下次添加别的运算符的时候，不会手残改了别的运算呢？那么，我们能不能将新的运算不放在这个类里面呢？可以！</p>
+<p>我们可以将每个运算定义成一个单独的类型，后面新增其他运算，只需要新加一个类就可以了。我们知道，基本的数学运算都是需要两个操作数和一个运算符的，我们可以定义一个公有的父类，来保存操作数和运算符。</p>
+<p>定义公共父类：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kd">abstract</span><span class="w"> </span><span class="n">Calculator</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// 左操作数</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">protected</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">leftOpt</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// 右操作数</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">protected</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">rightOpt</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// 操作符</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">protected</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">operator</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// 设置左操作数</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">setLeftOpt</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">leftOpt</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">leftOpt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">leftOpt</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// 设置右操作数</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">setRightOpt</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">rightOpt</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">rightOpt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rightOpt</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// 计算，提供一个模板函数，供子类实现</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">protected</span><span class="w"> </span><span class="kd">abstract</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">calculate</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// 对外公开的获取结果的 Api</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">getResult</span><span class="p">(){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// 计算结果</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">String</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">calculate</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// 清空操作数</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">clear</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// 返回结果</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">retrun</span><span class="w"> </span><span class="n">result</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">//清空操作数</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">clear</span><span class="p">(){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">leftOpt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">rightOpt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>加法器：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">PlusCalculator</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">Calculator</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">OPERATOR</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;+&#34;</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="nf">PlusCalculator</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="kd">super</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">operator</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">OPERATOR</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// 加法</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Override</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">calculate</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">String</span><span class="p">.</span><span class="na">valueOf</span><span class="p">(</span><span class="n">Integer</span><span class="p">.</span><span class="na">parseInt</span><span class="p">(</span><span class="n">leftOpt</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">Integer</span><span class="p">.</span><span class="na">parseInt</span><span class="p">(</span><span class="n">rightOpt</span><span class="p">));</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>减法器：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-typescript" data-lang="typescript"><span class="line"><span class="cl"><span class="kr">public</span> <span class="kr">class</span> <span class="nx">SubCalculator</span> <span class="kr">extends</span> <span class="nx">Calculator</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">public</span> <span class="kr">static</span> <span class="nb">String</span> <span class="nx">OPERATOR</span> <span class="o">=</span> <span class="s2">&#34;-&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kr">public</span> <span class="nx">SubCalculator() {</span>
+</span></span><span class="line"><span class="cl">        <span class="kr">super</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="k">this</span><span class="p">.</span><span class="nx">operator</span> <span class="o">=</span> <span class="nx">OPERATOR</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// 减法
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kd">@Override</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">public</span> <span class="nb">String</span> <span class="nx">calculate() {</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nb">String</span><span class="p">.</span><span class="nx">valueOf</span><span class="p">(</span><span class="nx">Integer</span><span class="p">.</span><span class="nb">parseInt</span><span class="p">(</span><span class="nx">leftOpt</span><span class="p">)</span> <span class="o">-</span> <span class="nx">Integer</span><span class="p">.</span><span class="nb">parseInt</span><span class="p">(</span><span class="nx">rightOpt</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>这里我们为不同的运算符提供了不同的实现类，每个类只负责自己的计算逻辑，如果将来有其他新运算加入，我们直接再添加一个新的类即可，完全不需要修改其他类的代码。</p>
+<p>而且我们可以看到，开闭原则中用到了单一职责（每个类只做自己的运算），还用到了最少知识（每个类只关心自己的操作数和运算符），其实就是一句话：<strong>越单纯，越干净，越好！</strong> 因为这样自己的责任就越少，就越不容易被牵连，也就越稳定，越安全。</p>
+<h2 id="设计模式" class="heading-element"><span>7 设计模式</span>
+  <a href="#%e8%ae%be%e8%ae%a1%e6%a8%a1%e5%bc%8f" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><blockquote>
+<p>该小节非原文内容，仅为个人补充。</p>
+</blockquote>
+<p>在掘金上有一个不错的专栏<a href="https://juejin.cn/column/7069912176978296839"target="_blank" rel="external nofollow noopener noreferrer">「手撕设计模式」<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>，里面详细介绍了 23 种设计模式中的好几种，可以作为进一步学习的参考。</p>
+<h2 id="总结" class="heading-element"><span>8 总结</span>
+  <a href="#%e6%80%bb%e7%bb%93" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>本节我们从宏观层面讲解了六大设计原则，这是 23 种设计模式的祖宗，或者说：<strong>设计模式就是这六大设计原则的具体实现，六大设计原则就是设计模式的抽象</strong>。</p>
+<p>对于设计模式，我认为正确的学习顺序是：</p>
+<ol>
+<li>学习设计原则，这是对设计思想的宏观认识。</li>
+<li>学习设计模式，这是对设计思想的具体认识。</li>
+<li>再学习设计原则，这是对设计思想的自我抽象。</li>
+</ol>
+<p>这就像我们看书的时候，先看目录，对整本书有个宏观的认识；然后仔细看每一章节，对每个模块进行具体了解；最后，也是最难的一点，就是：用自己的语言对整本书进行整体概括，然后尝试列出目录，这是对整本书的自我升华，或者叫自我抽象，这样，我们才能读到书的精髓。学习设计模式亦是如此，我们切记不要死记硬背，不要生搬硬套，不刻意设计的设计才是最好的设计。</p>
+]]></description></item><item><title>在 Vue 项目中更优雅地使用 icon</title><link>https://lruihao.cn/posts/vue-svg-icon/</link><pubDate>Thu, 14 Sep 2023 11:24:48 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/vue-svg-icon/</guid><description><![CDATA[<h2 id="前言" class="heading-element"><span>1 前言</span>
   <a href="#%e5%89%8d%e8%a8%80" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
   </a>
@@ -860,7 +1444,591 @@
 <p>以后要多去看看世界，也看看自己。</p>
 <div class="douyin">
   <iframe src="//open.douyin.com/player/video?vid=7370344193077644584&autoplay=0" border="0" framespacing="0" allowfullscreen="true"></iframe>
-</div>]]></description></item><item><title>怎么生成暗黑模式和明亮模式的 SVG 图片？</title><link>https://lruihao.cn/posts/svg-dark-light/</link><pubDate>Thu, 06 Jun 2024 22:13:26 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/svg-dark-light/</guid><description><![CDATA[<p>在做博客顶部栏下落奶油图的时候，就在想怎么适配暗黑模式和明亮模式呢？本文将记录两个思路。</p>
+</div>]]></description></item><item><title>架构之基：从根儿上了解设计原则</title><link>https://lruihao.cn/posts/design-principles/</link><pubDate>Sun, 09 Jun 2024 02:24:31 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/design-principles/</guid><description><![CDATA[<p>本文节选自 <strong>奔波儿灞取经</strong> 的《<a href="https://juejin.cn/book/7196580339181944872"target="_blank" rel="external nofollow noopener noreferrer">程序员的必修课<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>》，文中的“我”指原作者奔波儿灞取经。</p>
+<hr>
+<blockquote>
+<p>设计模式不是必须的，但是如果你的代码是“非一次性的”，那么它就是必须的。</p>
+</blockquote>
+<p>对于大多数开发者来说，代码都是需要维护的，而不是写一遍就放起来不管了。既然需要维护，就要不断地读读改改，那就不是一次性的，那么怎么让他“读读改改”起来方便些呢？嗯，<strong>设计模式</strong>！</p>
+<p>设计模式切记不要死记硬背，不要生搬硬套，否则不如不学。而且不要一上来就说：要用 xxx 模式！需求还没出，你猴急个锤子，难不成是你刚学会这个模式，想拿来练练手，就想把它硬塞到需求里去吗？</p>
+<p>那么，如果需求已经出了呢？也别急，先想想，想好了怎么写，选择哪种设计模式；如果没有合适的，套不进去，那就别套了，只要方便维护，就是好的设计，不一定非要去套现有的设计模式。</p>
+<p>当然，要想正确地使用设计模式，还是先得透彻地了解了它们。因此，接下来我们就先来了解下设计模式的“祖宗”：<strong>六大设计原则</strong>。</p>
+<h2 id="单一职责原则srp" class="heading-element"><span>1 单一职责原则（SRP）</span>
+  <a href="#%e5%8d%95%e4%b8%80%e8%81%8c%e8%b4%a3%e5%8e%9f%e5%88%99srp" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><blockquote>
+<p>单一职责原则（Single Responsibility Principle，简称 SRP）：一个类只干一件事。</p>
+</blockquote>
+<p>可以看到，单一职责的核心就是：<strong>只做一件事</strong>。不过，关键点就是这个“事”的范围不好定义。</p>
+<p>比如，写一个音乐播放器，一个类负责播放，一个类负责停止，这也满足单一职责。但是，这个职责太小了。那么，如果把播放、停止、甚至下载歌曲，都塞进一个类里面呢，那就太大了。所以，职责的范围很重要，只要确定好了这个范围，那这个原则就已经实现了 90%。</p>
+<p>那么，这个范围怎么确定呢？我们可以这么理解：<strong>一些相关的、关联性比较强的，就把它们当作同一种职责，放到一个单独的类（文件）里</strong>。</p>
+<p>那么，怎么确定是否相关呢？看需求！这个只能看需求，没有别的方法。如果需求没有明确，那么我们就要联系现实来决定，毕竟程序的本质就是模拟现实。</p>
+<p>比如，我在 2015 年实习的时候，IBM 公司有个考勤系统，需要添加一个指纹打卡功能。需求是这样的：<code>部门主管以下的员工可以用指纹来打卡</code>。</p>
+<p>那么，这个“打卡功能”是属于员工的，是属于打卡器的？换句话说，这个打卡的函数，是写在员工类里面呢，还是写在打卡器类里面呢？需求没说啊。</p>
+<p>那么，我们就联系现实来决定。</p>
+<p>在现实生活中，应该是一个打卡器放在门口，员工向打卡器录入指纹，来进行打卡，说白了就是：“员工使用打卡器来打卡”，也就是：“员工使用打卡器”“打卡器打卡”，所以，打卡功能是打卡器的，员工只是使用它的这个功能。所以，这个函数应该定义在打卡器里面，员工调用打卡器的这个函数来进行打卡。</p>
+<p>如果有人不爽，非要定义在员工类里面呢？你可以这么干。不过，后来需求改变成：非员工，比如保洁人员，也需要每天打卡签到。这时候，那位非常有个性有特色的人，估计脑瓜子嗡嗡的了吧。</p>
+<p><strong>单一职责不仅可以用在类（文件）里面，也可以用在函数里面。</strong></p>
+<p>比如，现在需要写一个校验函数，校验用户的性别和年龄，必须是 18 岁及以上的男性才有资格，很简单的我们可以这么写：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">boolean</span><span class="w"> </span><span class="nf">checkSexAndAge</span><span class="p">(</span><span class="kt">boolean</span><span class="w"> </span><span class="n">isMan</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">age</span><span class="p">){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">isMan</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">age</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">18</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>使用：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">private</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">login</span><span class="p">(){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">checkSexAndAge</span><span class="p">(</span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="n">17</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">tips</span><span class="p">(</span><span class="s">&#34;不是 18 岁以上的男性&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>这里有人有意见了，说这样写不太好，因为每个校验的地方都要自己弹出提示，这样就是很多重复的代码，所以提示这个逻辑应该放在<code>checkSexAndAge()</code>这个函数里面去，也就是下面这样：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">boolean</span><span class="w"> </span><span class="nf">checkSexAndAge</span><span class="p">(</span><span class="kt">boolean</span><span class="w"> </span><span class="n">isMan</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">age</span><span class="p">){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">isMan</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">age</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">18</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">tips</span><span class="p">(</span><span class="s">&#34;不是 18 岁以上的男性&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="kc">false</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>这样简直美滋滋，任何时候只要直接调<code>checkSexAndAge()</code>就行，判断了还自带提示。这在目前当然是完美的，虽然方法名不太合适。</p>
+<p>如果有一天，我们的需求变成了：年龄不满足就开启未成年人保护模式，不需要弹出提示。我们直接删除<code>tips()</code>这个调用吗？这样不太好，如果别的地方也调用了这个方法，并且需要提示，就完了。所以我们应该有两个方法：方法 A 只检测，方法 B 使用 A 的检测结果并弹出提示。代码如下所示：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">// 判断加提示</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">boolean</span><span class="w"> </span><span class="nf">checkAndTips</span><span class="p">(</span><span class="kt">boolean</span><span class="w"> </span><span class="n">isMan</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">age</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">checkSexAndAge</span><span class="p">(</span><span class="n">isMan</span><span class="p">,</span><span class="w"> </span><span class="n">age</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">tips</span><span class="p">(</span><span class="s">&#34;不是 18 岁以上的男性&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="kc">false</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// 新方法，只做逻辑判断</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">boolean</span><span class="w"> </span><span class="nf">checkSexAndAge</span><span class="p">(</span><span class="kt">boolean</span><span class="w"> </span><span class="n">isMan</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">age</span><span class="p">){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">isMan</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">age</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">18</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>这里我们只抽离了一个方法，但是却反映出了单一职责的好处：职责越单一，因为修改而引起的问题就越少。换句话说就是：<strong>需求的粒度跟单一职责的优势成正比，需求越详细，越能看出单一职责的好处</strong>。所以我们要尽量避免大方法、大类、大模块，因为一个类越大，涉及的东西就越多，用到它的地方就越多，那么这个类就不能轻易修改，因为一旦修改，涉及的地方就越多，就越危险，所以我们一定要尽量避免。其实 MVC 就是一个宏观的、大的单一职责思想。</p>
+<blockquote>
+<p>单一职责不仅适用于类和文件，还适用于函数、模块等，这是一种思想，一定要掌握。</p>
+</blockquote>
+<h2 id="里氏置换原则lsp" class="heading-element"><span>2 里氏置换原则（LSP）</span>
+  <a href="#%e9%87%8c%e6%b0%8f%e7%bd%ae%e6%8d%a2%e5%8e%9f%e5%88%99lsp" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><blockquote>
+<p>里氏置换原则（Liskov Substitution Principle，简称 LSP）：凡是使用基类的地方都必须能透明地使用子类。</p>
+</blockquote>
+<p>用人话说就是：用子类替换父类不会改变原有逻辑。众所周知，面向对象有三大基本原则：封装、继承和多态。子类本来就继承了父类，用到父类的地方替换成子类肯定没问题啊，这个原则不是废话吗，不一定！因为子类有自己的特色，也就是多态，如果这个特色太特色的话，就不适合了。</p>
+<p>比如，“我用电脑工作和游戏”，改成“我用苹果电脑工作，用联想电脑打游戏”，没问题！</p>
+<p>但是如果“我开车上班，坐车下班”，改成“我开玩具车上班，坐遥控车下班”，这个可能吗？</p>
+<p>但是，玩具车和遥控车也是“车”的子类啊，它俩也是车啊。</p>
+<p>那么这个问题出在哪里呢？明明所有的定义都是 OK 的。这是因为<strong>子类太特色了</strong>。</p>
+<p>我们定义的<strong>车</strong>，其出发点是“能跑”，也就是说，只要能跑的都是“车”，都是它的子类，所以，玩具车和遥控车都能跑，也都是车的子类。但是，车都能载人吗？猛一看，都能！仔细一想，玩具车不能！所以，我们上述 Demo 中用到的是车的“载人”功能，而不是车的“能跑”功能，所以，玩具车就不合适了。</p>
+<p>那么，怎么改呢？有如下两种方法：</p>
+<ul>
+<li>提取一个可载人的接口 <code>interface IManned</code>，明确表示哪些车可以载人；</li>
+<li>提取一个二级父类 <code>class MannedCar</code>，表示该类车可以载人。</li>
+</ul>
+<p>公共点就是：<strong>把“可载人”这个点明确出来</strong>。</p>
+<p>所以，里氏置换更简洁的说法就是：<strong>子类可以有自己的特色，但是不能太反常，如果子类的特色跟父类差太多，那么就应该细化父类或者剥离接口</strong>。</p>
+<blockquote>
+<p>可以看到，里氏置换原则就是对继承的校验，不恰当的继承关系就不满足里氏置换原则，所以，如果我们无法确定某两个类之间是否应该用继承关系时，就可以套用里氏置换原则来校验下。</p>
+</blockquote>
+<h2 id="依赖倒置原则dip" class="heading-element"><span>3 依赖倒置原则（DIP）</span>
+  <a href="#%e4%be%9d%e8%b5%96%e5%80%92%e7%bd%ae%e5%8e%9f%e5%88%99dip" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><blockquote>
+<p>依赖倒置原则（Dipendence Inversion Principle，简称 DIP）：面向接口编程或面向抽象编程。</p>
+</blockquote>
+<p>依赖倒置的官方定义：高层不应该依赖底层，两者都应该依赖抽象；抽象不应该依赖细节，细节应该依赖抽象。其实狭义的说就是：面向接口编程，广义的说就是：面向抽象编程。也就是说，我们在使用类的时候，优先考虑使用抽象类或接口。具体一点就是：成员变量、函数参数和返回值都尽量定义成接口。</p>
+<p>为什么要这么干呢？这么干有什么好处呢？</p>
+<p>我们知道，接口都是抽象的，抽象的就是不确定的，不确定的就是可变的。而我们的大部分代码都是“非一次性的”，也都是需要改变的，所以，接口正合适。</p>
+<p>换句话说，<strong>接口就是具有某种功能的某种东西</strong>，是什么我不管，只要具有这种功能就行，而我们需要的，也就是具有这种功能的东西。</p>
+<p>比如，我需要给手机充个电，我需要的是一个“能充电的东西”，而你却对外说：“我需要个充电宝！”如果有人没有充电宝，只有电源呢，他就不认你了。在这里，你把我需要的东西<strong>具象化</strong>了，也就是把范围缩小了，范围越小越精确，就越不容易改变，这明显是不对的。</p>
+<p>再比如，现在我要提供一个音乐播放器，我直接使用移动端的 <code>MediaPlayer</code>，很容易就写出了如下代码：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">class</span> <span class="nc">MediaPlayer</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">play</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">path</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">stop</span><span class="p">(){}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">pause</span><span class="p">(){}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">resume</span><span class="p">(){}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>三分钟就写完了，使用方直接调用：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">class</span> <span class="nc">User</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">MediaPlayer</span><span class="w"> </span><span class="n">mediaPlayer</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">play</span><span class="p">(){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">mediaplayer</span><span class="p">.</span><span class="na">play</span><span class="p">(</span><span class="s">&#34;xxx&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>完事之后某一天，主管又问：“咱们的播放器不好用，能用那个开源的吗？”</p>
+<p>当然可以，于是就去改，但是发现，要改的地方太多了，我不但要改<code>MedidPlayer</code>这个类，甚至调用我播放器的人也需要改他的<code>User</code>类，我在别人眼里的段位又低了！</p>
+<p>这时候就应该反思了，其实<code>User</code>这个类，不在乎你的播放器是怎么写的，它只关心能不能播放、停止、暂停、恢复，说白了，它要的是一个<strong>具有这种功能的某种东西</strong>，而不是具有这种功能的这种东西。</p>
+<p>好，上接口！</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">interface</span> <span class="nc">IPlayer</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">play</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">path</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">stop</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">pause</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">resume</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>User</code>使用：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">class</span> <span class="nc">User</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">IPlayer</span><span class="w"> </span><span class="n">player</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">play</span><span class="p">(){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">player</span><span class="p">.</span><span class="na">play</span><span class="p">(</span><span class="s">&#34;xxx&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>此时<code>User</code>只依赖于<code>IPlayer</code>，而不依赖具体的实现。不管你是啥，只要具有播放器的功能就行，后面不管你怎么改变<code>IPlayer</code>的实现，<code>User</code>都不需要改变。</p>
+<p>所以，我们可以看到面向接口的好处：<strong>低耦合，易拓展</strong>。因为接口是抽象的，依赖接口就是依赖抽象，不依赖细节，所以实现的细节怎么改都对我无影响，所以耦合就低；又因为接口是顶层的，就更容易拓展下层的细节实现。</p>
+<h2 id="接口隔离原则isp" class="heading-element"><span>4 接口隔离原则（ISP）</span>
+  <a href="#%e6%8e%a5%e5%8f%a3%e9%9a%94%e7%a6%bb%e5%8e%9f%e5%88%99isp" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><blockquote>
+<p>接口隔离原则（Interface Segregation Principle，简称 ISP）：接口尽量小，尽量单一，说白了就是接口粒度要细。</p>
+</blockquote>
+<p>接口隔离要求接口的功能要单一，这听起来怎么就是单一职责原则呢，它们有区别吗？</p>
+<p>有！</p>
+<p>单一职责原则针对的是“职责”，说白了就是功能块，一个职责可能有多个功能；接口隔离原则针对的是“功能”，也就是一个接口只负责一个“功能”，比如，老师的职责是讲课和改作业，如果用单一职责原则就是一个接口里面包含了讲课和改作业这两个方法；如果用接口隔离原则就是两个接口，一个讲课的接口和一个改作业的接口。换句话说就是：接口隔离原则是单一职责的单一职责原则。</p>
+<p>举个例子，还是音乐播放器，我们定义了一个接口：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">interface</span> <span class="nc">IPlayer</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">//开始</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">play</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">url</span><span class="p">);</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">//停止</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">stop</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">//暂停</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">pause</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">//复原</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">resume</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">//获取歌曲时长</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">String</span><span class="w"> </span><span class="nf">getSongTime</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>这正是单一职责原则，因为这个接口只定义了音乐播放相关的东西，但是却不满足接口隔离原则，因为一个接口干了多件事，假如我们现在有个歌曲展示器<code>SongDisplayer</code>，只需要展示歌曲的时长，也就是只需要<code>getSongTime()</code>这个函数，我们让它直接实现<code>IPlayer</code>接口吗？肯定不行！因为里面的其他函数是不需要的，也不应该有的。这就要用到接口隔离原则了，我们直接将<code>IPlayer</code>接口再进行拆分，如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">//音乐播放器就仅限于对播放的控制</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">interface</span> <span class="nc">IPlayer</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">//开始</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">play</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">path</span><span class="p">);</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">//停止</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">stop</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">//暂停</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">pause</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">//复原</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">resume</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">...</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">//歌曲展示器就仅限于对歌曲信息的展示</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">interface</span> <span class="nc">ISongDisplayer</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">//获取歌曲时长</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">String</span><span class="w"> </span><span class="nf">getSongTime</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">//获取歌曲名字</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">String</span><span class="w"> </span><span class="nf">getSongName</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">//其他</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">...</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>这样拆分后，我们的播放器就同时实现上面两个接口，而歌曲展示器只需要实现<code>ISongDisplayer</code>即可。</p>
+<p>但是，我们根本不知道将来会出什么样的需求，怎么能提前预测并做好接口隔离呢？</p>
+<p>不需要提前做！因为接口隔离更多时候是个后置操作，说白了，更多时候是在问题发生的时候再去拆接口，所以是个后置操作，就像我们上面的修改，也没费多大劲，顶多就是多写一个接口，复制一部分代码，修改几个实现关系而已，根本没动业务上的代码，所以不必纠结，大多时候我们保证单一职责即可。</p>
+<blockquote>
+<p>总之一句话：接口要尽量小，尽量单一。</p>
+</blockquote>
+<h2 id="最少知识原则lkp" class="heading-element"><span>5 最少知识原则（LKP）</span>
+  <a href="#%e6%9c%80%e5%b0%91%e7%9f%a5%e8%af%86%e5%8e%9f%e5%88%99lkp" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><blockquote>
+<p>最少知识原则（Least Knowledge Principle，简称 LKP），也叫迪米特法则（LOD）：一个对象应该对其他对象有最少的了解，说白了就是，只关联自己需要的。</p>
+</blockquote>
+<p>就像语文老师，只关心语文成绩即可，非要关心数学，怪不得头发都掉光了。</p>
+<p>废话不说，我们来看个 Demo，又是那个音乐播放器，原本应该是这样的：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">interface</span> <span class="nc">IPlayer</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">play</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">path</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">....</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">class</span> <span class="nc">User</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">....</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">play</span><span class="p">(){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">player</span><span class="p">.</span><span class="na">play</span><span class="p">(</span><span class="n">song</span><span class="p">.</span><span class="na">path</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">....</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">class</span> <span class="nc">Song</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">path</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">name</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">....</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>可以看到，播放时，只需要一个<code>path</code>即可。但是有人聪明，我直接把<code>Song</code>给他传过去不行吗？这样后面万一需要<code>Song</code>里面的其他变量，比如<code>name</code>啥的，我也不用改函数了，好有道理啊！</p>
+<p>突然有一天，要求可以播放用户通过聊天发送过来的歌曲，这个歌曲没有名字，点击就下载到本地，只有一个路径了，这个时候你怎么办呢？你当然可以用这个路径去创建一个<code>Song</code>然后丢进去，但是这样绕了一圈不就增加了复杂度吗？再万一将来某天要修改<code>Song</code>这个类呢，你的播放器也跟着修改了。</p>
+<p>其实，播放器需要的只是一个播放的路径，至于其他的，它根本不关心。如果真的需要，你再提供，但也只需要提供它需要的，不要有任何附加内容。否则，一旦那些附加内容变化了，也间接导致播放器自身的变化，这是不应该的。</p>
+<blockquote>
+<p>我们应该只关联自己直接用到的，而不关联那些不需要的，如此一来，那些发生在我们关联范围外的事，就不会引起我们的任何改变，这样就大大提升了代码的健壮性。</p>
+</blockquote>
+<h2 id="开放闭合原则ocp" class="heading-element"><span>6 开放闭合原则（OCP）</span>
+  <a href="#%e5%bc%80%e6%94%be%e9%97%ad%e5%90%88%e5%8e%9f%e5%88%99ocp" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><blockquote>
+<p>开放闭合原则（Open Close Principle，简称 OCP）：一个类应该对扩展开放，对修改关闭。换句话说就是：应该多扩展代码，少修改代码。</p>
+</blockquote>
+<p>开闭原则是<strong>最理想</strong>的原则，是所有设计模式的最终目标，基本不可能实现。它要求我们的任何改动都不修改老代码，而只添加新代码，这样就不会对老逻辑有任何影响，从而使得代码更加安全。</p>
+<p>有人说，我们的代码不是一次性的，肯定是要修改的，怎么可能不修改呢？没错，肯定是需要修改的，但是合理运用开闭原则可以做到少修改，改得越少风险越小。</p>
+<p>举个例子，比如我在面试百度的时候，要手写一个计算器，只需要支持简单的加减法就行，如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Calculator</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">calculate</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">left</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">right</span><span class="p">,</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">option</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">//加法</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="s">&#34;+&#34;</span><span class="p">.</span><span class="na">equals</span><span class="p">(</span><span class="n">option</span><span class="p">))</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">left</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">right</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">//减法</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="s">&#34;-&#34;</span><span class="p">.</span><span class="na">equals</span><span class="p">(</span><span class="n">option</span><span class="p">))</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">left</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">right</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">throw</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">IllegalArgumentException</span><span class="p">(</span><span class="s">&#34;不支持的运算&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>代码简单粗暴，直接使用<code>if</code>判断就完事。但是，如果将来要支持其他运算呢？嗯，继续添加<code>if</code>分支？可以，但是不太好，谁能保证你下次添加别的运算符的时候，不会手残改了别的运算呢？那么，我们能不能将新的运算不放在这个类里面呢？可以！</p>
+<p>我们可以将每个运算定义成一个单独的类型，后面新增其他运算，只需要新加一个类就可以了。我们知道，基本的数学运算都是需要两个操作数和一个运算符的，我们可以定义一个公有的父类，来保存操作数和运算符。</p>
+<p>定义公共父类：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kd">abstract</span><span class="w"> </span><span class="n">Calculator</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// 左操作数</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">protected</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">leftOpt</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// 右操作数</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">protected</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">rightOpt</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// 操作符</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">protected</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">operator</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// 设置左操作数</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">setLeftOpt</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">leftOpt</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">leftOpt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">leftOpt</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// 设置右操作数</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">setRightOpt</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">rightOpt</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">rightOpt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rightOpt</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// 计算，提供一个模板函数，供子类实现</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">protected</span><span class="w"> </span><span class="kd">abstract</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">calculate</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// 对外公开的获取结果的 Api</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">getResult</span><span class="p">(){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// 计算结果</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">String</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">calculate</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// 清空操作数</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">clear</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// 返回结果</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">retrun</span><span class="w"> </span><span class="n">result</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">//清空操作数</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">clear</span><span class="p">(){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">leftOpt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">rightOpt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>加法器：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">PlusCalculator</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">Calculator</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">OPERATOR</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;+&#34;</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="nf">PlusCalculator</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="kd">super</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">operator</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">OPERATOR</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// 加法</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Override</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">calculate</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">String</span><span class="p">.</span><span class="na">valueOf</span><span class="p">(</span><span class="n">Integer</span><span class="p">.</span><span class="na">parseInt</span><span class="p">(</span><span class="n">leftOpt</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">Integer</span><span class="p">.</span><span class="na">parseInt</span><span class="p">(</span><span class="n">rightOpt</span><span class="p">));</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>减法器：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-typescript" data-lang="typescript"><span class="line"><span class="cl"><span class="kr">public</span> <span class="kr">class</span> <span class="nx">SubCalculator</span> <span class="kr">extends</span> <span class="nx">Calculator</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">public</span> <span class="kr">static</span> <span class="nb">String</span> <span class="nx">OPERATOR</span> <span class="o">=</span> <span class="s2">&#34;-&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kr">public</span> <span class="nx">SubCalculator() {</span>
+</span></span><span class="line"><span class="cl">        <span class="kr">super</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="k">this</span><span class="p">.</span><span class="nx">operator</span> <span class="o">=</span> <span class="nx">OPERATOR</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// 减法
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kd">@Override</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">public</span> <span class="nb">String</span> <span class="nx">calculate() {</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nb">String</span><span class="p">.</span><span class="nx">valueOf</span><span class="p">(</span><span class="nx">Integer</span><span class="p">.</span><span class="nb">parseInt</span><span class="p">(</span><span class="nx">leftOpt</span><span class="p">)</span> <span class="o">-</span> <span class="nx">Integer</span><span class="p">.</span><span class="nb">parseInt</span><span class="p">(</span><span class="nx">rightOpt</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>这里我们为不同的运算符提供了不同的实现类，每个类只负责自己的计算逻辑，如果将来有其他新运算加入，我们直接再添加一个新的类即可，完全不需要修改其他类的代码。</p>
+<p>而且我们可以看到，开闭原则中用到了单一职责（每个类只做自己的运算），还用到了最少知识（每个类只关心自己的操作数和运算符），其实就是一句话：<strong>越单纯，越干净，越好！</strong> 因为这样自己的责任就越少，就越不容易被牵连，也就越稳定，越安全。</p>
+<h2 id="设计模式" class="heading-element"><span>7 设计模式</span>
+  <a href="#%e8%ae%be%e8%ae%a1%e6%a8%a1%e5%bc%8f" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><blockquote>
+<p>该小节非原文内容，仅为个人补充。</p>
+</blockquote>
+<p>在掘金上有一个不错的专栏<a href="https://juejin.cn/column/7069912176978296839"target="_blank" rel="external nofollow noopener noreferrer">「手撕设计模式」<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>，里面详细介绍了 23 种设计模式中的好几种，可以作为进一步学习的参考。</p>
+<h2 id="总结" class="heading-element"><span>8 总结</span>
+  <a href="#%e6%80%bb%e7%bb%93" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>本节我们从宏观层面讲解了六大设计原则，这是 23 种设计模式的祖宗，或者说：<strong>设计模式就是这六大设计原则的具体实现，六大设计原则就是设计模式的抽象</strong>。</p>
+<p>对于设计模式，我认为正确的学习顺序是：</p>
+<ol>
+<li>学习设计原则，这是对设计思想的宏观认识。</li>
+<li>学习设计模式，这是对设计思想的具体认识。</li>
+<li>再学习设计原则，这是对设计思想的自我抽象。</li>
+</ol>
+<p>这就像我们看书的时候，先看目录，对整本书有个宏观的认识；然后仔细看每一章节，对每个模块进行具体了解；最后，也是最难的一点，就是：用自己的语言对整本书进行整体概括，然后尝试列出目录，这是对整本书的自我升华，或者叫自我抽象，这样，我们才能读到书的精髓。学习设计模式亦是如此，我们切记不要死记硬背，不要生搬硬套，不刻意设计的设计才是最好的设计。</p>
+]]></description></item><item><title>怎么生成暗黑模式和明亮模式的 SVG 图片？</title><link>https://lruihao.cn/posts/svg-dark-light/</link><pubDate>Thu, 06 Jun 2024 22:13:26 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/svg-dark-light/</guid><description><![CDATA[<p>在做博客顶部栏下落奶油图的时候，就在想怎么适配暗黑模式和明亮模式呢？本文将记录两个思路。</p>
 <h2 id="方案一通过模板生成两张图片" class="heading-element"><span>1 方案一：通过模板生成两张图片</span>
   <a href="#%e6%96%b9%e6%a1%88%e4%b8%80%e9%80%9a%e8%bf%87%e6%a8%a1%e6%9d%bf%e7%94%9f%e6%88%90%e4%b8%a4%e5%bc%a0%e5%9b%be%e7%89%87" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
@@ -4479,380 +5647,4 @@
 <p>G. Ann Campbell, &ldquo;<a href="https://www.sonarsource.com/docs/CognitiveComplexity.pdf"target="_blank" rel="external nofollow noopener noreferrer">Cognitive Complexity - a new way of measuring understandability<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>&rdquo;, <a href="https://www.sonarsource.com/"target="_blank" rel="external nofollow noopener noreferrer">Sonar<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>, 29 August 2023, Version 1.7&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
-</div>]]></description></item><item><title>写作技巧：如何搭建文章的框架结构？</title><link>https://lruihao.cn/posts/article-structure/</link><pubDate>Tue, 26 Sep 2023 15:17:52 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/article-structure/</guid><description><![CDATA[<p>最近读了张鑫旭大佬的掘金小册《技术写作指南》，学到了很多写作技巧，其中感触最深的就是“技巧：如何搭建文章的框架结构”这一小节，这篇文章就来分享一下。</p>
-<h2 id="方法论的作用" class="heading-element"><span>1 方法论的作用</span>
-  <a href="#%e6%96%b9%e6%b3%95%e8%ae%ba%e7%9a%84%e4%bd%9c%e7%94%a8" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h2><p>所谓方法论，通俗点讲就是套路，虽然限制了天才的火花，但是保证了合格的下限。</p>
-<p>这个不难理解，拿武侠举例，每个门派都有剑招或者拳法，招式都是固定的，这个固定的招式就可以看成是方法论，而武功的最高境界是无招胜有招，讲求见招拆招，是不希望有固定的套路的。</p>
-<p>但是，这些固定的招数你又不能不学，因为天才总是少数，而学习固定的招式，至少可以保证门派弟子比路人强一截。</p>
-<p>学习如何说话，学习如何写作也是类似的，对于那些天生会说话，天生会写作的人而言，方法论反而是个桎梏，会限制他们的发挥。</p>
-<p>但是对于原本不是这块料的人而言，方法论可以让你迅速进入学习的正轨，保证了实践结果不至于太差。</p>
-<p>张鑫旭大佬结合自己的写作经验，总结出了一套核心思想，并抽象出了若干写作方法论。</p>
-<h2 id="核心思想" class="heading-element"><span>2 核心思想</span>
-  <a href="#%e6%a0%b8%e5%bf%83%e6%80%9d%e6%83%b3" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h2><p>文章书写的核心思想无非这两个：</p>
-<ol>
-<li>
-<p>文字前后连贯；</p>
-</li>
-<li>
-<p>内容重点突出。</p>
-</li>
-</ol>
-<p>这些核心思想和人类的认知特点正好是相匹配的。</p>
-<p>&hellip;</p>
-<h2 id="具体的写作套路" class="heading-element"><span>3 具体的写作套路</span>
-  <a href="#%e5%85%b7%e4%bd%93%e7%9a%84%e5%86%99%e4%bd%9c%e5%a5%97%e8%b7%af" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h2><p>这里按照文章类型的不同讲下可以拿来套用的写作路数。</p>
-<p>正所谓一图胜千言，每一种写作结构都做了示意图。</p>
-<h3 id="1-技术科普" class="heading-element"><span>3.1 1. 技术科普</span>
-  <a href="#1-%e6%8a%80%e6%9c%af%e7%a7%91%e6%99%ae" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h3><p>技术科普是人人都可以创作的一种文章类型，这类文章适合新人阅读，受众广泛。</p>
-<p>这类文章结构可以如下图这般搭建：</p>
-<pre class="mermaid">graph LR
-  A["作用是什么？
-  <small><b>（亮点前置）</b></small>"]
-  B(("效果演示
-  <small>(如果有)</small>"))
-  C["语法和参数"]
-  D["具体使用说明
-  <small><b>（主要篇幅）</b></small>"]
-  E{"案例"}
-  F["细节知识（包括兼容性）"]
-  G["点评总结
-  <small><b>（稀缺内容）</b></small>"]
-  A---B---C---D---F---G
-  D-.->E
-  
-</pre>
-<template>graph LR
-  A["作用是什么？
-  <small><b>（亮点前置）</b></small>"]
-  B(("效果演示
-  <small>(如果有)</small>"))
-  C["语法和参数"]
-  D["具体使用说明
-  <small><b>（主要篇幅）</b></small>"]
-  E{"案例"}
-  F["细节知识（包括兼容性）"]
-  G["点评总结
-  <small><b>（稀缺内容）</b></small>"]
-  A---B---C---D---F---G
-  D-.->E
-  </template><p>很多在线文档也是按照这个结构撰写的。</p>
-<h3 id="2-原理剖析" class="heading-element"><span>3.2 2. 原理剖析</span>
-  <a href="#2-%e5%8e%9f%e7%90%86%e5%89%96%e6%9e%90" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h3><p>原理剖析类的文章对于创作者加深对当前技术的理解很有帮助，虽然受众不一定广泛，但是对于自身的学习却很有帮助。</p>
-<p>通常，这类文章可以遵循由表及里，层层深入的架构策略，方便他人的学习与理解。</p>
-<pre class="mermaid">graph LR
-  A[现象描述]
-  B(("想象演示
-  <small>（视频或图片）</small>"))
-  C[解释说明]
-  D[基本概念]
-  E[浅层原因]
-  F["更深入解释
-  <small><b>（体现专业深度）</b></small>"]
-  G["启示与拓展
-  <small><b>（稀缺内容）</b></small>"]
-  D-.->C
-  A---B---C---F---G
-  E-.->C
-</pre>
-<template>graph LR
-  A[现象描述]
-  B(("想象演示
-  <small>（视频或图片）</small>"))
-  C[解释说明]
-  D[基本概念]
-  E[浅层原因]
-  F["更深入解释
-  <small><b>（体现专业深度）</b></small>"]
-  G["启示与拓展
-  <small><b>（稀缺内容）</b></small>"]
-  D-.->C
-  A---B---C---F---G
-  E-.->C</template><h3 id="3-功能实现" class="heading-element"><span>3.3 3. 功能实现</span>
-  <a href="#3-%e5%8a%9f%e8%83%bd%e5%ae%9e%e7%8e%b0" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h3><p>我们所有的互联网产品都是通过一个又一个的功能实现的，比方说“鼠标经过按钮变色”就属于一个功能，点击按钮复制内容也属于功能。</p>
-<p>所有这些功能的实现都可以创作成文章，而这些文章会成为搜索引擎流量来源大户。</p>
-<p>因为很多开发者在实现某一个功能的时候，都习惯先去找找有没有现成的代码可以直接拿来使用。</p>
-<p>这就要求我们在文章中一定要放代码，最后配上演示页面，然后为了吸引用户继续阅读，通常会把实现好的效果放在最前面，即上面提到的亮点前置。</p>
-<p>所以，可以尝试使用下图所示的文章结构：</p>
-<pre class="mermaid">graph LR
-A[功能或效果说明]
-B((效果演示))
-C[在线 demo]
-D[视频或截图]
-E[实现思路]
-F["实现代码
-<small><b>（读者最关心）</b></small>"]
-G[实现原理]
-H[总结与拓展]
-C-.->B
-E-. 你也可以在这个位置 .->G
-A---B---E---F---G---H
-D-.->B
-</pre>
-<template>graph LR
-A[功能或效果说明]
-B((效果演示))
-C[在线 demo]
-D[视频或截图]
-E[实现思路]
-F["实现代码
-<small><b>（读者最关心）</b></small>"]
-G[实现原理]
-H[总结与拓展]
-C-.->B
-E-. 你也可以在这个位置 .->G
-A---B---E---F---G---H
-D-.->B</template><h3 id="4-使用教程" class="heading-element"><span>3.4 4. 使用教程</span>
-  <a href="#4-%e4%bd%bf%e7%94%a8%e6%95%99%e7%a8%8b" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h3><p>每个人对教程的理解不一样，在我的写作认知中，教程专指针对小白的那种奶妈式的教学文章，会非常详细与具体，会有大量的配图与案例，生怕对方走错一步就不知道接下来该怎么办。</p>
-<p>这类文章其实按部就班呈现就可以了：</p>
-<pre class="mermaid">graph LR
-  A["背景说明
-  <small>（如果有）</small>"]
-  B["步骤1/操作1
-  <small>（注意事项或示意图）</small>"]
-  C["步骤2/操作2
-  <small>（注意事项或示意图）</small>"]
-  D["步骤3/操作3
-  <small>（注意事项或示意图）</small>"]
-  E[其他说明]
-  A---B---C---D-- ... ---E
-</pre>
-<template>graph LR
-  A["背景说明
-  <small>（如果有）</small>"]
-  B["步骤1/操作1
-  <small>（注意事项或示意图）</small>"]
-  C["步骤2/操作2
-  <small>（注意事项或示意图）</small>"]
-  D["步骤3/操作3
-  <small>（注意事项或示意图）</small>"]
-  E[其他说明]
-  A---B---C---D-- ... ---E</template><h3 id="5-问题解决" class="heading-element"><span>3.5 5. 问题解决</span>
-  <a href="#5-%e9%97%ae%e9%a2%98%e8%a7%a3%e5%86%b3" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h3><p>如果问题解决的过程是写给公司内部的人（尤其是领导）看的，或者说写作的目的是炫一把自己解决问题的能力，则自己的<strong>思考过程</strong>一定要重点阐述。</p>
-<p>如果你写作的目的很单纯，就是希望帮助外面遇到同样问题的人，那就可以多讲讲问题产生的原因，以及如何解决即可，别人对你的思考过程并不在意。</p>
-<p>下面这个文章结构示意图是按照内部创作的背景设计的，强调个人在整个过程中的能动性。</p>
-<pre class="mermaid">graph LR
-  A["背景描述
-  <small>（如果有）</small>"]
-  B[问题描述]
-  C(("问题演示
-  <small>（视频或图片）</small>"))
-  D["我的思考
- 再次思考
- ..."]
-  E["初次尝试
- 再次尝试
- ..."]
-  F{结果}
-  G[结语]
-  A---B---C---D==>E==>F-- YES -->G
-  F== NO ==>D
-</pre>
-<template>graph LR
-  A["背景描述
-  <small>（如果有）</small>"]
-  B[问题描述]
-  C(("问题演示
-  <small>（视频或图片）</small>"))
-  D["我的思考
- 再次思考
- ..."]
-  E["初次尝试
- 再次尝试
- ..."]
-  F{结果}
-  G[结语]
-  A---B---C---D==>E==>F-- YES -->G
-  F== NO ==>D</template><p>如果你是对外创作，则可以根据侧重点不同，微调写作结构。</p>
-<h3 id="6-项目总结" class="heading-element"><span>3.6 6. 项目总结</span>
-  <a href="#6-%e9%a1%b9%e7%9b%ae%e6%80%bb%e7%bb%93" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h3><p>项目总结一定是对内的，即使我们在外网看到一些大公司团队发的项目总结类的文章，也是内销转出口。</p>
-<p>这类文章一般看起来都很高大上，但读完一阵空虚，啥也没学到。</p>
-<p>这是正常且理所当然的，因为项目总结的目的本质上就是一种职场邀功炫技手段，而不是技术传道。</p>
-<p>所以，这类文章的难点不在于结构设计，而是如何通过不会让人反感的朴实无华的语言透露出项目牛逼、项目人员牛逼的信息。</p>
-<pre class="mermaid">graph LR
- A[项目背景]
- B[取得的成绩]
- C((漂亮数据\n或最终效果))
- E[贡献]
- F[困难与解决]
- G[成长]
- H[主体可以是个人一可以是团队]
- I[总结]
- J[感谢]
-  C-.->B
-  A---B---D---I---J
-  subgraph D["项目详情<small>（根据实际情况调整）</small>"]
-   direction BT
-    E & F & G---H
-  end
-</pre>
-<template>graph LR
- A[项目背景]
- B[取得的成绩]
- C((漂亮数据\n或最终效果))
- E[贡献]
- F[困难与解决]
- G[成长]
- H[主体可以是个人一可以是团队]
- I[总结]
- J[感谢]
-  C-.->B
-  A---B---D---I---J
-  subgraph D["项目详情<small>（根据实际情况调整）</small>"]
-   direction BT
-    E & F & G---H
-  end</template><h3 id="7-会议记录" class="heading-element"><span>3.7 7. 会议记录</span>
-  <a href="#7-%e4%bc%9a%e8%ae%ae%e8%ae%b0%e5%bd%95" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h3><p>国内每年都会有很多技术峰会，当然，这几年因为口罩原因，多以线上为主了。</p>
-<p>然后各个城市还有不少免费的技术沙龙，各个技术社区也会有一些免费的线上活动，一些知名行业从业者也会不定期直播，因此，只要你有兴趣，都可以作为观众参与其中。</p>
-<p>参加完了，是不是可以写篇文章记录下呢？</p>
-<p>跟大家讲，这种文章不需要技术含量，但是访问量相当的高，因为人都是懒惰的，总希望以最低的成本收获最多的东西。</p>
-<p>一看，嘿，这个不错，我只要花几分钟看一下，就能学到别人花好几个小时学到的东西，何乐而不为呢？哪怕什么都没学到，至少满足了自己的好奇心，怎么看都不亏。</p>
-<p>而这类文章的内容结构也比较固定，就按照时间进行组织就好了，会议的按会议时间，直播的按直播时间。</p>
-<pre class="mermaid">graph LR
-  A["会议简介
-  <small>（时间、与会人等）</small>"]
-  B(("现场照片
-  <small>（如果有）</small>"))
-  C["过程1
-  <small>点评（如果有）</small>"]
-  D["过程2
-  <small>点评（如果有）</small>"]
-  E["过程3
-  <small>点评（如果有）</small>"]
-  F[自己的感受]
-  A---B-->C-- 时间 -->D-- 顺序 -->E-- ... ---F
-</pre>
-<template>graph LR
-  A["会议简介
-  <small>（时间、与会人等）</small>"]
-  B(("现场照片
-  <small>（如果有）</small>"))
-  C["过程1
-  <small>点评（如果有）</small>"]
-  D["过程2
-  <small>点评（如果有）</small>"]
-  E["过程3
-  <small>点评（如果有）</small>"]
-  F[自己的感受]
-  A---B-->C-- 时间 -->D-- 顺序 -->E-- ... ---F</template><h3 id="8-工具测评" class="heading-element"><span>3.8 8. 工具测评</span>
-  <a href="#8-%e5%b7%a5%e5%85%b7%e6%b5%8b%e8%af%84" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h3><p>这类文章也非常适合新手创作，大家应该也都见过，比方说某某框架初体验、A 框架和 B 框架我该使用哪个？</p>
-<p>这类文章的核心价值就在于评测，你以一个过来人的身份，是否建议读者使用这个工具之类的。</p>
-<p>但评测是否中肯可信，还需要一些证明，这些证明就可以通过展示使用过程和最终效果来完成。</p>
-<p>下图是可以参考使用的一种框架结构：</p>
-<pre class="mermaid">graph LR
-  A["故事背景
-  <small>（为什么会使用此工具？）</small>"]
-  B[使用过程全记录]
-  C["使用感受
-  <small><b>（核心价值）</b></small>"]
-  D["优点是？缺点是？"]
-  E["和同类工具对比如何？"]
-  F["对其未来发展的判断是？"]
-  G[最后的总结]
-  H((视频或截图))
-  A---B---C-->D & E & F-->G
-  H-.->B
-</pre>
-<template>graph LR
-  A["故事背景
-  <small>（为什么会使用此工具？）</small>"]
-  B[使用过程全记录]
-  C["使用感受
-  <small><b>（核心价值）</b></small>"]
-  D["优点是？缺点是？"]
-  E["和同类工具对比如何？"]
-  F["对其未来发展的判断是？"]
-  G[最后的总结]
-  H((视频或截图))
-  A---B---C-->D & E & F-->G
-  H-.->B</template><h3 id="9-技术人文" class="heading-element"><span>3.9 9. 技术人文</span>
-  <a href="#9-%e6%8a%80%e6%9c%af%e4%ba%ba%e6%96%87" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h3><p>如果是技术人文，则情况就会变得复杂，因为技术人文所包含的写作范围非常广泛，例如软技能分享、心理困惑答疑、职业发展指导、行业发展看法等都属于技术人文的写作范畴，而不同的主题所需要的框架结构都是不一样的。</p>
-<p>很多文章可以从其他类型的文章中找到可以借鉴的套路，这里，我就单纯地展示下观点类的技术文章的写作结构：</p>
-<pre class="mermaid">graph LR
-  A["论点先行
-  <small>（我认为…）</small>"]
-  B["原因1
-  <small>（案例佐证）</small>"]
-  C["原因2
-  <small>（案例佐证）</small>"]
-  D["原因3
-  <small>（案例佐证）</small>"]
-  E[最后的总结]
-  A---B---C---D-- ... ---E
-</pre>
-<template>graph LR
-  A["论点先行
-  <small>（我认为…）</small>"]
-  B["原因1
-  <small>（案例佐证）</small>"]
-  C["原因2
-  <small>（案例佐证）</small>"]
-  D["原因3
-  <small>（案例佐证）</small>"]
-  E[最后的总结]
-  A---B---C---D-- ... ---E</template><h3 id="10-职场故事" class="heading-element"><span>3.10 10. 职场故事</span>
-  <a href="#10-%e8%81%8c%e5%9c%ba%e6%95%85%e4%ba%8b" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h3><p>职场故事通常都是当事人的真实经历，是比较好写的，按照时间线讲好每个时间段的故事即可，如果分享的是刚编的故事，也可以遵循这个套路：</p>
-<pre class="mermaid">graph LR
-  A[背景故事]
-  B[做了什么事情]
-  C[发生了什么结果]
-  D[当事人的感受]
-  E["再后来……"]
-  A---B-->C-->D-->E-->B
-</pre>
-<template>graph LR
-  A[背景故事]
-  B[做了什么事情]
-  C[发生了什么结果]
-  D[当事人的感受]
-  E["再后来……"]
-  A---B-->C-->D-->E-->B</template><p>当然，还有其他类型的技术文章，例如技术八卦、行业新闻等，我就不一一展示了，基本上都是有迹可循的。</p>
-<h2 id="没有固定的套路" class="heading-element"><span>4 没有固定的套路</span>
-  <a href="#%e6%b2%a1%e6%9c%89%e5%9b%ba%e5%ae%9a%e7%9a%84%e5%a5%97%e8%b7%af" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h2><p>回到本文一开始的那个观点，写作其实是没有固定的套路的，这就像武功招式一样，这一套剑法必中其要害，结果人家穿了软猬甲，刀枪不入，是不是需要变化和调整？</p>
-<p>写作也是这样，现实世界总是多变的，理想的条件总是难以满足，所以，套路虽好用，但也要学会应变。比方说：</p>
-<ol>
-<li>不同的账号主体</li>
-<li>不同的阅读对象</li>
-</ol>
-<p>同样类型的文章，如果发布的账号主体不同，则文章的结构也会有所不同，同样的主题，给同事看的和给同行看的文章结构也是大不相同。</p>]]></description></item></channel></rss>
+</div>]]></description></item></channel></rss>
