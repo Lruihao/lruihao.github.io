@@ -50,7 +50,7 @@ const setTooltip = (el, binding) =&gt; {
     // 浮层中的文字 通过属性值传递动态的显示文案
     document.getElementById(&#39;vc-tooltip&#39;).innerHTML = binding.value
   }
-  // 鼠标移动时，动态修改浮沉的位置属性
+  // 鼠标移动时，动态修改浮层的位置属性
   el.onmousemove = function(e) {
     if (!isEllipsis) { return }
     const vcTooltipDom = document.getElementById(&#39;vc-tooltip&#39;)
@@ -155,7 +155,7 @@ Vue.use(overflowTooltip)
 
 1. 通过 `getComputedStyle` 获取元素的 `padding` 值，然后通过 `createRange` 获取元素的宽度。
 2. 如果元素的内容宽度大于元素的宽度，那么就显示 tooltip。
-3. 鼠标移入时，将浮层元素插入到 `body` 中，鼠标移动时，动态修改浮沉的位置属性，鼠标移出时将浮层元素销毁。（浮层需要做边界检测）
+3. 鼠标移入时，将浮层元素插入到 `body` 中，鼠标移动时，动态修改浮层的位置属性，鼠标移出时将浮层元素销毁。（浮层需要做边界检测）
 
 其中最关键的一段代码是：
 
