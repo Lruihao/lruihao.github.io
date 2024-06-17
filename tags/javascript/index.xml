@@ -1,4 +1,32 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>JavaScript - 标签 | 菠菜眾長</title><link>https://lruihao.cn/tags/javascript/</link><description>JavaScript - 标签 | 菠菜眾長</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><copyright>本站内容采用 CC BY-NC-SA 4.0 国际许可协议。</copyright><lastBuildDate>Thu, 12 Oct 2023 22:37:56 +0800</lastBuildDate><atom:link href="https://lruihao.cn/tags/javascript/" rel="self" type="application/rss+xml"/><item><title>如何给 npm 包打补丁？</title><link>https://lruihao.cn/posts/patch-package/</link><pubDate>Thu, 12 Oct 2023 22:37:56 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/patch-package/</guid><description><![CDATA[<div class="featured-image"><img loading="eager" src="images/featured-image.png" alt="如何给 npm 包打补丁？" title="如何给 npm 包打补丁？" referrerpolicy="no-referrer"/></div><h2 id="背景" class="heading-element"><span>1 背景</span>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>JavaScript - 标签 | 菠菜眾長</title><link>https://lruihao.cn/tags/javascript/</link><description>JavaScript - 标签 | 菠菜眾長</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><copyright>本站内容采用 CC BY-NC-SA 4.0 国际许可协议。</copyright><lastBuildDate>Thu, 13 Jun 2024 21:03:12 +0800</lastBuildDate><atom:link href="https://lruihao.cn/tags/javascript/" rel="self" type="application/rss+xml"/><item><title>如何实现 VSCode 编辑器窗口边界拖拽类似功能</title><link>https://lruihao.cn/posts/aside-toggle-drag/</link><pubDate>Thu, 13 Jun 2024 21:03:12 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/aside-toggle-drag/</guid><description><![CDATA[<p>边界拖拽调整窗口大小功能是一个很常见的功能，比如浏览器、编辑器等很多场景都有应用，这种功能不仅提高了用户体验，也增强了应用的灵活性。</p>
+<h2 id="效果演示" class="heading-element"><span>1 效果演示</span>
+  <a href="#%e6%95%88%e6%9e%9c%e6%bc%94%e7%a4%ba" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p><a href="https://lruihao.github.io/vue-el-demo/#/aside-toggle-drag"target="_blank" rel="external nofollow noopener noreferrer">vue-el-demo/#/aside-toggle-drag<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
+<h2 id="实现代码" class="heading-element"><span>2 实现代码</span>
+  <a href="#%e5%ae%9e%e7%8e%b0%e4%bb%a3%e7%a0%81" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p><a href="https://github.com/Lruihao/vue-el-demo/blob/main/src/components/AsideToggler/index.vue"target="_blank" rel="external nofollow noopener noreferrer">@/components/AsideToggler<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
+<h2 id="实现思路" class="heading-element"><span>3 实现思路</span>
+  <a href="#%e5%ae%9e%e7%8e%b0%e6%80%9d%e8%b7%af" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>怎么说呢，写这篇文章就是想记录一下思路，本来想画个图说明一下的，但是懒得画了，随便说几句吧。</p>
+<p>实现边界拖拽调整窗口大小功能，主要是通过鼠标按下、移动、松开事件来实现的，主要思路如下：</p>
+<ol>
+<li>在 <code>mousedown</code> 事件中，我们记录下鼠标的初始位置和元素的初始宽度。</li>
+<li>在 <code>mousemove</code> 事件中，我们根据鼠标的新位置计算出新的宽度，并使用 <code>clamp()</code> 函数将其限制在最小宽度和最大宽度之间。</li>
+<li>同时，我们还需要根据鼠标位置的变化，动态更新鼠标样式，以提示用户当前的拖拽状态。</li>
+<li>在 <code>mouseup</code> 事件中，我们清除之前设置的事件监听器，并恢复鼠标样式。</li>
+</ol>
+<p>实现过程中，有两个比较巧妙的点：</p>
+<ul>
+<li>计算宽度的时候，没有使用 JS 计算，而是直接使用了 CSS 的 <code>clamp()</code> 函数，一目了然。</li>
+<li>为了鼠标移动到可拖拽边界时显示一条蓝色的线，但是又不想改变元素的宽度，所以 <code>resize-bar</code> 元素的使用了 <code>position: absolute</code>，并且设置了 <code>translateX(-50%)</code> 来让其居中显示。当鼠标移入时，通过线性渐变的背景色巧妙地来实现蓝色线条的效果。</li>
+</ul>
+<p>正是因为第二点的实现方式，使得在边界线左右两侧都能拖拽，这一点是优于 VSCode 的，因为 VSCode 只能在左侧拖拽 😂。</p>]]></description></item><item><title>如何给 npm 包打补丁？</title><link>https://lruihao.cn/posts/patch-package/</link><pubDate>Thu, 12 Oct 2023 22:37:56 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/patch-package/</guid><description><![CDATA[<div class="featured-image"><img loading="eager" src="images/featured-image.png" alt="如何给 npm 包打补丁？" title="如何给 npm 包打补丁？" referrerpolicy="no-referrer"/></div><h2 id="背景" class="heading-element"><span>1 背景</span>
   <a href="#%e8%83%8c%e6%99%af" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
   </a>
@@ -4417,160 +4445,4 @@ hexo 中使用时 css 和 js 都需要做适当调整，配合加密功能使用
 </h2><p><figure><a class="lightgallery" href="images/1.png?size=large" data-thumbnail="images/1.png?size=small" data-sub-html="<h2>线上 demo 仅做参考请自行下载</h2><p>线上 demo 仅做参考请自行下载</p>"><img loading="lazy" src="images/1.png" alt="线上 demo 仅做参考请自行下载" srcset="images/1.png?size=small, images/1.png?size=medium 1.5x, images/1.png?size=large 2x" data-title="线上 demo 仅做参考请自行下载" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a><figcaption class="image-caption">线上 demo 仅做参考请自行下载</figcaption>
   </figure><br>
 <figure><a class="lightgallery" href="images/2.png?size=large" data-thumbnail="images/2.png?size=small" data-sub-html="<h2>效果</h2><p>效果</p>"><img loading="lazy" src="images/2.png" alt="效果" srcset="images/2.png?size=small, images/2.png?size=medium 1.5x, images/2.png?size=large 2x" data-title="效果" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a><figcaption class="image-caption">效果</figcaption>
-  </figure></p>]]></description></item><item><title>JS 验证码</title><link>https://lruihao.cn/posts/js-vcode/</link><pubDate>Mon, 04 Mar 2019 20:53:09 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/js-vcode/</guid><description><![CDATA[<!-- markdownlint-disable MD033 -->
-<style type="text/css">
-
-# code{  
-
-  font-family:Arial;  
-  font-style:italic;  
-  font-weight:bold;  
-  border:2px solid #ddd;
-  letter-spacing:9px;  
-  color:blue;
-  font-size: 15px;
-}
-</style>
-<script type="text/javascript">
-    //设置一个全局的变量，便于保存验证码
-    var code;
-    function createCode(){
-        //首先默认 code 为空字符串
-        code = '';
-        //设置长度，这里看需求，我这里设置了 4
-        var codeLength = 4;
-        var codeV = document.getElementById('code');
-        //设置随机字符
-        var random = new Array('人','徒','知','枯','坐','息','思','为','进','德','之','功','殊','不','知','上','达','之', '士','圆','通','定','慧','体','用','双','修','即','动','而','静','虽','撄','而','宁');
-        //循环 codeLength 我设置的 4 就是循环 4 次
-        for(var i = 0; i < codeLength; i++){
-            //设置随机数范围，这设置为 0 ~ 36
-             var index = Math.floor(Math.random()*35);
-             //字符串拼接 将每次随机的字符 进行拼接
-             code += random[index];
-        }
-        //将拼接好的字符串赋值给展示的 Value
-        codeV.value = code;
-    }
-
-    //下面就是判断是否== 的代码，无需解释
-    function validate(){
-        var Input = document.getElementById('input');
-        var oValue = Input.value.toUpperCase();
-        if(oValue ==0){
-            alert('请输入验证码');
-        }else if(oValue != code){
-            Input.value = '';
-            alert('验证码不正确，请重新输入');
-            createCode();
-        }else{
-            Input.value = '';
-            alert('验证码正确！');//window.open('http://lruihao.cn','_self');
-        }
-    }
-
-    //设置此处的原因是每次进入界面展示一个随机的验证码，不设置则为空
-    window.onload = function (){
-
-        createCode();
-    }
-</script>
-<div align="center">  
-    <input type = "text" id = "input" value="" /> <input type = "button" id="code" onclick="createCode()"/> <input class="btn" type = "button" value = "验证" onclick = "validate()"/>
-    <br/>请点击验证码处：↑
-</div>
-<p>验证码 JS 来源互联网</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span><span class="lnt">37
-</span><span class="lnt">38
-</span><span class="lnt">39
-</span><span class="lnt">40
-</span><span class="lnt">41
-</span><span class="lnt">42
-</span><span class="lnt">43
-</span><span class="lnt">44
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="o">&lt;</span><span class="nx">script</span> <span class="nx">type</span><span class="o">=</span><span class="s2">&#34;text/javascript&#34;</span><span class="o">&gt;</span>
-</span></span><span class="line"><span class="cl">    <span class="c1">//设置一个全局的变量，便于保存验证码
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kd">var</span> <span class="nx">code</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nx">createCode</span><span class="p">(){</span>
-</span></span><span class="line"><span class="cl">        <span class="c1">//首先默认 code 为空字符串
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nx">code</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">        <span class="c1">//设置长度，这里看需求，我这里设置了 4
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="kd">var</span> <span class="nx">codeLength</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">        <span class="kd">var</span> <span class="nx">codeV</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;code&#39;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">        <span class="c1">//设置随机字符
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="kd">var</span> <span class="nx">random</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Array</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="s1">&#39;A&#39;</span><span class="p">,</span><span class="s1">&#39;B&#39;</span><span class="p">,</span><span class="s1">&#39;C&#39;</span><span class="p">,</span><span class="s1">&#39;D&#39;</span><span class="p">,</span><span class="s1">&#39;E&#39;</span><span class="p">,</span><span class="s1">&#39;F&#39;</span><span class="p">,</span><span class="s1">&#39;G&#39;</span><span class="p">,</span><span class="s1">&#39;H&#39;</span><span class="p">,</span><span class="s1">&#39;I&#39;</span><span class="p">,</span><span class="s1">&#39;J&#39;</span><span class="p">,</span><span class="s1">&#39;K&#39;</span><span class="p">,</span><span class="s1">&#39;L&#39;</span><span class="p">,</span><span class="s1">&#39;M&#39;</span><span class="p">,</span><span class="s1">&#39;N&#39;</span><span class="p">,</span><span class="s1">&#39;O&#39;</span><span class="p">,</span><span class="s1">&#39;P&#39;</span><span class="p">,</span><span class="s1">&#39;Q&#39;</span><span class="p">,</span><span class="s1">&#39;R&#39;</span><span class="p">,</span> <span class="s1">&#39;S&#39;</span><span class="p">,</span><span class="s1">&#39;T&#39;</span><span class="p">,</span><span class="s1">&#39;U&#39;</span><span class="p">,</span><span class="s1">&#39;V&#39;</span><span class="p">,</span><span class="s1">&#39;W&#39;</span><span class="p">,</span><span class="s1">&#39;X&#39;</span><span class="p">,</span><span class="s1">&#39;Y&#39;</span><span class="p">,</span><span class="s1">&#39;Z&#39;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">        <span class="c1">//循环 codeLength 我设置的 4 就是循环 4 次
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">codeLength</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">){</span>
-</span></span><span class="line"><span class="cl">            <span class="c1">//设置随机数范围，这设置为 0 ~ 36
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>             <span class="kd">var</span> <span class="nx">index</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span><span class="o">*</span><span class="mi">36</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">             <span class="c1">//字符串拼接 将每次随机的字符 进行拼接
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>             <span class="nx">code</span> <span class="o">+=</span> <span class="nx">random</span><span class="p">[</span><span class="nx">index</span><span class="p">];</span>
-</span></span><span class="line"><span class="cl">        <span class="p">}</span>
-</span></span><span class="line"><span class="cl">        <span class="c1">//将拼接好的字符串赋值给展示的 Value
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nx">codeV</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">code</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="c1">//下面就是判断是否== 的代码，无需解释，也可以结合 ajax 在后台做判断
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kd">function</span> <span class="nx">validate</span><span class="p">(){</span>
-</span></span><span class="line"><span class="cl">        <span class="kd">var</span> <span class="nx">Input</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;input&#39;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">        <span class="kd">var</span> <span class="nx">oValue</span> <span class="o">=</span> <span class="nx">Input</span><span class="p">.</span><span class="nx">value</span><span class="p">.</span><span class="nx">toUpperCase</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="p">(</span><span class="nx">oValue</span> <span class="o">==</span><span class="mi">0</span><span class="p">){</span>
-</span></span><span class="line"><span class="cl">            <span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;请输入验证码&#39;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">        <span class="p">}</span><span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="nx">oValue</span> <span class="o">!=</span> <span class="nx">code</span><span class="p">){</span>
-</span></span><span class="line"><span class="cl">            <span class="nx">Input</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">            <span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;验证码不正确，请重新输入&#39;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">            <span class="nx">createCode</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl">        <span class="p">}</span><span class="k">else</span><span class="p">{</span>
-</span></span><span class="line"><span class="cl">            <span class="nx">Input</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">            <span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;验证码正确！&#39;</span><span class="p">);</span><span class="c1">//window.open(&#39;http://lruihao.cn&#39;,&#39;_self&#39;);
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="c1">//设置此处的原因是每次进入界面展示一个随机的验证码，不设置则为空
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nb">window</span><span class="p">.</span><span class="nx">onload</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(){</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">        <span class="nx">createCode</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="err">/script&gt;</span></span></span></code></pre></td></tr></table>
-</div>
-</div>]]></description></item></channel></rss>
+  </figure></p>]]></description></item></channel></rss>

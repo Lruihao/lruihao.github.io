@@ -1,11 +1,12 @@
 # 菠菜眾長
 
-共计 239 篇文章
+共计 240 篇文章
 
 ## 2024
 
-共计 14 篇文章
+共计 15 篇文章
 
+- 06-13 [如何实现 VSCode 编辑器窗口边界拖拽类似功能](https://lruihao.cn/posts/aside-toggle-drag/ "2024-06-13 21:03:12")
 - 06-09 [架构之基：从根儿上了解设计原则](https://lruihao.cn/posts/design-principles/ "2024-06-09 02:24:31")
 - 06-06 [怎么生成暗黑模式和明亮模式的 SVG 图片？](https://lruihao.cn/posts/svg-dark-light/ "2024-06-06 22:13:26")
 - 05-20 [坐高铁去柳州吃螺狮粉](https://lruihao.cn/posts/404d6a2/ "2024-05-20 11:41:03")
