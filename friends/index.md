@@ -9,6 +9,13 @@
 &lt;!-- markdownlint-disable-next-line no-bare-urls --&gt;
 {{&lt; link href=&#34;https://lruihao.cn/friends/opml.xml&#34; content=&#34;:(far fa-star fa-fw): Subscribe ours&#34; download=&#34;opml.xml&#34; card=true &gt;}}
 
+## 失效鏈接
+
+公示一個月後刪除，如更換域名請及時聯繫！
+
+- `liyangzone.com`: 無妨訪問。
+- `ayou10031.com`: 無妨訪問。
+
 ## 基本資訊
 
 ```yaml
