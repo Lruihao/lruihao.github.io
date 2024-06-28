@@ -1,4 +1,258 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>CSS - 分类 | 菠菜眾長</title><link>https://lruihao.cn/categories/css/</link><description>CSS - 分类 | 菠菜眾長</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><copyright>本站内容采用 CC BY-NC-SA 4.0 国际许可协议。</copyright><lastBuildDate>Thu, 06 Jun 2024 22:13:26 +0800</lastBuildDate><atom:link href="https://lruihao.cn/categories/css/" rel="self" type="application/rss+xml"/><item><title>怎么生成暗黑模式和明亮模式的 SVG 图片？</title><link>https://lruihao.cn/posts/svg-dark-light/</link><pubDate>Thu, 06 Jun 2024 22:13:26 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/svg-dark-light/</guid><description><![CDATA[<p>在做博客顶部栏下落奶油图的时候，就在想怎么适配暗黑模式和明亮模式呢？本文将记录两个思路。</p>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>CSS - 分类 | 菠菜眾長</title><link>https://lruihao.cn/categories/css/</link><description>CSS - 分类 | 菠菜眾長</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><copyright>本站内容采用 CC BY-NC-SA 4.0 国际许可协议。</copyright><lastBuildDate>Fri, 28 Jun 2024 22:29:03 +0800</lastBuildDate><atom:link href="https://lruihao.cn/categories/css/" rel="self" type="application/rss+xml"/><item><title>【现代 CSS】标准滚动条控制规范</title><link>https://lruihao.cn/posts/scrollbar-styling/</link><pubDate>Fri, 28 Jun 2024 22:29:03 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/scrollbar-styling/</guid><description><![CDATA[<p>使用 <code>scrollbar-width</code> 和 <code>scrollbar-color</code> 属性设置滚动条的样式。</p>
+<h2 id="简介" class="heading-element"><span>1 简介</span>
+  <a href="#%e7%ae%80%e4%bb%8b" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>从 Chrome 版本 2 开始，可以使用 <code>::-webkit-scrollbar-*</code> 伪元素设置滚动条的样式。此方法在 Chrome 和 Safari 中都很有效，但 CSS 工作组从未标准化。</p>
+<blockquote>
+<p>MDN - ::-webkit-scrollbar Non-standard: This feature is non-standard and is not on a standards track. Do not use it on production sites facing the Web: it will not work for every user. There may also be large incompatibilities between implementations and the behavior may change in the future.</p>
+</blockquote>
+<p>实现标准化的是 <code>scrollbar-width</code> 和 <code>scrollbar-color</code> 属性，它们是 <a href="https://drafts.csswg.org/css-scrollbars/#scrollbar-width"target="_blank" rel="external nofollow noopener noreferrer">CSS Scrollbars Styling Module Level 1<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 的一部分。从 Chrome 121 开始，这些属性受支持。</p>
+<h2 id="滚动条入门指南" class="heading-element"><span>2 滚动条入门指南</span>
+  <a href="#%e6%bb%9a%e5%8a%a8%e6%9d%a1%e5%85%a5%e9%97%a8%e6%8c%87%e5%8d%97" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><h3 id="滚动条剖析" class="heading-element"><span>2.1 滚动条剖析</span>
+  <a href="#%e6%bb%9a%e5%8a%a8%e6%9d%a1%e5%89%96%e6%9e%90" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>滚动条至少由一个轨迹和一个滑块组成。滑道是拇指可以移动的区域。轨迹表示整个滚动距离。滑块表示可滚动区域内的当前位置。滚动时，它会在轨道内移动。拇指通常也是可拖动的。</p>
+<p>不过，滚动条可以有多个部分，而不仅仅是滑块和滑道。例如，滚动条可以包含一个或多个用于递增或递减滚动偏移的按钮。滚动条的组成部分由底层操作系统决定。</p>
+<p><figure><a class="lightgallery" href="images/24_1719585398.png?size=large" data-thumbnail="images/24_1719585398.png?size=small" data-sub-html="<h2>组成滚动条的各个部分的图示</h2><p>左侧插图是一个最小的滚动条，其中只有轨迹和拇指。右边的按钮也有一些按钮。</p>"><img loading="lazy" src="images/24_1719585398.png" alt="组成滚动条的各个部分的图示" srcset="images/24_1719585398.png?size=small, images/24_1719585398.png?size=medium 1.5x, images/24_1719585398.png?size=large 2x" data-title="左侧插图是一个最小的滚动条，其中只有轨迹和拇指。右边的按钮也有一些按钮。" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a><figcaption class="image-caption">组成滚动条的各个部分的图示</figcaption>
+  </figure></p>
+<h3 id="传统滚动条和重叠式滚动条" class="heading-element"><span>2.2 传统滚动条和重叠式滚动条</span>
+  <a href="#%e4%bc%a0%e7%bb%9f%e6%bb%9a%e5%8a%a8%e6%9d%a1%e5%92%8c%e9%87%8d%e5%8f%a0%e5%bc%8f%e6%bb%9a%e5%8a%a8%e6%9d%a1" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>在介绍如何设置滚动条的样式之前，请务必先了解两种滚动条之间的区别。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">操作系统</th>
+<th style="text-align:left">默认滚动条</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Mac</td>
+<td style="text-align:left">叠加滚动条（Overlay scrollbars）</td>
+</tr>
+<tr>
+<td style="text-align:left">Windows</td>
+<td style="text-align:left">经典滚动条（Classic scrollbars）</td>
+</tr>
+</tbody>
+</table>
+<h4 id="叠加滚动条" class="heading-element"><span>2.2.1 叠加滚动条</span>
+  <a href="#%e5%8f%a0%e5%8a%a0%e6%bb%9a%e5%8a%a8%e6%9d%a1" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><p>叠加层滚动条是在下方内容之上的浮动滚动条。默认情况下，这些按钮不会显示，只有当您主动滚动时才会显示。为了让内容保持可见状态，它们通常采用半透明形式，但这由操作系统来决定。在与它们互动时，它们的大小也可能有所变化。</p>
+<p><figure><a class="lightgallery" href="images/24_1719585770.png?size=large" data-thumbnail="images/24_1719585770.png?size=small" data-sub-html="<h2>带有叠加滚动条的浏览器</h2><p>滚动条会叠加在内容上；滑块是部分透明的。</p>"><img loading="lazy" src="images/24_1719585770.png" alt="带有叠加滚动条的浏览器" srcset="images/24_1719585770.png?size=small, images/24_1719585770.png?size=medium 1.5x, images/24_1719585770.png?size=large 2x" data-title="滚动条会叠加在内容上；滑块是部分透明的。" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a><figcaption class="image-caption">带有叠加滚动条的浏览器</figcaption>
+  </figure></p>
+<h4 id="经典滚动条" class="heading-element"><span>2.2.2 经典滚动条</span>
+  <a href="#%e7%bb%8f%e5%85%b8%e6%bb%9a%e5%8a%a8%e6%9d%a1" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><p>传统滚动条是放置在专用_滚动条边线_中的滚动条。滚动条边线是内边框边缘与外内边距边缘之间的空间。这些滚动条通常是不透明的（不透明），并会占用相邻内容的某些空间。</p>
+<p><figure><a class="lightgallery" href="images/24_1719585901.png?size=large" data-thumbnail="images/24_1719585901.png?size=small" data-sub-html="<h2>包含传统滚动条的浏览器图示</h2><p>滚动条位于内容旁边的专用区域中；内容的可用宽度会缩小（相对于使用叠加层滚动条时的可用宽度）。</p>"><img loading="lazy" src="images/24_1719585901.png" alt="包含传统滚动条的浏览器图示" srcset="images/24_1719585901.png?size=small, images/24_1719585901.png?size=medium 1.5x, images/24_1719585901.png?size=large 2x" data-title="滚动条位于内容旁边的专用区域中；内容的可用宽度会缩小（相对于使用叠加层滚动条时的可用宽度）。" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a><figcaption class="image-caption">包含传统滚动条的浏览器图示</figcaption>
+  </figure></p>
+<h2 id="scrollbar-color-和-scrollbar-width-属性" class="heading-element"><span>3 scrollbar-color 和 scrollbar-width 属性</span>
+  <a href="#scrollbar-color-%e5%92%8c-scrollbar-width-%e5%b1%9e%e6%80%a7" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><h3 id="scrollbar-color-设置滚动条颜色" class="heading-element"><span>3.1 scrollbar-color 设置滚动条颜色</span>
+  <a href="#scrollbar-color-%e8%ae%be%e7%bd%ae%e6%bb%9a%e5%8a%a8%e6%9d%a1%e9%a2%9c%e8%89%b2" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><blockquote>
+<p>参考 <a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/scrollbar-color"target="_blank" rel="external nofollow noopener noreferrer">https://developer.mozilla.org/zh-CN/docs/Web/CSS/scrollbar-color<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
+</blockquote>
+<p>借助 <code>scrollbar-color</code> 属性，您可以更改滚动条的配色方案。该属性接受两个 <code>&lt;color&gt;</code> 值。</p>
+<ul>
+<li>第一个值用于确定滑块（thumb）的颜色</li>
+<li>第二个值用于确定要用于轨道（track）的颜色</li>
+</ul>
+<p>如需使用操作系统提供的默认呈现方式，请使用 <code>auto</code> 作为其值。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-css" data-lang="css"><span class="line"><span class="cl"><span class="c">/* 关键字值 */</span>
+</span></span><span class="line"><span class="cl"><span class="nt">scrollbar-color</span><span class="o">:</span> <span class="nt">auto</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c">/* &lt;color&gt; 值 */</span>
+</span></span><span class="line"><span class="cl"><span class="nt">scrollbar-color</span><span class="o">:</span> <span class="nt">rebeccapurple</span> <span class="nt">green</span><span class="o">;</span> <span class="c">/* 两个有效的颜色。
+</span></span></span><span class="line"><span class="cl"><span class="c">第一个应用于滚动条的滑块，第二个应用于轨道。 */</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c">/* 全局值 */</span>
+</span></span><span class="line"><span class="cl"><span class="nt">scrollbar-color</span><span class="o">:</span> <span class="nt">inherit</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">scrollbar-color</span><span class="o">:</span> <span class="nt">initial</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">scrollbar-color</span><span class="o">:</span> <span class="nt">revert</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">scrollbar-color</span><span class="o">:</span> <span class="nt">revert-layer</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">scrollbar-color</span><span class="o">:</span> <span class="nt">unset</span><span class="o">;</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>默认情况下，使用叠加滚动条时，轨迹的颜色不起作用。不过，将鼠标悬停在滚动条上时，系统会显示航迹。</p>
+<h3 id="scrollbar-width-设置滚动条粗细" class="heading-element"><span>3.2 scrollbar-width 设置滚动条粗细</span>
+  <a href="#scrollbar-width-%e8%ae%be%e7%bd%ae%e6%bb%9a%e5%8a%a8%e6%9d%a1%e7%b2%97%e7%bb%86" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><blockquote>
+<p>参考 <a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/scrollbar-width"target="_blank" rel="external nofollow noopener noreferrer">https://developer.mozilla.org/zh-CN/docs/Web/CSS/scrollbar-width<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
+</blockquote>
+<p>借助 <code>scrollbar-width</code> 属性，您可以选择较窄的滚动条，甚至可以完全隐藏滚动条而不影响可滚动性。</p>
+<p>接受的值包括 <code>auto</code>、<code>thin</code> 和 <code>none</code>。</p>
+<ul>
+<li><code>auto</code>：平台提供的默认滚动条宽度。</li>
+<li><code>thin</code>：平台提供的滚动条的细变体，或比默认平台滚动条更细的自定义滚动条。</li>
+<li><code>none</code>：有效隐藏滚动条。不过，此元素仍然可滚动。</li>
+</ul>
+<p>无法使用 <code>&lt;length&gt;</code>（例如 <code>16px</code>）作为 <code>scrollbar-width</code> 的值。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-css" data-lang="css"><span class="line"><span class="cl"><span class="c">/* 关键字值 */</span>
+</span></span><span class="line"><span class="cl"><span class="nt">scrollbar-width</span><span class="o">:</span> <span class="nt">auto</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">scrollbar-width</span><span class="o">:</span> <span class="nt">thin</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">scrollbar-width</span><span class="o">:</span> <span class="nt">none</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c">/* 全局值 */</span>
+</span></span><span class="line"><span class="cl"><span class="nt">scrollbar-width</span><span class="o">:</span> <span class="nt">inherit</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">scrollbar-width</span><span class="o">:</span> <span class="nt">initial</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">scrollbar-width</span><span class="o">:</span> <span class="nt">revert</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">scrollbar-width</span><span class="o">:</span> <span class="nt">revert-layer</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">scrollbar-width</span><span class="o">:</span> <span class="nt">unset</span><span class="o">;</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>使用叠加滚动条时，仅当你主动滚动可滚动区域时，才会显示滚动条滑块。</p>
+<h2 id="支持旧版浏览器" class="heading-element"><span>4 支持旧版浏览器</span>
+  <a href="#%e6%94%af%e6%8c%81%e6%97%a7%e7%89%88%e6%b5%8f%e8%a7%88%e5%99%a8" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>为了满足不支持 <code>scrollbar-color</code> 和 <code>scrollbar-width</code> 的浏览器版本，可以同时使用新的 <code>scrollbar-*</code> 和 <code>::-webkit-scrollbar-*</code> 属性。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-css" data-lang="css"><span class="line"><span class="cl"><span class="c">/* Modern browsers with `scrollbar-*` support (high priority) */</span>
+</span></span><span class="line"><span class="cl"><span class="p">@</span><span class="k">supports</span> <span class="o">(</span><span class="nt">scrollbar-width</span><span class="o">:</span> <span class="nt">auto</span><span class="o">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="o">*</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">scrollbar-color</span><span class="p">:</span> <span class="nf">var</span><span class="p">(</span><span class="o">--</span><span class="n">scrollbar</span><span class="o">-</span><span class="n">thumb</span><span class="o">-</span><span class="kc">color</span><span class="p">)</span> <span class="nf">var</span><span class="p">(</span><span class="o">--</span><span class="n">scrollbar</span><span class="o">-</span><span class="n">track</span><span class="o">-</span><span class="kc">color</span><span class="p">);;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">scrollbar-width</span><span class="p">:</span> <span class="nf">var</span><span class="p">(</span><span class="o">--</span><span class="n">scrollbar</span><span class="o">-</span><span class="n">width</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c">/* Legacy browsers with `::-webkit-scrollbar-*` support */</span>
+</span></span><span class="line"><span class="cl"><span class="p">::</span><span class="nd">-webkit-scrollbar</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">height</span><span class="p">:</span> <span class="nf">var</span><span class="p">(</span><span class="o">--</span><span class="n">scrollbar</span><span class="o">-</span><span class="n">width</span><span class="o">-</span><span class="n">legacy</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">width</span><span class="p">:</span> <span class="nf">var</span><span class="p">(</span><span class="o">--</span><span class="n">scrollbar</span><span class="o">-</span><span class="n">width</span><span class="o">-</span><span class="n">legacy</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">overflow</span><span class="p">:</span> <span class="kc">visible</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">::</span><span class="nd">-webkit-scrollbar-button</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">height</span><span class="p">:</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">width</span><span class="p">:</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">::</span><span class="nd">-webkit-scrollbar-corner</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">background-color</span><span class="p">:</span> <span class="nf">var</span><span class="p">(</span><span class="o">--</span><span class="n">scrollbar</span><span class="o">-</span><span class="n">track</span><span class="o">-</span><span class="kc">color</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">::</span><span class="nd">-webkit-scrollbar-thumb</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">background-color</span><span class="p">:</span> <span class="nf">var</span><span class="p">(</span><span class="o">--</span><span class="n">scrollbar</span><span class="o">-</span><span class="n">thumb</span><span class="o">-</span><span class="kc">color</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">::</span><span class="nd">-webkit-scrollbar-thumb</span><span class="p">:</span><span class="nd">hover</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">background-color</span><span class="p">:</span> <span class="nf">var</span><span class="p">(</span><span class="o">--</span><span class="n">scrollbar</span><span class="o">-</span><span class="n">thumb</span><span class="o">-</span><span class="n">hover</span><span class="o">-</span><span class="kc">color</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">::</span><span class="nd">-webkit-scrollbar-track</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">background-color</span><span class="p">:</span> <span class="nf">var</span><span class="p">(</span><span class="o">--</span><span class="n">scrollbar</span><span class="o">-</span><span class="n">track</span><span class="o">-</span><span class="kc">color</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">::</span><span class="nd">-webkit-scrollbar-thumb</span><span class="o">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">::</span><span class="nd">-webkit-scrollbar-track</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">background-clip</span><span class="p">:</span> <span class="kc">padding-box</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">border</span><span class="p">:</span> <span class="mi">3</span><span class="kt">px</span> <span class="kc">solid</span> <span class="kc">transparent</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">border-radius</span><span class="p">:</span> <span class="mi">100</span><span class="kt">px</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>请注意，当您设置 <code>::-webkit-scrollbar</code> 的 <code>width</code> 或 <code>height</code> 时，系统始终会显示叠加层滚动条，实际上会变为经典滚动条。</p>
+<p
+  class="ciu_embed"
+  data-feature="css-scrollbar"
+  data-periods="future_1,current,past_1,past_2"
+  data-accessible-colours="false"
+>
+  <picture>
+    <source type="image/webp" srcset="https://caniuse.bitsofco.de/image/css-scrollbar.webp" />
+    <source type="image/png" srcset="https://caniuse.bitsofco.de/image/css-scrollbar.png" />
+    <img
+      src="https://caniuse.bitsofco.de/image/css-scrollbar.jpg"
+      alt="Data on support for the css-scrollbar feature across the major browsers from caniuse.com"
+    />
+  </picture>
+</p>
+<h2 id="总结一下" class="heading-element"><span>5 总结一下</span>
+  <a href="#%e6%80%bb%e7%bb%93%e4%b8%80%e4%b8%8b" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>可以看到，其实就目前 <code>scrollbar-width</code> 而言，其能力还是属于比较鸡肋的。相对正常的样式，仅仅多了一种瘦版样式选择以及提供了无滚动条模式。</p>
+<p>当然，整个 <code>scrollbar-color</code> 和 <code>scrollbar-width</code> 相较于非标准的 <code>::-webkit-scrollbar</code> 规范已经是非常大的一步跨越。只是其功能的丰富性和全面性还需要等待。</p>]]></description></item><item><title>怎么生成暗黑模式和明亮模式的 SVG 图片？</title><link>https://lruihao.cn/posts/svg-dark-light/</link><pubDate>Thu, 06 Jun 2024 22:13:26 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/svg-dark-light/</guid><description><![CDATA[<p>在做博客顶部栏下落奶油图的时候，就在想怎么适配暗黑模式和明亮模式呢？本文将记录两个思路。</p>
 <h2 id="方案一通过模板生成两张图片" class="heading-element"><span>1 方案一：通过模板生成两张图片</span>
   <a href="#%e6%96%b9%e6%a1%88%e4%b8%80%e9%80%9a%e8%bf%87%e6%a8%a1%e6%9d%bf%e7%94%9f%e6%88%90%e4%b8%a4%e5%bc%a0%e5%9b%be%e7%89%87" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
