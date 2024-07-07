@@ -23,21 +23,21 @@ Amazon Simple Storage Service (Amazon S3) 是一种对象存储服务，由亚�
 
 ![创建 AWS 账户](../aws-ec2/images/23_1693042834.png)
 
-1. 填写邮件地址和账号名称（支持使用国内的邮箱）
+1. 填写邮件地址和账号名称（支持使用国内的邮箱）\
    ![login](../aws-ec2/images/23_1693043425.png)
-2. 验证邮件
+2. 验证邮件\
    ![valid](../aws-ec2/images/23_1693043626.png)
-3. 输入密码
+3. 输入密码\
    ![password](../aws-ec2/images/23_1693043910.png)
-4. 联系人信息
+4. 联系人信息\
    ![contact](../aws-ec2/images/23_1693044220.png)
-5. 付款信息（Visa）
+5. 付款信息（Visa）\
    ![payment](../aws-ec2/images/23_1693044537.png)
-6. 验证手机号（支持中国地区国内手机号）
+6. 验证手机号（支持中国地区国内手机号）\
    ![phone](../aws-ec2/images/23_1693044806.png)
-7. 选择支持计划
+7. 选择支持计划\
    ![plan](../aws-ec2/images/23_1693045029.png)
-8. 完成注册
+8. 完成注册\
    ![complete](../aws-ec2/images/23_1693045100.png)
 9. 登录亚马逊云科技控制台，[登录地址](https://console.aws.amazon.com/console/home)，选择根用户输入电子邮件地址，点击下一步会让输入密码，输入密码后就可以完成登录了。
 
