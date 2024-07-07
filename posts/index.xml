@@ -1,4 +1,188 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>所有文章 | 菠菜眾長</title><link>https://lruihao.cn/posts/</link><description>所有文章 | 菠菜眾長</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><copyright>本站内容采用 CC BY-NC-SA 4.0 国际许可协议。</copyright><lastBuildDate>Fri, 28 Jun 2024 22:29:03 +0800</lastBuildDate><atom:link href="https://lruihao.cn/posts/" rel="self" type="application/rss+xml"/><item><title>【现代 CSS】标准滚动条控制规范</title><link>https://lruihao.cn/posts/scrollbar-styling/</link><pubDate>Fri, 28 Jun 2024 22:29:03 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/scrollbar-styling/</guid><description><![CDATA[<p>使用 <code>scrollbar-width</code> 和 <code>scrollbar-color</code> 属性设置滚动条的样式。</p>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>所有文章 | 菠菜眾長</title><link>https://lruihao.cn/posts/</link><description>所有文章 | 菠菜眾長</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><copyright>本站内容采用 CC BY-NC-SA 4.0 国际许可协议。</copyright><lastBuildDate>Fri, 28 Jun 2024 22:29:03 +0800</lastBuildDate><atom:link href="https://lruihao.cn/posts/" rel="self" type="application/rss+xml"/><item><title>wireless network-POJ-2236（并查集）</title><link>https://lruihao.cn/posts/poj-2236/</link><pubDate>Tue, 31 Jul 2018 11:10:54 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/poj-2236/</guid><description><![CDATA[<h2 id="题目链接wireless-networkhttppojorgproblemid2236" class="heading-element"><span>1 题目链接：<a href="http://poj.org/problem?id=2236"target="_blank" rel="external nofollow noopener noreferrer">wireless network<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></span>
+  <a href="#%e9%a2%98%e7%9b%ae%e9%93%be%e6%8e%a5wireless-networkhttppojorgproblemid2236" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><h2 id="翻译" class="heading-element"><span>2 翻译</span>
+  <a href="#%e7%bf%bb%e8%af%91" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>南亚发生了一次地震。ACM (Asia Cooperated Medical 亚洲联合医疗队）已经为膝上型电脑搭建了一个无线网络，但受到了一次不可预知的余震攻击，因此网络中的所有电脑都被破坏了。电脑被逐台修复，网络逐步恢复了工作。由于受到硬件的约束，每台电脑只能与距离它不超过 d 米的其它电脑直接通信。但每台电脑可被看作其它两台电脑的通信中转点，也就是说，如果电脑 A 和电脑 B 可以直接通信，或存在一台电脑 C 既可与 A 也可与 B 通信，那么电脑 A 和电脑 B 之间就能够通信。</p>
+<p>在处理网络修复的过程中，工作人员们在任何一个时刻，可以执行两种操作：维修一台电脑，或测试两台电脑是否能够通信。请您找出全部的测试操作。</p>
+<h3 id="输入" class="heading-element"><span>2.1 输入</span>
+  <a href="#%e8%be%93%e5%85%a5" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>第一行包含了两个整数 N 和 d (1 &lt;= N &lt;= 1001, 0 &lt;= d &lt;= 20000)。此处 N 是电脑的数目，编号从 1 到 N；同时，D 是两台电脑之间能够直接通信的最大距离。接下来的 N 行，每行包含两个整数 xi, yi (0 &lt;= xi, yi &lt;= 10000)，表示 N 台电脑的坐标。从第 (N+1) 行到输入结束，是逐一执行的操作，每行包含一个操作，格式是以下两者之一：</p>
+<ol>
+<li>&ldquo;O p&rdquo; (1 &lt;= p &lt;= N)，表示维护电脑 p。。</li>
+<li>&ldquo;S p q&rdquo; (1 &lt;= p, q &lt;= N)，表示测试电脑 p 和 q 是否能够通信。</li>
+</ol>
+<p>输入不超过 300000 行。</p>
+<h3 id="输出" class="heading-element"><span>2.2 输出</span>
+  <a href="#%e8%be%93%e5%87%ba" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>对于每个测试操作，如果两台电脑能够通信，则打印 &ldquo;SUCCESS&rdquo;；否则，打印 &ldquo;FAIL&rdquo;。</p>
+<h3 id="示例输入" class="heading-element"><span>2.3 示例输入</span>
+  <a href="#%e7%a4%ba%e4%be%8b%e8%be%93%e5%85%a5" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><pre><code>4 1
+0 1
+0 2
+0 3
+0 4
+O 1
+O 2
+O 4
+S 1 4
+O 3
+S 1 4
+</code></pre>
+<h3 id="示例输出" class="heading-element"><span>2.4 示例输出</span>
+  <a href="#%e7%a4%ba%e4%be%8b%e8%be%93%e5%87%ba" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><pre><code>FAIL
+SUCCESS
+</code></pre>
+<h3 id="ac-代码" class="heading-element"><span>2.5 AC 代码</span>
+  <a href="#ac-%e4%bb%a3%e7%a0%81" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><!-- markdownlint-disable MD046 -->
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&#34;iostream&#34;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&#34;cstring&#34;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">pre</span><span class="p">[</span><span class="mi">1005</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">x</span><span class="p">[</span><span class="mi">1005</span><span class="p">],</span><span class="n">y</span><span class="p">[</span><span class="mi">1005</span><span class="p">],</span><span class="n">use</span><span class="p">[</span><span class="mi">1005</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">findd</span><span class="p">(</span><span class="kt">int</span> <span class="n">root</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">son</span><span class="p">,</span><span class="n">t</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">son</span><span class="o">=</span><span class="n">root</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">while</span><span class="p">(</span><span class="n">root</span><span class="o">!=</span><span class="n">pre</span><span class="p">[</span><span class="n">root</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">        <span class="n">root</span><span class="o">=</span><span class="n">pre</span><span class="p">[</span><span class="n">root</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="k">while</span><span class="p">(</span><span class="n">son</span><span class="o">!=</span><span class="n">root</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">        <span class="n">t</span><span class="o">=</span><span class="n">pre</span><span class="p">[</span><span class="n">son</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">        <span class="n">pre</span><span class="p">[</span><span class="n">son</span><span class="p">]</span><span class="o">=</span><span class="n">root</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">son</span><span class="o">=</span><span class="n">t</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">root</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">join</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span><span class="kt">int</span> <span class="n">y</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">fx</span><span class="o">=</span><span class="n">findd</span><span class="p">(</span><span class="n">x</span><span class="p">),</span><span class="n">fy</span><span class="o">=</span><span class="n">findd</span><span class="p">(</span><span class="n">y</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">fx</span><span class="o">!=</span><span class="n">fy</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">pre</span><span class="p">[</span><span class="n">fx</span><span class="p">]</span><span class="o">=</span><span class="n">fy</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">dis</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="p">,</span><span class="kt">int</span> <span class="n">num</span><span class="p">,</span><span class="kt">int</span> <span class="n">d</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">    <span class="n">d</span><span class="o">=</span><span class="n">d</span><span class="o">*</span><span class="n">d</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">xx</span><span class="o">=</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-</span><span class="n">x</span><span class="p">[</span><span class="n">num</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">yy</span><span class="o">=</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-</span><span class="n">y</span><span class="p">[</span><span class="n">num</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">((</span><span class="n">xx</span><span class="o">*</span><span class="n">xx</span><span class="o">+</span><span class="n">yy</span><span class="o">*</span><span class="n">yy</span><span class="p">)</span><span class="o">&lt;=</span><span class="n">d</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">n</span><span class="p">,</span><span class="n">d</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">char</span> <span class="n">s</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">memset</span><span class="p">(</span><span class="n">use</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="k">sizeof</span><span class="p">(</span><span class="n">use</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cin</span><span class="o">&gt;&gt;</span><span class="n">n</span><span class="o">&gt;&gt;</span><span class="n">d</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;=</span><span class="n">n</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">pre</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="n">i</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;=</span><span class="n">n</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">cin</span><span class="o">&gt;&gt;</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">&gt;&gt;</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="k">while</span><span class="p">(</span><span class="n">cin</span><span class="o">&gt;&gt;</span><span class="n">s</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="p">(</span><span class="n">s</span><span class="o">==</span><span class="sc">&#39;O&#39;</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">            <span class="kt">int</span> <span class="n">num</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="n">cin</span><span class="o">&gt;&gt;</span><span class="n">num</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="n">use</span><span class="p">[</span><span class="n">num</span><span class="p">]</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="n">findd</span><span class="p">(</span><span class="n">num</span><span class="p">);</span><span class="c1">//路径压缩
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;=</span><span class="n">n</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                <span class="k">if</span><span class="p">(</span><span class="n">i</span><span class="o">!=</span><span class="n">num</span><span class="o">&amp;&amp;</span><span class="n">use</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">==</span><span class="mi">1</span><span class="o">&amp;&amp;</span><span class="n">dis</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">num</span><span class="p">,</span><span class="n">d</span><span class="p">))</span><span class="c1">//修好了，且可以被合并（自己除外）
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                    <span class="n">join</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">num</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">s</span><span class="o">==</span><span class="sc">&#39;S&#39;</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">            <span class="kt">int</span> <span class="n">q</span><span class="p">,</span><span class="n">p</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="n">cin</span><span class="o">&gt;&gt;</span><span class="n">q</span><span class="o">&gt;&gt;</span><span class="n">p</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span><span class="p">(</span><span class="n">findd</span><span class="p">(</span><span class="n">q</span><span class="p">)</span><span class="o">==</span><span class="n">findd</span><span class="p">(</span><span class="n">p</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">                <span class="n">cout</span><span class="o">&lt;&lt;</span><span class="s">&#34;SUCCESS&#34;</span><span class="o">&lt;&lt;</span><span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="k">else</span> <span class="n">cout</span><span class="o">&lt;&lt;</span><span class="s">&#34;FAIL&#34;</span><span class="o">&lt;&lt;</span><span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div><!-- markdownlint-disable-file -->]]></description></item><item><title>【现代 CSS】标准滚动条控制规范</title><link>https://lruihao.cn/posts/scrollbar-styling/</link><pubDate>Fri, 28 Jun 2024 22:29:03 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/scrollbar-styling/</guid><description><![CDATA[<p>使用 <code>scrollbar-width</code> 和 <code>scrollbar-color</code> 属性设置滚动条的样式。</p>
 <h2 id="简介" class="heading-element"><span>1 简介</span>
   <a href="#%e7%ae%80%e4%bb%8b" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
@@ -47,7 +231,7 @@
   <a href="#%e5%8f%a0%e5%8a%a0%e6%bb%9a%e5%8a%a8%e6%9d%a1" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
   </a>
-</h4><p>叠加层滚动条是在下方内容之上的浮动滚动条。默认情况下，这些按钮不会显示，只有当您主动滚动时才会显示。为了让内容保持可见状态，它们通常采用半透明形式，但这由操作系统来决定。在与它们互动时，它们的大小也可能有所变化。</p>
+</h4><p>叠加层滚动条是在下方内容之上的浮动滚动条。默认情况下，这些按钮不会显示，只有当主动滚动时才会显示。为了让内容保持可见状态，它们通常采用半透明形式，但这由操作系统来决定。在与它们互动时，它们的大小也可能有所变化。</p>
 <p><figure><a class="lightgallery" href="images/24_1719585770.png?size=large" data-thumbnail="images/24_1719585770.png?size=small" data-sub-html="<h2>带有叠加滚动条的浏览器</h2><p>滚动条会叠加在内容上；滑块是部分透明的。</p>"><img loading="lazy" src="images/24_1719585770.png" alt="带有叠加滚动条的浏览器" srcset="images/24_1719585770.png?size=small, images/24_1719585770.png?size=medium 1.5x, images/24_1719585770.png?size=large 2x" data-title="滚动条会叠加在内容上；滑块是部分透明的。" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a><figcaption class="image-caption">带有叠加滚动条的浏览器</figcaption>
   </figure></p>
 <h4 id="经典滚动条" class="heading-element"><span>2.2.2 经典滚动条</span>
@@ -68,7 +252,7 @@
 </h3><blockquote>
 <p>参考 <a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/scrollbar-color"target="_blank" rel="external nofollow noopener noreferrer">https://developer.mozilla.org/zh-CN/docs/Web/CSS/scrollbar-color<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
 </blockquote>
-<p>借助 <code>scrollbar-color</code> 属性，您可以更改滚动条的配色方案。该属性接受两个 <code>&lt;color&gt;</code> 值。</p>
+<p>借助 <code>scrollbar-color</code> 属性，可以更改滚动条的配色方案。该属性接受两个 <code>&lt;color&gt;</code> 值。</p>
 <ul>
 <li>第一个值用于确定滑块（thumb）的颜色</li>
 <li>第二个值用于确定要用于轨道（track）的颜色</li>
@@ -113,7 +297,7 @@
 </h3><blockquote>
 <p>参考 <a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/scrollbar-width"target="_blank" rel="external nofollow noopener noreferrer">https://developer.mozilla.org/zh-CN/docs/Web/CSS/scrollbar-width<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
 </blockquote>
-<p>借助 <code>scrollbar-width</code> 属性，您可以选择较窄的滚动条，甚至可以完全隐藏滚动条而不影响可滚动性。</p>
+<p>借助 <code>scrollbar-width</code> 属性，可以选择较窄的滚动条，甚至可以完全隐藏滚动条而不影响可滚动性。</p>
 <p>接受的值包括 <code>auto</code>、<code>thin</code> 和 <code>none</code>。</p>
 <ul>
 <li><code>auto</code>：平台提供的默认滚动条宽度。</li>
@@ -231,7 +415,7 @@
 </span></span><span class="line"><span class="cl">  <span class="k">border-radius</span><span class="p">:</span> <span class="mi">100</span><span class="kt">px</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
-</div><p>请注意，当您设置 <code>::-webkit-scrollbar</code> 的 <code>width</code> 或 <code>height</code> 时，系统始终会显示叠加层滚动条，实际上会变为经典滚动条。</p>
+</div><p>请注意，当设置 <code>::-webkit-scrollbar</code> 的 <code>width</code> 或 <code>height</code> 时，系统始终会显示叠加层滚动条，实际上会变为经典滚动条。</p>
 <p class="ciu-embed" data-feature="css-scrollbar" data-past="2" data-future="1" data-observer="true" data-theme=""></p>
 <h2 id="总结一下" class="heading-element"><span>5 总结一下</span>
   <a href="#%e6%80%bb%e7%bb%93%e4%b8%80%e4%b8%8b" class="heading-mark">
@@ -1233,7 +1417,7 @@
   <a href="#%e5%8f%a0%e5%8a%a0%e6%bb%9a%e5%8a%a8%e6%9d%a1" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
   </a>
-</h4><p>叠加层滚动条是在下方内容之上的浮动滚动条。默认情况下，这些按钮不会显示，只有当您主动滚动时才会显示。为了让内容保持可见状态，它们通常采用半透明形式，但这由操作系统来决定。在与它们互动时，它们的大小也可能有所变化。</p>
+</h4><p>叠加层滚动条是在下方内容之上的浮动滚动条。默认情况下，这些按钮不会显示，只有当主动滚动时才会显示。为了让内容保持可见状态，它们通常采用半透明形式，但这由操作系统来决定。在与它们互动时，它们的大小也可能有所变化。</p>
 <p><figure><a class="lightgallery" href="images/24_1719585770.png?size=large" data-thumbnail="images/24_1719585770.png?size=small" data-sub-html="<h2>带有叠加滚动条的浏览器</h2><p>滚动条会叠加在内容上；滑块是部分透明的。</p>"><img loading="lazy" src="images/24_1719585770.png" alt="带有叠加滚动条的浏览器" srcset="images/24_1719585770.png?size=small, images/24_1719585770.png?size=medium 1.5x, images/24_1719585770.png?size=large 2x" data-title="滚动条会叠加在内容上；滑块是部分透明的。" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a><figcaption class="image-caption">带有叠加滚动条的浏览器</figcaption>
   </figure></p>
 <h4 id="经典滚动条" class="heading-element"><span>2.2.2 经典滚动条</span>
@@ -1254,7 +1438,7 @@
 </h3><blockquote>
 <p>参考 <a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/scrollbar-color"target="_blank" rel="external nofollow noopener noreferrer">https://developer.mozilla.org/zh-CN/docs/Web/CSS/scrollbar-color<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
 </blockquote>
-<p>借助 <code>scrollbar-color</code> 属性，您可以更改滚动条的配色方案。该属性接受两个 <code>&lt;color&gt;</code> 值。</p>
+<p>借助 <code>scrollbar-color</code> 属性，可以更改滚动条的配色方案。该属性接受两个 <code>&lt;color&gt;</code> 值。</p>
 <ul>
 <li>第一个值用于确定滑块（thumb）的颜色</li>
 <li>第二个值用于确定要用于轨道（track）的颜色</li>
@@ -1299,7 +1483,7 @@
 </h3><blockquote>
 <p>参考 <a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/scrollbar-width"target="_blank" rel="external nofollow noopener noreferrer">https://developer.mozilla.org/zh-CN/docs/Web/CSS/scrollbar-width<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
 </blockquote>
-<p>借助 <code>scrollbar-width</code> 属性，您可以选择较窄的滚动条，甚至可以完全隐藏滚动条而不影响可滚动性。</p>
+<p>借助 <code>scrollbar-width</code> 属性，可以选择较窄的滚动条，甚至可以完全隐藏滚动条而不影响可滚动性。</p>
 <p>接受的值包括 <code>auto</code>、<code>thin</code> 和 <code>none</code>。</p>
 <ul>
 <li><code>auto</code>：平台提供的默认滚动条宽度。</li>
@@ -1417,7 +1601,7 @@
 </span></span><span class="line"><span class="cl">  <span class="k">border-radius</span><span class="p">:</span> <span class="mi">100</span><span class="kt">px</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
-</div><p>请注意，当您设置 <code>::-webkit-scrollbar</code> 的 <code>width</code> 或 <code>height</code> 时，系统始终会显示叠加层滚动条，实际上会变为经典滚动条。</p>
+</div><p>请注意，当设置 <code>::-webkit-scrollbar</code> 的 <code>width</code> 或 <code>height</code> 时，系统始终会显示叠加层滚动条，实际上会变为经典滚动条。</p>
 <p class="ciu-embed" data-feature="css-scrollbar" data-past="2" data-future="1" data-observer="true" data-theme=""></p>
 <h2 id="总结一下" class="heading-element"><span>5 总结一下</span>
   <a href="#%e6%80%bb%e7%bb%93%e4%b8%80%e4%b8%8b" class="heading-mark">

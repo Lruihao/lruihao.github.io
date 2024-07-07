@@ -34,7 +34,7 @@
 
 #### 叠加滚动条
 
-叠加层滚动条是在下方内容之上的浮动滚动条。默认情况下，这些按钮不会显示，只有当您主动滚动时才会显示。为了让内容保持可见状态，它们通常采用半透明形式，但这由操作系统来决定。在与它们互动时，它们的大小也可能有所变化。
+叠加层滚动条是在下方内容之上的浮动滚动条。默认情况下，这些按钮不会显示，只有当主动滚动时才会显示。为了让内容保持可见状态，它们通常采用半透明形式，但这由操作系统来决定。在与它们互动时，它们的大小也可能有所变化。
 
 ![带有叠加滚动条的浏览器](images/24_1719585770.png &#34;滚动条会叠加在内容上；滑块是部分透明的。&#34;)
 
@@ -50,7 +50,7 @@
 
 &gt; 参考 https://developer.mozilla.org/zh-CN/docs/Web/CSS/scrollbar-color
 
-借助 `scrollbar-color` 属性，您可以更改滚动条的配色方案。该属性接受两个 `&lt;color&gt;` 值。
+借助 `scrollbar-color` 属性，可以更改滚动条的配色方案。该属性接受两个 `&lt;color&gt;` 值。
 
 - 第一个值用于确定滑块（thumb）的颜色
 - 第二个值用于确定要用于轨道（track）的颜色
@@ -79,7 +79,7 @@ scrollbar-color: unset;
 
 &gt; 参考 https://developer.mozilla.org/zh-CN/docs/Web/CSS/scrollbar-width
 
-借助 `scrollbar-width` 属性，您可以选择较窄的滚动条，甚至可以完全隐藏滚动条而不影响可滚动性。
+借助 `scrollbar-width` 属性，可以选择较窄的滚动条，甚至可以完全隐藏滚动条而不影响可滚动性。
 
 接受的值包括 `auto`、`thin` 和 `none`。
 
@@ -148,7 +148,7 @@ scrollbar-width: unset;
 }
 ```
 
-请注意，当您设置 `::-webkit-scrollbar` 的 `width` 或 `height` 时，系统始终会显示叠加层滚动条，实际上会变为经典滚动条。
+请注意，当设置 `::-webkit-scrollbar` 的 `width` 或 `height` 时，系统始终会显示叠加层滚动条，实际上会变为经典滚动条。
 
 {{&lt; caniuse &#34;css-scrollbar&#34; &gt;}}
 
