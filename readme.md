@@ -1,11 +1,12 @@
 # 菠菜眾長
 
-共计 241 篇文章
+共计 242 篇文章
 
 ## 2024
 
-共计 16 篇文章
+共计 17 篇文章
 
+- 07-07 [探索 Amazon S3 的无限存储潜力](https://lruihao.cn/posts/d1fc0c7/ "2024-07-07 13:54:14")
 - 06-28 [【现代 CSS】标准滚动条控制规范](https://lruihao.cn/posts/scrollbar-styling/ "2024-06-28 22:29:03")
 - 06-13 [如何实现 VSCode 编辑器窗口边界拖拽类似功能](https://lruihao.cn/posts/aside-toggle-drag/ "2024-06-13 21:03:12")
 - 06-09 [架构之基：从根儿上了解设计原则](https://lruihao.cn/posts/design-principles/ "2024-06-09 02:24:31")
