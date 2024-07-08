@@ -1,7 +1,7 @@
 # 探索 Amazon S3 的无限存储潜力
 
 
-在数字化时代，数据是企业最宝贵的资产之一。如何安全、高效地存储和访问这些数据，成为了许多企业面临的挑战。亚马逊云服务（AWS）作为全球领先的云服务提供商，提供了一系列的解决方案来满足不同客户的需求。今天，我们将重点介绍亚马逊云科技的 Amazon S3（Simple Storage Service），一种简单、可扩展且持久的对象存储服务。
+在数字化时代，数据是企业最宝贵的资产之一。如何安全、高效地存储和访问这些数据，成为了许多企业面临的挑战。亚马逊云服务作为全球领先的云服务提供商，提供了一系列的解决方案来满足不同客户的需求。今天，我们将重点介绍亚马逊云科技的 Amazon S3（Simple Storage Service），一种简单、可扩展且持久的对象存储服务。
 
 &lt;!--more--&gt;
 
@@ -43,7 +43,7 @@ Amazon Simple Storage Service (Amazon S3) 是一种对象存储服务，由亚�
 
 ### 访问 Amazon S3 控制台
 
-登录亚马逊云科技管理控制台，然后在 `https://console.aws.amazon.com/s3/?trk=56af0bad-f604-4f80-8f1a-f8a8b0d20118&amp;sc_channel=sm&amp;campaign=blog1352` 打开 Amazon S3 控制台。
+登录亚马逊云科技管理控制台，然后打开 [Amazon S3 控制台](https://console.aws.amazon.com/s3/?trk=56af0bad-f604-4f80-8f1a-f8a8b0d20118&amp;sc_channel=sm&amp;campaign=blog1352)。
 
 ### 创建存储桶
 
