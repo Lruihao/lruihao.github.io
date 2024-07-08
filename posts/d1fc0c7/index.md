@@ -11,7 +11,7 @@ Amazon Simple Storage Service (Amazon S3) 是一种对象存储服务，由亚�
 
 ## 免费试用优势
 
-亚马逊云科技为新用户提供了免费试用套餐（12 个月内免费、永久免费等），包括 **Amazon S3** 在内的多种服务，这里 Amazon S3 时 12 个月内免费。用户可以在 [亚马逊云科技海外区域免费试用页面](https://aws.amazon.com/cn/free/) 了解更多详情，并开始免费体验。这不仅降低了用户的入门门槛，也让用户能够无负担地探索和学习亚马逊云科技的云服务。
+亚马逊云科技为新用户提供了免费试用套餐（12 个月内免费、永久免费等），包括 **Amazon S3** 在内的多种服务，这里 Amazon S3 时 12 个月内免费。用户可以在 [亚马逊云科技海外区域免费试用页面][trial-url] 了解更多详情，并开始免费体验。这不仅降低了用户的入门门槛，也让用户能够无负担地探索和学习亚马逊云科技的云服务。
 
 ## 开始使用 Amazon S3
 
@@ -19,7 +19,7 @@ Amazon Simple Storage Service (Amazon S3) 是一种对象存储服务，由亚�
 
 要使用 Amazon S3，你需要一个亚马逊云科技账户，如果你没有账户，系统会提示你在注册 Amazon S3 时创建一个。在你使用 Amazon S3 之前，系统不会向你收取费用。
 
-打开 [亚马逊云科技账号注册地址](https://aws.amazon.com/cn/q/?sc_channel=seo&amp;sc_campaign=blog1210)，点击右上角创建 AWS 账户。
+打开 [亚马逊云科技账号注册地址][trial-url]，点击右上角创建亚马逊云科技账户。
 
 ![创建 AWS 账户](../aws-ec2/images/23_1693042834.png)
 
@@ -39,11 +39,11 @@ Amazon Simple Storage Service (Amazon S3) 是一种对象存储服务，由亚�
    ![plan](../aws-ec2/images/23_1693045029.png)
 8. 完成注册\
    ![complete](../aws-ec2/images/23_1693045100.png)
-9. 登录亚马逊云科技控制台，[登录地址](https://console.aws.amazon.com/console/home)，选择根用户输入电子邮件地址，点击下一步会让输入密码，输入密码后就可以完成登录了。
+9. 登录亚马逊云科技控制台，[登录地址](https://console.aws.amazon.com/console/home?trk=56af0bad-f604-4f80-8f1a-f8a8b0d20118&amp;sc_channel=sm&amp;campaign=blog1352)，选择根用户输入电子邮件地址，点击下一步会让输入密码，输入密码后就可以完成登录了。
 
 ### 访问 Amazon S3 控制台
 
-登录亚马逊云科技管理控制台，然后在 &lt;https://console.aws.amazon.com/s3/&gt; 打开 Amazon S3 控制台。
+登录亚马逊云科技管理控制台，然后在 `https://console.aws.amazon.com/s3/?trk=56af0bad-f604-4f80-8f1a-f8a8b0d20118&amp;sc_channel=sm&amp;campaign=blog1352` 打开 Amazon S3 控制台。
 
 ### 创建存储桶
 
@@ -51,7 +51,7 @@ Amazon S3 中的每个对象都存储在存储桶中。你必须先创建一个 
 
 ![创建存储桶](images/24_1720333244.webp)
 
-在 Amazon S3 控制台中，点击“创建存储桶”按钮。为你的存储桶命名，并选择一个合适的 AWS 区域。完成设置后，点击“创建”。
+在 Amazon S3 控制台中，点击“创建存储桶”按钮。为你的存储桶命名，并选择一个合适的亚马逊云科技区域。完成设置后，点击“创建”。
 
 ### 上传文件
 
@@ -71,7 +71,10 @@ Amazon S3 中的每个对象都存储在存储桶中。你必须先创建一个 
 
 ## 结语
 
-Amazon S3 的灵活性和可靠性使其成为存储解决方案的理想选择。无论你是开发者、企业还是个人用户，都可以利用 S3 来满足你的存储需求。立即访问[免费试用页面](https://aws.amazon.com/cn/free/)，开始你的亚马逊云科技云服务之旅吧！
+Amazon S3 的灵活性和可靠性使其成为存储解决方案的理想选择。无论你是开发者、企业还是个人用户，都可以利用 S3 来满足你的存储需求。立即访问[免费试用页面][trial-url]，开始你的亚马逊云科技云服务之旅吧！
+
+&lt;!-- link reference definition --&gt;
+[trial-url]: https://aws.amazon.com/cn/free/?trk=56af0bad-f604-4f80-8f1a-f8a8b0d20118&amp;sc_channel=sm&amp;campaign=blog1352
 
 
 ---
