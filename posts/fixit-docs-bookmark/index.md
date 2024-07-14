@@ -24,7 +24,7 @@
 
 先睹为快，效果如下：
 
-TODO: 时间轴效果 GIF
+![时间轴动画](images/demo-outline.gif &#34;从上到下依次点亮时间轴&#34;)
 
 我不希望时间轴的实现和其他 UI 框架一样拥有复杂的 DOM 结构，所以使用最简单的 `ul` 和 `li` 即可，关键代码如下：
 
@@ -89,7 +89,7 @@ li::before {
 
 ## 背景图 loading 效果
 
-TODO: 背景图 loading 效果 GIF
+![背景图 loading 效果](images/demo-loading.gif &#34;先加载 loading 图再加重预览图&#34;)
 
 如果只是想实现图片的 loading 效果其实很简单，之前在「[浏览器 IMG 图片原生懒加载 Loading=&#34;lazy&#34;](/posts/native-img-loading-lazy/)」中有介绍过，但是这次我是把图片当作背景图片使用的，那问题来了，不通过 JS 背景图片的 loading 效果怎么实现呢？
 
@@ -142,13 +142,13 @@ TODO: 背景图 loading 效果 GIF
 
 ## 最后的效果
 
-为了方便使用 FixIt 主题的用户在自己的笔记内插入 FixIt 官方文档的书签，我把这个效果封装成了一个独立的组件，你可以在 [hugo-fixit/shortcode-docs-bookmark](https://github.com/hugo-fixit/shortcode-docs-bookmark) 中找到。
+为了方便使用 FixIt 主题的用户在自己的笔记内插入 FixIt 官方文档的书签，我把这个效果封装成了一个独立的组件，你可以在 [hugo-fixit/shortcode-docs-bookmark](https://github.com/hugo-fixit/shortcode-docs-bookmark) 中找到完整代码及食用方法。
 
 {{&lt; fixit-docs-bookmark &gt;}}
 
 ## 总结
 
-很多时候都感觉写 CSS 就像在写诗，相同的效果总觉得用 CSS 实现会比 JS 更加优雅。
+很多时候都感觉写 CSS 就像在写诗，相同的效果 CSS 实现往往会比 JS 更加优雅。
 
 
 ---
