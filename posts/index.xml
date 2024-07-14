@@ -1,4 +1,320 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>所有文章 | 菠菜眾長</title><link>https://lruihao.cn/posts/</link><description>所有文章 | 菠菜眾長</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><copyright>本站内容采用 CC BY-NC-SA 4.0 国际许可协议。</copyright><lastBuildDate>Sun, 07 Jul 2024 13:54:14 +0800</lastBuildDate><atom:link href="https://lruihao.cn/posts/" rel="self" type="application/rss+xml"/><item><title>wireless network-POJ-2236（并查集）</title><link>https://lruihao.cn/posts/poj-2236/</link><pubDate>Tue, 31 Jul 2018 11:10:54 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/poj-2236/</guid><description><![CDATA[<h2 id="题目链接wireless-networkhttppojorgproblemid2236" class="heading-element"><span>1 题目链接：<a href="http://poj.org/problem?id=2236"target="_blank" rel="external nofollow noopener noreferrer">wireless network<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></span>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>所有文章 | 菠菜眾長</title><link>https://lruihao.cn/posts/</link><description>所有文章 | 菠菜眾長</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><copyright>本站内容采用 CC BY-NC-SA 4.0 国际许可协议。</copyright><lastBuildDate>Sun, 14 Jul 2024 13:03:31 +0800</lastBuildDate><atom:link href="https://lruihao.cn/posts/" rel="self" type="application/rss+xml"/><item><title>关于 CSS 和 Scss 变量运算那些事</title><link>https://lruihao.cn/posts/css-scss-var/</link><pubDate>Sat, 30 Apr 2022 22:04:29 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/css-scss-var/</guid><description><![CDATA[<h2 id="问题分析" class="heading-element"><span>1 问题分析</span>
+  <a href="#%e9%97%ae%e9%a2%98%e5%88%86%e6%9e%90" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>昨天在开发 FixIt 的时候，在 Scss 中写 <code>max(foo, bar)</code> 函数比较不同的单位变量时报错了，但是在 CSS 中使用 <code>max</code> 或者 <code>min</code> 函数函数比较不同的单位变量是没有问题的。</p>
+<p>造成这一问题的原因是，在 Scss 中，也实现了 <code>max</code> 和 <code>min</code> 函数，但是在 Scss 中，<strong>不同单位的变量是不能进行运算的</strong>，所以使得在 Scss 中直接使用 <code>max</code> 或者 <code>min</code> 函数会提示单位不同的报错。（同类 Less 中的变量运算是支持不同单位的）</p>
+<p>知道造成问题的原因后，解决这个问题就很简单了，有很多种方法，有些方法感觉像在卡 BUG，有点意思，记录一下。</p>
+<h2 id="奇技淫巧" class="heading-element"><span>2 奇技淫巧</span>
+  <a href="#%e5%a5%87%e6%8a%80%e6%b7%ab%e5%b7%a7" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><ol>
+<li>
+<p>由于 <strong>Scss 区分大小写而 CSS 不区分</strong>，所以为了不让 Scss 中的函数覆盖 CSS 的函数，我们可以使用除了 <code>max</code> 以外的 2<sup>3</sup> - 1 种写法，这样就能使用原生 CSS 的 <code>max</code> 函数来比较了，就不会报错了。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-scss" data-lang="scss"><span class="line"><span class="cl"><span class="nc">.foo</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="na">padding-left</span><span class="o">:</span> <span class="nf">MAX</span><span class="p">(</span><span class="mi">10</span><span class="kt">vh</span><span class="o">,</span> <span class="mi">3</span><span class="mf">.5</span><span class="kt">rem</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>使用 Scss 没有的 CSS 函数 <a href="https://developer.mozilla.org/zh-CN/docs/web/css/clamp"target="_blank" rel="external nofollow noopener noreferrer"><code>clamp</code><i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>:</p>
+<p><code>clamp(MIN, VAL, MAX)</code> 其实就是表示 <code>max(MIN, min(VAL, MAX))</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-scss" data-lang="scss"><span class="line"><span class="cl"><span class="nc">.foo</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="na">padding-left</span><span class="o">:</span> <span class="nf">clamp</span><span class="p">(</span><span class="nv">$header-height</span><span class="o">,</span> <span class="mi">10</span><span class="kt">vh</span><span class="o">,</span> <span class="mi">10</span><span class="kt">vh</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>使用 <code>unquote($string)</code> 函数让 Scss 删除字符串最前和最后的单引号或双引号</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-scss" data-lang="scss"><span class="line"><span class="cl"><span class="nc">.foo</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="na">padding-left</span><span class="o">:</span> <span class="nf">unquote</span><span class="p">(</span><span class="s1">&#39;max(10vh, </span><span class="si">#{</span><span class="nv">$header-height</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ol>
+<h2 id="by-the-way" class="heading-element"><span>3 By the way</span>
+  <a href="#by-the-way" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>如果需要在 CSS 函数内部恢复 <code>Scss</code> 解析（引用 <code>Scss</code> 变量），只需用 <code>#{...}</code> 包围 Scss 代码。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-scss" data-lang="scss"><span class="line"><span class="cl"><span class="nv">$header-height</span><span class="o">:</span> <span class="mi">3</span><span class="mf">.5</span><span class="kt">rem</span> <span class="k">!default</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nc">.foo</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="na">margin</span><span class="o">:</span> <span class="nf">calc</span><span class="p">(</span><span class="mi">10</span><span class="kt">vh</span> <span class="o">-</span> <span class="nv">$header-height</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面的 Scss 将解析成 以下无效的 CSS 代码：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-css" data-lang="css"><span class="line"><span class="cl"><span class="p">.</span><span class="nc">foo</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">margin</span><span class="p">:</span> <span class="nb">calc</span><span class="p">(</span><span class="mi">10</span><span class="kt">vh</span> <span class="o">-</span> <span class="err">$</span><span class="n">header</span><span class="o">-</span><span class="n">height</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>用 <code>#{...}</code> 包围 Scss 变量</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-scss" data-lang="scss"><span class="line"><span class="cl"><span class="nv">$header-height</span><span class="o">:</span> <span class="mi">3</span><span class="mf">.5</span><span class="kt">rem</span> <span class="k">!default</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nc">.foo</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="na">margin</span><span class="o">:</span> <span class="nf">calc</span><span class="p">(</span><span class="mi">10</span><span class="kt">vh</span> <span class="o">-</span> <span class="si">#{</span><span class="nv">$header-height</span><span class="si">}</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div>]]></description></item><item><title>【CSS 奇技淫巧】CSS 实现时间轴、背景图 loading 和渐变边框</title><link>https://lruihao.cn/posts/fixit-docs-bookmark/</link><pubDate>Sun, 14 Jul 2024 13:03:31 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/fixit-docs-bookmark/</guid><description><![CDATA[<div class="featured-image"><img loading="eager" src="https://lruihao.cn/posts/fixit-docs-bookmark/images/featured-image.webp" alt="【CSS 奇技淫巧】CSS 实现时间轴、背景图 loading 和渐变边框" title="本文将通过一个实际应用场景，展示如何使用 CSS 实现时间轴、背景图 loading 效果、渐变边框等效果。" referrerpolicy="no-referrer"/></div><p>本文将通过一个实际应用场景，展示如何使用 CSS 实现时间轴、背景图 loading 效果、渐变边框等效果。</p>
+<h2 id="背景" class="heading-element"><span>1 背景</span>
+  <a href="#%e8%83%8c%e6%99%af" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>最近在调整 FixIt 主题的官方文档，调整过程中总觉得首页空荡荡的少了些内容，然后就在脑海里构思了如本文封面图所示的效果，希望引导用户阅读文档。</p>
+<p>需求分析：</p>
+<ol>
+<li>整体布局：左右两栏，左侧为主题文档大纲，右侧为网站预览图</li>
+<li>左侧需要显示时间轴，时间轴带有跑马灯动画效果（暗指文档阅读顺序）</li>
+<li>右侧加载网站预览图时，需要有 loading 效果</li>
+<li>整体边框需要渐变效果</li>
+</ol>
+<p>第一点很简单，一个 <code>flex</code> 布局就能搞定了，这里不再展开。</p>
+<p>接下来我们重点看看如何实现时间轴、背景图 loading 效果和渐变边框。</p>
+<h2 id="时间轴" class="heading-element"><span>2 时间轴</span>
+  <a href="#%e6%97%b6%e9%97%b4%e8%bd%b4" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>先睹为快，效果如下：</p>
+<p>TODO: 时间轴效果 GIF</p>
+<p>我不希望时间轴的实现和其他 UI 框架一样拥有复杂的 DOM 结构，所以使用最简单的 <code>ul</code> 和 <code>li</code> 即可，关键代码如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">ul</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;docs-outline&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;{{ $page1.Permalink }}&#34;</span> <span class="na">title</span><span class="o">=</span><span class="s">&#34;{{ $page1.Description }}&#34;</span><span class="p">&gt;</span>{{ $page1.LinkTitle }}<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;{{ $page2.Permalink }}&#34;</span> <span class="na">title</span><span class="o">=</span><span class="s">&#34;{{ $page2.Description }}&#34;</span><span class="p">&gt;</span>{{ $page2.LinkTitle }}<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;{{ $page3.Permalink }}&#34;</span> <span class="na">title</span><span class="o">=</span><span class="s">&#34;{{ $page3.Description }}&#34;</span><span class="p">&gt;</span>{{ $page3.LinkTitle }}<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;{{ $page4.Permalink }}&#34;</span> <span class="na">title</span><span class="o">=</span><span class="s">&#34;{{ $page4.Description }}&#34;</span><span class="p">&gt;</span>{{ $page4.LinkTitle }}<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>DOM 结构就这么简单，重点在于 CSS 的实现，实现思路如下：</p>
+<ul>
+<li>先把 <code>ul</code> 设置 <code>list-style: none</code>，去掉默认的 <code>li</code> 样式</li>
+<li>利用 <code>::before</code> 和 <code>::after</code> 伪元素实现时间轴的小圆点和连接线</li>
+<li>动画效果：四个小圆点默认和连接线一样灰色，然后依次点亮，可以使用 <code>animation-delay</code> 属性实现</li>
+</ul>
+<p>动画效果关键帧代码如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-scss" data-lang="scss"><span class="line"><span class="cl"><span class="nt">li</span><span class="nd">::before</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="na">border</span><span class="o">:</span> <span class="nf">var</span><span class="p">(</span><span class="o">--</span><span class="n">timeline-width</span><span class="p">)</span> <span class="ni">solid</span> <span class="nf">var</span><span class="p">(</span><span class="o">--</span><span class="n">timeline-color</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="na">animation-name</span><span class="o">:</span> <span class="n">border-color-fade</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="na">animation-duration</span><span class="o">:</span> <span class="mi">2</span><span class="kt">s</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="na">animation-iteration-count</span><span class="o">:</span> <span class="ni">infinite</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="na">animation-delay</span><span class="o">:</span> <span class="nf">calc</span><span class="p">(</span><span class="nf">var</span><span class="p">(</span><span class="o">--</span><span class="n">timeline-index</span><span class="p">)</span> <span class="o">*</span> <span class="mi">0</span><span class="mf">.3</span><span class="kt">s</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">@keyframes</span> <span class="nt">border-color-fade</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">0</span><span class="err">%</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="na">border-color</span><span class="o">:</span> <span class="nf">var</span><span class="p">(</span><span class="o">--</span><span class="n">timeline-color</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">50</span><span class="err">%</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="na">border-color</span><span class="o">:</span> <span class="nf">var</span><span class="p">(</span><span class="o">--</span><span class="n">timeline-cyclic-color</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">100</span><span class="err">%</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="na">border-color</span><span class="o">:</span> <span class="nf">var</span><span class="p">(</span><span class="o">--</span><span class="n">timeline-color</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>通过 <code>nth-child</code> 选择器来设置 <code>--timeline-index</code> 来线性增加每个小圆点的动画延迟时间，从而在视觉上出现依次点亮的效果。</p>
+<p>如果使用 SCSS 可以简化代码，如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-scss" data-lang="scss"><span class="line"><span class="cl"><span class="k">@for</span> <span class="nv">$i</span> <span class="ow">from</span> <span class="mi">1</span> <span class="ow">through</span> <span class="mi">4</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">li</span><span class="nd">:nth-child</span><span class="o">(</span><span class="si">#{</span><span class="nv">$i</span><span class="si">}</span><span class="o">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="na">--timeline-index</span><span class="o">:</span> <span class="si">#{</span><span class="nv">$i</span><span class="si">}</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">&amp;</span><span class="nd">::before</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="na">content</span><span class="o">:</span> <span class="s1">&#39;</span><span class="si">#{</span><span class="nv">$i</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>如果需要在小圆点的内部显示序号，可以像设置 <code>--timeline-index</code> 一样依次设置 <code>content</code>。</p>
+<p>然后在小圆点点亮动画过程中同时转变 <code>color: transparent</code> 到具体的颜色即可。</p>
+<h2 id="背景图-loading-效果" class="heading-element"><span>3 背景图 loading 效果</span>
+  <a href="#%e8%83%8c%e6%99%af%e5%9b%be-loading-%e6%95%88%e6%9e%9c" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>TODO: 背景图 loading 效果 GIF</p>
+<p>如果只是想实现图片的 loading 效果其实很简单，之前在「<a href="/posts/native-img-loading-lazy/">浏览器 IMG 图片原生懒加载 Loading=&ldquo;lazy&rdquo;</a>」中有介绍过，但是这次我是把图片当作背景图片使用的，那问题来了，不通过 JS 背景图片的 loading 效果怎么实现呢？</p>
+<p>还是可以利用 <code>::before</code> 和 <code>::after</code> 伪元素，一个伪元素用来显示 loading 图，另一个伪元素用来显示背景图片。</p>
+<p>原理：利用两张图片加载的时间差，由于 loading 图片很小，所以加载很快，而背景图片加载较慢，然后默认不设置 <code>z-index</code> 的情况下，后面的元素会在上层，所以在背景图片加载完成前，loading 图片会一直显示。</p>
+<p>关键代码如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-scss" data-lang="scss"><span class="line"><span class="cl"><span class="nc">.docs-preview</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="na">&amp;</span><span class="o">::</span><span class="n">before</span><span class="o">,</span>
+</span></span><span class="line"><span class="cl">  <span class="o">&amp;::</span><span class="n">after</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="na">content</span><span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="na">position</span><span class="o">:</span> <span class="ni">absolute</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="na">top</span><span class="o">:</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="na">left</span><span class="o">:</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="na">width</span><span class="o">:</span> <span class="mi">100</span><span class="kt">%</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="na">height</span><span class="o">:</span> <span class="mi">100</span><span class="kt">%</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="na">background-position</span><span class="o">:</span> <span class="ni">center</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="na">background-repeat</span><span class="o">:</span> <span class="ni">no-repeat</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">&amp;</span><span class="nd">::before</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="na">background-color</span><span class="o">:</span> <span class="nf">rgba</span><span class="p">(</span><span class="mi">204</span><span class="o">,</span> <span class="mi">204</span><span class="o">,</span> <span class="mi">204</span><span class="o">,</span> <span class="mi">0</span><span class="mf">.1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="na">background-image</span><span class="o">:</span> <span class="sx">url(/images/loading.min.svg)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="na">background-size</span><span class="o">:</span> <span class="mi">60</span><span class="kt">px</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="o">[</span><span class="nt">data-theme</span><span class="o">=</span><span class="s1">&#39;dark&#39;</span><span class="o">]</span> <span class="k">&amp;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="na">background-color</span><span class="o">:</span> <span class="nf">rgba</span><span class="p">(</span><span class="mi">0</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="mi">0</span><span class="mf">.1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">&amp;</span><span class="nd">::after</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="na">background-image</span><span class="o">:</span> <span class="sx">url(/images/apple-devices-preview.webp)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="na">background-size</span><span class="o">:</span> <span class="mi">130</span><span class="kt">%</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="渐变边框" class="heading-element"><span>4 渐变边框</span>
+  <a href="#%e6%b8%90%e5%8f%98%e8%be%b9%e6%a1%86" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>最后一个效果是渐变边框，这个效果其实很简单，利用线性渐变 <code>linear-gradient</code> 分别设置 <code>padding-box</code> 和 <code>border-box</code> 的背景即可实现。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-scss" data-lang="scss"><span class="line"><span class="cl"><span class="nc">.docs-navigation</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="na">background</span><span class="o">:</span> <span class="nf">linear-gradient</span><span class="p">(</span><span class="nv">$global-background-color</span><span class="o">,</span> <span class="nv">$global-background-color</span><span class="p">)</span> <span class="ni">padding-box</span><span class="o">,</span> <span class="nf">linear-gradient</span><span class="p">(</span><span class="mi">45</span><span class="kt">deg</span><span class="o">,</span> <span class="mh">#42d392</span><span class="o">,</span> <span class="mh">#FF7359</span><span class="p">)</span> <span class="ni">border-box</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="最后的效果" class="heading-element"><span>5 最后的效果</span>
+  <a href="#%e6%9c%80%e5%90%8e%e7%9a%84%e6%95%88%e6%9e%9c" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>为了方便使用 FixIt 主题的用户在自己的笔记内插入 FixIt 官方文档的书签，我把这个效果封装成了一个独立的组件，你可以在 <a href="https://github.com/hugo-fixit/shortcode-docs-bookmark"target="_blank" rel="external nofollow noopener noreferrer">hugo-fixit/shortcode-docs-bookmark<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 中找到。</p>
+<div class="fixit-docs-navigation"><ul class="fixit-docs-outline"><li><a href="https://fixit.lruihao.cn/zh-cn/documentation/installation/" title="只需几个步骤即可为你的 Hugo 站点安装 FixIt 主题。">安装篇</a></li><li><a href="https://fixit.lruihao.cn/zh-cn/documentation/getting-started/" title="安装和使用 FixIt 主题的快速入门和指南。">入门篇</a></li><li><a href="https://fixit.lruihao.cn/zh-cn/documentation/content-management/" title="了解如何在 FixIt 主题中快速，直观地创建和组织内容。">内容管理</a></li><li><a href="https://fixit.lruihao.cn/zh-cn/documentation/advanced/" title="探索 Hugo - FixIt 主题的的进阶使用。">进阶篇</a></li></ul><div class="fixit-docs-preview"></div></div>
+<h2 id="总结" class="heading-element"><span>6 总结</span>
+  <a href="#%e6%80%bb%e7%bb%93" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>很多时候都感觉写 CSS 就像在写诗，相同的效果总觉得用 CSS 实现会比 JS 更加优雅。</p>]]></description></item><item><title>wireless network-POJ-2236（并查集）</title><link>https://lruihao.cn/posts/poj-2236/</link><pubDate>Tue, 31 Jul 2018 11:10:54 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/poj-2236/</guid><description><![CDATA[<h2 id="题目链接wireless-networkhttppojorgproblemid2236" class="heading-element"><span>1 题目链接：<a href="http://poj.org/problem?id=2236"target="_blank" rel="external nofollow noopener noreferrer">wireless network<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></span>
   <a href="#%e9%a2%98%e7%9b%ae%e9%93%be%e6%8e%a5wireless-networkhttppojorgproblemid2236" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
   </a>
@@ -450,7 +766,219 @@ SUCCESS
 <li>计算宽度的时候，没有使用 JS 计算，而是直接使用了 CSS 的 <code>clamp()</code> 函数，一目了然。</li>
 <li>为了鼠标移动到可拖拽边界时显示一条蓝色的线，但是又不想改变元素的宽度，所以 <code>resize-bar</code> 元素的使用了 <code>position: absolute</code>，并且设置了 <code>translateX(-50%)</code> 来让其居中显示。当鼠标移入时，通过线性渐变的背景色巧妙地来实现蓝色线条的效果。</li>
 </ul>
-<p>正是因为第二点的实现方式，使得在边界线左右两侧都能拖拽，这一点是优于 VSCode 的，因为 VSCode 只能在左侧拖拽 😂。</p>]]></description></item><item><title>探索 Amazon S3 的无限存储潜力</title><link>https://lruihao.cn/posts/d1fc0c7/</link><pubDate>Sun, 07 Jul 2024 13:54:14 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/d1fc0c7/</guid><description><![CDATA[<p>在数字化时代，数据是企业最宝贵的资产之一。如何安全、高效地存储和访问这些数据，成为了许多企业面临的挑战。亚马逊云服务作为全球领先的云服务提供商，提供了一系列的解决方案来满足不同客户的需求。今天，我们将重点介绍亚马逊云科技的 Amazon S3（Simple Storage Service），一种简单、可扩展且持久的对象存储服务。</p>
+<p>正是因为第二点的实现方式，使得在边界线左右两侧都能拖拽，这一点是优于 VSCode 的，因为 VSCode 只能在左侧拖拽 😂。</p>]]></description></item><item><title>【CSS 奇技淫巧】CSS 实现时间轴、背景图 loading 和渐变边框</title><link>https://lruihao.cn/posts/fixit-docs-bookmark/</link><pubDate>Sun, 14 Jul 2024 13:03:31 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/fixit-docs-bookmark/</guid><description><![CDATA[<div class="featured-image"><img loading="eager" src="https://lruihao.cn/posts/fixit-docs-bookmark/images/featured-image.webp" alt="【CSS 奇技淫巧】CSS 实现时间轴、背景图 loading 和渐变边框" title="本文将通过一个实际应用场景，展示如何使用 CSS 实现时间轴、背景图 loading 效果、渐变边框等效果。" referrerpolicy="no-referrer"/></div><p>本文将通过一个实际应用场景，展示如何使用 CSS 实现时间轴、背景图 loading 效果、渐变边框等效果。</p>
+<h2 id="背景" class="heading-element"><span>1 背景</span>
+  <a href="#%e8%83%8c%e6%99%af" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>最近在调整 FixIt 主题的官方文档，调整过程中总觉得首页空荡荡的少了些内容，然后就在脑海里构思了如本文封面图所示的效果，希望引导用户阅读文档。</p>
+<p>需求分析：</p>
+<ol>
+<li>整体布局：左右两栏，左侧为主题文档大纲，右侧为网站预览图</li>
+<li>左侧需要显示时间轴，时间轴带有跑马灯动画效果（暗指文档阅读顺序）</li>
+<li>右侧加载网站预览图时，需要有 loading 效果</li>
+<li>整体边框需要渐变效果</li>
+</ol>
+<p>第一点很简单，一个 <code>flex</code> 布局就能搞定了，这里不再展开。</p>
+<p>接下来我们重点看看如何实现时间轴、背景图 loading 效果和渐变边框。</p>
+<h2 id="时间轴" class="heading-element"><span>2 时间轴</span>
+  <a href="#%e6%97%b6%e9%97%b4%e8%bd%b4" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>先睹为快，效果如下：</p>
+<p>TODO: 时间轴效果 GIF</p>
+<p>我不希望时间轴的实现和其他 UI 框架一样拥有复杂的 DOM 结构，所以使用最简单的 <code>ul</code> 和 <code>li</code> 即可，关键代码如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">ul</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;docs-outline&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;{{ $page1.Permalink }}&#34;</span> <span class="na">title</span><span class="o">=</span><span class="s">&#34;{{ $page1.Description }}&#34;</span><span class="p">&gt;</span>{{ $page1.LinkTitle }}<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;{{ $page2.Permalink }}&#34;</span> <span class="na">title</span><span class="o">=</span><span class="s">&#34;{{ $page2.Description }}&#34;</span><span class="p">&gt;</span>{{ $page2.LinkTitle }}<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;{{ $page3.Permalink }}&#34;</span> <span class="na">title</span><span class="o">=</span><span class="s">&#34;{{ $page3.Description }}&#34;</span><span class="p">&gt;</span>{{ $page3.LinkTitle }}<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;{{ $page4.Permalink }}&#34;</span> <span class="na">title</span><span class="o">=</span><span class="s">&#34;{{ $page4.Description }}&#34;</span><span class="p">&gt;</span>{{ $page4.LinkTitle }}<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>DOM 结构就这么简单，重点在于 CSS 的实现，实现思路如下：</p>
+<ul>
+<li>先把 <code>ul</code> 设置 <code>list-style: none</code>，去掉默认的 <code>li</code> 样式</li>
+<li>利用 <code>::before</code> 和 <code>::after</code> 伪元素实现时间轴的小圆点和连接线</li>
+<li>动画效果：四个小圆点默认和连接线一样灰色，然后依次点亮，可以使用 <code>animation-delay</code> 属性实现</li>
+</ul>
+<p>动画效果关键帧代码如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-scss" data-lang="scss"><span class="line"><span class="cl"><span class="nt">li</span><span class="nd">::before</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="na">border</span><span class="o">:</span> <span class="nf">var</span><span class="p">(</span><span class="o">--</span><span class="n">timeline-width</span><span class="p">)</span> <span class="ni">solid</span> <span class="nf">var</span><span class="p">(</span><span class="o">--</span><span class="n">timeline-color</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="na">animation-name</span><span class="o">:</span> <span class="n">border-color-fade</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="na">animation-duration</span><span class="o">:</span> <span class="mi">2</span><span class="kt">s</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="na">animation-iteration-count</span><span class="o">:</span> <span class="ni">infinite</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="na">animation-delay</span><span class="o">:</span> <span class="nf">calc</span><span class="p">(</span><span class="nf">var</span><span class="p">(</span><span class="o">--</span><span class="n">timeline-index</span><span class="p">)</span> <span class="o">*</span> <span class="mi">0</span><span class="mf">.3</span><span class="kt">s</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">@keyframes</span> <span class="nt">border-color-fade</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">0</span><span class="err">%</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="na">border-color</span><span class="o">:</span> <span class="nf">var</span><span class="p">(</span><span class="o">--</span><span class="n">timeline-color</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">50</span><span class="err">%</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="na">border-color</span><span class="o">:</span> <span class="nf">var</span><span class="p">(</span><span class="o">--</span><span class="n">timeline-cyclic-color</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">100</span><span class="err">%</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="na">border-color</span><span class="o">:</span> <span class="nf">var</span><span class="p">(</span><span class="o">--</span><span class="n">timeline-color</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>通过 <code>nth-child</code> 选择器来设置 <code>--timeline-index</code> 来线性增加每个小圆点的动画延迟时间，从而在视觉上出现依次点亮的效果。</p>
+<p>如果使用 SCSS 可以简化代码，如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-scss" data-lang="scss"><span class="line"><span class="cl"><span class="k">@for</span> <span class="nv">$i</span> <span class="ow">from</span> <span class="mi">1</span> <span class="ow">through</span> <span class="mi">4</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">li</span><span class="nd">:nth-child</span><span class="o">(</span><span class="si">#{</span><span class="nv">$i</span><span class="si">}</span><span class="o">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="na">--timeline-index</span><span class="o">:</span> <span class="si">#{</span><span class="nv">$i</span><span class="si">}</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">&amp;</span><span class="nd">::before</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="na">content</span><span class="o">:</span> <span class="s1">&#39;</span><span class="si">#{</span><span class="nv">$i</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>如果需要在小圆点的内部显示序号，可以像设置 <code>--timeline-index</code> 一样依次设置 <code>content</code>。</p>
+<p>然后在小圆点点亮动画过程中同时转变 <code>color: transparent</code> 到具体的颜色即可。</p>
+<h2 id="背景图-loading-效果" class="heading-element"><span>3 背景图 loading 效果</span>
+  <a href="#%e8%83%8c%e6%99%af%e5%9b%be-loading-%e6%95%88%e6%9e%9c" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>TODO: 背景图 loading 效果 GIF</p>
+<p>如果只是想实现图片的 loading 效果其实很简单，之前在「<a href="/posts/native-img-loading-lazy/">浏览器 IMG 图片原生懒加载 Loading=&ldquo;lazy&rdquo;</a>」中有介绍过，但是这次我是把图片当作背景图片使用的，那问题来了，不通过 JS 背景图片的 loading 效果怎么实现呢？</p>
+<p>还是可以利用 <code>::before</code> 和 <code>::after</code> 伪元素，一个伪元素用来显示 loading 图，另一个伪元素用来显示背景图片。</p>
+<p>原理：利用两张图片加载的时间差，由于 loading 图片很小，所以加载很快，而背景图片加载较慢，然后默认不设置 <code>z-index</code> 的情况下，后面的元素会在上层，所以在背景图片加载完成前，loading 图片会一直显示。</p>
+<p>关键代码如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-scss" data-lang="scss"><span class="line"><span class="cl"><span class="nc">.docs-preview</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="na">&amp;</span><span class="o">::</span><span class="n">before</span><span class="o">,</span>
+</span></span><span class="line"><span class="cl">  <span class="o">&amp;::</span><span class="n">after</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="na">content</span><span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="na">position</span><span class="o">:</span> <span class="ni">absolute</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="na">top</span><span class="o">:</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="na">left</span><span class="o">:</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="na">width</span><span class="o">:</span> <span class="mi">100</span><span class="kt">%</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="na">height</span><span class="o">:</span> <span class="mi">100</span><span class="kt">%</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="na">background-position</span><span class="o">:</span> <span class="ni">center</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="na">background-repeat</span><span class="o">:</span> <span class="ni">no-repeat</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">&amp;</span><span class="nd">::before</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="na">background-color</span><span class="o">:</span> <span class="nf">rgba</span><span class="p">(</span><span class="mi">204</span><span class="o">,</span> <span class="mi">204</span><span class="o">,</span> <span class="mi">204</span><span class="o">,</span> <span class="mi">0</span><span class="mf">.1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="na">background-image</span><span class="o">:</span> <span class="sx">url(/images/loading.min.svg)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="na">background-size</span><span class="o">:</span> <span class="mi">60</span><span class="kt">px</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="o">[</span><span class="nt">data-theme</span><span class="o">=</span><span class="s1">&#39;dark&#39;</span><span class="o">]</span> <span class="k">&amp;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="na">background-color</span><span class="o">:</span> <span class="nf">rgba</span><span class="p">(</span><span class="mi">0</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="mi">0</span><span class="mf">.1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">&amp;</span><span class="nd">::after</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="na">background-image</span><span class="o">:</span> <span class="sx">url(/images/apple-devices-preview.webp)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="na">background-size</span><span class="o">:</span> <span class="mi">130</span><span class="kt">%</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="渐变边框" class="heading-element"><span>4 渐变边框</span>
+  <a href="#%e6%b8%90%e5%8f%98%e8%be%b9%e6%a1%86" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>最后一个效果是渐变边框，这个效果其实很简单，利用线性渐变 <code>linear-gradient</code> 分别设置 <code>padding-box</code> 和 <code>border-box</code> 的背景即可实现。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-scss" data-lang="scss"><span class="line"><span class="cl"><span class="nc">.docs-navigation</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="na">background</span><span class="o">:</span> <span class="nf">linear-gradient</span><span class="p">(</span><span class="nv">$global-background-color</span><span class="o">,</span> <span class="nv">$global-background-color</span><span class="p">)</span> <span class="ni">padding-box</span><span class="o">,</span> <span class="nf">linear-gradient</span><span class="p">(</span><span class="mi">45</span><span class="kt">deg</span><span class="o">,</span> <span class="mh">#42d392</span><span class="o">,</span> <span class="mh">#FF7359</span><span class="p">)</span> <span class="ni">border-box</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="最后的效果" class="heading-element"><span>5 最后的效果</span>
+  <a href="#%e6%9c%80%e5%90%8e%e7%9a%84%e6%95%88%e6%9e%9c" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>为了方便使用 FixIt 主题的用户在自己的笔记内插入 FixIt 官方文档的书签，我把这个效果封装成了一个独立的组件，你可以在 <a href="https://github.com/hugo-fixit/shortcode-docs-bookmark"target="_blank" rel="external nofollow noopener noreferrer">hugo-fixit/shortcode-docs-bookmark<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 中找到。</p>
+<div class="fixit-docs-navigation"><ul class="fixit-docs-outline"><li><a href="https://fixit.lruihao.cn/zh-cn/documentation/installation/" title="只需几个步骤即可为你的 Hugo 站点安装 FixIt 主题。">安装篇</a></li><li><a href="https://fixit.lruihao.cn/zh-cn/documentation/getting-started/" title="安装和使用 FixIt 主题的快速入门和指南。">入门篇</a></li><li><a href="https://fixit.lruihao.cn/zh-cn/documentation/content-management/" title="了解如何在 FixIt 主题中快速，直观地创建和组织内容。">内容管理</a></li><li><a href="https://fixit.lruihao.cn/zh-cn/documentation/advanced/" title="探索 Hugo - FixIt 主题的的进阶使用。">进阶篇</a></li></ul><div class="fixit-docs-preview"></div></div>
+<h2 id="总结" class="heading-element"><span>6 总结</span>
+  <a href="#%e6%80%bb%e7%bb%93" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>很多时候都感觉写 CSS 就像在写诗，相同的效果总觉得用 CSS 实现会比 JS 更加优雅。</p>]]></description></item><item><title>探索 Amazon S3 的无限存储潜力</title><link>https://lruihao.cn/posts/d1fc0c7/</link><pubDate>Sun, 07 Jul 2024 13:54:14 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/d1fc0c7/</guid><description><![CDATA[<p>在数字化时代，数据是企业最宝贵的资产之一。如何安全、高效地存储和访问这些数据，成为了许多企业面临的挑战。亚马逊云服务作为全球领先的云服务提供商，提供了一系列的解决方案来满足不同客户的需求。今天，我们将重点介绍亚马逊云科技的 Amazon S3（Simple Storage Service），一种简单、可扩展且持久的对象存储服务。</p>
 <h2 id="了解-amazon-s3" class="heading-element"><span>1 了解 Amazon S3</span>
   <a href="#%e4%ba%86%e8%a7%a3-amazon-s3" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
@@ -3886,205 +4414,4 @@ SUCCESS
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git log --show-signature</span></span></code></pre></td></tr></table>
 </div>
-</div>]]></description></item><item><title>如何给 npm 包打补丁？</title><link>https://lruihao.cn/posts/patch-package/</link><pubDate>Thu, 12 Oct 2023 22:37:56 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/patch-package/</guid><description><![CDATA[<div class="featured-image"><img loading="eager" src="images/featured-image.png" alt="如何给 npm 包打补丁？" title="如何给 npm 包打补丁？" referrerpolicy="no-referrer"/></div><h2 id="背景" class="heading-element"><span>1 背景</span>
-  <a href="#%e8%83%8c%e6%99%af" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h2><p>今天鬼事神差想起去年写的一段 dirty hack 代码，当时是在 <a href="https://github.com/Lruihao/vue-minder-editor-extended"target="_blank" rel="external nofollow noopener noreferrer">vue-minder-editor-extended<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 这个项目为了解决百度开源的 <a href="https://github.com/fex-team/kityminder-core"target="_blank" rel="external nofollow noopener noreferrer">@7polo/kityminder-core<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> npm 包的 bug，但是百度早在 17-18 年就停止更新了，我又不想自己 fork 一份源码然后重新发包，于是当时直接从 node_modules 里面复制出了打包后的源码进行修改，然后放到了项目中 <code>src/script/patch/kityminder.core.js</code>，并因修改了引入：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-diff" data-lang="diff"><span class="line"><span class="cl"><span class="gd">- require(&#39;@7polo/kityminder-core&#39;);
-</span></span></span><span class="line"><span class="cl"><span class="gd"></span><span class="gi">+ require(&#39;./script/patch/kityminder.core&#39;);
-</span></span></span></code></pre></td></tr></table>
-</div>
-</div><p>但是今天刷抖音看到类似的问题，回想起来这种做法真的是太蠢了，于是就想着有没有更好的办法，于是就一番搜索有了这篇文章。</p>
-<h2 id="安装-patch-package" class="heading-element"><span>2 安装 patch-package</span>
-  <a href="#%e5%ae%89%e8%a3%85-patch-package" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h2><div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">npm i patch-package --save-dev</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="修改源码" class="heading-element"><span>3 修改源码</span>
-  <a href="#%e4%bf%ae%e6%94%b9%e6%ba%90%e7%a0%81" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h2><p>在 <code>node_modules</code> 目录下找到需要打补丁的包，然后修改源码，比如我这里修改了 <code>node_modules/@7polo/kityminder-core/dist/kityminder.core.js</code>，修改后直接保存。</p>
-<h2 id="生成补丁" class="heading-element"><span>4 生成补丁</span>
-  <a href="#%e7%94%9f%e6%88%90%e8%a1%a5%e4%b8%81" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h2><div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">npx patch-package @7polo/kityminder-core</span></span></code></pre></td></tr></table>
-</div>
-</div><p>此时在根目录下会得到如下文件：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">├── patches
-</span></span><span class="line"><span class="cl">│   └── @7polo-kityminder-core+1.4.53.patch
-</span></span><span class="line"><span class="cl">└── package.json</span></span></code></pre></td></tr></table>
-</div>
-</div><p>想看看这个补丁文件里面是什么东西，打开 <code>patches/@7polo-kityminder-core+1.4.53.patch</code>，内容如下：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span><span class="lnt">37
-</span><span class="lnt">38
-</span><span class="lnt">39
-</span><span class="lnt">40
-</span><span class="lnt">41
-</span><span class="lnt">42
-</span><span class="lnt">43
-</span><span class="lnt">44
-</span><span class="lnt">45
-</span><span class="lnt">46
-</span><span class="lnt">47
-</span><span class="lnt">48
-</span><span class="lnt">49
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-diff" data-lang="diff"><span class="line"><span class="cl"><span class="gh">diff --git a/node_modules/@7polo/kityminder-core/.DS_Store b/node_modules/@7polo/kityminder-core/.DS_Store
-</span></span></span><span class="line"><span class="cl"><span class="gh"></span>new file mode 100644
-</span></span><span class="line"><span class="cl"><span class="gh">index 0000000..c88a062
-</span></span></span><span class="line"><span class="cl"><span class="gh"></span>Binary files /dev/null and b/node_modules/@7polo/kityminder-core/.DS_Store differ
-</span></span><span class="line"><span class="cl"><span class="gh">diff --git a/node_modules/@7polo/kityminder-core/dist/kityminder.core.js b/node_modules/@7polo/kityminder-core/dist/kityminder.core.js
-</span></span></span><span class="line"><span class="cl"><span class="gh">index 78dfbaf..32f276d 100644
-</span></span></span><span class="line"><span class="cl"><span class="gh"></span><span class="gd">--- a/node_modules/@7polo/kityminder-core/dist/kityminder.core.js
-</span></span></span><span class="line"><span class="cl"><span class="gd"></span><span class="gi">+++ b/node_modules/@7polo/kityminder-core/dist/kityminder.core.js
-</span></span></span><span class="line"><span class="cl"><span class="gi"></span><span class="gu">@@ -513,6 +513,8 @@ _p[9] = {
-</span></span></span><span class="line"><span class="cl"><span class="gu"></span>          *
-</span></span><span class="line"><span class="cl">          * @param {string} name 要执行的命令名称
-</span></span><span class="line"><span class="cl">          * @param {argument} args 要传递给命令的其它参数
-</span></span><span class="line"><span class="cl"><span class="gi">+         * 
-</span></span></span><span class="line"><span class="cl"><span class="gi">+         * @patch 2022.10.19 @Lruihao 修复缺少 afterExecCommand hook
-</span></span></span><span class="line"><span class="cl"><span class="gi"></span>          */
-</span></span><span class="line"><span class="cl">             execCommand: function(name) {
-</span></span><span class="line"><span class="cl">                 if (!name) return null;
-</span></span><span class="line"><span class="cl"><span class="gu">@@ -547,6 +549,8 @@ _p[9] = {
-</span></span></span><span class="line"><span class="cl"><span class="gu"></span>                         this._interactChange();
-</span></span><span class="line"><span class="cl">                     }
-</span></span><span class="line"><span class="cl">                 }
-</span></span><span class="line"><span class="cl"><span class="gi">+                // Fix: afterExecCommand hook
-</span></span></span><span class="line"><span class="cl"><span class="gi">+                this._fire(new MinderEvent(&#34;afterExecCommand&#34;, eventParams, false));
-</span></span></span><span class="line"><span class="cl"><span class="gi"></span>                 return result === undefined ? null : result;
-</span></span><span class="line"><span class="cl">             }
-</span></span><span class="line"><span class="cl">         });
-</span></span><span class="line"><span class="cl"><span class="gu">@@ -1254,6 +1258,22 @@ _p[13] = {
-</span></span></span><span class="line"><span class="cl"><span class="gu"></span>                 });
-</span></span><span class="line"><span class="cl">                 return this;
-</span></span><span class="line"><span class="cl">             },
-</span></span><span class="line"><span class="cl"><span class="gi">+            /**
-</span></span></span><span class="line"><span class="cl"><span class="gi">+             * @patch 2022.10.26 @Lruihao 修复缺少 once 侦听指定事件一次
-</span></span></span><span class="line"><span class="cl"><span class="gi">+             * @param {String} name 
-</span></span></span><span class="line"><span class="cl"><span class="gi">+             * @param {Function} callback 
-</span></span></span><span class="line"><span class="cl"><span class="gi">+             */
-</span></span></span><span class="line"><span class="cl"><span class="gi">+            once: function(name, callback) {
-</span></span></span><span class="line"><span class="cl"><span class="gi">+                var km = this;
-</span></span></span><span class="line"><span class="cl"><span class="gi">+                name.split(/\s+/).forEach(function(n) {
-</span></span></span><span class="line"><span class="cl"><span class="gi">+                    const tmpCallback = (e) =&gt; {
-</span></span></span><span class="line"><span class="cl"><span class="gi">+                      callback(e);
-</span></span></span><span class="line"><span class="cl"><span class="gi">+                      km.off(n.toLowerCase(), tmpCallback)
-</span></span></span><span class="line"><span class="cl"><span class="gi">+                    };
-</span></span></span><span class="line"><span class="cl"><span class="gi">+                    km._listen(n.toLowerCase(), tmpCallback);
-</span></span></span><span class="line"><span class="cl"><span class="gi">+                });
-</span></span></span><span class="line"><span class="cl"><span class="gi">+                return this;
-</span></span></span><span class="line"><span class="cl"><span class="gi">+            },
-</span></span></span><span class="line"><span class="cl"><span class="gi"></span>             off: function(name, callback) {
-</span></span><span class="line"><span class="cl">                 var types = name.split(/\s+/);
-</span></span><span class="line"><span class="cl">                 var i, j, callbacks, removeIndex;
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>发现其实就是一个 diff 文件，这个文件里面记录了修改的内容，以及修改的位置，这样就可以在安装依赖的时候自动执行补丁了。</p>
-<h2 id="使用补丁" class="heading-element"><span>5 使用补丁</span>
-  <a href="#%e4%bd%bf%e7%94%a8%e8%a1%a5%e4%b8%81" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h2><p>在 <code>package.json</code> 中添加如下内容：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="nt">&#34;scripts&#34;</span><span class="p">:</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nt">&#34;postinstall&#34;</span><span class="p">:</span> <span class="s2">&#34;patch-package&#34;</span>
-</span></span><span class="line"><span class="cl">  <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="提交补丁" class="heading-element"><span>6 提交补丁</span>
-  <a href="#%e6%8f%90%e4%ba%a4%e8%a1%a5%e4%b8%81" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h2><div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git add .
-</span></span><span class="line"><span class="cl">git commit -m <span class="s2">&#34;Chore: patch @7polo/kityminder-core&#34;</span>
-</span></span><span class="line"><span class="cl">git push</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="测试" class="heading-element"><span>7 测试</span>
-  <a href="#%e6%b5%8b%e8%af%95" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h2><p>执行一次完整的依赖安装 =&gt; 构建发布，一切符合预期，大功告成~</p>
-]]></description></item></channel></rss>
+</div>]]></description></item></channel></rss>
