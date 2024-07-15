@@ -1,4 +1,69 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>所有文章 | 菠菜眾長</title><link>https://lruihao.cn/posts/</link><description>所有文章 | 菠菜眾長</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><copyright>本站内容采用 CC BY-NC-SA 4.0 国际许可协议。</copyright><lastBuildDate>Sun, 14 Jul 2024 13:03:31 +0800</lastBuildDate><atom:link href="https://lruihao.cn/posts/" rel="self" type="application/rss+xml"/><item><title>关于 CSS 和 Scss 变量运算那些事</title><link>https://lruihao.cn/posts/css-scss-var/</link><pubDate>Sat, 30 Apr 2022 22:04:29 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/css-scss-var/</guid><description><![CDATA[<h2 id="问题分析" class="heading-element"><span>1 问题分析</span>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>所有文章 | 菠菜眾長</title><link>https://lruihao.cn/posts/</link><description>所有文章 | 菠菜眾長</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><copyright>本站内容采用 CC BY-NC-SA 4.0 国际许可协议。</copyright><lastBuildDate>Mon, 15 Jul 2024 10:40:12 +0800</lastBuildDate><atom:link href="https://lruihao.cn/posts/" rel="self" type="application/rss+xml"/><item><title>异形元素怎么设置阴影</title><link>https://lruihao.cn/posts/drop-shadow/</link><pubDate>Mon, 15 Jul 2024 10:40:12 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/drop-shadow/</guid><description><![CDATA[<p>今天记录一个 CSS 小知识点，如何给异形元素设置阴影。</p>
+<h2 id="遇到的问题" class="heading-element"><span>1 遇到的问题</span>
+  <a href="#%e9%81%87%e5%88%b0%e7%9a%84%e9%97%ae%e9%a2%98" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>之前给博客头部设置了一个 <a href="/images/drop.responsive.svg">异形元素</a>，但是给它父元素设置了如下 <code>box-shadow</code>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-css" data-lang="css"><span class="line"><span class="cl"><span class="nt">header</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">box-shadow</span><span class="p">:</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mf">1.5</span><span class="kt">rem</span> <span class="mi">0</span> <span class="nb">rgba</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>发现只有矩形部分有阴影，异形部分没有阴影。是因为 <code>box-shadow</code> 只能给盒子模型设置阴影，异形元素无法设置阴影的。</p>
+<p>那怎么给异形元素设置阴影呢？</p>
+<h2 id="解决方法" class="heading-element"><span>2 解决方法</span>
+  <a href="#%e8%a7%a3%e5%86%b3%e6%96%b9%e6%b3%95" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>可以使用 <code>filter</code> 属性的 <code>drop-shadow</code> 函数来给异形元素设置阴影。</p>
+<p><code>drop-shadow</code> 绘制的投影实际上是输入图像的 alpha 蒙版的一个模糊的、偏移的版本，用特定的颜色绘制并合成在图像下面。</p>
+<div class="details admonition note open">
+    <div class="details-summary admonition-title">
+      <i class="icon fa-solid fa-pencil-alt fa-fw" aria-hidden="true"></i>备注<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i>
+    </div>
+    <div class="details-content">
+      <div class="admonition-content">这个函数有点类似于 <code>box-shadow</code> 属性。<code>box-shadow</code> 属性在元素的整个框后面创建一个矩形阴影，而 <code>drop-shadow()</code> 过滤器则是创建一个符合图像本身形状 (alpha 通道) 的阴影。</div>
+    </div>
+  </div>
+<p>语法如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-css" data-lang="css"><span class="line"><span class="cl"><span class="nt">drop-shadow</span><span class="o">(</span><span class="nt">offset-x</span> <span class="nt">offset-y</span> <span class="nt">standard-deviation</span> <span class="nt">color</span><span class="o">)</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>可以看出，<code>drop-shadow</code> 比 <code>box-shadow</code> 少了一个阴影的扩展半径 <code>spread-radius</code> 参数（或者说尚未实现）。</p>
+<p>回到我的问题，给异形元素设置阴影的代码如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-css" data-lang="css"><span class="line"><span class="cl"><span class="nt">header</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">filter</span><span class="p">:</span> <span class="nb">drop-shadow</span><span class="p">(</span><span class="mi">0</span> <span class="mi">0</span> <span class="mf">0.75</span><span class="kt">rem</span> <span class="nb">rgba</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="浏览器支持" class="heading-element"><span>3 浏览器支持</span>
+  <a href="#%e6%b5%8f%e8%a7%88%e5%99%a8%e6%94%af%e6%8c%81" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p class="ciu-embed" data-feature="mdn-css_types_filter-function_drop-shadow" data-past="2" data-future="1" data-observer="true" data-theme=""></p>
+<h2 id="参考链接" class="heading-element"><span>4 参考链接</span>
+  <a href="#%e5%8f%82%e8%80%83%e9%93%be%e6%8e%a5" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><ul>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/filter-function/drop-shadow"target="_blank" rel="external nofollow noopener noreferrer">drop-shadow() - CSS: Cascading Style Sheets | MDN<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+</ul>]]></description></item><item><title>关于 CSS 和 Scss 变量运算那些事</title><link>https://lruihao.cn/posts/css-scss-var/</link><pubDate>Sat, 30 Apr 2022 22:04:29 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/css-scss-var/</guid><description><![CDATA[<h2 id="问题分析" class="heading-element"><span>1 问题分析</span>
   <a href="#%e9%97%ae%e9%a2%98%e5%88%86%e6%9e%90" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
   </a>
@@ -768,7 +833,72 @@ SUCCESS
 <li>计算宽度的时候，没有使用 JS 计算，而是直接使用了 CSS 的 <code>clamp()</code> 函数，一目了然。</li>
 <li>为了鼠标移动到可拖拽边界时显示一条蓝色的线，但是又不想改变元素的宽度，所以 <code>resize-bar</code> 元素的使用了 <code>position: absolute</code>，并且设置了 <code>translateX(-50%)</code> 来让其居中显示。当鼠标移入时，通过线性渐变的背景色巧妙地来实现蓝色线条的效果。</li>
 </ul>
-<p>正是因为第二点的实现方式，使得在边界线左右两侧都能拖拽，这一点是优于 VSCode 的，因为 VSCode 只能在左侧拖拽 😂。</p>]]></description></item><item><title>【CSS 奇技淫巧】CSS 实现时间轴、背景图 loading 和渐变边框</title><link>https://lruihao.cn/posts/fixit-docs-bookmark/</link><pubDate>Sun, 14 Jul 2024 13:03:31 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/fixit-docs-bookmark/</guid><description><![CDATA[<div class="featured-image"><img loading="eager" src="https://lruihao.cn/posts/fixit-docs-bookmark/images/featured-image.webp" alt="【CSS 奇技淫巧】CSS 实现时间轴、背景图 loading 和渐变边框" title="本文将通过一个实际应用场景，展示如何使用 CSS 实现时间轴、背景图 loading 效果、渐变边框等效果。" referrerpolicy="no-referrer"/></div><p>本文将通过一个实际应用场景，展示如何使用 CSS 实现时间轴、背景图 loading 效果、渐变边框等效果。</p>
+<p>正是因为第二点的实现方式，使得在边界线左右两侧都能拖拽，这一点是优于 VSCode 的，因为 VSCode 只能在左侧拖拽 😂。</p>]]></description></item><item><title>异形元素怎么设置阴影</title><link>https://lruihao.cn/posts/drop-shadow/</link><pubDate>Mon, 15 Jul 2024 10:40:12 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/drop-shadow/</guid><description><![CDATA[<p>今天记录一个 CSS 小知识点，如何给异形元素设置阴影。</p>
+<h2 id="遇到的问题" class="heading-element"><span>1 遇到的问题</span>
+  <a href="#%e9%81%87%e5%88%b0%e7%9a%84%e9%97%ae%e9%a2%98" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>之前给博客头部设置了一个 <a href="/images/drop.responsive.svg">异形元素</a>，但是给它父元素设置了如下 <code>box-shadow</code>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-css" data-lang="css"><span class="line"><span class="cl"><span class="nt">header</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">box-shadow</span><span class="p">:</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mf">1.5</span><span class="kt">rem</span> <span class="mi">0</span> <span class="nb">rgba</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>发现只有矩形部分有阴影，异形部分没有阴影。是因为 <code>box-shadow</code> 只能给盒子模型设置阴影，异形元素无法设置阴影的。</p>
+<p>那怎么给异形元素设置阴影呢？</p>
+<h2 id="解决方法" class="heading-element"><span>2 解决方法</span>
+  <a href="#%e8%a7%a3%e5%86%b3%e6%96%b9%e6%b3%95" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>可以使用 <code>filter</code> 属性的 <code>drop-shadow</code> 函数来给异形元素设置阴影。</p>
+<p><code>drop-shadow</code> 绘制的投影实际上是输入图像的 alpha 蒙版的一个模糊的、偏移的版本，用特定的颜色绘制并合成在图像下面。</p>
+<div class="details admonition note open">
+    <div class="details-summary admonition-title">
+      <i class="icon fa-solid fa-pencil-alt fa-fw" aria-hidden="true"></i>备注<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i>
+    </div>
+    <div class="details-content">
+      <div class="admonition-content">这个函数有点类似于 <code>box-shadow</code> 属性。<code>box-shadow</code> 属性在元素的整个框后面创建一个矩形阴影，而 <code>drop-shadow()</code> 过滤器则是创建一个符合图像本身形状 (alpha 通道) 的阴影。</div>
+    </div>
+  </div>
+<p>语法如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-css" data-lang="css"><span class="line"><span class="cl"><span class="nt">drop-shadow</span><span class="o">(</span><span class="nt">offset-x</span> <span class="nt">offset-y</span> <span class="nt">standard-deviation</span> <span class="nt">color</span><span class="o">)</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>可以看出，<code>drop-shadow</code> 比 <code>box-shadow</code> 少了一个阴影的扩展半径 <code>spread-radius</code> 参数（或者说尚未实现）。</p>
+<p>回到我的问题，给异形元素设置阴影的代码如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-css" data-lang="css"><span class="line"><span class="cl"><span class="nt">header</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">filter</span><span class="p">:</span> <span class="nb">drop-shadow</span><span class="p">(</span><span class="mi">0</span> <span class="mi">0</span> <span class="mf">0.75</span><span class="kt">rem</span> <span class="nb">rgba</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="浏览器支持" class="heading-element"><span>3 浏览器支持</span>
+  <a href="#%e6%b5%8f%e8%a7%88%e5%99%a8%e6%94%af%e6%8c%81" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p class="ciu-embed" data-feature="mdn-css_types_filter-function_drop-shadow" data-past="2" data-future="1" data-observer="true" data-theme=""></p>
+<h2 id="参考链接" class="heading-element"><span>4 参考链接</span>
+  <a href="#%e5%8f%82%e8%80%83%e9%93%be%e6%8e%a5" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><ul>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/filter-function/drop-shadow"target="_blank" rel="external nofollow noopener noreferrer">drop-shadow() - CSS: Cascading Style Sheets | MDN<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+</ul>]]></description></item><item><title>【CSS 奇技淫巧】CSS 实现时间轴、背景图 loading 和渐变边框</title><link>https://lruihao.cn/posts/fixit-docs-bookmark/</link><pubDate>Sun, 14 Jul 2024 13:03:31 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/fixit-docs-bookmark/</guid><description><![CDATA[<div class="featured-image"><img loading="eager" src="https://lruihao.cn/posts/fixit-docs-bookmark/images/featured-image.webp" alt="【CSS 奇技淫巧】CSS 实现时间轴、背景图 loading 和渐变边框" title="本文将通过一个实际应用场景，展示如何使用 CSS 实现时间轴、背景图 loading 效果、渐变边框等效果。" referrerpolicy="no-referrer"/></div><p>本文将通过一个实际应用场景，展示如何使用 CSS 实现时间轴、背景图 loading 效果、渐变边框等效果。</p>
 <h2 id="背景" class="heading-element"><span>1 背景</span>
   <a href="#%e8%83%8c%e6%99%af" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
@@ -4147,275 +4277,4 @@ SUCCESS
 <li><a href="https://aws.amazon.com/cn/campaigns/smb-cloud-one-stop-solution-paid-search/watch-the-video-wangjinglai/?sc_channel=seo&amp;sc_campaign=blog1104"target="_blank" rel="external nofollow noopener noreferrer">呼叫中心也免费？没错！<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
 </ul>
 <p>另外还有其他更多的免费一站式云服务方案也都很不错，这里不一一例举了。</p>
-<p>对于初创企业或者有兴趣的这方面工作，但是苦于没有资源尝试的朋友们可以前往 <a href="https://aws.amazon.com/cn/campaigns/smb-cloud-one-stop-solution-paid-search/?sc_channel=seo&amp;sc_campaign=blog1104"target="_blank" rel="external nofollow noopener noreferrer">官网<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 观看视频详细讲解了解更多详细信息。</p>]]></description></item><item><title>SSH 提交签名验证</title><link>https://lruihao.cn/posts/ssh-sign/</link><pubDate>Sun, 22 Oct 2023 18:59:31 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/ssh-sign/</guid><description><![CDATA[<p>Git 支持使用 GPG 来签名提交记录。但 GPG 用起来很复杂，一直赖得搞。Git 从 2.34 开始支持使用 SSH 签名，所以本文将介绍如何使用 SSH 对提交进行签名。</p>
-<h2 id="操作步骤" class="heading-element"><span>1 操作步骤</span>
-  <a href="#%e6%93%8d%e4%bd%9c%e6%ad%a5%e9%aa%a4" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h2><p>可以使用 SSH 通过自己生成的 SSH 密钥对提交进行签名。有关详细信息，请查看 <code>user.Signingkey</code> 的 <a href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-usersigningKey"target="_blank" rel="external nofollow noopener noreferrer">Git 参考文档<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>。如果已使用 SSH 密钥向 GitHub 进行了身份验证，还可以再次上传该相同密钥以用作签名密钥。可以添加到帐户的签名密钥数没有限制。</p>
-<p>GitHub 使用 <a href="https://github.com/github/ssh_data"target="_blank" rel="external nofollow noopener noreferrer">ssh_data<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>（一种开放源代码 Ruby 库）来确认本地签名的提交和标记是否根据在 GitHub.com 上添加到帐户的公钥进行加密验证。</p>
-<blockquote>
-<p>注意：SSH 签名验证可用于 Git 2.34 或更高版本。若要更新 Git 版本，请参阅 <a href="https://git-scm.com/downloads"target="_blank" rel="external nofollow noopener noreferrer">Git<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 网站。</p>
-</blockquote>
-<p>要使用 SSH 对提交签名并在 GitHub 上验证这些提交，请执行以下步骤：</p>
-<ol>
-<li><a href="https://docs.github.com/zh/authentication/connecting-to-github-with-ssh/checking-for-existing-ssh-keys"target="_blank" rel="external nofollow noopener noreferrer">检查现有 SSH 密钥<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
-<li><a href="https://docs.github.com/zh/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent"target="_blank" rel="external nofollow noopener noreferrer">生成新的 SSH 密钥<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
-<li><a href="https://docs.github.com/zh/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account"target="_blank" rel="external nofollow noopener noreferrer">将 SSH 签名密钥添加到 GitHub 帐户<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
-<li><a href="https://docs.github.com/zh/authentication/managing-commit-signature-verification/telling-git-about-your-signing-key"target="_blank" rel="external nofollow noopener noreferrer">将你的签名密钥告诉 Git<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
-<li><a href="https://docs.github.com/zh/authentication/managing-commit-signature-verification/signing-commits"target="_blank" rel="external nofollow noopener noreferrer">对提交签名<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
-<li><a href="https://docs.github.com/zh/authentication/managing-commit-signature-verification/signing-tags"target="_blank" rel="external nofollow noopener noreferrer">对标记签名<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
-</ol>
-<h2 id="检查现有-ssh-密钥" class="heading-element"><span>2 检查现有 SSH 密钥</span>
-  <a href="#%e6%a3%80%e6%9f%a5%e7%8e%b0%e6%9c%89-ssh-%e5%af%86%e9%92%a5" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h2><ol>
-<li>
-<p>打开终端。</p>
-</li>
-<li>
-<p>输入 <code>ls -al ~/.ssh</code> 以查看是否存在现有的 SSH 密钥。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># Lists the files in your .ssh directory, if they exist</span>
-</span></span><span class="line"><span class="cl">ls -al ~/.ssh</span></span></code></pre></td></tr></table>
-</div>
-</div></li>
-<li>
-<p>检查目录列表以查看是否已经有 SSH 公钥。默认情况下，GitHub 的一个支持的公钥的文件名是以下之一。</p>
-<ul>
-<li>id_rsa.pub</li>
-<li>id_ecdsa.pub</li>
-<li>id_ed25519.pub</li>
-</ul>
-</li>
-</ol>
-<h2 id="生成新的-ssh-密钥" class="heading-element"><span>3 生成新的 SSH 密钥</span>
-  <a href="#%e7%94%9f%e6%88%90%e6%96%b0%e7%9a%84-ssh-%e5%af%86%e9%92%a5" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h2><div class="details admonition note open">
-    <div class="details-summary admonition-title">
-      <i class="icon fa-solid fa-pencil-alt fa-fw" aria-hidden="true"></i>注意<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i>
-    </div>
-    <div class="details-content">
-      <div class="admonition-content"><p>注意：GitHub 通过在 2022 年 3 月 15 日删除旧的、不安全的密钥类型来提高安全性。</p>
-<p>自该日期起，不再支持 DSA 密钥 (<code>ssh-dss</code>)。无法在 GitHub.com 上向个人帐户添加新的 DSA 密钥。</p>
-<p>2021 年 11 月 2 日之前带有 <code>valid_after</code> 的 RSA 密钥 (<code>ssh-rsa</code>) 可以继续使用任何签名算法。在该日期之后生成的 RSA 密钥必须使用 SHA-2 签名算法。一些较旧的客户端可能需要升级才能使用 SHA-2 签名。</p>
-</div>
-    </div>
-  </div>
-<ol>
-<li>
-<p>打开终端。</p>
-</li>
-<li>
-<p>粘贴下面的文本（替换为你的 GitHub 电子邮件地址）。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">ssh-keygen -t ed25519 -C <span class="s2">&#34;your_email@example.com&#34;</span></span></span></code></pre></td></tr></table>
-</div>
-</div><p>注意：如果你使用的是不支持 Ed25519 算法的旧系统，请使用以下命令：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">ssh-keygen -t rsa -b <span class="m">4096</span> -C <span class="s2">&#34;your_email@example.com&#34;</span></span></span></code></pre></td></tr></table>
-</div>
-</div><p>这将以提供的电子邮件地址为标签创建新 SSH 密钥。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">&gt; Generating public/private ALGORITHM key pair.</span></span></code></pre></td></tr></table>
-</div>
-</div><p>当系统提示你“Enter a file in which to save the key（输入要保存密钥的文件）”时，可以按 Enter 键接受默认文件位置。请注意，如果以前创建了 SSH 密钥，则 ssh-keygen 可能会要求重写另一个密钥，在这种情况下，我们建议创建自定义命名的 SSH 密钥。为此，请键入默认文件位置，并将 id_ssh_keyname 替换为自定义密钥名称。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">&gt; Enter a file in which to save the key <span class="o">(</span>/Users/YOU/.ssh/id_ALGORITHM<span class="o">)</span>: <span class="o">[</span>Press enter<span class="o">]</span></span></span></code></pre></td></tr></table>
-</div>
-</div></li>
-<li>
-<p>在提示符下，键入安全密码。有关详细信息，请参阅“<a href="https://docs.github.com/zh/authentication/connecting-to-github-with-ssh/working-with-ssh-key-passphrases"target="_blank" rel="external nofollow noopener noreferrer">使用 SSH 密钥密码<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>”。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">&gt; Enter passphrase <span class="o">(</span>empty <span class="k">for</span> no passphrase<span class="o">)</span>: <span class="o">[</span>Type a passphrase<span class="o">]</span>
-</span></span><span class="line"><span class="cl">&gt; Enter same passphrase again: <span class="o">[</span>Type passphrase again<span class="o">]</span></span></span></code></pre></td></tr></table>
-</div>
-</div></li>
-</ol>
-<p>更多请查看 <a href="https://docs.github.com/zh/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent"target="_blank" rel="external nofollow noopener noreferrer">生成新的 SSH 密钥<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>。</p>
-<h2 id="新增-ssh-密钥到-github-帐户" class="heading-element"><span>4 新增 SSH 密钥到 GitHub 帐户</span>
-  <a href="#%e6%96%b0%e5%a2%9e-ssh-%e5%af%86%e9%92%a5%e5%88%b0-github-%e5%b8%90%e6%88%b7" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h2><p>注意：添加 SSH 密钥的类型选择 <code>Signing Key</code>，细节略，详见 <a href="https://docs.github.com/zh/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account"target="_blank" rel="external nofollow noopener noreferrer">将 SSH 签名密钥添加到 GitHub 帐户<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>。</p>
-<h2 id="将-ssh-密钥告知-git" class="heading-element"><span>5 将 SSH 密钥告知 Git</span>
-  <a href="#%e5%b0%86-ssh-%e5%af%86%e9%92%a5%e5%91%8a%e7%9f%a5-git" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h2><ol>
-<li>
-<p>打开终端。</p>
-</li>
-<li>
-<p>配置 Git 使用 SSH 对提交和标记签名：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git config --global gpg.format ssh</span></span></code></pre></td></tr></table>
-</div>
-</div></li>
-<li>
-<p>若要在 Git 中设置 SSH 签名密钥，请粘贴下面的文本，将 <code>/PATH/TO/KEY.PUB</code> 替换为要使用的公钥路径（例如：<code>~/.ssh/id_ed25519.pub</code>）。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git config --global user.signingkey /PATH/TO/.SSH/KEY.PUB</span></span></code></pre></td></tr></table>
-</div>
-</div></li>
-</ol>
-<h2 id="对提交签名" class="heading-element"><span>6 对提交签名</span>
-  <a href="#%e5%af%b9%e6%8f%90%e4%ba%a4%e7%ad%be%e5%90%8d" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h2><p>当本地分支中的提交更改时，可以将 <code>-S</code> 添加到 <code>git commit</code> 命令：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Creates a signed commit</span>
-</span></span><span class="line"><span class="cl">git commit -S -m <span class="s2">&#34;YOUR_COMMIT_MESSAGE&#34;</span></span></span></code></pre></td></tr></table>
-</div>
-</div><p>若要将 Git 客户端配置为默认对本地存储库的提交进行签名，请在 Git 版本 2.0.0 及更高版本中，运行：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git config commit.gpgsign true</span></span></code></pre></td></tr></table>
-</div>
-</div><p>要在计算机上的任何本地存储库中默认对所有提交进行签名，请运行：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git config --global commit.gpgsign true</span></span></code></pre></td></tr></table>
-</div>
-</div><p>在本地完成创建提交后，将其推送到 GitHub 上的远程仓库，在 GitHub 上查看提交记录就能看到 <code>Verified</code> 的标志了。</p>
-<h2 id="对标记签名" class="heading-element"><span>7 对标记签名</span>
-  <a href="#%e5%af%b9%e6%a0%87%e8%ae%b0%e7%ad%be%e5%90%8d" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h2><p>若要对标记进行签名，请将 <code>-s</code> 添加到 <code>git tag</code> 命令。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Creates a signed tag</span>
-</span></span><span class="line"><span class="cl">git tag -s MYTAG</span></span></code></pre></td></tr></table>
-</div>
-</div><p>通过运行 <code>git tag -v [tag-name]</code> 验证已签名的标记。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Verifies the signed tag</span>
-</span></span><span class="line"><span class="cl">git tag -v MYTAG</span></span></code></pre></td></tr></table>
-</div>
-</div><p>或者，可以将 <code>gpgsign</code> 设置为 <code>true</code>，以便在创建标记时自动对其进行签名：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git config tag.gpgsign <span class="nb">true</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># 或者</span>
-</span></span><span class="line"><span class="cl">git config --global tag.gpgsign true</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="其他" class="heading-element"><span>8 其他</span>
-  <a href="#%e5%85%b6%e4%bb%96" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h2><p>创建可信公钥列表文件：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">mkdir -p ~/.config/git
-</span></span><span class="line"><span class="cl">touch ~/.config/git/allowed_signers</span></span></code></pre></td></tr></table>
-</div>
-</div><p>可信公钥列表文件内容格式如下，每个公钥占一行：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-plain" data-lang="plain"><span class="line"><span class="cl">公钥的身份 公钥内容</span></span></code></pre></td></tr></table>
-</div>
-</div><p>例如，可以将 <code>~/.ssh/id_ed25519.pub</code> 公钥复制然后粘贴：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">pbcopy &lt; ~/.ssh/id_ed25519.pub
-</span></span><span class="line"><span class="cl">open ~/.config/git/allowed_signers</span></span></code></pre></td></tr></table>
-</div>
-</div><div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-plain" data-lang="plain"><span class="line"><span class="cl">Cell ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIE5bRSsXZ5HnUkMMEWS5/jxEQaqbLb+i6xjMyC6qiXsb xxx@xxx.com</span></span></code></pre></td></tr></table>
-</div>
-</div><p>将可信公钥列表文件路径添加到 Git 配置中：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git config --global gpg.ssh.allowedSignersFile <span class="s2">&#34;~/.config/git/allowed_signers&#34;</span></span></span></code></pre></td></tr></table>
-</div>
-</div><p>本地查看提交日志签名状况：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git log --show-signature</span></span></code></pre></td></tr></table>
-</div>
-</div>]]></description></item></channel></rss>
+<p>对于初创企业或者有兴趣的这方面工作，但是苦于没有资源尝试的朋友们可以前往 <a href="https://aws.amazon.com/cn/campaigns/smb-cloud-one-stop-solution-paid-search/?sc_channel=seo&amp;sc_campaign=blog1104"target="_blank" rel="external nofollow noopener noreferrer">官网<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 观看视频详细讲解了解更多详细信息。</p>]]></description></item></channel></rss>
