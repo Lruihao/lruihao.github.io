@@ -21,7 +21,7 @@
 - **網絡 ID**：Lruihao
 - **頭像**：https://lruihao.cn/images/avatar.jpg
 - **URL**：https://lruihao.cn
-- 描述：菠菜眾長 - 「不怕萬人阻擋，只怕自己投降」
+- **描述**：菠菜眾長 - 「不怕萬人阻擋，只怕自己投降」
 
 ## 友情提醒
 
