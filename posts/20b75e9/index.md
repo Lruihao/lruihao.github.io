@@ -26,7 +26,7 @@ foo(1); // 2
 
 另外，还常常看到一个这样的句子：
 
-```plaintext
+```plain
 The quick brown fox jumps over the lazy dog
 ```
 
