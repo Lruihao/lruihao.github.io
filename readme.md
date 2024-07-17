@@ -1,11 +1,12 @@
 # 菠菜眾長
 
-共计 244 篇文章
+共计 245 篇文章
 
 ## 2024
 
-共计 19 篇文章
+共计 20 篇文章
 
+- 07-17 [Git 统计代码量](https://lruihao.cn/posts/git-summary/ "2024-07-17 16:06:08")
 - 07-15 [异形元素怎么设置阴影](https://lruihao.cn/posts/drop-shadow/ "2024-07-15 10:40:12")
 - 07-14 [【CSS 奇技淫巧】CSS 实现时间轴、背景图 loading 和渐变边框](https://lruihao.cn/posts/fixit-docs-bookmark/ "2024-07-14 13:03:31")
 - 07-07 [探索 Amazon S3 的无限存储潜力](https://lruihao.cn/posts/d1fc0c7/ "2024-07-07 13:54:14")
