@@ -149,7 +149,7 @@ li::before {
 
 另外，如果想实现渐变边框的动画效果，用 SCSS 可以这样做（虽然我不认为这是一个好的做法）：
 
-```scss
+```scss {data-open=false}
 .docs-navigation {
   border-radius: 2.5px;
   background: linear-gradient(#fff, #fff) padding-box, linear-gradient(var(--gradient-angle), #42d392, #FF7359) border-box;
