@@ -1,7 +1,7 @@
 # 【CSS 奇技淫巧】CSS 实现时间轴、背景图 Loading 和渐变边框
 
 
-本文将通过一个实际应用场景，展示如何使用 CSS 实现时间轴、背景图 loading 效果、渐变边框等效果。
+本文将通过一个实际应用场景，展示如何使用现代 CSS 实现时间轴、背景图 loading 效果、渐变边框等效果。
 
 &lt;!--more--&gt;
 
@@ -30,10 +30,10 @@
 
 ```html
 &lt;ul class=&#34;docs-outline&#34;&gt;
-  &lt;li&gt;&lt;a href=&#34;{{ $page1.Permalink }}&#34; title=&#34;{{ $page1.Description }}&#34;&gt;{{ $page1.LinkTitle }}&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&#34;{{ $page2.Permalink }}&#34; title=&#34;{{ $page2.Description }}&#34;&gt;{{ $page2.LinkTitle }}&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&#34;{{ $page3.Permalink }}&#34; title=&#34;{{ $page3.Description }}&#34;&gt;{{ $page3.LinkTitle }}&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&#34;{{ $page4.Permalink }}&#34; title=&#34;{{ $page4.Description }}&#34;&gt;{{ $page4.LinkTitle }}&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&#34;{{ $page1.Permalink }}&#34;&gt;{{ $page1.LinkTitle }}&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&#34;{{ $page2.Permalink }}&#34;&gt;{{ $page2.LinkTitle }}&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&#34;{{ $page3.Permalink }}&#34;&gt;{{ $page3.LinkTitle }}&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&#34;{{ $page4.Permalink }}&#34;&gt;{{ $page4.LinkTitle }}&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 ```
 
@@ -130,15 +130,22 @@ li::before {
 }
 ```
 
-## 渐变边框
+## 全尺寸带圆角渐变边框
 
-最后一个效果是渐变边框，这个效果其实很简单，利用线性渐变 `linear-gradient` 分别设置 `padding-box` 和 `border-box` 的背景即可实现。
+最后实现一个全尺寸带圆角渐变边框效果，一句话概括为利用线性渐变 `linear-gradient` 分别设置 `padding-box` 和 `border-box` 的背景，然后 `border` 颜色设置为透明即可实现。
 
 ```scss
 .docs-navigation {
-  background: linear-gradient($global-background-color, $global-background-color) padding-box, linear-gradient(45deg, #42d392, #FF7359) border-box;
+  border-radius: 2.5px;
+  background: linear-gradient(#fff, #fff) padding-box, linear-gradient(45deg, #42d392, #FF7359) border-box;
+  border: 0.25rem solid transparent;
 }
 ```
+
+值得一提的是，这里面利用到的一个核心概念是 `background-clip` 属性，详见 [background-clip - CSS: Cascading Style Sheets | MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/background-clip)：
+
+- `padding-box` 表示背景延伸到内边距边界
+- `border-box` 表示背景延伸到边框边界。
 
 ## 最后的效果
 

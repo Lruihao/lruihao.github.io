@@ -1,4 +1,4 @@
-# 异形元素怎么设置阴影
+# 【现代 CSS】异形元素怎么设置阴影？
 
 
 今天记录一个 CSS 小知识点，如何给异形元素设置阴影。
@@ -7,7 +7,7 @@
 
 ## 遇到的问题
 
-之前给博客头部设置了一个 [异形元素](/images/drop.responsive.svg)，但是给它父元素设置了如下 `box-shadow`：
+之前给博客头部设置了一个 [异形元素](/images/drop.responsive.svg)，当时给它父元素设置了如下 `box-shadow`：
 
 ```css
 header {
