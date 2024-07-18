@@ -147,6 +147,28 @@ li::before {
 - `padding-box` 表示背景延伸到内边距边界
 - `border-box` 表示背景延伸到边框边界。
 
+另外，如果想实现渐变边框的动画效果，用 SCSS 可以这样做（虽然我不认为这是一个好的做法）：
+
+```scss
+.docs-navigation {
+  border-radius: 2.5px;
+  background: linear-gradient(#fff, #fff) padding-box, linear-gradient(var(--gradient-angle), #42d392, #FF7359) border-box;
+  border: 0.25rem solid transparent;
+  transition: background-color 0.5s, border-color 0.5s;
+  --gradient-angle: 45deg;
+  animation: gradient-angle-change 10s infinite linear;
+
+  // 分的越细，动画效果越平滑
+  @keyframes gradient-angle-change {
+    @for $i from 0 through 100 {
+      #{$i * 1%} {
+        --gradient-angle: #{45 &#43; $i * 4}deg;
+      }
+    }
+  }
+}
+```
+
 ## 最后的效果
 
 为了方便使用 FixIt 主题的用户在自己的笔记内插入 FixIt 官方文档的书签，我把这个效果封装成了一个独立的组件，你可以在 [hugo-fixit/shortcode-docs-bookmark](https://github.com/hugo-fixit/shortcode-docs-bookmark) 中找到完整代码及食用方法。

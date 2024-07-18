@@ -560,7 +560,47 @@
 <li><code>padding-box</code> 表示背景延伸到内边距边界</li>
 <li><code>border-box</code> 表示背景延伸到边框边界。</li>
 </ul>
-<h2 id="最后的效果" class="heading-element"><span>5 最后的效果</span>
+<p>另外，如果想实现渐变边框的动画效果，用 SCSS 可以这样做（虽然我不认为这是一个好的做法）：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-scss" data-lang="scss"><span class="line"><span class="cl"><span class="nc">.docs-navigation</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="na">border-radius</span><span class="o">:</span> <span class="mi">2</span><span class="mf">.5</span><span class="kt">px</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="na">background</span><span class="o">:</span> <span class="nf">linear-gradient</span><span class="p">(</span><span class="mh">#fff</span><span class="o">,</span> <span class="mh">#fff</span><span class="p">)</span> <span class="ni">padding-box</span><span class="o">,</span> <span class="nf">linear-gradient</span><span class="p">(</span><span class="nf">var</span><span class="p">(</span><span class="o">--</span><span class="n">gradient-angle</span><span class="p">)</span><span class="o">,</span> <span class="mh">#42d392</span><span class="o">,</span> <span class="mh">#FF7359</span><span class="p">)</span> <span class="ni">border-box</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="na">border</span><span class="o">:</span> <span class="mi">0</span><span class="mf">.25</span><span class="kt">rem</span> <span class="ni">solid</span> <span class="ni">transparent</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="na">transition</span><span class="o">:</span> <span class="n">background-color</span> <span class="mi">0</span><span class="mf">.5</span><span class="kt">s</span><span class="o">,</span> <span class="n">border-color</span> <span class="mi">0</span><span class="mf">.5</span><span class="kt">s</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="na">--gradient-angle</span><span class="o">:</span> <span class="mi">45</span><span class="kt">deg</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="na">animation</span><span class="o">:</span> <span class="n">gradient-angle-change</span> <span class="mi">10</span><span class="kt">s</span> <span class="ni">infinite</span> <span class="ni">linear</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">// 分的越细，动画效果越平滑
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">@keyframes</span> <span class="nt">gradient-angle-change</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">@for</span> <span class="nv">$i</span> <span class="ow">from</span> <span class="mi">0</span> <span class="ow">through</span> <span class="mi">100</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="si">#{</span><span class="nv">$i</span> <span class="o">*</span> <span class="mi">1</span><span class="kt">%</span><span class="si">}</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="na">--gradient-angle</span><span class="o">:</span> <span class="si">#{</span><span class="mi">45</span> <span class="o">+</span> <span class="nv">$i</span> <span class="o">*</span> <span class="mi">4</span><span class="si">}</span><span class="n">deg</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="最后的效果" class="heading-element"><span>5 最后的效果</span>
   <a href="#%e6%9c%80%e5%90%8e%e7%9a%84%e6%95%88%e6%9e%9c" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
   </a>
@@ -1379,7 +1419,47 @@ SUCCESS
 <li><code>padding-box</code> 表示背景延伸到内边距边界</li>
 <li><code>border-box</code> 表示背景延伸到边框边界。</li>
 </ul>
-<h2 id="最后的效果" class="heading-element"><span>5 最后的效果</span>
+<p>另外，如果想实现渐变边框的动画效果，用 SCSS 可以这样做（虽然我不认为这是一个好的做法）：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-scss" data-lang="scss"><span class="line"><span class="cl"><span class="nc">.docs-navigation</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="na">border-radius</span><span class="o">:</span> <span class="mi">2</span><span class="mf">.5</span><span class="kt">px</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="na">background</span><span class="o">:</span> <span class="nf">linear-gradient</span><span class="p">(</span><span class="mh">#fff</span><span class="o">,</span> <span class="mh">#fff</span><span class="p">)</span> <span class="ni">padding-box</span><span class="o">,</span> <span class="nf">linear-gradient</span><span class="p">(</span><span class="nf">var</span><span class="p">(</span><span class="o">--</span><span class="n">gradient-angle</span><span class="p">)</span><span class="o">,</span> <span class="mh">#42d392</span><span class="o">,</span> <span class="mh">#FF7359</span><span class="p">)</span> <span class="ni">border-box</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="na">border</span><span class="o">:</span> <span class="mi">0</span><span class="mf">.25</span><span class="kt">rem</span> <span class="ni">solid</span> <span class="ni">transparent</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="na">transition</span><span class="o">:</span> <span class="n">background-color</span> <span class="mi">0</span><span class="mf">.5</span><span class="kt">s</span><span class="o">,</span> <span class="n">border-color</span> <span class="mi">0</span><span class="mf">.5</span><span class="kt">s</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="na">--gradient-angle</span><span class="o">:</span> <span class="mi">45</span><span class="kt">deg</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="na">animation</span><span class="o">:</span> <span class="n">gradient-angle-change</span> <span class="mi">10</span><span class="kt">s</span> <span class="ni">infinite</span> <span class="ni">linear</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">// 分的越细，动画效果越平滑
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">@keyframes</span> <span class="nt">gradient-angle-change</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">@for</span> <span class="nv">$i</span> <span class="ow">from</span> <span class="mi">0</span> <span class="ow">through</span> <span class="mi">100</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="si">#{</span><span class="nv">$i</span> <span class="o">*</span> <span class="mi">1</span><span class="kt">%</span><span class="si">}</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="na">--gradient-angle</span><span class="o">:</span> <span class="si">#{</span><span class="mi">45</span> <span class="o">+</span> <span class="nv">$i</span> <span class="o">*</span> <span class="mi">4</span><span class="si">}</span><span class="n">deg</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="最后的效果" class="heading-element"><span>5 最后的效果</span>
   <a href="#%e6%9c%80%e5%90%8e%e7%9a%84%e6%95%88%e6%9e%9c" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
   </a>
