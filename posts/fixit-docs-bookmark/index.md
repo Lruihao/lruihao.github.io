@@ -58,7 +58,7 @@ li::before {
       border-color: var(--timeline-color);
     }
     50% {
-      border-color: var(--timeline-cyclic-color);
+      border-color: var(--timeline-circle-color);
     }
     100% {
       border-color: var(--timeline-color);
