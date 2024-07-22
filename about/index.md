@@ -57,12 +57,12 @@ const site = new Blog(&#39;菠菜眾長&#39;, &#39;Lruihao&#39;, &#39;https://lr
 
 📮 郵箱：`1024#lruihao.cn`
 
-## 致謝
+## Sponsor
 
-{{&lt; details &#34;感謝大家的支持 🙏&#34; &gt;}}
+感謝大家的支持 🙏
+
 {{&lt; reward wechatpay=&#34;/images/wechatpay.jpg&#34; alipay=&#34;/images/alipay.jpg&#34; comment=&#34;给博主买杯卡布奇诺～&#34; mode=&#34;fixed&#34; &gt;}}
-{{&lt; sponsor-log &gt;}}
-{{&lt; /details &gt;}}
+{{&lt; reward-log &gt;}}
 
 {{&lt; music url=&#34;https://cdn-1256932288.cos.ap-chengdu.myqcloud.com/files/nanjing.mp3&#34; name=&#34;李志&#34; artist=&#34;你离开了南京，从此没人和我说话&#34; cover=&#34;https://p2.music.126.net/UuSe-Vc6rS7JtRJSQgDU2g==/2323268069553116.jpg?param=300x300&#34; fixed=true &gt;}}
 
