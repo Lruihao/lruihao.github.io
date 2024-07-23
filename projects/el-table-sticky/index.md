@@ -18,7 +18,7 @@ Element UI 的表格组件在使用时，如果表格内容过多，表格会出
 &lt;!-- markdownlint-disable-next-line no-bare-urls --&gt;
 {{&lt; link href=&#34;https://github.com/Lruihao/el-table-sticky&#34; content=&#34;el-table-stick&#34; card=true &gt;}}
 
-&gt; *如果你觉得这个插件还不错，赏个 star 吧 😛，如果你有更好的实现方案，欢迎提 issue 或者 PR。*
+&gt; _如果你觉得这个插件还不错，赏个 star 吧 😛，如果你有更好的实现方案，欢迎提 issue 或者 PR。_
 
 ## 解决思路
 
@@ -102,7 +102,7 @@ Non sunt multiplicanda entia sine necessitate
 学而不思则罔，思而不学则殆。
 
 &lt;!-- footnote reference definition --&gt;
-[^1]: *如有必要，以后版本需要替换 gemini-scrollbar 实现自定义滚动条的功能。*
+[^1]: _如有必要，以后版本需要替换 gemini-scrollbar 实现自定义滚动条的功能。_
 
 
 ---

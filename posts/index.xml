@@ -2550,273 +2550,7 @@ SUCCESS
 <p>以后要多去看看世界，也看看自己。</p>
 <div class="douyin">
   <iframe src="//open.douyin.com/player/video?vid=7370344193077644584&autoplay=0" border="0" framespacing="0" allowfullscreen="true"></iframe>
-</div>]]></description></item><item><title>利用 Vercel 反代 Gravatar 实现镜像加速</title><link>https://lruihao.cn/posts/3fd72ec/</link><pubDate>Wed, 17 Apr 2024 12:51:35 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/3fd72ec/</guid><description><![CDATA[<p>在开发和部署网站时，经常会遇到加载外部资源较慢的问题。其中之一就是加载 Gravatar 头像图片时可能会受到网络延迟的影响。为了解决这个问题，我们可以利用 Vercel 平台的反向代理功能来实现镜像加速。</p>
-<h2 id="思路" class="heading-element"><span>1 思路</span>
-  <a href="#%e6%80%9d%e8%b7%af" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h2><ol>
-<li>解析请求的 URL，并将其 host 修改为我们要代理的目标域名（这里是 <code>www.gravatar.com</code>）。</li>
-<li>获取原始请求的方法、头部信息，并创建一个新的请求头部对象。</li>
-<li>将新请求头部对象中的 Host 字段设置为目标域名，并将 Referer 字段设置为原始请求的 URL。</li>
-<li>使用修改后的 URL、方法和头部信息发送请求到目标域名。</li>
-<li>获取原始响应的状态码、头部信息和响应体，并克隆原始响应对象。</li>
-<li>检查请求的 Referer 来源域名是否合法，如果不合法则返回一个 403 Forbidden 的响应。</li>
-<li>设置新的响应头部信息，包括允许的请求方法、请求头部和缓存控制策略。</li>
-<li>构造最终的响应对象，其中响应体为原始响应的内容，状态码和头部信息为修改后的值。</li>
-<li>返回最终的响应对象。</li>
-</ol>
-<p>安装上面的思路，理论上我们可以反代任何一个网站，并且支持设置 CORS 策略。GitHub 上也有类似的项目，比如 <a href="https://github.com/gaowanlu/google"target="_blank" rel="external nofollow noopener noreferrer">https://github.com/gaowanlu/google<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>.</p>
-<blockquote>
-<p>当然，网络不是非法之地，不要滥用这个功能反代一些不合法的网站哦。</p>
-</blockquote>
-<h2 id="实现" class="heading-element"><span>2 实现</span>
-  <a href="#%e5%ae%9e%e7%8e%b0" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h2><img alt="Lruihao gravatar" src="https://gravatar.lruihao.cn/avatar/fee47a2f4f2cc71f99a02b0a73ecfee0?s=128" />
-<p>⬆️ <code>https://gravatar.lruihao.cn/avatar/fee47a2f4f2cc71f99a02b0a73ecfee0?s=64</code></p>
-<p>实现 API 代码：</p>
-<div class="highlight" title="api/gravatar.js"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span><span class="lnt">37
-</span><span class="lnt">38
-</span><span class="lnt">39
-</span><span class="lnt">40
-</span><span class="lnt">41
-</span><span class="lnt">42
-</span><span class="lnt">43
-</span><span class="lnt">44
-</span><span class="lnt">45
-</span><span class="lnt">46
-</span><span class="lnt">47
-</span><span class="lnt">48
-</span><span class="lnt">49
-</span><span class="lnt">50
-</span><span class="lnt">51
-</span><span class="lnt">52
-</span><span class="lnt">53
-</span><span class="lnt">54
-</span><span class="lnt">55
-</span><span class="lnt">56
-</span><span class="lnt">57
-</span><span class="lnt">58
-</span><span class="lnt">59
-</span><span class="lnt">60
-</span><span class="lnt">61
-</span><span class="lnt">62
-</span><span class="lnt">63
-</span><span class="lnt">64
-</span><span class="lnt">65
-</span><span class="lnt">66
-</span><span class="lnt">67
-</span><span class="lnt">68
-</span><span class="lnt">69
-</span><span class="lnt">70
-</span><span class="lnt">71
-</span><span class="lnt">72
-</span><span class="lnt">73
-</span><span class="lnt">74
-</span><span class="lnt">75
-</span><span class="lnt">76
-</span><span class="lnt">77
-</span><span class="lnt">78
-</span><span class="lnt">79
-</span><span class="lnt">80
-</span><span class="lnt">81
-</span><span class="lnt">82
-</span><span class="lnt">83
-</span><span class="lnt">84
-</span><span class="lnt">85
-</span><span class="lnt">86
-</span><span class="lnt">87
-</span><span class="lnt">88
-</span><span class="lnt">89
-</span><span class="lnt">90
-</span><span class="lnt">91
-</span><span class="lnt">92
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">allowedReferrers</span> <span class="o">=</span> <span class="p">[</span>
-</span></span><span class="line"><span class="cl">  <span class="s2">&#34;lruihao.cn&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">  <span class="s2">&#34;gravatar-x.vercel.app&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">  <span class="s2">&#34;-lrh-dev.vercel.app&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">  <span class="s2">&#34;-cell-x.vercel.app&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">  <span class="s2">&#34;localhost&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl"><span class="p">];</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">upstream</span> <span class="o">=</span> <span class="s2">&#34;www.gravatar.com&#34;</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="cm">/**
-</span></span></span><span class="line"><span class="cl"><span class="cm"> * whether the hostname is allowed
-</span></span></span><span class="line"><span class="cl"><span class="cm"> * @param {String} hostname 
-</span></span></span><span class="line"><span class="cl"><span class="cm"> * @returns 
-</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
-</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">isAllowedHost</span><span class="p">(</span><span class="nx">hostname</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">regExp</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">RegExp</span><span class="p">(</span><span class="nx">allowedReferrers</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="s2">&#34;|&#34;</span><span class="p">),</span> <span class="s2">&#34;g&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="c1">// if hostname matches allowed referrers
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">hostname</span> <span class="o">||</span> <span class="nx">regExp</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="nx">hostname</span><span class="p">))</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="kc">true</span>
-</span></span><span class="line"><span class="cl">  <span class="p">}</span>
-</span></span><span class="line"><span class="cl">  <span class="k">for</span> <span class="p">(</span><span class="kr">const</span> <span class="nx">referrer</span> <span class="k">of</span> <span class="nx">allowedReferrers</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="c1">// if hostname ends with allowed referrers
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="nx">hostname</span><span class="p">.</span><span class="nx">endsWith</span><span class="p">(</span><span class="nx">referrer</span><span class="p">))</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">      <span class="k">return</span> <span class="kc">true</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">  <span class="p">}</span>
-</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="kc">false</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kr">async</span> <span class="kd">function</span> <span class="nx">fetchAndApply</span><span class="p">(</span><span class="nx">request</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="kd">let</span> <span class="nx">response</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">  <span class="kd">let</span> <span class="nx">url</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">URL</span><span class="p">(</span><span class="nx">request</span><span class="p">.</span><span class="nx">url</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">  <span class="nx">url</span><span class="p">.</span><span class="nx">host</span> <span class="o">=</span> <span class="nx">upstream</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">  <span class="kd">let</span> <span class="nx">method</span> <span class="o">=</span> <span class="nx">request</span><span class="p">.</span><span class="nx">method</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">  <span class="kd">let</span> <span class="nx">request_headers</span> <span class="o">=</span> <span class="nx">request</span><span class="p">.</span><span class="nx">headers</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">  <span class="kd">let</span> <span class="nx">new_request_headers</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Headers</span><span class="p">(</span><span class="nx">request_headers</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">new_request_headers</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s2">&#34;Host&#34;</span><span class="p">,</span> <span class="nx">upstream</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">new_request_headers</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s2">&#34;Referer&#34;</span><span class="p">,</span> <span class="nx">url</span><span class="p">.</span><span class="nx">href</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="kd">let</span> <span class="nx">original_response</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">fetch</span><span class="p">(</span><span class="nx">url</span><span class="p">.</span><span class="nx">href</span><span class="p">,</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">method</span><span class="o">:</span> <span class="nx">method</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">headers</span><span class="o">:</span> <span class="nx">new_request_headers</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">  <span class="p">});</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">  <span class="kd">let</span> <span class="nx">original_response_clone</span> <span class="o">=</span> <span class="nx">original_response</span><span class="p">.</span><span class="nx">clone</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl">  <span class="kd">let</span> <span class="nx">original_text</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">  <span class="kd">let</span> <span class="nx">response_headers</span> <span class="o">=</span> <span class="nx">original_response</span><span class="p">.</span><span class="nx">headers</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">  <span class="kd">let</span> <span class="nx">new_response_headers</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Headers</span><span class="p">(</span><span class="nx">response_headers</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="kd">let</span> <span class="nx">status</span> <span class="o">=</span> <span class="nx">original_response</span><span class="p">.</span><span class="nx">status</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">hostname</span> <span class="o">=</span> <span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">try</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">      <span class="k">return</span> <span class="k">new</span> <span class="nx">URL</span><span class="p">(</span><span class="nx">request</span><span class="p">.</span><span class="nx">headers</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">&#34;Referer&#34;</span><span class="p">)).</span><span class="nx">hostname</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">      <span class="k">return</span> <span class="s2">&#34;&#34;</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">  <span class="p">})();</span>
-</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">isAllowedHost</span><span class="p">(</span><span class="nx">hostname</span><span class="p">))</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="k">new</span> <span class="nx">Response</span><span class="p">(</span><span class="sb">`403 Forbidden: </span><span class="si">${</span><span class="nx">hostname</span><span class="si">}</span><span class="sb">`</span><span class="p">,</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">      <span class="nx">headers</span><span class="o">:</span> <span class="p">{</span> <span class="s2">&#34;Content-Type&#34;</span><span class="o">:</span> <span class="s2">&#34;text/html&#34;</span> <span class="p">},</span>
-</span></span><span class="line"><span class="cl">      <span class="nx">status</span><span class="o">:</span> <span class="mi">403</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">      <span class="nx">statusText</span><span class="o">:</span> <span class="s2">&#34;Forbidden&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">    <span class="p">});</span>
-</span></span><span class="line"><span class="cl">  <span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">  <span class="c1">// new_response_headers.set(&#34;access-control-allow-origin&#34;, &#34;https://lruihao.cn&#34;);
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">new_response_headers</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s2">&#34;Access-Control-Allow-Methods&#34;</span><span class="p">,</span> <span class="s2">&#34;GET, POST, OPTIONS&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">new_response_headers</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s2">&#34;Access-Control-Allow-Headers&#34;</span><span class="p">,</span> <span class="s2">&#34;Content-Type&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">new_response_headers</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span>
-</span></span><span class="line"><span class="cl">    <span class="s2">&#34;Cache-Control&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">    <span class="s2">&#34;max-age=600, s-maxage=2592000, stale-while-revalidate&#34;</span>
-</span></span><span class="line"><span class="cl">  <span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">new_response_headers</span><span class="p">.</span><span class="k">delete</span><span class="p">(</span><span class="s2">&#34;link&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">  <span class="nx">original_text</span> <span class="o">=</span> <span class="nx">original_response_clone</span><span class="p">.</span><span class="nx">body</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">  <span class="nx">response</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Response</span><span class="p">(</span><span class="nx">original_text</span><span class="p">,</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">status</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">headers</span><span class="o">:</span> <span class="nx">new_response_headers</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">  <span class="p">});</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="nx">response</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="kr">const</span> <span class="nx">config</span> <span class="o">=</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">runtime</span><span class="o">:</span> <span class="s2">&#34;experimental-edge&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl"><span class="p">};</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="k">default</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">req</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="nx">fetchAndApply</span><span class="p">(</span><span class="nx">req</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
-</div>
-</div><p>配置 <code>vercel.json</code> 文件：</p>
-<div class="highlight" title="vercel.json"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="nt">&#34;rewrites&#34;</span><span class="p">:</span> <span class="p">[</span>
-</span></span><span class="line"><span class="cl">    <span class="p">{</span> <span class="nt">&#34;source&#34;</span><span class="p">:</span> <span class="s2">&#34;/avatar/(.*)&#34;</span><span class="p">,</span> <span class="nt">&#34;destination&#34;</span><span class="p">:</span> <span class="s2">&#34;api/gravatar&#34;</span> <span class="p">}</span>
-</span></span><span class="line"><span class="cl">  <span class="p">]</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
-</div>
-</div><p>完整代码可以在 <a href="https://github.com/Lruihao/vercel-gravatar"target="_blank" rel="external nofollow noopener noreferrer">GitHub<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 上查看。</p>
-<p>最后部署到 Vercel 平台即可。</p>]]></description></item><item><title>临时决定再写一个小工具 - 网站预览图生成器</title><link>https://lruihao.cn/posts/d651bdd/</link><pubDate>Thu, 04 Apr 2024 13:23:37 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/d651bdd/</guid><description><![CDATA[<div class="featured-image"><img loading="eager" src="https://lruihao.cn/posts/d651bdd/images/cover.webp" alt="临时决定再写一个小工具 - 网站预览图生成器" title="临时决定再写一个小工具 - 网站预览图生成器" referrerpolicy="no-referrer"/></div><p>开发完 <a href="https://github.com/Lruihao/CoverView"target="_blank" rel="external nofollow noopener noreferrer">CoverView<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>之后，在调整博客文章封面图的时候，我发现首页的多端缩略图还是只能自己 P 图诶，于是我又决定再写一个小工具，用来生成网站预览图。。</p>
-<h2 id="在线体验" class="heading-element"><span>1 在线体验</span>
-  <a href="#%e5%9c%a8%e7%ba%bf%e4%bd%93%e9%aa%8c" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h2><ul>
-<li><a href="https://lruihao.github.io/vue-el-demo/#/apple-devices-preview"target="_blank" rel="external nofollow noopener noreferrer">vue-el-demo#apple-devices-preview<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
-<li><a href="https://github.com/Lruihao/vue-el-demo/blob/main/src/views/apple-devices-preview.vue"target="_blank" rel="external nofollow noopener noreferrer">源码<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
-</ul>
-<h2 id="实现原理" class="heading-element"><span>2 实现原理</span>
-  <a href="#%e5%ae%9e%e7%8e%b0%e5%8e%9f%e7%90%86" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h2><p>实现原理很简单，就是先写好布局，然后每个设备里面套一个 iframe，然后通过 iframe 的 <code>src</code> 属性来加载网页。</p>
-<h2 id="卡壳点" class="heading-element"><span>3 卡壳点</span>
-  <a href="#%e5%8d%a1%e5%a3%b3%e7%82%b9" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h2><ul>
-<li>iframe 存在跨域问题。</li>
-<li>在将 DOM 转图片的时候，iframe 里面的内容无法转换，尝试了 <code>html2canvas</code> 和 <code>dom-to-image-more</code> 都不行，放弃了，改为用浏览器插件 <code>Fireshot</code> 截图。</li>
-</ul>
-<p>一个未尝试的思路，如果跨域问题得以解决，转换图片的步骤可以分解为：</p>
-<ol>
-<li>拿到每个 iframe 里的 body 内容，转为图片，然后将图片相对定位到对应的设备 iframe 里</li>
-<li>隐藏原来的 iframe</li>
-<li>最后将父容器的 DOM 转为图片</li>
-</ol>
-<h2 id="效果图" class="heading-element"><span>4 效果图</span>
-  <a href="#%e6%95%88%e6%9e%9c%e5%9b%be" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h2><p>输入不同设备的 URL，选择背景颜色，点击预览，然后自行截图即可，比如用 <code>Fireshot</code> 插件捕获可见区域。</p>
-<p><a class="lightgallery" href="images/screenshot.webp?size=large" data-thumbnail="images/screenshot.webp?size=small" data-sub-html="<h2>screenshot</h2>"><img loading="lazy" src="images/screenshot.webp" alt="screenshot" srcset="images/screenshot.webp?size=small, images/screenshot.webp?size=medium 1.5x, images/screenshot.webp?size=large 2x" data-title="screenshot" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></p>]]></description></item><item><title>写文档时英文标题什么时候要大写？</title><link>https://lruihao.cn/posts/c6bc2d5/</link><pubDate>Tue, 26 Mar 2024 12:23:44 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/c6bc2d5/</guid><description><![CDATA[<p>对于本文的标题的思考来自于 <a href="https://gohugo.io/getting-started/configuration/#titlecasestyle"target="_blank" rel="external nofollow noopener noreferrer">Hugo 配置文档<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>中的一个配置 <code>titleCaseStyle</code>，默认情况下，Hugo 在创建自动章节标题以及使用 <code>strings.Title</code> 函数转换字符串时遵循美联社样本中发布的大小写规则。</p>
+</div>]]></description></item><item><title>写文档时英文标题什么时候要大写？</title><link>https://lruihao.cn/posts/c6bc2d5/</link><pubDate>Tue, 26 Mar 2024 12:23:44 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/c6bc2d5/</guid><description><![CDATA[<p>对于本文的标题的思考来自于 <a href="https://gohugo.io/getting-started/configuration/#titlecasestyle"target="_blank" rel="external nofollow noopener noreferrer">Hugo 配置文档<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>中的一个配置 <code>titleCaseStyle</code>，默认情况下，Hugo 在创建自动章节标题以及使用 <code>strings.Title</code> 函数转换字符串时遵循美联社样本中发布的大小写规则。</p>
 <p>但是这似乎和我高中所学的英文标题大小写规则有所出入，我记得我的高中英语老师教的是虚词不需要大写的，而不是美联社风格的每个单词都首字母大写。</p>
 <p>经过一番查阅，以下部分内容引用北京师范大学 - 出版科学研究院的一篇文章，<a href="https://pub.bnu.edu.cn/jzyg1/72203.html"target="_blank" rel="external nofollow noopener noreferrer">“出版物中，英文什么时候要大写？ ”<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>。</p>
 <h2 id="标题中的大写规则" class="heading-element"><span>1 标题中的大写规则</span>
@@ -4276,207 +4010,399 @@ SUCCESS
 <li>完成注册<br>
 <a class="lightgallery" href="../aws-ec2/images/23_1693045100.png?size=large" data-thumbnail="../aws-ec2/images/23_1693045100.png?size=small" data-sub-html="<h2>complete</h2>"><img loading="lazy" src="../aws-ec2/images/23_1693045100.png" alt="complete" srcset="../aws-ec2/images/23_1693045100.png?size=small, ../aws-ec2/images/23_1693045100.png?size=medium 1.5x, ../aws-ec2/images/23_1693045100.png?size=large 2x" data-title="complete" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></li>
 <li>登录亚马逊云科技控制台，<a href="https://console.aws.amazon.com/console/home"target="_blank" rel="external nofollow noopener noreferrer">登录地址<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>，选择根用户输入电子邮件地址，点击下一步会让输入密码，输入密码后就可以完成登录了。</li>
-</ol>]]></description></item><item><title>用 Node.js 开发一个轻量脚手架</title><link>https://lruihao.cn/posts/fixit-cli/</link><pubDate>Tue, 28 Nov 2023 10:48:07 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/fixit-cli/</guid><description><![CDATA[<div class="featured-image"><img loading="eager" src="https://lruihao.cn/posts/fixit-cli/images/featured-image.png" alt="用 Node.js 开发一个轻量脚手架" title="用 Node.js 开发一个轻量脚手架" referrerpolicy="no-referrer"/></div><p>本文将介绍如何用 Node.js 开发一个轻量脚手架，以 <a href="https://github.com/hugo-fixit/fixit-cli"target="_blank" rel="external nofollow noopener noreferrer">fixit-cli<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 为例。</p>
-<h2 id="前言" class="heading-element"><span>1 前言</span>
-  <a href="#%e5%89%8d%e8%a8%80" class="heading-mark">
+</ol>]]></description></item><item><title>探索 AWS 云上一站式解决方案免费使用</title><link>https://lruihao.cn/posts/aws-solution/</link><pubDate>Sat, 18 Nov 2023 12:52:37 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/aws-solution/</guid><description><![CDATA[<p>在如今云计算蓬勃发展的时代，创新成长型企业正积极寻求一站式的云上解决方案，以提高效率、降低成本并实现快速发展。AWS（亚马逊云科技）作为全球领先的云服务提供商，为创新成长型企业提供一站式云上解决方案，助力创新成长型企业在不同发展阶段实现低成本上云，实现快速发展。本文将探索一下 AWS 云上一站式解决方案的免费使用。</p>
+<h2 id="简介" class="heading-element"><span>1 简介</span>
+  <a href="#%e7%ae%80%e4%bb%8b" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
   </a>
-</h2><p>在维护 <a href="https://github.com/hugo-fixit/FixIt"target="_blank" rel="external nofollow noopener noreferrer">FixIt<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 这个项目时，很多新人可能第一次接触 Hugo，第一次使用 FixIt 主题，可能觉得无从下手。在之前的工作中，为了避免这个问题，我新增了两个模板项目：</p>
-<ul>
-<li><a href="https://github.com/hugo-fixit/hugo-fixit-blog-git"target="_blank" rel="external nofollow noopener noreferrer">hugo-fixit-blog-git<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
-<li><a href="https://github.com/hugo-fixit/hugo-fixit-blog-go"target="_blank" rel="external nofollow noopener noreferrer">hugo-fixit-blog-go<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+</h2><ul>
+<li>AWS 官网地址：<a href="https://aws.amazon.com/cn/campaigns/smb-cloud-one-stop-solution-paid-search/?sc_channel=seo&amp;sc_campaign=blog1104"target="_blank" rel="external nofollow noopener noreferrer">企业云上一站式解决方案_创新成长企业加速中心 - AWS 云服务<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
 </ul>
-<p>然并卵哈哈哈🤣，大家似乎都有种惰性，不愿意认真地读一遍 README，即使只需简单几步就能通过 GitHub template 创建一个拥有完整主题配置、自动化部署完善的博客。</p>
-<p>懒惰是人类进步的源泉，想到 Vue CLI、Create React App 这些脚手架，我决定开发一个轻量级的脚手架 <a href="https://github.com/hugo-fixit/fixit-cli"target="_blank" rel="external nofollow noopener noreferrer">fixit-cli<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>，让大家能够快速地上手 FixIt 主题。</p>
-<h2 id="思路" class="heading-element"><span>2 思路</span>
-  <a href="#%e6%80%9d%e8%b7%af" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h2><p>fixit-cli 的思路很简单，就是通过命令行交互，让用户输入一些信息，然后根据这些信息生成一个完整的博客项目。</p>
+<p>目前已经给出 11 种使用场景和解决方案，分别是：</p>
 <ul>
-<li><code>fixit create my-blog</code> 创建一个名为 <code>my-blog</code> 的项目</li>
-<li><code>fixit check</code> 检查 FixIt 主题的最新版本</li>
+<li><a href="https://aws.amazon.com/cn/campaigns/smb-cloud-one-stop-solution-paid-search/watch-the-video-zhaoyunxi/?sc_channel=seo&amp;sc_campaign=blog1104"target="_blank" rel="external nofollow noopener noreferrer">亚马逊云科技 Stable Diffusion WebUI 一键部署方案<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+<li><a href="https://aws.amazon.com/cn/campaigns/smb-cloud-one-stop-solution-paid-search/watch-the-video-xiongjunfeng/?sc_channel=seo&amp;sc_campaign=blog1104"target="_blank" rel="external nofollow noopener noreferrer">基于智能搜索的大语言模型增强方案<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+<li><a href="https://aws.amazon.com/cn/campaigns/smb-cloud-one-stop-solution-paid-search/watch-the-video-lisiyuan/?sc_channel=seo&amp;sc_campaign=blog1104"target="_blank" rel="external nofollow noopener noreferrer">Stable Diffusion 亚马逊云科技 插件解决方案<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+<li><a href="https://aws.amazon.com/cn/campaigns/smb-cloud-one-stop-solution-paid-search/watch-the-video-hanxiaoyong/?sc_channel=seo&amp;sc_campaign=blog1104"target="_blank" rel="external nofollow noopener noreferrer">玩转免费试用 - 全球领先云服务的那些羊毛<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+<li><a href="https://aws.amazon.com/cn/campaigns/smb-cloud-one-stop-solution-paid-search/watch-the-video-wangbeichen/?sc_channel=seo&amp;sc_campaign=blog1104"target="_blank" rel="external nofollow noopener noreferrer">快速搭建容量高达 35GB 的免费个人网盘<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+<li><a href="https://aws.amazon.com/cn/campaigns/smb-cloud-one-stop-solution-paid-search/watch-the-video-wangjinglai/?sc_channel=seo&amp;sc_campaign=blog1104"target="_blank" rel="external nofollow noopener noreferrer">呼叫中心也免费？没错！<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+<li><a href="https://aws.amazon.com/cn/campaigns/smb-cloud-one-stop-solution-paid-search/watch-the-video-suzhe/?sc_channel=seo&amp;sc_campaign=blog1104"target="_blank" rel="external nofollow noopener noreferrer">使用 Amazon Lightsail 构建 WordPress 网站<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+<li><a href="https://aws.amazon.com/cn/campaigns/smb-cloud-one-stop-solution-paid-search/watch-the-video-lilong/?sc_channel=seo&amp;sc_campaign=blog1104"target="_blank" rel="external nofollow noopener noreferrer">零代码一键部署多语言视频字幕解决方案<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+<li><a href="https://aws.amazon.com/cn/campaigns/smb-cloud-one-stop-solution-paid-search/watch-the-video-xuwei/?sc_channel=seo&amp;sc_campaign=blog1104"target="_blank" rel="external nofollow noopener noreferrer">Serverless 轻松搭建多人在线游戏小程序<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+<li><a href="https://aws.amazon.com/cn/campaigns/smb-cloud-one-stop-solution-paid-search/watch-the-video-hewenan/?sc_channel=seo&amp;sc_campaign=blog1104"target="_blank" rel="external nofollow noopener noreferrer">通知必达 - 无服务器通知方案<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+<li><a href="https://aws.amazon.com/cn/campaigns/smb-cloud-one-stop-solution-paid-search/watch-the-video-luhaoyu/?sc_channel=seo&amp;sc_campaign=blog1104"target="_blank" rel="external nofollow noopener noreferrer">轻松使用开箱即用的 AI 功能 - AI Solution Kit<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
 </ul>
-<h2 id="开发" class="heading-element"><span>3 开发</span>
-  <a href="#%e5%bc%80%e5%8f%91" class="heading-mark">
+<p>从以上列表标题就能看出，不仅含括了近些年比较火的“生成式 AI”相关一站式解决方案，还有一些比较常见的“网盘”、“呼叫中心”、“WordPress 网站”等等。</p>
+<h2 id="玩转免费试用" class="heading-element"><span>2 玩转免费试用</span>
+  <a href="#%e7%8e%a9%e8%bd%ac%e5%85%8d%e8%b4%b9%e8%af%95%e7%94%a8" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
   </a>
-</h2><h3 id="初始化项目" class="heading-element"><span>3.1 初始化项目</span>
-  <a href="#%e5%88%9d%e5%a7%8b%e5%8c%96%e9%a1%b9%e7%9b%ae" class="heading-mark">
+</h2><p>视频讲解详细链接：<a href="https://aws.amazon.com/cn/campaigns/smb-cloud-one-stop-solution-paid-search/watch-the-video-hanxiaoyong/?sc_channel=seo&amp;sc_campaign=blog1104"target="_blank" rel="external nofollow noopener noreferrer">玩转免费试用 - 全球领先云服务的那些羊毛<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
+<p>这个视频主要讲解了 AWS 的免费试用。很多公司都是从小到大到独角兽这样的成长，最初的时候学习自研，搭建一个系统其实可以从很多的一些免费的云服务开始，或者对于一些个人或者学生，如果想找工作，想试用云计算，也可以免费申请 AWS 的账号来使用。</p>
+<h3 id="免费云服务种类" class="heading-element"><span>2.1 免费云服务种类</span>
+  <a href="#%e5%85%8d%e8%b4%b9%e4%ba%91%e6%9c%8d%e5%8a%a1%e7%a7%8d%e7%b1%bb" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
   </a>
-</h3><div class="highlight"><div class="chroma">
+</h3><p>从 AWS 官网的数据来看，截止 2023 年 11 月 18 日，亚马逊云科技已经提供了 246 种云服务：</p>
+<p><a class="lightgallery" href="images/23_1700464182.png?size=large" data-thumbnail="images/23_1700464182.png?size=small" data-sub-html="<h2>AWS 全部服务</h2>"><img loading="lazy" src="images/23_1700464182.png" alt="AWS 全部服务" srcset="images/23_1700464182.png?size=small, images/23_1700464182.png?size=medium 1.5x, images/23_1700464182.png?size=large 2x" data-title="AWS 全部服务" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></p>
+<p>当然并不是所有的都是免费的，但是有免费的服务占比很大，其中免费的服务有 93 种。</p>
+<p><a class="lightgallery" href="images/23_1700464456.png?size=large" data-thumbnail="images/23_1700464456.png?size=small" data-sub-html="<h2>AWS 免费服务</h2>"><img loading="lazy" src="images/23_1700464456.png" alt="AWS 免费服务" srcset="images/23_1700464456.png?size=small, images/23_1700464456.png?size=medium 1.5x, images/23_1700464456.png?size=large 2x" data-title="AWS 免费服务" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></p>
+<p>免费额度也很宽限，不同云服务的免费额度不一样，比如亚马逊云服务器，有免费一年的，云电话有免费接打电话 90 分钟，短信免费试用 2 个月等。</p>
+<p>另外也有永久免费的服务，这一块应该是大家最感兴趣的，比如 Lambda 服务，如果一个月调用不超过一百万次的话，这是永久免费的，对于初创企业内部服务或者学习个人来说，这个额度是足够的。再有就是，SES 邮件服务，每个月外发次数可用 62000 次，对于小型服务运营，这个也是远远足够的了。</p>
+<p>免费的服务还有很多，涵盖广泛的产品种类：计算、数据库、存储、容器、机器学习等等。</p>
+<p><figure><a class="lightgallery" href="images/23_1700465041.png?size=large" data-thumbnail="images/23_1700465041.png?size=small" data-sub-html="<h2>免费服务种类</h2><p>免费种类几乎囊括以提供服务的所有种类</p>"><img loading="lazy" src="images/23_1700465041.png" alt="免费服务种类" srcset="images/23_1700465041.png?size=small, images/23_1700465041.png?size=medium 1.5x, images/23_1700465041.png?size=large 2x" data-title="免费种类几乎囊括以提供服务的所有种类" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a><figcaption class="image-caption">免费服务种类</figcaption>
+  </figure></p>
+<h3 id="免费云服务可以做什么" class="heading-element"><span>2.2 免费云服务可以做什么</span>
+  <a href="#%e5%85%8d%e8%b4%b9%e4%ba%91%e6%9c%8d%e5%8a%a1%e5%8f%af%e4%bb%a5%e5%81%9a%e4%bb%80%e4%b9%88" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>从上图可以基本可以看出涵盖面还是很广的，如果大家有什么新的 ideas 或者说想去尝试某种服务的话，综合运用以上服务，是完全可以零成本实现的。</p>
+<p>我们还可以做很多事情，比如：</p>
+<ul>
+<li>学习亚马逊云科技的产品</li>
+<li>尝试新的产品</li>
+<li>验证你的创意方案</li>
+</ul>
+<p>不仅仅是学习，你可以利用它搭建出一些比较高级实用的工具，比如个人网站、个人网盘：</p>
+<ul>
+<li><a href="https://aws.amazon.com/cn/campaigns/smb-cloud-one-stop-solution-paid-search/watch-the-video-suzhe/?sc_channel=seo&amp;sc_campaign=blog1104"target="_blank" rel="external nofollow noopener noreferrer">使用 Amazon Lightsail 构建 WordPress 网站<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+<li><a href="https://aws.amazon.com/cn/campaigns/smb-cloud-one-stop-solution-paid-search/watch-the-video-wangbeichen/?sc_channel=seo&amp;sc_campaign=blog1104"target="_blank" rel="external nofollow noopener noreferrer">快速搭建容量高达 35GB 的免费个人网盘<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+</ul>
+<p>甚至轻松搭建多人在线的”大炮打蚊子“的小游戏、轻松使用开箱即用的 AI 功能、零代码为视频生成多语言字幕，亦或是建造一个免费的呼叫中心：</p>
+<ul>
+<li><a href="https://aws.amazon.com/cn/campaigns/smb-cloud-one-stop-solution-paid-search/watch-the-video-xuwei/?sc_channel=seo&amp;sc_campaign=blog1104"target="_blank" rel="external nofollow noopener noreferrer">Serverless 轻松搭建多人在线游戏小程序<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+<li><a href="https://aws.amazon.com/cn/campaigns/smb-cloud-one-stop-solution-paid-search/watch-the-video-luhaoyu/?sc_channel=seo&amp;sc_campaign=blog1104"target="_blank" rel="external nofollow noopener noreferrer">轻松使用开箱即用的 AI 功能 - AI Solution Kit<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+<li><a href="https://aws.amazon.com/cn/campaigns/smb-cloud-one-stop-solution-paid-search/watch-the-video-wangjinglai/?sc_channel=seo&amp;sc_campaign=blog1104"target="_blank" rel="external nofollow noopener noreferrer">呼叫中心也免费？没错！<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+</ul>
+<p>另外还有其他更多的免费一站式云服务方案也都很不错，这里不一一例举了。</p>
+<p>对于初创企业或者有兴趣的这方面工作，但是苦于没有资源尝试的朋友们可以前往 <a href="https://aws.amazon.com/cn/campaigns/smb-cloud-one-stop-solution-paid-search/?sc_channel=seo&amp;sc_campaign=blog1104"target="_blank" rel="external nofollow noopener noreferrer">官网<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 观看视频详细讲解了解更多详细信息。</p>]]></description></item><item><title>SSH 提交签名验证</title><link>https://lruihao.cn/posts/ssh-sign/</link><pubDate>Sun, 22 Oct 2023 18:59:31 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/ssh-sign/</guid><description><![CDATA[<p>Git 支持使用 GPG 来签名提交记录。但 GPG 用起来很复杂，一直赖得搞。Git 从 2.34 开始支持使用 SSH 签名，所以本文将介绍如何使用 SSH 对提交进行签名。</p>
+<h2 id="操作步骤" class="heading-element"><span>1 操作步骤</span>
+  <a href="#%e6%93%8d%e4%bd%9c%e6%ad%a5%e9%aa%a4" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>可以使用 SSH 通过自己生成的 SSH 密钥对提交进行签名。有关详细信息，请查看 <code>user.Signingkey</code> 的 <a href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-usersigningKey"target="_blank" rel="external nofollow noopener noreferrer">Git 参考文档<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>。如果已使用 SSH 密钥向 GitHub 进行了身份验证，还可以再次上传该相同密钥以用作签名密钥。可以添加到帐户的签名密钥数没有限制。</p>
+<p>GitHub 使用 <a href="https://github.com/github/ssh_data"target="_blank" rel="external nofollow noopener noreferrer">ssh_data<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>（一种开放源代码 Ruby 库）来确认本地签名的提交和标记是否根据在 GitHub.com 上添加到帐户的公钥进行加密验证。</p>
+<blockquote>
+<p>注意：SSH 签名验证可用于 Git 2.34 或更高版本。若要更新 Git 版本，请参阅 <a href="https://git-scm.com/downloads"target="_blank" rel="external nofollow noopener noreferrer">Git<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 网站。</p>
+</blockquote>
+<p>要使用 SSH 对提交签名并在 GitHub 上验证这些提交，请执行以下步骤：</p>
+<ol>
+<li><a href="https://docs.github.com/zh/authentication/connecting-to-github-with-ssh/checking-for-existing-ssh-keys"target="_blank" rel="external nofollow noopener noreferrer">检查现有 SSH 密钥<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+<li><a href="https://docs.github.com/zh/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent"target="_blank" rel="external nofollow noopener noreferrer">生成新的 SSH 密钥<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+<li><a href="https://docs.github.com/zh/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account"target="_blank" rel="external nofollow noopener noreferrer">将 SSH 签名密钥添加到 GitHub 帐户<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+<li><a href="https://docs.github.com/zh/authentication/managing-commit-signature-verification/telling-git-about-your-signing-key"target="_blank" rel="external nofollow noopener noreferrer">将你的签名密钥告诉 Git<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+<li><a href="https://docs.github.com/zh/authentication/managing-commit-signature-verification/signing-commits"target="_blank" rel="external nofollow noopener noreferrer">对提交签名<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+<li><a href="https://docs.github.com/zh/authentication/managing-commit-signature-verification/signing-tags"target="_blank" rel="external nofollow noopener noreferrer">对标记签名<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+</ol>
+<h2 id="检查现有-ssh-密钥" class="heading-element"><span>2 检查现有 SSH 密钥</span>
+  <a href="#%e6%a3%80%e6%9f%a5%e7%8e%b0%e6%9c%89-ssh-%e5%af%86%e9%92%a5" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><ol>
+<li>
+<p>打开终端。</p>
+</li>
+<li>
+<p>输入 <code>ls -al ~/.ssh</code> 以查看是否存在现有的 SSH 密钥。</p>
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
-</span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">mkdir fixit-cli
-</span></span><span class="line"><span class="cl"><span class="nb">cd</span> fixit-cli
-</span></span><span class="line"><span class="cl">npm init -y</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># Lists the files in your .ssh directory, if they exist</span>
+</span></span><span class="line"><span class="cl">ls -al ~/.ssh</span></span></code></pre></td></tr></table>
 </div>
-</div><p>然后在 <code>package.json</code> 中写点项目信息。</p>
-<h3 id="安装依赖" class="heading-element"><span>3.2 安装依赖</span>
-  <a href="#%e5%ae%89%e8%a3%85%e4%be%9d%e8%b5%96" class="heading-mark">
+</div></li>
+<li>
+<p>检查目录列表以查看是否已经有 SSH 公钥。默认情况下，GitHub 的一个支持的公钥的文件名是以下之一。</p>
+<ul>
+<li>id_rsa.pub</li>
+<li>id_ecdsa.pub</li>
+<li>id_ed25519.pub</li>
+</ul>
+</li>
+</ol>
+<h2 id="生成新的-ssh-密钥" class="heading-element"><span>3 生成新的 SSH 密钥</span>
+  <a href="#%e7%94%9f%e6%88%90%e6%96%b0%e7%9a%84-ssh-%e5%af%86%e9%92%a5" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
   </a>
-</h3><div class="highlight"><div class="chroma">
+</h2><div class="details admonition note open">
+    <div class="details-summary admonition-title">
+      <i class="icon fa-solid fa-pencil-alt fa-fw" aria-hidden="true"></i>注意<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i>
+    </div>
+    <div class="details-content">
+      <div class="admonition-content"><p>注意：GitHub 通过在 2022 年 3 月 15 日删除旧的、不安全的密钥类型来提高安全性。</p>
+<p>自该日期起，不再支持 DSA 密钥 (<code>ssh-dss</code>)。无法在 GitHub.com 上向个人帐户添加新的 DSA 密钥。</p>
+<p>2021 年 11 月 2 日之前带有 <code>valid_after</code> 的 RSA 密钥 (<code>ssh-rsa</code>) 可以继续使用任何签名算法。在该日期之后生成的 RSA 密钥必须使用 SHA-2 签名算法。一些较旧的客户端可能需要升级才能使用 SHA-2 签名。</p>
+</div>
+    </div>
+  </div>
+<ol>
+<li>
+<p>打开终端。</p>
+</li>
+<li>
+<p>粘贴下面的文本（替换为你的 GitHub 电子邮件地址）。</p>
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">npm install commander inquirer chalk simple-git ora --save</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">ssh-keygen -t ed25519 -C <span class="s2">&#34;your_email@example.com&#34;</span></span></span></code></pre></td></tr></table>
 </div>
-</div><p>主要依赖：</p>
-<table>
-<thead>
-<tr>
-<th>依赖</th>
-<th>用途</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><a href="https://www.npmjs.com/package/commander"target="_blank" rel="external nofollow noopener noreferrer">commander<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></td>
-<td>完整的 Node.js 命令行解决方案</td>
-</tr>
-<tr>
-<td><a href="https://www.npmjs.com/package/inquirer"target="_blank" rel="external nofollow noopener noreferrer">inquirer<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></td>
-<td>常见交互式命令行用户界面的集合</td>
-</tr>
-<tr>
-<td><a href="https://www.npmjs.com/package/chalk"target="_blank" rel="external nofollow noopener noreferrer">chalk<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></td>
-<td>命令行输出样式</td>
-</tr>
-<tr>
-<td><a href="https://www.npmjs.com/package/simple-git"target="_blank" rel="external nofollow noopener noreferrer">simple-git<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></td>
-<td>用于在任何 Node.js 应用程序中运行 Git 命令的轻量级接口</td>
-</tr>
-<tr>
-<td><a href="https://www.npmjs.com/package/ora"target="_blank" rel="external nofollow noopener noreferrer">ora<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></td>
-<td>命令行 loading 效果</td>
-</tr>
-</tbody>
-</table>
-<p>如果需要使用简单的 <code>git clone</code> 下载模板，可以使用 <a href="https://www.npmjs.com/package/download-git-repo"target="_blank" rel="external nofollow noopener noreferrer">download-git-repo<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 替代 <code>simple-git</code>。</p>
-<h3 id="定义一个-cli" class="heading-element"><span>3.3 定义一个 CLI</span>
-  <a href="#%e5%ae%9a%e4%b9%89%e4%b8%80%e4%b8%aa-cli" class="heading-mark">
+</div><p>注意：如果你使用的是不支持 Ed25519 算法的旧系统，请使用以下命令：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">ssh-keygen -t rsa -b <span class="m">4096</span> -C <span class="s2">&#34;your_email@example.com&#34;</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>这将以提供的电子邮件地址为标签创建新 SSH 密钥。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">&gt; Generating public/private ALGORITHM key pair.</span></span></code></pre></td></tr></table>
+</div>
+</div><p>当系统提示你“Enter a file in which to save the key（输入要保存密钥的文件）”时，可以按 Enter 键接受默认文件位置。请注意，如果以前创建了 SSH 密钥，则 ssh-keygen 可能会要求重写另一个密钥，在这种情况下，我们建议创建自定义命名的 SSH 密钥。为此，请键入默认文件位置，并将 id_ssh_keyname 替换为自定义密钥名称。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">&gt; Enter a file in which to save the key <span class="o">(</span>/Users/YOU/.ssh/id_ALGORITHM<span class="o">)</span>: <span class="o">[</span>Press enter<span class="o">]</span></span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>在提示符下，键入安全密码。有关详细信息，请参阅“<a href="https://docs.github.com/zh/authentication/connecting-to-github-with-ssh/working-with-ssh-key-passphrases"target="_blank" rel="external nofollow noopener noreferrer">使用 SSH 密钥密码<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>”。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">&gt; Enter passphrase <span class="o">(</span>empty <span class="k">for</span> no passphrase<span class="o">)</span>: <span class="o">[</span>Type a passphrase<span class="o">]</span>
+</span></span><span class="line"><span class="cl">&gt; Enter same passphrase again: <span class="o">[</span>Type passphrase again<span class="o">]</span></span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ol>
+<p>更多请查看 <a href="https://docs.github.com/zh/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent"target="_blank" rel="external nofollow noopener noreferrer">生成新的 SSH 密钥<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>。</p>
+<h2 id="新增-ssh-密钥到-github-帐户" class="heading-element"><span>4 新增 SSH 密钥到 GitHub 帐户</span>
+  <a href="#%e6%96%b0%e5%a2%9e-ssh-%e5%af%86%e9%92%a5%e5%88%b0-github-%e5%b8%90%e6%88%b7" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
   </a>
-</h3><p>在 <code>package.json</code> 中添加 <code>bin</code> 字段，指定 CLI 的入口文件。</p>
+</h2><p>注意：添加 SSH 密钥的类型选择 <code>Signing Key</code>，细节略，详见 <a href="https://docs.github.com/zh/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account"target="_blank" rel="external nofollow noopener noreferrer">将 SSH 签名密钥添加到 GitHub 帐户<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>。</p>
+<h2 id="将-ssh-密钥告知-git" class="heading-element"><span>5 将 SSH 密钥告知 Git</span>
+  <a href="#%e5%b0%86-ssh-%e5%af%86%e9%92%a5%e5%91%8a%e7%9f%a5-git" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><ol>
+<li>
+<p>打开终端。</p>
+</li>
+<li>
+<p>配置 Git 使用 SSH 对提交和标记签名：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git config --global gpg.format ssh</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>若要在 Git 中设置 SSH 签名密钥，请粘贴下面的文本，将 <code>/PATH/TO/KEY.PUB</code> 替换为要使用的公钥路径（例如：<code>~/.ssh/id_ed25519.pub</code>）。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git config --global user.signingkey /PATH/TO/.SSH/KEY.PUB</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ol>
+<h2 id="对提交签名" class="heading-element"><span>6 对提交签名</span>
+  <a href="#%e5%af%b9%e6%8f%90%e4%ba%a4%e7%ad%be%e5%90%8d" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>当本地分支中的提交更改时，可以将 <code>-S</code> 添加到 <code>git commit</code> 命令：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Creates a signed commit</span>
+</span></span><span class="line"><span class="cl">git commit -S -m <span class="s2">&#34;YOUR_COMMIT_MESSAGE&#34;</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>若要将 Git 客户端配置为默认对本地存储库的提交进行签名，请在 Git 版本 2.0.0 及更高版本中，运行：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git config commit.gpgsign true</span></span></code></pre></td></tr></table>
+</div>
+</div><p>要在计算机上的任何本地存储库中默认对所有提交进行签名，请运行：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git config --global commit.gpgsign true</span></span></code></pre></td></tr></table>
+</div>
+</div><p>在本地完成创建提交后，将其推送到 GitHub 上的远程仓库，在 GitHub 上查看提交记录就能看到 <code>Verified</code> 的标志了。</p>
+<h2 id="对标记签名" class="heading-element"><span>7 对标记签名</span>
+  <a href="#%e5%af%b9%e6%a0%87%e8%ae%b0%e7%ad%be%e5%90%8d" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>若要对标记进行签名，请将 <code>-s</code> 添加到 <code>git tag</code> 命令。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Creates a signed tag</span>
+</span></span><span class="line"><span class="cl">git tag -s MYTAG</span></span></code></pre></td></tr></table>
+</div>
+</div><p>通过运行 <code>git tag -v [tag-name]</code> 验证已签名的标记。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Verifies the signed tag</span>
+</span></span><span class="line"><span class="cl">git tag -v MYTAG</span></span></code></pre></td></tr></table>
+</div>
+</div><p>或者，可以将 <code>gpgsign</code> 设置为 <code>true</code>，以便在创建标记时自动对其进行签名：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="nt">&#34;bin&#34;</span><span class="p">:</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nt">&#34;fixit&#34;</span><span class="p">:</span> <span class="s2">&#34;bin/cli.js&#34;</span>
-</span></span><span class="line"><span class="cl">  <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git config tag.gpgsign <span class="nb">true</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 或者</span>
+</span></span><span class="line"><span class="cl">git config --global tag.gpgsign true</span></span></code></pre></td></tr></table>
 </div>
-</div><p>然后在 <code>bin</code> 目录下创建 <code>cli.js</code> 文件，写入以下内容：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="ch">#!/usr/bin/env node
-</span></span></span><span class="line"><span class="cl"><span class="ch"></span>
-</span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Hello, FixIt!&#39;</span><span class="p">)</span></span></span></code></pre></td></tr></table>
-</div>
-</div><p>代码顶部的 <code>#!/usr/bin/env node</code> 是告诉终端，这个文件要使用 <code>node</code> 去执行，等同于 <code>node bin/cli.js</code>。</p>
-<p>如果我们想要在终端执行 <code>fixit</code> 命令，可以使用 <code>npm link</code> 将 <code>fixit</code> 命令链接到全局。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">npm link
-</span></span><span class="line"><span class="cl"><span class="c1"># 卸载本地包</span>
-</span></span><span class="line"><span class="cl">npm unlink fixit</span></span></code></pre></td></tr></table>
-</div>
-</div><p>或者也可以使用 <code>npm install -g</code> 全局安装。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">npm install -g fixit-cli /Users/cell/workspace/fixit-cli/</span></span></code></pre></td></tr></table>
-</div>
-</div><h3 id="命令行交互" class="heading-element"><span>3.4 命令行交互</span>
-  <a href="#%e5%91%bd%e4%bb%a4%e8%a1%8c%e4%ba%a4%e4%ba%92" class="heading-mark">
+</div><h2 id="其他" class="heading-element"><span>8 其他</span>
+  <a href="#%e5%85%b6%e4%bb%96" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
   </a>
-</h3><p>先把要实现的命令和选项列出来：</p>
-<div class="highlight" title="bin/cli.js"><div class="chroma">
+</h2><p>创建可信公钥列表文件：</p>
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="ch">#!/usr/bin/env node
-</span></span></span><span class="line"><span class="cl"><span class="ch"></span><span class="kr">import</span> <span class="p">{</span> <span class="nx">Command</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;commander&#39;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">// ...
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
-</span></span><span class="line"><span class="cl"><span class="c1">// define commands
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">program</span>
-</span></span><span class="line"><span class="cl">  <span class="p">.</span><span class="nx">command</span><span class="p">(</span><span class="s1">&#39;create &lt;project-name&gt;&#39;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">  <span class="p">.</span><span class="nx">description</span><span class="p">(</span><span class="s1">&#39;create a new FixIt project from a template&#39;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">  <span class="p">.</span><span class="nx">action</span><span class="p">(</span><span class="nx">createAction</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="nx">program</span>
-</span></span><span class="line"><span class="cl">  <span class="p">.</span><span class="nx">command</span><span class="p">(</span><span class="s1">&#39;check&#39;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">  <span class="p">.</span><span class="nx">description</span><span class="p">(</span><span class="s1">&#39;check the latest version of FixIt theme&#39;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">  <span class="p">.</span><span class="nx">action</span><span class="p">(</span><span class="nx">checkAction</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="nx">program</span>
-</span></span><span class="line"><span class="cl">  <span class="p">.</span><span class="nx">command</span><span class="p">(</span><span class="s1">&#39;help &lt;command&gt;&#39;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">  <span class="p">.</span><span class="nx">description</span><span class="p">(</span><span class="s1">&#39;display help for a specific command&#39;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">  <span class="p">.</span><span class="nx">action</span><span class="p">(</span><span class="nx">helpAction</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">// define cli
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">program</span>
-</span></span><span class="line"><span class="cl">  <span class="p">.</span><span class="nx">usage</span><span class="p">(</span><span class="s1">&#39;&lt;command&gt; [options]&#39;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">  <span class="p">.</span><span class="nx">description</span><span class="p">(</span><span class="nx">description</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">  <span class="p">.</span><span class="nx">version</span><span class="p">(</span><span class="sb">`</span><span class="si">${</span><span class="nx">pkg</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="sb"> v</span><span class="si">${</span><span class="nx">pkg</span><span class="p">.</span><span class="nx">version</span><span class="si">}</span><span class="sb">`</span><span class="p">,</span> <span class="s1">&#39;-v, --version&#39;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">  <span class="p">.</span><span class="nx">showHelpAfterError</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">  <span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">argv</span><span class="p">)</span></span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">mkdir -p ~/.config/git
+</span></span><span class="line"><span class="cl">touch ~/.config/git/allowed_signers</span></span></code></pre></td></tr></table>
 </div>
-</div><p>然后再去实现这些命令所执行的动作：<code>createAction</code>、<code>checkAction</code>、<code>helpAction</code> 和完善一下 logo 和 description 等细节。</p>
-<div class="highlight" title="fixit --help"><div class="chroma">
+</div><p>可信公钥列表文件内容格式如下，每个公钥占一行：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-plain" data-lang="plain"><span class="line"><span class="cl">公钥的身份 公钥内容</span></span></code></pre></td></tr></table>
+</div>
+</div><p>例如，可以将 <code>~/.ssh/id_ed25519.pub</code> 公钥复制然后粘贴：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">pbcopy &lt; ~/.ssh/id_ed25519.pub
+</span></span><span class="line"><span class="cl">open ~/.config/git/allowed_signers</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-plain" data-lang="plain"><span class="line"><span class="cl">Cell ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIE5bRSsXZ5HnUkMMEWS5/jxEQaqbLb+i6xjMyC6qiXsb xxx@xxx.com</span></span></code></pre></td></tr></table>
+</div>
+</div><p>将可信公钥列表文件路径添加到 Git 配置中：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git config --global gpg.ssh.allowedSignersFile <span class="s2">&#34;~/.config/git/allowed_signers&#34;</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>本地查看提交日志签名状况：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git log --show-signature</span></span></code></pre></td></tr></table>
+</div>
+</div>]]></description></item><item><title>如何给 npm 包打补丁？</title><link>https://lruihao.cn/posts/patch-package/</link><pubDate>Thu, 12 Oct 2023 22:37:56 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/patch-package/</guid><description><![CDATA[<div class="featured-image"><img loading="eager" src="images/featured-image.png" alt="如何给 npm 包打补丁？" title="如何给 npm 包打补丁？" referrerpolicy="no-referrer"/></div><h2 id="背景" class="heading-element"><span>1 背景</span>
+  <a href="#%e8%83%8c%e6%99%af" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>今天鬼事神差想起去年写的一段 dirty hack 代码，当时是在 <a href="https://github.com/Lruihao/vue-minder-editor-extended"target="_blank" rel="external nofollow noopener noreferrer">vue-minder-editor-extended<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 这个项目为了解决百度开源的 <a href="https://github.com/fex-team/kityminder-core"target="_blank" rel="external nofollow noopener noreferrer">@7polo/kityminder-core<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> npm 包的 bug，但是百度早在 17-18 年就停止更新了，我又不想自己 fork 一份源码然后重新发包，于是当时直接从 node_modules 里面复制出了打包后的源码进行修改，然后放到了项目中 <code>src/script/patch/kityminder.core.js</code>，并因修改了引入：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-diff" data-lang="diff"><span class="line"><span class="cl"><span class="gd">- require(&#39;@7polo/kityminder-core&#39;);
+</span></span></span><span class="line"><span class="cl"><span class="gd"></span><span class="gi">+ require(&#39;./script/patch/kityminder.core&#39;);
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>但是今天刷抖音看到类似的问题，回想起来这种做法真的是太蠢了，于是就想着有没有更好的办法，于是就一番搜索有了这篇文章。</p>
+<h2 id="安装-patch-package" class="heading-element"><span>2 安装 patch-package</span>
+  <a href="#%e5%ae%89%e8%a3%85-patch-package" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">npm i patch-package --save-dev</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="修改源码" class="heading-element"><span>3 修改源码</span>
+  <a href="#%e4%bf%ae%e6%94%b9%e6%ba%90%e7%a0%81" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>在 <code>node_modules</code> 目录下找到需要打补丁的包，然后修改源码，比如我这里修改了 <code>node_modules/@7polo/kityminder-core/dist/kityminder.core.js</code>，修改后直接保存。</p>
+<h2 id="生成补丁" class="heading-element"><span>4 生成补丁</span>
+  <a href="#%e7%94%9f%e6%88%90%e8%a1%a5%e4%b8%81" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">npx patch-package @7polo/kityminder-core</span></span></code></pre></td></tr></table>
+</div>
+</div><p>此时在根目录下会得到如下文件：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">├── patches
+</span></span><span class="line"><span class="cl">│   └── @7polo-kityminder-core+1.4.53.patch
+</span></span><span class="line"><span class="cl">└── package.json</span></span></code></pre></td></tr></table>
+</div>
+</div><p>想看看这个补丁文件里面是什么东西，打开 <code>patches/@7polo-kityminder-core+1.4.53.patch</code>，内容如下：</p>
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -4506,67 +4432,119 @@ SUCCESS
 </span><span class="lnt">26
 </span><span class="lnt">27
 </span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-plain" data-lang="plain"><span class="line"><span class="cl">Usage: fixit &lt;command&gt; [options]
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">=============================================
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">        ▄████  ▄█     ▄  ▄█    ▄▄▄▄▀ 
-</span></span><span class="line"><span class="cl">        █▀   ▀ ██ ▀▄   █ ██ ▀▀▀ █    
-</span></span><span class="line"><span class="cl">        █▀▀    ██   █ ▀  ██     █    
-</span></span><span class="line"><span class="cl">        █      ▐█  ▄ █   ▐█    █     
-</span></span><span class="line"><span class="cl">         █      ▐ █   ▀▄  ▐   ▀      
-</span></span><span class="line"><span class="cl">          ▀        ▀                
-</span></span><span class="line"><span class="cl">              fixit-cli v1.0.2
-</span></span><span class="line"><span class="cl">         A cli tool for FixIt theme.
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">=============================================
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">FixIt is a clean, elegant but advanced blog theme for Hugo
-</span></span><span class="line"><span class="cl">built with love by Lruihao and his friends.
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">Complete documentation is available at https://fixit.lruihao.cn/.
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">Options:
-</span></span><span class="line"><span class="cl">  -v, --version          output the version number
-</span></span><span class="line"><span class="cl">  -h, --help             display help for command
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">Commands:
-</span></span><span class="line"><span class="cl">  create &lt;project-name&gt;  create a new FixIt project from a template
-</span></span><span class="line"><span class="cl">  check                  check the latest version of FixIt theme
-</span></span><span class="line"><span class="cl">  help &lt;command&gt;         display help for a specific command</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-diff" data-lang="diff"><span class="line"><span class="cl"><span class="gh">diff --git a/node_modules/@7polo/kityminder-core/.DS_Store b/node_modules/@7polo/kityminder-core/.DS_Store
+</span></span></span><span class="line"><span class="cl"><span class="gh"></span>new file mode 100644
+</span></span><span class="line"><span class="cl"><span class="gh">index 0000000..c88a062
+</span></span></span><span class="line"><span class="cl"><span class="gh"></span>Binary files /dev/null and b/node_modules/@7polo/kityminder-core/.DS_Store differ
+</span></span><span class="line"><span class="cl"><span class="gh">diff --git a/node_modules/@7polo/kityminder-core/dist/kityminder.core.js b/node_modules/@7polo/kityminder-core/dist/kityminder.core.js
+</span></span></span><span class="line"><span class="cl"><span class="gh">index 78dfbaf..32f276d 100644
+</span></span></span><span class="line"><span class="cl"><span class="gh"></span><span class="gd">--- a/node_modules/@7polo/kityminder-core/dist/kityminder.core.js
+</span></span></span><span class="line"><span class="cl"><span class="gd"></span><span class="gi">+++ b/node_modules/@7polo/kityminder-core/dist/kityminder.core.js
+</span></span></span><span class="line"><span class="cl"><span class="gi"></span><span class="gu">@@ -513,6 +513,8 @@ _p[9] = {
+</span></span></span><span class="line"><span class="cl"><span class="gu"></span>          *
+</span></span><span class="line"><span class="cl">          * @param {string} name 要执行的命令名称
+</span></span><span class="line"><span class="cl">          * @param {argument} args 要传递给命令的其它参数
+</span></span><span class="line"><span class="cl"><span class="gi">+         * 
+</span></span></span><span class="line"><span class="cl"><span class="gi">+         * @patch 2022.10.19 @Lruihao 修复缺少 afterExecCommand hook
+</span></span></span><span class="line"><span class="cl"><span class="gi"></span>          */
+</span></span><span class="line"><span class="cl">             execCommand: function(name) {
+</span></span><span class="line"><span class="cl">                 if (!name) return null;
+</span></span><span class="line"><span class="cl"><span class="gu">@@ -547,6 +549,8 @@ _p[9] = {
+</span></span></span><span class="line"><span class="cl"><span class="gu"></span>                         this._interactChange();
+</span></span><span class="line"><span class="cl">                     }
+</span></span><span class="line"><span class="cl">                 }
+</span></span><span class="line"><span class="cl"><span class="gi">+                // Fix: afterExecCommand hook
+</span></span></span><span class="line"><span class="cl"><span class="gi">+                this._fire(new MinderEvent(&#34;afterExecCommand&#34;, eventParams, false));
+</span></span></span><span class="line"><span class="cl"><span class="gi"></span>                 return result === undefined ? null : result;
+</span></span><span class="line"><span class="cl">             }
+</span></span><span class="line"><span class="cl">         });
+</span></span><span class="line"><span class="cl"><span class="gu">@@ -1254,6 +1258,22 @@ _p[13] = {
+</span></span></span><span class="line"><span class="cl"><span class="gu"></span>                 });
+</span></span><span class="line"><span class="cl">                 return this;
+</span></span><span class="line"><span class="cl">             },
+</span></span><span class="line"><span class="cl"><span class="gi">+            /**
+</span></span></span><span class="line"><span class="cl"><span class="gi">+             * @patch 2022.10.26 @Lruihao 修复缺少 once 侦听指定事件一次
+</span></span></span><span class="line"><span class="cl"><span class="gi">+             * @param {String} name 
+</span></span></span><span class="line"><span class="cl"><span class="gi">+             * @param {Function} callback 
+</span></span></span><span class="line"><span class="cl"><span class="gi">+             */
+</span></span></span><span class="line"><span class="cl"><span class="gi">+            once: function(name, callback) {
+</span></span></span><span class="line"><span class="cl"><span class="gi">+                var km = this;
+</span></span></span><span class="line"><span class="cl"><span class="gi">+                name.split(/\s+/).forEach(function(n) {
+</span></span></span><span class="line"><span class="cl"><span class="gi">+                    const tmpCallback = (e) =&gt; {
+</span></span></span><span class="line"><span class="cl"><span class="gi">+                      callback(e);
+</span></span></span><span class="line"><span class="cl"><span class="gi">+                      km.off(n.toLowerCase(), tmpCallback)
+</span></span></span><span class="line"><span class="cl"><span class="gi">+                    };
+</span></span></span><span class="line"><span class="cl"><span class="gi">+                    km._listen(n.toLowerCase(), tmpCallback);
+</span></span></span><span class="line"><span class="cl"><span class="gi">+                });
+</span></span></span><span class="line"><span class="cl"><span class="gi">+                return this;
+</span></span></span><span class="line"><span class="cl"><span class="gi">+            },
+</span></span></span><span class="line"><span class="cl"><span class="gi"></span>             off: function(name, callback) {
+</span></span><span class="line"><span class="cl">                 var types = name.split(/\s+/);
+</span></span><span class="line"><span class="cl">                 var i, j, callbacks, removeIndex;
+</span></span></code></pre></td></tr></table>
 </div>
-</div><p>最后发布到 npm 上就完活了。</p>
+</div><p>发现其实就是一个 diff 文件，这个文件里面记录了修改的内容，以及修改的位置，这样就可以在安装依赖的时候自动执行补丁了。</p>
+<h2 id="使用补丁" class="heading-element"><span>5 使用补丁</span>
+  <a href="#%e4%bd%bf%e7%94%a8%e8%a1%a5%e4%b8%81" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>在 <code>package.json</code> 中添加如下内容：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">npm login
-</span></span><span class="line"><span class="cl">npm publish</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;scripts&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;postinstall&#34;</span><span class="p">:</span> <span class="s2">&#34;patch-package&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
-</div><p>发布后，就可以通过 <code>npm install -g fixit-cli</code> 全局安装了。</p>
-<p>安装后，例如，创建一个名为 my-blog 的站点：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">fixit create my-blog</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="源码" class="heading-element"><span>4 源码</span>
-  <a href="#%e6%ba%90%e7%a0%81" class="heading-mark">
+</div><h2 id="提交补丁" class="heading-element"><span>6 提交补丁</span>
+  <a href="#%e6%8f%90%e4%ba%a4%e8%a1%a5%e4%b8%81" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
   </a>
-</h2><p>命令动作的具体实现详见 FixIt CLI 源码。</p>
-<a href="https://github.com/hugo-fixit/fixit-cli"target="_blank" rel="external nofollow noopener noreferrer" class="card-link"><span class="cl-backdrop" style="--cl-bg-url: url(/images/fixit.min.svg);"></span>
-    <span class="cl-content">
-      <span class="cl-text">
-        <span class="cl-title">FixIt CLI</span>
-        <span class="cl-meta">
-          <svg class="cl-icon-link" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" width="16" height="16"><path d="M574 665.4c-3.1-3.1-8.2-3.1-11.3 0L446.5 781.6c-53.8 53.8-144.6 59.5-204 0-59.5-59.5-53.8-150.2 0-204l116.2-116.2c3.1-3.1 3.1-8.2 0-11.3l-39.8-39.8c-3.1-3.1-8.2-3.1-11.3 0L191.4 526.5c-84.6 84.6-84.6 221.5 0 306s221.5 84.6 306 0l116.2-116.2c3.1-3.1 3.1-8.2 0-11.3L574 665.4zM832.6 191.4c-84.6-84.6-221.5-84.6-306 0L410.3 307.6c-3.1 3.1-3.1 8.2 0 11.3l39.7 39.7c3.1 3.1 8.2 3.1 11.3 0l116.2-116.2c53.8-53.8 144.6-59.5 204 0 59.5 59.5 53.8 150.2 0 204L665.3 562.6c-3.1 3.1-3.1 8.2 0 11.3l39.8 39.8c3.1 3.1 8.2 3.1 11.3 0l116.2-116.2c84.5-84.6 84.5-221.5 0-306.1z" fill="#a9a9b3"></path><path d="M610.1 372.3c-3.1-3.1-8.2-3.1-11.3 0L372.3 598.7c-3.1 3.1-3.1 8.2 0 11.3l39.6 39.6c3.1 3.1 8.2 3.1 11.3 0l226.4-226.4c3.1-3.1 3.1-8.2 0-11.3l-39.5-39.6z" fill="#a9a9b3"></path></svg>
-          <span class="cl-url">https://github.com/hugo-fixit/fixit-cli</span>
-        </span>
-      </span><svg class="cl-shortcut-icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" width="64" height="64"><path d="M960 512c0 249.408-203.2 448-448 448-244.778667 0-448-198.592-448-448S262.592 64 512 64s448 198.592 448 448" fill="#2196F3"></path><path d="M507.52 718.08c0-8.96-4.48-13.44-13.44-17.92-26.88-8.96-53.76-8.96-76.16-31.381333-4.48-8.96-4.48-17.92-8.96-26.88-8.96-8.96-31.36-13.44-44.8-17.92h-89.6c-13.44-4.48-22.4-22.4-31.36-35.84 0-4.48 0-13.461333-8.96-13.461334-8.96-4.458667-17.92 4.501333-26.88 0-4.48-4.458667-4.48-8.96-4.48-13.418666 0-13.461333 8.96-26.901333 17.92-35.861334 13.44-8.96 26.88 4.48 40.32 4.48 4.48 0 4.48 0 8.96 4.48 13.44 4.48 17.92 22.4 17.92 35.861334v8.96c0 4.48 4.48 4.48 8.96 4.48 4.48-22.4 4.48-44.821333 8.96-67.2 0-26.88 26.88-53.781333 49.28-62.72 8.96-4.458667 13.44 4.501333 22.4 0 26.88-8.96 94.08-35.84 80.64-71.658667-8.96-31.381333-35.84-62.698667-71.68-58.24-8.96 4.501333-13.44 8.96-22.4 13.461333-13.44 8.96-40.32 35.84-53.76 35.84-22.4-4.48-22.4-35.84-17.92-49.301333 4.48-17.92 44.8-76.138667 71.68-67.178667l17.92 17.92c8.96 4.48 22.4 4.48 35.84 4.48 4.48 0 8.96 0 13.44-4.48 4.48-4.48 4.48-4.48 4.48-8.96 0-13.44-13.44-26.901333-22.4-35.861333s-22.4-17.92-35.84-22.378667c-44.8-13.461333-116.48 4.458667-152.32 35.84-35.84 31.36-62.72 85.12-80.64 129.92-8.96 26.88-17.92 62.698667-22.4 94.08-4.48 22.4-8.96 40.32 4.48 62.698667 13.44 26.88 40.32 53.781333 67.2 71.68 17.92 13.44 53.76 13.44 71.68 35.84 13.44 17.941333 8.96 40.32 8.96 62.72 0 26.88 17.92 49.28 26.88 71.658667 4.48 13.461333 8.96 31.381333 13.44 44.821333 0 4.48 4.48 31.36 4.48 35.84 26.88 13.44 49.28 26.901333 80.64 35.861333 4.48 0 22.4-26.901333 22.4-31.381333 13.44-13.44 22.4-31.36 35.84-40.32 8.96-4.48 17.92-8.96 26.88-17.941333 8.96-8.96 13.44-26.88 17.92-40.32 4.48-8.938667 8.96-26.858667 4.48-40.298667M516.48 305.92c4.48 0 8.96-4.48 17.92-8.96 13.44-8.96 26.901333-22.4 40.32-31.36 13.461333-8.96 26.901333-22.4 35.861333-31.36 13.44-8.96 22.4-26.88 26.88-40.341333 4.48-8.96 17.941333-26.88 13.44-40.32-4.48-8.96-26.88-13.44-35.84-17.92C579.2 126.698667 547.84 122.24 512 122.24c-13.44 0-31.36 4.458667-35.84 17.92-4.48 22.4 13.44 17.92 31.36 22.4 0 0 4.48 35.84 4.48 40.32 4.48 22.421333-8.96 35.84-8.96 58.24 0 13.44 0 35.84 8.96 44.8h4.48zM892.8 619.52c4.501333-8.96 4.501333-22.4 8.96-31.36 4.501333-22.421333 4.501333-44.8 4.501333-67.2 0-44.8-4.501333-89.578667-17.92-129.92-8.96-13.44-13.461333-26.88-17.941333-40.341333-8.96-22.378667-22.4-44.8-40.32-62.698667-17.92-22.4-40.341333-85.12-80.64-67.2-13.44 4.501333-22.4 22.421333-31.36 31.381333l-26.88 40.32c-4.501333 4.48-8.96 13.44-4.501333 17.92 0 4.48 4.501333 4.48 8.96 4.48 8.96 4.501333 13.461333 4.501333 22.421333 8.96 4.48 0 8.96 4.501333 4.48 8.96 0 0 0 4.501333-4.48 4.501334-22.421333 22.4-44.8 40.32-67.2 62.698666-4.48 4.48-8.96 13.44-8.96 17.92s4.48 4.48 4.48 8.96c0 4.501333-4.48 4.501333-8.96 8.96-8.96 4.501333-17.92 8.96-22.4 13.461334-4.48 8.96 0 22.4-4.48 31.36-4.48 22.4-17.941333 40.32-26.901333 62.72-8.96 13.418667-13.418667 26.88-22.378667 40.32 0 17.92-4.501333 31.36 4.458667 44.8 22.421333 31.36 62.72 13.44 94.08 26.901333 8.96 4.458667 17.92 4.458667 22.421333 13.418667 13.418667 13.461333 13.418667 35.861333 17.92 49.301333 4.458667 17.92 8.96 35.84 17.92 53.76 4.48 22.421333 13.44 44.821333 17.92 62.72 40.341333-31.36 76.16-67.178667 103.04-112 26.88-31.424 40.341333-67.242667 53.76-103.104" fill="#CDDC39"></path></svg></span></a>]]></description></item></channel></rss>
+</h2><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git add .
+</span></span><span class="line"><span class="cl">git commit -m <span class="s2">&#34;Chore: patch @7polo/kityminder-core&#34;</span>
+</span></span><span class="line"><span class="cl">git push</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="测试" class="heading-element"><span>7 测试</span>
+  <a href="#%e6%b5%8b%e8%af%95" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>执行一次完整的依赖安装 =&gt; 构建发布，一切符合预期，大功告成~</p>
+]]></description></item></channel></rss>

@@ -15,8 +15,8 @@
 - 06-09 [架构之基：从根儿上了解设计原则](https://lruihao.cn/posts/design-principles/ "2024-06-09 02:24:31")
 - 06-06 [怎么生成暗黑模式和明亮模式的 SVG 图片？](https://lruihao.cn/posts/svg-dark-light/ "2024-06-06 22:13:26")
 - 05-20 [坐高铁去柳州吃螺狮粉](https://lruihao.cn/posts/404d6a2/ "2024-05-20 11:41:03")
-- 04-17 [利用 Vercel 反代 Gravatar 实现镜像加速](https://lruihao.cn/posts/3fd72ec/ "2024-04-17 12:51:35")
-- 04-04 [临时决定再写一个小工具 - 网站预览图生成器](https://lruihao.cn/posts/d651bdd/ "2024-04-04 13:23:37")
+- 04-17 [利用 Vercel 反代 Gravatar 实现镜像加速](https://lruihao.cn/projects/vercel-gravatar/ "2024-04-17 12:51:35")
+- 04-04 [临时决定再写一个小工具 - 网站预览图生成器](https://lruihao.cn/projects/apple-devices-preview/ "2024-04-04 13:23:37")
 - 04-02 [用五天时间给自己制作一个封面图生成工具](https://lruihao.cn/projects/coverview/ "2024-04-02 18:05:34")
 - 03-26 [写文档时英文标题什么时候要大写？](https://lruihao.cn/posts/c6bc2d5/ "2024-03-26 12:23:44")
 - 02-29 [实现类似于 Element UI 表格的溢出文本提示功能](https://lruihao.cn/posts/overflow-tooltip/ "2024-02-29 16:46:00")
@@ -32,7 +32,7 @@
 共计 31 篇文章
 
 - 12-22 [尝试在 Python 中使用 Amazon Titan 文本模型](https://lruihao.cn/posts/d8ae205/ "2023-12-22 19:58:47")
-- 11-28 [用 Node.js 开发一个轻量脚手架](https://lruihao.cn/posts/fixit-cli/ "2023-11-28 10:48:07")
+- 11-28 [用 Node.js 开发一个轻量脚手架](https://lruihao.cn/projects/fixit-cli/ "2023-11-28 10:48:07")
 - 11-18 [探索 AWS 云上一站式解决方案免费使用](https://lruihao.cn/posts/aws-solution/ "2023-11-18 12:52:37")
 - 10-22 [SSH 提交签名验证](https://lruihao.cn/posts/ssh-sign/ "2023-10-22 18:59:31")
 - 10-12 [如何给 npm 包打补丁？](https://lruihao.cn/posts/patch-package/ "2023-10-12 22:37:56")

@@ -9,8 +9,8 @@
 
 在维护 [FixIt](https://github.com/hugo-fixit/FixIt) 这个项目时，很多新人可能第一次接触 Hugo，第一次使用 FixIt 主题，可能觉得无从下手。在之前的工作中，为了避免这个问题，我新增了两个模板项目：
 
-- [hugo-fixit-blog-git](https://github.com/hugo-fixit/hugo-fixit-blog-git)
 - [hugo-fixit-blog-go](https://github.com/hugo-fixit/hugo-fixit-blog-go)
+- [hugo-fixit-blog-git](https://github.com/hugo-fixit/hugo-fixit-blog-git)
 
 然并卵哈哈哈🤣，大家似乎都有种惰性，不愿意认真地读一遍 README，即使只需简单几步就能通过 GitHub template 创建一个拥有完整主题配置、自动化部署完善的博客。
 
@@ -174,11 +174,13 @@ fixit create my-blog
 
 命令动作的具体实现详见 FixIt CLI 源码。
 
-{{&lt; link href=&#34;https://github.com/hugo-fixit/fixit-cli&#34; content=&#34;FixIt CLI&#34; card=true &gt;}}
+{{&lt; gh-repo-card-container &gt;}}
+  {{&lt; gh-repo-card repo=&#34;hugo-fixit/fixit-cli&#34; &gt;}}
+{{&lt; /gh-repo-card-container &gt;}}
 
 
 ---
 
 > 作者: [Lruihao](https://github.com/Lruihao)  
-> URL: https://lruihao.cn/posts/fixit-cli/  
+> URL: https://lruihao.cn/projects/fixit-cli/  
 

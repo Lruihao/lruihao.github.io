@@ -134,13 +134,17 @@ export default function (req) {
 }
 ```
 
-完整代码可以在 [GitHub](https://github.com/Lruihao/vercel-gravatar) 上查看。
-
 最后部署到 Vercel 平台即可。
+
+## 源码
+
+{{&lt; gh-repo-card-container &gt;}}
+  {{&lt; gh-repo-card repo=&#34;Lruihao/vercel-gravatar&#34; &gt;}}
+{{&lt; /gh-repo-card-container &gt;}}
 
 
 ---
 
 > 作者: [Lruihao](https://github.com/Lruihao)  
-> URL: https://lruihao.cn/posts/3fd72ec/  
+> URL: https://lruihao.cn/projects/vercel-gravatar/  
 
