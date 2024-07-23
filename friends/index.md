@@ -30,9 +30,9 @@
 ````markdown
 ```yaml
 - nickname: &lt;your nickname&gt;
-   avatar: &lt;your avatar&gt;
-   url: &lt;your site link&gt;
-   description: &lt;description of your site&gt;
+  avatar: &lt;your avatar&gt;
+  url: &lt;your site link&gt;
+  description: &lt;description of your site&gt;
 ```
 ````
 
