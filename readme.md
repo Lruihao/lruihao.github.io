@@ -101,7 +101,7 @@
 - 05-23 [Cell Watermark](https://lruihao.cn/projects/cell-watermark/ "2021-05-23 17:15:41")
 - 03-04 [Code Review 怎麼做？新手工程師如何提升「程式碼品質」](https://lruihao.cn/posts/codereview/ "2021-03-04 21:04:18")
 - 03-02 [基于 leancloud-storage 实现的无后端记账本](https://lruihao.cn/projects/bill-note/ "2021-03-02 21:46:40")
-- 03-01 [你为什么吸烟？](https://lruihao.cn/whysmoke/ "2021-03-01 01:27:41")
+- 03-01 [你为什么吸烟？](https://lruihao.cn/me/whysmoke/ "2021-03-01 01:27:41")
 
 ## 2020
 
