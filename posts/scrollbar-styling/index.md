@@ -1,4 +1,4 @@
-# 【现代 CSS】标准滚动条控制规范
+# 标准滚动条控制规范
 
 
 使用 `scrollbar-width` 和 `scrollbar-color` 属性设置滚动条的样式。

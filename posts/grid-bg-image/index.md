@@ -1,4 +1,4 @@
-# 【现代 CSS】CSS 实现网格背景效果
+# CSS 如何实现网格背景效果？
 
 
 本文将介绍如何使用 `linear-gradient` 、`background-size` 等属性来实现网格背景效果。
