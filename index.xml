@@ -1,4 +1,233 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>菠菜眾長</title><link>https://lruihao.cn/</link><description>「Hugo FixIt 」创建人、喜欢造东西、写东西，分享一些前端开发中的所见、所闻、所思。</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><copyright>本站内容采用 CC BY-NC-SA 4.0 国际许可协议。</copyright><lastBuildDate>Wed, 17 Jul 2024 16:06:08 +0800</lastBuildDate><atom:link href="https://lruihao.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>Git 统计代码量</title><link>https://lruihao.cn/posts/git-summary/</link><pubDate>Wed, 17 Jul 2024 16:06:08 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/git-summary/</guid><description><![CDATA[<p>使用 Git 命令统计在某段时间内项目中的代码量。</p>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>菠菜眾長</title><link>https://lruihao.cn/</link><description>「Hugo FixIt 」创建人、喜欢造东西、写东西，分享一些前端开发中的所见、所闻、所思。</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><copyright>本站内容采用 CC BY-NC-SA 4.0 国际许可协议。</copyright><lastBuildDate>Mon, 29 Jul 2024 20:32:39 +0800</lastBuildDate><atom:link href="https://lruihao.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>现代 CSS 解决方案：CSS 四舍五入数值单位</title><link>https://lruihao.cn/posts/css-round/</link><pubDate>Mon, 29 Jul 2024 20:32:39 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/css-round/</guid><description><![CDATA[<p>本文将介绍另外一个非常实用的 CSS 数学函数 - <code>round()</code> 及其实际应用场景。</p>
+<h2 id="何为-css-round-函数" class="heading-element"><span>1 何为 CSS round 函数</span>
+  <a href="#%e4%bd%95%e4%b8%ba-css-round-%e5%87%bd%e6%95%b0" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><blockquote>
+<p>这是一个比较新的 CSS 函数，在 <a href="https://drafts.csswg.org/css-values/#funcdef-round"target="_blank" rel="external nofollow noopener noreferrer">CSS Values and Units Module Level 4<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 规范中提出，自 2024 年 5 月起，此功能适用于最新设备和浏览器版本。此功能可能无法在较旧的设备或浏览器中使用。</p>
+</blockquote>
+<p>CSS <code>round()</code> 函数<strong>根据选定的舍入策略返回舍入数</strong>。</p>
+<p>作者应使用自定义 CSS 属性（例如 <code>--my-property</code>）作为舍入值、间隔或两者兼而有之；如果这些函数具有已知值，使用 <code>round()</code> 函数显然不太必要。</p>
+<h3 id="语法规则" class="heading-element"><span>1.1 语法规则</span>
+  <a href="#%e8%af%ad%e6%b3%95%e8%a7%84%e5%88%99" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p><code>round()</code> 的完整语法规则还是比较复杂的。完整的介绍可以看 <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/round"target="_blank" rel="external nofollow noopener noreferrer">MDN - round()<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-css" data-lang="css"><span class="line"><span class="cl"><span class="o">&lt;</span><span class="nt">round</span><span class="o">()&gt;</span> <span class="o">=</span> <span class="nt">round</span><span class="o">(</span> <span class="o">&lt;</span><span class="nt">rounding-strategy</span><span class="o">&gt;?,</span> <span class="o">&lt;</span><span class="nt">valueToRound</span><span class="o">&gt;</span> <span class="o">,</span> <span class="o">&lt;</span><span class="nt">roundingInterval</span><span class="o">&gt;</span> <span class="o">)</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>round(&lt;rounding-strategy&gt;, valueToRound, roundingInterval)</code> 函数指定可选的舍入策略、要舍入的值（或数学表达式）和舍入间隔（或数学表达式）。根据舍入策略，<code>valueToRound</code> 四舍五入到 <code>roundingInterval</code> 的最接近整数倍。</p>
+<ul>
+<li><code>&lt;rounding-strategy&gt;</code>: 可选参数，表示舍入策略。这可能是以下值之一：
+<ul>
+<li><code>up</code>: 相当于 JavaScript Math.ceil() 方法，将 valueToRound 向上舍入到 roundingInterval 最接近的整数倍。这相当于 JavaScript Math.ceil() 方法。</li>
+<li><code>down</code>: 将 valueToRound 向下舍入为 roundingInterval 最接近的整数倍。这相当于 JavaScript Math.floor() 方法。</li>
+<li><code>nearest</code>: 将 valueToRound 舍入为 roundingInterval 的最接近的整数倍，该倍数可以高于或低于该值。如果 valueToRound 是上方和下方舍入目标之间的一半，则会向上舍入。相当于 JavaScript Math.round()。</li>
+<li><code>to-zero</code>: 将 valueToRound 舍入为 roundingInterval 接近/接近零的最接近整数倍。这相当于 JavaScript Math.trunc() 方法。</li>
+</ul>
+</li>
+<li><code>&lt;valueToRound&gt;</code>: 需要被四舍五入的值。必须是 <code>&lt;number&gt;</code>、<code>&lt;dimension&gt;</code> 或 <code>&lt;percentage&gt;</code>，或者解析为这些值之一的数学表达式。</li>
+<li><code>&lt;roundingInterval&gt;</code>: 舍入的间隔规则。这是一个 <code>&lt;number&gt;</code>、<code>&lt;dimension&gt;</code> 或 <code>&lt;percentage&gt;</code>，或者解析为这些值之一的数学表达式。</li>
+</ul>
+<h3 id="示例" class="heading-element"><span>1.2 示例</span>
+  <a href="#%e7%a4%ba%e4%be%8b" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-css" data-lang="css"><span class="line"><span class="cl"><span class="nt">width</span><span class="o">:</span> <span class="nt">round</span><span class="o">(</span><span class="nt">var</span><span class="o">(</span><span class="nt">--width</span><span class="o">),</span> <span class="nt">50px</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl"><span class="nt">width</span><span class="o">:</span> <span class="nt">round</span><span class="o">(</span><span class="nt">up</span><span class="o">,</span> <span class="nt">101px</span><span class="o">,</span> <span class="nt">var</span><span class="o">(</span><span class="nt">--interval</span><span class="o">));</span>
+</span></span><span class="line"><span class="cl"><span class="nt">width</span><span class="o">:</span> <span class="nt">round</span><span class="o">(</span><span class="nt">down</span><span class="o">,</span> <span class="nt">var</span><span class="o">(</span><span class="nt">--height</span><span class="o">),</span> <span class="nt">var</span><span class="o">(</span><span class="nt">--interval</span><span class="o">));</span>
+</span></span><span class="line"><span class="cl"><span class="nt">margin</span><span class="o">:</span> <span class="nt">round</span><span class="o">(</span><span class="nt">to-zero</span><span class="o">,</span> <span class="nt">-105px</span><span class="o">,</span> <span class="nt">10px</span><span class="o">);</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>MDN 官方写了一个完整的例子，可以看 <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/round"target="_blank" rel="external nofollow noopener noreferrer">Playground | MDN<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>。</p>
+<h2 id="有什么用" class="heading-element"><span>2 有什么用</span>
+  <a href="#%e6%9c%89%e4%bb%80%e4%b9%88%e7%94%a8" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>上面讲了一大堆概念，那这玩意到底有什么用勒？</p>
+<p>好好好，那就再回想一下在此之前我们开发中遇到的痛点吧：</p>
+<ul>
+<li>解决基于 transform 的模糊问题</li>
+<li>使用 <code>round()</code> 模拟步骤缓动动画</li>
+<li>解决百分比或者 <code>rem</code> 单位的四舍五入问题</li>
+</ul>
+<p>前两点可以看 ChokCoco 的文章 <a href="https://www.cnblogs.com/coco1s/p/17676226.html"target="_blank" rel="external nofollow noopener noreferrer">现代 CSS 解决方案：数学函数 Round<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>，里面有详细的讲解。</p>
+<p>而我遇到的主要问题就是第三点，也就是由于浏览器渲染机制，导致有时百分比或者 <code>rem</code> 的单位实际计算值为小数的情况引起的系列问题。</p>
+<p>造成这个现象的主要原因有：</p>
+<ul>
+<li>像素单位和设备像素比（DPR）</li>
+<li>浏览器的子像素渲染偏差</li>
+</ul>
+<p>举个例子吧：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-css" data-lang="css"><span class="line"><span class="cl"><span class="p">.</span><span class="nc">container</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">width</span><span class="p">:</span> <span class="mi">100</span><span class="kt">px</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">.</span><span class="nc">child</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">width</span><span class="p">:</span> <span class="mf">33.33</span><span class="kt">%</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>如果容器 <code>.container</code> 中有三个 <code>.child</code> 元素，那么每个 <code>.child</code> 的理论宽度应该是 <code>33.33px</code>。然而，由于不能将像素拆分，浏览器采取四舍五入方式处理，从而得到了 <code>33px</code> 或 <code>34px</code> 的结果。然而，为了保持布局的精确性，浏览器实际上以子像素的方式保存了这些值，并且在渲染时考虑了这部分差异。</p>
+<p>但是！！！坑爹的是，不同浏览器的处理方式也会不同，还有就是子孙节点继承宽度时可能会有四舍五入导致子孙节点宽度大于父节点宽度的问题。</p>
+<h2 id="实际场景应用" class="heading-element"><span>3 实际场景应用</span>
+  <a href="#%e5%ae%9e%e9%99%85%e5%9c%ba%e6%99%af%e5%ba%94%e7%94%a8" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>在 FixIt 主题中，页面内容分为左、中、右三栏：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-scss" data-lang="scss"><span class="line"><span class="cl"><span class="nc">.wrapper</span> <span class="nt">main</span><span class="nc">.container</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="na">display</span><span class="o">:</span> <span class="ni">flex</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="na">align-items</span><span class="o">:</span> <span class="ni">flex-start</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="na">justify-content</span><span class="o">:</span> <span class="ni">center</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="na">padding-inline</span><span class="o">:</span> <span class="mi">1</span><span class="kt">rem</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="na">gap</span><span class="o">:</span> <span class="mi">0</span><span class="mf">.5</span><span class="kt">rem</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nc">.page</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="na">width</span><span class="o">:</span> <span class="mi">56</span><span class="kt">%</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nn">#comments</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="na">width</span><span class="o">:</span> <span class="mi">100</span><span class="kt">%</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="c1">// 评论区域 iframe
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="nt">iframe</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="na">width</span><span class="o">:</span> <span class="mi">100</span><span class="kt">%</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>例如在 <code>1440px</code> 的屏幕上，中间内容宽度应该为 <code>(1440 - 2 * 16) * 0.56 = 788.48px</code>，实际渲染结果却是是 <code>788.48px</code>。</p>
+<p>问题来了，在内容的最后加上一个 giscus 评论区域，评论区域容器 <code>iframe</code> 和 <code>iframe</code> 里面的内容按理说应该都是 <code>788.48px</code>，但是实际渲染结果却是：</p>
+<ul>
+<li>评论容器 <code>iframe</code>：<code>788.48px</code></li>
+<li><code>iframe</code> 内评论内容 <code>&lt;html&gt;</code>：<code>789px</code></li>
+</ul>
+<p>怎么说？无奈不，四舍五入，你舍掉其实这个场景我也就不纠结了，恰好它是符合<strong>五入</strong>的规则，向上 <code>1px</code> 取整了，导致的视觉上的影响就是 giscus 评论区域右侧的边框巧合不见了。—T_T—</p>
+<p>那怎么搞勒，治标不治本的做法就是，把评论区 <code>#comments</code> 的宽度缩写一些，但是我不想这样做。</p>
+<p>我想既然问题是小数点造成的，避免产生小数点不久好了，然后就用到了 <code>round()</code> 函数：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-css" data-lang="css"><span class="line"><span class="cl"><span class="p">.</span><span class="nc">page</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">width</span><span class="p">:</span> <span class="nf">round</span><span class="p">(</span><span class="mi">56</span><span class="kt">%</span><span class="p">,</span> <span class="mi">2</span><span class="kt">px</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>我希望页面中间永远是偶数，这样可以同时避免左、中、右三个部分出现小数，所以这里的 <code>roundingInterval</code> 设置为 <code>2px</code>，表示四舍五入到 <code>2px</code> 的整数倍，这样就避免了小数点的问题。</p>
+<p>好了，问题就这样愉快地解决了……吗？</p>
+<p>好吧，并没有。—T_T—</p>
+<h2 id="兼容性" class="heading-element"><span>4 兼容性</span>
+  <a href="#%e5%85%bc%e5%ae%b9%e6%80%a7" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>开头说了这是一个比较新的 CSS 函数，所以兼容性肯定是个问题。尽管<strong>截至 2024 年 7 月 29 日</strong>，<code>round()</code> 函数覆盖了 <strong>67.63%</strong> 的浏览器，并且在各类浏览器中的最新几个版本都得到了完全支持（忽略 IE），但是在一些老版本的浏览器中还是不支持的，如下图。</p>
+<p class="ciu-embed" data-feature="mdn-css_types_round" data-past="2" data-future="1" data-observer="true" data-theme=""></p>
+<p>那又怎么搞勒？要奔溃了，最讨厌兼容性了，也讨厌 Polyfill，但是毕竟 FixIt 主题不是我一个人在用，还是加一下 Polyfill 吧。</p>
+<p>好家伙！没有 Polyfill 可用。真要奔溃了，前面都白折腾了？—T_T—</p>
+<p>也不是没有办法，自己写一个，利用 <code>@supports</code> 写一些兼容性代码吧，不支持的就不用 <code>round()</code> 函数了。</p>
+<p>上面简化后的例子兼容性可以这样写：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-scss" data-lang="scss"><span class="line"><span class="cl"><span class="c1">// 顺便提一下，大写 ROUND 是为了避免和 Sass 的 round 函数冲突，CSS 中对函数关键词大小写不敏感。
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nc">.wrapper</span> <span class="nt">main</span><span class="nc">.container</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="na">display</span><span class="o">:</span> <span class="ni">flex</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="na">align-items</span><span class="o">:</span> <span class="ni">flex-start</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="na">justify-content</span><span class="o">:</span> <span class="ni">center</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="na">padding-inline</span><span class="o">:</span> <span class="mi">1</span><span class="kt">rem</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="na">gap</span><span class="o">:</span> <span class="mi">0</span><span class="mf">.5</span><span class="kt">rem</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nc">.page</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="na">width</span><span class="o">:</span> <span class="nf">ROUND</span><span class="p">(</span><span class="mi">56</span><span class="kt">%</span><span class="o">,</span> <span class="mi">2</span><span class="kt">px</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nn">#comments</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="na">width</span><span class="o">:</span> <span class="mi">100</span><span class="kt">%</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="c1">// 评论区域 iframe
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="nt">iframe</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="na">width</span><span class="o">:</span> <span class="mi">100</span><span class="kt">%</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">// 如果不支持 round() 函数，回退到设定固定值 56%
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">@supports</span> <span class="nt">not</span> <span class="o">(</span><span class="nt">width</span><span class="nd">:</span> <span class="nt">ROUND</span><span class="o">(</span><span class="nt">56</span><span class="err">%</span><span class="o">,</span> <span class="nt">2px</span><span class="o">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nc">.page</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="na">width</span><span class="o">:</span> <span class="mi">56</span><span class="kt">%</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="cm">/* ... */</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>好了，跌跌撞撞就这样了，等过两年 <code>round()</code> 函数覆盖率更高了我第一件事就是把上面的兼容性代码删掉。&#x1f602;</p>]]></description></item><item><title>Git 统计代码量</title><link>https://lruihao.cn/posts/git-summary/</link><pubDate>Wed, 17 Jul 2024 16:06:08 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/git-summary/</guid><description><![CDATA[<p>使用 Git 命令统计在某段时间内项目中的代码量。</p>
 <h2 id="统计-commit-数" class="heading-element"><span>1 统计 commit 数</span>
   <a href="#%e7%bb%9f%e8%ae%a1-commit-%e6%95%b0" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
@@ -2528,361 +2757,5 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git rm -r --cached themes/FixIt</span></span></code></pre></td></tr></table>
-</div>
-</div>]]></description></item><item><title>给 el-card 添加折叠功能</title><link>https://lruihao.cn/posts/el-card-collapse/</link><pubDate>Wed, 10 Jan 2024 17:06:54 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/el-card-collapse/</guid><description><![CDATA[<div class="details admonition question open">
-    <div class="details-summary admonition-title">
-      <i class="icon fa-solid fa-question-circle fa-fw" aria-hidden="true"></i>出发点<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i>
-    </div>
-    <div class="details-content">
-      <div class="admonition-content">虽然 Element 也有 <a href="https://element.eleme.cn/#/zh-CN/component/collapse"target="_blank" rel="external nofollow noopener noreferrer">el-collapse<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 组件，但是当我只想写一个折叠面板时，它的写法就略显繁琐了，<a href="https://element.eleme.cn/#/zh-CN/component/card"target="_blank" rel="external nofollow noopener noreferrer">el-card<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 组件的样式也更符合我的需求，所以我就想着给 el-card 添加折叠功能。</div>
-    </div>
-  </div>
-<h2 id="效果" class="heading-element"><span>1 效果</span>
-  <a href="#%e6%95%88%e6%9e%9c" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h2><p>在线演示：<a href="https://lruihao.github.io/vue-el-demo/#/card-collapse"target="_blank" rel="external nofollow noopener noreferrer">https://lruihao.github.io/vue-el-demo/#/card-collapse<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></p>
-<h2 id="实现过程" class="heading-element"><span>2 实现过程</span>
-  <a href="#%e5%ae%9e%e7%8e%b0%e8%bf%87%e7%a8%8b" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h2><p>一开始想着使用 Vue 的自定义指令功能来实现，但是动手之前还是习惯性地先看 el-card 的源码，如下所示：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-Vue" data-lang="Vue"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">template</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;el-card&#34;</span> <span class="o">:</span><span class="na">class</span><span class="o">=</span><span class="s">&#34;shadow ? &#39;is-&#39; + shadow + &#39;-shadow&#39; : &#39;is-always-shadow&#39;&#34;</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;el-card__header&#34;</span> <span class="nt">v-if</span><span class="s">=&#34;$slots.header || header&#34;&gt;
-</span></span></span><span class="line"><span class="cl"><span class="s">      &lt;slot name=&#34;header&#34;&gt;{{ header }}&lt;/slot&gt;
-</span></span></span><span class="line"><span class="cl"><span class="s">    &lt;/div&gt;
-</span></span></span><span class="line"><span class="cl"><span class="s">    &lt;div class=&#34;el-card__body&#34; </span><span class="nt">:style</span><span class="s">=&#34;bodyStyle&#34;</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">      <span class="p">&lt;</span><span class="nt">slot</span><span class="p">&gt;&lt;/</span><span class="nt">slot</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">  <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">template</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">  <span class="kr">export</span> <span class="k">default</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;ElCard&#39;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">props</span><span class="o">:</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">      <span class="nx">header</span><span class="o">:</span> <span class="p">{},</span>
-</span></span><span class="line"><span class="cl">      <span class="nx">bodyStyle</span><span class="o">:</span> <span class="p">{},</span>
-</span></span><span class="line"><span class="cl">      <span class="nx">shadow</span><span class="o">:</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="nx">type</span><span class="o">:</span> <span class="nb">String</span>
-</span></span><span class="line"><span class="cl">      <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">  <span class="p">};</span>
-</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span></span></span></code></pre></td></tr></table>
-</div>
-</div><p>这一看源码这么简单，直接改得了，还用啥自定义指令，开干！</p>
-<h2 id="实现方式" class="heading-element"><span>3 实现方式</span>
-  <a href="#%e5%ae%9e%e7%8e%b0%e6%96%b9%e5%bc%8f" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h2><ol>
-<li>通过继承 el-card 组件来实现，这样就不用改 el-card 的源码了，也不用担心升级 Element 时会被覆盖掉。</li>
-<li>然后在继承的组件中添加一个 <code>isCollapse</code> 属性来控制折叠状态。</li>
-</ol>
-<p>继承也很简单，这样简单几行就完整继承了原来 el-card 的所有功能了：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-Vue" data-lang="Vue"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">Card</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;element-ui&#39;</span>
-</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="k">default</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;ElCardCollapse&#39;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">  <span class="kr">extends</span><span class="o">:</span> <span class="nx">Card</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span></span></span></code></pre></td></tr></table>
-</div>
-</div><p>然后，把 el-card template 中的代码先原封不动地复制过来，再在需要的地方添加折叠按钮和相关逻辑就行了：</p>
-<div class="highlight" title="ElCardCollapse.vue"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span><span class="lnt">37
-</span><span class="lnt">38
-</span><span class="lnt">39
-</span><span class="lnt">40
-</span><span class="lnt">41
-</span><span class="lnt">42
-</span><span class="lnt">43
-</span><span class="lnt">44
-</span><span class="lnt">45
-</span><span class="lnt">46
-</span><span class="lnt">47
-</span><span class="lnt">48
-</span><span class="lnt">49
-</span><span class="lnt">50
-</span><span class="lnt">51
-</span><span class="lnt">52
-</span><span class="lnt">53
-</span><span class="lnt">54
-</span><span class="lnt">55
-</span><span class="lnt">56
-</span><span class="lnt">57
-</span><span class="lnt">58
-</span><span class="lnt">59
-</span><span class="lnt">60
-</span><span class="lnt">61
-</span><span class="lnt">62
-</span><span class="lnt">63
-</span><span class="lnt">64
-</span><span class="lnt">65
-</span><span class="lnt">66
-</span><span class="lnt">67
-</span><span class="lnt">68
-</span><span class="lnt">69
-</span><span class="lnt">70
-</span><span class="lnt">71
-</span><span class="lnt">72
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-Vue" data-lang="Vue"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">template</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;el-card&#34;</span> <span class="o">:</span><span class="na">class</span><span class="o">=</span><span class="s">&#34;shadow ? &#39;is-&#39; + shadow + &#39;-shadow&#39; : &#39;is-always-shadow&#39;&#34;</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">div</span>
-</span></span><span class="line"><span class="cl">      <span class="nt">v-if</span><span class="o">=</span><span class="s">&#34;$slots.header || header&#34;</span><span class="p">
-</span></span></span><span class="line"><span class="cl"><span class="p"></span>      <span class="na">class</span><span class="o">=</span><span class="s">&#34;el-card__header&#34;</span>
-</span></span><span class="line"><span class="cl">      <span class="o">:</span><span class="na">class</span><span class="o">=</span><span class="s">&#34;isCollapseSelf ? &#39;collapse-icon-right&#39; : &#39;collapse-icon-down&#39;&#34;</span>
-</span></span><span class="line"><span class="cl">      <span class="err">@</span><span class="na">click</span><span class="o">=</span><span class="s">&#34;isCollapseSelf = !isCollapseSelf&#34;</span>
-</span></span><span class="line"><span class="cl">    <span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">      <span class="p">&lt;</span><span class="nt">slot</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;header&#34;</span><span class="p">&gt;{{</span> <span class="nx">header</span> <span class="p">}}&lt;/</span><span class="nt">slot</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">div</span>
-</span></span><span class="line"><span class="cl">      <span class="na">class</span><span class="o">=</span><span class="s">&#34;el-card__body&#34;</span>
-</span></span><span class="line"><span class="cl">      <span class="nt">:style</span><span class="o">=</span><span class="s">&#34;bodyStyle&#34;</span>
-</span></span><span class="line"><span class="cl">      <span class="o">:</span><span class="na">class</span><span class="o">=</span><span class="s">&#34;{&#39;is-collapse&#39;: isCollapseSelf}&#34;</span>
-</span></span><span class="line"><span class="cl">    <span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">      <span class="p">&lt;</span><span class="nt">slot</span> <span class="p">/&gt;</span>
-</span></span><span class="line"><span class="cl">    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">  <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">template</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">Card</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;element-ui&#39;</span>
-</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="k">default</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;ElCardCollapse&#39;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">  <span class="kr">extends</span><span class="o">:</span> <span class="nx">Card</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">props</span><span class="o">:</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">isCollapse</span><span class="o">:</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">      <span class="nx">type</span><span class="o">:</span> <span class="nb">Boolean</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">      <span class="k">default</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">    <span class="p">},</span>
-</span></span><span class="line"><span class="cl">  <span class="p">},</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">data</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">      <span class="nx">isCollapseSelf</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">isCollapse</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">  <span class="p">},</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">style</span> <span class="na">lang</span><span class="o">=</span><span class="s">&#34;scss&#34;</span> <span class="na">scoped</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="p">.</span><span class="nx">el</span><span class="o">-</span><span class="nx">card__header</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">cursor</span><span class="o">:</span> <span class="nx">pointer</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">position</span><span class="o">:</span> <span class="nx">relative</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">  <span class="o">&amp;::</span><span class="nx">after</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">font</span><span class="o">-</span><span class="nx">family</span><span class="o">:</span> <span class="nx">element</span><span class="o">-</span><span class="nx">icons</span> <span class="o">!</span><span class="nx">important</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">speak</span><span class="o">:</span> <span class="nx">none</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">font</span><span class="o">-</span><span class="nx">style</span><span class="o">:</span> <span class="nx">normal</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">font</span><span class="o">-</span><span class="nx">weight</span><span class="o">:</span> <span class="mi">400</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">font</span><span class="o">-</span><span class="nx">variant</span><span class="o">:</span> <span class="nx">normal</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">text</span><span class="o">-</span><span class="nx">transform</span><span class="o">:</span> <span class="nx">none</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">line</span><span class="o">-</span><span class="nx">height</span><span class="o">:</span> <span class="mi">1</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">vertical</span><span class="o">-</span><span class="nx">align</span><span class="o">:</span> <span class="nx">baseline</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">display</span><span class="o">:</span> <span class="nx">inline</span><span class="o">-</span><span class="nx">block</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="o">-</span><span class="nx">webkit</span><span class="o">-</span><span class="nx">font</span><span class="o">-</span><span class="nx">smoothing</span><span class="o">:</span> <span class="nx">antialiased</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="o">-</span><span class="nx">moz</span><span class="o">-</span><span class="nx">osx</span><span class="o">-</span><span class="nx">font</span><span class="o">-</span><span class="nx">smoothing</span><span class="o">:</span> <span class="nx">grayscale</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">position</span><span class="o">:</span> <span class="nx">absolute</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">right</span><span class="o">:</span> <span class="mi">10</span><span class="nx">px</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">top</span><span class="o">:</span> <span class="mi">50</span><span class="o">%</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">transform</span><span class="o">:</span> <span class="nx">translateY</span><span class="p">(</span><span class="o">-</span><span class="mi">50</span><span class="o">%</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">  <span class="o">&amp;</span><span class="p">.</span><span class="nx">collapse</span><span class="o">-</span><span class="nx">icon</span><span class="o">-</span><span class="nx">right</span><span class="o">::</span><span class="nx">after</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">content</span><span class="o">:</span> <span class="s1">&#39;\e6e0&#39;</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">  <span class="p">}</span>
-</span></span><span class="line"><span class="cl">  <span class="o">&amp;</span><span class="p">.</span><span class="nx">collapse</span><span class="o">-</span><span class="nx">icon</span><span class="o">-</span><span class="nx">down</span><span class="o">::</span><span class="nx">after</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">content</span><span class="o">:</span> <span class="s1">&#39;\e6df&#39;</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">  <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">.</span><span class="nx">is</span><span class="o">-</span><span class="nx">collapse</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">display</span><span class="o">:</span> <span class="nx">none</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span></span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="使用方法" class="heading-element"><span>4 使用方法</span>
-  <a href="#%e4%bd%bf%e7%94%a8%e6%96%b9%e6%b3%95" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h2><p>在 <code>main.js</code> 中引入：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">import</span> <span class="nx">ElCardCollapse</span> <span class="nx">from</span> <span class="s1">&#39;@/components/ElCardCollapse.vue&#39;</span>
-</span></span><span class="line"><span class="cl"><span class="nx">Vue</span><span class="p">.</span><span class="nx">component</span><span class="p">(</span><span class="s1">&#39;ElCardCollapse&#39;</span><span class="p">,</span> <span class="nx">ElCardCollapse</span><span class="p">)</span></span></span></code></pre></td></tr></table>
-</div>
-</div><p>写法和 el-card 一样，只是多了一个 <code>is-collapse</code> 属性，使用 <code>el-card-collapse</code> 代替 <code>el-card</code> 即可：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span><span class="lnt">37
-</span><span class="lnt">38
-</span><span class="lnt">39
-</span><span class="lnt">40
-</span><span class="lnt">41
-</span><span class="lnt">42
-</span><span class="lnt">43
-</span><span class="lnt">44
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-Vue" data-lang="Vue"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">template</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">el-card-collapse</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;box-card&#34;</span> <span class="nt">:is-collapse</span><span class="o">=</span><span class="s">&#34;isCollapse&#34;</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">      <span class="p">&lt;</span><span class="nt">div</span> <span class="na">slot</span><span class="o">=</span><span class="s">&#34;header&#34;</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;flex-between&#34;</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">span</span><span class="p">&gt;</span><span class="nx">卡片名称</span><span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">el-button</span> <span class="na">style</span><span class="o">=</span><span class="s">&#34;padding: 3px 0; margin-right: 10px;&#34;</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text&#34;</span><span class="p">&gt;</span><span class="nx">操作按钮</span><span class="p">&lt;/</span><span class="nt">el-button</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">      <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">      <span class="p">&lt;</span><span class="nt">div</span> <span class="nt">v-for</span><span class="o">=</span><span class="s">&#34;o in 4&#34; :key=&#34;o&#34; class=&#34;text item&#34;</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">        <span class="p">{{</span> <span class="err">&#39;</span><span class="na">列表内容</span> <span class="err">&#39;</span> <span class="err">+</span> <span class="na">o</span> <span class="p">}}</span>
-</span></span><span class="line"><span class="cl">      <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">    <span class="err">&lt;/</span><span class="na">el</span><span class="nt">-card-collapse</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">  <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">template</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="k">default</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;CardCollapse&#39;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">data</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">      <span class="nx">isCollapse</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">  <span class="p">},</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">style</span> <span class="na">lang</span><span class="o">=</span><span class="s">&#34;scss&#34;</span> <span class="na">scoped</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="p">.</span><span class="nx">text</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">font</span><span class="o">-</span><span class="nx">size</span><span class="o">:</span> <span class="mi">14</span><span class="nx">px</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="p">.</span><span class="nx">item</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">margin</span><span class="o">-</span><span class="nx">bottom</span><span class="o">:</span> <span class="mi">18</span><span class="nx">px</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="p">.</span><span class="nx">flex</span><span class="o">-</span><span class="nx">between</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">display</span><span class="o">:</span> <span class="nx">flex</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">justify</span><span class="o">-</span><span class="nx">content</span><span class="o">:</span> <span class="nx">space</span><span class="o">-</span><span class="nx">between</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">align</span><span class="o">-</span><span class="nx">items</span><span class="o">:</span> <span class="nx">center</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="p">.</span><span class="nx">box</span><span class="o">-</span><span class="nx">card</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">width</span><span class="o">:</span> <span class="mi">480</span><span class="nx">px</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span></span></span></code></pre></td></tr></table>
 </div>
 </div>]]></description></item></channel></rss>

@@ -1,11 +1,12 @@
 # 菠菜眾長
 
-共计 246 篇文章
+共计 247 篇文章
 
 ## 2024
 
-共计 20 篇文章
+共计 21 篇文章
 
+- 07-29 [现代 CSS 解决方案：CSS 四舍五入数值单位](https://lruihao.cn/posts/css-round/ "2024-07-29 20:32:39")
 - 07-17 [Git 统计代码量](https://lruihao.cn/posts/git-summary/ "2024-07-17 16:06:08")
 - 07-15 [现代 CSS 解决方案之异形元素怎么设置阴影？](https://lruihao.cn/posts/drop-shadow/ "2024-07-15 10:40:12")
 - 07-14 [CSS 实现时间轴、背景图 loading 和渐变边框](https://lruihao.cn/posts/fixit-docs-bookmark/ "2024-07-14 13:03:31")
