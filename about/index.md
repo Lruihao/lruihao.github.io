@@ -56,6 +56,8 @@ const site = new Blog(&#39;菠菜眾長&#39;, &#39;Lruihao&#39;, &#39;https://lr
 
 &lt;!-- markdownlint-disable-file --&gt;
 
+{{&lt; busuanzi_embed &gt;}}
+
 
 ---
 

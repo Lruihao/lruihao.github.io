@@ -44,6 +44,8 @@
 
 {{&lt; /admonition &gt;}}
 
+{{&lt; busuanzi_embed &gt;}}
+
 
 ---
 
