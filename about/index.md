@@ -27,7 +27,7 @@ _—— 自我期许_
 你可以通过我的[微信公众号](https://lruihao.cn/images/qr-wx-mp.webp &#34;关注「菠菜眾長」公众号&#34;)、[GitHub](https://github.com/Lruihao/hugo-blog &#34;Watch on GitHub&#34;) 或 [RSS](http://lruihao.cn/index.xml) 来订阅本博客。
 
 {{&lt; style &#34;min-height: 350px;&#34; &gt;}}
-{{&lt; typeit code=javascript code-link=true &gt;}}
+{{&lt; typeit code=javascript speed=20 &gt;}}
 /**
  * 菠菜眾長，取“兼收並蓄，博採眾長”之意。
  * Licensed under CC BY-NC-SA 4.0
