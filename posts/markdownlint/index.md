@@ -240,6 +240,8 @@ npm install lint-staged --save-dev
 
 ### 安装 husky
 
+&gt; 本教程基于 husky 8 版本，最新版本方式以 husky 官网教程为准。
+
 ```bash
 npx husky-init &amp;&amp; npm install
 ```
@@ -253,7 +255,7 @@ npx husky-init &amp;&amp; npm install
 npx lint-staged
 ```
 
-这样每次提交代码时，就会自动检查并修复 content 目录下的所有 markdown 文件中的语法错误。
+这样每次提交代码时，就会自动检查并修复 content 目录下的所有 Markdown 文件中的语法错误。
 
 ## 引入 AutoCorrect
 
