@@ -45,7 +45,25 @@ const site = new Blog(&#39;菠菜眾長&#39;, &#39;Lruihao&#39;, &#39;https://lr
 {{&lt; /typeit &gt;}}
 {{&lt; /style &gt;}}
 
-&lt;!-- TODO 博客历史 Timeline --&gt;
+{{&lt; details &#34;博客历史&#34; &gt;}}
+```timeline {reverse=true, animation=true, height=&#34;280px&#34;}
+events:
+  - timestamp: 2018-05-28 20:01:01
+    content: 基于 Hexo &#43; NexT 主题搭建博客，博客取名为“博採眾長”，取“兼收並蓄，博採眾長”之意。&lt;br&gt;当时还在打 ACM，博客内容也主要是记录题解。
+  - timestamp: 2019-12-06 21:04:01
+    content: 博客名称“博採眾長”改为“菠菜眾長”，因为网站备案不能使用成语。&lt;br&gt;这个时候博客内容开始转向前端开发了。部署在腾讯云 COS 桶，速度嘎嘎快。
+  - timestamp: 2021-08-19 22:48:06
+    content: 升级 Windows 11，系统更新出现故障，整理磁盘时不小心把代码全删除了，无备份，GitHub 仅备份了 Markdown 源码。博客开始停止运行。
+  - timestamp: 2021-09-08 20:53:21
+    content: 博客迁移至 Hugo，使用 LoveIt 主题，重新出发。
+  - timestamp: 2021-12-18 16:15:22
+    content: LoveIt =&gt; FixIt&lt;br&gt;LoveIt 长期停更，博客主题改为 [FixIt](https://github.com/hugo-fixit/FixIt)，并自行开发维护。
+  - timestamp: 2023-02-14 18:00:40
+    content: 大学毕业后，出湖南工作。网警打电话告知我迁移备案，我觉得麻烦就注销了，同时部署从腾讯云 COS 桶迁移至 GitHub Pages。
+  - timestamp: 2023-05-01 17:13:51
+    content: 部署从 GitHub Pages 迁移至 Vercel。
+```
+{{&lt; /details &gt;}}
 
 ## 商务合作
 
