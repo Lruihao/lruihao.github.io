@@ -78,7 +78,7 @@ events:
 ## Sponsor
 
 {{&lt; reward wechatpay=&#34;/images/wechatpay.jpg&#34; alipay=&#34;/images/alipay.jpg&#34; mode=&#34;fixed&#34; &gt;}}
-{{&lt; reward-log animation=true &gt;}}
+{{&lt; reward-log animation=true height=&#34;435px&#34; &gt;}}
 
 &lt;!-- markdownlint-disable-file --&gt;
 
