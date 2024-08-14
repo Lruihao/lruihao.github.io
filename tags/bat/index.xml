@@ -1,87 +1,10 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>bat - 标签 | 菠菜眾長</title><link>https://lruihao.cn/tags/bat/</link><description>bat - 标签 | 菠菜眾長</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><copyright>本站内容采用 CC BY-NC-SA 4.0 国际许可协议。</copyright><lastBuildDate>Sat, 17 Nov 2018 14:25:49 +0800</lastBuildDate><atom:link href="https://lruihao.cn/tags/bat/" rel="self" type="application/rss+xml"/><item><title>通过 bat 批处理文件自动提交博客代码</title><link>https://lruihao.cn/posts/commit-bat/</link><pubDate>Sat, 17 Nov 2018 14:25:49 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/commit-bat/</guid><description><![CDATA[<blockquote>
-<p>前面我有文章提到怎么提交本地文件到 github,coding 等远程仓库。每次可以分为三个步骤</p>
-<ul>
-<li>git add * （添加需要提交的文件，这里全选）</li>
-<li>git commit -m &ldquo;提交信息&rdquo;</li>
-<li>git push</li>
-</ul>
-<p>但是这样感觉很麻烦每次都要重复输入提交命令和提示信息。
-这个时候可以用到 windows 批处理 bat 文件 (linux 的话可以用 shell 脚本）。用完发现好用到不行！</p>
-</blockquote>
-<h2 id="新建文本文档" class="heading-element"><span>1 新建文本文档</span>
-  <a href="#%e6%96%b0%e5%bb%ba%e6%96%87%e6%9c%ac%e6%96%87%e6%a1%a3" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h2><div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bat" data-lang="bat"><span class="line"><span class="cl"><span class="p">@</span><span class="k">echo</span> off
-</span></span><span class="line"><span class="cl"><span class="k">title</span> Commit
-</span></span><span class="line"><span class="cl">git add .
-</span></span><span class="line"><span class="cl"><span class="k">set</span> <span class="k">/p</span> <span class="nv">m</span><span class="p">=</span>Message:
-</span></span><span class="line"><span class="cl">git commit -m <span class="s2">&#34;</span><span class="nv">%m%</span><span class="s2">&#34;</span>
-</span></span><span class="line"><span class="cl">git push</span></span></code></pre></td></tr></table>
-</div>
-</div><p>然后另存为<code>commit.bat</code>文件，只要后缀是<code>bat</code>就行了。</p>
-<h2 id="使用" class="heading-element"><span>2 使用</span>
-  <a href="#%e4%bd%bf%e7%94%a8" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h2><p>把文件放到你原本需要提交代码的本地文件夹。双击运行，输入提交信息回车即可。</p>
-<h2 id="hexo-博客新姿势" class="heading-element"><span>3 hexo 博客新姿势</span>
-  <a href="#hexo-%e5%8d%9a%e5%ae%a2%e6%96%b0%e5%a7%bf%e5%8a%bf" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h2><p>hexo 提交也很麻烦，当然也要批处理一下呀</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bat" data-lang="bat"><span class="line"><span class="cl">hexo clean<span class="p">&amp;&amp;</span>hexo g -d</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="其他" class="heading-element"><span>4 其他</span>
-  <a href="#%e5%85%b6%e4%bb%96" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h2><h3 id="死机脚本" class="heading-element"><span>4.1 死机脚本</span>
-  <a href="#%e6%ad%bb%e6%9c%ba%e8%84%9a%e6%9c%ac" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h3><p>(<strong>友情提醒千万不要在真机实验，请在虚拟机运行</strong>)</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bat" data-lang="bat"><span class="line"><span class="cl"><span class="k">start</span> cmd ifconfig</span></span></code></pre></td></tr></table>
-</div>
-</div><p>另外也说一下 linux 死机命令。fork 炸弹。<br>
-死机无非是耗尽系统资源</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">_(){ _ | _ &amp; }; _</span></span></code></pre></td></tr></table>
-</div>
-</div><p>这个&amp;指后台运行的意思。</p>
-<h3 id="统计文件名" class="heading-element"><span>4.2 统计文件名</span>
-  <a href="#%e7%bb%9f%e8%ae%a1%e6%96%87%e4%bb%b6%e5%90%8d" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h3><div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bat" data-lang="bat"><span class="line"><span class="cl"><span class="k">dir</span> \\?\<span class="nv">%1</span> /a:-d /b /o /p /w <span class="p">&gt;</span>Filelist.txt</span></span></code></pre></td></tr></table>
-</div>
-</div><p>将需要统计的文件夹拖到 bat 文件上。</p>]]></description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>bat 标签 | 菠菜眾長</title><link>https://lruihao.cn/tags/bat/</link><description>Hugo FixIt 作者，喜欢瞎折腾、造轮子、写东西，分享一些前端开发中的所见、所闻、所思。</description><generator>Hugo 0.132.1 &amp; FixIt v0.3.10-cf42e4ea</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><copyright>本站内容采用 CC BY-NC-SA 4.0 国际许可协议。</copyright><lastBuildDate>Sat, 17 Nov 2018 14:25:49 +0800</lastBuildDate><atom:link href="https://lruihao.cn/tags/bat/index.xml" rel="self" type="application/rss+xml"/><item><title>通过 bat 批处理文件自动提交博客代码</title><link>https://lruihao.cn/posts/commit-bat/</link><pubDate>Sat, 17 Nov 2018 14:25:49 +0800</pubDate><guid>https://lruihao.cn/posts/commit-bat/</guid><description>&lt;blockquote>
+&lt;p>前面我有文章提到怎么提交本地文件到 github,coding 等远程仓库。每次可以分为三个步骤&lt;/p>
+&lt;ul>
+&lt;li>git add * （添加需要提交的文件，这里全选）&lt;/li>
+&lt;li>git commit -m &amp;ldquo;提交信息&amp;rdquo;&lt;/li>
+&lt;li>git push&lt;/li>
+&lt;/ul>
+&lt;p>但是这样感觉很麻烦每次都要重复输入提交命令和提示信息。
+这个时候可以用到 windows 批处理 bat 文件 (linux 的话可以用 shell 脚本）。用完发现好用到不行！&lt;/p>
+&lt;/blockquote></description></item></channel></rss>
