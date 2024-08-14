@@ -1,8 +1,180 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>nginx 标签 | 菠菜眾長</title><link>https://lruihao.cn/tags/nginx/</link><description>Hugo FixIt 作者，喜欢瞎折腾、造轮子、写东西，分享一些前端开发中的所见、所闻、所思。</description><generator>Hugo 0.132.1 &amp; FixIt v0.3.10-1d651b5a</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><copyright>本站内容采用 CC BY-NC-SA 4.0 国际许可协议。</copyright><lastBuildDate>Sat, 26 Aug 2023 17:22:57 +0800</lastBuildDate><atom:link href="https://lruihao.cn/tags/nginx/index.xml" rel="self" type="application/rss+xml"/><item><title>将 Hugo 博客部署到亚马逊云服务器</title><link>https://lruihao.cn/posts/aws-ec2/</link><pubDate>Sat, 26 Aug 2023 17:22:57 +0800</pubDate><guid>https://lruihao.cn/posts/aws-ec2/</guid><description>&lt;p>本文将介绍如何将 Hugo 博客打包并部署到亚马逊云服务器上，并附上亚马逊云服务器的配置过程。&lt;/p>
-&lt;h2 id="前言" class="heading-element">&lt;span>1 前言&lt;/span>
- &lt;a href="#%e5%89%8d%e8%a8%80" class="heading-mark">
- &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
- &lt;/a>
-&lt;/h2>&lt;p>最近很长一段时间都是使用 Hugo 在写博客，也花了很多精力在 &lt;a href="https://github.com/hugo-fixit/FixIt"target="_blank" rel="external nofollow noopener noreferrer">hugo-fixit&lt;i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true">&lt;/i>&lt;/a> 这个主题的开发上。也听到很多使用 Hugo 写博客的网友们问我，如何部署博客？部署到哪里？&lt;/p>
-&lt;p>今天就介绍一种方式：&lt;strong>把博客部署到云服务器上&lt;/strong>。&lt;/p>
-&lt;p>但是国内的云服务器太贵了，而且还要备案，所以就想到了海外的云服务器，比如亚马逊云服务器，以下便是注册到部署的全过程。&lt;/p></description></item></channel></rss>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>nginx - 标签 | 菠菜眾長</title><link>https://lruihao.cn/tags/nginx/</link><description>nginx - 标签 | 菠菜眾長</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><copyright>本站内容采用 CC BY-NC-SA 4.0 国际许可协议。</copyright><lastBuildDate>Sat, 26 Aug 2023 17:22:57 +0800</lastBuildDate><atom:link href="https://lruihao.cn/tags/nginx/" rel="self" type="application/rss+xml"/><item><title>将 Hugo 博客部署到亚马逊云服务器</title><link>https://lruihao.cn/posts/aws-ec2/</link><pubDate>Sat, 26 Aug 2023 17:22:57 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/aws-ec2/</guid><description><![CDATA[<div class="featured-image"><img loading="eager" src="https://lruihao.cn/posts/aws-ec2/images/featured-image.png" alt="将 Hugo 博客部署到亚马逊云服务器" title="将 Hugo 博客部署到亚马逊云服务器" referrerpolicy="no-referrer"/></div><p>本文将介绍如何将 Hugo 博客打包并部署到亚马逊云服务器上，并附上亚马逊云服务器的配置过程。</p>
+<h2 id="前言" class="heading-element"><span>1 前言</span>
+  <a href="#%e5%89%8d%e8%a8%80" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>最近很长一段时间都是使用 Hugo 在写博客，也花了很多精力在 <a href="https://github.com/hugo-fixit/FixIt"target="_blank" rel="external nofollow noopener noreferrer">hugo-fixit<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 这个主题的开发上。也听到很多使用 Hugo 写博客的网友们问我，如何部署博客？部署到哪里？</p>
+<p>今天就介绍一种方式：<strong>把博客部署到云服务器上</strong>。</p>
+<p>但是国内的云服务器太贵了，而且还要备案，所以就想到了海外的云服务器，比如亚马逊云服务器，以下便是注册到部署的全过程。</p>
+<h2 id="注册亚马逊云账户" class="heading-element"><span>2 注册亚马逊云账户</span>
+  <a href="#%e6%b3%a8%e5%86%8c%e4%ba%9a%e9%a9%ac%e9%80%8a%e4%ba%91%e8%b4%a6%e6%88%b7" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>打开 <a href="https://aws.amazon.com/cn/free/?sc_channel=seo&amp;sc_campaign=blog0805"target="_blank" rel="external nofollow noopener noreferrer">亚马逊账号注册地址<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>，点击右上角创建 AWS 账户。</p>
+<p><a class="lightgallery" href="images/23_1693042834.png?size=large" data-thumbnail="images/23_1693042834.png?size=small" data-sub-html="<h2>创建 AWS 账户</h2>"><img loading="lazy" src="images/23_1693042834.png" alt="创建 AWS 账户" srcset="images/23_1693042834.png?size=small, images/23_1693042834.png?size=medium 1.5x, images/23_1693042834.png?size=large 2x" data-title="创建 AWS 账户" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></p>
+<ol>
+<li>填写邮件地址和账号名称（支持使用国内的邮箱）
+<a class="lightgallery" href="images/23_1693043425.png?size=large" data-thumbnail="images/23_1693043425.png?size=small" data-sub-html="<h2>login</h2>"><img loading="lazy" src="images/23_1693043425.png" alt="login" srcset="images/23_1693043425.png?size=small, images/23_1693043425.png?size=medium 1.5x, images/23_1693043425.png?size=large 2x" data-title="login" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></li>
+<li>验证邮件
+<a class="lightgallery" href="images/23_1693043626.png?size=large" data-thumbnail="images/23_1693043626.png?size=small" data-sub-html="<h2>valid</h2>"><img loading="lazy" src="images/23_1693043626.png" alt="valid" srcset="images/23_1693043626.png?size=small, images/23_1693043626.png?size=medium 1.5x, images/23_1693043626.png?size=large 2x" data-title="valid" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></li>
+<li>输入密码
+<a class="lightgallery" href="images/23_1693043910.png?size=large" data-thumbnail="images/23_1693043910.png?size=small" data-sub-html="<h2>password</h2>"><img loading="lazy" src="images/23_1693043910.png" alt="password" srcset="images/23_1693043910.png?size=small, images/23_1693043910.png?size=medium 1.5x, images/23_1693043910.png?size=large 2x" data-title="password" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></li>
+<li>联系人信息
+<a class="lightgallery" href="images/23_1693044220.png?size=large" data-thumbnail="images/23_1693044220.png?size=small" data-sub-html="<h2>contact</h2>"><img loading="lazy" src="images/23_1693044220.png" alt="contact" srcset="images/23_1693044220.png?size=small, images/23_1693044220.png?size=medium 1.5x, images/23_1693044220.png?size=large 2x" data-title="contact" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></li>
+<li>付款信息（Visa）
+<a class="lightgallery" href="images/23_1693044537.png?size=large" data-thumbnail="images/23_1693044537.png?size=small" data-sub-html="<h2>payment</h2>"><img loading="lazy" src="images/23_1693044537.png" alt="payment" srcset="images/23_1693044537.png?size=small, images/23_1693044537.png?size=medium 1.5x, images/23_1693044537.png?size=large 2x" data-title="payment" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></li>
+<li>验证手机号（支持中国地区国内手机号）
+<a class="lightgallery" href="images/23_1693044806.png?size=large" data-thumbnail="images/23_1693044806.png?size=small" data-sub-html="<h2>phone</h2>"><img loading="lazy" src="images/23_1693044806.png" alt="phone" srcset="images/23_1693044806.png?size=small, images/23_1693044806.png?size=medium 1.5x, images/23_1693044806.png?size=large 2x" data-title="phone" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></li>
+<li>选择支持计划
+<a class="lightgallery" href="images/23_1693045029.png?size=large" data-thumbnail="images/23_1693045029.png?size=small" data-sub-html="<h2>plan</h2>"><img loading="lazy" src="images/23_1693045029.png" alt="plan" srcset="images/23_1693045029.png?size=small, images/23_1693045029.png?size=medium 1.5x, images/23_1693045029.png?size=large 2x" data-title="plan" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></li>
+<li>完成注册
+<a class="lightgallery" href="images/23_1693045100.png?size=large" data-thumbnail="images/23_1693045100.png?size=small" data-sub-html="<h2>complete</h2>"><img loading="lazy" src="images/23_1693045100.png" alt="complete" srcset="images/23_1693045100.png?size=small, images/23_1693045100.png?size=medium 1.5x, images/23_1693045100.png?size=large 2x" data-title="complete" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></li>
+<li>登录亚马逊云控制台，<a href="https://console.aws.amazon.com/console/home"target="_blank" rel="external nofollow noopener noreferrer">登录地址<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>，选择根用户输入电子邮件地址，点击下一步会让输入密码，输入密码后就可以完成登录了。</li>
+</ol>
+<h2 id="创建-ec2-服务实例" class="heading-element"><span>3 创建 EC2 服务实例</span>
+  <a href="#%e5%88%9b%e5%bb%ba-ec2-%e6%9c%8d%e5%8a%a1%e5%ae%9e%e4%be%8b" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>点击链接查看 <a href="https://aws.amazon.com/cn/free/?sc_channel=seo&amp;sc_campaign=blog0805"target="_blank" rel="external nofollow noopener noreferrer">亚马逊免费套餐<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>，找到云服务器 EC2，点击立即开始 12 个月免费使用。</p>
+<p><a class="lightgallery" href="images/23_1693045572.png?size=large" data-thumbnail="images/23_1693045572.png?size=small" data-sub-html="<h2>EC2</h2>"><img loading="lazy" src="images/23_1693045572.png" alt="EC2" srcset="images/23_1693045572.png?size=small, images/23_1693045572.png?size=medium 1.5x, images/23_1693045572.png?size=large 2x" data-title="EC2" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></p>
+<p>进行 EC2 服务器主页后，点击页面<strong>创建实例</strong>按钮。</p>
+<p><a class="lightgallery" href="images/23_1693045780.png?size=large" data-thumbnail="images/23_1693045780.png?size=small" data-sub-html="<h2>start-EC2</h2>"><img loading="lazy" src="images/23_1693045780.png" alt="start-EC2" srcset="images/23_1693045780.png?size=small, images/23_1693045780.png?size=medium 1.5x, images/23_1693045780.png?size=large 2x" data-title="start-EC2" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></p>
+<p>然后按照页面提示要求，依次填写或选择：</p>
+<ol>
+<li>实例的名称：随便填</li>
+<li>应用程序和操作系统映像 (Amazon Machine Image)：Amazon Linux 和 Amazon Linux 2023 AMI 免费套餐</li>
+<li>实例类型：选择免费套餐</li>
+<li>密钥对（登录）：这里要点击创建密钥对，输入密钥对名称，选择 RSA 点击创建密钥对会下载文件到本地，要妥善保存，登录时会用到</li>
+<li>网络设置：安全组把允许来自于 http 和 https 得都勾选上</li>
+<li>配置存储：默认是 8G，但免费的最多可以 30G，可以手动改成 30G</li>
+<li>然后点击右侧侧边栏启动实例，等待片刻实例就创建好了</li>
+</ol>
+<h2 id="连接实例" class="heading-element"><span>4 连接实例</span>
+  <a href="#%e8%bf%9e%e6%8e%a5%e5%ae%9e%e4%be%8b" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p><a class="lightgallery" href="images/23_1693046630.png?size=large" data-thumbnail="images/23_1693046630.png?size=small" data-sub-html="<h2>instance</h2>"><img loading="lazy" src="images/23_1693046630.png" alt="instance" srcset="images/23_1693046630.png?size=small, images/23_1693046630.png?size=medium 1.5x, images/23_1693046630.png?size=large 2x" data-title="instance" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></p>
+<p>点击上面的实例 ID 进入实例的详情，再点击右上角的连接按钮。</p>
+<p><a class="lightgallery" href="images/23_1693046822.png?size=large" data-thumbnail="images/23_1693046822.png?size=small" data-sub-html="<h2>connect</h2>"><img loading="lazy" src="images/23_1693046822.png" alt="connect" srcset="images/23_1693046822.png?size=small, images/23_1693046822.png?size=medium 1.5x, images/23_1693046822.png?size=large 2x" data-title="connect" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></p>
+<p>连接成功后，页面会新打开一个窗口，这个窗口就是我们服务器的终端，可以在这里对服务器进行操作。</p>
+<p><a class="lightgallery" href="images/23_1693046970.png?size=large" data-thumbnail="images/23_1693046970.png?size=small" data-sub-html="<h2>cloudshell</h2>"><img loading="lazy" src="images/23_1693046970.png" alt="cloudshell" srcset="images/23_1693046970.png?size=small, images/23_1693046970.png?size=medium 1.5x, images/23_1693046970.png?size=large 2x" data-title="cloudshell" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></p>
+<h2 id="创建-root-用户角色" class="heading-element"><span>5 创建 root 用户角色</span>
+  <a href="#%e5%88%9b%e5%bb%ba-root-%e7%94%a8%e6%88%b7%e8%a7%92%e8%89%b2" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>在终端中输入以下命令，创建 root 用户角色。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 切换到 root 用户</span>
+</span></span><span class="line"><span class="cl">sudo -i
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 修改 sshd 配置文件</span>
+</span></span><span class="line"><span class="cl">vi /etc/ssh/sshd_config</span></span></code></pre></td></tr></table>
+</div>
+</div><p>修改如下两项</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">PermitRootLogin yes
+</span></span><span class="line"><span class="cl">PasswordAuthentication yes</span></span></code></pre></td></tr></table>
+</div>
+</div><p>设置 root 用户密码</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">passwd</span></span></code></pre></td></tr></table>
+</div>
+</div><p>会让输入两次密码，输入完成，重启一下 ssh 服务：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">service sshd restart</span></span></code></pre></td></tr></table>
+</div>
+</div><p>重启后在电脑命令行就可以通过 ssh 协议加上用户名称 + 密码连接远程服务器了。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">ssh root@3.85.xxx.xxx</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>后续操作尽量用 root 用户进行。</p>
+</blockquote>
+<h2 id="安装宝塔面板" class="heading-element"><span>6 安装宝塔面板</span>
+  <a href="#%e5%ae%89%e8%a3%85%e5%ae%9d%e5%a1%94%e9%9d%a2%e6%9d%bf" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>宝塔面板是一个服务器管理面板，可以通过宝塔面板来管理服务器，比如安装 nginx、mysql、php 等等。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">yum install -y wget <span class="o">&amp;&amp;</span> wget -O install.sh https://download.bt.cn/install/install_6.0.sh <span class="o">&amp;&amp;</span> sh install.sh ed8484bec</span></span></code></pre></td></tr></table>
+</div>
+</div><ol>
+<li>在亚马逊服务器实例安全组中放行 TCP <code>19430</code> 端口</li>
+<li>宝塔面板安装完后按照命令行提示打开宝塔面板，进入面板安装 <code>LAMP</code> 环境，其中包含了我们需要的 <code>nginx</code></li>
+<li>等待 <code>LAMP</code> 环境安装完毕</li>
+</ol>
+<h2 id="部署-hugo-博客" class="heading-element"><span>7 部署 Hugo 博客</span>
+  <a href="#%e9%83%a8%e7%bd%b2-hugo-%e5%8d%9a%e5%ae%a2" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>Hugo 博客打包</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">hugo -v --gc --minify</span></span></code></pre></td></tr></table>
+</div>
+</div><p>将打包好的 <code>public</code> 文件夹上传到服务器的 <code>/www/wwwroot/hugo</code> 目录下，输入以下命令，等待上传完成。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 上传文件（需要输入 root 用户密码）</span>
+</span></span><span class="line"><span class="cl">scp -r /path/to/public root@3.85.xxx.xxx:/www/wwwroot/hugo</span></span></code></pre></td></tr></table>
+</div>
+</div><p>在宝塔面板中选择网站，点击添加站点：</p>
+<ol>
+<li>域名：填写你的公网 IP 或者域名</li>
+<li>网站目录：选择 <code>/www/wwwroot/hugo</code></li>
+<li>站点备注：随便填</li>
+<li>FTP、数据库选择不创建，PHP 选择纯静态</li>
+<li>点击提交</li>
+</ol>
+<p>在浏览器中输入服务器的公网 IP 地址，就可以看到 Hugo 博客了。</p>
+<p><a class="lightgallery" href="images/23_1693050865.png?size=large" data-thumbnail="images/23_1693050865.png?size=small" data-sub-html="<h2>preview</h2>"><img loading="lazy" src="images/23_1693050865.png" alt="preview" srcset="images/23_1693050865.png?size=small, images/23_1693050865.png?size=medium 1.5x, images/23_1693050865.png?size=large 2x" data-title="preview" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></p>
+<h2 id="注意事项" class="heading-element"><span>8 注意事项</span>
+  <a href="#%e6%b3%a8%e6%84%8f%e4%ba%8b%e9%a1%b9" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><blockquote>
+<p>亚马逊的服务器每个月免费时长时 <strong>750</strong> 小时，一个月 31 天 x 24 = 744 小时，正常使用是不会超出免费的份额的，但切记不要同时开两个服务器实例，使用时长会累加，不注意可能会超出套餐额度。</p>
+<p>到期后，如果不想继续使用，一定要记得删除实例，不然会一直扣费的。在控制台选中实例，点击实例状态-&gt;终止实例。</p>
+</blockquote>
+<h2 id="总结" class="heading-element"><span>9 总结</span>
+  <a href="#%e6%80%bb%e7%bb%93" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>有了一台海外服务器，我们还可以做很多事情，比如部署 chatgpt 等等，有了服务器一定要多去探索和学习，这么复杂的申请的流程，不要白白放着让过期了。</p>
+<p>保持探索欲，砥砺前行！</p>]]></description></item></channel></rss>
