@@ -1,8 +1,283 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>jieba 标签 | 菠菜眾長</title><link>https://lruihao.cn/tags/jieba/</link><description>Hugo FixIt 作者，喜欢瞎折腾、造轮子、写东西，分享一些前端开发中的所见、所闻、所思。</description><generator>Hugo 0.132.1 &amp; FixIt v0.3.10-1d651b5a</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><copyright>本站内容采用 CC BY-NC-SA 4.0 国际许可协议。</copyright><lastBuildDate>Sat, 20 Apr 2019 15:44:57 +0000</lastBuildDate><atom:link href="https://lruihao.cn/tags/jieba/index.xml" rel="self" type="application/rss+xml"/><item><title>python 玩微信：初探 wxpy</title><link>https://lruihao.cn/posts/wxpy1/</link><pubDate>Sat, 20 Apr 2019 15:44:57 +0000</pubDate><guid>https://lruihao.cn/posts/wxpy1/</guid><description>&lt;blockquote>
-&lt;p>&lt;strong>&lt;em>文中涉及的图片涉及个人隐私，仅做举例，请勿传播&lt;/em>&lt;/strong>&lt;/p>
-&lt;ul>
-&lt;li>查看微信好友男女比例&lt;/li>
-&lt;li>查看好友地区分布&lt;/li>
-&lt;li>群性别统计&lt;/li>
-&lt;/ul>
-&lt;/blockquote></description></item></channel></rss>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>jieba - 标签 | 菠菜眾長</title><link>https://lruihao.cn/tags/jieba/</link><description>jieba - 标签 | 菠菜眾長</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><copyright>本站内容采用 CC BY-NC-SA 4.0 国际许可协议。</copyright><lastBuildDate>Sat, 20 Apr 2019 15:44:57 +0000</lastBuildDate><atom:link href="https://lruihao.cn/tags/jieba/" rel="self" type="application/rss+xml"/><item><title>python 玩微信：初探 wxpy</title><link>https://lruihao.cn/posts/wxpy1/</link><pubDate>Sat, 20 Apr 2019 15:44:57 +0000</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/wxpy1/</guid><description><![CDATA[<div class="featured-image"><img loading="eager" src="/posts/wxpy1/images/1.png" alt="python 玩微信：初探 wxpy" title="python 玩微信：初探 wxpy" referrerpolicy="no-referrer"/></div><blockquote>
+<p><strong><em>文中涉及的图片涉及个人隐私，仅做举例，请勿传播</em></strong></p>
+<ul>
+<li>查看微信好友男女比例</li>
+<li>查看好友地区分布</li>
+<li>群性别统计</li>
+</ul>
+</blockquote>
+<h2 id="前期准备" class="heading-element"><span>1 前期准备</span>
+  <a href="#%e5%89%8d%e6%9c%9f%e5%87%86%e5%a4%87" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><ul>
+<li><a href="https://github.com/youfou/wxpy"target="_blank" rel="external nofollow noopener noreferrer">wxpy<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+<li><a href="https://github.com/pyecharts/pyecharts"target="_blank" rel="external nofollow noopener noreferrer">pyecharts<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>（百度 echarts）</li>
+</ul>
+<h2 id="查看微信好友男女比例" class="heading-element"><span>2 查看微信好友男女比例</span>
+  <a href="#%e6%9f%a5%e7%9c%8b%e5%be%ae%e4%bf%a1%e5%a5%bd%e5%8f%8b%e7%94%b7%e5%a5%b3%e6%af%94%e4%be%8b" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">wxpy</span> <span class="kn">import</span> <span class="o">*</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">pyecharts</span> <span class="kn">import</span> <span class="n">Pie</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">bot</span> <span class="o">=</span> <span class="n">Bot</span><span class="p">(</span><span class="n">cache_path</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>   <span class="c1">#定义一个微信机器人</span>
+</span></span><span class="line"><span class="cl"><span class="n">friends</span> <span class="o">=</span> <span class="n">bot</span><span class="o">.</span><span class="n">friends</span><span class="p">(</span><span class="n">update</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>   <span class="c1">#获取更新好友列表</span>
+</span></span><span class="line"><span class="cl"><span class="n">male</span> <span class="o">=</span> <span class="n">female</span> <span class="o">=</span> <span class="n">other</span> <span class="o">=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">friends</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>     <span class="c1">#[1:] 自己是第一个，排除掉</span>
+</span></span><span class="line"><span class="cl">    <span class="n">sex</span> <span class="o">=</span> <span class="n">i</span><span class="o">.</span><span class="n">sex</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">sex</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">male</span> <span class="o">+=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">    <span class="k">elif</span> <span class="n">sex</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">female</span> <span class="o">+=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">other</span> <span class="o">+=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl"><span class="n">total</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">friends</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>   <span class="c1">#计算总数</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#下面为分析</span>
+</span></span><span class="line"><span class="cl"><span class="n">attr</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&#34;男性&#34;</span><span class="p">,</span><span class="s2">&#34;女性&#34;</span><span class="p">,</span><span class="s2">&#34;其他&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">v1</span> <span class="o">=</span> <span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="n">male</span><span class="p">),</span><span class="nb">float</span><span class="p">(</span><span class="n">female</span><span class="p">),</span><span class="nb">float</span><span class="p">(</span><span class="n">other</span><span class="p">)]</span>
+</span></span><span class="line"><span class="cl"><span class="n">pie</span> <span class="o">=</span> <span class="n">Pie</span><span class="p">(</span><span class="s2">&#34;饼图 - 圆环图示例&#34;</span><span class="p">,</span> <span class="n">title_pos</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">pie</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">&#34;&#34;</span><span class="p">,</span> <span class="n">attr</span><span class="p">,</span> <span class="n">v1</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="p">[</span><span class="mi">40</span><span class="p">,</span> <span class="mi">75</span><span class="p">],</span> <span class="n">label_text_color</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">is_label_show</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">legend_orient</span><span class="o">=</span><span class="s1">&#39;vertical&#39;</span><span class="p">,</span> <span class="n">legend_pos</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">pie</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="s2">&#34;sex.html&#34;</span><span class="p">)</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p><a class="lightgallery" href="images/1.png?size=large" data-thumbnail="images/1.png?size=small" data-sub-html="<h2>微信好友男女比例</h2>"><img loading="lazy" src="images/1.png" alt="微信好友男女比例" srcset="images/1.png?size=small, images/1.png?size=medium 1.5x, images/1.png?size=large 2x" data-title="微信好友男女比例" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></p>
+<h2 id="查看好友地区分布" class="heading-element"><span>3 查看好友地区分布</span>
+  <a href="#%e6%9f%a5%e7%9c%8b%e5%a5%bd%e5%8f%8b%e5%9c%b0%e5%8c%ba%e5%88%86%e5%b8%83" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">wxpy</span> <span class="kn">import</span> <span class="o">*</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">pyecharts</span> <span class="kn">import</span> <span class="n">Map</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#因为获取的列表城市都没有带市字，而 pyecharts 需要带个市字</span>
+</span></span><span class="line"><span class="cl"><span class="n">b</span> <span class="o">=</span> <span class="s1">&#39;市&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">s</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">x</span><span class="o">+</span><span class="n">b</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#只提取湖南的</span>
+</span></span><span class="line"><span class="cl"><span class="n">bot</span> <span class="o">=</span> <span class="n">Bot</span><span class="p">(</span><span class="n">cache_path</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">friends</span> <span class="o">=</span> <span class="n">bot</span><span class="o">.</span><span class="n">friends</span><span class="p">(</span><span class="n">update</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">province</span> <span class="o">=</span> <span class="s1">&#39;湖南&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">citys</span> <span class="o">=</span> <span class="p">[]</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">friends</span> <span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">city</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">city</span>
+</span></span><span class="line"><span class="cl">    <span class="n">citys</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">city</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">r</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="n">citys</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">cityss</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#为城市计数</span>
+</span></span><span class="line"><span class="cl"><span class="n">a</span> <span class="o">=</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">cityss</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">cityss</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">a</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;市&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#把字典进行有序拆分为 2 个列表</span>
+</span></span><span class="line"><span class="cl"><span class="n">attrs</span> <span class="o">=</span> <span class="p">[]</span>
+</span></span><span class="line"><span class="cl"><span class="n">values</span> <span class="o">=</span> <span class="p">[]</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">value</span><span class="p">,</span> <span class="n">attr</span> <span class="ow">in</span> <span class="n">a</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="n">values</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">attr</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">attrs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#开始绘图</span>
+</span></span><span class="line"><span class="cl"><span class="nb">map</span> <span class="o">=</span> <span class="n">Map</span><span class="p">(</span><span class="s2">&#34;湖南地图示例&#34;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">1200</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">600</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">map</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">&#34;&#34;</span><span class="p">,</span> <span class="n">attrs</span><span class="p">,</span> <span class="n">values</span><span class="p">,</span> <span class="n">maptype</span><span class="o">=</span><span class="s1">&#39;湖南&#39;</span><span class="p">,</span> <span class="n">is_visualmap</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">visual_text_color</span><span class="o">=</span><span class="s1">&#39;#000&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">map</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="s2">&#34;city.html&#34;</span><span class="p">)</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p><a class="lightgallery" href="images/2.png?size=large" data-thumbnail="images/2.png?size=small" data-sub-html="<h2>微信地区分布</h2>"><img loading="lazy" src="images/2.png" alt="微信地区分布" srcset="images/2.png?size=small, images/2.png?size=medium 1.5x, images/2.png?size=large 2x" data-title="微信地区分布" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a></p>
+<blockquote>
+<p><strong>以上参考简书 <a href="https://www.jianshu.com/p/c0baf3c6db15"target="_blank" rel="external nofollow noopener noreferrer">陈思煜<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></strong></p>
+</blockquote>
+<h2 id="统计所有群男女数目" class="heading-element"><span>4 统计所有群男女数目</span>
+  <a href="#%e7%bb%9f%e8%ae%a1%e6%89%80%e6%9c%89%e7%be%a4%e7%94%b7%e5%a5%b3%e6%95%b0%e7%9b%ae" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><blockquote>
+<p>统计结果会自动发送到所有群聊
+男女人数和不一定等于总数（有些人不显示性别）</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="line"><span class="cl"><span class="c1">#encoding=utf-8</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">wxpy</span> <span class="kn">import</span> <span class="o">*</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">numpy</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">removeAll</span><span class="p">(</span><span class="n">the_list</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">[</span><span class="n">value</span> <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">the_list</span> <span class="k">if</span> <span class="n">value</span> <span class="o">!=</span> <span class="n">val</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">stats_text</span><span class="p">(</span><span class="n">target_group</span><span class="p">,</span> <span class="n">group_name</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">group_name</span> <span class="o">+</span> <span class="s2">&#34;群共有：&#34;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">target_group</span><span class="p">))</span> <span class="o">+</span> <span class="s2">&#34;人，其中：&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">all_stats_text</span> <span class="o">=</span> <span class="p">[]</span>
+</span></span><span class="line"><span class="cl">    <span class="n">all_dict</span> <span class="o">=</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">## 乱序先整理一份省份 + 地点的列表</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">user</span> <span class="ow">in</span> <span class="n">target_group</span><span class="o">.</span><span class="n">members</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">trimed_data</span> <span class="o">=</span> <span class="n">user</span><span class="o">.</span><span class="n">province</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="n">user</span><span class="o">.</span><span class="n">city</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">trimed_data</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">all_stats_text</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">trimed_data</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">## 计数</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">all_stats_text</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">all_stats_text</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">all_dict</span><span class="p">[</span><span class="n">data</span><span class="p">]</span> <span class="o">=</span> <span class="n">all_stats_text</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">all_stats_text</span> <span class="o">=</span> <span class="n">removeAll</span><span class="p">(</span><span class="n">all_stats_text</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">final_dict</span> <span class="o">=</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">all_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">()):</span>
+</span></span><span class="line"><span class="cl">        <span class="n">final_dict</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">all_dict</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">final_dict</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">stats_sex</span><span class="p">(</span><span class="n">target_group</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">male</span> <span class="o">=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">    <span class="n">female</span> <span class="o">=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">    <span class="n">other</span> <span class="o">=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">user</span> <span class="ow">in</span> <span class="n">target_group</span><span class="o">.</span><span class="n">members</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">user</span><span class="o">.</span><span class="n">sex</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">male</span> <span class="o">=</span> <span class="n">male</span> <span class="o">+</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">user</span><span class="o">.</span><span class="n">sex</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">female</span> <span class="o">=</span> <span class="n">female</span> <span class="o">+</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">        <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">other</span> <span class="o">=</span> <span class="n">other</span> <span class="o">+</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;男的有：&#34;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">male</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&#34;人&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;女的有：&#34;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">female</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&#34;人&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">msg</span> <span class="o">=</span> <span class="s2">&#34;男的有：&#34;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">male</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&#34;人、n&#34;</span> <span class="o">+</span> <span class="s2">&#34;女的有：&#34;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">female</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&#34;人、n&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">msg</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">bot</span> <span class="o">=</span> <span class="n">Bot</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">target_group</span> <span class="o">=</span> <span class="n">bot</span><span class="o">.</span><span class="n">groups</span><span class="p">(</span><span class="n">update</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">contact_only</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">curr_group</span> <span class="ow">in</span> <span class="n">target_group</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">## 小于 10 人的群过滤掉</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">curr_group</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">continue</span>
+</span></span><span class="line"><span class="cl">    <span class="n">curr_group</span><span class="o">.</span><span class="n">update_group</span><span class="p">(</span><span class="n">members_details</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">curr_group</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="s2">&#34;一共有：&#34;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">curr_group</span><span class="p">))</span> <span class="o">+</span> <span class="s2">&#34;人、n&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">msg</span> <span class="o">=</span> <span class="n">stats_sex</span><span class="p">(</span><span class="n">curr_group</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">curr_group</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">curr_group</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="s2">&#34;群，一共有：&#34;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">curr_group</span><span class="p">))</span> <span class="o">+</span> <span class="s2">&#34;人、n&#34;</span> <span class="o">+</span> <span class="n">msg</span><span class="p">)</span></span></span></code></pre></td></tr></table>
+</div>
+</div>]]></description></item></channel></rss>

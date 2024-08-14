@@ -1,8 +1,406 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>debug 标签 | 菠菜眾長</title><link>https://lruihao.cn/tags/debug/</link><description>Hugo FixIt 作者，喜欢瞎折腾、造轮子、写东西，分享一些前端开发中的所见、所闻、所思。</description><generator>Hugo 0.132.1 &amp; FixIt v0.3.10-1d651b5a</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><copyright>本站内容采用 CC BY-NC-SA 4.0 国际许可协议。</copyright><lastBuildDate>Thu, 18 Jan 2024 12:59:43 +0800</lastBuildDate><atom:link href="https://lruihao.cn/tags/debug/index.xml" rel="self" type="application/rss+xml"/><item><title>记一次 Debug 第三方包的过程</title><link>https://lruihao.cn/posts/900d5e4/</link><pubDate>Wed, 17 Jan 2024 14:57:48 +0800</pubDate><guid>https://lruihao.cn/posts/900d5e4/</guid><description>&lt;p>在完成一个 code diff 需求时，发现所使用的插件不足以完成预期的需求。当然最终还是顺利完成了，详见 &lt;a href="https://lruihao.github.io/vue-el-demo/#/code-diff"target="_blank" rel="external nofollow noopener noreferrer">code diff demo&lt;i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true">&lt;/i>&lt;/a>。&lt;/p></description></item><item><title>如何给 npm 包打补丁？</title><link>https://lruihao.cn/posts/patch-package/</link><pubDate>Thu, 12 Oct 2023 22:37:56 +0800</pubDate><guid>https://lruihao.cn/posts/patch-package/</guid><description>本文将介绍如何给 npm 包打补丁。</description></item><item><title>安装 Homebrew 后导致系统中原有的 npm 和 npx 失效</title><link>https://lruihao.cn/posts/homebrew-npm/</link><pubDate>Thu, 15 Dec 2022 15:33:30 +0800</pubDate><guid>https://lruihao.cn/posts/homebrew-npm/</guid><description>&lt;div class="details admonition question open">
- &lt;div class="details-summary admonition-title">
- &lt;i class="icon fa-solid fa-question-circle fa-fw" aria-hidden="true">&lt;/i>问题&lt;i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true">&lt;/i>
- &lt;/div>
- &lt;div class="details-content">
- &lt;div class="admonition-content">前面一段时间，安装了 Homebrew, 但是今天切换 node 版本到 system version (8.10.0) 后，发现虽然 node 版本切换成功，但是 node 版本对应的 npm 和 npx 版本不相符，下面记录一下问题排查过程。&lt;/div>
- &lt;/div>
- &lt;/div></description></item></channel></rss>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>debug - 标签 | 菠菜眾長</title><link>https://lruihao.cn/tags/debug/</link><description>debug - 标签 | 菠菜眾長</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><copyright>本站内容采用 CC BY-NC-SA 4.0 国际许可协议。</copyright><lastBuildDate>Wed, 17 Jan 2024 14:57:48 +0800</lastBuildDate><atom:link href="https://lruihao.cn/tags/debug/" rel="self" type="application/rss+xml"/><item><title>记一次 Debug 第三方包的过程</title><link>https://lruihao.cn/posts/900d5e4/</link><pubDate>Wed, 17 Jan 2024 14:57:48 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/900d5e4/</guid><description><![CDATA[<div class="featured-image"><img loading="eager" src="https://lruihao.cn/posts/900d5e4/images/featured-image.png" alt="记一次 Debug 第三方包的过程" title="记一次 Debug 第三方包的过程" referrerpolicy="no-referrer"/></div><p>在完成一个 code diff 需求时，发现所使用的插件不足以完成预期的需求。当然最终还是顺利完成了，详见 <a href="https://lruihao.github.io/vue-el-demo/#/code-diff"target="_blank" rel="external nofollow noopener noreferrer">code diff demo<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>。</p>
+<h2 id="需求" class="heading-element"><span>1 需求</span>
+  <a href="#%e9%9c%80%e6%b1%82" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>使用 <a href="https://github.com/Shimada666/v-code-diff"target="_blank" rel="external nofollow noopener noreferrer">v-code-diff<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 组件，来开发一个接口请求结果比对的功能。</p>
+<p>开发过程中，发现虽然它的 1.8.0 版本提供了具名插槽 <code>stat</code>，但是插槽并没有回传值，于是乎，看了一下它的源码，提了一个 PR 加了一个作用域，见 <a href="https://github.com/Shimada666/v-code-diff/pull/119"target="_blank" rel="external nofollow noopener noreferrer">Shimada666/v-code-diff#119<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>，作者很快也就合并了。</p>
+<p>这样就简化了原插槽的使用：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-vue" data-lang="vue"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">CodeDiff</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">:old-string</span><span class="o">=</span><span class="s">&#34;form.oldString&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">:new-string</span><span class="o">=</span><span class="s">&#34;form.newString&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">:language</span><span class="o">=</span><span class="s">&#34;form.language&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">:diff-style</span><span class="o">=</span><span class="s">&#34;form.diffStyle&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">template</span> <span class="err">#</span><span class="na">stat</span><span class="o">=</span><span class="s">&#34;{ stat }&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;diff-stat-added&#34;</span><span class="p">&gt;</span><span class="o">+</span><span class="p">{{</span> <span class="nx">stat</span><span class="p">.</span><span class="nx">additionsNum</span> <span class="p">}}</span> <span class="nx">增</span><span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;diff-stat-deleted&#34;</span><span class="p">&gt;</span><span class="o">-</span><span class="p">{{</span> <span class="nx">stat</span><span class="p">.</span><span class="nx">deletionsNum</span> <span class="p">}}</span> <span class="nx">减</span><span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;/</span><span class="nt">template</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">CodeDiff</span><span class="p">&gt;</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>但这只是完成需求路上的一个小插曲，真正的难点在于“比对结果时，支持关键词过滤的功能”，也就是如果比对结果中有包含关键词的行，则忽略该行的 diff。</p>
+<h2 id="师必有名" class="heading-element"><span>2 师必有名</span>
+  <a href="#%e5%b8%88%e5%bf%85%e6%9c%89%e5%90%8d" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>“赵若献璧，乃惧怕我邦，不难臣服；若是不献，再去征讨，方算出师有名。”</p>
+<p>自古战事都讲究师必有名，其实在代码世界也一样，得考虑这个需求是否通用，不然即使提交 PR 给原作者，也大概率不会合并。我自己也有开源，如果遇到定制化很重的需求，往往只会以一个 <code>wontfix</code> 的标签收尾。</p>
+<p>所以，我先去查了有没有类似的工具或者产品有过类似的需求。</p>
+<p>很快就找到了 Linux 的 <code>diff</code> 指令的 <code>--ignore-matching-lines</code> 参数有类似的功能。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">diff file1.json file2.json --ignore-matching-lines<span class="o">=</span><span class="s2">&#34;time&#34;</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面的命令在比较两个文件时，会忽略包含 <code>time</code> 的行。</p>
+<h2 id="出师有名" class="heading-element"><span>3 出师有名</span>
+  <a href="#%e5%87%ba%e5%b8%88%e6%9c%89%e5%90%8d" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>既然有了参考，那么就可以开始动手了。</p>
+<p>多的先不管，先把 <a href="https://github.com/Shimada666/v-code-diff"target="_blank" rel="external nofollow noopener noreferrer">v-code-diff<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 的源码拉下来运行起来。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git clone git@github.com:Shimada666/v-code-diff.git <span class="o">&amp;&amp;</span> <span class="nb">cd</span> v-code-diff</span></span></code></pre></td></tr></table>
+</div>
+</div><p>看了一眼是用 TypeScript 和 Vue3 的 Composition API 写的，这个我都不熟，不过没关系，先把它跑起来再说。</p>
+<p>它的包管理器是 pnpm，那就先安装一下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">npm i -g pnpm</span></span></code></pre></td></tr></table>
+</div>
+</div><p>然后安装依赖：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">pnpm install</span></span></code></pre></td></tr></table>
+</div>
+</div><p>然后在 <code>package.json</code> 找一下启动命令：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="s2">&#34;scripts&#34;</span><span class="err">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;dev:2&#34;</span><span class="p">:</span> <span class="s2">&#34;vue-demi-switch 2 vue2 &amp;&amp; pnpm --filter vue2-playground dev&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;dev:2.7&#34;</span><span class="p">:</span> <span class="s2">&#34;vue-demi-switch 2.7 vue2 &amp;&amp; pnpm --filter vue2.7-playground dev&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;dev:3&#34;</span><span class="p">:</span> <span class="s2">&#34;vue-demi-switch 3 vue3 &amp;&amp; pnpm --filter vue3-playground dev&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;dev:demo&#34;</span><span class="p">:</span> <span class="s2">&#34;vue-demi-switch 3 vue3 &amp;&amp; pnpm --filter demo dev&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>随便选一个运行：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">npm run dev:2</span></span></code></pre></td></tr></table>
+</div>
+</div><p>ok，顺利启动！</p>
+<h2 id="一招制敌" class="heading-element"><span>4 一招制敌</span>
+  <a href="#%e4%b8%80%e6%8b%9b%e5%88%b6%e6%95%8c" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>然后开始阅读源码，寻找突破点。</p>
+<p>two hours later&hellip;</p>
+<p>经过一段时间阅读，虽然没有用过 TypeScript 以及 Composition API，但是对于读懂逻辑影响不大，很多就找到了突破口。</p>
+<p>既然忽略关键词是为了让有差异的行不显示，那么正常的行就无需处理，只要找到有差异的行处理的阶段，然后加入关键词过滤的逻辑就可以了。</p>
+<p>然后给 <code>CodeDiff</code> 组件新增一个 <code>ignoreMatchingLines</code> 属性，用于接收匹配忽略关键词的正则表达式。</p>
+<p>最后简单测试一个在 Vue2.x、Vue2.7 以及 Vue3.x 的 demo，然后顺手把文档也完善一下，就可以提交 PR 给原作者了。详见 <a href="https://github.com/Shimada666/v-code-diff/pull/121"target="_blank" rel="external nofollow noopener noreferrer">Shimada666/v-code-diff#121<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a>。</p>
+<p>在等待了短暂几天后，原作者也是很快合并了 PR，并发布了新的版本 1.9.0，这样我们就可以在自己项目中升级使用了。</p>
+<h2 id="备用方案" class="heading-element"><span>5 备用方案</span>
+  <a href="#%e5%a4%87%e7%94%a8%e6%96%b9%e6%a1%88" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>如果作者觉得需求不妥，我们也可以 fork 一份，然后改名发包，或者只是简单的打包成一个 js 文件，然后放到自己的项目中使用。</p>
+<h2 id="总结" class="heading-element"><span>6 总结</span>
+  <a href="#%e6%80%bb%e7%bb%93" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>磨刀不误砍柴工，磨刀的过程也是砍柴的过程，找到根本原因，才能事半功倍。</p>
+<p>比如，VS Code 的开发团队在使用 Electron 开发 VS Code 时，发现 Electron 的功能并不足以满足 VS Code 的开发需求，他们也是先参与到 Electron 的开发中，完善 Electron 后再使用 Electron 开发 VS Code 的。</p>
+<p>经常逛 GitHub，潜移默化中，我也养成了看源码的习惯，遇到 BUG 时先想的是 PR，然后再是 issue，今年还提交了一下其他的 PR。</p>
+<ul>
+<li><a href="https://github.com/mdn/translated-content/pull/15859"target="_blank" rel="external nofollow noopener noreferrer">mdn/translated-content#15859<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+<li><a href="https://github.com/SchemaStore/schemastore/pull/3411"target="_blank" rel="external nofollow noopener noreferrer">SchemaStore/schemastore#3411<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+<li><a href="https://github.com/SchemaStore/schemastore/pull/3420"target="_blank" rel="external nofollow noopener noreferrer">SchemaStore/schemastore#3420<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+<li><a href="https://github.com/SchemaStore/schemastore/pull/3463"target="_blank" rel="external nofollow noopener noreferrer">SchemaStore/schemastore#3463<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a></li>
+</ul>]]></description></item><item><title>如何给 npm 包打补丁？</title><link>https://lruihao.cn/posts/patch-package/</link><pubDate>Thu, 12 Oct 2023 22:37:56 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/patch-package/</guid><description><![CDATA[<div class="featured-image"><img loading="eager" src="images/featured-image.png" alt="如何给 npm 包打补丁？" title="如何给 npm 包打补丁？" referrerpolicy="no-referrer"/></div><h2 id="背景" class="heading-element"><span>1 背景</span>
+  <a href="#%e8%83%8c%e6%99%af" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>今天鬼事神差想起去年写的一段 dirty hack 代码，当时是在 <a href="https://github.com/Lruihao/vue-minder-editor-extended"target="_blank" rel="external nofollow noopener noreferrer">vue-minder-editor-extended<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> 这个项目为了解决百度开源的 <a href="https://github.com/fex-team/kityminder-core"target="_blank" rel="external nofollow noopener noreferrer">@7polo/kityminder-core<i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true"></i></a> npm 包的 bug，但是百度早在 17-18 年就停止更新了，我又不想自己 fork 一份源码然后重新发包，于是当时直接从 node_modules 里面复制出了打包后的源码进行修改，然后放到了项目中 <code>src/script/patch/kityminder.core.js</code>，并因修改了引入：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-diff" data-lang="diff"><span class="line"><span class="cl"><span class="gd">- require(&#39;@7polo/kityminder-core&#39;);
+</span></span></span><span class="line"><span class="cl"><span class="gd"></span><span class="gi">+ require(&#39;./script/patch/kityminder.core&#39;);
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>但是今天刷抖音看到类似的问题，回想起来这种做法真的是太蠢了，于是就想着有没有更好的办法，于是就一番搜索有了这篇文章。</p>
+<h2 id="安装-patch-package" class="heading-element"><span>2 安装 patch-package</span>
+  <a href="#%e5%ae%89%e8%a3%85-patch-package" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">npm i patch-package --save-dev</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="修改源码" class="heading-element"><span>3 修改源码</span>
+  <a href="#%e4%bf%ae%e6%94%b9%e6%ba%90%e7%a0%81" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>在 <code>node_modules</code> 目录下找到需要打补丁的包，然后修改源码，比如我这里修改了 <code>node_modules/@7polo/kityminder-core/dist/kityminder.core.js</code>，修改后直接保存。</p>
+<h2 id="生成补丁" class="heading-element"><span>4 生成补丁</span>
+  <a href="#%e7%94%9f%e6%88%90%e8%a1%a5%e4%b8%81" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">npx patch-package @7polo/kityminder-core</span></span></code></pre></td></tr></table>
+</div>
+</div><p>此时在根目录下会得到如下文件：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">├── patches
+</span></span><span class="line"><span class="cl">│   └── @7polo-kityminder-core+1.4.53.patch
+</span></span><span class="line"><span class="cl">└── package.json</span></span></code></pre></td></tr></table>
+</div>
+</div><p>想看看这个补丁文件里面是什么东西，打开 <code>patches/@7polo-kityminder-core+1.4.53.patch</code>，内容如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-diff" data-lang="diff"><span class="line"><span class="cl"><span class="gh">diff --git a/node_modules/@7polo/kityminder-core/.DS_Store b/node_modules/@7polo/kityminder-core/.DS_Store
+</span></span></span><span class="line"><span class="cl"><span class="gh"></span>new file mode 100644
+</span></span><span class="line"><span class="cl"><span class="gh">index 0000000..c88a062
+</span></span></span><span class="line"><span class="cl"><span class="gh"></span>Binary files /dev/null and b/node_modules/@7polo/kityminder-core/.DS_Store differ
+</span></span><span class="line"><span class="cl"><span class="gh">diff --git a/node_modules/@7polo/kityminder-core/dist/kityminder.core.js b/node_modules/@7polo/kityminder-core/dist/kityminder.core.js
+</span></span></span><span class="line"><span class="cl"><span class="gh">index 78dfbaf..32f276d 100644
+</span></span></span><span class="line"><span class="cl"><span class="gh"></span><span class="gd">--- a/node_modules/@7polo/kityminder-core/dist/kityminder.core.js
+</span></span></span><span class="line"><span class="cl"><span class="gd"></span><span class="gi">+++ b/node_modules/@7polo/kityminder-core/dist/kityminder.core.js
+</span></span></span><span class="line"><span class="cl"><span class="gi"></span><span class="gu">@@ -513,6 +513,8 @@ _p[9] = {
+</span></span></span><span class="line"><span class="cl"><span class="gu"></span>          *
+</span></span><span class="line"><span class="cl">          * @param {string} name 要执行的命令名称
+</span></span><span class="line"><span class="cl">          * @param {argument} args 要传递给命令的其它参数
+</span></span><span class="line"><span class="cl"><span class="gi">+         * 
+</span></span></span><span class="line"><span class="cl"><span class="gi">+         * @patch 2022.10.19 @Lruihao 修复缺少 afterExecCommand hook
+</span></span></span><span class="line"><span class="cl"><span class="gi"></span>          */
+</span></span><span class="line"><span class="cl">             execCommand: function(name) {
+</span></span><span class="line"><span class="cl">                 if (!name) return null;
+</span></span><span class="line"><span class="cl"><span class="gu">@@ -547,6 +549,8 @@ _p[9] = {
+</span></span></span><span class="line"><span class="cl"><span class="gu"></span>                         this._interactChange();
+</span></span><span class="line"><span class="cl">                     }
+</span></span><span class="line"><span class="cl">                 }
+</span></span><span class="line"><span class="cl"><span class="gi">+                // Fix: afterExecCommand hook
+</span></span></span><span class="line"><span class="cl"><span class="gi">+                this._fire(new MinderEvent(&#34;afterExecCommand&#34;, eventParams, false));
+</span></span></span><span class="line"><span class="cl"><span class="gi"></span>                 return result === undefined ? null : result;
+</span></span><span class="line"><span class="cl">             }
+</span></span><span class="line"><span class="cl">         });
+</span></span><span class="line"><span class="cl"><span class="gu">@@ -1254,6 +1258,22 @@ _p[13] = {
+</span></span></span><span class="line"><span class="cl"><span class="gu"></span>                 });
+</span></span><span class="line"><span class="cl">                 return this;
+</span></span><span class="line"><span class="cl">             },
+</span></span><span class="line"><span class="cl"><span class="gi">+            /**
+</span></span></span><span class="line"><span class="cl"><span class="gi">+             * @patch 2022.10.26 @Lruihao 修复缺少 once 侦听指定事件一次
+</span></span></span><span class="line"><span class="cl"><span class="gi">+             * @param {String} name 
+</span></span></span><span class="line"><span class="cl"><span class="gi">+             * @param {Function} callback 
+</span></span></span><span class="line"><span class="cl"><span class="gi">+             */
+</span></span></span><span class="line"><span class="cl"><span class="gi">+            once: function(name, callback) {
+</span></span></span><span class="line"><span class="cl"><span class="gi">+                var km = this;
+</span></span></span><span class="line"><span class="cl"><span class="gi">+                name.split(/\s+/).forEach(function(n) {
+</span></span></span><span class="line"><span class="cl"><span class="gi">+                    const tmpCallback = (e) =&gt; {
+</span></span></span><span class="line"><span class="cl"><span class="gi">+                      callback(e);
+</span></span></span><span class="line"><span class="cl"><span class="gi">+                      km.off(n.toLowerCase(), tmpCallback)
+</span></span></span><span class="line"><span class="cl"><span class="gi">+                    };
+</span></span></span><span class="line"><span class="cl"><span class="gi">+                    km._listen(n.toLowerCase(), tmpCallback);
+</span></span></span><span class="line"><span class="cl"><span class="gi">+                });
+</span></span></span><span class="line"><span class="cl"><span class="gi">+                return this;
+</span></span></span><span class="line"><span class="cl"><span class="gi">+            },
+</span></span></span><span class="line"><span class="cl"><span class="gi"></span>             off: function(name, callback) {
+</span></span><span class="line"><span class="cl">                 var types = name.split(/\s+/);
+</span></span><span class="line"><span class="cl">                 var i, j, callbacks, removeIndex;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>发现其实就是一个 diff 文件，这个文件里面记录了修改的内容，以及修改的位置，这样就可以在安装依赖的时候自动执行补丁了。</p>
+<h2 id="使用补丁" class="heading-element"><span>5 使用补丁</span>
+  <a href="#%e4%bd%bf%e7%94%a8%e8%a1%a5%e4%b8%81" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>在 <code>package.json</code> 中添加如下内容：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;scripts&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;postinstall&#34;</span><span class="p">:</span> <span class="s2">&#34;patch-package&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="提交补丁" class="heading-element"><span>6 提交补丁</span>
+  <a href="#%e6%8f%90%e4%ba%a4%e8%a1%a5%e4%b8%81" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git add .
+</span></span><span class="line"><span class="cl">git commit -m <span class="s2">&#34;Chore: patch @7polo/kityminder-core&#34;</span>
+</span></span><span class="line"><span class="cl">git push</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="测试" class="heading-element"><span>7 测试</span>
+  <a href="#%e6%b5%8b%e8%af%95" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>执行一次完整的依赖安装 =&gt; 构建发布，一切符合预期，大功告成~</p>
+]]></description></item><item><title>安装 Homebrew 后导致系统中原有的 npm 和 npx 失效</title><link>https://lruihao.cn/posts/homebrew-npm/</link><pubDate>Thu, 15 Dec 2022 15:33:30 +0800</pubDate><author>Lruihao</author><guid>https://lruihao.cn/posts/homebrew-npm/</guid><description><![CDATA[<div class="details admonition question open">
+    <div class="details-summary admonition-title">
+      <i class="icon fa-solid fa-question-circle fa-fw" aria-hidden="true"></i>问题<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i>
+    </div>
+    <div class="details-content">
+      <div class="admonition-content">前面一段时间，安装了 Homebrew, 但是今天切换 node 版本到 system version (8.10.0) 后，发现虽然 node 版本切换成功，但是 node 版本对应的 npm 和 npx 版本不相符，下面记录一下问题排查过程。</div>
+    </div>
+  </div>
+<h2 id="罪魁祸首" class="heading-element"><span>1 罪魁祸首</span>
+  <a href="#%e7%bd%aa%e9%ad%81%e7%a5%b8%e9%a6%96" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>首先定位到这次问题的根本原因是安装 Homebrew 导致的，这点可以很快也很明确地定位到，因为以前安装 Homebrew 也遇到了这个问题，但是当时的做法是卸载 Homebrew 避免冲突。</p>
+<h2 id="why" class="heading-element"><span>2 Why</span>
+  <a href="#why" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>分析为啥会冲突，Homebrew 安装的工程中也会默认一部分依赖的二进制文件，npm 和 npx 也在其中，所以这导致了 Homebrew 的安装 npm 和 npx 覆盖了系统中 node 的 npm 和 npx 进而导致 node 和 npm 版本不一致，无法使用 npm 启动项目。</p>
+<h2 id="where" class="heading-element"><span>3 Where</span>
+  <a href="#where" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>找一下目前 npm 和 npx 的二进制文件在哪。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">nvm use system
+</span></span><span class="line"><span class="cl">node -v           <span class="c1"># 8.10.0</span>
+</span></span><span class="line"><span class="cl">which npm         <span class="c1"># /opt/homebrew/bin/npm</span>
+</span></span><span class="line"><span class="cl">which npx         <span class="c1"># /opt/homebrew/bin/npx</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="how" class="heading-element"><span>4 How</span>
+  <a href="#how" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>很明显前面的猜测是对的，那就打开这个目录看看：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">open /opt/homebrew/bin</span></span></code></pre></td></tr></table>
+</div>
+</div><p>找到 npm 和 npx，把他们重命名为 <code>npm-brew</code> 和 <code>npx-brew</code>, 这样通过别名也保留 Homebrew 的 npm 和 npx.</p>
+<p>修改完后，重启终端，再看看 npm 和 npx 是否生效：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">nvm use system
+</span></span><span class="line"><span class="cl">node -v           <span class="c1"># 8.10.0</span>
+</span></span><span class="line"><span class="cl">which npm         <span class="c1"># /usr/local/bin/npm</span>
+</span></span><span class="line"><span class="cl">which npx         <span class="c1"># /usr/local/bin/npx</span>
+</span></span><span class="line"><span class="cl">npm -v
+</span></span><span class="line"><span class="cl">npx -v</span></span></code></pre></td></tr></table>
+</div>
+</div><p>一切正常了，可以用 npm 继续启动原来的项目了。</p>]]></description></item></channel></rss>
