@@ -16,7 +16,7 @@
 
 ---
 
-{{&lt; reward wechatpay=&#34;/images/wechatpay.jpg&#34; alipay=&#34;/images/alipay.jpg&#34; comment=&#34;给博主买杯卡布奇诺～&#34; &gt;}}
+{{&lt; reward wechatpay=&#34;/images/wechatpay.jpg&#34; alipay=&#34;/images/alipay.jpg&#34; comment=&#34;给博主买杯卡布奇诺～&#34; mode=&#34;fixed&#34; &gt;}}
 {{&lt; busuanzi_embed &gt;}}
 
 
