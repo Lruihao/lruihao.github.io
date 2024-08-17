@@ -1,6 +1,9 @@
 # 留言
 
 
+{{&lt; busuanzi_embed false &gt;}}
+{.text-secondary style=&#34;text-align: right; font-size: 80%;margin-top: -0.5rem;&#34;}
+
 {{&lt; admonition tip &#34;Welcome&#34; &gt;}}
 {{&lt; typeit &gt;}}
 互联网的广大朋友们，欢迎光临我的小博客！欢迎留言！

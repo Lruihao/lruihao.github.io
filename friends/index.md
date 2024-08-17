@@ -1,7 +1,7 @@
 # 友情链接
 
 
-{{&lt; busuanzi_embed false &gt;}}
+{{&lt; busuanzi_embed false &#34;本页共 &#34; &gt;}}
 {.text-center}
 
 ## 基本信息
