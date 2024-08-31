@@ -60,7 +60,7 @@
 
 {{&lt; script &gt;}}
 document.addEventListener(&#39;DOMContentLoaded&#39;, () =&gt; {
-new Vue({ el: &#39;#app-mmt&#39;, data: { message: &#39;&#39; }});
+  new Vue({ el: &#39;#app-mmt&#39;, data: { message: &#39;&#39; }});
 });
 {{&lt; /script &gt;}}
 
