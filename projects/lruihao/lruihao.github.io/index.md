@@ -2,7 +2,7 @@
 
 # 菠菜眾長
 
-共计 275 篇文章
+共计 276 篇文章
 
 ## 2024
 
@@ -221,7 +221,7 @@
 
 ## 2018
 
-共计 90 篇文章
+共计 91 篇文章
 
 - 12-10 [英语语法--形式倒装](https://lruihao.cn/posts/inversion-3/ &#34;2018-12-10 21:52:30&#34;)
 - 12-10 [英语语法--完全倒装](https://lruihao.cn/posts/inversion-2/ &#34;2018-12-10 21:14:51&#34;)
@@ -312,6 +312,7 @@
 - 06-01 [hexo&#43;github 搭建个人博客及美化](https://lruihao.cn/posts/hexobuild/ &#34;2018-06-01 14:34:23&#34;)
 - 05-31 [hexo 添加图片，音乐，链接，视频](https://lruihao.cn/posts/hexowrite/ &#34;2018-05-31 23:19:22&#34;)
 - 05-31 [猴子与哪吒](https://lruihao.cn/posts/%E7%8C%B4%E5%AD%90%E4%B8%8E%E5%93%AA%E5%90%92/ &#34;2018-05-31 10:09:15&#34;)
+- 05-28 [博客构建档（HTML &amp; Markdown）](https://lruihao.cn/projects/lruihao/lruihao.github.io/ &#34;2018-05-28 12:24:11&#34;)
 - 05-28 [Hello World](https://lruihao.cn/posts/hello-world/ &#34;2018-05-28 20:01:01&#34;)
 
 
