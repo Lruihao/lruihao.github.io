@@ -1,14 +1,13 @@
 # 菠菜眾長
 
-共计 276 篇文章
+共计 275 篇文章
 
 ## 2024
 
-共计 33 篇文章
+共计 32 篇文章
 
 - 09-13 [不使用任何框架，只使用原生 HTML、CSS 和 JavaScript 的一些小 demo。](https://lruihao.cn/projects/lruihao/html-demo/ "2024-09-13 02:36:29")
 - 09-04 [⚙️ Versioning, change-log and release.](https://lruihao.cn/projects/hugo-fixit/fixit-releaser/ "2024-09-04 18:10:59")
-- 08-22 [[WIP] Hugo theme component for ATOM feed custom Output Format.](https://lruihao.cn/projects/hugo-fixit/hugo-atom-feed/ "2024-08-22 03:29:22")
 - 08-22 [Hugo theme component for JSON feed custom Output Format.](https://lruihao.cn/projects/hugo-fixit/hugo-json-feed/ "2024-08-22 03:28:23")
 - 08-07 [Mobile devtools component powered by vConsole and eruda.](https://lruihao.cn/projects/hugo-fixit/cmpt-mdevtools/ "2024-08-07 05:49:13")
 - 07-29 [现代 CSS 解决方案：CSS 四舍五入数值单位](https://lruihao.cn/posts/css-round/ "2024-07-29 20:32:39")

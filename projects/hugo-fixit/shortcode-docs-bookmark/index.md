@@ -4,7 +4,7 @@
 
 🔖 Embed bookmark of FixIt Docs.
 
-![preview](http://lruihao.cn/posts/fixit-docs-bookmark/images/featured-image.webp)
+![preview](https://lruihao.cn/posts/fixit-docs-bookmark/images/featured-image.webp)
 
 ## Requirements
 
