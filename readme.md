@@ -1,28 +1,40 @@
 # 菠菜眾長
 
-共计 247 篇文章
+共计 275 篇文章
 
 ## 2024
 
-共计 21 篇文章
+共计 33 篇文章
 
+- 09-13 [不使用任何框架，只使用原生 HTML、CSS 和 JavaScript 的一些小 demo。](https://lruihao.cn/projects/lruihao/html-demo/ "2024-09-13 02:36:29")
+- 09-04 [⚙️ Versioning, change-log and release.](https://lruihao.cn/projects/hugo-fixit/fixit-releaser/ "2024-09-04 18:10:59")
+- 08-22 [[WIP] Hugo theme component for ATOM feed custom Output Format.](https://lruihao.cn/projects/hugo-fixit/hugo-atom-feed/ "2024-08-22 03:29:22")
+- 08-22 [Hugo theme component for JSON feed custom Output Format.](https://lruihao.cn/projects/hugo-fixit/hugo-json-feed/ "2024-08-22 03:28:23")
+- 08-07 [Mobile devtools component powered by vConsole and eruda.](https://lruihao.cn/projects/hugo-fixit/cmpt-mdevtools/ "2024-08-07 05:49:13")
 - 07-29 [现代 CSS 解决方案：CSS 四舍五入数值单位](https://lruihao.cn/posts/css-round/ "2024-07-29 20:32:39")
+- 07-21 [A Hugo theme component with reward-log or sponsor-log shortcode.](https://lruihao.cn/projects/hugo-fixit/shortcode-rewards/ "2024-07-21 14:02:29")
 - 07-17 [Git 统计代码量](https://lruihao.cn/posts/git-summary/ "2024-07-17 16:06:08")
 - 07-15 [现代 CSS 解决方案之异形元素怎么设置阴影？](https://lruihao.cn/posts/drop-shadow/ "2024-07-15 10:40:12")
+- 07-14 [🔖 Embed bookmark of FixIt Docs.](https://lruihao.cn/projects/hugo-fixit/shortcode-docs-bookmark/ "2024-07-14 07:39:56")
 - 07-14 [CSS 实现时间轴、背景图 loading 和渐变边框](https://lruihao.cn/posts/fixit-docs-bookmark/ "2024-07-14 13:03:31")
 - 07-07 [探索 Amazon S3 的无限存储潜力](https://lruihao.cn/posts/d1fc0c7/ "2024-07-07 13:54:14")
 - 06-28 [标准滚动条控制规范](https://lruihao.cn/posts/scrollbar-styling/ "2024-06-28 22:29:03")
+- 06-28 [一个含有 caniuse shortcode 的 Hugo 主题组件。](https://lruihao.cn/projects/hugo-fixit/shortcode-caniuse/ "2024-06-28 06:56:32")
 - 06-13 [如何实现 VSCode 编辑器窗口边界拖拽类似功能](https://lruihao.cn/posts/aside-toggle-drag/ "2024-06-13 21:03:12")
 - 06-09 [架构之基：从根儿上了解设计原则](https://lruihao.cn/posts/design-principles/ "2024-06-09 02:24:31")
 - 06-06 [怎么生成暗黑模式和明亮模式的 SVG 图片？](https://lruihao.cn/posts/svg-dark-light/ "2024-06-06 22:13:26")
 - 05-20 [坐高铁去柳州吃螺狮粉](https://lruihao.cn/posts/404d6a2/ "2024-05-20 11:41:03")
 - 04-17 [利用 Vercel 反代 Gravatar 实现镜像加速](https://lruihao.cn/projects/vercel-gravatar/ "2024-04-17 12:51:35")
+- 04-17 [Gravatar Proxy powered by Vercel](https://lruihao.cn/projects/lruihao/vercel-gravatar/ "2024-04-17 01:37:06")
+- 04-09 [A Hugo theme component with layout projects and shortcodes to display GitHub pinned card style repositories.](https://lruihao.cn/projects/hugo-fixit/component-projects/ "2024-04-09 21:38:42")
 - 04-04 [临时决定再写一个小工具 - 网站预览图生成器](https://lruihao.cn/projects/apple-devices-preview/ "2024-04-04 13:23:37")
 - 04-02 [用五天时间给自己制作一个封面图生成工具](https://lruihao.cn/projects/coverview/ "2024-04-02 18:05:34")
+- 03-28 [🛠 Create awesome cover images for your blog posts quickly.](https://lruihao.cn/projects/lruihao/coverview/ "2024-03-28 06:14:16")
 - 03-26 [写文档时英文标题什么时候要大写？](https://lruihao.cn/posts/c6bc2d5/ "2024-03-26 12:23:44")
 - 02-29 [实现类似于 Element UI 表格的溢出文本提示功能](https://lruihao.cn/posts/overflow-tooltip/ "2024-02-29 16:46:00")
 - 02-21 [聊聊 Chrome 新增的 sizes="auto" 属性](https://lruihao.cn/posts/auto-sizes/ "2024-02-21 10:00:13")
 - 02-09 [2023 年度总结](https://lruihao.cn/years/2023/ "2024-02-09 14:07:24")
+- 01-21 [强大的脑图可视化工具](https://lruihao.cn/projects/lruihao/kityminder-core/ "2024-01-21 06:24:42")
 - 01-17 [记一次 Debug 第三方包的过程](https://lruihao.cn/posts/900d5e4/ "2024-01-17 14:57:48")
 - 01-17 [为什么很多教程中都有 foo bar？](https://lruihao.cn/posts/20b75e9/ "2024-01-17 09:58:58")
 - 01-11 [git submodule: already exists in the index](https://lruihao.cn/posts/6550187/ "2024-01-11 10:30:04")
@@ -30,10 +42,11 @@
 
 ## 2023
 
-共计 31 篇文章
+共计 35 篇文章
 
 - 12-22 [尝试在 Python 中使用 Amazon Titan 文本模型](https://lruihao.cn/posts/d8ae205/ "2023-12-22 19:58:47")
 - 11-28 [用 Node.js 开发一个轻量脚手架](https://lruihao.cn/projects/fixit-cli/ "2023-11-28 10:48:07")
+- 11-20 [🛠️ A node-based tooling for FixIt site initialization.](https://lruihao.cn/projects/hugo-fixit/fixit-cli/ "2023-11-20 06:40:09")
 - 11-18 [探索 AWS 云上一站式解决方案免费使用](https://lruihao.cn/posts/aws-solution/ "2023-11-18 12:52:37")
 - 10-22 [SSH 提交签名验证](https://lruihao.cn/posts/ssh-sign/ "2023-10-22 18:59:31")
 - 10-12 [如何给 npm 包打补丁？](https://lruihao.cn/posts/patch-package/ "2023-10-12 22:37:56")
@@ -54,11 +67,14 @@
 - 09-14 [VSCode 添加用户代码片段，自定义用户代码片段](https://lruihao.cn/posts/vscode-snippets/ "2023-09-14 11:21:56")
 - 09-02 [CSS 如何实现网格背景效果？](https://lruihao.cn/posts/grid-bg-image/ "2023-09-02 10:05:44")
 - 08-26 [将 Hugo 博客部署到亚马逊云服务器](https://lruihao.cn/posts/aws-ec2/ "2023-08-26 17:22:57")
+- 08-08 [Vue2 and element-ui related demos](https://lruihao.cn/projects/lruihao/vue-el-demo/ "2023-08-08 01:41:08")
 - 07-20 [用魔法打败魔法 - ElBacktop Fix](https://lruihao.cn/posts/el-backtop-fix/ "2023-07-20 11:08:18")
+- 06-14 [A plugin includes a set of directives to make the header, footer and horizontal scrollbar sticky or make highly adaptive of Element UI (Vue 2) tables.](https://lruihao.cn/projects/lruihao/el-table-sticky/ "2023-06-14 14:03:49")
 - 06-14 [使用 Node.js 自动创建 Vue 的路由](https://lruihao.cn/posts/gen-router/ "2023-06-14 00:11:17")
 - 06-12 [解决 SourceTree 提交时候 husky 命令失败问题](https://lruihao.cn/posts/sourcetree-husky/ "2023-06-12 10:58:44")
 - 06-03 [Vue2 + tailwindcss 初始化](https://lruihao.cn/posts/v2-tailwind/ "2023-06-03 17:38:44")
 - 03-14 [新手向：Vue 2.0 的建议学习顺序](https://lruihao.cn/posts/vue2-guid/ "2023-03-14 08:37:59")
+- 02-28 [一个含有网易云随机评论 shortcode 的 Hugo 主题组件。](https://lruihao.cn/projects/hugo-fixit/shortcode-mmt-netease/ "2023-02-28 09:12:29")
 - 02-12 [浏览器 IMG 图片原生懒加载 loading="lazy"](https://lruihao.cn/posts/native-img-loading-lazy/ "2023-02-12 19:40:43")
 - 02-05 [浏览器渲染原理](https://lruihao.cn/posts/browser-rendering/ "2023-02-05 21:02:52")
 - 02-04 [中文技术文档的写作规范](https://lruihao.cn/posts/document-style-guide/ "2023-02-04 16:04:42")
@@ -66,10 +82,15 @@
 
 ## 2022
 
-共计 15 篇文章
+共计 21 篇文章
 
 - 12-17 [2022 年度总结](https://lruihao.cn/years/2022/ "2022-12-17 01:01:30")
 - 12-15 [安装 Homebrew 后导致系统中原有的 npm 和 npx 失效](https://lruihao.cn/posts/homebrew-npm/ "2022-12-15 15:33:30")
+- 12-09 [基于 Bootstrap 5 + Font Awesome 6 的消息提示插件](https://lruihao.cn/projects/lruihao/cell-tooltip/ "2022-12-09 14:54:49")
+- 10-10 [基于 fex-team/kityminder-core 和 Vue2 封装的在线脑图编辑组件](https://lruihao.cn/projects/lruihao/vue-minder-editor-extended/ "2022-10-10 02:50:53")
+- 09-30 [🆕 A quick-start template base on Hugo Modules to create a Hugo FixIt site.](https://lruihao.cn/projects/hugo-fixit/hugo-fixit-starter/ "2022-09-30 09:28:41")
+- 09-27 [🆕 A quick-start template base on Git submodule to create a Hugo FixIt site.](https://lruihao.cn/projects/hugo-fixit/hugo-fixit-starter1/ "2022-09-27 15:23:38")
+- 09-04 [Using frequently-used Hugo commands by shell.](https://lruihao.cn/projects/hugo-fixit/hugo-shell/ "2022-09-04 04:18:42")
 - 08-31 [Beego 安装及配置](https://lruihao.cn/posts/beego-install/ "2022-08-31 09:32:44")
 - 08-13 [语义版本控制（SemVer）](https://lruihao.cn/posts/semver/ "2022-08-13 13:32:03")
 - 08-12 [Commit Message Spec](https://lruihao.cn/posts/commit-spec/ "2022-08-12 15:37:44")
@@ -80,15 +101,17 @@
 - 07-31 [自定义 ohmyzsh 主题](https://lruihao.cn/posts/ohmyzsh-custom/ "2022-07-31 13:54:14")
 - 07-30 [linux 文件权限](https://lruihao.cn/posts/linux-permission/ "2022-07-30 17:15:44")
 - 07-29 [Mac 上的开发配置总结](https://lruihao.cn/posts/config4mac/ "2022-07-29 20:22:44")
+- 07-23 [📄 The source for https://fixit.lruihao.cn](https://lruihao.cn/projects/hugo-fixit/docs/ "2022-07-23 12:17:06")
 - 07-05 [Mac 配置 ADB](https://lruihao.cn/posts/adb-for-mac/ "2022-07-05 15:39:34")
 - 05-01 [重新认识 JavaScript](https://lruihao.cn/posts/js-rediscover/ "2022-05-01 10:59:36")
 - 04-30 [关于 CSS 和 Scss 变量运算那些事](https://lruihao.cn/posts/css-scss-var/ "2022-04-30 22:04:29")
 
 ## 2021
 
-共计 15 篇文章
+共计 18 篇文章
 
 - 12-22 [Getting Things Done for ios App Reminders and Github issues](https://lruihao.cn/posts/gtd/ "2021-12-22 20:17:42")
+- 12-16 [🔧 A clean, elegant but advanced blog theme for Hugo 一个简洁、优雅且高效的 Hugo 主题](https://lruihao.cn/projects/hugo-fixit/fixit/ "2021-12-16 03:35:27")
 - 10-05 [Sublime 剪贴板图片粘贴插件 —— Markdown 必备](https://lruihao.cn/posts/subl_imgpaste2/ "2021-10-05 21:54:06")
 - 10-05 [Hugo 添加知乎卡片式链接 Shortcodes](https://lruihao.cn/posts/hugo-cardlink/ "2021-10-05 19:33:13")
 - 10-05 [Hugo I18n 添加中文繁體翻譯](https://lruihao.cn/posts/hugo-i18n-zh-tw/ "2021-10-05 19:14:45")
@@ -96,9 +119,11 @@
 - 10-04 [Hugo 本地管理 Shell 腳本](https://lruihao.cn/posts/hugo-admin/ "2021-10-04 23:49:00")
 - 10-04 [Hugo 使用 GitHub Actions 部署到 GithHb Pages 和 腾讯云 cos 桶](https://lruihao.cn/posts/github-actions/ "2021-10-04 23:46:49")
 - 10-03 [个人博客从 Hexo 迁移至 Hugo](https://lruihao.cn/posts/hexo-to-hugo/ "2021-10-03 15:27:58")
+- 09-08 [一个前端 CV 程序猿的博客😉](https://lruihao.cn/projects/lruihao/hugo-blog/ "2021-09-08 12:52:53")
 - 06-22 [less&sass&scss](https://lruihao.cn/posts/less-sass-scss/ "2021-06-22 16:39:47")
 - 06-21 [Lightbox](https://lruihao.cn/posts/lightbox/ "2021-06-21 16:18:04")
 - 06-21 [2020&2021 總結](https://lruihao.cn/years/2020-2021/ "2021-06-21 10:17:38")
+- 05-24 [Create watermark for webpage and automatic adjust when window resize.](https://lruihao.cn/projects/lruihao/watermark/ "2021-05-24 13:05:40")
 - 05-23 [Cell Watermark](https://lruihao.cn/projects/cell-watermark/ "2021-05-23 17:15:41")
 - 03-04 [Code Review 怎麼做？新手工程師如何提升「程式碼品質」](https://lruihao.cn/posts/codereview/ "2021-03-04 21:04:18")
 - 03-02 [基于 leancloud-storage 实现的无后端记账本](https://lruihao.cn/projects/bill-note/ "2021-03-02 21:46:40")
@@ -106,10 +131,11 @@
 
 ## 2020
 
-共计 7 篇文章
+共计 8 篇文章
 
 - 07-25 [cell-blog 功能介绍与安装](https://lruihao.cn/projects/cell-blog/ "2020-07-25 20:51:11")
 - 07-25 [cell-blog 开发记录](https://lruihao.cn/posts/cell-blog-dev/ "2020-07-25 20:42:42")
+- 04-17 [基于 Laravel 7 开发，支持 Markdown 语法的博客](https://lruihao.cn/projects/lruihao/cell-blog/ "2020-04-17 08:33:39")
 - 03-26 [使用 Python 刷 csdn 访问量](https://lruihao.cn/posts/csdnvisiter/ "2020-03-26 11:08:38")
 - 03-25 [Cron 表达式的基本语法](https://lruihao.cn/posts/cron/ "2020-03-25 09:19:44")
 - 03-25 [新冠疫情未返校未返工第 N 天之“自动打卡”](https://lruihao.cn/posts/daka/ "2020-03-25 08:22:42")
@@ -118,9 +144,10 @@
 
 ## 2019
 
-共计 68 篇文章
+共计 70 篇文章
 
 - 11-24 [利用腾讯云为静态页面添加“动态”相册](https://lruihao.cn/projects/cos-album/ "2019-11-24 10:52:34")
+- 11-23 [解析腾讯云 cos 桶 xml 生成相册,同时也是图床的显示页面](https://lruihao.cn/projects/lruihao/cos-album/ "2019-11-23 12:59:05")
 - 11-14 [RESTful](https://lruihao.cn/posts/restful/ "2019-11-14 19:06:05")
 - 09-28 [php 同时主动推送链接到百度，神马等站长平台](https://lruihao.cn/posts/phppushurl/ "2019-09-28 18:32:42")
 - 09-28 [php 按行读取文件信息](https://lruihao.cn/posts/phpfile/ "2019-09-28 17:11:17")
@@ -177,6 +204,7 @@
 - 03-04 [磁盘存储器的管理](https://lruihao.cn/posts/cipanadmin/ "2019-03-04 23:08:32")
 - 03-04 [JS 验证码](https://lruihao.cn/posts/js-vcode/ "2019-03-04 20:53:09")
 - 02-01 [还乡](https://lruihao.cn/posts/renative/ "2019-02-01 20:44:40")
+- 01-31 [Elegant and powerful theme for Hexo.](https://lruihao.cn/projects/lruihao/hexo-theme-next/ "2019-01-31 09:57:45")
 - 01-24 [java 继承 test](https://lruihao.cn/posts/jicheng/ "2019-01-24 15:07:50")
 - 01-22 [利用腾讯云对象存储 COS 桶托管 hexo 博客](https://lruihao.cn/posts/cos-hexo/ "2019-01-22 14:57:08")
 - 01-18 [Arrays 类及基本使用](https://lruihao.cn/posts/java-arrays/ "2019-01-18 13:13:10")

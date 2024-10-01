@@ -1,0 +1,63 @@
+# 📄 the Source for Https://Fixit.lruihao.cn
+
+# FixIt 主题文档
+
+[![Production environment](https://img.shields.io/github/deployments/hugo-fixit/docs/Production?style=flat&amp;label=Production&amp;logo=vercel)](https://fixit.lruihao.cn/)
+[![Preview environment](https://img.shields.io/github/deployments/hugo-fixit/docs/Preview?style=flat&amp;label=Preview&amp;logo=vercel)](https://pre.fixit.lruihao.cn/)
+[![Hugo](https://img.shields.io/badge/Hugo-%5E0.132.0-ff4088?style=flat&amp;logo=hugo)](https://gohugo.io/)
+
+👉 中文 | [English](README.en.md)
+
+[FixIt](https://github.com/hugo-fixit/FixIt) 主题文档主要分为：[文档](https://fixit.lruihao.cn/zh-cn/documentation/)、[教程](https://fixit.lruihao.cn/zh-cn/guides/) 两大板块，欢迎大家发起 PR 完善主题文档。
+
+## 系统依赖
+
+- [Node.js](https://nodejs.org/): &gt;= 18.0.0
+- [Go](https://go.dev/dl/)
+- [Hugo](https://gohugo.io/installation/): &gt;= 0.132.0 (extended version)
+
+## 贡献文档
+
+首先，点击 fork 按钮 fork 本仓库。
+
+然后，克隆你 fork 的仓库。
+
+```bash
+git clone https://github.com/hugo-fixit/docs.git fixit-docs &amp;&amp; cd fixit-docs
+```
+
+接着，安装开发依赖。
+
+```bash
+npm install
+```
+
+最后，你就可以开始了！
+
+这里有一些有用的命令。
+
+```bash
+# 运行带有监听文件变化的本地调试服务器
+npm run server
+# 运行带有监听文件变化的本地调试服务器（生产环境）
+npm run server:production
+# 查看编辑主题部分
+npm run server:development
+```
+
+## 编辑主题
+
+如果你想做与文档相关的主题更改，最简单的方法是将 `fixit-docs` 和 `FixIt` 克隆为兄弟目录，然后运行：
+
+```bash
+HUGO_MODULE_WORKSPACE=hugo.work hugo server --ignoreVendorPaths &#34;**&#34;
+```
+
+最后，在 &lt;https://github.com/hugo-fixit/docs/pulls&gt; 创建一个新的 pull request 来提交你的贡献 🎉
+
+
+---
+
+> 作者: [Lruihao](https://github.com/Lruihao)  
+> URL: https://lruihao.cn/projects/hugo-fixit/docs/  
+
