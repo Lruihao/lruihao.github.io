@@ -1,4 +1,4 @@
-# 🛠️ a Node-Based Tooling for FixIt Site Initialization.
+# 🛠️ A node-based tooling for FixIt site initialization.
 
 # FixIt CLI
 
@@ -65,6 +65,6 @@ npm run test -- -h
 
 ---
 
-> 作者: [Lruihao](https://github.com/Lruihao)  
+> 作者: [hugo-fixit](https://github.com/hugo-fixit)  
 > URL: https://lruihao.cn/projects/hugo-fixit/fixit-cli/  
 

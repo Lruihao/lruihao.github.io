@@ -1,4 +1,4 @@
-# Hugo Theme Component for JSON Feed Custom Output Format.
+# Hugo theme component for JSON feed custom Output Format.
 
 # Hugo JSON Feed
 
@@ -100,6 +100,6 @@ feed:
 
 ---
 
-> 作者: [Lruihao](https://github.com/Lruihao)  
+> 作者: [hugo-fixit](https://github.com/hugo-fixit)  
 > URL: https://lruihao.cn/projects/hugo-fixit/hugo-json-feed/  
 

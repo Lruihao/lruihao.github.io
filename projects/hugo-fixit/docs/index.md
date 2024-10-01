@@ -1,4 +1,4 @@
-# 📄 the Source for Https://Fixit.lruihao.cn
+# 📄 The source for https://fixit.lruihao.cn
 
 # FixIt 主题文档
 
@@ -58,6 +58,6 @@ HUGO_MODULE_WORKSPACE=hugo.work hugo server --ignoreVendorPaths &#34;**&#34;
 
 ---
 
-> 作者: [Lruihao](https://github.com/Lruihao)  
+> 作者: [hugo-fixit](https://github.com/hugo-fixit)  
 > URL: https://lruihao.cn/projects/hugo-fixit/docs/  
 

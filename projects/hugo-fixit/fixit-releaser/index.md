@@ -1,4 +1,4 @@
-# ⚙️ Versioning, Change-Log and Release.
+# ⚙️ Versioning, change-log and release.
 
 # FixIt Releaser
 
@@ -37,6 +37,6 @@ npx fixit-releaser changelog --starting-version v0.3.10
 
 ---
 
-> 作者: [Lruihao](https://github.com/Lruihao)  
+> 作者: [hugo-fixit](https://github.com/hugo-fixit)  
 > URL: https://lruihao.cn/projects/hugo-fixit/fixit-releaser/  
 

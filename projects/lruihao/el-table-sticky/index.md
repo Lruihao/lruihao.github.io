@@ -1,4 +1,4 @@
-# A Plugin Includes a Set of Directives to Make the Header, Footer and Horizontal Scrollbar Sticky or Make Highly Adaptive of Element UI (Vue 2) Tables.
+# A plugin includes a set of directives to make the header, footer and horizontal scrollbar sticky or make highly adaptive of Element UI (Vue 2) tables.
 
 # el-table-sticky
 

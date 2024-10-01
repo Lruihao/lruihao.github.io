@@ -1,4 +1,4 @@
-# Create Watermark for Webpage and Automatic Adjust When Window Resize.
+# Create watermark for webpage and automatic adjust when window resize.
 
 # Watermark
 

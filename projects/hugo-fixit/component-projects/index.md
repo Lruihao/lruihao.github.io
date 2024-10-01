@@ -1,8 +1,8 @@
-# A Hugo Theme Component With Layout Projects and Shortcodes to Display GitHub Pinned Card Style Repositories.
+# A Hugo theme component with layout projects and shortcodes to display GitHub pinned card style repositories.
 
 # component-projects
 
-👉 [English README](README.md) | 简体中文说明
+👉 [English README](https://raw.githubusercontent.com/hugo-fixit/component-projects/refs/heads/main//README.md) | 简体中文说明
 
 一个包含有 `projects` 布局和 shortcode 的 Hugo 主题组件，用于显示 GitHub 固定卡片样式存储库。
 
@@ -205,6 +205,6 @@ jobs:
 
 ---
 
-> 作者: [Lruihao](https://github.com/Lruihao)  
+> 作者: [hugo-fixit](https://github.com/hugo-fixit)  
 > URL: https://lruihao.cn/projects/hugo-fixit/component-projects/  
 

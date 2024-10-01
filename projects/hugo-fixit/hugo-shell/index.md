@@ -1,4 +1,4 @@
-# Using Frequently-Used Hugo Commands by Shell.
+# Using frequently-used Hugo commands by shell.
 
 # Hugo Shell
 
@@ -37,6 +37,6 @@ Press Ctrl&#43;C to stop
 
 ---
 
-> 作者: [Lruihao](https://github.com/Lruihao)  
+> 作者: [hugo-fixit](https://github.com/hugo-fixit)  
 > URL: https://lruihao.cn/projects/hugo-fixit/hugo-shell/  
 

@@ -1,4 +1,4 @@
-# 🛠 Create Awesome Cover Images for Your Blog Posts Quickly.
+# 🛠 Create awesome cover images for your blog posts quickly.
 
 # CoverView
 

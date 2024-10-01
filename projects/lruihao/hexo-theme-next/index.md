@@ -1,4 +1,4 @@
-# Elegant and Powerful Theme for Hexo.
+# Elegant and powerful theme for Hexo.
 
 &lt;h1 align=center&gt;hexo-theme-next&lt;/h1&gt;
 

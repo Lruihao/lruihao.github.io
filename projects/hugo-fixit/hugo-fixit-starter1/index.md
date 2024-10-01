@@ -1,4 +1,4 @@
-# 🆕 a Quick-Start Template Base on Git Submodule to Create a Hugo FixIt Site.
+# 🆕 A quick-start template base on Git submodule to create a Hugo FixIt site.
 
 # Hugo FixIt 博客模板（Git）
 
@@ -98,6 +98,6 @@ git submodule update --remote --merge themes/FixIt
 
 ---
 
-> 作者: [Lruihao](https://github.com/Lruihao)  
+> 作者: [hugo-fixit](https://github.com/hugo-fixit)  
 > URL: https://lruihao.cn/projects/hugo-fixit/hugo-fixit-starter1/  
 

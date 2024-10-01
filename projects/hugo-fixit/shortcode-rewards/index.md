@@ -1,4 +1,4 @@
-# A Hugo Theme Component With Reward-Log or Sponsor-Log Shortcode.
+# A Hugo theme component with reward-log or sponsor-log shortcode.
 
 # shortcode-rewards
 
@@ -104,6 +104,6 @@ logs:
 
 ---
 
-> 作者: [Lruihao](https://github.com/Lruihao)  
+> 作者: [hugo-fixit](https://github.com/hugo-fixit)  
 > URL: https://lruihao.cn/projects/hugo-fixit/shortcode-rewards/  
 

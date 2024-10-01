@@ -1,4 +1,4 @@
-# Mobile Devtools Component Powered by VConsole and Eruda.
+# Mobile devtools component powered by vConsole and eruda.
 
 # cmpt-mdevtools
 
@@ -50,6 +50,6 @@ Inject the `cmpt-mdevtools.html` into the `custom-assets` through the custom blo
 
 ---
 
-> 作者: [Lruihao](https://github.com/Lruihao)  
+> 作者: [hugo-fixit](https://github.com/hugo-fixit)  
 > URL: https://lruihao.cn/projects/hugo-fixit/cmpt-mdevtools/  
 

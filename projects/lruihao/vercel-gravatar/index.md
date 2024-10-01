@@ -1,4 +1,4 @@
-# Gravatar Proxy Powered by Vercel
+# Gravatar Proxy powered by Vercel
 
 # Vercel Gravatar
 

@@ -1,4 +1,4 @@
-# 🔖 Embed Bookmark of FixIt Docs.
+# 🔖 Embed bookmark of FixIt Docs.
 
 # fixit-docs-bookmark
 
@@ -43,6 +43,6 @@ Here is an example of usage:
 
 ---
 
-> 作者: [Lruihao](https://github.com/Lruihao)  
+> 作者: [hugo-fixit](https://github.com/hugo-fixit)  
 > URL: https://lruihao.cn/projects/hugo-fixit/shortcode-docs-bookmark/  
 

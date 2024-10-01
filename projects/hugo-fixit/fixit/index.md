@@ -1,4 +1,4 @@
-# 🔧 a Clean, Elegant but Advanced Blog Theme for Hugo 一个简洁、优雅且高效的 Hugo 主题
+# 🔧 A clean, elegant but advanced blog theme for Hugo 一个简洁、优雅且高效的 Hugo 主题
 
 &lt;!-- markdownlint-disable-file MD033 MD041 --&gt;
 ![Hugo Theme FixIt](https://fixit.lruihao.cn/images/apple-devices-preview.png)
@@ -256,6 +256,6 @@ FixIt 根据 **MIT** 许可协议授权。更多信息请查看 [LICENSE 文件]
 
 ---
 
-> 作者: [Lruihao](https://github.com/Lruihao)  
+> 作者: [hugo-fixit](https://github.com/hugo-fixit)  
 > URL: https://lruihao.cn/projects/hugo-fixit/fixit/  
 

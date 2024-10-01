@@ -1,4 +1,4 @@
-# 基于 Fex-Team/Kityminder-Core 和 Vue2 封装的在线脑图编辑组件
+# 基于 fex-team/kityminder-core 和 Vue2 封装的在线脑图编辑组件
 
 # Vue Minder Editor
 

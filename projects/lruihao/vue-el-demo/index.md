@@ -1,4 +1,4 @@
-# Vue2 and Element-Ui Related Demos
+# Vue2 and element-ui related demos
 
 # vue-el-demo
 

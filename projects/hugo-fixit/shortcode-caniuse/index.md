@@ -1,4 +1,4 @@
-# 一个含有 Caniuse Shortcode 的 Hugo 主题组件。
+# 一个含有 caniuse shortcode 的 Hugo 主题组件。
 
 # Hugo shortcode for CanIUse
 
@@ -65,6 +65,6 @@ FixIt 主题 `v0.3.9` 及以上版本。
 
 ---
 
-> 作者: [Lruihao](https://github.com/Lruihao)  
+> 作者: [hugo-fixit](https://github.com/hugo-fixit)  
 > URL: https://lruihao.cn/projects/hugo-fixit/shortcode-caniuse/  
 

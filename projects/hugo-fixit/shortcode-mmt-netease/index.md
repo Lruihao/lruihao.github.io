@@ -1,4 +1,4 @@
-# 一个含有网易云随机评论 Shortcode 的 Hugo 主题组件。
+# 一个含有网易云随机评论 shortcode 的 Hugo 主题组件。
 
 # hugo-shortcode-mmt-netease
 
@@ -52,6 +52,6 @@ theme = [&#34;your-main-theme&#34;, &#34;shortcode-mmt-netease&#34;]
 
 ---
 
-> 作者: [Lruihao](https://github.com/Lruihao)  
+> 作者: [hugo-fixit](https://github.com/hugo-fixit)  
 > URL: https://lruihao.cn/projects/hugo-fixit/shortcode-mmt-netease/  
 

@@ -1,4 +1,4 @@
-# 解析腾讯云 Cos 桶 Xml 生成相册,同时也是图床的显示页面
+# 解析腾讯云 cos 桶 xml 生成相册,同时也是图床的显示页面
 
 # cos-album
 [demo](https://github.com/Lruihao/cos-album-demo)

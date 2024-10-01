@@ -1,4 +1,4 @@
-# 🆕 a Quick-Start Template Base on Hugo Modules to Create a Hugo FixIt Site.
+# 🆕 A quick-start template base on Hugo Modules to create a Hugo FixIt site.
 
 # Hugo FixIt 博客模板（Go）
 
@@ -101,6 +101,6 @@ hugo mod tidy
 
 ---
 
-> 作者: [Lruihao](https://github.com/Lruihao)  
+> 作者: [hugo-fixit](https://github.com/hugo-fixit)  
 > URL: https://lruihao.cn/projects/hugo-fixit/hugo-fixit-starter/  
 
