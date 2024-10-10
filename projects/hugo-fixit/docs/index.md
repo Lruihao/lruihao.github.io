@@ -4,7 +4,7 @@
 
 [![Production environment](https://img.shields.io/github/deployments/hugo-fixit/docs/Production?style=flat&amp;label=Production&amp;logo=vercel)](https://fixit.lruihao.cn/)
 [![Preview environment](https://img.shields.io/github/deployments/hugo-fixit/docs/Preview?style=flat&amp;label=Preview&amp;logo=vercel)](https://pre.fixit.lruihao.cn/)
-[![Hugo](https://img.shields.io/badge/Hugo-%5E0.132.0-ff4088?style=flat&amp;logo=hugo)](https://gohugo.io/)
+[![Hugo](https://img.shields.io/badge/Hugo-%5E0.134.1-ff4088?style=flat&amp;logo=hugo)](https://gohugo.io/)
 
 👉 中文 | [English](README.en.md)
 
@@ -14,7 +14,7 @@
 
 - [Node.js](https://nodejs.org/): &gt;= 18.0.0
 - [Go](https://go.dev/dl/)
-- [Hugo](https://gohugo.io/installation/): &gt;= 0.132.0 (extended version)
+- [Hugo](https://gohugo.io/installation/): &gt;= 0.134.1 (extended version)
 
 ## 贡献文档
 
