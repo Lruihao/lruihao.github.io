@@ -3,7 +3,7 @@
 &lt;!-- markdownlint-disable-file MD033 MD041 --&gt;
 ![Hugo Theme FixIt](https://fixit.lruihao.cn/images/apple-devices-preview.png)
 
-&lt;div align=&#34;center&#34;&gt;&lt;a href=&#34;README.md&#34;&gt;English&lt;/a&gt; | 简体中文&lt;/div&gt;
+&lt;div align=&#34;center&#34;&gt;&lt;a href=&#34;/README.md&#34;&gt;English&lt;/a&gt; | 简体中文&lt;/div&gt;
 
 &lt;a title=&#34;FixIt 官网&#34; href=&#34;https://fixit.lruihao.cn/zh-cn/&#34;&gt;&lt;img align=&#34;right&#34; alt=&#34;FixIt logo&#34; width=&#34;70&#34; height=&#34;70&#34; src=&#34;https://avatars.githubusercontent.com/u/110414864?s=200&amp;v=4&#34;&gt;&lt;/a&gt;
 
@@ -53,7 +53,11 @@
 [lruihao-blog]: https://github.com/Lruihao/hugo-blog
 [lruihao-blog:generate]: https://github.com/Lruihao/hugo-blog/generate
 
-&lt;!-- ## 为什么选择 FixIt --&gt;
+## 为什么选择 FixIt
+
+我也不知道为什么 🤷
+
+&lt;!-- 懒的写…… --&gt;
 
 ## 特性
 
@@ -178,7 +182,7 @@ Gitee 镜像仓库：&lt;https://gitee.com/lruihao/FixIt&gt;
 
 ## 参与贡献
 
-我们欢迎你加入 FixIt 的开发，贡献出你的一份力量。请看开源 [贡献指南](CONTRIBUTING.md)。 🤗
+我们欢迎你加入 FixIt 的开发，贡献出你的一份力量。请看开源 [贡献指南](https://raw.githubusercontent.com/hugo-fixit/FixIt/refs/heads/master//CONTRIBUTING.md)。 🤗
 
 你也可以随时向我们的 [官方插件](https://github.com/hugo-fixit) 提交 Issue 或 Pull Request。
 
@@ -239,7 +243,7 @@ Gitee 镜像仓库：&lt;https://gitee.com/lruihao/FixIt&gt;
 
 ## 许可协议
 
-FixIt 根据 **MIT** 许可协议授权。更多信息请查看 [LICENSE 文件](LICENSE)。
+FixIt 根据 **MIT** 许可协议授权。更多信息请查看 [LICENSE 文件](https://raw.githubusercontent.com/hugo-fixit/FixIt/refs/heads/master//LICENSE)。
 
 ## 赞助支持
 
