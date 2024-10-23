@@ -10,7 +10,7 @@
 
 ## Demo
 
-- &lt;https://fixit.lruihao.cn/zh-cn/components/&gt;
+- &lt;https://fixit.lruihao.cn/zh-cn/ecosystem/&gt;
 - &lt;https://lruihao.cn/projects/&gt;
 
 ## 要求
