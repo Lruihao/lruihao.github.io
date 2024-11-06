@@ -2,12 +2,13 @@
 
 # 菠菜眾長
 
-共计 276 篇文章
+共计 277 篇文章
 
 ## 2024
 
-共计 33 篇文章
+共计 34 篇文章
 
+- 11-05 [🐟 一个 canvas 实现的小鱼游动动画效果。](https://lruihao.cn/projects/hugo-fixit/cmpt-flyfish/ &#34;2024-11-05 08:23:29&#34;)
 - 10-06 [自动获取 GitHub README 内容添加到 Hugo 文章](https://lruihao.cn/posts/content-adapters/ &#34;2024-10-06 11:10:22&#34;)
 - 09-13 [不使用任何框架，只使用原生 HTML、CSS 和 JavaScript 的一些小 demo。](https://lruihao.cn/projects/lruihao/html-demo/ &#34;2024-09-13 02:36:29&#34;)
 - 09-04 [⚙️ Versioning, change-log and release.](https://lruihao.cn/projects/hugo-fixit/fixit-releaser/ &#34;2024-09-04 18:10:59&#34;)
