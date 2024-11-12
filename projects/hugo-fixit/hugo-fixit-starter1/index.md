@@ -60,6 +60,14 @@ hugo server -e production
 hugo
 ```
 
+### 部署到 GitHub Pages
+
+1. 转到 Setting =&gt; Actions =&gt; General =&gt; Workflow permissions =&gt; 选中 &#34;Read and write permissions&#34;。
+2. 手动运行 Workflow: Actions =&gt; Hugo build and deploy =&gt; 点击 Run workflow 按钮。
+3. GitHub Pages 设置：Setting =&gt; Pages =&gt; Source: Deploy from a branch =&gt; Branch: `gh-pages` =&gt; Save。
+
+&gt; 只有第一次部署时需要手动运行 Workflow，之后每次推送到 `main` 分支都会自动部署。
+
 ### 更新主题
 
 之后，你可以使用以下命令升级主题：
