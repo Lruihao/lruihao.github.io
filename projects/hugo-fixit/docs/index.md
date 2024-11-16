@@ -45,6 +45,10 @@ npm run server:production
 npm run server:development
 ```
 
+## 参与翻译
+
+包含 `missing-translation` shortcode 的文档表示该部分尚未翻译，点击查看 [缺失翻译的文档](https://github.com/search?q=repo%3Ahugo-fixit%2Fdocs&#43;%7B%7B%3C&#43;missing-translation&#43;%3E%7D%7D&amp;type=code)。
+
 ## 编辑主题
 
 如果你想做与文档相关的主题更改，最简单的方法是将 `fixit-docs` 和 `FixIt` 克隆为兄弟目录，然后运行：
