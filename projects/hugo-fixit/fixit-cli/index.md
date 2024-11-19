@@ -49,7 +49,7 @@ fixit create my-blog
 npm install
 npm link
 npm unlink fixit
-npm run test -- -h
+npm run start -- -h
 ```
 
 ## 相关项目
