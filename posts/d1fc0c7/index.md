@@ -21,7 +21,7 @@ Amazon Simple Storage Service (Amazon S3) 是一种对象存储服务，由亚�
 
 打开 [亚马逊云科技账号注册地址][trial-url]，点击右上角创建亚马逊云科技账户。
 
-![创建 AWS 账户](../aws-ec2/images/23_1693042834.png)
+![创建 Amazon 账户](../aws-ec2/images/23_1693042834.png)
 
 1. 填写邮件地址和账号名称（支持使用国内的邮箱）\
    ![login](../aws-ec2/images/23_1693043425.png)

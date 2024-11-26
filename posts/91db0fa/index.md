@@ -12,12 +12,12 @@
 
 ## 了解 Amazon Inspector
 
-Amazon Inspector 可以自动发现工作负载，例如 Amazon EC2 实例、容器和 Lambda 函数，并扫描它们是否存在软件漏洞和意外的网络暴露，是一项自动化持续漏洞扫描服务，用于在 Amazon ECR 中以及持续集成和持续交付（CI/CD）工具内评测 Amazon Elastic Compute Cloud（EC2）实例、AWS Lambda 函数和容器镜像以提高基础设施工作负载的安全性和合规性。
+Amazon Inspector 可以自动发现工作负载，例如 Amazon EC2 实例、容器和 Lambda 函数，并扫描它们是否存在软件漏洞和意外的网络暴露，是一项自动化持续漏洞扫描服务，用于在 Amazon ECR 中以及持续集成和持续交付（CI/CD）工具内评测 Amazon Elastic Compute Cloud（EC2）实例、Amazon Lambda 函数和容器镜像以提高基础设施工作负载的安全性和合规性。
 
 ## 它能做些什么？
 
 - 在开发周期的早期阶段纳入安全性，并集中管理所有受监控资源的软件物料清单 (SBOM) 导出。
-- 近乎实时地检测亚马逊 ECR 和持续集成与持续交付 (CI/CD) 工具中的 Amazon EC2、AWS Lambda 函数和容器映像等 AWS 工作负载中的软件漏洞和意外网络暴露。
+- 近乎实时地检测亚马逊 ECR 和持续集成与持续交付 (CI/CD) 工具中的 Amazon EC2、Amazon Lambda 函数和容器映像等亚马逊云服务工作负载中的软件漏洞和意外网络暴露。
 - 使用 Amazon Inspector 风险评分来确定修复的优先级，缩短平均修复时间 (MTTR)。
 - 无缝扫描 EC2 实例，在基于代理和无代理的扫描之间切换。
 - 通过 Amazon Inspector 扫描支持 NIST CSF、PCI DSS 和其他法规的合规性要求和最佳实践。
@@ -30,7 +30,7 @@ Amazon Inspector 可以自动发现工作负载，例如 Amazon EC2 实例、容
     ![image-20241121192852886](images/image-20241121192852886.webp)
 
 - 在开发人员工具中嵌入漏洞扫描，并导出合并 SBOM 以获取监测资源。
-- **AWS Lambda 标准扫描**：持续评测每个已部署的 Lambda 函数是否存在软件包漏洞。每月总成本基于每月扫描的 Lambda 函数的平均数量。价格根据一个月内 Lambda 函数的 Amazon Inspector 覆盖小时总数（从函数被 Amazon Inspector 发现到函数被删除或从扫描中排除的小时数）按比例分配。
+- **Amazon Lambda 标准扫描**：持续评测每个已部署的 Lambda 函数是否存在软件包漏洞。每月总成本基于每月扫描的 Lambda 函数的平均数量。价格根据一个月内 Lambda 函数的 Amazon Inspector 覆盖小时总数（从函数被 Amazon Inspector 发现到函数被删除或从扫描中排除的小时数）按比例分配。
 - 扫描后报告中有严重性评判标准（在你的 Amazon EC2 实例中存在已识别的新 CVE，该 CVE 只能远程使用。如果 Amazon Inspector 持续网络可达性扫描还发现无法通过网络访问该实例，Amazon Inspector 就会发现漏洞的利用性太低。因此，Amazon Inspector 将扫描结果与 CVE 相关联，以向下调整风险评分，更准确地反映 CVE 对该特定实例的影响。）：
 
     ![image-20241120203747459](images/image-20241120203747459.webp)
@@ -43,7 +43,7 @@ Amazon Inspector 可以自动发现工作负载，例如 Amazon EC2 实例、容
 
 打开 [亚马逊云科技账号注册地址][trial-url]，点击右上角创建亚马逊云科技账户。
 
-![创建 AWS 账户](https://lruihao.cn/posts/aws-ec2/images/23_1693042834.png)
+![创建 Amazon 账户](https://lruihao.cn/posts/aws-ec2/images/23_1693042834.png)
 
 1. 填写邮件地址和账号名称（支持使用国内的邮箱）\
    ![login](https://lruihao.cn/posts/aws-ec2/images/23_1693043425.png)
@@ -122,7 +122,7 @@ Amazon Inspector 可以自动发现工作负载，例如 Amazon EC2 实例、容
 立即访问[免费试用页面][trial-url]，开始你的亚马逊云科技云服务安全之旅吧！
 
 &lt;!-- link reference definition --&gt;
-[trial-url]: https://aws.amazon.com/cn/free/?trk=56af0bad-f604-4f80-8f1a-f8a8b0d20118&amp;sc_channel=sm&amp;campaign=blog1352
+[trial-url]: https://aws.amazon.com/cn/free/?trk=997abc29-fa8e-41bf-afa1-da66c3de023b&amp;sc_channel=sm&amp;campaign=blog1432
 
 
 ---
