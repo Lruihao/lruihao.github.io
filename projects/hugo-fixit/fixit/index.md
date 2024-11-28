@@ -37,12 +37,12 @@
 
 点击以下链接使用模板生成一个新的仓库：
 
-| 模板仓库                                   | 生成链接                          |
-| :----------------------------------------- | :-------------------------------: |
-| [hugo-fixit/hugo-fixit-starter][starter]   | [点击生成][starter:generate]      |
-| [hugo-fixit/hugo-fixit-starter1][starter1] | [点击生成][starter1:generate]     |
-| [hugo-fixit/docs][docs]                    | [点击生成][docs:generate]         |
-| [Lruihao/hugo-blog][lruihao-blog]          | [点击生成][lruihao-blog:generate] |
+| 模板                                | 仓库                              | 生成链接                          |
+| :---------------------------------- | :-------------------------------- | :-------------------------------: |
+| 基于 Hugo Modules 的快速入门模板。  | [hugo-fixit-starter][starter]     | [点击生成][starter:generate]      |
+| 基于 Git submodule 的快速入门模板。 | [hugo-fixit-starter1][starter1]   | [点击生成][starter1:generate]     |
+| 使用 Fixit 主题构建多语言网站。     | [docs][docs]                      | [点击生成][docs:generate]         |
+| 基于 FixIt 主题进行自定义设置。     | [Lruihao/hugo-blog][lruihao-blog] | [点击生成][lruihao-blog:generate] |
 
 [starter]: https://github.com/hugo-fixit/hugo-fixit-starter
 [starter:generate]: https://github.com/hugo-fixit/hugo-fixit-starter/generate
@@ -67,6 +67,11 @@
 - 使用基于 JSON-LD 格式 的 **SEO SCHEMA** 文件进行 SEO 优化
 - 支持 **[Google Analytics](https://analytics.google.com/analytics)**
 - 支持 **[Fathom Analytics](https://usefathom.com/)**
+- 支持 **[百度统计](https://tongji.baidu.com/)**
+- 支持 **[Umami Analytics](https://umami.is/)**
+- 支持 **[Plausible Analytics](https://plausible.io/)**
+- 支持 **[Cloudflare Web Analytics](https://www.cloudflare.com/web-analytics)**
+- 支持 **[Splitbee Analytics](https://splitbee.io)**
 - 支持搜索引擎的**网站验证** (Google, Bing, Yandex, Pinterest, Baidu, 360 and Sogou)
 - 支持所有第三方库的 **CDN**
 
@@ -249,8 +254,8 @@ FixIt 根据 **MIT** 许可协议授权。更多信息请查看 [LICENSE 文件]
 
 如果你喜爱这个主题，请考虑给我买杯咖啡 ☕️，谢谢！
 
-- [微信支付](images/wechatpay.jpg)
-- [支付宝](images/alipay.jpg)
+- [微信支付](https://raw.githubusercontent.com/hugo-fixit/FixIt/refs/heads/master//images/wechatpay.jpg)
+- [支付宝](https://raw.githubusercontent.com/hugo-fixit/FixIt/refs/heads/master//images/alipay.jpg)
 - [PayPal](https://paypal.me/Lruihao)
 
 ## 作者
