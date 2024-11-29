@@ -2,7 +2,7 @@
 
 # Fly Fish
 
-👉 简体中文说明 | [English README](https://raw.githubusercontent.com/hugo-fixit/cmpt-flyfish/refs/heads/main//README.en.md)
+👉 简体中文说明 | [English README](https://raw.githubusercontent.com/hugo-fixit/cmpt-flyfish/refs/heads/main/README.en.md)
 
 一个 canvas 实现的小鱼游动动画效果。
 

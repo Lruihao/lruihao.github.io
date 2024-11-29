@@ -3,7 +3,7 @@
 &lt;!-- markdownlint-disable-file MD033 MD041 --&gt;
 ![Hugo Theme FixIt](https://fixit.lruihao.cn/images/apple-devices-preview.png)
 
-&lt;div align=&#34;center&#34;&gt;&lt;a href=&#34;/README.md&#34;&gt;English&lt;/a&gt; | 简体中文&lt;/div&gt;
+&lt;div align=&#34;center&#34;&gt;&lt;a href=&#34;https://raw.githubusercontent.com/hugo-fixit/FixIt/refs/heads/master/README.md&#34;&gt;English&lt;/a&gt; | 简体中文&lt;/div&gt;
 
 &lt;a title=&#34;FixIt 官网&#34; href=&#34;https://fixit.lruihao.cn/zh-cn/&#34;&gt;&lt;img align=&#34;right&#34; alt=&#34;FixIt logo&#34; width=&#34;70&#34; height=&#34;70&#34; src=&#34;https://avatars.githubusercontent.com/u/110414864?s=200&amp;v=4&#34;&gt;&lt;/a&gt;
 
@@ -11,7 +11,7 @@
 
 [![GitHub release (latest by date)](https://img.shields.io/github/v/release/hugo-fixit/FixIt?style=flat)](https://github.com/hugo-fixit/FixIt/releases)
 [![Hugo](https://img.shields.io/badge/Hugo-%5E0.134.1-ff4088?style=flat&amp;logo=hugo)](https://gohugo.io/)
-[![License](https://img.shields.io/github/license/hugo-fixit/FixIt?style=flat)](https://raw.githubusercontent.com/hugo-fixit/FixIt/refs/heads/master//LICENSE)
+[![License](https://img.shields.io/github/license/hugo-fixit/FixIt?style=flat)](https://raw.githubusercontent.com/hugo-fixit/FixIt/refs/heads/master/LICENSE)
 [![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)](https://github.com/hugo-fixit/FixIt)
 
 &gt; «FixIt» 是一个**简洁**、**优雅**且**高效**的 [Hugo](https://gohugo.io/) 博客主题。
@@ -187,7 +187,7 @@ Gitee 镜像仓库：&lt;https://gitee.com/lruihao/FixIt&gt;
 
 ## 参与贡献
 
-我们欢迎你加入 FixIt 的开发，贡献出你的一份力量。请看开源 [贡献指南](https://raw.githubusercontent.com/hugo-fixit/FixIt/refs/heads/master//CONTRIBUTING.md)。 🤗
+我们欢迎你加入 FixIt 的开发，贡献出你的一份力量。请看开源 [贡献指南](https://raw.githubusercontent.com/hugo-fixit/FixIt/refs/heads/master/CONTRIBUTING.md)。 🤗
 
 你也可以随时向我们的 [官方插件](https://github.com/hugo-fixit) 提交 Issue 或 Pull Request。
 
@@ -248,14 +248,14 @@ Gitee 镜像仓库：&lt;https://gitee.com/lruihao/FixIt&gt;
 
 ## 许可协议
 
-FixIt 根据 **MIT** 许可协议授权。更多信息请查看 [LICENSE 文件](https://raw.githubusercontent.com/hugo-fixit/FixIt/refs/heads/master//LICENSE)。
+FixIt 根据 **MIT** 许可协议授权。更多信息请查看 [LICENSE 文件](https://raw.githubusercontent.com/hugo-fixit/FixIt/refs/heads/master/LICENSE)。
 
 ## 赞助支持
 
 如果你喜爱这个主题，请考虑给我买杯咖啡 ☕️，谢谢！
 
-- [微信支付](https://raw.githubusercontent.com/hugo-fixit/FixIt/refs/heads/master//images/wechatpay.jpg)
-- [支付宝](https://raw.githubusercontent.com/hugo-fixit/FixIt/refs/heads/master//images/alipay.jpg)
+- [微信支付](https://raw.githubusercontent.com/hugo-fixit/FixIt/refs/heads/master/images/wechatpay.jpg)
+- [支付宝](https://raw.githubusercontent.com/hugo-fixit/FixIt/refs/heads/master/images/alipay.jpg)
 - [PayPal](https://paypal.me/Lruihao)
 
 ## 作者
