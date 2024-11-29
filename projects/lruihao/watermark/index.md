@@ -4,7 +4,7 @@
 
 Create watermark for webpage and automatic adjust when windows resize.
 
-## [Documentation](https://raw.githubusercontent.com/Lruihao/watermark/refs/heads/main/docs/README.md)
+## [Documentation](https://raw.githubusercontent.com/Lruihao/watermark/refs/heads/main//docs/README.md)
 
 ## Usage
 

@@ -4,7 +4,7 @@
 
 基于 Bootstrap 5 &#43; Font Awesome 6 的消息提示插件 (Base on [Bootstrap#Alerts](https://getbootstrap.com/docs/5.2/components/alerts/))
 
-## [Documentation](https://raw.githubusercontent.com/Lruihao/cell-tooltip/refs/heads/main/docs/README.md)
+## [Documentation](https://raw.githubusercontent.com/Lruihao/cell-tooltip/refs/heads/main//docs/README.md)
 
 文档更新命令：
 
