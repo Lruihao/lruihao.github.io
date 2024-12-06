@@ -39,6 +39,7 @@ FixIt 主题 `v0.3.9` 及以上版本。
 - **feature** _[必需]_（第一个位置参数）特性名称
 - **past** _[可选]_（第二个位置参数）显示过去 N 个版本，范围是 `0 - 5`，默认为 `2`
 - **future** _[可选]_（第三个位置参数）显示未来 N 个版本，范围是 `0 - 3`，默认为 `1`
+- **origin** _[可选]_（第四个位置参数）caniuse embed 数据源，例如：`https://caniuse-embed-x.vercel.app`
 
 &gt; 点击 `caniuse.com` 网站上功能左边 `#` 号，URL 中的 `pathname` 即为 `feature` 参数。
 
