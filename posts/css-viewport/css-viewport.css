@@ -1,0 +1,28 @@
+/* 自定义属性是为了把 vw 和 vh 转成 px */
+@property --vw {
+  syntax: '<length>';
+  inherits: true;
+  initial-value: 100vw;
+}
+@property --vh {
+  syntax: '<length>';
+  inherits: true;
+  initial-value: 100vh;
+}
+/*
+  核心公式：
+  tan(θ) = opposite / adjacent
+  θ = arctan(opposite / adjacent)
+  tan(arctan(a)) = a
+*/
+.viewport-size {
+  --width: tan(atan2(var(--vw), 1px));
+  --height: tan(atan2(var(--vh), 1px));
+
+  &::before {
+    content: counter(width) ' X ' counter(height);
+    counter-reset: width var(--width) height var(--height);
+    font-size: 2em;
+    font-weight: 900;
+  }
+}
