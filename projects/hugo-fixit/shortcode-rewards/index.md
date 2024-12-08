@@ -64,7 +64,7 @@ The `reward-log` shortcode has the following named parameters, and the positiona
 
 | Parameter | Description                                                       | Type    | Optional values        | Default |
 | :-------- | :---------------------------------------------------------------- | :------ | :--------------------- | :------ |
-| reverse   | whether the node is ascending or descending, default is ascending | boolean | -                      | false   |
+| reverse   | whether the node is ascending or descending                       | boolean | -                      | true    |
 | placement | position of timestamp                                             | string  | top / bottom           | bottom  |
 | animation | whether to enable animation                                       | boolean | -                      | false   |
 | size      | node size                                                         | string  | small / medium / large | medium  |
