@@ -59,6 +59,10 @@ HUGO_MODULE_WORKSPACE=hugo.work hugo server --ignoreVendorPaths &#34;**&#34;
 
 最后，在 &lt;https://github.com/hugo-fixit/docs/pulls&gt; 创建一个新的 pull request 来提交你的贡献 🎉
 
+## 感谢赞助
+
+[translate.js](https://github.com/xnx3/translate) 赞助企业级翻译通道。
+
 
 ---
 

@@ -149,13 +149,13 @@ Press Ctrl&#43;C to stop
 - 此存储库中的代码采用 [MIT](https://github.com/Lruihao/hugo-blog/blob/main/LICENSE) 许可
 - _`content/private` 目录不在任何许可范围内_
 
-## Author
-
-[Lruihao](https://github.com/Lruihao &#34;在 GitHub 上关注我&#34;)
-
 ## Sponsor
 
 [translate.js](https://github.com/xnx3/translate) 赞助企业级翻译通道。
+
+## Author
+
+[Lruihao](https://github.com/Lruihao &#34;在 GitHub 上关注我&#34;)
 
 
 ---
