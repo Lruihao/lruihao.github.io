@@ -153,6 +153,10 @@ Press Ctrl&#43;C to stop
 
 [Lruihao](https://github.com/Lruihao &#34;在 GitHub 上关注我&#34;)
 
+## Sponsor
+
+[translate.js](https://github.com/xnx3/translate) 赞助企业级翻译通道。
+
 
 ---
 
