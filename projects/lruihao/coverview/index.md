@@ -44,18 +44,16 @@
 
 ## 👩‍💻 开发
 
-&gt; 此项目是使用 [Create React App](https://github.com/facebook/create-react-app) 启动的。
-
 1. 下载项目并安装依赖：
 
     ```shell
     git clone https://github.com/Lruihao/CoverView.git
     cd CoverView/
-    npm install
+    pnpm i
     ```
 
 2. 从 [Unsplash API](https://unsplash.com/developers) 获取访问密钥。
-3. 在 `.env` 文件中添加 `REACT_APP_UNSPLASH_ACCESS_KEY` 环境变量。
+3. 在 `.env.local` 文件中添加 `REACT_APP_UNSPLASH_ACCESS_KEY` 环境变量。
 
     ```shell
     # https://unsplash.com/ Access Key
@@ -65,7 +63,7 @@
 4. 运行以下命令开始项目：
 
     ```shell
-    npm start
+    pnpm dev
     ```
 
 ## 👇 贡献
