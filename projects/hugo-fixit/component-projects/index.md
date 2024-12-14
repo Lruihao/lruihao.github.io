@@ -1,17 +1,33 @@
-# A Hugo theme component with layout projects and shortcodes to display GitHub pinned card style repositories.
+# 🐙 Display your GitHub projects in the FixIt theme and generate blog posts from README.
 
-# component-projects
-
-👉 [English README](https://raw.githubusercontent.com/hugo-fixit/component-projects/refs/heads/main/README.md) | 简体中文说明
-
-一个包含有 `projects` 布局和 shortcode 的 Hugo 主题组件，用于显示 GitHub 固定卡片样式存储库。
+&lt;!-- markdownlint-disable-file MD033 MD041 --&gt;
+&lt;h1 align=&#34;center&#34;&gt;GitHub Projects Embed | FixIt&lt;/h1&gt;
 
 ![apple-devices-preview](https://github.com/hugo-fixit/component-projects/assets/33419593/3f75bd94-90df-4057-bee5-cbe2a61422f1)
 
+&lt;div align=&#34;center&#34; class=&#34;ignore&#34;&gt;
+  &lt;p&gt;在 FixIt 主题中展示你的 GitHub 项目并根据 README 自动生成博客文章。&lt;/p&gt;
+  简体中文 |
+  &lt;a href=&#34;https://fixit.lruihao.cn/zh-cn/ecosystem/hugo-fixit/component-projects/?lang=chinese_traditional&#34;&gt;繁體中文&lt;/a&gt; |
+  &lt;a href=&#34;https://raw.githubusercontent.com/hugo-fixit/component-projects/refs/heads/main/README.en.md&#34;&gt;English&lt;/a&gt; |
+  &lt;a href=&#34;https://fixit.lruihao.cn/ecosystem/hugo-fixit/component-projects/?lang=french&#34;&gt;Français&lt;/a&gt; |
+  &lt;a href=&#34;https://fixit.lruihao.cn/ecosystem/hugo-fixit/component-projects/?lang=russian&#34;&gt;Русский язык&lt;/a&gt; |
+  &lt;a href=&#34;https://fixit.lruihao.cn/ecosystem/hugo-fixit/component-projects/?lang=spanish&#34;&gt;Español&lt;/a&gt; |
+  &lt;a href=&#34;https://fixit.lruihao.cn/ecosystem/hugo-fixit/component-projects/?lang=hindi&#34;&gt;हिन्दी&lt;/a&gt; |
+  &lt;a href=&#34;https://fixit.lruihao.cn/ecosystem/hugo-fixit/component-projects/?lang=german&#34;&gt;deutsch&lt;/a&gt; |
+  &lt;a href=&#34;https://fixit.lruihao.cn/ecosystem/hugo-fixit/component-projects/?lang=korean&#34;&gt;한국어&lt;/a&gt; |
+  &lt;a href=&#34;https://fixit.lruihao.cn/ecosystem/hugo-fixit/component-projects/?lang=japanese&#34;&gt;しろうと&lt;/a&gt;
+&lt;/div&gt;
+
 ## Demo
 
-- &lt;https://fixit.lruihao.cn/zh-cn/ecosystem/&gt;
-- &lt;https://lruihao.cn/projects/&gt;
+- [生态系统 | FixIt](https://fixit.lruihao.cn/zh-cn/ecosystem/)
+- [Lruihao 的开源项目](https://lruihao.cn/projects/)
+
+## 特性
+
+- 支持 GitHub 项目卡片展示（`layout` 或者 `shortcodes`）
+- 支持根据 README 自动生成博客文章（`content adapter`）
 
 ## 要求
 
