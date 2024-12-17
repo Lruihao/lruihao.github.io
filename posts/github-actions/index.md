@@ -37,7 +37,7 @@ jobs:
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v2
         with:
-          hugo-version: latest
+          hugo-version: ${{ vars.HUGO_VERSION || &#39;latest&#39; }}
           extended: true
       - name: Build Hugo static files
         run: hugo --minify
