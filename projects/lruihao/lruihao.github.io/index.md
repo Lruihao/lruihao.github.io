@@ -124,7 +124,7 @@
 - 10-04 [Hugo 本地管理 Shell 腳本](https://lruihao.cn/posts/hugo-admin/ &#34;2021-10-04 23:49:00&#34;)
 - 10-04 [Hugo 使用 GitHub Actions 部署到 GithHb Pages 和 腾讯云 cos 桶](https://lruihao.cn/posts/github-actions/ &#34;2021-10-04 23:46:49&#34;)
 - 10-03 [个人博客从 Hexo 迁移至 Hugo](https://lruihao.cn/posts/hexo-to-hugo/ &#34;2021-10-03 15:27:58&#34;)
-- 09-08 [一个前端 CV 程序猿的博客😉](https://lruihao.cn/projects/lruihao/hugo-blog/ &#34;2021-09-08 12:52:53&#34;)
+- 09-08 [一个切图仔的博客😉](https://lruihao.cn/projects/lruihao/hugo-blog/ &#34;2021-09-08 12:52:53&#34;)
 - 06-22 [less&amp;sass&amp;scss](https://lruihao.cn/posts/less-sass-scss/ &#34;2021-06-22 16:39:47&#34;)
 - 06-21 [Lightbox](https://lruihao.cn/posts/lightbox/ &#34;2021-06-21 16:18:04&#34;)
 - 06-21 [2020&amp;2021 總結](https://lruihao.cn/years/2020-2021/ &#34;2021-06-21 10:17:38&#34;)
