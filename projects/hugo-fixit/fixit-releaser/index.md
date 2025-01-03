@@ -2,12 +2,17 @@
 
 # FixIt Releaser
 
-Automatically update FixIt internal version number and generate changelog.
+Versioning, change-log and release for Hugo FixIt Similar commit style.
+
+## Features
+
+- Update FixIt internal version number. (**[FixIt](https://github.com/hugo-fixit/FixIt) Only**)
+- Generate changelog. (General)
 
 ## Installation
 
 ```bash
-npm install fixit-releaser --save-dev
+npm install @hugo-fixit/fixit-releaser --save-dev
 ```
 
 ## Configuration
