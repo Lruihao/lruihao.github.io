@@ -10,7 +10,7 @@
 
 ## 系统依赖
 
-- [Node.js](https://nodejs.org/) (&gt;= 16.0.0)
+- [Node.js](https://nodejs.org/) (&gt;= 18)
 - [Git](https://git-scm.com/)
 - [Hugo](https://gohugo.io/) 扩展版
 

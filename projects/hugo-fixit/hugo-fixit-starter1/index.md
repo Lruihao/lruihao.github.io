@@ -4,7 +4,7 @@
 
 👉 中文 | [English](README.en.md)
 
-这是一个用于 Hugo 主题 [FixIt](https://github.com/hugo-fixit/FixIt) 的快速入门模板。它使用 [Git 子模块](https://git-scm.com/book/en/v2/Git-Tools-Submodules) 功能来加载主题。
+这是 Hugo 主题 [FixIt](https://github.com/hugo-fixit/FixIt) 的快速启动模板。它使用 [Git 子模块](https://git-scm.com/book/en/v2/Git-Tools-Submodules) 功能来加载主题。如果你更熟悉 Go，可以 [查看这个模板](https://github.com/hugo-fixit/hugo-fixit-starter)。
 
 它提供了基本的主题结构和配置。已经设置了 GitHub Actions，可以自动部署博客到 GitHub Pages。此外，还有一个定时任务，每天自动更新主题。
 
