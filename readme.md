@@ -105,7 +105,7 @@
 - 07-31 [自定义 ohmyzsh 主题](https://lruihao.cn/posts/ohmyzsh-custom/ "2022-07-31 13:54:14")
 - 07-30 [linux 文件权限](https://lruihao.cn/posts/linux-permission/ "2022-07-30 17:15:44")
 - 07-29 [Mac 上的开发配置总结](https://lruihao.cn/posts/config4mac/ "2022-07-29 20:22:44")
-- 07-23 [📄 The source for https://fixit.lruihao.cn](https://lruihao.cn/projects/hugo-fixit/docs/ "2022-07-23 12:17:06")
+- 07-23 [📄 The open-source repo for fixit.lruihao.cn](https://lruihao.cn/projects/hugo-fixit/docs/ "2022-07-23 12:17:06")
 - 07-05 [Mac 配置 ADB](https://lruihao.cn/posts/adb-for-mac/ "2022-07-05 15:39:34")
 - 05-01 [重新认识 JavaScript](https://lruihao.cn/posts/js-rediscover/ "2022-05-01 10:59:36")
 - 04-30 [关于 CSS 和 Scss 变量运算那些事](https://lruihao.cn/posts/css-scss-var/ "2022-04-30 22:04:29")

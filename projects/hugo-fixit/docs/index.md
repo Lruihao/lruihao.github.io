@@ -1,4 +1,4 @@
-# 📄 The source for https://fixit.lruihao.cn
+# 📄 The open-source repo for fixit.lruihao.cn
 
 # FixIt 主题文档
 
