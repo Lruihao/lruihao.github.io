@@ -16,13 +16,17 @@
 
 如果你使用 [Hugo 模块](https://gohugo.io/hugo-modules/) 功能加载主题，你还需要安装 [Go](https://golang.org/dl/)。
 
-## 安装
+## 使用
+
+使用 [`pnpx`](https://pnpm.io/cli/dlx) 或者 [`npx`](https://docs.npmjs.com/cli/v11/commands/npx) 直接运行 `fixit-cli`，创建一个新的 FixIt 项目会非常方便，当然你也可以全局安装 `fixit-cli`，然后使用 `fixit` 命令。
+
+例如，创建一个名为 `my-blog` 的站点：
 
 ```bash
-npm install -g fixit-cli
+pnpx fixit-cli create my-blog
 ```
 
-## 使用
+更多用法请参考下面的帮助信息：
 
 ```plain
 Usage: fixit &lt;command&gt; [options]
@@ -37,22 +41,43 @@ Commands:
   help &lt;command&gt;         display help for a specific command
 ```
 
-例如，创建一个名为 `my-blog` 的站点：
-
-```bash
-fixit create my-blog
-```
-
 ## 开发
 
+安装依赖项：
+
 ```bash
-npm install
-npm link
-npm unlink fixit
-npm run start -- -h
+pnpm install
 ```
 
+在开发模式下运行 CLI：
+
+```bash
+pnpm start -h
+```
+
+将包链接/取消链接到全局包目录：
+
+```bash
+pnpm link
+pnpm unlink fixit-cli
+```
+
+从本地路径全局安装/卸载包：
+
+```bash
+pnpm add -g path/to/fixit-cli
+pnpm remove -g fixit-cli
+```
+
+### TODO List
+
+- [ ] 检查是否安装 Hugo，没有安装，可通过 Node 包安装 `hugo-bin`/`hugo-extended`
+- [ ] 执行 `fixit check` 命令后，获取到新版本后，提示是否更新
+- [ ] 新增 `fixit add` 命令，用于添加新的 FixIt 主题组件（`fixit create` 命令增加主题组件选项）
+
 ## 相关项目
+
+本 CLI 工具是基于以下项目开发的：
 
 - [FixIt](https://github.com/hugo-fixit/FixIt)
 - [hugo-fixit-starter](https://github.com/hugo-fixit/hugo-fixit-starter)
