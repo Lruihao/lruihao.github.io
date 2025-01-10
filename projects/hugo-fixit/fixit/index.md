@@ -4,7 +4,10 @@
 ![Hugo Theme FixIt](https://fixit.lruihao.cn/images/apple-devices-preview.png)
 
 &lt;div align=&#34;center&#34; class=&#34;ignore&#34;&gt;
-  &lt;p&gt;FixIt 是一个简洁、优雅且高效的 &lt;a href=&#34;https://gohugo.io/&#34;&gt;Hugo&lt;/a&gt; 博客主题。&lt;/p&gt;
+  &lt;p&gt;
+    FixIt 是一个简洁、优雅且高效的 &lt;a href=&#34;https://gohugo.io/&#34;&gt;Hugo&lt;/a&gt; 博客主题。&lt;br&gt;
+    &lt;em&gt;&lt;sub&gt;如果你喜欢这个主题，别忘了留下一颗 ⭐️ 哦，谢谢！&lt;/sub&gt;&lt;/em&gt;
+  &lt;/p&gt;
   &lt;a href=&#34;https://raw.githubusercontent.com/hugo-fixit/FixIt/refs/heads/master/README.md&#34;&gt;English&lt;/a&gt; |
   简体中文 |
   &lt;a href=&#34;https://fixit.lruihao.cn/zh-cn/ecosystem/hugo-fixit/fixit/?lang=chinese_traditional&#34;&gt;繁體中文&lt;/a&gt; |
@@ -37,13 +40,31 @@
   更多 FixIt 的例子参见 &lt;a href=&#34;https://fixit.lruihao.cn/zh-cn/showcase/&#34;&gt;这里&lt;/a&gt;。
 &lt;/p&gt;
 
-## 主题文档
+## 为什么选择 FixIt
+
+我也不知道为什么 🤷。
+
+&lt;!-- 懒的写…… --&gt;
+
+## 使用指南
+
+### 主题文档
 
 前往 [快速上手](https://fixit.lruihao.cn/zh-cn/documentation/getting-started/quick-start/) 页面，了解如何使用 FixIt 主题创建一个新网站的详细步骤。
 
 大纲：[安装篇](https://fixit.lruihao.cn/zh-cn/documentation/installation/) ➜ [入门篇](https://fixit.lruihao.cn/zh-cn/documentation/getting-started/) ➜ [内容管理](https://fixit.lruihao.cn/zh-cn/documentation/content-management/) ➜ [进阶篇](https://fixit.lruihao.cn/zh-cn/documentation/advanced/)
 
-## 模板仓库
+### 快速开始
+
+我们提供了一个 CLI 工具，可以通过一个命令来创建一个新的 FixIt 项目。
+
+```bash
+pnpx fixit-cli create my-blog
+```
+
+[![asciicast](https://asciinema.org/a/697494.svg)](https://asciinema.org/a/697494)
+
+### 模板
 
 点击以下链接使用模板生成一个新的仓库：
 
@@ -63,11 +84,9 @@
 [lruihao-blog]: https://github.com/Lruihao/hugo-blog
 [lruihao-blog:generate]: https://github.com/Lruihao/hugo-blog/generate
 
-## 为什么选择 FixIt
+### 镜像
 
-我也不知道为什么 🤷
-
-&lt;!-- 懒的写…… --&gt;
+Gitee 镜像仓库：&lt;https://gitee.com/lruihao/FixIt&gt;
 
 ## 特性
 
@@ -180,10 +199,6 @@ FixIt 支持下列语言：
 
 [语言兼容性](https://fixit.lruihao.cn/zh-cn/theme-documentation-basics/#language-compatibility)
 
-## 镜像
-
-Gitee 镜像仓库：&lt;https://gitee.com/lruihao/FixIt&gt;
-
 ## 社区支持
 
 所有的反馈都是欢迎的！详见 [Discussions][discussions]、[Pull requests][pulls] 和 [Issues][issues]。
@@ -194,8 +209,6 @@ Gitee 镜像仓库：&lt;https://gitee.com/lruihao/FixIt&gt;
 | [FixIt 主题交流群（微信）][wx-mp]  | 关注「菠菜眾長」回复“FixIt”获取 |
 | [FixIt 主题交流群（QQ）][qq-group] | QQ 群：`814031017`              |
 | [Hugo FixIt 星球][zsxq]            | 付费知识星球                    |
-
-如果你喜欢这个主题，别忘了留下一颗 ⭐️ 哦，谢谢！
 
 [discussions]: https://github.com/hugo-fixit/FixIt/discussions
 [pulls]: https://github.com/hugo-fixit/FixIt/pulls
