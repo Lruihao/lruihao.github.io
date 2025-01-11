@@ -98,6 +98,7 @@ pnpm remove -g fixit-cli
 - [ ] 检查是否安装 Hugo，没有安装，可通过 Node 包安装 `hugo-bin`/`hugo-extended`
 - [ ] 执行 `fixit check` 命令后，获取到新版本后，提示是否更新
 - [ ] 新增 `fixit add` 命令，用于添加新的 FixIt 主题组件（`fixit create` 命令增加主题组件选项）
+- [ ] `fixit create component` 子命令，用于创建新的 FixIt 主题组件
 
 ## 相关项目
 
