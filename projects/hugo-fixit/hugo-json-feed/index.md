@@ -2,19 +2,21 @@
 
 # Hugo JSON Feed
 
-&gt; Hugo theme component for JSON feed custom Output Format.
+中文 | [English](https://raw.githubusercontent.com/hugo-fixit/hugo-json-feed/refs/heads/main/README.en.md)
 
-This component enables JSON feeds for your site.
+&gt; Hugo 主题组件，用于自定义 JSON feed 输出格式。
 
-## Demo
+该组件为您的站点启用 JSON feeds。
 
-- [Home Feed](https://lruihao.cn/feed.json)
-- [Section Feed](https://lruihao.cn/posts/feed.json)
-- [Term Feed](https://lruihao.cn/collections/project/feed.json)
+## 演示
 
-## Install Component
+- [主页 Feed](https://lruihao.cn/feed.json)
+- [分类 Feed](https://lruihao.cn/posts/feed.json)
+- [标签 Feed](https://lruihao.cn/collections/project/feed.json)
 
-The installation method is the same as [installing a theme](https://fixit.lruihao.cn/documentation/installation/). There are several ways to install, choose one, for example, install through Hugo Modules:
+## 安装组件
+
+安装方法与[安装主题](https://fixit.lruihao.cn/documentation/installation/)相同。有几种安装方式，选择一种，例如通过 Hugo Modules 安装：
 
 ```diff
 [module]
@@ -24,21 +26,21 @@ The installation method is the same as [installing a theme](https://fixit.lruiha
 &#43;   path = &#34;github.com/hugo-fixit/hugo-json-feed&#34;
 ```
 
-## Configuration
+## 配置
 
-Add &#34;jsonfeed&#34; to all the Page Kinds for which you want to create JSON feeds:
+将 &#34;jsonfeed&#34; 添加到您希望创建 JSON feeds 的所有页面类型中：
 
 ```toml
 [outputs]
   # &lt;baseURL&gt;/feed.json
   home = [&#34;html&#34;, &#34;rss&#34;, &#34;jsonfeed&#34;]
-  # &lt;baseURL&gt;/posts/feed.json etc.
+  # &lt;baseURL&gt;/posts/feed.json 等
   section = [&#34;html&#34;, &#34;rss&#34;, &#34;jsonfeed&#34;]
-  # &lt;baseURL&gt;/tags/foo/feed.json etc.
+  # &lt;baseURL&gt;/tags/foo/feed.json 等
   term = [&#34;html&#34;, &#34;rss&#34;, &#34;jsonfeed&#34;]
 ```
 
-If your site uses multiple theme components, you need to merge the `outputs` configuration of all theme components. For example, if your site uses both the `FixIt` and `hugo-json-feed` theme components, you need to merge the `outputs` configuration of the two theme components:
+如果您的站点使用多个主题组件，则需要合并所有主题组件的 `outputs` 配置。例如，如果您的站点同时使用 `FixIt` 和 `hugo-json-feed` 主题组件，则需要合并两个主题组件的 `outputs` 配置：
 
 ```toml
 [outputs]
@@ -50,41 +52,41 @@ If your site uses multiple theme components, you need to merge the `outputs` con
   term = [&#34;html&#34;, &#34;rss&#34;, &#34;jsonfeed&#34;]
 ```
 
-### Parameters
+### 参数
 
-You can set the following parameters in your site configuration file:
+您可以在站点配置文件中设置以下参数：
 
 ```toml
 [params]
-  # Global Feed config for JSON feed.
+  # 全局 JSON feed 配置
   [params.feed]
-    # The number of posts to include in the feed. If set to -1, all posts.
+    # feed 中包含的文章数量。如果设置为 -1，则包含所有文章。
     limit = 10
-    # whether to show the full text content in feed.
+    # 是否在 feed 中显示全文。
     fullText = true
 
-  # Section page config (all pages in section)
+  # 分类页面配置（分类中的所有页面）
   [params.section]
-    # Section feed config for JSON feed.
+    # 分类页面的 JSON feed 配置
     [params.section.feed]
-      # The number of posts to include in the feed. If set to -1, all posts.
+      # feed 中包含的文章数量。如果设置为 -1，则包含所有文章。
       limit = -1
-      # whether to show the full text content in feed.
+      # 是否在 feed 中显示全文。
       fullText = false
 
-  # Term list (category or tag) page config
+  # 标签列表（分类或标签）页面配置
   [params.list]
-    # Term list feed config for JSON feed.
+    # 标签列表的 JSON feed 配置
     [params.list.feed]
-      # The number of posts to include in the feed. If set to -1, all posts.
+      # feed 中包含的文章数量。如果设置为 -1，则包含所有文章。
       limit = -1
-      # whether to show the full text content in feed.
+      # 是否在 feed 中显示全文。
       fullText = false
 ```
 
-### Front Matter
+### Front matter
 
-You can set the following parameters in the front matter of the content file:
+您可以在内容文件的 front matter 中设置以下参数：
 
 ```yaml
 ---
@@ -92,9 +94,10 @@ title: &#34;Hello World&#34;
 date: 2024-08-24T16:06:33&#43;08:00
 hiddenFromFeed: true
 feed:
-  # feed.limit only invalid in section or term page(_index.md).
+  # feed.limit 仅在分类或标签页面（_index.md）中有效。
   limit: 10
   fullText: true
+---
 ```
 
 
