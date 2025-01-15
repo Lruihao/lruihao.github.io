@@ -60,7 +60,7 @@ Options:
   -h, --help                 display help for command
 
 Commands:
-  create|new [project-name]  create a new FixIt project from a template
+  create|new [project-name]  create a new FixIt project/component from a template
   check                      check the latest version of FixIt theme
   help [command]             display help for command
 ```
@@ -98,7 +98,6 @@ pnpm remove -g fixit-cli
 - [ ] 检查是否安装 Hugo，没有安装，可通过 Node 包安装 `hugo-bin`/`hugo-extended`
 - [ ] 执行 `fixit check` 命令后，获取到新版本后，提示是否更新
 - [ ] 新增 `fixit add` 命令，用于添加新的 FixIt 主题组件（`fixit create` 命令增加主题组件选项）
-- [ ] `fixit create component` 子命令，用于创建新的 FixIt 主题组件
 
 ## 相关项目
 
@@ -107,6 +106,7 @@ pnpm remove -g fixit-cli
 - [FixIt](https://github.com/hugo-fixit/FixIt)
 - [hugo-fixit-starter](https://github.com/hugo-fixit/hugo-fixit-starter)
 - [hugo-fixit-starter1](https://github.com/hugo-fixit/hugo-fixit-starter1)
+- [component-skeleton](https://github.com/hugo-fixit/component-skeleton)
 
 ## 作者
 
