@@ -1,4 +1,4 @@
-# 🌐 A component for website automatic translation.
+# 🌐 A component for site automatic translation.
 
 &lt;!-- markdownlint-disable-file MD033 MD041 --&gt;
 &lt;h1 align=&#34;center&#34;&gt;Auto Translate | FixIt&lt;/h1&gt;

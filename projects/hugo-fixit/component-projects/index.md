@@ -1,4 +1,4 @@
-# 🐙 Display your GitHub projects in the FixIt theme and generate blog posts from README.
+# 🐙 Display your GitHub projects in the FixIt theme and generate blog posts from readme.
 
 &lt;!-- markdownlint-disable-file MD033 MD041 --&gt;
 &lt;h1 align=&#34;center&#34;&gt;GitHub Projects Embed | FixIt&lt;/h1&gt;

@@ -8,7 +8,7 @@
     FixIt 是一个简洁、优雅且高效的 &lt;a href=&#34;https://gohugo.io/&#34;&gt;Hugo&lt;/a&gt; 博客主题。&lt;br&gt;
     &lt;em&gt;&lt;sub&gt;如果你喜欢这个主题，别忘了留下一颗 ⭐️ 哦，谢谢！&lt;/sub&gt;&lt;/em&gt;
   &lt;/p&gt;
-  &lt;a href=&#34;https://raw.githubusercontent.com/hugo-fixit/FixIt/refs/heads/master/README.md&#34;&gt;English&lt;/a&gt; |
+  &lt;a href=&#34;https://raw.githubusercontent.com/hugo-fixit/FixIt/refs/heads/main/README.md&#34;&gt;English&lt;/a&gt; |
   简体中文 |
   &lt;a href=&#34;https://fixit.lruihao.cn/zh-cn/ecosystem/hugo-fixit/fixit/?lang=chinese_traditional&#34;&gt;繁體中文&lt;/a&gt; |
   &lt;a href=&#34;https://fixit.lruihao.cn/ecosystem/hugo-fixit/fixit/?lang=french&#34;&gt;Français&lt;/a&gt; |
@@ -27,8 +27,8 @@
 &gt; 它的原型基于 [LoveIt](https://github.com/dillonzq/LoveIt) 主题，[KeepIt](https://github.com/Fastbyte01/KeepIt) 主题和 [LeaveIt](https://github.com/liuzc/LeaveIt) 主题。
 
 [![GitHub release (latest by date)](https://img.shields.io/github/v/release/hugo-fixit/FixIt?style=flat)](https://github.com/hugo-fixit/FixIt/releases)
-[![Hugo](https://img.shields.io/badge/Hugo-%5E0.140.0-ff4088?style=flat&amp;logo=hugo)](https://gohugo.io/)
-[![License](https://img.shields.io/github/license/hugo-fixit/FixIt?style=flat)](https://raw.githubusercontent.com/hugo-fixit/FixIt/refs/heads/master/LICENSE)
+[![Hugo](https://img.shields.io/badge/Hugo-%5E0.141.0-ff4088?style=flat&amp;logo=hugo)](https://gohugo.io/)
+[![License](https://img.shields.io/github/license/hugo-fixit/FixIt?style=flat)](https://raw.githubusercontent.com/hugo-fixit/FixIt/refs/heads/main/LICENSE)
 [![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)](https://github.com/hugo-fixit/FixIt)
 
 ## 即时预览
@@ -202,9 +202,32 @@ FixIt 主题旨在在**简洁性**和**可扩展性**之间取得平衡。为此
 &lt;details&gt;
 &lt;summary&gt;点击展开&lt;/summary&gt;
 
-&lt;!-- COMPONENT_LIST_START --&gt;
-
-&lt;!-- COMPONENT_LIST_END --&gt;
+&lt;!-- HUGO_FIXIT_COMPONENTS:START --&gt;
+- [fixit-bundle](https://github.com/hugo-fixit/fixit-bundle)\
+  🌲 Bundles the FixIt core theme and all hugo-fixit components into a single component.
+- [cmpt-flyfish](https://github.com/hugo-fixit/cmpt-flyfish)\
+  🐟 一个 canvas 实现的小鱼游动动画效果。
+- [cmpt-mdevtools](https://github.com/hugo-fixit/cmpt-mdevtools)\
+  Mobile devtools component powered by vConsole and eruda.
+- [cmpt-translate](https://github.com/hugo-fixit/cmpt-translate)\
+  🌐 A component for site automatic translation.
+- [component-projects](https://github.com/hugo-fixit/component-projects)\
+  🐙 Display your GitHub projects in the FixIt theme and generate blog posts from readme.
+- [hugo-atom-feed](https://github.com/hugo-fixit/hugo-atom-feed)\
+  Hugo theme component for ATOM feed custom Output Format.
+- [hugo-json-feed](https://github.com/hugo-fixit/hugo-json-feed)\
+  Hugo theme component for JSON feed custom Output Format.
+- [shortcode-asciinema](https://github.com/hugo-fixit/shortcode-asciinema)\
+  A Hugo theme component with asciinema-embed shortcode.
+- [shortcode-caniuse](https://github.com/hugo-fixit/shortcode-caniuse)\
+  一个含有 caniuse shortcode 的 Hugo 主题组件。
+- [shortcode-docs-bookmark](https://github.com/hugo-fixit/shortcode-docs-bookmark)\
+  🔖 Embed bookmark of FixIt Docs.
+- [shortcode-mmt-netease](https://github.com/hugo-fixit/shortcode-mmt-netease)\
+  🎶 一个含有网易云随机评论 shortcode 的 Hugo 主题组件。
+- [shortcode-rewards](https://github.com/hugo-fixit/shortcode-rewards)\
+  A Hugo theme component with reward-log or sponsor-log shortcode.
+&lt;!-- HUGO_FIXIT_COMPONENTS:END --&gt;
 
 &lt;/details&gt;
 
@@ -228,7 +251,7 @@ FixIt 主题旨在在**简洁性**和**可扩展性**之间取得平衡。为此
 
 ## 参与贡献
 
-我们欢迎你加入 FixIt 的开发，贡献出你的一份力量。请看开源 [贡献指南](https://raw.githubusercontent.com/hugo-fixit/FixIt/refs/heads/master/CONTRIBUTING.md)。 🤗
+我们欢迎你加入 FixIt 的开发，贡献出你的一份力量。请看开源 [贡献指南](https://raw.githubusercontent.com/hugo-fixit/FixIt/refs/heads/main/CONTRIBUTING.md)。 🤗
 
 你也可以随时向我们的 [官方插件](https://github.com/hugo-fixit) 提交 Issue 或 Pull Request。
 
@@ -289,14 +312,14 @@ FixIt 主题旨在在**简洁性**和**可扩展性**之间取得平衡。为此
 
 ## 许可协议
 
-FixIt 根据 **MIT** 许可协议授权。更多信息请查看 [LICENSE 文件](https://raw.githubusercontent.com/hugo-fixit/FixIt/refs/heads/master/LICENSE)。
+FixIt 根据 **MIT** 许可协议授权。更多信息请查看 [LICENSE 文件](https://raw.githubusercontent.com/hugo-fixit/FixIt/refs/heads/main/LICENSE)。
 
 ## 赞助支持
 
 如果你喜爱这个主题，请考虑给我买杯咖啡 ☕️，谢谢！
 
-- [微信支付](https://raw.githubusercontent.com/hugo-fixit/FixIt/refs/heads/master/images/wechatpay.jpg)
-- [支付宝](https://raw.githubusercontent.com/hugo-fixit/FixIt/refs/heads/master/images/alipay.jpg)
+- [微信支付](https://raw.githubusercontent.com/hugo-fixit/FixIt/refs/heads/main/images/wechatpay.jpg)
+- [支付宝](https://raw.githubusercontent.com/hugo-fixit/FixIt/refs/heads/main/images/alipay.jpg)
 - [PayPal](https://paypal.me/Lruihao)
 
 感谢以下赞助商提供大力支持：

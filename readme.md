@@ -1,13 +1,20 @@
 # 菠菜眾長
 
-共计 280 篇文章
+共计 282 篇文章
+
+## 2025
+
+共计 2 篇文章
+
+- 01-14 [Generate a list of all hugo-fixit theme components.](https://lruihao.cn/projects/hugo-fixit/action-component-list/ "2025-01-14 09:10:09")
+- 01-08 [A Hugo theme component with asciinema-embed shortcode.](https://lruihao.cn/projects/hugo-fixit/shortcode-asciinema/ "2025-01-08 09:20:48")
 
 ## 2024
 
 共计 37 篇文章
 
 - 12-06 [震惊！CSS 竟然能获取视口尺寸？](https://lruihao.cn/posts/css-viewport/ "2024-12-06 10:32:22")
-- 12-02 [🌐 A component for website automatic translation.](https://lruihao.cn/projects/hugo-fixit/cmpt-translate/ "2024-12-02 07:29:57")
+- 12-02 [🌐 A component for site automatic translation.](https://lruihao.cn/projects/hugo-fixit/cmpt-translate/ "2024-12-02 07:29:57")
 - 11-22 [Amazon 如何让服务器享受着持续集群安全？](https://lruihao.cn/posts/91db0fa/ "2024-11-22 14:01:18")
 - 11-05 [🐟 一个 canvas 实现的小鱼游动动画效果。](https://lruihao.cn/projects/hugo-fixit/cmpt-flyfish/ "2024-11-05 08:23:29")
 - 10-06 [自动获取 GitHub README 内容添加到 Hugo 文章](https://lruihao.cn/posts/content-adapters/ "2024-10-06 11:10:22")
@@ -30,7 +37,7 @@
 - 05-20 [坐高铁去柳州吃螺狮粉](https://lruihao.cn/posts/404d6a2/ "2024-05-20 11:41:03")
 - 04-17 [利用 Vercel 反代 Gravatar 实现镜像加速](https://lruihao.cn/projects/vercel-gravatar/ "2024-04-17 12:51:35")
 - 04-17 [Gravatar Proxy powered by Vercel](https://lruihao.cn/projects/lruihao/vercel-gravatar/ "2024-04-17 01:37:06")
-- 04-09 [🐙 Display your GitHub projects in the FixIt theme and generate blog posts from README.](https://lruihao.cn/projects/hugo-fixit/component-projects/ "2024-04-09 21:38:42")
+- 04-09 [🐙 Display your GitHub projects in the FixIt theme and generate blog posts from readme.](https://lruihao.cn/projects/hugo-fixit/component-projects/ "2024-04-09 21:38:42")
 - 04-04 [临时决定再写一个小工具 - 网站预览图生成器](https://lruihao.cn/projects/apple-devices-preview/ "2024-04-04 13:23:37")
 - 04-02 [用五天时间给自己制作一个封面图生成工具](https://lruihao.cn/projects/coverview/ "2024-04-02 18:05:34")
 - 03-28 [🛠 Create awesome cover images for your blog posts quickly.](https://lruihao.cn/projects/lruihao/coverview/ "2024-03-28 06:14:16")
