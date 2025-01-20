@@ -224,7 +224,7 @@ FixIt 主题旨在在**简洁性**和**可扩展性**之间取得平衡。为此
 - [shortcode-docs-bookmark](https://github.com/hugo-fixit/shortcode-docs-bookmark)\
   🔖 Embed bookmark of FixIt Docs.
 - [shortcode-mmt-netease](https://github.com/hugo-fixit/shortcode-mmt-netease)\
-  🎶 一个含有网易云随机���论 shortcode 的 Hugo 主题组件。
+  🎶 一个含有网易云随机评论 shortcode 的 Hugo 主题组件。
 - [shortcode-rewards](https://github.com/hugo-fixit/shortcode-rewards)\
   A Hugo theme component with reward-log or sponsor-log shortcode.
 &lt;!-- HUGO_FIXIT_COMPONENTS:END --&gt;

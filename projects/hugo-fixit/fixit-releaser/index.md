@@ -1,7 +1,8 @@
 # ⚙️ Versioning, change-log and release.
 
-
 # FixIt Releaser
+
+[![NPM version](https://img.shields.io/npm/v/@hugo-fixit/fixit-releaser.svg)](https://www.npmjs.com/package/@hugo-fixit/fixit-releaser)
 
 中文 | [English](https://raw.githubusercontent.com/hugo-fixit/fixit-releaser/refs/heads/main/README.en.md)
 

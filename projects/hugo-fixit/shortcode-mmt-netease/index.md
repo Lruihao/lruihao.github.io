@@ -1,4 +1,4 @@
-# 🎶 一个含有网易云随机评论 shortcode 的 Hugo 主题组件。
+# 🎶 A Hugo theme component with a NetEase Cloud random comment shortcode.
 
 # shortcode-mmt-netease
 
