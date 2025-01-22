@@ -61,10 +61,12 @@
 
 ```toml
 [module]
-  [[module.imports]]
-    path = &#34;github.com/hugo-fixit/FixIt&#34;
-  [[module.imports]]
-    path = &#34;github.com/hugo-fixit/cmpt-translate&#34;
+
+[[module.imports]]
+path = &#34;github.com/hugo-fixit/FixIt&#34;
+
+[[module.imports]]
+path = &#34;github.com/hugo-fixit/cmpt-translate&#34;
 ```
 
 在 Hugo 的第一次启动时，它将下载所需的文件。
@@ -88,7 +90,10 @@ git submodule add https://github.com/hugo-fixit/cmpt-translate.git themes/cmpt-t
 接下来编辑项目的 `hugo.toml` 并将此主题组件添加到你的主题中：
 
 ```toml
-theme = [&#34;FixIt&#34;, &#34;cmpt-translate&#34;]
+theme = [
+  &#34;FixIt&#34;,
+  &#34;cmpt-translate&#34;
+]
 ```
 
 ## 配置
@@ -97,45 +102,42 @@ theme = [&#34;FixIt&#34;, &#34;cmpt-translate&#34;]
 
 ```toml
 [params]
-  [params.customPartials]
-    head = []
-    menuDesktop = [
-      &#34;inject/translate-menu-desktop.html&#34;,
-    ]
-    menuMobile = [
-      &#34;inject/translate-menu-mobile.html&#34;,
-    ]
-    profile = []
-    aside = []
-    comment = []
-    footer = []
-    widgets = []
-    assets = [
-      &#34;inject/cmpt-translate.html&#34;,
-    ]
-    postFooterBefore = []
-    postFooterAfter = []
+
+[params.customPartials]
+head = []
+menuDesktop = [ &#34;inject/translate-menu-desktop.html&#34;, ]
+menuMobile = [ &#34;inject/translate-menu-mobile.html&#34;, ]
+profile = []
+aside = []
+comment = []
+footer = []
+widgets = []
+assets = [ &#34;inject/cmpt-translate.html&#34;, ]
+postFooterBefore = []
+postFooterAfter = []
 ```
 
 另外，你还可以通过以下配置来自定义翻译的语言：
 
 ```toml
 [languages]
-  [languages.zh-cn]
-    languageCode = &#34;zh-CN&#34;
-    languageName = &#34;简体中文&#34;
+
+[languages.zh-cn]
+languageCode = &#34;zh-CN&#34;
+languageName = &#34;简体中文&#34;
 
 [params]
-  [params.autoTranslate]
-    enable = true
-    service = &#39;client.edge&#39;
-    languages = []
-    ignoreID = []
-    ignoreClass = []
-    ignoreTag = []
-    detectLocalLanguage = false
-    cdn = &#34;&#34;
-    enterprise = false
+
+[params.autoTranslate]
+enable = true
+service = &#39;client.edge&#39;
+languages = []
+ignoreID = []
+ignoreClass = []
+ignoreTag = []
+detectLocalLanguage = false
+cdn = &#34;&#34;
+enterprise = false
 ```
 
 - `enable`：是否启用自动翻译。
@@ -154,9 +156,10 @@ theme = [&#34;FixIt&#34;, &#34;cmpt-translate&#34;]
 &gt;
 &gt; ```toml
 &gt; [languages]
-&gt;   [languages.zh-cn]
-&gt;     languageCode = &#34;zh-CN&#34;
-&gt;     languageName = &#34;简体中文&#34;
+&gt;
+&gt; [languages.zh-cn]
+&gt; languageCode = &#34;zh-CN&#34;
+&gt; languageName = &#34;简体中文&#34;
 &gt; ```
 
 ## Front Matter
