@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>菠菜眾長</title><link>https://lruihao.cn/</link><description>Hugo FixIt 作者，喜欢瞎折腾、造轮子、写东西，分享一些前端开发中的所见、所闻、所思。</description><generator>Hugo 0.142.0 &amp; FixIt v0.3.17-8b402129</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><copyright>本站内容采用 CC BY-NC-SA 4.0 国际许可协议。</copyright><lastBuildDate>Tue, 21 Jan 2025 07:47:09 +0000</lastBuildDate><atom:link href="https://lruihao.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>CSS Flexbox 布局指南</title><link>https://lruihao.cn/posts/flexbox/</link><pubDate>Mon, 20 Jan 2025 15:56:38 +0800</pubDate><author>1024@lruihao.cn (Lruihao)</author><guid>https://lruihao.cn/posts/flexbox/</guid><category domain="https://lruihao.cn/categories/css/">CSS</category><description>&lt;img src="https://lruihao.cn/posts/flexbox/images/featured-image.webp" alt="featured image" referrerpolicy="no-referrer">&lt;p>本指南完整解释了弹性盒子（Flexible Box）的所有内容，重点介绍了父元素（弹性容器）和子元素（弹性项目）的所有不同可能属性。&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>菠菜眾長</title><link>https://lruihao.cn/</link><description>Hugo FixIt 作者，喜欢瞎折腾、造轮子、写东西，分享一些前端开发中的所见、所闻、所思。</description><generator>Hugo 0.143.0 &amp; FixIt v0.3.17-8b402129</generator><language>zh-CN</language><managingEditor>1024@lruihao.cn (Lruihao)</managingEditor><webMaster>1024@lruihao.cn (Lruihao)</webMaster><copyright>本站内容采用 CC BY-NC-SA 4.0 国际许可协议。</copyright><lastBuildDate>Tue, 21 Jan 2025 07:47:09 +0000</lastBuildDate><atom:link href="https://lruihao.cn/index.xml" rel="self" type="application/rss+xml"/><item><title>CSS Flexbox 布局指南</title><link>https://lruihao.cn/posts/flexbox/</link><pubDate>Mon, 20 Jan 2025 15:56:38 +0800</pubDate><author>1024@lruihao.cn (Lruihao)</author><guid>https://lruihao.cn/posts/flexbox/</guid><category domain="https://lruihao.cn/categories/css/">CSS</category><description>&lt;img src="https://lruihao.cn/posts/flexbox/images/featured-image.webp" alt="featured image" referrerpolicy="no-referrer">&lt;p>本指南完整解释了弹性盒子（Flexible Box）的所有内容，重点介绍了父元素（弹性容器）和子元素（弹性项目）的所有不同可能属性。&lt;/p>
 &lt;div class="alert alert-tip">&lt;p class="alert-title">&lt;svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16">&lt;path d="M8 1.5c-2.363.0-4 1.69-4 3.75.0.984.424 1.625.984 2.304l.214.253c.223.264.47.556.673.848.284.411.537.896.621 1.49a.75.75.0 01-1.484.211c-.04-.282-.163-.547-.37-.847a8.456 8.456.0 00-.542-.68c-.084-.1-.173-.205-.268-.32C3.201 7.75 2.5 6.766 2.5 5.25 2.5 2.31 4.863.0 8 0s5.5 2.31 5.5 5.25c0 1.516-.701 2.5-1.328 3.259-.095.115-.184.22-.268.319-.207.245-.383.453-.541.681-.208.3-.33.565-.37.847a.751.751.0 01-1.485-.212c.084-.593.337-1.078.621-1.489.203-.292.45-.584.673-.848.075-.088.147-.173.213-.253.561-.679.985-1.32.985-2.304.0-2.06-1.637-3.75-4-3.75zM5.75 12h4.5a.75.75.0 010 1.5h-4.5a.75.75.0 010-1.5zM6 15.25a.75.75.0 01.75-.75h2.5a.75.75.0 010 1.5h-2.5A.75.75.0 016 15.25z"/>&lt;/svg>提示&lt;/p>&lt;p>快速参考手册经常参考本指南？这里有一张你可以打印的高分辨率图像！&lt;mark class="mark-default">&lt;a href="images/css-flexbox-poster.webp">免费下载&lt;/a>&lt;/mark>。&lt;/p>&lt;/div>&lt;h2 id="背景" class="heading-element">&lt;span>背景&lt;/span>
  &lt;a href="#%e8%83%8c%e6%99%af" class="heading-mark">
  &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
@@ -797,12 +797,10 @@ A Hugo theme component with reward-log or sponsor-log shortcode.&lt;/li>
  &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
  &lt;/a>
 &lt;/h2>&lt;!-- markdownlint-disable-next-line no-inline-html -->
-&lt;blockquote class="blockquote-center">&lt;p>&lt;span class="viewport-size">&lt;/span>&lt;/p>
-&lt;/blockquote>
+&lt;blockquote class="blockquote-center">&lt;p>&lt;span class="viewport-size">&lt;/span>&lt;/p>&lt;/blockquote>
 &lt;p>调整浏览器窗口大小，你会发现视口的宽度和高度会实时更新（旧浏览器可能不支持）。&lt;/p>
 &lt;blockquote>
-&lt;p>重要的是，这个效果是纯 CSS 实现的，不需要 JavaScript，真的震惊了！&lt;/p>
-&lt;/blockquote>
+&lt;p>重要的是，这个效果是纯 CSS 实现的，不需要 JavaScript，真的震惊了！&lt;/p>&lt;/blockquote>
 &lt;h2 id="实现原理" class="heading-element">&lt;span>2 实现原理&lt;/span>
  &lt;a href="#%e5%ae%9e%e7%8e%b0%e5%8e%9f%e7%90%86" class="heading-mark">
  &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
@@ -1022,8 +1020,7 @@ A Hugo theme component with reward-log or sponsor-log shortcode.&lt;/li>
  &lt;/a>
 &lt;/h2>&lt;blockquote>
 &lt;p>每日翻译字符 &lt;strong>200 万&lt;/strong>！&lt;br>
-&lt;em>无语言配置文件、无 API Key、对 SEO 友好！&lt;/em>&lt;/p>
-&lt;/blockquote>
+&lt;em>无语言配置文件、无 API Key、对 SEO 友好！&lt;/em>&lt;/p>&lt;/blockquote>
 &lt;ul>
 &lt;li data-task="x" title="已完成">&lt;i class="checkbox-icon fa-fw fa-solid fa-check-square" aria-hidden="true">&lt;/i>支持整页自动翻译&lt;/li>
 &lt;li data-task="x" title="已完成">&lt;i class="checkbox-icon fa-fw fa-solid fa-check-square" aria-hidden="true">&lt;/i>支持指定翻译语言&lt;/li>
@@ -1300,8 +1297,7 @@ A Hugo theme component with reward-log or sponsor-log shortcode.&lt;/li>
  &lt;/a>
 &lt;/h2>&lt;blockquote>
 &lt;p>企业级稳定翻译通道，仅针对&lt;strong>付费用户&lt;/strong>开放。&lt;br>
-&lt;strong>体验额度&lt;/strong>：每天有 5 万字符的体验额度，超出部分将不再翻译！&lt;/p>
-&lt;/blockquote>
+&lt;strong>体验额度&lt;/strong>：每天有 5 万字符的体验额度，超出部分将不再翻译！&lt;/p>&lt;/blockquote>
 &lt;p>在 FixIt 里启用企业级翻译通道，设置 &lt;code>params.autoTranslate.enterprise&lt;/code> 为 &lt;code>true&lt;/code> 即可，&lt;a href="https://translate.zvo.cn/4087.html"target="_blank" rel="external nofollow noopener noreferrer">企业级翻译通道&lt;i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true">&lt;/i>&lt;/a>相对于普通翻译通道有以下优势：&lt;/p>
 &lt;table>
  &lt;thead>
@@ -1521,8 +1517,7 @@ A Hugo theme component with reward-log or sponsor-log shortcode.&lt;/li>
  &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
  &lt;/a>
 &lt;/h2>&lt;p>这个愿景我想了很久了，但是用 JS 通过 GitHub API 获取 README 内容的实现方式体验并不好，所以我一直没有实现。直到最近，我发现了 Hugo v0.126.0 版本新增了一个内容适配器（Content adapters）的概念。&lt;/p>
-&lt;blockquote class="blockquote-center">&lt;p>Create content adapters to dynamically add content when building your site.&lt;/p>
-&lt;/blockquote>
+&lt;blockquote class="blockquote-center">&lt;p>Create content adapters to dynamically add content when building your site.&lt;/p>&lt;/blockquote>
 &lt;p>也就是说，我们可以在构建 Hugo 站点时，通过自定义的适配器动态添加内容。理论可行，实践开始。&lt;/p>
 &lt;h2 id="github-api" class="heading-element">&lt;span>2 GitHub API&lt;/span>
  &lt;a href="#github-api" class="heading-mark">
@@ -1731,8 +1726,7 @@ A Hugo theme component with reward-log or sponsor-log shortcode.&lt;/li>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
 &lt;/div>&lt;blockquote>
-&lt;p>&lt;code>fixit-releaser changelog&lt;/code> 配置与 auto-changelog 兼容。&lt;/p>
-&lt;/blockquote>
+&lt;p>&lt;code>fixit-releaser changelog&lt;/code> 配置与 auto-changelog 兼容。&lt;/p>&lt;/blockquote>
 &lt;h2 id="使用方法" class="heading-element">&lt;span>使用方法&lt;/span>
  &lt;a href="#%e4%bd%bf%e7%94%a8%e6%96%b9%e6%b3%95" class="heading-mark">
  &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
@@ -1777,8 +1771,7 @@ A Hugo theme component with reward-log or sponsor-log shortcode.&lt;/li>
  &lt;/a>
 &lt;/h2>&lt;p>中文 | &lt;a href="https://raw.githubusercontent.com/hugo-fixit/hugo-json-feed/refs/heads/main/README.en.md"target="_blank" rel="external nofollow noopener noreferrer">English&lt;i class="fa-solid fa-external-link-alt fa-fw fa-xs ms-1 text-secondary" aria-hidden="true">&lt;/i>&lt;/a>&lt;/p>
 &lt;blockquote>
-&lt;p>Hugo 主题组件，用于自定义 JSON feed 输出格式。&lt;/p>
-&lt;/blockquote>
+&lt;p>Hugo 主题组件，用于自定义 JSON feed 输出格式。&lt;/p>&lt;/blockquote>
 &lt;p>该组件为您的站点启用 JSON feeds。&lt;/p>
 &lt;h2 id="演示" class="heading-element">&lt;span>演示&lt;/span>
  &lt;a href="#%e6%bc%94%e7%a4%ba" class="heading-mark">
