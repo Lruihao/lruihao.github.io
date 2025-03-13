@@ -10,7 +10,7 @@
 
 现在为你的博客创建封面图片变得非常简单。
 
-![cover_852562](https://github.com/Lruihao/CoverView/assets/33419593/f61407eb-fcba-4e78-8ee1-abd633f4c5a0)
+![cover_169570](https://github.com/user-attachments/assets/8032fecb-4ae4-45b9-9af7-dbed801651d1)
 
 ## 💥 变更通知
 
@@ -43,6 +43,12 @@
   - [稀土掘金](https://juejin.cn/)
 
 ## 👩‍💻 开发
+
+本项目主要使用以下技术栈：
+
+- [React 19](https://reactjs.org/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [Vite](https://vite.dev/)
 
 1. 下载项目并安装依赖：
 
