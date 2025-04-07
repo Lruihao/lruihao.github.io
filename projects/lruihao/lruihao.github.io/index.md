@@ -2,7 +2,7 @@
 
 # 菠菜眾長
 
-共计 283 篇文章
+共计 286 篇文章
 
 ## 2025
 
@@ -14,7 +14,7 @@
 
 ## 2024
 
-共计 37 篇文章
+共计 38 篇文章
 
 - 12-06 [震惊！CSS 竟然能获取视口尺寸？](https://lruihao.cn/posts/css-viewport/ &#34;2024-12-06 10:32:22&#34;)
 - 12-02 [🌐 A component for site automatic translation.](https://lruihao.cn/projects/hugo-fixit/cmpt-translate/ &#34;2024-12-02 07:29:57&#34;)
@@ -23,6 +23,7 @@
 - 10-06 [自动获取 GitHub README 内容添加到 Hugo 文章](https://lruihao.cn/posts/content-adapters/ &#34;2024-10-06 11:10:22&#34;)
 - 09-13 [不使用任何框架，只使用原生 HTML、CSS 和 JavaScript 的一些小 demo。](https://lruihao.cn/projects/lruihao/html-demo/ &#34;2024-09-13 02:36:29&#34;)
 - 09-04 [⚙️ Versioning, change-log and release.](https://lruihao.cn/projects/hugo-fixit/fixit-releaser/ &#34;2024-09-04 18:10:59&#34;)
+- 08-22 [Hugo theme component for ATOM feed custom Output Format.](https://lruihao.cn/projects/hugo-fixit/hugo-atom-feed/ &#34;2024-08-22 03:29:22&#34;)
 - 08-22 [Hugo theme component for JSON feed custom Output Format.](https://lruihao.cn/projects/hugo-fixit/hugo-json-feed/ &#34;2024-08-22 03:28:23&#34;)
 - 08-07 [Mobile devtools component powered by vConsole and eruda.](https://lruihao.cn/projects/hugo-fixit/cmpt-mdevtools/ &#34;2024-08-07 05:49:13&#34;)
 - 07-29 [现代 CSS 解决方案：CSS 四舍五入数值单位](https://lruihao.cn/posts/css-round/ &#34;2024-07-29 20:32:39&#34;)
@@ -122,7 +123,7 @@
 
 ## 2021
 
-共计 18 篇文章
+共计 19 篇文章
 
 - 12-22 [Getting Things Done for ios App Reminders and Github issues](https://lruihao.cn/posts/gtd/ &#34;2021-12-22 20:17:42&#34;)
 - 12-16 [🔧 A clean, elegant but advanced blog theme for Hugo 一个简洁、优雅且高效的 Hugo 主题](https://lruihao.cn/projects/hugo-fixit/fixit/ &#34;2021-12-16 03:35:27&#34;)
@@ -142,6 +143,7 @@
 - 03-04 [Code Review 怎麼做？新手工程師如何提升「程式碼品質」](https://lruihao.cn/posts/codereview/ &#34;2021-03-04 21:04:18&#34;)
 - 03-02 [基于 leancloud-storage 实现的无后端记账本](https://lruihao.cn/projects/bill-note/ &#34;2021-03-02 21:46:40&#34;)
 - 03-01 [你为什么吸烟？](https://lruihao.cn/me/whysmoke/ &#34;2021-03-01 01:27:41&#34;)
+- 02-28 [基于 leancloud-storage 实现的无后端记账本](https://lruihao.cn/projects/lruihao/bill-note/ &#34;2021-02-28 03:44:09&#34;)
 
 ## 2020
 
@@ -158,13 +160,14 @@
 
 ## 2019
 
-共计 70 篇文章
+共计 71 篇文章
 
 - 11-24 [利用腾讯云为静态页面添加“动态”相册](https://lruihao.cn/projects/cos-album/ &#34;2019-11-24 10:52:34&#34;)
 - 11-23 [解析腾讯云 cos 桶 xml 生成相册,同时也是图床的显示页面](https://lruihao.cn/projects/lruihao/cos-album/ &#34;2019-11-23 12:59:05&#34;)
 - 11-14 [RESTful](https://lruihao.cn/posts/restful/ &#34;2019-11-14 19:06:05&#34;)
 - 09-28 [php 同时主动推送链接到百度，神马等站长平台](https://lruihao.cn/posts/phppushurl/ &#34;2019-09-28 18:32:42&#34;)
 - 09-28 [php 按行读取文件信息](https://lruihao.cn/posts/phpfile/ &#34;2019-09-28 17:11:17&#34;)
+- 09-26 [沐目之，湘也。— 沐目体](https://lruihao.cn/projects/lruihao/mmt/ &#34;2019-09-26 12:44:17&#34;)
 - 09-19 [设置网站运行时间](https://lruihao.cn/posts/site-time/ &#34;2019-09-19 22:03:29&#34;)
 - 09-08 [script 的三种加载方式 (async, defer)](https://lruihao.cn/posts/async-defer/ &#34;2019-09-08 11:47:50&#34;)
 - 08-15 [Sublime Text3 快捷键大全](https://lruihao.cn/posts/sublime-text3/ &#34;2019-08-15 20:59:10&#34;)
