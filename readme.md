@@ -38,7 +38,7 @@
 - 06-06 [怎么生成暗黑模式和明亮模式的 SVG 图片？](https://lruihao.cn/posts/svg-dark-light/ "2024-06-06 22:13:26")
 - 05-20 [坐高铁去柳州吃螺狮粉](https://lruihao.cn/posts/404d6a2/ "2024-05-20 11:41:03")
 - 04-17 [利用 Vercel 反代 Gravatar 实现镜像加速](https://lruihao.cn/projects/vercel-gravatar/ "2024-04-17 12:51:35")
-- 04-17 [Gravatar Proxy powered by Vercel](https://lruihao.cn/projects/lruihao/vercel-gravatar/ "2024-04-17 01:37:06")
+- 04-17 [Gravatar Proxy powered by Vercel.](https://lruihao.cn/projects/lruihao/vercel-gravatar/ "2024-04-17 01:37:06")
 - 04-09 [🐙 Display your GitHub projects in the FixIt theme and generate blog posts from readme.](https://lruihao.cn/projects/hugo-fixit/component-projects/ "2024-04-09 21:38:42")
 - 04-04 [临时决定再写一个小工具 - 网站预览图生成器](https://lruihao.cn/projects/apple-devices-preview/ "2024-04-04 13:23:37")
 - 04-02 [用五天时间给自己制作一个封面图生成工具](https://lruihao.cn/projects/coverview/ "2024-04-02 18:05:34")
