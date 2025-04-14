@@ -1,10 +1,10 @@
 # Java 泛型 Test
 
 
-&gt; - 泛型方法，它在修饰符后，返回值类型前增加了类型参数 (&lt;&gt;)
-&gt; - 类型通配符一般使用问号`?`代替具体的类型`实`参，注意不是类型形参。
+> - 泛型方法，它在修饰符后，返回值类型前增加了类型参数 (<>)
+> - 类型通配符一般使用问号`?`代替具体的类型`实`参，注意不是类型形参。
 
-&lt;!--more--&gt;
+<!--more-->
 
 ## 代码
 
@@ -14,22 +14,22 @@ package code0507;
 public class WildCardTest {
 
   public static void main(String[] args) {
-    Box&lt;String&gt;name=new Box&lt;String&gt;(&#34;hello&#34;);
-    Box&lt;Integer&gt;age=new Box&lt;Integer&gt;(12);
-    Box&lt;Double&gt;number=new Box&lt;Double&gt;(210.50);
-    Box&lt;Integer&gt;point=new Box&lt;Integer&gt;();
+    Box<String>name=new Box<String>("hello");
+    Box<Integer>age=new Box<Integer>(12);
+    Box<Double>number=new Box<Double>(210.50);
+    Box<Integer>point=new Box<Integer>();
     getData(name);
     getData(age);
     getData(number);
     point.printpoint(520, 1314);
-    point.printpoint(&#34;me&#34;, &#34;too&#34;);
+    point.printpoint("me", "too");
   }
 
-  public static void getData(Box&lt;?&gt;data){//类型通配符
-    System.out.println(&#34;data:&#34;&#43;data.getData());
+  public static void getData(Box<?>data){//类型通配符
+    System.out.println("data:"+data.getData());
   }
 }
-class Box&lt;T&gt;{
+class Box<T>{
   private T data;
   public Box() {}//构造方法重载
   public Box(T data) {
@@ -42,10 +42,10 @@ class Box&lt;T&gt;{
     this.data = data;
   }
   //定义泛型方法
-  public&lt;T1,T2&gt;void printpoint(T1 x,T2 y){
+  public<T1,T2>void printpoint(T1 x,T2 y){
     T1 m=x;
     T2 n=y;
-    System.out.println(&#34;This point is:&#34;&#43;m&#43;&#34;,&#34;&#43;n);
+    System.out.println("This point is:"+m+","+n);
   }
 }
 ```

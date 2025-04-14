@@ -1,7 +1,7 @@
 # 石子阵列（组合数学）
 
 
-链接：&lt;https://www.nowcoder.com/acm/contest/157/A&gt;  
+链接：<https://www.nowcoder.com/acm/contest/157/A>  
 来源：牛客网
 
 ## 题目描述
@@ -54,19 +54,19 @@ xb 有 m 种石子，每种无限个，Ta 想从这些石子中取出 n 个，�
 
 水题。
 
-&lt;!-- markdownlint-disable MD046 --&gt;
+<!-- markdownlint-disable MD046 -->
 
 ```cpp
-#include&lt;bits/stdc&#43;&#43;.h&gt;
+#include<bits/stdc++.h>
 using namespace std;
 
 int main(){
     long long n,m,ans;
-    scanf(&#34;%lld%lld&#34;,&amp;n,&amp;m);
+    scanf("%lld%lld",&n,&m);
     ans=m;
-    for(int i=1;i&lt;n;i&#43;&#43;)
+    for(int i=1;i<n;i++)
         ans=(ans*(m-1))%1000000007;
-    printf(&#34;%lld\n&#34;,ans);
+    printf("%lld\n",ans);
     return 0;
 }
 

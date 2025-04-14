@@ -3,7 +3,7 @@
 
 今天记录一个 CSS 小知识点，如何给异形元素设置阴影。
 
-&lt;!--more--&gt;
+<!--more-->
 
 ## 遇到的问题
 
@@ -25,9 +25,9 @@ header {
 
 `drop-shadow` 绘制的投影实际上是输入图像的 alpha 蒙版的一个模糊的、偏移的版本，用特定的颜色绘制并合成在图像下面。
 
-{{&lt; admonition note &#34;备注&#34; &gt;}}
+{{< admonition note "备注" >}}
 这个函数有点类似于 `box-shadow` 属性。`box-shadow` 属性在元素的整个框后面创建一个矩形阴影，而 `drop-shadow()` 过滤器则是创建一个符合图像本身形状 (alpha 通道) 的阴影。
-{{&lt; /admonition &gt;}}
+{{< /admonition >}}
 
 语法如下：
 
@@ -47,7 +47,7 @@ header {
 
 ## 浏览器支持
 
-{{&lt; caniuse &#34;mdn-css_types_filter-function_drop-shadow&#34; &gt;}}
+{{< caniuse "mdn-css_types_filter-function_drop-shadow" >}}
 
 ## 参考链接
 

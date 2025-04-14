@@ -1,31 +1,31 @@
 # 沐目体
 
 
-&lt;!-- markdownlint-disable MD033 --&gt;
+<!-- markdownlint-disable MD033 -->
 
-&lt;iframe class=&#34;manuscript&#34; src=&#34;https://hw.xiezixiansheng.com/mobile.php?c=Grzkreader&amp;a=fontshowPics&amp;u=qbfRl8gPF2s-&amp;z=Kqz%2FRroVGYc-&#34; style=&#34;width: 100%;height: 370px;margin-top: .25rem;&#34; frameborder=&#34;0&#34; allowfullscreen&gt;&lt;/iframe&gt;
+<iframe class="manuscript" src="https://hw.xiezixiansheng.com/mobile.php?c=Grzkreader&a=fontshowPics&u=qbfRl8gPF2s-&z=Kqz%2FRroVGYc-" style="width: 100%;height: 370px;margin-top: .25rem;" frameborder="0" allowfullscreen></iframe>
 
-&lt;!--more--&gt;
+<!--more-->
 
 ## 预览
 
-&lt;div id=&#34;app-mmt&#34; v-cloak&gt;
-  &lt;p class=&#34;live-content&#34;&gt;{{ message || &#39;「沐目之，湘也」\n 从下笔到停笔，从开始到结束，沐目体见证了我们稚嫩到成熟。\n故事的开头往往极具温柔，但结局常常不尽人意。\n那些忘不掉的人和事，岁月都已替我轻描淡写。&#39; }}&lt;/p&gt;
-  &lt;textarea class=&#34;live-textarea&#34; v-model=&#34;message&#34; placeholder=&#34;请输入文字 ...&#34;&gt;&lt;/textarea&gt;
-&lt;/div&gt;
+<div id="app-mmt" v-cloak>
+  <p class="live-content">{{ message || '「沐目之，湘也」\n 从下笔到停笔，从开始到结束，沐目体见证了我们稚嫩到成熟。\n故事的开头往往极具温柔，但结局常常不尽人意。\n那些忘不掉的人和事，岁月都已替我轻描淡写。' }}</p>
+  <textarea class="live-textarea" v-model="message" placeholder="请输入文字 ..."></textarea>
+</div>
 
 ---
 
-{{&lt; mmt-netease &#34;2280569152&#34; true &gt;}}
+{{< mmt-netease "2280569152" true >}}
 
 ---
 
-&lt;details close&gt;
-  &lt;summary&gt;点击展开更多&lt;/summary&gt;
+<details close>
+  <summary>点击展开更多</summary>
 
-{{&lt; music server=&#34;tencent&#34; type=&#34;playlist&#34; id=&#34;8305844774&#34; loop=&#34;all&#34; list-folded=&#34;true&#34;&gt;}}
+{{< music server="tencent" type="playlist" id="8305844774" loop="all" list-folded="true">}}
 
-&lt;div class=&#34;preview-lyric&#34;&gt;
+<div class="preview-lyric">
 
 |   《富士山下》   |   《爱情转移》   |
 | :--------------: | :--------------: |
@@ -38,31 +38,31 @@
 | 我把这陈年风褛  | 荡气回肠是为了  |
 |    送赠你解咒    |    最美的平凡    |
 
-&lt;/div&gt;
+</div>
 
 ![word](images/word1.png)
 
-&lt;div class=&#34;preview-images&#34;&gt;
+<div class="preview-images">
 
 ![preview](images/preview.png)
 ![mobile setting](images/setting.png)
 ![wechat](images/wechat.png)
 
-&lt;/div&gt;
+</div>
 
-&lt;/details&gt;
+</details>
 
 ## 下载
 
-{{&lt; admonition warning &#34;警告&#34; &gt;}}
+{{< admonition warning "警告" >}}
 [沐目体](https://github.com/Lruihao/MMT/releases) _仅用于个人非商用！_
-{{&lt; /admonition &gt;}}
+{{< /admonition >}}
 
-{{&lt; script &gt;}}
-document.addEventListener(&#39;DOMContentLoaded&#39;, () =&gt; {
-  new Vue({ el: &#39;#app-mmt&#39;, data: { message: &#39;&#39; }});
+{{< script >}}
+document.addEventListener('DOMContentLoaded', () => {
+  new Vue({ el: '#app-mmt', data: { message: '' }});
 });
-{{&lt; /script &gt;}}
+{{< /script >}}
 
 
 ---

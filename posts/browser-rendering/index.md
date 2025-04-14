@@ -1,7 +1,7 @@
 # 浏览器渲染原理
 
 
-&lt;iframe src=&#34;files/browser-rendering.pdf&#34; width=&#34;100%&#34; height=&#34;550&#34;&gt;&lt;/iframe&gt;
+<iframe src="files/browser-rendering.pdf" width="100%" height="550"></iframe>
 
 ## 浏览器是如何渲染页面的？
 

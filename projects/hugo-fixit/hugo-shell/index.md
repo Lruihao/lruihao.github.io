@@ -17,7 +17,7 @@ git submodule add https://github.com/hugo-fixit/hugo-shell.git your_hugo_blog/.s
 Run `hugo_main.sh` to choice frequently-used Hugo commands:
 
 ```bash
-cd .shell &amp;&amp; sh hugo_main.sh
+cd .shell && sh hugo_main.sh
 ```
 
 ```text
@@ -31,7 +31,7 @@ Please enter the serial number to work
 5. submodule-sync
 6. push
 --------------------------------------
-Press Ctrl&#43;C to stop
+Press Ctrl+C to stop
 ```
 
 

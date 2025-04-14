@@ -1,9 +1,9 @@
 # Termux 基本使用教程
 
 
-&gt; 前面有一篇文章写到一些，[在 Android 上搭建 hexo 博客](https://lruihao.cn/posts/termux/)
-&gt; **本文当初摘要自 [国光个人博客](https://www.sqlsec.com/2018/05/termux.html?yyue=a21bo.50862.201879)**
-&gt; 如若作者博客 IP 被墙，可前往国光第三方博客诸如 csdn 等。[备用](https://www.freebuf.com/geek/170510.html)
+> 前面有一篇文章写到一些，[在 Android 上搭建 hexo 博客](https://lruihao.cn/posts/termux/)
+> **本文当初摘要自 [国光个人博客](https://www.sqlsec.com/2018/05/termux.html?yyue=a21bo.50862.201879)**
+> 如若作者博客 IP 被墙，可前往国光第三方博客诸如 csdn 等。[备用](https://www.freebuf.com/geek/170510.html)
 
 ## 初始化
 
@@ -79,7 +79,7 @@ tsu
 ### 使用
 
 ```bash
-sh -c &#34;$(curl -fsSL https://github.com/Cabbagec/termux-ohmyzsh/raw/master/install.sh)&#34;
+sh -c "$(curl -fsSL https://github.com/Cabbagec/termux-ohmyzsh/raw/master/install.sh)"
 ```
 
 ### 设置色彩样式
@@ -145,7 +145,7 @@ hexo s
 ### 链接 github,coding,gitee 等远程仓库
 
 ```bash
-ssh-keygen -t rsa -C &#34;your_email@example.com&#34;
+ssh-keygen -t rsa -C "your_email@example.com"
 #这将按照你提供的邮箱地址，创建一对密钥（个人喜欢一路回车）
 ```
 
@@ -154,8 +154,8 @@ ssh-keygen -t rsa -C &#34;your_email@example.com&#34;
 ### 设置用户信息
 
 ```bash
-git config --global user.name &#34;lruihao&#34;
-git config --global user.email  &#34;1074627678@qq.com&#34;
+git config --global user.name "lruihao"
+git config --global user.email  "1074627678@qq.com"
 ```
 
 ### 测试链接
@@ -180,7 +180,7 @@ deploy:
   repository:
     github: git@github.com:Lruihao/Lruihao.github.io.git,master
     coding: git@git.coding.net:liruihao/liruihao.git,master
-  #message: &#34;日常更新&#34;
+  #message: "日常更新"
 ```
 
 ### 部署
@@ -191,9 +191,9 @@ hexo g -d
 ```
 
 没出错就可以正常通过相应域名访问了。
-&lt;https://lruihao.github.io&gt;
-&lt;https://liruihao.coding.me&gt;
-&lt;https://lruihao.gitee.io&gt; **//手机 hexo 效果展示**
+<https://lruihao.github.io>
+<https://liruihao.coding.me>
+<https://lruihao.gitee.io> **//手机 hexo 效果展示**
 
 ## ssh 连接电脑或者服务器
 
@@ -221,7 +221,7 @@ pkg install nyancat
 nyancat
 ```
 
-&gt; 还有更多姿势这里就不写了，只写一下日常用到的，就这样 OK 睡觉！
+> 还有更多姿势这里就不写了，只写一下日常用到的，就这样 OK 睡觉！
 
 ## termux 更多常用有趣命令（适用于 linux）
 
@@ -232,7 +232,7 @@ chfont
 ~/.termux/colors.sh
 ~/.termux/fonts.sh
 
-echo &#34;https://www.lruihao.cn&#34; |curl -F-=\&lt;- qrenco.de
+echo "https://www.lruihao.cn" |curl -F-=\<- qrenco.de
 
 pkg install nyancat
 nyancat
@@ -242,9 +242,9 @@ pkg install figlet
 figlet hello
 pkg install toilet
 toilet hello
-toilet -f mono12 -F gay &#34;hello&#34;
+toilet -f mono12 -F gay "hello"
 pkg cowsay
-cowsay &#34;hello&#34;
+cowsay "hello"
 pkg install cmatrix
 cmatrix
 pkg install w3m

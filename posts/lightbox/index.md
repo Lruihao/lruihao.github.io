@@ -24,10 +24,10 @@ let closeMove = function () {
     return false;
   }
   div.style.opacity = 0;
-  img.style.height = h &#43; &#39;px&#39;;
-  img.style.width = w &#43; &#39;px&#39;;
-  img.style.left = x &#43; &#39;px&#39;;
-  img.style.top = y - container.scrollTop &#43; &#39;px&#39;;
+  img.style.height = h + 'px';
+  img.style.width = w + 'px';
+  img.style.left = x + 'px';
+  img.style.top = y - container.scrollTop + 'px';
   // 延迟移除 dom
   setTimeout(function () {
     div.remove();
@@ -57,7 +57,7 @@ let style = function () {
     position:fixed;
     border-radius: 50%;;
     left:${x - 20}px;
-    top:${y - container.scrollTop &#43; h / 2}px;
+    top:${y - container.scrollTop + h / 2}px;
     width:50px;
     height:50px;
     border: 0px;
@@ -69,8 +69,8 @@ let style = function () {
   btnright.style.cssText = `
     position:fixed;
     border-radius: 50%;
-    left:${x &#43; w &#43; 20}px;
-    top:${y - container.scrollTop &#43; h / 2}px;
+    left:${x + w + 20}px;
+    top:${y - container.scrollTop + h / 2}px;
     width:50px;
     border: 0px;
     height:50px;
@@ -79,8 +79,8 @@ let style = function () {
     z-index: 999999999;
     transition:all .3s cubic-bezier(0.165, 0.84, 0.44, 1);
 `;
-  btnleft.innerText = &#39;&lt;&#39;;
-  btnright.innerText = &#39;&gt;&#39;;
+  btnleft.innerText = '<';
+  btnright.innerText = '>';
 
   img.style.cssText = `
     position:fixed;
@@ -96,14 +96,14 @@ let style = function () {
 };
 
 // 监听滚动关闭层
-document.addEventListener(&#39;scroll&#39;, function () {
+document.addEventListener('scroll', function () {
   closeFade();
 });
-document.querySelectorAll(&#39;img&#39;).forEach((v) =&gt; {
-  if (v.parentNode.localName != &#39;a&#39;) {
+document.querySelectorAll('img').forEach((v) => {
+  if (v.parentNode.localName != 'a') {
     v.id = imgid;
-    imgid&#43;&#43;;
-    v.addEventListener(&#39;click&#39;, function (e) {
+    imgid++;
+    v.addEventListener('click', function (e) {
       // 注册事件
       // 记录小图的位置个大小
       x = e.target.offsetLeft;
@@ -113,7 +113,7 @@ document.querySelectorAll(&#39;img&#39;).forEach((v) =&gt; {
       src = e.target.src;
       id = e.target.id;
       // 创建遮罩层
-      div = document.createElement(&#39;div&#39;);
+      div = document.createElement('div');
       div.style.cssText = `
               position:fixed;
               left:0;
@@ -132,14 +132,14 @@ document.querySelectorAll(&#39;img&#39;).forEach((v) =&gt; {
 
       // 创建副本
       img = new Image();
-      btnright = document.createElement(&#39;button&#39;);
-      btnleft = document.createElement(&#39;button&#39;);
+      btnright = document.createElement('button');
+      btnleft = document.createElement('button');
       img.src = src;
       style();
 
       btnleft.onclick = function () {
         if (id === 0) {
-          alert(&#39;已经是第一张了！&#39;);
+          alert('已经是第一张了！');
           return;
         }
         var left = document.getElementById(id - 1);
@@ -152,9 +152,9 @@ document.querySelectorAll(&#39;img&#39;).forEach((v) =&gt; {
         id--;
       };
       btnright.onclick = function () {
-        id&#43;&#43;;
-        if (id &gt;= imgid) {
-          alert(&#39;已经是最后一张了！&#39;);
+        id++;
+        if (id >= imgid) {
+          alert('已经是最后一张了！');
           return;
         }
         var right = document.getElementById(id);
@@ -175,14 +175,14 @@ document.querySelectorAll(&#39;img&#39;).forEach((v) =&gt; {
         ww = window.innerWidth;
 
         // 目标宽高和坐标
-        if (w / h &lt; ww / wh) {
+        if (w / h < ww / wh) {
           th = wh - 80;
-          tw = ((w / h) * th) &gt;&gt; 0;
+          tw = ((w / h) * th) >> 0;
           tx = (ww - tw) / 2;
           ty = 40;
         } else {
           tw = ww * 0.8;
-          th = ((h / w) * tw) &gt;&gt; 0;
+          th = ((h / w) * tw) >> 0;
           tx = ww * 0.1;
           ty = (wh - th) / 2;
         }
@@ -190,14 +190,14 @@ document.querySelectorAll(&#39;img&#39;).forEach((v) =&gt; {
         // 延迟写入否则不会有动画
         setTimeout(function () {
           img.style.opacity = 1;
-          img.style.height = th &#43; &#39;px&#39;;
-          img.style.width = tw &#43; &#39;px&#39;;
-          img.style.left = tx &#43; &#39;px&#39;;
-          img.style.top = ty &#43; &#39;px&#39;;
-          btnleft.style.left = tx - 90 &#43; &#39;px&#39;;
-          btnleft.style.top = ty &#43; th / 2 &#43; &#39;px&#39;;
-          btnright.style.left = tx &#43; tw &#43; 40 &#43; &#39;px&#39;;
-          btnright.style.top = ty &#43; th / 2 &#43; &#39;px&#39;;
+          img.style.height = th + 'px';
+          img.style.width = tw + 'px';
+          img.style.left = tx + 'px';
+          img.style.top = ty + 'px';
+          btnleft.style.left = tx - 90 + 'px';
+          btnleft.style.top = ty + th / 2 + 'px';
+          btnright.style.left = tx + tw + 40 + 'px';
+          btnright.style.top = ty + th / 2 + 'px';
           // 点击隐藏
           div.onclick = img.onclick = closeMove;
         }, 10);
@@ -217,22 +217,22 @@ jQuery lightbox script for displaying images, videos and more. Touch enabled, re
 1. Add latest jQuery and fancyBox files
 
 ```html
-&lt;script src=&#34;https://code.jquery.com/jquery-3.3.1.min.js&#34;&gt;&lt;/script&gt;
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 
-&lt;link href=&#34;/path/to/jquery.fancybox.min.css&#34; rel=&#34;stylesheet&#34; /&gt;
-&lt;script src=&#34;/path/to/jquery.fancybox.min.js&#34;&gt;&lt;/script&gt;
+<link href="/path/to/jquery.fancybox.min.css" rel="stylesheet" />
+<script src="/path/to/jquery.fancybox.min.js"></script>
 ```
 
 2. Create links
 
 ```html
-&lt;a data-fancybox=&#34;gallery&#34; href=&#34;big_1.jpg&#34;&gt;
-  &lt;img src=&#34;small_1.jpg&#34; /&gt;
-&lt;/a&gt;
+<a data-fancybox="gallery" href="big_1.jpg">
+  <img src="small_1.jpg" />
+</a>
 
-&lt;a data-fancybox=&#34;gallery&#34; href=&#34;big_2.jpg&#34;&gt;
-  &lt;img src=&#34;small_2.jpg&#34; /&gt;
-&lt;/a&gt;
+<a data-fancybox="gallery" href="big_2.jpg">
+  <img src="small_2.jpg" />
+</a>
 ```
 
 3. Enjoy!

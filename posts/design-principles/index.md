@@ -5,7 +5,7 @@
 
 ---
 
-&gt; 设计模式不是必须的，但是如果你的代码是“非一次性的”，那么它就是必须的。
+> 设计模式不是必须的，但是如果你的代码是“非一次性的”，那么它就是必须的。
 
 对于大多数开发者来说，代码都是需要维护的，而不是写一遍就放起来不管了。既然需要维护，就要不断地读读改改，那就不是一次性的，那么怎么让他“读读改改”起来方便些呢？嗯，**设计模式**！
 
@@ -17,7 +17,7 @@
 
 ## 单一职责原则（SRP）
 
-&gt; 单一职责原则（Single Responsibility Principle，简称 SRP）：一个类只干一件事。
+> 单一职责原则（Single Responsibility Principle，简称 SRP）：一个类只干一件事。
 
 可以看到，单一职责的核心就是：**只做一件事**。不过，关键点就是这个“事”的范围不好定义。
 
@@ -43,7 +43,7 @@
 
 ```java
 public static boolean checkSexAndAge(boolean isMan, int age){
-    return isMan &amp;&amp; age &gt;= 18;
+    return isMan && age >= 18;
 }
 ```
 
@@ -52,7 +52,7 @@ public static boolean checkSexAndAge(boolean isMan, int age){
 ```java
 private void login(){
     if(checkSexAndAge(false, 17)) {
-        tips(&#34;不是 18 岁以上的男性&#34;)
+        tips("不是 18 岁以上的男性")
         return;
     }
 }
@@ -63,8 +63,8 @@ private void login(){
 
 ```java
 public static boolean checkSexAndAge(boolean isMan, int age){
-    if(isMan &amp;&amp; age &gt;= 18) return true;
-    tips(&#34;不是 18 岁以上的男性&#34;);
+    if(isMan && age >= 18) return true;
+    tips("不是 18 岁以上的男性");
     return false;
 }
 ```
@@ -77,7 +77,7 @@ public static boolean checkSexAndAge(boolean isMan, int age){
 // 判断加提示
 public static boolean checkAndTips(boolean isMan, int age) {
     if(!checkSexAndAge(isMan, age)) {
-        tips(&#34;不是 18 岁以上的男性&#34;);
+        tips("不是 18 岁以上的男性");
         return false;
     }
     return true;
@@ -85,17 +85,17 @@ public static boolean checkAndTips(boolean isMan, int age) {
 
 // 新方法，只做逻辑判断
 public static boolean checkSexAndAge(boolean isMan, int age){
-    return isMan &amp;&amp; age &gt;= 18;
+    return isMan && age >= 18;
 }
 ```
 
 这里我们只抽离了一个方法，但是却反映出了单一职责的好处：职责越单一，因为修改而引起的问题就越少。换句话说就是：**需求的粒度跟单一职责的优势成正比，需求越详细，越能看出单一职责的好处**。所以我们要尽量避免大方法、大类、大模块，因为一个类越大，涉及的东西就越多，用到它的地方就越多，那么这个类就不能轻易修改，因为一旦修改，涉及的地方就越多，就越危险，所以我们一定要尽量避免。其实 MVC 就是一个宏观的、大的单一职责思想。
 
-&gt; 单一职责不仅适用于类和文件，还适用于函数、模块等，这是一种思想，一定要掌握。
+> 单一职责不仅适用于类和文件，还适用于函数、模块等，这是一种思想，一定要掌握。
 
 ## 里氏置换原则（LSP）
 
-&gt; 里氏置换原则（Liskov Substitution Principle，简称 LSP）：凡是使用基类的地方都必须能透明地使用子类。
+> 里氏置换原则（Liskov Substitution Principle，简称 LSP）：凡是使用基类的地方都必须能透明地使用子类。
 
 用人话说就是：用子类替换父类不会改变原有逻辑。众所周知，面向对象有三大基本原则：封装、继承和多态。子类本来就继承了父类，用到父类的地方替换成子类肯定没问题啊，这个原则不是废话吗，不一定！因为子类有自己的特色，也就是多态，如果这个特色太特色的话，就不适合了。
 
@@ -118,11 +118,11 @@ public static boolean checkSexAndAge(boolean isMan, int age){
 
 所以，里氏置换更简洁的说法就是：**子类可以有自己的特色，但是不能太反常，如果子类的特色跟父类差太多，那么就应该细化父类或者剥离接口**。
 
-&gt; 可以看到，里氏置换原则就是对继承的校验，不恰当的继承关系就不满足里氏置换原则，所以，如果我们无法确定某两个类之间是否应该用继承关系时，就可以套用里氏置换原则来校验下。
+> 可以看到，里氏置换原则就是对继承的校验，不恰当的继承关系就不满足里氏置换原则，所以，如果我们无法确定某两个类之间是否应该用继承关系时，就可以套用里氏置换原则来校验下。
 
 ## 依赖倒置原则（DIP）
 
-&gt; 依赖倒置原则（Dipendence Inversion Principle，简称 DIP）：面向接口编程或面向抽象编程。
+> 依赖倒置原则（Dipendence Inversion Principle，简称 DIP）：面向接口编程或面向抽象编程。
 
 依赖倒置的官方定义：高层不应该依赖底层，两者都应该依赖抽象；抽象不应该依赖细节，细节应该依赖抽象。其实狭义的说就是：面向接口编程，广义的说就是：面向抽象编程。也就是说，我们在使用类的时候，优先考虑使用抽象类或接口。具体一点就是：成员变量、函数参数和返回值都尽量定义成接口。
 
@@ -152,7 +152,7 @@ class User {
     private MediaPlayer mediaPlayer;
   
     public void play(){
-        mediaplayer.play(&#34;xxx&#34;);
+        mediaplayer.play("xxx");
     }
 }
 ```
@@ -181,7 +181,7 @@ class User {
     private IPlayer player;
   
     public void play(){
-        player.play(&#34;xxx&#34;);
+        player.play("xxx");
     }
 }
 ```
@@ -192,7 +192,7 @@ class User {
 
 ## 接口隔离原则（ISP）
 
-&gt; 接口隔离原则（Interface Segregation Principle，简称 ISP）：接口尽量小，尽量单一，说白了就是接口粒度要细。
+> 接口隔离原则（Interface Segregation Principle，简称 ISP）：接口尽量小，尽量单一，说白了就是接口粒度要细。
 
 接口隔离要求接口的功能要单一，这听起来怎么就是单一职责原则呢，它们有区别吗？
 
@@ -250,11 +250,11 @@ interface ISongDisplayer {
 
 不需要提前做！因为接口隔离更多时候是个后置操作，说白了，更多时候是在问题发生的时候再去拆接口，所以是个后置操作，就像我们上面的修改，也没费多大劲，顶多就是多写一个接口，复制一部分代码，修改几个实现关系而已，根本没动业务上的代码，所以不必纠结，大多时候我们保证单一职责即可。
 
-&gt; 总之一句话：接口要尽量小，尽量单一。
+> 总之一句话：接口要尽量小，尽量单一。
 
 ## 最少知识原则（LKP）
 
-&gt; 最少知识原则（Least Knowledge Principle，简称 LKP），也叫迪米特法则（LOD）：一个对象应该对其他对象有最少的了解，说白了就是，只关联自己需要的。
+> 最少知识原则（Least Knowledge Principle，简称 LKP），也叫迪米特法则（LOD）：一个对象应该对其他对象有最少的了解，说白了就是，只关联自己需要的。
 
 就像语文老师，只关心语文成绩即可，非要关心数学，怪不得头发都掉光了。
 
@@ -287,11 +287,11 @@ class Song {
 
 其实，播放器需要的只是一个播放的路径，至于其他的，它根本不关心。如果真的需要，你再提供，但也只需要提供它需要的，不要有任何附加内容。否则，一旦那些附加内容变化了，也间接导致播放器自身的变化，这是不应该的。
 
-&gt; 我们应该只关联自己直接用到的，而不关联那些不需要的，如此一来，那些发生在我们关联范围外的事，就不会引起我们的任何改变，这样就大大提升了代码的健壮性。
+> 我们应该只关联自己直接用到的，而不关联那些不需要的，如此一来，那些发生在我们关联范围外的事，就不会引起我们的任何改变，这样就大大提升了代码的健壮性。
 
 ## 开放闭合原则（OCP）
 
-&gt; 开放闭合原则（Open Close Principle，简称 OCP）：一个类应该对扩展开放，对修改关闭。换句话说就是：应该多扩展代码，少修改代码。
+> 开放闭合原则（Open Close Principle，简称 OCP）：一个类应该对扩展开放，对修改关闭。换句话说就是：应该多扩展代码，少修改代码。
 
 开闭原则是**最理想**的原则，是所有设计模式的最终目标，基本不可能实现。它要求我们的任何改动都不修改老代码，而只添加新代码，这样就不会对老逻辑有任何影响，从而使得代码更加安全。
 
@@ -303,10 +303,10 @@ class Song {
 public class Calculator {
     public static int calculate(int left, int right, String option) {
         //加法
-        if(&#34;&#43;&#34;.equals(option)) return left &#43; right;
+        if("+".equals(option)) return left + right;
         //减法
-        if(&#34;-&#34;.equals(option)) return left - right;
-        throw new IllegalArgumentException(&#34;不支持的运算&#34;);
+        if("-".equals(option)) return left - right;
+        throw new IllegalArgumentException("不支持的运算");
     }
 }
 ```
@@ -362,7 +362,7 @@ public abstract Calculator {
 ```java
 public class PlusCalculator extends Calculator {
 
-    public static String OPERATOR = &#34;&#43;&#34;;
+    public static String OPERATOR = "+";
 
     public PlusCalculator() {
         super();
@@ -372,7 +372,7 @@ public class PlusCalculator extends Calculator {
     // 加法
     @Override
     public String calculate() {
-        return String.valueOf(Integer.parseInt(leftOpt) &#43; Integer.parseInt(rightOpt));
+        return String.valueOf(Integer.parseInt(leftOpt) + Integer.parseInt(rightOpt));
     }
 }
 ```
@@ -381,7 +381,7 @@ public class PlusCalculator extends Calculator {
 
 ```typescript
 public class SubCalculator extends Calculator {
-    public static String OPERATOR = &#34;-&#34;;
+    public static String OPERATOR = "-";
 
     public SubCalculator() {
         super();
@@ -402,7 +402,7 @@ public class SubCalculator extends Calculator {
 
 ## 设计模式
 
-&gt; 该小节非原文内容，仅为个人补充。
+> 该小节非原文内容，仅为个人补充。
 
 在掘金上有一个不错的专栏[「手撕设计模式」](https://juejin.cn/column/7069912176978296839)，里面详细介绍了 23 种设计模式中的好几种，可以作为进一步学习的参考。
 

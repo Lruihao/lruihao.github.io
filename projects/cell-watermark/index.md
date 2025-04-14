@@ -1,7 +1,7 @@
 # Cell Watermark
 
 
-&lt;!-- markdownlint-disable --&gt;
+<!-- markdownlint-disable -->
 
 # Usage
 
@@ -16,19 +16,19 @@
 2. Load `Watermark`
 
     ```html
-    &lt;script type=&#34;text/javascript&#34; src=&#34;./src/watermark.js&#34;&gt;&lt;/script&gt;
-    &lt;script type=&#34;text/javascript&#34; src=&#34;./src/watermark.min.js&#34;&gt;&lt;/script&gt;
-    &lt;!-- Or CDN --&gt;
-    &lt;script type=&#34;text/javascript&#34; src=&#34;https://cdn.jsdelivr.net/npm/cell-watermark@1.0.3/src/watermark.js&#34;&gt;&lt;/script&gt;
-    &lt;script type=&#34;text/javascript&#34; src=&#34;https://cdn.jsdelivr.net/npm/cell-watermark@1.0.3/src/watermark.min.js&#34;&gt;&lt;/script&gt;
+    <script type="text/javascript" src="./src/watermark.js"></script>
+    <script type="text/javascript" src="./src/watermark.min.js"></script>
+    <!-- Or CDN -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/cell-watermark@1.0.3/src/watermark.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/cell-watermark@1.0.3/src/watermark.min.js"></script>
     ```
 
 3. Initialization
 
     ```javascript
-    document.addEventListener(&#39;DOMContentLoaded&#39;, function () {
+    document.addEventListener('DOMContentLoaded', function () {
       new Watermark({
-        content: &#34;cell-watermark&#34;
+        content: "cell-watermark"
       })
     });
     ```
@@ -44,9 +44,9 @@
 2. Import
 
     ```javascript
-    import Watermark from &#39;cell-watermark&#39;
+    import Watermark from 'cell-watermark'
     /* Or */
-    var Watermark = require(&#34;cell-watermark&#34;)
+    var Watermark = require("cell-watermark")
     ```
 
 # Class: Watermark
@@ -65,30 +65,30 @@
 
 | Name       | Type   | Attributes | Default  | Description                          |
 | ---------- | ------ | ---------- | :------- | ------------------------------------ |
-| content    | String | \&lt;optional\&gt; |        | watermark&#39;s text                     |
-| appendTo   | String | \&lt;optional\&gt; | &#39;body&#39; | parent of watermark&#39;s container      |
-| width      | Number | \&lt;optional\&gt; | 150    | watermark&#39;s width. unit: px          |
-| height     | Number | \&lt;optional\&gt; | 20     | watermark&#39;s height. unit: px         |
-| rowSpacing | Number | \&lt;optional\&gt; | 60     | row spacing of watermarks. unit: px  |
-| colSpacing | Number | \&lt;optional\&gt; | 30     | col spacing of watermarks. unit: px  |
-| rotate     | Number | \&lt;optional\&gt; | 15     | watermark&#39;s tangent angle. unit: deg |
-| opacity    | Number | \&lt;optional\&gt; | 0.1    | watermark&#39;s transparency             |
-| fontSize   | Number | \&lt;optional\&gt; | 0.85   | watermark&#39;s fontSize. unit: rem      |
-| fontFamily | String | \&lt;optional\&gt; | &#39;inherit&#39;| watermark&#39;s fontFamily             |
+| content    | String | \<optional\> |        | watermark's text                     |
+| appendTo   | String | \<optional\> | 'body' | parent of watermark's container      |
+| width      | Number | \<optional\> | 150    | watermark's width. unit: px          |
+| height     | Number | \<optional\> | 20     | watermark's height. unit: px         |
+| rowSpacing | Number | \<optional\> | 60     | row spacing of watermarks. unit: px  |
+| colSpacing | Number | \<optional\> | 30     | col spacing of watermarks. unit: px  |
+| rotate     | Number | \<optional\> | 15     | watermark's tangent angle. unit: deg |
+| opacity    | Number | \<optional\> | 0.1    | watermark's transparency             |
+| fontSize   | Number | \<optional\> | 0.85   | watermark's fontSize. unit: rem      |
+| fontFamily | String | \<optional\> | 'inherit'| watermark's fontFamily             |
 
-&gt; Author: [Lruihao](https://lruihao.cn)
+> Author: [Lruihao](https://lruihao.cn)
 
 ### Methods
 
 #### upload(content)
 
-Upload watermark&#39;s text content
+Upload watermark's text content
 
 ##### Parameters
 
 |  Name   |  Type  |   Description    |
 | :-----: | :----: | :--------------: |
-| content | String | watermark&#39;s text |
+| content | String | watermark's text |
 
 #### render(options)
 

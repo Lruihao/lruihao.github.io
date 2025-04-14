@@ -1,9 +1,9 @@
-# 浏览器 IMG 图片原生懒加载 Loading=&#34;lazy&#34;
+# 浏览器 IMG 图片原生懒加载 Loading="lazy"
 
 
 记录使用 HTML 原生方案实现图片的懒加载。
 
-&lt;!--more--&gt;
+<!--more-->
 
 ## 语法规范
 
@@ -21,20 +21,20 @@ HTML `loading` 属性适用于 `img` 和 `iframe`，语法规范见 [HTML Standa
 基于 [FixIt 主题](https://github.com/hugo-fixit/FixIt) 版本大于 v0.2.18 的博客网站使用就是原生的懒加载方案，大致如下：
 
 ```html
-&lt;img
-  loading=&#34;lazy&#34;
-  src=&#34;./example.jpg&#34;
-  data-title=&#34;title text&#34;
-  data-alt=&#34;alt text&#34;
-  onload=&#34;this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of [&#39;data-title&#39;,&#39;data-alt&#39;,&#39;onerror&#39;,&#39;onload&#39;]){this.removeAttribute(a);}this.dataset.lazyloaded=&#39;&#39;;&#34;
-  onerror=&#34;this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of [&#39;data-title&#39;,&#39;data-alt&#39;,&#39;onerror&#39;,&#39;onload&#39;]){this.removeAttribute(a);}&#34;
-/&gt;
+<img
+  loading="lazy"
+  src="./example.jpg"
+  data-title="title text"
+  data-alt="alt text"
+  onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';"
+  onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"
+/>
 ```
 
 为了达到 loading 的效果，以上代码中在 `onload` 后会给图片加上一个 `data-lazyloaded` 属性，所以我们可以这样来写 css 以达到显示 loading 图标的效果：
 
 ```css
-img[loading=&#39;lazy&#39;]:not([data-lazyloaded]) {
+img[loading='lazy']:not([data-lazyloaded]) {
   background: url(loading.svg) no-repeat center;
 }
 ```
@@ -43,7 +43,7 @@ img[loading=&#39;lazy&#39;]:not([data-lazyloaded]) {
 
 ## 懒加载特性的研究
 
-&gt; 以下结论来自 [浏览器 IMG 图片原生懒加载 loading=”lazy”实践指南 « 张鑫旭 - 鑫空间 - 鑫生活](https://www.zhangxinxu.com/wordpress/2019/09/native-img-loading-lazy/) 总结部分。
+> 以下结论来自 [浏览器 IMG 图片原生懒加载 loading=”lazy”实践指南 « 张鑫旭 - 鑫空间 - 鑫生活](https://www.zhangxinxu.com/wordpress/2019/09/native-img-loading-lazy/) 总结部分。
 
 1. Lazy loading 加载数量与屏幕高度有关，高度越小加载数量越少，但并不是线性关系。
 2. Lazy loading 加载数量与网速有关，网速越慢，加载数量越多，但并不是线性关系。
@@ -54,7 +54,7 @@ img[loading=&#39;lazy&#39;]:not([data-lazyloaded]) {
 ## 参考链接
 
 - [Lazy loading - Web 性能 | MDN](https://developer.mozilla.org/zh-CN/docs/Web/Performance/Lazy_loading)
-- [Lazy loading via attribute for images &amp; iframes 兼容性](https://caniuse.com/loading-lazy-attr)
+- [Lazy loading via attribute for images & iframes 兼容性](https://caniuse.com/loading-lazy-attr)
 
 
 ---

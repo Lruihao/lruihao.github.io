@@ -3,7 +3,7 @@
 
 本文将对 Dashboard 组件的使用方法进行介绍。
 
-&lt;!--more--&gt;
+<!--more-->
 
 ## A note on terminology
 
@@ -24,18 +24,18 @@ dashboard 组件及其后代组件可以通过注入 `$dashboard` 访问容器�
 例如：
 
 ```html
-&lt;script&gt;
+<script>
 export default {
-  name: &#39;ExampleWidget&#39;,
+  name: 'ExampleWidget',
   widget: { /* ... */ },
-  inject: [&#39;$dashboard&#39;],
+  inject: ['$dashboard'],
   mounted() {
     // 组件通过 this.$dashboard 访问容器中的属性或方法
-    this.$dashboard.notify(&#39;example widget mounted&#39;)
+    this.$dashboard.notify('example widget mounted')
   },
   /* ... */
 }
-&lt;/script&gt;
+</script>
 ```
 
 ## Props
@@ -83,10 +83,10 @@ export default {
 | `resized`          | `Function` | hook for resized widget item    | item, ...args |
 | `containerResized` | `Function` | hook for resized grid container | item, ...args |
 
-&gt; 参数说明：
-&gt;
-&gt; - item：`Object`，组件实例数据，[参考文档][grid-item-properties]
-&gt; - args：`Array`，传递给事件的其他参数，[参考文档][grid-item-events]
+> 参数说明：
+>
+> - item：`Object`，组件实例数据，[参考文档][grid-item-properties]
+> - args：`Array`，传递给事件的其他参数，[参考文档][grid-item-events]
 
 ## Widget Styles
 
@@ -104,10 +104,10 @@ dashboard 组件统一存放目录：
 - 通用组件：`@/components/Dashboard/widgets/`
 - 模块组件：`@/views/{module_name}/widgets/`
 
-&lt;!-- link reference definition --&gt;
-[widget-example]: &lt;https://github.com/Lruihao/vue-el-demo/blob/main/src/components/Dashboard/widgets/example.vue&gt;
-[grid-item-properties]: &lt;https://jbaysolutions.github.io/vue-grid-layout/zh/guide/properties.html#griditem&gt;
-[grid-item-events]: &lt;https://jbaysolutions.github.io/vue-grid-layout/zh/guide/events.html#griditem&gt;
+<!-- link reference definition -->
+[widget-example]: <https://github.com/Lruihao/vue-el-demo/blob/main/src/components/Dashboard/widgets/example.vue>
+[grid-item-properties]: <https://jbaysolutions.github.io/vue-grid-layout/zh/guide/properties.html#griditem>
+[grid-item-events]: <https://jbaysolutions.github.io/vue-grid-layout/zh/guide/events.html#griditem>
 
 
 ---

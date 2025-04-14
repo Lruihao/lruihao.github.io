@@ -3,7 +3,7 @@
 
 本文将通过一个实际应用场景，展示如何使用现代 CSS 实现时间轴、背景图 loading 效果、渐变边框等效果。
 
-&lt;!--more--&gt;
+<!--more-->
 
 ## 背景
 
@@ -24,17 +24,17 @@
 
 先睹为快，效果如下：
 
-![时间轴动画](images/demo-outline.gif &#34;从上到下依次点亮时间轴&#34;)
+![时间轴动画](images/demo-outline.gif "从上到下依次点亮时间轴")
 
 我不希望时间轴的实现和其他 UI 框架一样拥有复杂的 DOM 结构，所以使用最简单的 `ul` 和 `li` 即可，关键代码如下：
 
 ```html
-&lt;ul class=&#34;docs-outline&#34;&gt;
-  &lt;li&gt;&lt;a href=&#34;{{ $page1.Permalink }}&#34;&gt;{{ $page1.LinkTitle }}&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&#34;{{ $page2.Permalink }}&#34;&gt;{{ $page2.LinkTitle }}&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&#34;{{ $page3.Permalink }}&#34;&gt;{{ $page3.LinkTitle }}&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&#34;{{ $page4.Permalink }}&#34;&gt;{{ $page4.LinkTitle }}&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
+<ul class="docs-outline">
+  <li><a href="{{ $page1.Permalink }}">{{ $page1.LinkTitle }}</a></li>
+  <li><a href="{{ $page2.Permalink }}">{{ $page2.LinkTitle }}</a></li>
+  <li><a href="{{ $page3.Permalink }}">{{ $page3.LinkTitle }}</a></li>
+  <li><a href="{{ $page4.Permalink }}">{{ $page4.LinkTitle }}</a></li>
+</ul>
 ```
 
 DOM 结构就这么简单，重点在于 CSS 的实现，实现思路如下：
@@ -76,8 +76,8 @@ li::before {
   li:nth-child(#{$i}) {
     --timeline-index: #{$i};
 
-    &amp;::before {
-      content: &#39;#{$i}&#39;;
+    &::before {
+      content: '#{$i}';
     }
   }
 }
@@ -89,9 +89,9 @@ li::before {
 
 ## 背景图 loading 效果
 
-![背景图 loading 效果](images/demo-loading.gif &#34;先加载 loading 图再加重预览图&#34;)
+![背景图 loading 效果](images/demo-loading.gif "先加载 loading 图再加重预览图")
 
-如果只是想实现图片的 loading 效果其实很简单，之前在「[浏览器 IMG 图片原生懒加载 Loading=&#34;lazy&#34;](/posts/native-img-loading-lazy/)」中有介绍过，但是这次我是把图片当作背景图片使用的，那问题来了，不通过 JS 背景图片的 loading 效果怎么实现呢？
+如果只是想实现图片的 loading 效果其实很简单，之前在「[浏览器 IMG 图片原生懒加载 Loading="lazy"](/posts/native-img-loading-lazy/)」中有介绍过，但是这次我是把图片当作背景图片使用的，那问题来了，不通过 JS 背景图片的 loading 效果怎么实现呢？
 
 还是可以利用 `::before` 和 `::after` 伪元素，一个伪元素用来显示 loading 图，另一个伪元素用来显示背景图片。
 
@@ -101,9 +101,9 @@ li::before {
 
 ```scss
 .docs-preview {
-  &amp;::before,
-  &amp;::after {
-    content: &#39;&#39;;
+  &::before,
+  &::after {
+    content: '';
     position: absolute;
     top: 0;
     left: 0;
@@ -113,17 +113,17 @@ li::before {
     background-repeat: no-repeat;
   }
 
-  &amp;::before {
+  &::before {
     background-color: rgba(204, 204, 204, 0.1);
     background-image: url(/images/loading.min.svg);
     background-size: 60px;
 
-    [data-theme=&#39;dark&#39;] &amp; {
+    [data-theme='dark'] & {
       background-color: rgba(0, 0, 0, 0.1);
     }
   }
 
-  &amp;::after {
+  &::after {
     background-image: url(/images/apple-devices-preview.webp);
     background-size: 130%;
   }
@@ -162,7 +162,7 @@ li::before {
   @keyframes gradient-angle-change {
     @for $i from 0 through 100 {
       #{$i * 1%} {
-        --gradient-angle: #{45 &#43; $i * 4}deg;
+        --gradient-angle: #{45 + $i * 4}deg;
       }
     }
   }
@@ -173,7 +173,7 @@ li::before {
 
 为了方便使用 FixIt 主题的用户在自己的笔记内插入 FixIt 官方文档的书签，我把这个效果封装成了一个独立的组件，你可以在 [hugo-fixit/shortcode-docs-bookmark](https://github.com/hugo-fixit/shortcode-docs-bookmark) 中找到完整代码及食用方法。
 
-{{&lt; fixit-docs-bookmark &gt;}}
+{{< fixit-docs-bookmark >}}
 
 ## 总结
 

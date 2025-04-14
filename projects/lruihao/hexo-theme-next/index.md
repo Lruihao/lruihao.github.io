@@ -1,17 +1,17 @@
 # Elegant and powerful theme for Hexo.
 
-&lt;h1 align=center&gt;hexo-theme-next&lt;/h1&gt;
+<h1 align=center>hexo-theme-next</h1>
 
-&gt; **如无必要，不再更新！（2019.09.13）**  
-今晚我做出了一个慎重的决定，由于博主时间精力有限，需要更多的时间来工作和学习。所以我将**放弃对next的主题的自定义修改**，next主题官方已经更新到了7.0&#43;的版本，喜欢next主题风格的朋友可以在github更新。  
+> **如无必要，不再更新！（2019.09.13）**  
+今晚我做出了一个慎重的决定，由于博主时间精力有限，需要更多的时间来工作和学习。所以我将**放弃对next的主题的自定义修改**，next主题官方已经更新到了7.0+的版本，喜欢next主题风格的朋友可以在github更新。  
 我这也算是上古版本了，版本差距实在过大，所以我也将放弃博客使用主题的更新。  
 以下仍为当前博客使用主题，lib资源已打包github。
 
-&gt; 基于[hexo-theme-next 6.0&#43;](https://github.com/theme-next/hexo-theme-next)的Pisces模板做的DIY扩展性设计。主要是一些custom stlye还有一些第三方的js。修改的地方太多也有点小乱就不提PR了。&amp;emsp;官方Demo =&gt; &lt;https://theme-next.org&gt;    
+> 基于[hexo-theme-next 6.0+](https://github.com/theme-next/hexo-theme-next)的Pisces模板做的DIY扩展性设计。主要是一些custom stlye还有一些第三方的js。修改的地方太多也有点小乱就不提PR了。&emsp;官方Demo => <https://theme-next.org>    
 记录一下折腾过程，修改内容以[博採眾長](https://lruihao.cn/posts/hexo-theme-next.html)为准，以后备份恢复博客也好方便自己。本文之前的美化修改请见[hexo分类](https://lruihao.cn/categories/hexo/)。
 **主题中若有遗漏第三方插件或应用的key及id值等请修改为自己对应的值**
 
-&lt;!--more--&gt;
+<!--more-->
 主要的几个自定义文件
 ```xml 主要修改路径及文件
 _config.swig                                 #主题配置文件 相关账户信息自己注册替换
@@ -33,7 +33,7 @@ _config.swig                                 #主题配置文件 相关账户信
 [^1](https://lruihao.cn/posts/cos-hexo.html#CDN%E5%88%B7%E6%96%B0)
 
 # 初步安装
-&gt; 安装整个改过的主题,然后下载相应的[lib资源](https://github.com/Lruihao/hexo-theme-next/releases/tag/v6.9.1)
+> 安装整个改过的主题,然后下载相应的[lib资源](https://github.com/Lruihao/hexo-theme-next/releases/tag/v6.9.1)
 
 ```bash
 cd hexo
@@ -43,12 +43,12 @@ git clone https://github.com/Lruihao/hexo-theme-next themes/next
 ![lib.png](https://i.loli.net/2019/04/03/5ca471ec93167.png)
 
 # 更新内容
-&gt; 更多自定义详见源码
+> 更多自定义详见源码
 
 ## links模板
-&gt; 自定义友链模板，打开`hexo\themes\next\layout\`新建`links.swig`文件，写下[links.swig](https://github.com/Lruihao/hexo-theme-next/blob/master/layout/links.swig)内容后保存。
+> 自定义友链模板，打开`hexo\themes\next\layout\`新建`links.swig`文件，写下[links.swig](https://github.com/Lruihao/hexo-theme-next/blob/master/layout/links.swig)内容后保存。
 - **若未使用懒加载请将模板中的`data-original`属性改为`src`**  
-- **若懒加载无法加载预览图请手动添加`src=&#34;/images/loading.gif&#34;`**
+- **若懒加载无法加载预览图请手动添加`src="/images/loading.gif"`**
 - **若fancybox显示alt内容请更换fancybox2或者将alt属值删除**
 
 然后`hexo n page links`新建一个页面文章配置写下如下内容：
@@ -83,7 +83,7 @@ beian:
 ```
 ## 文字抖动特效
 ```xml 使用方法
-&lt;div class=&#34;shaky&#34;&gt;(づ●&#39;◡&#39;●)づ ❥内容区&lt;/div&gt;
+<div class="shaky">(づ●'◡'●)づ ❥内容区</div>
 ```
 
 ## 左下角微信公众号
@@ -95,7 +95,7 @@ beian:
 加入H5标签，实现可收纳功能，点击查看详情。
 
 ## Chat Services
-&gt; 共chatra,tidio,daovoice三个选项，三选一
+> 共chatra,tidio,daovoice三个选项，三选一
 
 ```swig _config.swig
 # Chatra Support
@@ -142,16 +142,16 @@ mermaid:
 ## 模仿csdn转发样式
 ```diff post.swig主要修改
 ...
-   &lt;a class=&#34;post-title-link&#34; href=&#34;{{ url_for(post.path) }}&#34; itemprop=&#34;url&#34;&gt;
-&#43;    {% if post.repost %}
-&#43;      &lt;span class=&#34;repost&#34;&gt;转&lt;/span&gt;
-&#43;    {% endif %}
-     {{ post.title | default(__(&#39;post.untitled&#39;))}}
-   &lt;/a&gt;
+   <a class="post-title-link" href="{{ url_for(post.path) }}" itemprop="url">
++    {% if post.repost %}
++      <span class="repost">转</span>
++    {% endif %}
+     {{ post.title | default(__('post.untitled'))}}
+   </a>
  {% else -%}
-&#43;  {% if post.repost %}
-&#43;    &lt;span class=&#34;repost&#34;&gt;转&lt;/span&gt;
-&#43;  {% endif %}
++  {% if post.repost %}
++    <span class="repost">转</span>
++  {% endif %}
    {{- post.title -}}
 ...
 ```
@@ -178,7 +178,7 @@ repost: true
 
 ## 热度页面
 
-&gt; 打开`hexo\themes\next\layout`新建[top.swig](https://github.com/Lruihao/hexo-theme-next/blob/master/layout/top.swig)文件，写下如下内容保存：
+> 打开`hexo\themes\next\layout`新建[top.swig](https://github.com/Lruihao/hexo-theme-next/blob/master/layout/top.swig)文件，写下如下内容保存：
 其中第36行改成你自己的leancloud的appid和appkey,比如我的是在主题配置文件里面的valine配置下，所以我就写成`theme.valine.appid`。和我一样就不需要修改，其他自行配置。
 
 然后`hexo n page top`新建一个页面文章配置写下如下内容，limit表示显示篇数：
@@ -197,7 +197,7 @@ limit: 20
 ![flatbtn.png](https://i.loli.net/2019/03/21/5c939bb2385c5.png)
 ![3dbtn.png](https://i.loli.net/2019/03/21/5c939bb238db9.png)
 
-&gt; 本来只想简单美化一下变成night样式的，后来写完发现3dbtn也挺喜欢的。
+> 本来只想简单美化一下变成night样式的，后来写完发现3dbtn也挺喜欢的。
 
 ```java config配置
 codeblock:
@@ -209,7 +209,7 @@ codeblock:
     enable: true
     # Show text copy result
     show_result: true
-    # Style: &#39;light,night,flat,3dbtn&#39; is currently available, leave it empty or light is default theme
+    # Style: 'light,night,flat,3dbtn' is currently available, leave it empty or light is default theme
     style: night
 ```
 

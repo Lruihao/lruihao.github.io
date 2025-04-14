@@ -157,19 +157,19 @@ class Student {
     }
 
     public void show() {
-      System.out.println(&#34;姓名是：&#34;&#43;name&#43;&#34;, 年龄是：&#34;&#43;age);
+      System.out.println("姓名是："+name+", 年龄是："+age);
     }
 
     public void study() {
-      System.out.println(&#34;学生爱学习&#34;);
+      System.out.println("学生爱学习");
     }
 
     public void eat() {
-      System.out.println(&#34;学生要吃饭&#34;);
+      System.out.println("学生要吃饭");
     }
 
     public void sleep() {
-      System.out.println(&#34;学生想睡觉&#34;);
+      System.out.println("学生想睡觉");
     }
   }
 
@@ -177,7 +177,7 @@ class Student {
     public static void main(String[] args) {
       Student s = new Student();
 
-      s.setName(&#34;林青霞&#34;);
+      s.setName("林青霞");
       s.setAge(28);
 
       s.show();
@@ -185,8 +185,8 @@ class Student {
       s.eat();
       s.sleep();
 
-      System.out.println(&#34;姓名是：&#34;&#43;s.getName());
-      System.out.println(&#34;年龄是：&#34;&#43;s.getAge());
+      System.out.println("姓名是："+s.getName());
+      System.out.println("年龄是："+s.getAge());
     }
   }
 ```
@@ -203,7 +203,7 @@ class Student {
    B: 如果我们写了构造方法，系统将不再给出默认无参构造方法  
     建议：我们自己手动给出无参构造方法
 4. 给成员变量赋值：  
-   A: 无参&#43;setXxx()  
+   A: 无参+setXxx()  
    B: 带参
 5. 一个标准的代码：
 
@@ -236,20 +236,20 @@ class Student {
     }
 
     public void show() {
-      System.out.println(&#34;姓名是：&#34;&#43;name&#43;&#34;, 年龄是：&#34;&#43;age);
+      System.out.println("姓名是："+name+", 年龄是："+age);
     }
   }
 
   class StudentTest {
     public static void main(String[] args) {
-      //无参&#43;setXxx()
+      //无参+setXxx()
       Student s = new Student();
-      s.setName(&#34;林青霞&#34;);
+      s.setName("林青霞");
       s.setAge(28);
       s.show();
 
       //带参
-      Student ss = new Student(&#34;张曼玉&#34;,20);
+      Student ss = new Student("张曼玉",20);
       ss.show();
     }
   }
@@ -316,27 +316,27 @@ class Student {
   }
 
   public void show() {
-    System.out.println(name&#43;&#34;---&#34;&#43;age&#43;&#34;---&#34;&#43;classNumber);
+    System.out.println(name+"---"+age+"---"+classNumber);
   }
 }
 
 class StudentDemo {
   public static void main(String[] args) {
     //创建学生对象
-    Student s1 = new Student(&#34;林青霞&#34;,28,&#34;20150306&#34;);
+    Student s1 = new Student("林青霞",28,"20150306");
     s1.show();
 
     /*
-    Student s2 = new Student(&#34;马云&#34;,35,&#34;20150306&#34;);
+    Student s2 = new Student("马云",35,"20150306");
     s2.show();
 
-    Student s3 = new Student(&#34;马化腾&#34;,33,&#34;20150306&#34;);
+    Student s3 = new Student("马化腾",33,"20150306");
     s3.show();
     */
-    Student s2 = new Student(&#34;马云&#34;,35);
+    Student s2 = new Student("马云",35);
     s2.show();
 
-    Student s3 = new Student(&#34;马化腾&#34;,33);
+    Student s3 = new Student("马化腾",33);
     s3.show();
   }
 }
@@ -362,11 +362,11 @@ class StudentDemo {
 */
 class Student {
   public void show() {
-    System.out.println(&#34;show&#34;);
+    System.out.println("show");
   }
 
   public static void show2() {
-    System.out.println(&#34;show2&#34;);
+    System.out.println("show2");
   }
 }
 
@@ -377,7 +377,7 @@ class StudentDemo2 {
     s.show2();
 
     Student.show2();
-    //Student.show();&amp;ensp;
+    //Student.show();&ensp;
   }
 }
 
@@ -399,7 +399,7 @@ class StudentDemo2 {
 class Student {
   private String name;
 
-  public static void setName(String name) {//&amp;ensp; 静态方法不能用 this
+  public static void setName(String name) {//&ensp; 静态方法不能用 this
     this.name = name;
   }
 
@@ -418,7 +418,7 @@ class Demo {
   }
 
   public static void show2() {
-    //System.out.println(x);&amp;ensp;
+    //System.out.println(x);&ensp;
     System.out.println(y);//√
   }
 
@@ -435,7 +435,7 @@ class Demo {
 
 class StudentDemo3 {
   public static void main(String[] args) {
-    //Student.setName(&#34;林青霞&#34;);
+    //Student.setName("林青霞");
   }
 }
 ```
@@ -502,12 +502,12 @@ class Demo {
   //成员变量已经有 x,y 了。这里就没有必要在定义了
   /*
   public int sum(int x,int y) {
-    return x &#43; y;
+    return x + y;
   }
   */
 
   public int sum() {
-    return x &#43; y;
+    return x + y;
   }
 }
 
@@ -526,7 +526,7 @@ class Test {
 /*求和*/
 class Demo {
   public int sum(int x,int y) {
-    return x &#43; y;
+    return x + y;
   }
 }
 
@@ -588,7 +588,7 @@ class Employee {
   }
 
   public void show() {
-    System.out.println(&#34;员工编号是：&#34;&#43;eid&#43;&#34;, 姓名是：&#34;&#43;name&#43;&#34;, 职位是：&#34;&#43;job);
+    System.out.println("员工编号是："+eid+", 姓名是："+name+", 职位是："+job);
   }
 }
 
@@ -596,13 +596,13 @@ class EmployeeDemo {
   public static void main(String[] args) {
     //无参
     Employee e = new Employee();
-    e.setEid(&#34;itcast007&#34;);
-    e.setName(&#34;周星驰&#34;);
-    e.setJob(&#34;高级工程师&#34;);
+    e.setEid("itcast007");
+    e.setName("周星驰");
+    e.setJob("高级工程师");
     e.show();
 
     //带参
-    Employee e2 = new Employee(&#34;itcast003&#34;,&#34;刘德华&#34;,&#34;挖掘机工程师&#34;);
+    Employee e2 = new Employee("itcast003","刘德华","挖掘机工程师");
     e2.show();
   }
 }
@@ -612,9 +612,9 @@ class EmployeeDemo {
 
 | 关键词   | 同一个类 | 同一个包 | 不同包中的子类 | 不同包中的非子类 |
 | :-------: | :------: | :------: | :------------: | :--------------: |
-| private  |    √     | &amp;ensp;  |     &amp;ensp;     |      &amp;ensp;      |
-| default  |    √     |    √     |     &amp;ensp;     |      &amp;ensp;      |
-| protected |    √     |    √     |       √        |      &amp;ensp;      |
+| private  |    √     | &ensp;  |     &ensp;     |      &ensp;      |
+| default  |    √     |    √     |     &ensp;     |      &ensp;      |
+| protected |    √     |    √     |       √        |      &ensp;      |
 | public   |    √     |    √     |       √        |        √         |
 
 

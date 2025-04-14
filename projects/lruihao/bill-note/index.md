@@ -17,9 +17,9 @@ set for yourself.
 
 ```
 AV.init({
-    appId: &#39;&#39;,
-    appKey: &#39;&#39;,
-    serverURL: &#39;&#39;
+    appId: '',
+    appKey: '',
+    serverURL: ''
   });
 ```
 

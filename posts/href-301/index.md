@@ -79,7 +79,7 @@ alert(test);
 
 ```java
 function getQueryString(name) {
-  var reg = new RegExp(&#39;(^|&amp;)&#39; &#43; name &#43; &#39;=([^&amp;]*)(&amp;|$)&#39;, &#39;i&#39;);
+  var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
   var r = window.location.search.substr(1).match(reg);
   if (r != null) {
     return unescape(r[2]);
@@ -87,35 +87,35 @@ function getQueryString(name) {
   return null;
 }
 // 这样调用：
-alert(GetQueryString(&#34;参数名 1&#34;));
+alert(GetQueryString("参数名 1"));
 
-alert(GetQueryString(&#34;参数名 2&#34;));
+alert(GetQueryString("参数名 2"));
 
-alert(GetQueryString(&#34;参数名 3&#34;));
+alert(GetQueryString("参数名 3"));
 ```
 
 ##### split 拆分法
 
 ```java
 function GetRequest() {
-  var url = location.search; //获取 url 中&#34;?&#34;符后的字串
+  var url = location.search; //获取 url 中"?"符后的字串
   var theRequest = new Object();
-  if (url.indexOf(&#34;?&#34;) != -1) {
+  if (url.indexOf("?") != -1) {
     var str = url.substr(1);
-    strs = str.split(&#34;&amp;&#34;);
-    for(var i = 0; i &lt; strs.length; i &#43;&#43;) {
-      theRequest[strs[i].split(&#34;=&#34;)[0]] = unescape(strs[i].split(&#34;=&#34;)[1]);
+    strs = str.split("&");
+    for(var i = 0; i < strs.length; i ++) {
+      theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
     }
   }
   return theRequest;
 }
 var Request = new Object();
-Request = GetRequest();&lt;br&gt;// var id=Request[&#34;id&#34;];
+Request = GetRequest();<br>// var id=Request["id"];
 // var 参数 1, 参数 2, 参数 3, 参数 N;
-// 参数 1 = Request[&#39;参数 1&#39;];
-// 参数 2 = Request[&#39;参数 2&#39;];
-// 参数 3 = Request[&#39;参数 3&#39;];
-// 参数 N = Request[&#39;参数 N&#39;];
+// 参数 1 = Request['参数 1'];
+// 参数 2 = Request['参数 2'];
+// 参数 3 = Request['参数 3'];
+// 参数 N = Request['参数 N'];
 ```
 
 ##### 指定取
@@ -124,16 +124,16 @@ Request = GetRequest();&lt;br&gt;// var id=Request[&#34;id&#34;];
 
 ```java
 function GetQueryString(name) {
-  var reg = new RegExp(&#34;(^|&amp;)&#34; &#43; name &#43; &#34;=([^&amp;]*)(&amp;|$)&#34;, &#34;i&#34;);
-  var r = window.location.search.substr(1).match(reg); //获取 url 中&#34;?&#34;符后的字符串并正则匹配
-  var context = &#34;&#34;;
+  var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+  var r = window.location.search.substr(1).match(reg); //获取 url 中"?"符后的字符串并正则匹配
+  var context = "";
   if (r != null)
      context = r[2];
   reg = null;
   r = null;
-  return context == null || context == &#34;&#34; || context == &#34;undefined&#34; ? &#34;&#34; : context;
+  return context == null || context == "" || context == "undefined" ? "" : context;
 }
-alert(GetQueryString(&#34;j&#34;));
+alert(GetQueryString("j"));
 ```
 
 ### 301 重定向（实践）
@@ -144,8 +144,8 @@ alert(GetQueryString(&#34;j&#34;));
 ```java
 var path = window.location.href;
     //alert(path);
-    if (path==&#39;https://lruihao.cn/home/&#39;) {
-      window.location.replace(&#34;https://www.lruihao.cn&#34;);
+    if (path=='https://lruihao.cn/home/') {
+      window.location.replace("https://www.lruihao.cn");
     }
 ```
 
@@ -154,22 +154,22 @@ var path = window.location.href;
 ```java
 var path = window.location.pathname;
     //alert(path);
-    if (path==&#39;/home/&#39;) {
-      window.location.replace(&#34;https://www.lruihao.cn&#34;);
+    if (path=='/home/') {
+      window.location.replace("https://www.lruihao.cn");
     }
 ```
 
 http 强制重定向 https
 
 ```java
-&lt;script&gt;
-  var targetProtocol = &#34;https:&#34;;
-  var host = &#34;lruihao.cn&#34;; //域名判断，因为 localhost 仅支持 http
-  if (window.location.host == host &amp;&amp; window.location.protocol != targetProtocol){
-    window.location.href = targetProtocol &#43;
+<script>
+  var targetProtocol = "https:";
+  var host = "lruihao.cn"; //域名判断，因为 localhost 仅支持 http
+  if (window.location.host == host && window.location.protocol != targetProtocol){
+    window.location.href = targetProtocol +
       window.location.href.substring(window.location.protocol.length);
     }
-&lt;/script&gt;
+</script>
 ```
 
 

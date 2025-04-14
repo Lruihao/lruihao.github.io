@@ -1,11 +1,11 @@
 # Hugo I18n 添加中文繁體翻譯
 
 
-&gt; 工作上一直常用繁體，最近臨帖也都寫的繁體，所以博客的語言也想換成繁體，但是 LoveIt 主題沒有支持中文繁體。就只好自己添加了。
+> 工作上一直常用繁體，最近臨帖也都寫的繁體，所以博客的語言也想換成繁體，但是 LoveIt 主題沒有支持中文繁體。就只好自己添加了。
 
-&lt;!--more--&gt;
+<!--more-->
 
-&gt; 更新说明：[FixIt](https://github.com/hugo-fixit/FixIt) 主题已支持中文繁體。
+> 更新说明：[FixIt](https://github.com/hugo-fixit/FixIt) 主题已支持中文繁體。
 
 ## 翻譯
 
@@ -20,202 +20,202 @@
 
 # === baseof ==
 [backToTop]
-other = &#34;回到頂部&#34;
+other = "回到頂部"
 
 [viewComments]
-other = &#34;查看評論&#34;
+other = "查看評論"
 # === baseof ==
 
 # === Post ===
 [posts]
-other = &#34;文章&#34;
+other = "文章"
 # === Post ===
 
 # === Taxonomy ===
 [allSome]
-other = &#34;所有{{ .Some }}&#34;
+other = "所有{{ .Some }}"
 
 [tag]
-other = &#34;標籤&#34;
+other = "標籤"
 
 [tags]
-other = &#34;標籤&#34;
+other = "標籤"
 
 [category]
-other = &#34;分類&#34;
+other = "分類"
 
 [categories]
-other = &#34;分類&#34;
+other = "分類"
 
 [years]
-other = &#34;年度總結&#34;
+other = "年度總結"
 # === Taxonomy ===
 
 # === Pagination ===
 [more]
-other = &#34;更多&#34;
+other = "更多"
 # === Pagination ===
 
 # === partials/header.html ===
 [selectLanguage]
-other = &#34;選擇語言&#34;
+other = "選擇語言"
 
 [switchTheme]
-other = &#34;切換主題&#34;
+other = "切換主題"
 # === partials/header.html ===
 
 # === partials/footer.html ===
 [poweredBySome]
-other = &#34;由 {{ .Hugo }} 強力驅動 | 主題 - {{ .Theme }}&#34;
+other = "由 {{ .Hugo }} 強力驅動 | 主題 - {{ .Theme }}"
 # === partials/footer.html ===
 
 # === partials/comment.html ===
 [valineLang]
-other = &#34;zh-TW&#34;
+other = "zh-TW"
 
 [valinePlaceholder]
-other = &#34;你的評論 ...&#34;
+other = "你的評論 ..."
 
 [facebookLanguageCode]
-other = &#34;zh-TW&#34;
+other = "zh-TW"
 # === partials/comment.html ===
 
 # === partials/assets.html ===
 [search]
-other = &#34;搜索&#34;
+other = "搜索"
 
 [searchPlaceholder]
-other = &#34;搜索文章標題或內容 ...&#34;
+other = "搜索文章標題或內容 ..."
 
 [clear]
-other = &#34;清空&#34;
+other = "清空"
 
 [cancel]
-other = &#34;取消&#34;
+other = "取消"
 
 [noResultsFound]
-other = &#34;沒有找到結果&#34;
+other = "沒有找到結果"
 
 [lunrLanguageCode]
-other = &#34;zh&#34;
+other = "zh"
 
 [lunrLanguageLib]
-other = &#34;lib/lunr/lunr.zh.js&#34;
+other = "lib/lunr/lunr.zh.js"
 
 [lunrSegmentitLib]
-other = &#34;lib/lunr/lunr.segmentit.js&#34;
+other = "lib/lunr/lunr.segmentit.js"
 
 [copyToClipboard]
-other = &#34;複製到剪貼板&#34;
+other = "複製到剪貼板"
 
 [cookieconsentMessage]
-other = &#34;本網站使用 Cookies 來改善您的流覽體驗。&#34;
+other = "本網站使用 Cookies 來改善您的流覽體驗。"
 
 [cookieconsentDismiss]
-other = &#34;同意&#34;
+other = "同意"
 
 [cookieconsentLink]
-other = &#34;瞭解更多&#34;
+other = "瞭解更多"
 # === partials/assets.html ===
 
 # === partials/plugin/share.html ===
 [shareOn]
-other = &#34;分享到&#34;
+other = "分享到"
 # === partials/plugin/share.html ===
 
 # === posts/single.html ===
 [contents]
-other = &#34;目錄&#34;
+other = "目錄"
 
 [publishedOnDate]
-other = &#34;發佈於 {{ .Date }}&#34;
+other = "發佈於 {{ .Date }}"
 
 [includedInCategories]
-other = &#34;收錄於 {{ .Categories }}&#34;
+other = "收錄於 {{ .Categories }}"
 
 [wordCount]
-other = &#34;約 {{ .Count }} 字&#34;
+other = "約 {{ .Count }} 字"
 
 [readingTime]
-other = &#34;預計閱讀 {{ .Count }} 分鐘&#34;
+other = "預計閱讀 {{ .Count }} 分鐘"
 
 [views]
-other = &#34;次閱讀&#34;
+other = "次閱讀"
 
 [author]
-other = &#34;作者&#34;
+other = "作者"
 
 [updatedOnDate]
-other = &#34;更新於 {{ .Date }}&#34;
+other = "更新於 {{ .Date }}"
 
 [readMarkdown]
-other = &#34;閱讀原始文檔&#34;
+other = "閱讀原始文檔"
 
 [back]
-other = &#34;返回&#34;
+other = "返回"
 
 [home]
-other = &#34;主頁&#34;
+other = "主頁"
 
 [readMore]
-other = &#34;閱讀全文&#34;
+other = "閱讀全文"
 # === posts/single.html ===
 
 # === 404.html ===
 [pageNotFound]
-other = &#34;頁面沒找到&#34;
+other = "頁面沒找到"
 
 [pageNotFoundText]
-other = &#34;抱歉，您要查找的頁面不存在。&#34;
+other = "抱歉，您要查找的頁面不存在。"
 # === 404.html ===
 
 # === shortcodes/admonition.html ===
 [note]
-other = &#34;注意&#34;
+other = "注意"
 
 [abstract]
-other = &#34;摘要&#34;
+other = "摘要"
 
 [info]
-other = &#34;信息&#34;
+other = "信息"
 
 [tip]
-other = &#34;技巧&#34;
+other = "技巧"
 
 [success]
-other = &#34;成功&#34;
+other = "成功"
 
 [question]
-other = &#34;問題&#34;
+other = "問題"
 
 [warning]
-other = &#34;警告&#34;
+other = "警告"
 
 [failure]
-other = &#34;失敗&#34;
+other = "失敗"
 
 [danger]
-other = &#34;危險&#34;
+other = "危險"
 
 [bug]
-other = &#34;Bug&#34;
+other = "Bug"
 
 [example]
-other = &#34;示例&#34;
+other = "示例"
 
 [quote]
-other = &#34;引用&#34;
+other = "引用"
 # === shortcodes/admonition.html ===
 
 # === shortcodes/version.html ===
 [new]
-other = &#34;新增&#34;
+other = "新增"
 
 [changed]
-other = &#34;更改&#34;
+other = "更改"
 
 [deleted]
-other = &#34;刪除&#34;
+other = "刪除"
 # === shortcodes/version.html ===
 ```
 
@@ -224,7 +224,7 @@ other = &#34;刪除&#34;
 打開 `config.toml`
 
 ```toml
-defaultContentLanguage = &#34;zh-tw&#34;
+defaultContentLanguage = "zh-tw"
 ```
 
 

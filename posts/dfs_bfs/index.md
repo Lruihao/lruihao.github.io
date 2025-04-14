@@ -10,7 +10,7 @@
 深度优先搜索在搜索过程中访问某个顶点后，需要递归地访问此顶点的所有未访问过的相邻顶点。
 
 ```cpp
-#include &lt;bits/stdc&#43;&#43;.h&gt;
+#include <bits/stdc++.h>
 #define N 5
 using namespace std;
 int maze[N][N] = {//无权有向图邻接矩阵
@@ -23,26 +23,26 @@ int maze[N][N] = {//无权有向图邻接矩阵
  int visited[N];
  void DFS(int start)
  {
-     cout &lt;&lt; start&lt;&lt; &#34; &#34;;
+     cout << start<< " ";
      visited[start] = 1;
-     for (int i = 0; i &lt; N; i&#43;&#43;)
+     for (int i = 0; i < N; i++)
      {
-         if (!visited[i] &amp;&amp; maze[start][i] == 1)//没访问过且为邻居节点
+         if (!visited[i] && maze[start][i] == 1)//没访问过且为邻居节点
              DFS(i);
      }
  }
  void BFS(int start){
-     queue&lt;int&gt; Q;//队列
+     queue<int> Q;//队列
      Q.push(start);
      visited[start] = 1;
      while (!Q.empty())
      {
          int front = Q.front();//头
-         cout &lt;&lt; front &lt;&lt; &#34; &#34;;
+         cout << front << " ";
          Q.pop();
-         for (int i = 0; i &lt;N; i&#43;&#43;)
+         for (int i = 0; i <N; i++)
          {
-             if (!visited[i] &amp;&amp; maze[front][i] == 1)
+             if (!visited[i] && maze[front][i] == 1)
              {
                  visited[i] = 1;
                  Q.push(i);
@@ -54,15 +54,15 @@ int maze[N][N] = {//无权有向图邻接矩阵
  int main()
  {
      memset(visited,0,sizeof(visited));
-     for (int i = 0; i &lt; N; i&#43;&#43;)//不连通的情况
+     for (int i = 0; i < N; i++)//不连通的情况
      {
          if (visited[i] == 1)//访问过
              continue;
          DFS(i);
      }
-     cout&lt;&lt;endl;
+     cout<<endl;
      memset(visited,0,sizeof(visited));
-     for (int i = 0; i &lt; N; i&#43;&#43;)//不连通的情况
+     for (int i = 0; i < N; i++)//不连通的情况
      {
          if (visited[i] == 1)//访问过
              continue;

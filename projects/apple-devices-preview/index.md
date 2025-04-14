@@ -3,7 +3,7 @@
 
 开发完 [CoverView](https://github.com/Lruihao/CoverView)之后，在调整博客文章封面图的时候，我发现首页的多端缩略图还是只能自己 P 图诶，于是我又决定再写一个小工具，用来生成网站预览图。。
 
-&lt;!--more--&gt;
+<!--more-->
 
 ## 在线体验
 

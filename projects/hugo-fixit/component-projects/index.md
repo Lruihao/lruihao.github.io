@@ -1,23 +1,23 @@
 # 🐙 Display your GitHub projects in the FixIt theme and generate blog posts from readme.
 
-&lt;!-- markdownlint-disable-file MD033 MD041 --&gt;
-&lt;h1 align=&#34;center&#34;&gt;GitHub Projects Embed | FixIt&lt;/h1&gt;
+<!-- markdownlint-disable-file MD033 MD041 -->
+<h1 align="center">GitHub Projects Embed | FixIt</h1>
 
 ![apple-devices-preview](https://github.com/hugo-fixit/component-projects/assets/33419593/3f75bd94-90df-4057-bee5-cbe2a61422f1)
 
-&lt;div align=&#34;center&#34; class=&#34;ignore&#34;&gt;
-  &lt;p&gt;在 FixIt 主题中展示你的 GitHub 项目并根据 README 自动生成博客文章。&lt;/p&gt;
+<div align="center" class="ignore">
+  <p>在 FixIt 主题中展示你的 GitHub 项目并根据 README 自动生成博客文章。</p>
   简体中文 |
-  &lt;a href=&#34;https://fixit.lruihao.cn/zh-cn/ecosystem/hugo-fixit/component-projects/?lang=chinese_traditional&#34;&gt;繁體中文&lt;/a&gt; |
-  &lt;a href=&#34;https://raw.githubusercontent.com/hugo-fixit/component-projects/refs/heads/main/README.en.md&#34;&gt;English&lt;/a&gt; |
-  &lt;a href=&#34;https://fixit.lruihao.cn/ecosystem/hugo-fixit/component-projects/?lang=french&#34;&gt;Français&lt;/a&gt; |
-  &lt;a href=&#34;https://fixit.lruihao.cn/ecosystem/hugo-fixit/component-projects/?lang=russian&#34;&gt;Русский язык&lt;/a&gt; |
-  &lt;a href=&#34;https://fixit.lruihao.cn/ecosystem/hugo-fixit/component-projects/?lang=spanish&#34;&gt;Español&lt;/a&gt; |
-  &lt;a href=&#34;https://fixit.lruihao.cn/ecosystem/hugo-fixit/component-projects/?lang=hindi&#34;&gt;हिन्दी&lt;/a&gt; |
-  &lt;a href=&#34;https://fixit.lruihao.cn/ecosystem/hugo-fixit/component-projects/?lang=german&#34;&gt;deutsch&lt;/a&gt; |
-  &lt;a href=&#34;https://fixit.lruihao.cn/ecosystem/hugo-fixit/component-projects/?lang=korean&#34;&gt;한국어&lt;/a&gt; |
-  &lt;a href=&#34;https://fixit.lruihao.cn/ecosystem/hugo-fixit/component-projects/?lang=japanese&#34;&gt;しろうと&lt;/a&gt;
-&lt;/div&gt;
+  <a href="https://fixit.lruihao.cn/zh-cn/ecosystem/hugo-fixit/component-projects/?lang=chinese_traditional">繁體中文</a> |
+  <a href="https://raw.githubusercontent.com/hugo-fixit/component-projects/refs/heads/main/README.en.md">English</a> |
+  <a href="https://fixit.lruihao.cn/ecosystem/hugo-fixit/component-projects/?lang=french">Français</a> |
+  <a href="https://fixit.lruihao.cn/ecosystem/hugo-fixit/component-projects/?lang=russian">Русский язык</a> |
+  <a href="https://fixit.lruihao.cn/ecosystem/hugo-fixit/component-projects/?lang=spanish">Español</a> |
+  <a href="https://fixit.lruihao.cn/ecosystem/hugo-fixit/component-projects/?lang=hindi">हिन्दी</a> |
+  <a href="https://fixit.lruihao.cn/ecosystem/hugo-fixit/component-projects/?lang=german">deutsch</a> |
+  <a href="https://fixit.lruihao.cn/ecosystem/hugo-fixit/component-projects/?lang=korean">한국어</a> |
+  <a href="https://fixit.lruihao.cn/ecosystem/hugo-fixit/component-projects/?lang=japanese">しろうと</a>
+</div>
 
 ## Demo
 
@@ -46,9 +46,9 @@
 ```toml
 [module]
   [[module.imports]]
-    path = &#34;github.com/hugo-fixit/FixIt&#34;
+    path = "github.com/hugo-fixit/FixIt"
   [[module.imports]]
-    path = &#34;github.com/hugo-fixit/component-projects&#34;
+    path = "github.com/hugo-fixit/component-projects"
 ```
 
 在第一次启动 Hugo 时，它将下载所需的文件。
@@ -72,7 +72,7 @@ git submodule add https://github.com/hugo-fixit/component-projects.git themes/co
 接下来编辑项目的 `hugo.toml` 并将此主题组件添加到你的主题中：
 
 ```toml
-theme = [&#34;FixIt&#34;, &#34;component-projects&#34;]
+theme = ["FixIt", "component-projects"]
 ```
 
 ## 注入 Partial
@@ -80,8 +80,8 @@ theme = [&#34;FixIt&#34;, &#34;component-projects&#34;]
 最后，在 `layouts/partials/custom.html` 中的 `custom-head` 或 `custom-assets` 块内注入主题组件的样式：
 
 ```go-html-template
-{{- define &#34;custom-assets&#34; -}}
-  {{- partial &#34;inject/component-projects.html&#34; . -}}
+{{- define "custom-assets" -}}
+  {{- partial "inject/component-projects.html" . -}}
 {{- end -}}
 ```
 
@@ -102,7 +102,7 @@ theme = [&#34;FixIt&#34;, &#34;component-projects&#34;]
 cp themes/component-projects/projects.yml.example data/projects.yml
 ```
 
-&gt; 如果你的网站是多语言的，你可以为英语创建一个 `projects.en.yml` 文件，为中文创建一个 `projects.zh-cn.yml` 文件。
+> 如果你的网站是多语言的，你可以为英语创建一个 `projects.en.yml` 文件，为中文创建一个 `projects.zh-cn.yml` 文件。
 
 接下来，使用 `projects` 布局创建一个新页面：
 
@@ -116,7 +116,7 @@ hugo new projects/_index.md
 ---
 title: My Projects
 titleIcon: fa-solid fa-laptop-code
-subtitle: &lt;https://github.com/Lruihao&gt;
+subtitle: <https://github.com/Lruihao>
 sectionSlot: Some text to display in the section slot which is above the related articles list.
 hiddenAdapters: false
 layout: projects
@@ -130,10 +130,10 @@ Some text to display at the start of the page.
 在任何页面中使用 `gh-repo-card-container` 和 `gh-repo-card` 短代码来显示卡片式 GitHub 存储库：
 
 ```markdown
-{{?{}&lt; gh-repo-card-container &gt;}}
-  {{?{}&lt; gh-repo-card repo=&#34;hugo-fixit/component-projects&#34; &gt;}}
-  {{?{}&lt; gh-repo-card repo=&#34;Lruihao/hugo-blog&#34; &gt;}}
-{{?{}&lt; /gh-repo-card-container &gt;}}
+{{?{}< gh-repo-card-container >}}
+  {{?{}< gh-repo-card repo="hugo-fixit/component-projects" >}}
+  {{?{}< gh-repo-card repo="Lruihao/hugo-blog" >}}
+{{?{}< /gh-repo-card-container >}}
 ```
 
 ### 内容适配器
@@ -143,7 +143,7 @@ Some text to display at the start of the page.
 在项目文件夹中创建 `_content.gotmpl`，添加以下代码：
 
 ```go-html-template
-{{- partial &#34;adapters/projects.html&#34; . -}}
+{{- partial "adapters/projects.html" . -}}
 ```
 
 目录结构如下：
@@ -151,10 +151,10 @@ Some text to display at the start of the page.
 ```plain
 content/
 ├── projects/
-│   ├── _content.gotmpl  &lt;-- content adapter
-│   └── _index.md        &lt;-- layout: projects
+│   ├── _content.gotmpl  <-- content adapter
+│   └── _index.md        <-- layout: projects
 data/
-└── projects.yml         &lt;-- projects data
+└── projects.yml         <-- projects data
 ```
 
 然后，打开 `hugo.toml` 文件，配置的 `projectsAdapters` 选项，启用内容适配器：
@@ -195,7 +195,7 @@ name: Hugo build and deploy
 on:
   schedule:
     # Rebuid the site every day at 00:00 UTC to update the projects data
-    - cron: &#39;0 0 * * *&#39;
+    - cron: '0 0 * * *'
   push:
     branches: [ main ]
   workflow_dispatch:
@@ -205,14 +205,14 @@ jobs:
 
 ### 部署到 Vercel
 
-如果你的网站托管在 Vercel 上，你可以使用 Vercel 的 [Deploy Hooks](https://vercel.com/docs/deployments/deploy-hooks#creating-&amp;-triggering-deploy-hooks) 功能配合 GitHub Actions 自动部署。
+如果你的网站托管在 Vercel 上，你可以使用 Vercel 的 [Deploy Hooks](https://vercel.com/docs/deployments/deploy-hooks#creating-&-triggering-deploy-hooks) 功能配合 GitHub Actions 自动部署。
 
 ```yaml
 name: Vercel deploy hook
 on:
   schedule:
     # Rebuid the site every day at 00:00 UTC to update the projects data
-    - cron: &#39;0 0 * * *&#39;
+    - cron: '0 0 * * *'
 jobs:
   Vercel-Deploy:
     runs-on: ubuntu-latest

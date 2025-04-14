@@ -3,13 +3,13 @@
 
 在这个博客中，我经常会写一些关于开源项目的文章，而这些开源项目通常都是托管在 GitHub 上的。为了方便内容同步，我希望能够自动获取 GitHub 仓库的 README 内容，然后添加到 Hugo 文章中。这样，我就不用再手动复制粘贴 README 内容了。
 
-&lt;!--more--&gt;
+<!--more-->
 
 ## 前言
 
 这个愿景我想了很久了，但是用 JS 通过 GitHub API 获取 README 内容的实现方式体验并不好，所以我一直没有实现。直到最近，我发现了 Hugo v0.126.0 版本新增了一个内容适配器（Content adapters）的概念。
 
-&gt; Create content adapters to dynamically add content when building your site.
+> Create content adapters to dynamically add content when building your site.
 {.blockquote-center}
 
 也就是说，我们可以在构建 Hugo 站点时，通过自定义的适配器动态添加内容。理论可行，实践开始。
@@ -39,7 +39,7 @@ Authorization: token {your_token}
 在项目文件夹中创建 `_content.gotmpl`，添加以下代码：
 
 ```go-html-template
-{{- partial &#34;adapters/projects.html&#34; . -}}
+{{- partial "adapters/projects.html" . -}}
 ```
 
 目录结构如下：
@@ -47,10 +47,10 @@ Authorization: token {your_token}
 ```plain
 content/
 ├── projects/
-│   ├── _content.gotmpl  &lt;-- content adapter
-│   └── _index.md        &lt;-- layout: projects
+│   ├── _content.gotmpl  <-- content adapter
+│   └── _index.md        <-- layout: projects
 data/
-└── projects.yml         &lt;-- projects data
+└── projects.yml         <-- projects data
 ```
 
 然后，打开 `hugo.toml` 文件，配置的 `projectsAdapters` 选项，启用内容适配器：
@@ -85,7 +85,7 @@ events:
 - [我的开源](/projects/)
 - [Theme Components ｜ FixIt](https://fixit.lruihao.cn/components/)
 
-&lt;!-- footnote reference definition --&gt;
+<!-- footnote reference definition -->
 [^1]: 点击跳到 GitHub [生成 token](https://github.com/settings/tokens/new)，选择名为 `public_repo` 的范围以生成个人访问令牌。
 
 

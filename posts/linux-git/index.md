@@ -28,12 +28,12 @@ unzip 命令用不了，具体步骤如下：
 #yum install unzip
 ```
 
-基本完成，如果在编译的时候出现错误：`gcc : error trying to exec &#39;cc1plus&#39;: execvp : No sunch file or directory`  
-可以用`gcc -v/g&#43;&#43; -v` 来查看 gcc 版本，会发现没有安装。安装如下：
+基本完成，如果在编译的时候出现错误：`gcc : error trying to exec 'cc1plus': execvp : No sunch file or directory`  
+可以用`gcc -v/g++ -v` 来查看 gcc 版本，会发现没有安装。安装如下：
 
 ```
 #yum list | grep gcc
-#yum install gcc-c&#43;&#43;
+#yum install gcc-c++
 #yum install unzip
 ```
 

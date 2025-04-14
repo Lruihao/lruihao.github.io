@@ -11,11 +11,11 @@
 
 但是国内的云服务器太贵了，而且还要备案，所以就想到了海外的云服务器，比如亚马逊云服务器，以下便是注册到部署的全过程。
 
-&lt;!--more--&gt;
+<!--more-->
 
 ## 注册亚马逊云账户
 
-打开 [亚马逊账号注册地址](https://aws.amazon.com/cn/free/?sc_channel=seo&amp;sc_campaign=blog0805)，点击右上角创建 AWS 账户。
+打开 [亚马逊账号注册地址](https://aws.amazon.com/cn/free/?sc_channel=seo&sc_campaign=blog0805)，点击右上角创建 AWS 账户。
 
 ![创建 AWS 账户](images/23_1693042834.png)
 
@@ -39,7 +39,7 @@
 
 ## 创建 EC2 服务实例
 
-点击链接查看 [亚马逊免费套餐](https://aws.amazon.com/cn/free/?sc_channel=seo&amp;sc_campaign=blog0805)，找到云服务器 EC2，点击立即开始 12 个月免费使用。
+点击链接查看 [亚马逊免费套餐](https://aws.amazon.com/cn/free/?sc_channel=seo&sc_campaign=blog0805)，找到云服务器 EC2，点击立即开始 12 个月免费使用。
 
 ![EC2](images/23_1693045572.png)
 
@@ -100,20 +100,20 @@ passwd
 service sshd restart
 ```
 
-重启后在电脑命令行就可以通过 ssh 协议加上用户名称 &#43; 密码连接远程服务器了。
+重启后在电脑命令行就可以通过 ssh 协议加上用户名称 + 密码连接远程服务器了。
 
 ```bash
 ssh root@3.85.xxx.xxx
 ```
 
-&gt; 后续操作尽量用 root 用户进行。
+> 后续操作尽量用 root 用户进行。
 
 ## 安装宝塔面板
 
 宝塔面板是一个服务器管理面板，可以通过宝塔面板来管理服务器，比如安装 nginx、mysql、php 等等。
 
 ```bash
-yum install -y wget &amp;&amp; wget -O install.sh https://download.bt.cn/install/install_6.0.sh &amp;&amp; sh install.sh ed8484bec
+yum install -y wget && wget -O install.sh https://download.bt.cn/install/install_6.0.sh && sh install.sh ed8484bec
 ```
 
 1. 在亚马逊服务器实例安全组中放行 TCP `19430` 端口
@@ -149,9 +149,9 @@ scp -r /path/to/public root@3.85.xxx.xxx:/www/wwwroot/hugo
 
 ## 注意事项
 
-&gt; 亚马逊的服务器每个月免费时长时 **750** 小时，一个月 31 天 x 24 = 744 小时，正常使用是不会超出免费的份额的，但切记不要同时开两个服务器实例，使用时长会累加，不注意可能会超出套餐额度。
-&gt;
-&gt; 到期后，如果不想继续使用，一定要记得删除实例，不然会一直扣费的。在控制台选中实例，点击实例状态-&gt;终止实例。
+> 亚马逊的服务器每个月免费时长时 **750** 小时，一个月 31 天 x 24 = 744 小时，正常使用是不会超出免费的份额的，但切记不要同时开两个服务器实例，使用时长会累加，不注意可能会超出套餐额度。
+>
+> 到期后，如果不想继续使用，一定要记得删除实例，不然会一直扣费的。在控制台选中实例，点击实例状态->终止实例。
 
 ## 总结
 

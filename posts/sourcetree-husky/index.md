@@ -17,8 +17,8 @@
 
 配置 `.huskyrc` 文件，内容如下：
 
-```bash {title=&#34;~/.huskyrc&#34;}
-export PATH=\&#34;$(dirname $(which node)):\$PATH\&#34;
+```bash {title="~/.huskyrc"}
+export PATH=\"$(dirname $(which node)):\$PATH\"
 ```
 
 如果你使用了 `zsh` 和 `nvm`, 建议在 `$ZSH_CUSTOM` 目录下添加一个自定义 zsh 脚本。
@@ -28,35 +28,35 @@ export PATH=\&#34;$(dirname $(which node)):\$PATH\&#34;
 vim $ZSH_CUSTOM/nvm_custom.zsh
 ```
 
-```zsh {title=&#34;$ZSH_CUSTOM/nvm_custom.zsh&#34;}
+```zsh {title="$ZSH_CUSTOM/nvm_custom.zsh"}
 # https://github.com/nvm-sh/nvm#manual-install
-export NVM_DIR=&#34;$HOME/.nvm&#34;
-[ -s &#34;$NVM_DIR/nvm.sh&#34; ] &amp;&amp; \. &#34;$NVM_DIR/nvm.sh&#34;  # This loads nvm
-[ -s &#34;$NVM_DIR/bash_completion&#34; ] &amp;&amp; \. &#34;$NVM_DIR/bash_completion&#34;  # This loads nvm bash_completion
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 # https://github.com/nvm-sh/nvm#deeper-shell-integration
 autoload -U add-zsh-hook
 load-nvmrc() {
-  local node_version=&#34;$(nvm version)&#34;
-  local nvmrc_path=&#34;$(nvm_find_nvmrc)&#34;
+  local node_version="$(nvm version)"
+  local nvmrc_path="$(nvm_find_nvmrc)"
 
-  if [ -n &#34;$nvmrc_path&#34; ]; then
-    local nvmrc_node_version=$(nvm version &#34;$(cat &#34;${nvmrc_path}&#34;)&#34;)
+  if [ -n "$nvmrc_path" ]; then
+    local nvmrc_node_version=$(nvm version "$(cat "${nvmrc_path}")")
 
-    if [ &#34;$nvmrc_node_version&#34; = &#34;N/A&#34; ]; then
+    if [ "$nvmrc_node_version" = "N/A" ]; then
       nvm install
-    elif [ &#34;$nvmrc_node_version&#34; != &#34;$node_version&#34; ]; then
+    elif [ "$nvmrc_node_version" != "$node_version" ]; then
       nvm use
     fi
-  elif [ &#34;$node_version&#34; != &#34;$(nvm version default)&#34; ]; then
-    echo &#34;Reverting to nvm default version&#34;
+  elif [ "$node_version" != "$(nvm version default)" ]; then
+    echo "Reverting to nvm default version"
     nvm use default
   fi
 
   # fix husky hook
   # ref: https://github.com/typicode/husky/issues/390#issuecomment-762213421
   # for husky 8 ~/.huskyrc, for husky 9 ~/.config/husky/init.sh
-  echo &#34;export PATH=\&#34;$(dirname $(which node)):\$PATH\&#34;&#34; &gt; ~/.config/husky/init.sh
+  echo "export PATH=\"$(dirname $(which node)):\$PATH\"" > ~/.config/husky/init.sh
 }
 add-zsh-hook chpwd load-nvmrc
 load-nvmrc
@@ -65,14 +65,14 @@ load-nvmrc
 export NVM_NODEJS_ORG_MIRROR=https://mirrors.ustc.edu.cn/node/
 ```
 
-&gt; 如果你使用的是 husky 9 之后的版本，需要将 `~/.huskyrc` 替换为 `~/.config/husky/init.sh`。
+> 如果你使用的是 husky 9 之后的版本，需要将 `~/.huskyrc` 替换为 `~/.config/husky/init.sh`。
 
 ## 参考
 
 - [解决 SourceTree 提交时候 husky 命令失败问题](https://wxhboy.cn/2022/04/12/%E8%A7%A3%E5%86%B3SourceTree%E6%8F%90%E4%BA%A4%E6%97%B6%E5%80%99husky%E5%91%BD%E4%BB%A4%E5%A4%B1%E8%B4%A5%E9%97%AE%E9%A2%98/)
-- &lt;https://github.com/typicode/husky/issues/390#issuecomment-762213421&gt;
-- &lt;https://github.com/typicode/husky/issues/904#issuecomment-862184954&gt;
-- &lt;https://github.com/nvm-sh/nvm#deeper-shell-integration&gt;
+- <https://github.com/typicode/husky/issues/390#issuecomment-762213421>
+- <https://github.com/typicode/husky/issues/904#issuecomment-862184954>
+- <https://github.com/nvm-sh/nvm#deeper-shell-integration>
 
 
 ---

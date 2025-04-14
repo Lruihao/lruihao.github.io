@@ -1,18 +1,18 @@
-# Lruihao&#39;s Note
+# Lruihao's Note
 
 # 菠菜眾長
 
-[![Hugo](https://img.shields.io/badge/Hugo-%5E0.134.1-ff4088?style=flat&amp;logo=hugo)](https://gohugo.io/)
+[![Hugo](https://img.shields.io/badge/Hugo-%5E0.134.1-ff4088?style=flat&logo=hugo)](https://gohugo.io/)
 [![Hugo build and deploy](https://github.com/Lruihao/hugo-blog/actions/workflows/deploy.yml/badge.svg?branch=main)](https://github.com/Lruihao/hugo-blog/actions/workflows/deploy.yml)
 [![GitHub commit activity (main)](https://img.shields.io/github/commit-activity/m/Lruihao/hugo-blog/main?style=flat)](https://github.com/Lruihao/hugo-blog/commits/main)
 
-&gt; 站名“菠菜眾長”，取“兼收並蓄，博採眾長”之意。
+> 站名“菠菜眾長”，取“兼收並蓄，博採眾長”之意。
 
 博客基于 [Hugo](https://github.com/gohugoio/hugo) 和 [FixIt](https://github.com/Lruihao/FixIt) 搭建，建站的初衷不是为了炫耀所知，而是记录无知。
 
 博客内容主要以 Web 前端开发方向为主，分享一些有趣程序、技巧、开发教程、心情和学习记录等。
 
-你可以通过我的[微信公众号](https://lruihao.cn/images/qr-wx-mp.webp &#34;关注「菠菜眾長」公众号&#34;)、[GitHub](https://github.com/Lruihao/hugo-blog &#34;Watch on GitHub&#34;) 或 [RSS](http://lruihao.cn/index.xml) 来订阅本博客。
+你可以通过我的[微信公众号](https://lruihao.cn/images/qr-wx-mp.webp "关注「菠菜眾長」公众号")、[GitHub](https://github.com/Lruihao/hugo-blog "Watch on GitHub") 或 [RSS](http://lruihao.cn/index.xml) 来订阅本博客。
 
 ![blog-preview](https://raw.githubusercontent.com/Lruihao/hugo-blog/refs/heads/main/assets/images/apple-devices-preview.webp)
 
@@ -57,16 +57,16 @@
 
 ### System requirements
 
-- [Node.js](https://nodejs.org/): &gt;= 18.0.0
+- [Node.js](https://nodejs.org/): >= 18.0.0
 - [Go](https://go.dev/dl/)
-- [Hugo](https://gohugo.io/installation/): &gt;= 0.134.1 (extended version)
+- [Hugo](https://gohugo.io/installation/): >= 0.134.1 (extended version)
 
 ### Clone
 
 首先点上 Star 😜，然后下载源码：
 
 ```bash
-git clone --recursive git@github.com:Lruihao/hugo-blog.git &amp;&amp; cd hugo-blog
+git clone --recursive git@github.com:Lruihao/hugo-blog.git && cd hugo-blog
 ```
 
 下载源码后，有两种方法可以启动这个博客。
@@ -85,8 +85,8 @@ npm run server:production
 npm run update:theme
 ```
 
-&lt;details&gt;
-&lt;summary&gt;如果没有全局安装 Hugo，甚至可以通过 hugo-bin 在 Node.js 环境下使用 Hugo。&lt;/summary&gt;
+<details>
+<summary>如果没有全局安装 Hugo，甚至可以通过 hugo-bin 在 Node.js 环境下使用 Hugo。</summary>
 
 参考：[hugo-bin](https://github.com/fenneclab/hugo-bin)
 
@@ -99,14 +99,14 @@ npm install hugo-bin --save-dev
 ```json
 {
   ...
-  &#34;hugo-bin&#34;: {
-    &#34;buildTags&#34;: &#34;extended&#34;
+  "hugo-bin": {
+    "buildTags": "extended"
   }
 }
 ```
 
 再通过 `npx hugo` 启动。
-&lt;/details&gt;
+</details>
 
 ### Hugo
 
@@ -117,11 +117,11 @@ hugo server --disableFastRender --navigateToChanged --bind 0.0.0.0
 hugo server --disableFastRender --navigateToChanged --environment production --bind 0.0.0.0
 ```
 
-&lt;details&gt;
-&lt;summary&gt;此外，还可以运行 shell 脚本来选择常用的 Hugo 命令。&lt;/summary&gt;
+<details>
+<summary>此外，还可以运行 shell 脚本来选择常用的 Hugo 命令。</summary>
 
 ```bash
-cd .shell &amp;&amp; sh hugo_main.sh
+cd .shell && sh hugo_main.sh
 ```
 
 ```text
@@ -135,10 +135,10 @@ Please enter the serial number to work
 5. submodule-sync
 6. push
 --------------------------------------
-Press Ctrl&#43;C to stop
+Press Ctrl+C to stop
 ```
 
-&lt;/details&gt;
+</details>
 
 ## License
 
@@ -155,7 +155,7 @@ Press Ctrl&#43;C to stop
 
 ## Author
 
-[Lruihao](https://github.com/Lruihao &#34;在 GitHub 上关注我&#34;)
+[Lruihao](https://github.com/Lruihao "在 GitHub 上关注我")
 
 
 ---

@@ -1,19 +1,19 @@
 # 重新认识 JavaScript
 
 
-{{&lt; admonition tip &#34;前言&#34; &gt;}}
+{{< admonition tip "前言" >}}
 
 前端框架轮替变化越来越快，JavaScript 也在不断地升级迭代，越来越多的新特性让我们的代码写起来变得简洁有趣。
 
 每隔一段时间就该重新认识一下 JS，这篇文章会介绍 6 种新特性，一起研究一下吧。
 
-{{&lt; /admonition &gt;}}
+{{< /admonition >}}
 
-&lt;!--more--&gt;
+<!--more-->
 
 ## 数组方法 some, every, find, filter, map
 
-&gt; 共同点：这几个方法都不会改变原始数组。
+> 共同点：这几个方法都不会改变原始数组。
 
 **[some](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/some)**
 
@@ -26,19 +26,19 @@ arr.some(callback(element[, index[, array]])[, thisArg])
 ```
 
 ```js
-[2, 5, 8, 1, 4].some((x) =&gt; x &gt; 10); // false
-[12, 5, 8, 1, 4].some((x) =&gt; x &gt; 10); // true
+[2, 5, 8, 1, 4].some((x) => x > 10); // false
+[12, 5, 8, 1, 4].some((x) => x > 10); // true
 ```
 
-{{&lt; admonition tip &gt;}}
+{{< admonition tip >}}
 
 `some()` 不会对空数组进行检测，空数组返回 `false`
 
-{{&lt; /admonition &gt;}}
+{{< /admonition >}}
 
 **[every](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/every)**
 
-&gt; 助记：`every()` 和 `some()` 功能相反
+> 助记：`every()` 和 `some()` 功能相反
 
 `every()` 方法测试一个数组内的所有元素是否都能通过某个指定函数的测试，它返回一个布尔值。
 
@@ -49,19 +49,19 @@ arr.every(callback(element[, index[, array]])[, thisArg])
 ```
 
 ```js
-[12, 5, 8, 130, 44].every((x) =&gt; x &gt;= 10); // false
-[12, 54, 18, 130, 44].every((x) =&gt; x &gt;= 10); // true
+[12, 5, 8, 130, 44].every((x) => x >= 10); // false
+[12, 54, 18, 130, 44].every((x) => x >= 10); // true
 ```
 
-{{&lt; admonition tip &gt;}}
+{{< admonition tip >}}
 
 `every()` 不会对空数组进行检测，空数组返回 `true`
 
-{{&lt; /admonition &gt;}}
+{{< /admonition >}}
 
 **[Find](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/find)**
 
-&gt; 助记：功能和 `some()` 类似，`some()` 返回布尔值，`find()` 返回**找到**的元素
+> 助记：功能和 `some()` 类似，`some()` 返回布尔值，`find()` 返回**找到**的元素
 
 `find()` 方法返回数组中满足提供的测试函数的第一个元素的值，否则返回 [`undefined`](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/undefined)。
 
@@ -72,23 +72,23 @@ arr.find(callback[, thisArg])
 ```js
 const array1 = [5, 12, 8, 130, 44];
 
-const found = array1.find((element) =&gt; element &gt; 10);
+const found = array1.find((element) => element > 10);
 
 console.log(found);
 // expected output: 12
 ```
 
-{{&lt; admonition quote &gt;}}
+{{< admonition quote >}}
 
 另请参见 [`findIndex()`](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/findIndex) 方法，它返回数组中找到的元素的索引，而不是其值。
 
 如果你需要找到一个元素的位置或者一个元素是否存在于数组中，使用 [`Array.prototype.indexOf()`](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/indexOf) 或 [`Array.prototype.includes()`](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/includes)。
 
-{{&lt; /admonition &gt;}}
+{{< /admonition >}}
 
 **[filter](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/filter)**
 
-&gt; 助记：如字面意思，它是一个筛子，会筛选出满足条件的元素
+> 助记：如字面意思，它是一个筛子，会筛选出满足条件的元素
 
 `filter()` 方法创建一个新数组，其包含通过所提供函数实现的测试的所有元素。
 
@@ -99,17 +99,17 @@ var newArray = arr.filter(callback(element[, index[, array]])[, thisArg])
 ```
 
 ```js
-const words = [&#39;spray&#39;, &#39;limit&#39;, &#39;elite&#39;, &#39;exuberant&#39;, &#39;destruction&#39;, &#39;present&#39;];
+const words = ['spray', 'limit', 'elite', 'exuberant', 'destruction', 'present'];
 
-const result = words.filter((word) =&gt; word.length &gt; 6);
+const result = words.filter((word) => word.length > 6);
 
 console.log(result);
-// expected output: Array [&#34;exuberant&#34;, &#34;destruction&#34;, &#34;present&#34;]
+// expected output: Array ["exuberant", "destruction", "present"]
 ```
 
 **[map](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/map)**
 
-&gt; 助记：功能和 `filter()` 类似，`filter()` 返回筛选的元素，`map()` 返回筛选的结果值
+> 助记：功能和 `filter()` 类似，`filter()` 返回筛选的元素，`map()` 返回筛选的结果值
 
 `map()` 方法创建一个新数组，这个新数组由原数组中的每个元素都调用一次提供的函数后的返回值组成。
 
@@ -125,7 +125,7 @@ var new_array = arr.map(function callback(currentValue[, index[, array]]) {
 const array1 = [1, 4, 9, 16];
 
 // pass a function to map
-const map1 = array1.map((x) =&gt; x * 2);
+const map1 = array1.map((x) => x * 2);
 
 console.log(map1);
 // expected output: Array [2, 8, 18, 32]
@@ -143,11 +143,11 @@ console.log(map1);
 const Person = function (age) {
   this.age = age;
 };
-Person.prototype.name = &#39;fatfish&#39;;
+Person.prototype.name = 'fatfish';
 
 const p1 = new Person(24);
-console.log(&#39;age&#39; in p1); // true
-console.log(&#39;name&#39; in p1); // true  注意这里
+console.log('age' in p1); // true
+console.log('name' in p1); // true  注意这里
 ```
 
 **obj.hasOwnProperty**
@@ -158,17 +158,17 @@ console.log(&#39;name&#39; in p1); // true  注意这里
 const Person = function (age) {
   this.age = age;
 };
-Person.prototype.name = &#39;fatfish&#39;;
+Person.prototype.name = 'fatfish';
 
 const p1 = new Person(24);
-console.log(p1.hasOwnProperty(&#39;age&#39;)); // true
-console.log(p1.hasOwnProperty(&#39;name&#39;)); // fasle  注意这里
+console.log(p1.hasOwnProperty('age')); // true
+console.log(p1.hasOwnProperty('name')); // fasle  注意这里
 ```
 
 `obj.hasOwnProperty` 已经可以过滤掉原型链上的属性，但在某些情况下，它还是不安全。
 
 ```javascript
-Object.create(null).hasOwnProperty(&#39;name&#39;);
+Object.create(null).hasOwnProperty('name');
 // Uncaught TypeError: Object.create(...).hasOwnProperty is not a function
 ```
 
@@ -178,13 +178,13 @@ Object.create(null).hasOwnProperty(&#39;name&#39;);
 
 ```javascript
 let object = { age: 24 };
-Object.hasOwn(object, &#39;age&#39;); // true
+Object.hasOwn(object, 'age'); // true
 
 let object3 = Object.create(null);
-Object.hasOwn(object3, &#39;age&#39;); // false
+Object.hasOwn(object3, 'age'); // false
 ```
 
-## 使用 &#34;#&#34; 声明私有属性
+## 使用 "#" 声明私有属性
 
 以前，我们一般用 `_` 表示私有属性，但它并不靠谱，还是会被外部修改。
 
@@ -204,7 +204,7 @@ class Person {
     console.log(this._money);
   }
 }
-const p1 = new Person(&#39;fatfish&#39;);
+const p1 = new Person('fatfish');
 console.log(p1.money); // 1
 console.log(p1._money); // 1
 p1._money = 2; // 依旧可以从外部修改_money 属性，所以这种做法并不安全
@@ -230,12 +230,12 @@ class Person {
     console.log(this.#money);
   }
 }
-const p1 = new Person(&#39;fatfish&#39;);
+const p1 = new Person('fatfish');
 console.log(p1.money); // 1
 // p1.#money = 2 // 没法从外部直接修改
 p1.money = 2;
 console.log(p1.money); // 2
-console.log(p1.#money); // Uncaught SyntaxError: Private field &#39;#money&#39; must be declared in an enclosing class
+console.log(p1.#money); // Uncaught SyntaxError: Private field '#money' must be declared in an enclosing class
 ```
 
 ## 有用的数字分隔符
@@ -253,17 +253,17 @@ console.log(newSixBillion === originSixBillion);
 ```
 
 ```javascript
-const sum = 1000 &#43; 6000_000_000;
+const sum = 1000 + 6000_000_000;
 // expected output: 6000001000
 ```
 
-{{&lt; admonition tip &gt;}}
+{{< admonition tip >}}
 
 另外，我们写时间时，`24*60*60*1000` 的可读性也是远大于 `86400000` 的。
 
-{{&lt; /admonition &gt;}}
+{{< /admonition >}}
 
-## &#34;?.&#34;, &#34;??&#34;, &#34;??=&#34; 的使用
+## "?.", "??", "??=" 的使用
 
 **可选链 ?.**
 
@@ -271,19 +271,19 @@ const sum = 1000 &#43; 6000_000_000;
 
 ```js
 const obj = null;
-console.log(obj &amp;&amp; obj.name);
+console.log(obj && obj.name);
 
-const $title = document.querySelector(&#39;.title&#39;);
+const $title = document.querySelector('.title');
 const title = $title ? title.innerText : undefined;
 ```
 
-使用 `?.` 简化 `&amp;&amp;` 和三元运算符
+使用 `?.` 简化 `&&` 和三元运算符
 
 ```js
 const obj = null;
 console.log(obj?.name);
 
-const $title = document.querySelector(&#39;.title&#39;);
+const $title = document.querySelector('.title');
 const title = $title?.innerText;
 ```
 
@@ -342,17 +342,17 @@ JS 中超过 `Number.MAX_SAFE_INTEGER` 的数字计算将是不安全的。
 **Example:**
 
 ```javascript
-Math.pow(2, 53) === Math.pow(2, 53) &#43; 1; // true
-// Math.pow(2, 53) =&gt; 9007199254740992
-// Math.pow(2, 53) &#43; 1 =&gt; 9007199254740992
+Math.pow(2, 53) === Math.pow(2, 53) + 1; // true
+// Math.pow(2, 53) => 9007199254740992
+// Math.pow(2, 53) + 1 => 9007199254740992
 ```
 
 使用 `BigInt` 完全可以避免这个问题
 
 ```javascript
-BigInt(Math.pow(2, 53)) === BigInt(Math.pow(2, 53)) &#43; BigInt(1); // false
-// BigInt(Math.pow(2, 53)) =&gt; 9007199254740992n
-// BigInt(Math.pow(2, 53)) &#43; BigInt(1) =&gt; 9007199254740993n
+BigInt(Math.pow(2, 53)) === BigInt(Math.pow(2, 53)) + BigInt(1); // false
+// BigInt(Math.pow(2, 53)) => 9007199254740992n
+// BigInt(Math.pow(2, 53)) + BigInt(1) => 9007199254740993n
 ```
 
 要创建一个 BigInt，可以在一个整数的末尾添加字符`n`，或者调用函数 `BigInt()`。
@@ -360,9 +360,9 @@ BigInt(Math.pow(2, 53)) === BigInt(Math.pow(2, 53)) &#43; BigInt(1); // false
 ```js
 let foo = BigInt(1); // 1n
 let bar = BigInt(2); // 2n
-console.log(foo &gt; bar); // false
+console.log(foo > bar); // false
 
-console.log(1n &gt; 2n); // false
+console.log(1n > 2n); // false
 ```
 
 _学无止境，与未来的自己共勉_

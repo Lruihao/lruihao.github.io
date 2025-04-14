@@ -31,12 +31,12 @@
 
 ### 程式碼排版
 
-&gt; 在程式開發中，程式碼排版很重要。一個好的排版利於開發人員程式閱讀，也便於後期維護人員閱讀。
+> 在程式開發中，程式碼排版很重要。一個好的排版利於開發人員程式閱讀，也便於後期維護人員閱讀。
 
 在 NetBeans 中設置程式碼排版
 
-1. 打開 NetBeans-&gt;Tools-&gt;Options-&gt;Editor-&gt;Formatting；
-2. Language 選擇 All Languages，勾選&#34;Expand Tabs to Spaces&#34;, 用兩個空格鍵代替 Tab 鍵，首行留兩個 Tab 鍵。
+1. 打開 NetBeans->Tools->Options->Editor->Formatting；
+2. Language 選擇 All Languages，勾選"Expand Tabs to Spaces", 用兩個空格鍵代替 Tab 鍵，首行留兩個 Tab 鍵。
 3. 點擊 Apply 或 Ok 完成設置。具體設置及效果如下圖所示：
 
 ![Formatting 设置](images/Formatting.png)
@@ -45,13 +45,13 @@
 
 ### 程式碼樣板
 
-&gt; 程式碼樣板可以幫助你快速書寫程序，不必繁瑣地聲明函數或其他代碼塊，更專注與邏輯的書寫。
+> 程式碼樣板可以幫助你快速書寫程序，不必繁瑣地聲明函數或其他代碼塊，更專注與邏輯的書寫。
 
 在 NetBeans 中設置程式碼樣板
 
 1. 打開 NetBeans→Tools→Options→Editor→Code Templates；
 2. 選擇你所用的語言（這裡以 JavaScript 為例）；
-3. 點擊&#34;New&#34;新建屬於你的或修改原有的程式碼樣板（例子僅為演示）；
+3. 點擊"New"新建屬於你的或修改原有的程式碼樣板（例子僅為演示）；
 4. 在編程中應用它。
 
 ![FindTemplate](images/FindTemplate.png)
@@ -74,32 +74,32 @@
 
 | 键位                  | 作用                                                     |
 | :-------------------- | :------------------------------------------------------- |
-| Ctrl&#43;/                | 注释一行（或选中部分）                                   |
-| Ctrl&#43;X                | 剪切一行（或选中部分）                                   |
-| Ctrl&#43;E                | 删除一行（或选中部分）                                   |
-| Shift&#43;Alt&#43;上下方向键  | 移动当前行                                               |
-| Ctrl&#43;Shift&#43;上下方向键 | 复制当前行（该操作并非复制到粘贴板）                     |
-| Shift&#43;Alt&#43;F           | 整理代码                                                 |
+| Ctrl+/                | 注释一行（或选中部分）                                   |
+| Ctrl+X                | 剪切一行（或选中部分）                                   |
+| Ctrl+E                | 删除一行（或选中部分）                                   |
+| Shift+Alt+上下方向键  | 移动当前行                                               |
+| Ctrl+Shift+上下方向键 | 复制当前行（该操作并非复制到粘贴板）                     |
+| Shift+Alt+F           | 整理代码                                                 |
 | TAB                   | 代碼自動補全/缩进/選中文字同時缩进                       |
-| Shift&#43;TAB             | 選中文字同時取消缩进                                     |
-| Ctrl&#43;F                | 查找某个字                                               |
-| Ctrl&#43;Shift&#43;F          | 整个项目中查找某个字                                     |
-| Ctrl&#43;H                | 替换某个字                                               |
-| Ctrl&#43;Enter            | 增加空白行，光标不动。                                   |
-| Ctrl&#43;(0~7)            | 打开各种小窗口                                           |
-| Shift&#43;方向键          | 選中文字                                                 |
-| Ctrl&#43;Alt&#43;Space        | 代码输入提示，不习惯的可以设置为 (Alt&#43;/)，超级好用！！！ |
-| Ctrl&#43;Shift&#43;F5         | 调试当前程序                                             |
-| Shift&#43;F6              | 运行当前程序                                             |
+| Shift+TAB             | 選中文字同時取消缩进                                     |
+| Ctrl+F                | 查找某个字                                               |
+| Ctrl+Shift+F          | 整个项目中查找某个字                                     |
+| Ctrl+H                | 替换某个字                                               |
+| Ctrl+Enter            | 增加空白行，光标不动。                                   |
+| Ctrl+(0~7)            | 打开各种小窗口                                           |
+| Shift+方向键          | 選中文字                                                 |
+| Ctrl+Alt+Space        | 代码输入提示，不习惯的可以设置为 (Alt+/)，超级好用！！！ |
+| Ctrl+Shift+F5         | 调试当前程序                                             |
+| Shift+F6              | 运行当前程序                                             |
 | F6                    | 运行主程序                                               |
-| Alt&#43;Enter             | 显示程式 bug 建议或者警示等                              |
+| Alt+Enter             | 显示程式 bug 建议或者警示等                              |
 
 - NetBeans 中常用的快捷鍵 ↑：
 - 三種複製行方法
 
-1. 复制一行：Ctrl &#43; Shift &#43; 上下方向键（该操作并非复制到粘贴板）；
-2. 复制一行：在该行任何地方连续三击选中一样，然后 Ctrl &#43; C 即可复制一行。；
-3. 复制一行（使用宏）: 编辑 - 开始录制宏 (Home,Shift &#43; End,Ctrl &#43; C)-停止录制宏 - 设置宏名称（如 select-entire-line)-设置快捷键（如 Ctrl &#43; Alt &#43; C)；
+1. 复制一行：Ctrl + Shift + 上下方向键（该操作并非复制到粘贴板）；
+2. 复制一行：在该行任何地方连续三击选中一样，然后 Ctrl + C 即可复制一行。；
+3. 复制一行（使用宏）: 编辑 - 开始录制宏 (Home,Shift + End,Ctrl + C)-停止录制宏 - 设置宏名称（如 select-entire-line)-设置快捷键（如 Ctrl + Alt + C)；
 
 - 也可自己修改快捷鍵 (Tools→Options→Keympa), 如下圖
 
@@ -107,11 +107,11 @@
 
 ### 遠程開發 (FTP)
 
-&gt; 工作为例
+> 工作为例
 
 1. 新建项目
    1. 打开软件，进入新建项目页面（File-New Project），新建 php 项目，选择第一个（PHP-PHP Application）
-   2. 项目名和地址自己选择（注意，选择地址后需在地址最后面加上&#34;/项目名&#34;）
+   2. 项目名和地址自己选择（注意，选择地址后需在地址最后面加上"/项目名"）
 2. FTP 设置
    1. 点击下一步，进入 FTP 设置，Run As 选择 Remote Web Site(FTP,SFTP)
    2. Project URL 填写`http://127.0.0.1/training/工号`

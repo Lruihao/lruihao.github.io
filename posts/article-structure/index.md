@@ -3,7 +3,7 @@
 
 最近读了张鑫旭大佬的掘金小册《技术写作指南》，学到了很多写作技巧，其中感触最深的就是“技巧：如何搭建文章的框架结构”这一小节，这篇文章就来分享一下。
 
-&lt;!--more--&gt;
+<!--more-->
 
 ## 方法论的作用
 
@@ -45,19 +45,19 @@
 
 ```mermaid
 graph LR
-  A[&#34;作用是什么？
-  &lt;small&gt;&lt;b&gt;（亮点前置）&lt;/b&gt;&lt;/small&gt;&#34;]
-  B((&#34;效果演示
-  &lt;small&gt;(如果有)&lt;/small&gt;&#34;))
-  C[&#34;语法和参数&#34;]
-  D[&#34;具体使用说明
-  &lt;small&gt;&lt;b&gt;（主要篇幅）&lt;/b&gt;&lt;/small&gt;&#34;]
-  E{&#34;案例&#34;}
-  F[&#34;细节知识（包括兼容性）&#34;]
-  G[&#34;点评总结
-  &lt;small&gt;&lt;b&gt;（稀缺内容）&lt;/b&gt;&lt;/small&gt;&#34;]
+  A["作用是什么？
+  <small><b>（亮点前置）</b></small>"]
+  B(("效果演示
+  <small>(如果有)</small>"))
+  C["语法和参数"]
+  D["具体使用说明
+  <small><b>（主要篇幅）</b></small>"]
+  E{"案例"}
+  F["细节知识（包括兼容性）"]
+  G["点评总结
+  <small><b>（稀缺内容）</b></small>"]
   A---B---C---D---F---G
-  D-.-&gt;E
+  D-.->E
   
 ```
 
@@ -72,18 +72,18 @@ graph LR
 ```mermaid
 graph LR
   A[现象描述]
-  B((&#34;想象演示
-  &lt;small&gt;（视频或图片）&lt;/small&gt;&#34;))
+  B(("想象演示
+  <small>（视频或图片）</small>"))
   C[解释说明]
   D[基本概念]
   E[浅层原因]
-  F[&#34;更深入解释
-  &lt;small&gt;&lt;b&gt;（体现专业深度）&lt;/b&gt;&lt;/small&gt;&#34;]
-  G[&#34;启示与拓展
-  &lt;small&gt;&lt;b&gt;（稀缺内容）&lt;/b&gt;&lt;/small&gt;&#34;]
-  D-.-&gt;C
+  F["更深入解释
+  <small><b>（体现专业深度）</b></small>"]
+  G["启示与拓展
+  <small><b>（稀缺内容）</b></small>"]
+  D-.->C
   A---B---C---F---G
-  E-.-&gt;C
+  E-.->C
 ```
 
 ### 3. 功能实现
@@ -105,14 +105,14 @@ B((效果演示))
 C[在线 demo]
 D[视频或截图]
 E[实现思路]
-F[&#34;实现代码
-&lt;small&gt;&lt;b&gt;（读者最关心）&lt;/b&gt;&lt;/small&gt;&#34;]
+F["实现代码
+<small><b>（读者最关心）</b></small>"]
 G[实现原理]
 H[总结与拓展]
-C-.-&gt;B
-E-. 你也可以在这个位置 .-&gt;G
+C-.->B
+E-. 你也可以在这个位置 .->G
 A---B---E---F---G---H
-D-.-&gt;B
+D-.->B
 ```
 
 ### 4. 使用教程
@@ -123,14 +123,14 @@ D-.-&gt;B
 
 ```mermaid
 graph LR
-  A[&#34;背景说明
-  &lt;small&gt;（如果有）&lt;/small&gt;&#34;]
-  B[&#34;步骤1/操作1
-  &lt;small&gt;（注意事项或示意图）&lt;/small&gt;&#34;]
-  C[&#34;步骤2/操作2
-  &lt;small&gt;（注意事项或示意图）&lt;/small&gt;&#34;]
-  D[&#34;步骤3/操作3
-  &lt;small&gt;（注意事项或示意图）&lt;/small&gt;&#34;]
+  A["背景说明
+  <small>（如果有）</small>"]
+  B["步骤1/操作1
+  <small>（注意事项或示意图）</small>"]
+  C["步骤2/操作2
+  <small>（注意事项或示意图）</small>"]
+  D["步骤3/操作3
+  <small>（注意事项或示意图）</small>"]
   E[其他说明]
   A---B---C---D-- ... ---E
 ```
@@ -145,21 +145,21 @@ graph LR
 
 ```mermaid
 graph LR
-  A[&#34;背景描述
-  &lt;small&gt;（如果有）&lt;/small&gt;&#34;]
+  A["背景描述
+  <small>（如果有）</small>"]
   B[问题描述]
-  C((&#34;问题演示
-  &lt;small&gt;（视频或图片）&lt;/small&gt;&#34;))
-  D[&#34;我的思考
+  C(("问题演示
+  <small>（视频或图片）</small>"))
+  D["我的思考
  再次思考
- ...&#34;]
-  E[&#34;初次尝试
+ ..."]
+  E["初次尝试
  再次尝试
- ...&#34;]
+ ..."]
   F{结果}
   G[结语]
-  A---B---C---D==&gt;E==&gt;F-- YES --&gt;G
-  F== NO ==&gt;D
+  A---B---C---D==>E==>F-- YES -->G
+  F== NO ==>D
 
 ```
 
@@ -186,11 +186,11 @@ graph LR
  H[主体可以是个人一可以是团队]
  I[总结]
  J[感谢]
-  C-.-&gt;B
+  C-.->B
   A---B---D---I---J
-  subgraph D[&#34;项目详情&lt;small&gt;（根据实际情况调整）&lt;/small&gt;&#34;]
+  subgraph D["项目详情<small>（根据实际情况调整）</small>"]
    direction BT
-    E &amp; F &amp; G---H
+    E & F & G---H
   end
 ```
 
@@ -210,18 +210,18 @@ graph LR
 
 ```mermaid
 graph LR
-  A[&#34;会议简介
-  &lt;small&gt;（时间、与会人等）&lt;/small&gt;&#34;]
-  B((&#34;现场照片
-  &lt;small&gt;（如果有）&lt;/small&gt;&#34;))
-  C[&#34;过程1
-  &lt;small&gt;点评（如果有）&lt;/small&gt;&#34;]
-  D[&#34;过程2
-  &lt;small&gt;点评（如果有）&lt;/small&gt;&#34;]
-  E[&#34;过程3
-  &lt;small&gt;点评（如果有）&lt;/small&gt;&#34;]
+  A["会议简介
+  <small>（时间、与会人等）</small>"]
+  B(("现场照片
+  <small>（如果有）</small>"))
+  C["过程1
+  <small>点评（如果有）</small>"]
+  D["过程2
+  <small>点评（如果有）</small>"]
+  E["过程3
+  <small>点评（如果有）</small>"]
   F[自己的感受]
-  A---B--&gt;C-- 时间 --&gt;D-- 顺序 --&gt;E-- ... ---F
+  A---B-->C-- 时间 -->D-- 顺序 -->E-- ... ---F
 
 ```
 
@@ -237,18 +237,18 @@ graph LR
 
 ```mermaid
 graph LR
-  A[&#34;故事背景
-  &lt;small&gt;（为什么会使用此工具？）&lt;/small&gt;&#34;]
+  A["故事背景
+  <small>（为什么会使用此工具？）</small>"]
   B[使用过程全记录]
-  C[&#34;使用感受
-  &lt;small&gt;&lt;b&gt;（核心价值）&lt;/b&gt;&lt;/small&gt;&#34;]
-  D[&#34;优点是？缺点是？&#34;]
-  E[&#34;和同类工具对比如何？&#34;]
-  F[&#34;对其未来发展的判断是？&#34;]
+  C["使用感受
+  <small><b>（核心价值）</b></small>"]
+  D["优点是？缺点是？"]
+  E["和同类工具对比如何？"]
+  F["对其未来发展的判断是？"]
   G[最后的总结]
   H((视频或截图))
-  A---B---C--&gt;D &amp; E &amp; F--&gt;G
-  H-.-&gt;B
+  A---B---C-->D & E & F-->G
+  H-.->B
 ```
 
 ### 9. 技术人文
@@ -259,14 +259,14 @@ graph LR
 
 ```mermaid
 graph LR
-  A[&#34;论点先行
-  &lt;small&gt;（我认为…）&lt;/small&gt;&#34;]
-  B[&#34;原因1
-  &lt;small&gt;（案例佐证）&lt;/small&gt;&#34;]
-  C[&#34;原因2
-  &lt;small&gt;（案例佐证）&lt;/small&gt;&#34;]
-  D[&#34;原因3
-  &lt;small&gt;（案例佐证）&lt;/small&gt;&#34;]
+  A["论点先行
+  <small>（我认为…）</small>"]
+  B["原因1
+  <small>（案例佐证）</small>"]
+  C["原因2
+  <small>（案例佐证）</small>"]
+  D["原因3
+  <small>（案例佐证）</small>"]
   E[最后的总结]
   A---B---C---D-- ... ---E
 
@@ -282,8 +282,8 @@ graph LR
   B[做了什么事情]
   C[发生了什么结果]
   D[当事人的感受]
-  E[&#34;再后来……&#34;]
-  A---B--&gt;C--&gt;D--&gt;E--&gt;B
+  E["再后来……"]
+  A---B-->C-->D-->E-->B
 ```
 
 当然，还有其他类型的技术文章，例如技术八卦、行业新闻等，我就不一一展示了，基本上都是有迹可循的。

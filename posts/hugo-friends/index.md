@@ -1,16 +1,16 @@
 # Hugo 友情連結模板
 
-&lt;!-- markdownlint-disable MD034 --&gt;
+<!-- markdownlint-disable MD034 -->
 
-{{&lt; admonition question &#34;過程&#34; &gt;}}
+{{< admonition question "過程" >}}
 以前的 hexo 博客是自己寫的友鏈模板，換到 hugo 後想著在網上隨便找一個範本用著就好，然而並沒有自己想要的 layout, 幾乎都是使用 shortcodes 的，代碼風格有點問題且 shortcodes 作為友鏈添加的方式是真的麻煩。就只好自己寫羅。
-{{&lt; /admonition &gt;}}
+{{< /admonition >}}
 
-{{&lt; link href=&#34;https://github.com/Lruihao/FixIt&#34; content=&#34;友情鏈接模板已整合到 FixIt 主題&#34; card=true &gt;}}
+{{< link href="https://github.com/Lruihao/FixIt" content="友情鏈接模板已整合到 FixIt 主題" card=true >}}
 
-&lt;!--more--&gt;
+<!--more-->
 
-{{&lt; link href=&#34;https://lruihao.cn/friends/&#34; content=&#34;友情鏈接範本&#34; card=true &gt;}}
+{{< link href="https://lruihao.cn/friends/" content="友情鏈接範本" card=true >}}
 
 ## 創建模板
 
@@ -19,45 +19,45 @@
 新建 `layouts/friends/single.html`
 
 ```html
-{{- define &#34;title&#34; }}{{ .Title }} - {{ .Site.Title }}{{ end -}} {{- define &#34;content&#34; -}} {{- $params := .Scratch.Get &#34;params&#34; -}}
-&lt;div class=&#34;page single special&#34;&gt;
+{{- define "title" }}{{ .Title }} - {{ .Site.Title }}{{ end -}} {{- define "content" -}} {{- $params := .Scratch.Get "params" -}}
+<div class="page single special">
   {{- /* Title */ -}}
-  &lt;h1 class=&#34;single-title animated pulse faster&#34;&gt;{{- .Title -}}&lt;/h1&gt;
+  <h1 class="single-title animated pulse faster">{{- .Title -}}</h1>
 
   {{- /* Subtitle */ -}} {{- with $params.subtitle -}}
-  &lt;h2 class=&#34;single-subtitle&#34;&gt;{{ . }}&lt;/h2&gt;
-  {{- end -}} {{- /* Friend links */ -}} {{- $loading := resources.Get &#34;svg/loading.svg&#34; | minify -}}
-  &lt;script src=&#34;//at.alicdn.com/t/font_578712_g26jo2kbzd5qm2t9.js&#34;&gt;&lt;/script&gt;
-  &lt;link rel=&#34;stylesheet&#34; href=&#34;/friends/css/_friends.css&#34; /&gt;
-  &lt;div class=&#34;friend-links&#34;&gt;
+  <h2 class="single-subtitle">{{ . }}</h2>
+  {{- end -}} {{- /* Friend links */ -}} {{- $loading := resources.Get "svg/loading.svg" | minify -}}
+  <script src="//at.alicdn.com/t/font_578712_g26jo2kbzd5qm2t9.js"></script>
+  <link rel="stylesheet" href="/friends/css/_friends.css" />
+  <div class="friend-links">
     {{ range $index, $friend := .Site.Data.friends }}
-    &lt;a
-      class=&#34;friend-link&#34;
-      title=&#34;{{ $friend.description }}&#34;
-      href=&#34;{{ $friend.url | safeURL }}&#34;
-      rel=&#34;external nofollow noopener noreferrer&#34;
-      target=&#34;_blank&#34;
-    &gt;
+    <a
+      class="friend-link"
+      title="{{ $friend.description }}"
+      href="{{ $friend.url | safeURL }}"
+      rel="external nofollow noopener noreferrer"
+      target="_blank"
+    >
       {{ if $friend.avatar }}
-      &lt;img class=&#34;friend-avatar lazyload&#34; src=&#34;{{ $loading.RelPermalink }}&#34; data-src=&#34;{{ $friend.avatar }}&#34; alt=&#34;{{ $friend.nickname }}&#34; /&gt;
+      <img class="friend-avatar lazyload" src="{{ $loading.RelPermalink }}" data-src="{{ $friend.avatar }}" alt="{{ $friend.nickname }}" />
       {{ else }}
-      &lt;svg class=&#34;friend-avatar&#34; aria-hidden=&#34;true&#34;&gt;
-        &lt;use xlink:href=&#34;#icon-{{ add 1 $index }}&#34;&gt;&lt;/use&gt;
-      &lt;/svg&gt;
+      <svg class="friend-avatar" aria-hidden="true">
+        <use xlink:href="#icon-{{ add 1 $index }}"></use>
+      </svg>
       {{ end }}
-      &lt;span class=&#34;friend-nickname&#34; title=&#34;{{ $friend.nickname }}&#34;&gt;@{{ $friend.nickname }}&lt;/span&gt;
-    &lt;/a&gt;
+      <span class="friend-nickname" title="{{ $friend.nickname }}">@{{ $friend.nickname }}</span>
+    </a>
     {{ end }}
-  &lt;/div&gt;
+  </div>
 
   {{- /* Content */ -}}
-  &lt;div class=&#34;content&#34; id=&#34;content&#34;&gt;
-    {{- dict &#34;Content&#34; .Content &#34;Ruby&#34; $params.ruby &#34;Fraction&#34; $params.fraction &#34;Fontawesome&#34; $params.fontawesome | partial &#34;function/content.html&#34; |
+  <div class="content" id="content">
+    {{- dict "Content" .Content "Ruby" $params.ruby "Fraction" $params.fraction "Fontawesome" $params.fontawesome | partial "function/content.html" |
     safeHTML -}}
-  &lt;/div&gt;
+  </div>
 
-  {{- /* Comment */ -}} {{- partial &#34;comment.html&#34; . -}}
-&lt;/div&gt;
+  {{- /* Comment */ -}} {{- partial "comment.html" . -}}
+</div>
 {{- end -}}
 ```
 
@@ -67,7 +67,7 @@
 
 ```css
 /**
- * @Description: Style of layout named &#39;Friend links&#39;.
+ * @Description: Style of layout named 'Friend links'.
  * @Author: lruihao.cn
  * @Updated:  2021/9/20 19:26
  */
@@ -142,9 +142,9 @@ hugo new friends/index.md
 
    ```md
    ---
-   title: &#39;友鏈&#39;
-   date: 2021-09-19T12:33:48&#43;08:00
-   type: &#39;friends&#39;
+   title: '友鏈'
+   date: 2021-09-19T12:33:48+08:00
+   type: 'friends'
    ---
    ```
 
@@ -158,15 +158,15 @@ hugo new friends/index.md
 #   url: 站点
 #   description: 描述
 - nickname: Lruihao
-  avatar: https://gravatar.loli.net/avatar/3f985efb5907ca52944a3cd7edd51606?d=wavatar&amp;v=1.3.10
+  avatar: https://gravatar.loli.net/avatar/3f985efb5907ca52944a3cd7edd51606?d=wavatar&v=1.3.10
   url: https://lruihao.cn
   description: 不怕萬人阻擋，只怕自己投降
 ```
 
 ## 結語
 
-&gt; 這樣每次添加友鏈或者刪除友鏈衹要操作數據文件 `friends.yml` 就好，乾淨又衛生！  
-&gt; 友鏈頁面 `content/friends/index.md` 繼承了基礎頁面的功能，內容評論等
+> 這樣每次添加友鏈或者刪除友鏈衹要操作數據文件 `friends.yml` 就好，乾淨又衛生！  
+> 友鏈頁面 `content/friends/index.md` 繼承了基礎頁面的功能，內容評論等
 
 
 ---

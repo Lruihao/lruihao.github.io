@@ -1,21 +1,21 @@
 # A Hugo theme component with asciinema-embed shortcode.
 
-&lt;!-- markdownlint-disable-file MD033 MD041 --&gt;
-&lt;h1 align=&#34;center&#34;&gt;shortcode-asciinema | FixIt&lt;/h1&gt;
+<!-- markdownlint-disable-file MD033 MD041 -->
+<h1 align="center">shortcode-asciinema | FixIt</h1>
 
-&lt;div align=&#34;center&#34; class=&#34;ignore&#34;&gt;
-  &lt;p&gt;一个带有 &lt;code&gt;asciinema-embed&lt;/code&gt; shortcode 的 Hugo 主题组件。&lt;/p&gt;
+<div align="center" class="ignore">
+  <p>一个带有 <code>asciinema-embed</code> shortcode 的 Hugo 主题组件。</p>
   简体中文 |
-  &lt;a href=&#34;https://fixit.lruihao.cn/zh-cn/ecosystem/hugo-fixit/shortcode-asciinema/?lang=chinese_traditional&#34;&gt;繁體中文&lt;/a&gt; |
-  &lt;a href=&#34;https://raw.githubusercontent.com/hugo-fixit/shortcode-asciinema/refs/heads/main/README.en.md&#34;&gt;English&lt;/a&gt; |
-  &lt;a href=&#34;https://fixit.lruihao.cn/ecosystem/hugo-fixit/shortcode-asciinema/?lang=french&#34;&gt;Français&lt;/a&gt; |
-  &lt;a href=&#34;https://fixit.lruihao.cn/ecosystem/hugo-fixit/shortcode-asciinema/?lang=russian&#34;&gt;Русский язык&lt;/a&gt; |
-  &lt;a href=&#34;https://fixit.lruihao.cn/ecosystem/hugo-fixit/shortcode-asciinema/?lang=spanish&#34;&gt;Español&lt;/a&gt; |
-  &lt;a href=&#34;https://fixit.lruihao.cn/ecosystem/hugo-fixit/shortcode-asciinema/?lang=hindi&#34;&gt;हिन्दी&lt;/a&gt; |
-  &lt;a href=&#34;https://fixit.lruihao.cn/ecosystem/hugo-fixit/shortcode-asciinema/?lang=german&#34;&gt;deutsch&lt;/a&gt; |
-  &lt;a href=&#34;https://fixit.lruihao.cn/ecosystem/hugo-fixit/shortcode-asciinema/?lang=korean&#34;&gt;한국어&lt;/a&gt; |
-  &lt;a href=&#34;https://fixit.lruihao.cn/ecosystem/hugo-fixit/shortcode-asciinema/?lang=japanese&#34;&gt;しろうと&lt;/a&gt;
-&lt;/div&gt;
+  <a href="https://fixit.lruihao.cn/zh-cn/ecosystem/hugo-fixit/shortcode-asciinema/?lang=chinese_traditional">繁體中文</a> |
+  <a href="https://raw.githubusercontent.com/hugo-fixit/shortcode-asciinema/refs/heads/main/README.en.md">English</a> |
+  <a href="https://fixit.lruihao.cn/ecosystem/hugo-fixit/shortcode-asciinema/?lang=french">Français</a> |
+  <a href="https://fixit.lruihao.cn/ecosystem/hugo-fixit/shortcode-asciinema/?lang=russian">Русский язык</a> |
+  <a href="https://fixit.lruihao.cn/ecosystem/hugo-fixit/shortcode-asciinema/?lang=spanish">Español</a> |
+  <a href="https://fixit.lruihao.cn/ecosystem/hugo-fixit/shortcode-asciinema/?lang=hindi">हिन्दी</a> |
+  <a href="https://fixit.lruihao.cn/ecosystem/hugo-fixit/shortcode-asciinema/?lang=german">deutsch</a> |
+  <a href="https://fixit.lruihao.cn/ecosystem/hugo-fixit/shortcode-asciinema/?lang=korean">한국어</a> |
+  <a href="https://fixit.lruihao.cn/ecosystem/hugo-fixit/shortcode-asciinema/?lang=japanese">しろうと</a>
+</div>
 
 ## Demo
 
@@ -38,9 +38,9 @@
 ```toml
 [module]
   [[module.imports]]
-    path = &#34;github.com/hugo-fixit/FixIt&#34;
+    path = "github.com/hugo-fixit/FixIt"
   [[module.imports]]
-    path = &#34;github.com/hugo-fixit/shortcode-asciinema&#34;
+    path = "github.com/hugo-fixit/shortcode-asciinema"
 ```
 
 在 Hugo 的第一次启动时，它将下载所需的文件。
@@ -64,7 +64,7 @@ git submodule add https://github.com/hugo-fixit/shortcode-asciinema.git themes/s
 接下来编辑项目的 `hugo.toml` 并将此主题组件添加到你的主题中：
 
 ```toml
-theme = [&#34;FixIt&#34;, &#34;shortcode-asciinema&#34;]
+theme = ["FixIt", "shortcode-asciinema"]
 ```
 
 ## 记录终端
@@ -73,7 +73,7 @@ theme = [&#34;FixIt&#34;, &#34;shortcode-asciinema&#34;]
 
 ```bash
 asciinema rec demo.cast
-# press &lt;ctrl-d&gt; or type &#34;exit&#34; when you&#39;re done
+# press <ctrl-d> or type "exit" when you're done
 asciinema upload demo.cast
 ```
 
@@ -82,7 +82,7 @@ asciinema upload demo.cast
 以下是一个使用示例：
 
 ```markdown
-{{?{}&lt; asciinema-embed 697494 &gt;}}
+{{?{}< asciinema-embed 697494 >}}
 ```
 
 呈现效果如下：

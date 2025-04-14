@@ -7,12 +7,12 @@ The h-index of an author is the largest h where he has at least h papers with ci
 Bobo has published many papers. Given a0,a1,a2,...,an which means Bobo has published ai papers with  
 itations exactly i, ﬁnd the h-index of Bobo.
 
-&lt;!--more--&gt;
+<!--more-->
 
 ### Input
 
 The input consists of several test cases and is terminated by end-of-ﬁle.  
-The ﬁrst line of each test case contains an integer n. The second line contains (n&#43;1) integers a0,a1,...,an.
+The ﬁrst line of each test case contains an integer n. The second line contains (n+1) integers a0,a1,...,an.
 
 ### Output
 
@@ -45,25 +45,25 @@ For each test case, print an integer which denotes the result.
 后 AC 代码
 
 ```c
-#include &#34;bits/stdc&#43;&#43;.h&#34;
+#include "bits/stdc++.h"
 using namespace std;
 int main(){
     int a[200005];
     int n;
     int i;
-    while(cin&gt;&gt;n){
-        for(i=0;i&lt;=n;i&#43;&#43;)
-            cin&gt;&gt;a[i];
+    while(cin>>n){
+        for(i=0;i<=n;i++)
+            cin>>a[i];
         int sum=a[n];
-        for(i=n;i&gt;=0;){
-            if(sum&gt;=i){
-                cout&lt;&lt;i&lt;&lt;endl;
+        for(i=n;i>=0;){
+            if(sum>=i){
+                cout<<i<<endl;
                 break;
             }
-            else sum&#43;=a[--i];
+            else sum+=a[--i];
         }
-        if(i&lt;0)
-            cout&lt;&lt;&#34;0&#34;&lt;&lt;endl;
+        if(i<0)
+            cout<<"0"<<endl;
     }
     return 0;
 }

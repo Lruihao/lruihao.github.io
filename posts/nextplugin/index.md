@@ -1,11 +1,11 @@
 # Hexo 插件及 Next 内置样式集
 
 
-&gt; 2021/10/2 更新  
-&gt; 博客已迁移至 Hugo, 插件演示不适用，已删除。  
-&gt; 让文章写的好看又简洁又好用的插件！[hexo 完整的标签列表](https://hexo.io/zh-cn/docs/tag-plugins.html)，[next 插件列表](https://theme-next.org/docs/tag-plugins/)
+> 2021/10/2 更新  
+> 博客已迁移至 Hugo, 插件演示不适用，已删除。  
+> 让文章写的好看又简洁又好用的插件！[hexo 完整的标签列表](https://hexo.io/zh-cn/docs/tag-plugins.html)，[next 插件列表](https://theme-next.org/docs/tag-plugins/)
 
-&lt;!--more--&gt;
+<!--more-->
 
 ## hexo 插件
 
@@ -26,14 +26,14 @@ lazyload:
 
 ### hexo-ruby-marks
 
-&gt; 不支持`ruby`新标签的浏览器将显示`rp`中的内容。
+> 不支持`ruby`新标签的浏览器将显示`rp`中的内容。
 
 ```xml HTML5 写法
-&lt;ruby&gt;博採眾長&lt;rp&gt;（&lt;/rp&gt; &lt;rt&gt;lruihao.cn&lt;/rt&gt;&lt;rp&gt;）&lt;/rp&gt;&lt;/ruby&gt;
+<ruby>博採眾長<rp>（</rp> <rt>lruihao.cn</rt><rp>）</rp></ruby>
 ```
-&lt;!-- markdownlint-disable MD033 --&gt;
+<!-- markdownlint-disable MD033 -->
 
-&lt;ruby&gt;博採眾長&lt;rp&gt;（&lt;/rp&gt; &lt;rt&gt;lruihao.cn&lt;/rt&gt;&lt;rp&gt;）&lt;/rp&gt;&lt;/ruby&gt;
+<ruby>博採眾長<rp>（</rp> <rt>lruihao.cn</rt><rp>）</rp></ruby>
 
 插件使用
 
@@ -51,7 +51,7 @@ npm i hexo-ruby-marks
 npm install --save hexo-pwa
 ```
 
-&gt; You can configure this plugin in `_config.yml`.（配置完即可使用不许单独设置`manifest.json`文件及配置，插件生成）
+> You can configure this plugin in `_config.yml`.（配置完即可使用不许单独设置`manifest.json`文件及配置，插件生成）
 
 ```配置
 pwa:
@@ -68,8 +68,8 @@ pwa:
           sizes: 512x512
           type: image/png
       start_url: /index.html
-      theme_color: &#39;#ffffff&#39;
-      background_color: &#39;#ffffff&#39;
+      theme_color: '#ffffff'
+      background_color: '#ffffff'
       display: standalone
   serviceWorker:
     path: /sw.js
@@ -105,17 +105,17 @@ key can be
 
 ```plain
 dplayer options:
-    &#39;autoplay&#39;, &#39;loop&#39;, &#39;screenshot&#39;, &#39;hotkey&#39;, &#39;mutex&#39;, &#39;dmunlimited&#39; : bool options, use &#34;yes&#34; &#34;y&#34; &#34;true&#34; &#34;1&#34; &#34;on&#34; or just without value to enable
-    &#39;preload&#39;, &#39;theme&#39;, &#39;lang&#39;, &#39;logo&#39;, &#39;url&#39;, &#39;pic&#39;, &#39;thumbnails&#39;, &#39;vidtype&#39;, &#39;suburl&#39;, &#39;subtype&#39;, &#39;subbottom&#39;, &#39;subcolor&#39;, &#39;subcolor&#39;, &#39;id&#39;, &#39;api&#39;, &#39;token&#39;, &#39;addition&#39;, &#39;dmuser&#39; : string arguments
-    &#39;volume&#39;, &#39;maximum&#39; : number arguments
+    'autoplay', 'loop', 'screenshot', 'hotkey', 'mutex', 'dmunlimited' : bool options, use "yes" "y" "true" "1" "on" or just without value to enable
+    'preload', 'theme', 'lang', 'logo', 'url', 'pic', 'thumbnails', 'vidtype', 'suburl', 'subtype', 'subbottom', 'subcolor', 'subcolor', 'id', 'api', 'token', 'addition', 'dmuser' : string arguments
+    'volume', 'maximum' : number arguments
 container options:
-    &#39;width&#39;, &#39;height&#39; : string, used in container element style
+    'width', 'height' : string, used in container element style
 other:
-    &#39;code&#39; : value of this key will be append to script tag
+    'code' : value of this key will be append to script tag
 ```
 
 ```xml example
-{% dplayer &#34;url=https://moeplayer.b0.upaiyun.com/dplayer/hikarunara.mp4&#34; &#34;addition=https://dplayer.daoapp.io/bilibili?aid=4157142&#34; &#34;api=https://api.prprpr.me/dplayer/&#34; &#34;pic=https://moeplayer.b0.upaiyun.com/dplayer/hikarunara.jpg&#34; &#34;id=9E2E3368B56CDBB4&#34; &#34;loop=yes&#34; &#34;theme=#FADFA3&#34; &#34;autoplay=false&#34; &#34;token=tokendemo&#34; %}
+{% dplayer "url=https://moeplayer.b0.upaiyun.com/dplayer/hikarunara.mp4" "addition=https://dplayer.daoapp.io/bilibili?aid=4157142" "api=https://api.prprpr.me/dplayer/" "pic=https://moeplayer.b0.upaiyun.com/dplayer/hikarunara.jpg" "id=9E2E3368B56CDBB4" "loop=yes" "theme=#FADFA3" "autoplay=false" "token=tokendemo" %}
 ```
 
 ### hexo-tag-aplayer
@@ -144,14 +144,14 @@ npm install --save hexo-tag-aplayer
 当开启 Hexo 的 [文章资源文件夹](https://hexo.io/zh-cn/docs/asset-folders.html#%E6%96%87%E7%AB%A0%E8%B5%84%E6%BA%90%E6%96%87%E4%BB%B6%E5%A4%B9) 功能时，可以将图片、音乐文件、歌词文件放入与文章对应的资源文件夹中，然后直接引用：
 
 ```md
-{% aplayer &#34;Caffeine&#34; &#34;Jeff Williams&#34; &#34;caffeine.mp3&#34; &#34;picture.jpg&#34; &#34;lrc:caffeine.txt&#34; %}
+{% aplayer "Caffeine" "Jeff Williams" "caffeine.mp3" "picture.jpg" "lrc:caffeine.txt" %}
 
-{% aplayer &#34;你离开了南京，从此没人和我说话&#34; &#34;李志&#34; &#34;https://cdn-1256932288.cos.ap-chengdu.myqcloud.com/files/nanjing.mp3&#34; &#34;https://p2.music.126.net/UuSe-Vc6rS7JtRJSQgDU2g==/2323268069553116.jpg?param=300x300&#34; %}
+{% aplayer "你离开了南京，从此没人和我说话" "李志" "https://cdn-1256932288.cos.ap-chengdu.myqcloud.com/files/nanjing.mp3" "https://p2.music.126.net/UuSe-Vc6rS7JtRJSQgDU2g==/2323268069553116.jpg?param=300x300" %}
 ```
 
-&lt;!-- markdownlint-disable MD034 --&gt;
+<!-- markdownlint-disable MD034 -->
 
-{{&lt; music url=&#34;https://cdn-1256932288.cos.ap-chengdu.myqcloud.com/files/nanjing.mp3&#34; name=&#34;李志&#34; artist=&#34;你离开了南京，从此没人和我说话&#34; cover=&#34;https://p2.music.126.net/UuSe-Vc6rS7JtRJSQgDU2g==/2323268069553116.jpg?param=300x300&#34; &gt;}}
+{{< music url="https://cdn-1256932288.cos.ap-chengdu.myqcloud.com/files/nanjing.mp3" name="李志" artist="你离开了南京，从此没人和我说话" cover="https://p2.music.126.net/UuSe-Vc6rS7JtRJSQgDU2g==/2323268069553116.jpg?param=300x300" >}}
 
 ### hexo-pdf
 
@@ -167,21 +167,21 @@ npm install --save hexo-filter-flowchart
 
 ````xml Usage
 ```%flow #去掉%号
-st=&gt;start: Start|past:&gt;https://lruihao.cn[blank]
-e=&gt;end: End:&gt;https://www.lruihao.cn[blank]
-op1=&gt;operation: My Operation|past
-op2=&gt;operation: Stuff|current
-sub1=&gt;subroutine: My Subroutine|invalid
-cond=&gt;condition: Yes
-or No?|approved:&gt;/hexo/nextplugin.html
-c2=&gt;condition: Good idea|rejected
-io=&gt;inputoutput: catch something...|request
+st=>start: Start|past:>https://lruihao.cn[blank]
+e=>end: End:>https://www.lruihao.cn[blank]
+op1=>operation: My Operation|past
+op2=>operation: Stuff|current
+sub1=>subroutine: My Subroutine|invalid
+cond=>condition: Yes
+or No?|approved:>/hexo/nextplugin.html
+c2=>condition: Good idea|rejected
+io=>inputoutput: catch something...|request
 
-st-&gt;op1(right)-&gt;cond
-cond(yes, right)-&gt;c2
-cond(no)-&gt;sub1(left)-&gt;op1
-c2(yes)-&gt;io-&gt;e
-c2(no)-&gt;op2-&gt;e
+st->op1(right)->cond
+cond(yes, right)->c2
+cond(no)->sub1(left)->op1
+c2(yes)->io->e
+c2(no)->op2->e
 ```
 ````
 
@@ -191,7 +191,7 @@ c2(no)-&gt;op2-&gt;e
 npm install hexo-spoiler --save
 ```
 
-&gt; If hexo can&#39;t detect this plugin automatically, you need to modify the `plugins` section of `[path_to_your_site]/_config.yml` manually, like:
+> If hexo can't detect this plugin automatically, you need to modify the `plugins` section of `[path_to_your_site]/_config.yml` manually, like:
 
 ```yaml
 plugins:
@@ -202,8 +202,8 @@ plugins:
 {% spoiler [text] %}
 ```
 
-&gt; It will pixelate your text, and click to reveal. Click again to hide your text again.
-&gt; But you need to add `&lt;br&gt;` manually if you want line breaks after/before it.
+> It will pixelate your text, and click to reveal. Click again to hide your text again.
+> But you need to add `<br>` manually if you want line breaks after/before it.
 
 When you writes:
 
@@ -211,7 +211,7 @@ When you writes:
 {% spoiler text %}
 {% spoiler ~~text~~ %}
 {% spoiler *text* %}
-{% spoiler **text** %}&lt;br&gt;
+{% spoiler **text** %}<br>
 {% spoiler **hello welcome to 博採眾長！** %}
 ```
 
@@ -219,8 +219,8 @@ When you writes:
 
 [~~体验~~](https://player.lruihao.cn) [源码](https://github.com/Lruihao/zhai-music)
 
-&gt; 目前在 next 中可能引起部分 css 冲突，建议在 next 中使用在单个页面中。  
-&gt; 依赖于 jQuery，一行 js 可以引入播放器插件。
+> 目前在 next 中可能引起部分 css 冲突，建议在 next 中使用在单个页面中。  
+> 依赖于 jQuery，一行 js 可以引入播放器插件。
 
 ## caniuse
 
@@ -228,11 +228,11 @@ When you writes:
 
 ```md
 {% caniuse feature @ periods %}
-&lt;!-- Tag Alias --&gt;
+<!-- Tag Alias -->
 {% can feature @ periods %}
 
 feature : Search for the feature you want on https://caniuse.com, then click on the hash sign to the left of the search result heading and you will get the unique name of this feature.
-periods : Select the browser versions to display. Supported values: past_1, past_2, past_3, past_4, past_5, current, future_3, future_2, future_1. If this value is empty, the default value &#39;current&#39; will be used.
+periods : Select the browser versions to display. Supported values: past_1, past_2, past_3, past_4, past_5, current, future_3, future_2, future_1. If this value is empty, the default value 'current' will be used.
 
 ```
 
@@ -267,19 +267,19 @@ Caniuse with past periods
 This tag include any raw content into your posts. Path is relative to your site source directory.
 
 ```md
-{% include_raw &#39;_data/path/to/file.html&#39; %}
+{% include_raw '_data/path/to/file.html' %}
 ```
 
-Let&#39;s create include-raw.html file in `_data` directory under site root directory with following content:
+Let's create include-raw.html file in `_data` directory under site root directory with following content:
 
 ```md
-Any &lt;strong&gt;raw content&lt;/strong&gt; may be included with this tag.
+Any <strong>raw content</strong> may be included with this tag.
 ```
 
 Then in any post we can use this content with include_raw tag:
 
 ```md
-{% include_raw &#39;_data/path/to/include-raw.html&#39; %}
+{% include_raw '_data/path/to/include-raw.html' %}
 ```
 
 Any **raw content** may be included with this tag.
@@ -290,12 +290,12 @@ Any **raw content** may be included with this tag.
 
 ```md
 {% button url, text, icon [class], [title] %}
-&lt;!-- Tag Alias --&gt;
+<!-- Tag Alias -->
 {% btn url, text, icon [class], [title] %}
 
 url     : Absolute or relative path to URL.
 text    : Button text. Required if no icon specified.
-icon    : FontAwesome icon name (without &#39;fa-&#39; at the begining). Required if no text specified.
+icon    : FontAwesome icon name (without 'fa-' at the begining). Required if no text specified.
 [class] : FontAwesome class(es): fa-fw | fa-lg | fa-2x | fa-3x | fa-4x | fa-5x
           Optional parameter.
 [title] : Tooltip at mouseover.
@@ -303,7 +303,7 @@ icon    : FontAwesome icon name (without &#39;fa-&#39; at the begining). Require
 ```
 
 ```md
-{% btn #, Text &amp; Large Icon &amp; Title, home fa-fw fa-lg, Title %}
+{% btn #, Text & Large Icon & Title, home fa-fw fa-lg, Title %}
 ```
 
 ## Mermaid
@@ -316,8 +316,8 @@ example
 {% mermaid gitGraph: %}
 options
 {
-    &#34;nodeSpacing&#34;: 150,
-    &#34;nodeRadius&#34;: 10
+    "nodeSpacing": 150,
+    "nodeRadius": 10
 }
 end
 commit
@@ -347,82 +347,82 @@ merge newbranch
 
 ## tab 选项卡
 
-&gt; &#34;tab&#34;为选项卡的名称，可以自定义，数字是几表示从第几个选项卡开始。非必须，若数值为 -1 则隐藏选项卡内容。
-&gt; [查看更多](https://theme-next.org/docs/tag-plugins/tabs)
+> "tab"为选项卡的名称，可以自定义，数字是几表示从第几个选项卡开始。非必须，若数值为 -1 则隐藏选项卡内容。
+> [查看更多](https://theme-next.org/docs/tag-plugins/tabs)
 
 ```md
 {% tabs Unique name, [index] %}
-&lt;!-- tab [Tab caption] [@icon] --&gt;
+<!-- tab [Tab caption] [@icon] -->
 Any content (support inline tags too).
-&lt;!-- endtab --&gt;
+<!-- endtab -->
 {% endtabs %}
 
 Unique name   : Unique name of tabs block tag without comma.
-                Will be used in #id&#39;s as prefix for each tab with their index numbers.
+                Will be used in #id's as prefix for each tab with their index numbers.
                 If there are whitespaces in name, for generate #id all whitespaces will replaced by dashes.
                 Only for current url of post/page must be unique!
 [index]       : Index number of active tab.
                 If not specified, first tab (1) will be selected.
-                If index is -1, no tab will be selected. It&#39;s will be something like spoiler.
+                If index is -1, no tab will be selected. It's will be something like spoiler.
                 Optional parameter.
 [Tab caption] : Caption of current tab.
                 If not caption specified, unique name with tab index suffix will be used as caption of tab.
                 If not caption specified, but specified icon, caption will empty.
                 Optional parameter.
-[@icon]       : FontAwesome icon name (without &#39;fa-&#39; at the begining).
-                Can be specified with or without space; e.g. &#39;Tab caption @icon&#39; similar to &#39;Tab caption@icon&#39;.
+[@icon]       : FontAwesome icon name (without 'fa-' at the begining).
+                Can be specified with or without space; e.g. 'Tab caption @icon' similar to 'Tab caption@icon'.
                 Optional parameter.
 ```
 
 ```md
 {% tabs tab,2 %}
-&lt;!-- tab --&gt;
+<!-- tab -->
 this is tab1
-&lt;!-- endtab --&gt;
-&lt;!-- tab --&gt;
+<!-- endtab -->
+<!-- tab -->
 this is tab2
-&lt;!-- endtab --&gt;
-&lt;!-- tab --&gt;
+<!-- endtab -->
+<!-- tab -->
 this is tab3
-&lt;!-- endtab --&gt;
+<!-- endtab -->
 {% endtabs %}
 ```
 
-&gt; 数值为 -1
+> 数值为 -1
 
 ```md
 {% tabs 选项，-1 %}
-&lt;!-- tab --&gt;
+<!-- tab -->
 **选项 1**
-&lt;!-- endtab --&gt;
-&lt;!-- tab --&gt;
+<!-- endtab -->
+<!-- tab -->
 **选项 2**
-&lt;!-- endtab --&gt;
-&lt;!-- tab --&gt;
+<!-- endtab -->
+<!-- tab -->
 **选项 3**
-&lt;!-- endtab --&gt;
+<!-- endtab -->
 {% endtabs %}
 ```
 
-&gt; 名字写在选项里面
+> 名字写在选项里面
 
 ```md
 {% tabs Fourth unique name %}
-&lt;!-- tab Solution 1 --&gt;
+<!-- tab Solution 1 -->
 **This is Tab 1.**
-&lt;!-- endtab --&gt;
-&lt;!-- tab Solution 2 --&gt;
+<!-- endtab -->
+<!-- tab Solution 2 -->
 **This is Tab 2.**
-&lt;!-- endtab --&gt;
-&lt;!-- tab Solution 3 --&gt;
+<!-- endtab -->
+<!-- tab Solution 3 -->
 **This is Tab 3.**
-&lt;!-- endtab --&gt;
+<!-- endtab -->
 {% endtabs %}
 ```
 
 ## note 便签
 
-&gt; 主题配置文件搜索 note, 可设置风格和图标是否显示。
+> 主题配置文件搜索 note, 可设置风格和图标是否显示。
 
 ```md
 # Note tag (bs-callout).
@@ -503,48 +503,48 @@ note:
 
 ## [Font Awesome 图标](https://www.runoob.com/font-awesome/fontawesome-tutorial.html)
 
-&gt; Font Awesome 是一套绝佳的图标字体库和 CSS 框架。
-&gt; Font Awesome 字体为你提供可缩放矢量图标，它可以被定制大小、颜色、阴影以及任何可以用 CSS 的样式。
-&gt; 要使用 Font Awesome 图标，请在 HTML 页面的 部分中添加以下行：
+> Font Awesome 是一套绝佳的图标字体库和 CSS 框架。
+> Font Awesome 字体为你提供可缩放矢量图标，它可以被定制大小、颜色、阴影以及任何可以用 CSS 的样式。
+> 要使用 Font Awesome 图标，请在 HTML 页面的 部分中添加以下行：
 
 ### 1、国内推荐 CDN
 
 ```md
-&lt;link rel=&#34;stylesheet&#34; href=&#34;https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css&#34;&gt;
+<link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css">
 ```
 
 ### 2、海外推荐 CDN
 
 ```md
-&lt;link rel=&#34;stylesheet&#34; href=&#34;https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css&#34;&gt;
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 ```
 
 next 已经引用了，可以直接用，比如：
 
 ```html
-&lt;i class=&#34;fa fa-car&#34;&gt;&lt;/i&gt;
-&lt;i class=&#34;fa fa-car&#34; style=&#34;font-size:48px;&#34;&gt;&lt;/i&gt;
-&lt;i class=&#34;fa fa-car&#34; style=&#34;font-size:60px;color:red;&#34;&gt;&lt;/i&gt;
-&lt;i class=&#34;fa fa-car fa-lg&#34;&gt;&lt;/i&gt;
-&lt;i class=&#34;fa fa-car fa-2x&#34;&gt;&lt;/i&gt;
-&lt;i class=&#34;fa fa-car fa-3x&#34;&gt;&lt;/i&gt;
-&lt;i class=&#34;fa fa-car fa-4x&#34;&gt;&lt;/i&gt;
-&lt;i class=&#34;fa fa-car fa-5x&#34;&gt;&lt;/i&gt;
+<i class="fa fa-car"></i>
+<i class="fa fa-car" style="font-size:48px;"></i>
+<i class="fa fa-car" style="font-size:60px;color:red;"></i>
+<i class="fa fa-car fa-lg"></i>
+<i class="fa fa-car fa-2x"></i>
+<i class="fa fa-car fa-3x"></i>
+<i class="fa fa-car fa-4x"></i>
+<i class="fa fa-car fa-5x"></i>
 ```
 
-&lt;i class=&#34;fa fa-car&#34;&gt;&lt;/i&gt; &lt;i class=&#34;fa fa-car&#34; style=&#34;font-size:48px;&#34;&gt;&lt;/i&gt; &lt;i class=&#34;fa fa-car&#34; style=&#34;font-size:60px;color:red;&#34;&gt;&lt;/i&gt; &lt;i class=&#34;fa fa-car fa-lg&#34;&gt;&lt;/i&gt; &lt;i class=&#34;fa fa-car fa-2x&#34;&gt;&lt;/i&gt; &lt;i class=&#34;fa fa-car fa-3x&#34;&gt;&lt;/i&gt; &lt;i class=&#34;fa fa-car fa-4x&#34;&gt;&lt;/i&gt; &lt;i class=&#34;fa fa-car fa-5x&#34;&gt;&lt;/i&gt;
+<i class="fa fa-car"></i> <i class="fa fa-car" style="font-size:48px;"></i> <i class="fa fa-car" style="font-size:60px;color:red;"></i> <i class="fa fa-car fa-lg"></i> <i class="fa fa-car fa-2x"></i> <i class="fa fa-car fa-3x"></i> <i class="fa fa-car fa-4x"></i> <i class="fa fa-car fa-5x"></i>
 
 动态图标
 
 ```html
-&lt;i class=&#34;fa fa-spinner fa-spin&#34;&gt;&lt;/i&gt;
-&lt;i class=&#34;fa fa-circle-o-notch fa-spin&#34;&gt;&lt;/i&gt;
-&lt;i class=&#34;fa fa-refresh fa-spin&#34;&gt;&lt;/i&gt;
-&lt;i class=&#34;fa fa-cog fa-spin&#34;&gt;&lt;/i&gt;
-&lt;i class=&#34;fa fa-spinner fa-pulse&#34;&gt;&lt;/i&gt;
+<i class="fa fa-spinner fa-spin"></i>
+<i class="fa fa-circle-o-notch fa-spin"></i>
+<i class="fa fa-refresh fa-spin"></i>
+<i class="fa fa-cog fa-spin"></i>
+<i class="fa fa-spinner fa-pulse"></i>
 ```
 
-&lt;i class=&#34;fa fa-spinner fa-spin&#34;&gt;&lt;/i&gt; &lt;i class=&#34;fa fa-circle-o-notch fa-spin&#34;&gt;&lt;/i&gt; &lt;i class=&#34;fa fa-refresh fa-spin&#34;&gt;&lt;/i&gt; &lt;i class=&#34;fa fa-cog fa-spin&#34;&gt;&lt;/i&gt; &lt;i class=&#34;fa fa-spinner fa-pulse&#34;&gt;&lt;/i&gt;
+<i class="fa fa-spinner fa-spin"></i> <i class="fa fa-circle-o-notch fa-spin"></i> <i class="fa fa-refresh fa-spin"></i> <i class="fa fa-cog fa-spin"></i> <i class="fa fa-spinner fa-pulse"></i>
 
 ## 代码块等
 
@@ -556,8 +556,8 @@ code snippet
 ```
 
 ```diff diff
--  printf(&#34;Hello World!&#34;);
-&#43;  printf(&#34;Hello_World!&#34;);
+-  printf("Hello World!");
++  printf("Hello_World!");
 ```
 
 **iframe**
@@ -569,19 +569,19 @@ code snippet
 
 ## Todo list
 
-- &lt;i class=&#34;fa fa-check-square&#34;&gt;&lt;/i&gt; 已完成
-- &lt;i class=&#34;fa fa-square&#34;&gt;&lt;/i&gt; 未完成
+- <i class="fa fa-check-square"></i> 已完成
+- <i class="fa fa-square"></i> 未完成
 
 ```http Todo list
-&lt;ul&gt;
-&lt;li&gt;&lt;i class=&#34;fa fa-check-square&#34;&gt;&lt;/i&gt; 已完成&lt;/li&gt;
-&lt;li&gt;&lt;i class=&#34;fa fa-square&#34;&gt;&lt;/i&gt; 未完成&lt;/li&gt;
-&lt;/ul&gt;
+<ul>
+<li><i class="fa fa-check-square"></i> 已完成</li>
+<li><i class="fa fa-square"></i> 未完成</li>
+</ul>
 
-&lt;!--或者--&gt;
+<!--或者-->
 
-- &lt;i class=&#34;fa fa-check-square&#34;&gt;&lt;/i&gt; 已完成
-- &lt;i class=&#34;fa fa-square&#34;&gt;&lt;/i&gt; 未完成
+- <i class="fa fa-check-square"></i> 已完成
+- <i class="fa fa-square"></i> 未完成
 ```
 
 ## Label
@@ -603,7 +603,7 @@ primary success info warning danger
 
 ## [其他](http://www.mykernel.cn/my-hexo-next-1.html)
 
-&gt; 包括小色块、左侧色条、右侧色条、上方色条、数字色块（需要自定义样式）
+> 包括小色块、左侧色条、右侧色条、上方色条、数字色块（需要自定义样式）
 
 
 ---

@@ -2,9 +2,9 @@
 
 # FixIt 主题文档
 
-[![Production environment](https://img.shields.io/github/deployments/hugo-fixit/docs/Production?style=flat&amp;label=Production&amp;logo=vercel)](https://fixit.lruihao.cn/)
-[![Preview environment](https://img.shields.io/github/deployments/hugo-fixit/docs/Preview?style=flat&amp;label=Preview&amp;logo=vercel)](https://pre.fixit.lruihao.cn/)
-[![Hugo](https://img.shields.io/badge/Hugo-%5E0.140.0-ff4088?style=flat&amp;logo=hugo)](https://gohugo.io/)
+[![Production environment](https://img.shields.io/github/deployments/hugo-fixit/docs/Production?style=flat&label=Production&logo=vercel)](https://fixit.lruihao.cn/)
+[![Preview environment](https://img.shields.io/github/deployments/hugo-fixit/docs/Preview?style=flat&label=Preview&logo=vercel)](https://pre.fixit.lruihao.cn/)
+[![Hugo](https://img.shields.io/badge/Hugo-%5E0.140.0-ff4088?style=flat&logo=hugo)](https://gohugo.io/)
 
 👉 中文 | [English](README.en.md)
 
@@ -12,9 +12,9 @@
 
 ## 系统依赖
 
-- [Node.js](https://nodejs.org/): &gt;= 18.0.0
+- [Node.js](https://nodejs.org/): >= 18.0.0
 - [Go](https://go.dev/dl/)
-- [Hugo](https://gohugo.io/installation/): &gt;= 0.140.0 (extended version)
+- [Hugo](https://gohugo.io/installation/): >= 0.140.0 (extended version)
 
 ## 贡献文档
 
@@ -23,7 +23,7 @@
 然后，克隆你 fork 的仓库。
 
 ```bash
-git clone https://github.com/hugo-fixit/docs.git fixit-docs &amp;&amp; cd fixit-docs
+git clone https://github.com/hugo-fixit/docs.git fixit-docs && cd fixit-docs
 ```
 
 接着，安装开发依赖。
@@ -47,17 +47,17 @@ npm run server:development
 
 ## 参与翻译
 
-包含 `missing-translation` shortcode 的文档表示该部分尚未翻译，点击查看 [缺失翻译的文档](https://github.com/search?q=repo%3Ahugo-fixit%2Fdocs&#43;%7B%7B%3C&#43;missing-translation&#43;%3E%7D%7D&amp;type=code)。
+包含 `missing-translation` shortcode 的文档表示该部分尚未翻译，点击查看 [缺失翻译的文档](https://github.com/search?q=repo%3Ahugo-fixit%2Fdocs+%7B%7B%3C+missing-translation+%3E%7D%7D&type=code)。
 
 ## 编辑主题
 
 如果你想做与文档相关的主题更改，最简单的方法是将 `fixit-docs` 和 `FixIt` 克隆为兄弟目录，然后运行：
 
 ```bash
-HUGO_MODULE_WORKSPACE=hugo.work hugo server --ignoreVendorPaths &#34;**&#34;
+HUGO_MODULE_WORKSPACE=hugo.work hugo server --ignoreVendorPaths "**"
 ```
 
-最后，在 &lt;https://github.com/hugo-fixit/docs/pulls&gt; 创建一个新的 pull request 来提交你的贡献 🎉
+最后，在 <https://github.com/hugo-fixit/docs/pulls> 创建一个新的 pull request 来提交你的贡献 🎉
 
 ## 感谢赞助
 

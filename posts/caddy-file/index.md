@@ -68,7 +68,7 @@ caddy
 加权
 
 ```
-chmod &#43;x run.sh
+chmod +x run.sh
 ```
 
 设置任务
@@ -92,13 +92,13 @@ service crond start
 
 最后误打误撞开启了 caddy  
 昨晚双十一要抢裤子，加上湘潭天气太 tm 冷了，就上床了，接着用 termux 远程连接服务器继续搞。结果连接的时候命令输错了-\_-!  
-本来是`ssh root@118.24.217.167`再输入密码就可以了。这次搞错了多写了个`-T`, 然后运行`caddy`,`ctrl&#43;c` 再断开，意外地发现 filemanager 竟然可以访问了。
+本来是`ssh root@118.24.217.167`再输入密码就可以了。这次搞错了多写了个`-T`, 然后运行`caddy`,`ctrl+c` 再断开，意外地发现 filemanager 竟然可以访问了。
 
 ```bash
 ssh -T root@118.24.217.167
 caddy
 
-Ctrl&#43;c
+Ctrl+c
 ```
 
 

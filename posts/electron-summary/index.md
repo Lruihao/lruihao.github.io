@@ -3,7 +3,7 @@
 
 总结一下最近 electron 开发遇到的问题和一些重要知识点。
 
-&lt;!--more--&gt;
+<!--more-->
 
 ## 简介
 
@@ -37,7 +37,7 @@ M1 Mac 安装较低版本 electron 时可能会报错，`Failed to find Electron
 
 ### remote
 
-&gt; 不要频繁使用 remote, 更多应该手动进行和主进程之间的通信。
+> 不要频繁使用 remote, 更多应该手动进行和主进程之间的通信。
 
 使用时需在窗口创建时设置 `webPreferences.enableRemoteModule` 为 `true`。
 
@@ -66,7 +66,7 @@ function debounce(fn) {
   let timer = null;
   return function () {
     clearTimeOut(timer);
-    timer = setTimeOut(() =&gt; {
+    timer = setTimeOut(() => {
       fn.applay(this, arguments);
     }, 300);
   };
@@ -80,7 +80,7 @@ function throttle(fn) {
   let timer = null;
   return function () {
     if (timer) return;
-    timer = setTimeOut(() =&gt; {
+    timer = setTimeOut(() => {
       fn.applay(this, arguments);
       timer = null;
     }, 300);
@@ -92,7 +92,7 @@ function throttle(fn) {
 
 初始化窗口时设置 `webPreferences.devTools` 为 `true`，然后通过 `mainWindow.webContents.openDevTools()` 打开开发者工具。
 
-如果只在开发环境启用开发者工具，则需要设置 `webPreferences.devTools` 为 `process.env.NODE_ENV === &#39;development&#39;`
+如果只在开发环境启用开发者工具，则需要设置 `webPreferences.devTools` 为 `process.env.NODE_ENV === 'development'`
 
 ### 启动白屏
 
@@ -109,9 +109,9 @@ function throttle(fn) {
 如果使用了 Vue 框架，在 Vue 初始化之前窗口虽然出现了，但是内容时空白的，可以在 Vue 实例 #app 里写一个 loading, Vue 加载完后会覆盖掉。
 
 ```html
-&lt;div id=&#34;app&#34;&gt;
-  &lt;!-- Display the loading icon and text until Vue initialization is complete --&gt;
-  &lt;style type=&#34;text/css&#34;&gt;
+<div id="app">
+  <!-- Display the loading icon and text until Vue initialization is complete -->
+  <style type="text/css">
     html,
     body {
       height: 100%;
@@ -131,32 +131,32 @@ function throttle(fn) {
         background-color: #202124;
       }
     }
-  &lt;/style&gt;
-  &lt;svg
-    xmlns=&#34;http://www.w3.org/2000/svg&#34;
-    style=&#34;margin:auto;background:0 0&#34;
-    width=&#34;60&#34;
-    height=&#34;60&#34;
-    viewBox=&#34;0 0 100 100&#34;
-    preserveAspectRatio=&#34;xMidYMid&#34;
-    display=&#34;block&#34;
-  &gt;
-    &lt;circle
-      cx=&#34;50&#34;
-      cy=&#34;50&#34;
-      r=&#34;20&#34;
-      stroke-width=&#34;4&#34;
-      stroke=&#34;#a5a5a5&#34;
-      stroke-dasharray=&#34;31.416 31.416&#34;
-      fill=&#34;none&#34;
-      stroke-linecap=&#34;round&#34;
-      transform=&#34;rotate(67.21 50 50)&#34;
-    &gt;
-      &lt;animateTransform attributeName=&#34;transform&#34; type=&#34;rotate&#34; repeatCount=&#34;indefinite&#34; dur=&#34;1s&#34; keyTimes=&#34;0;1&#34; values=&#34;0 50 50;360 50 50&#34; /&gt;
-    &lt;/circle&gt;
-  &lt;/svg&gt;
-  &lt;span&gt;加载中 ...&lt;/span&gt;
-&lt;/div&gt;
+  </style>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    style="margin:auto;background:0 0"
+    width="60"
+    height="60"
+    viewBox="0 0 100 100"
+    preserveAspectRatio="xMidYMid"
+    display="block"
+  >
+    <circle
+      cx="50"
+      cy="50"
+      r="20"
+      stroke-width="4"
+      stroke="#a5a5a5"
+      stroke-dasharray="31.416 31.416"
+      fill="none"
+      stroke-linecap="round"
+      transform="rotate(67.21 50 50)"
+    >
+      <animateTransform attributeName="transform" type="rotate" repeatCount="indefinite" dur="1s" keyTimes="0;1" values="0 50 50;360 50 50" />
+    </circle>
+  </svg>
+  <span>加载中 ...</span>
+</div>
 ```
 
 ### 阻止窗口关闭
@@ -174,40 +174,40 @@ function throttle(fn) {
 ```js
 const main = [
   {
-    label: &#39;&#39;,
+    label: '',
     submenu: [
-      { label: &#39;关于&#39;, role: &#39;about&#39; },
-      { label: &#39;关闭&#39;, role: &#39;close&#39; },
-      { label: &#39;退出&#39;, role: &#39;quit&#39; }
+      { label: '关于', role: 'about' },
+      { label: '关闭', role: 'close' },
+      { label: '退出', role: 'quit' }
     ]
   },
   {
-    label: &#39;编辑&#39;,
+    label: '编辑',
     submenu: [
-      { label: &#39;撤销&#39;, role: &#39;undo&#39; },
-      { label: &#39;恢复&#39;, role: &#39;redo&#39; },
-      { type: &#39;separator&#39; },
-      { label: &#39;剪切&#39;, role: &#39;cut&#39; },
-      { label: &#39;复制&#39;, role: &#39;copy&#39; },
-      { label: &#39;粘贴&#39;, role: &#39;paste&#39; },
-      { type: &#39;separator&#39; },
-      { label: &#39;全选&#39;, role: &#39;selectAll&#39; }
+      { label: '撤销', role: 'undo' },
+      { label: '恢复', role: 'redo' },
+      { type: 'separator' },
+      { label: '剪切', role: 'cut' },
+      { label: '复制', role: 'copy' },
+      { label: '粘贴', role: 'paste' },
+      { type: 'separator' },
+      { label: '全选', role: 'selectAll' }
     ]
   }
 ];
 const dev = [
   {
-    label: &#39;开发者&#39;,
+    label: '开发者',
     submenu: [
-      { label: &#39;刷新&#39;, role: &#39;reload&#39; },
-      { label: &#39;强制刷新&#39;, role: &#39;forcereload&#39; },
-      { type: &#39;separator&#39; },
-      { label: &#39;开发者工具&#39;, role: &#39;toggledevtools&#39; }
+      { label: '刷新', role: 'reload' },
+      { label: '强制刷新', role: 'forcereload' },
+      { type: 'separator' },
+      { label: '开发者工具', role: 'toggledevtools' }
     ]
   }
 ];
 
-if (process.env.NODE_ENV === &#39;development&#39;) {
+if (process.env.NODE_ENV === 'development') {
   main.push(...dev);
 }
 
@@ -215,10 +215,10 @@ export default main;
 ```
 
 ```js
-import memuConfig from &#39;./menu&#39;;
-import { Menu } from &#39;electron&#39;;
+import memuConfig from './menu';
+import { Menu } from 'electron';
 
-if (process.platform === &#39;darwin&#39;) {
+if (process.platform === 'darwin') {
   const menu = Menu.buildFromTemplate(memuConfig);
   Menu.setApplicationMenu(menu);
 }
@@ -257,11 +257,11 @@ windows 系统打包配置，当没有配置签名时，`sign` 字段应删除�
 
 ```json
 {
-  &#34;win&#34;: {
-    &#34;icon&#34;: &#34;static/icons/icon.ico&#34;,
-    &#34;verifyUpdateCodeSignature&#34;: false,
-    &#34;target&#34;: &#34;nsis&#34;,
-    &#34;sign&#34;: null
+  "win": {
+    "icon": "static/icons/icon.ico",
+    "verifyUpdateCodeSignature": false,
+    "target": "nsis",
+    "sign": null
   }
 }
 ```

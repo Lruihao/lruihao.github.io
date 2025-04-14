@@ -7,12 +7,12 @@
 
 警察抓贩毒集团。有不同类型的犯罪集团，人员可能重复，集团内的人会相互接触。现在警察在其中一人（0 号）身上搜出毒品，认为与这个人直接接触或通过其他人有间接接触的人都是嫌疑犯。问包括 0 号犯人共有多少嫌疑犯？
 
-&lt;!--more--&gt;
+<!--more-->
 
 ### Input
 
 多样例输入。  
-每个测试用例以两个整数 n 和 m 开头，其中 n 为人数，m 为犯罪集团数。你可以假定 0 &lt; n &lt;= 30000 和 0 &lt;= m &lt;= 500。在所有的情况下，每个人都有自己独特的整数编号 0 到 n−1, 且 0 号是公认的嫌疑犯。  
+每个测试用例以两个整数 n 和 m 开头，其中 n 为人数，m 为犯罪集团数。你可以假定 0 < n <= 30000 和 0 <= m <= 500。在所有的情况下，每个人都有自己独特的整数编号 0 到 n−1, 且 0 号是公认的嫌疑犯。  
 接下来 m 行输入，每个犯罪集团一行。每一行从一个整数 k 开始，它本身表示集团内成员的数量。按照成员的数量，在这个组中有 k 个整数表示人员。一行中的所有整数都被至少一个空格隔开。  
 n = 0 且 m = 0 时输入结束。
 
@@ -40,10 +40,10 @@ n = 0 且 m = 0 时输入结束。
 
 这题也很好理解，AC 代码如下：
 
-&lt;!-- markdownlint-disable MD046 --&gt;
+<!-- markdownlint-disable MD046 -->
 
 ```cpp
-#include&lt;cstdio&gt;
+#include<cstdio>
 
 int pre[30010],x[30010];
 
@@ -68,21 +68,21 @@ void join(int x,int y){
 
 int main(){
     int n,m,i,k,sum;
-    while(scanf(&#34;%d%d&#34;,&amp;n,&amp;m),n||m){
+    while(scanf("%d%d",&n,&m),n||m){
         sum=0;
-        for(i=0;i&lt;n;i&#43;&#43;)
+        for(i=0;i<n;i++)
             pre[i]=i;
         while(m--){
-            scanf(&#34;%d&#34;,&amp;k);
-            for(i=0;i&lt;k;i&#43;&#43;)
-                scanf(&#34;%d&#34;,&amp;x[i]);
-            for(i=1;i&lt;k;i&#43;&#43;)
+            scanf("%d",&k);
+            for(i=0;i<k;i++)
+                scanf("%d",&x[i]);
+            for(i=1;i<k;i++)
                 join(x[i-1],x[i]);
         }
 
-        for(i=0;i&lt;n;i&#43;&#43;)
-            if(find(0)==find(i)) sum&#43;&#43;;//再次查找并压缩路径，注不用 pre[i]
-        printf(&#34;%d\n&#34;,sum);
+        for(i=0;i<n;i++)
+            if(find(0)==find(i)) sum++;//再次查找并压缩路径，注不用 pre[i]
+        printf("%d\n",sum);
 
     }
     return 0;

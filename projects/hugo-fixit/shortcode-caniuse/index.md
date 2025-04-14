@@ -14,12 +14,12 @@ FixIt 主题 `v0.3.9` 及以上版本。
 
 和 [安装主题](https://fixit.lruihao.cn/zh-cn/documentation/installation/) 一样，安装方式有多种，选择其一即可，例如通过 Hugo Modules 安装：
 
-```diff {title=&#34;hugo.toml&#34;}
+```diff {title="hugo.toml"}
 [module]
   [[module.imports]]
-    path = &#34;github.com/hugo-fixit/FixIt&#34;
-&#43; [[module.imports]]
-&#43;   path = &#34;github.com/hugo-fixit/shortcode-caniuse&#34;
+    path = "github.com/hugo-fixit/FixIt"
++ [[module.imports]]
++   path = "github.com/hugo-fixit/shortcode-caniuse"
 ```
 
 ## 注入 Partial
@@ -27,8 +27,8 @@ FixIt 主题 `v0.3.9` 及以上版本。
 通过 FixIt 主题开放的自定义块，在 `layouts/partials/custom.html` 文件将 `shortcode-caniuse.html` 注入到 `custom-assets` 中：
 
 ```go-html-template
-{{- define &#34;custom-assets&#34; -}}
-  {{- partial &#34;inject/shortcode-caniuse.html&#34; . -}}
+{{- define "custom-assets" -}}
+  {{- partial "inject/shortcode-caniuse.html" . -}}
 {{- end -}}
 ```
 
@@ -41,14 +41,14 @@ FixIt 主题 `v0.3.9` 及以上版本。
 - **future** _[可选]_（第三个位置参数）显示未来 N 个版本，范围是 `0 - 3`，默认为 `1`
 - **origin** _[可选]_（第四个位置参数）caniuse embed 数据源，例如：`https://caniuse-embed-x.vercel.app`
 
-&gt; 点击 `caniuse.com` 网站上功能左边 `#` 号，URL 中的 `pathname` 即为 `feature` 参数。
+> 点击 `caniuse.com` 网站上功能左边 `#` 号，URL 中的 `pathname` 即为 `feature` 参数。
 
 这是一个用法示例：
 
 ```markdown
-{{?{}&lt; caniuse feature=&#34;flexbox&#34; &gt;}}
+{{?{}< caniuse feature="flexbox" >}}
 或者
-{{?{}&lt; caniuse &#34;flexbox&#34; &gt;}}
+{{?{}< caniuse "flexbox" >}}
 ```
 
 ## 参考

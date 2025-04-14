@@ -9,7 +9,7 @@ What is the minimal number of moves making him climb to the top of the stairs th
 
 ## Input
 
-The single line contains two space separated integers n, m (0 &lt; n ≤ 10000, 1 &lt; m ≤ 10).
+The single line contains two space separated integers n, m (0 < n ≤ 10000, 1 < m ≤ 10).
 
 ## Output
 
@@ -42,31 +42,31 @@ For the second sample, there are only three valid sequence of steps {2, 1}, {1, 
 找一下数学公式就好了。  
 具体看代码。
 
-&lt;!-- markdownlint-disable code-block-style --&gt;
+<!-- markdownlint-disable code-block-style -->
 
 ```cpp
-#include&lt;bits/stdc&#43;&#43;.h&gt;
+#include<bits/stdc++.h>
 using namespace std;
 
 int main(){
     int x,n,m;
-    cin&gt;&gt;n&gt;&gt;m;
-    if(n&lt;m){
-        cout&lt;&lt;-1&lt;&lt;endl;
+    cin>>n>>m;
+    if(n<m){
+        cout<<-1<<endl;
         return 0;
     }
     if(n==m){
-        cout&lt;&lt;n&lt;&lt;endl;
+        cout<<n<<endl;
         return 0;
     }
     if(n%2==0){
         x=n/2%m;
-        if(x==0) cout&lt;&lt;n/2&lt;&lt;endl;
-        else cout&lt;&lt;n/2&#43;m-x&lt;&lt;endl;
+        if(x==0) cout<<n/2<<endl;
+        else cout<<n/2+m-x<<endl;
     }else if(n%2!=0){
-        x=(n/2&#43;1)%m;
-        if(x==0) cout&lt;&lt;n/2&#43;1&lt;&lt;endl;
-        else cout&lt;&lt;(n/2&#43;1)&#43;m-x&lt;&lt;endl;
+        x=(n/2+1)%m;
+        if(x==0) cout<<n/2+1<<endl;
+        else cout<<(n/2+1)+m-x<<endl;
     }
     return 0;
 }

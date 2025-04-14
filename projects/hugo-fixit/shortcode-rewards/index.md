@@ -7,11 +7,11 @@ A Hugo theme component with `reward-log` or `sponsor-log` shortcode.
 ## Demo
 
 - [FixIt Docs](https://fixit.lruihao.cn/contributing/overview/#sponsor)
-- [Lruihao&#39;s Blog](https://lruihao.cn/about/#sponsor)
+- [Lruihao's Blog](https://lruihao.cn/about/#sponsor)
 
 ## Requirements
 
-&gt; Developed based on the FixIt Timeline plugin.
+> Developed based on the FixIt Timeline plugin.
 
 - FixIt v0.3.9 or later.
 
@@ -22,9 +22,9 @@ The installation method is the same as [installing a theme](https://fixit.lruiha
 ```diff
 [module]
   [[module.imports]]
-    path = &#34;github.com/hugo-fixit/FixIt&#34;
-&#43; [[module.imports]]
-&#43;   path = &#34;github.com/hugo-fixit/shortcode-rewards&#34;
+    path = "github.com/hugo-fixit/FixIt"
++ [[module.imports]]
++   path = "github.com/hugo-fixit/shortcode-rewards"
 ```
 
 ## Inject Partial
@@ -32,8 +32,8 @@ The installation method is the same as [installing a theme](https://fixit.lruiha
 Inject the `shortcode-rewards.html` into the `custom-head` through the custom block opened by the FixIt theme in the `layouts/partials/custom.html` file:
 
 ```go-html-template
-{{- define &#34;custom-head&#34; -}}
-  {{- partial &#34;inject/shortcode-rewards.html&#34; . -}}
+{{- define "custom-head" -}}
+  {{- partial "inject/shortcode-rewards.html" . -}}
 {{- end -}}
 ```
 
@@ -45,16 +45,16 @@ First, create the `reward-log.yml` file and edit your data:
 cp themes/shortcode-sponsor-log/reward_log.yml.example data/reward_log.yml
 ```
 
-&gt; If your site is multilingual, you can create a `reward_log.en.yml` file for English and `reward_log.zh-cn.yml` for Chinese.
+> If your site is multilingual, you can create a `reward_log.en.yml` file for English and `reward_log.zh-cn.yml` for Chinese.
 
 Next, use the `reward-log` shortcode in any page:
 
 ```markdown
-{{?{}&lt; reward-log &gt;}}
+{{?{}< reward-log >}}
 ```
 
-&gt; [!note]
-&gt; For compatibility with older versions, `sponsor-log` shortcode can also be used, and the corresponding data file is `sponsor_log.yml`.
+> [!note]
+> For compatibility with older versions, `sponsor-log` shortcode can also be used, and the corresponding data file is `sponsor_log.yml`.
 
 ## Params
 
@@ -73,7 +73,7 @@ The `reward-log` shortcode has the following named parameters, and the positiona
 | height    | `#` container height                                              | string  | -                      | -       |
 | class     | `#` container classname                                           | string  | -                      | -       |
 
-&gt; Parameters marked with `#` only support named parameters.
+> Parameters marked with `#` only support named parameters.
 
 ### Data
 
@@ -89,11 +89,11 @@ currency: CNY
 symbol: ¥
 # The sponsor logs inherit the FixIt Timeline events
 logs:
-  - date: &#34;2006-01-02 15:04:05&#34;
+  - date: "2006-01-02 15:04:05"
     sponsor: Cell
     money: 50
     origin: alipay
-    remark: &#34;Come on!&#34;
+    remark: "Come on!"
 ```
 
 ## References

@@ -3,7 +3,7 @@
 
 在完成一个 code diff 需求时，发现所使用的插件不足以完成预期的需求。当然最终还是顺利完成了，详见 [code diff demo](https://lruihao.github.io/vue-el-demo/#/code-diff)。
 
-&lt;!--more--&gt;
+<!--more-->
 
 ## 需求
 
@@ -14,17 +14,17 @@
 这样就简化了原插槽的使用：
 
 ```vue
-&lt;CodeDiff
-  :old-string=&#34;form.oldString&#34;
-  :new-string=&#34;form.newString&#34;
-  :language=&#34;form.language&#34;
-  :diff-style=&#34;form.diffStyle&#34;
-&gt;
-  &lt;template #stat=&#34;{ stat }&#34;&gt;
-    &lt;span class=&#34;diff-stat-added&#34;&gt;&#43;{{ stat.additionsNum }} 增&lt;/span&gt;
-    &lt;span class=&#34;diff-stat-deleted&#34;&gt;-{{ stat.deletionsNum }} 减&lt;/span&gt;
-  &lt;/template&gt;
-&lt;/CodeDiff&gt;
+<CodeDiff
+  :old-string="form.oldString"
+  :new-string="form.newString"
+  :language="form.language"
+  :diff-style="form.diffStyle"
+>
+  <template #stat="{ stat }">
+    <span class="diff-stat-added">+{{ stat.additionsNum }} 增</span>
+    <span class="diff-stat-deleted">-{{ stat.deletionsNum }} 减</span>
+  </template>
+</CodeDiff>
 ```
 
 但这只是完成需求路上的一个小插曲，真正的难点在于“比对结果时，支持关键词过滤的功能”，也就是如果比对结果中有包含关键词的行，则忽略该行的 diff。
@@ -40,7 +40,7 @@
 很快就找到了 Linux 的 `diff` 指令的 `--ignore-matching-lines` 参数有类似的功能。
 
 ```bash
-diff file1.json file2.json --ignore-matching-lines=&#34;time&#34;
+diff file1.json file2.json --ignore-matching-lines="time"
 ```
 
 上面的命令在比较两个文件时，会忽略包含 `time` 的行。
@@ -52,7 +52,7 @@ diff file1.json file2.json --ignore-matching-lines=&#34;time&#34;
 多的先不管，先把 [v-code-diff](https://github.com/Shimada666/v-code-diff) 的源码拉下来运行起来。
 
 ```bash
-git clone git@github.com:Shimada666/v-code-diff.git &amp;&amp; cd v-code-diff
+git clone git@github.com:Shimada666/v-code-diff.git && cd v-code-diff
 ```
 
 看了一眼是用 TypeScript 和 Vue3 的 Composition API 写的，这个我都不熟，不过没关系，先把它跑起来再说。
@@ -72,11 +72,11 @@ pnpm install
 然后在 `package.json` 找一下启动命令：
 
 ```json
-&#34;scripts&#34;: {
-  &#34;dev:2&#34;: &#34;vue-demi-switch 2 vue2 &amp;&amp; pnpm --filter vue2-playground dev&#34;,
-  &#34;dev:2.7&#34;: &#34;vue-demi-switch 2.7 vue2 &amp;&amp; pnpm --filter vue2.7-playground dev&#34;,
-  &#34;dev:3&#34;: &#34;vue-demi-switch 3 vue3 &amp;&amp; pnpm --filter vue3-playground dev&#34;,
-  &#34;dev:demo&#34;: &#34;vue-demi-switch 3 vue3 &amp;&amp; pnpm --filter demo dev&#34;,
+"scripts": {
+  "dev:2": "vue-demi-switch 2 vue2 && pnpm --filter vue2-playground dev",
+  "dev:2.7": "vue-demi-switch 2.7 vue2 && pnpm --filter vue2.7-playground dev",
+  "dev:3": "vue-demi-switch 3 vue3 && pnpm --filter vue3-playground dev",
+  "dev:demo": "vue-demi-switch 3 vue3 && pnpm --filter demo dev",
 }
 ```
 

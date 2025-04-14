@@ -3,7 +3,7 @@
 
 记录 linux 系统下文件权限相关的内容，Mac OS 下类似。
 
-&lt;!--more--&gt;
+<!--more-->
 
 ## 查看文件权限
 
@@ -14,13 +14,13 @@
 total 160
 drwx------@  8 liruihao  staff   256B Jul  5 14:47 Applications
 drwx------@ 10 liruihao  staff   320B Jul 27 11:31 Desktop
-drwx------&#43;  7 liruihao  staff   224B Jun 17 15:01 Documents
+drwx------+  7 liruihao  staff   224B Jun 17 15:01 Documents
 drwx------@ 22 liruihao  staff   704B Jul 29 16:35 Downloads
 drwx------@ 94 liruihao  staff   2.9K Jul 23 19:02 Library
 drwx------   4 liruihao  staff   128B Nov 13  2021 Movies
-drwx------&#43;  6 liruihao  staff   192B Nov 18  2021 Music
-drwx------&#43;  9 liruihao  staff   288B Apr 26 10:25 Pictures
-drwxr-xr-x&#43;  5 liruihao  staff   160B Nov 14  2021 Public
+drwx------+  6 liruihao  staff   192B Nov 18  2021 Music
+drwx------+  9 liruihao  staff   288B Apr 26 10:25 Pictures
+drwxr-xr-x+  5 liruihao  staff   160B Nov 14  2021 Public
 drwxr-xr-x   5 liruihao  staff   160B Jul 29 17:48 file-share
 drwxr-xr-x   3 liruihao  staff    96B Jul 26 17:17 node_modules
 -rw-r--r--   1 liruihao  staff    27B Jun 24 13:47 package-lock.json

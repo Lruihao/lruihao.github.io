@@ -1,9 +1,9 @@
 # 中文技术文档的写作规范
 
 
-&gt; 以下参考来源：阮一峰的 [中文技术文档的写作规范](https://github.com/ruanyf/document-style-guide)
+> 以下参考来源：阮一峰的 [中文技术文档的写作规范](https://github.com/ruanyf/document-style-guide)
 
-英语世界里，文档非常受重视，许多公司和组织都有自己的文档规范，清楚地规定写作要求，比如[微软](https://www.microsoftpressstore.com/store/microsoft-manual-of-style-9780735648715)、[MailChimp](http://styleguide.mailchimp.com/)、[Apple](https://help.apple.com/asg/mac/2013/ASG_2013.pdf)、[Yahoo](https://www.amazon.com/dp/B003P8QDFU/ref=dp-kindle-redirect?_encoding=UTF8&amp;btkr=1)、[docker](https://docs.docker.com/opensource/doc-style/)、[Struts](https://struts.apache.org/docs/documentation-style-guide.html) 等等（维基百科有一份完整的[清单](https://en.wikipedia.org/wiki/List_of_style_guides)）。[中文的](https://github.com/ruanyf/document-style-guide/blob/master/docs/reference.md)也有不少，但都不令人满意，要么太简单，要么不太适用。
+英语世界里，文档非常受重视，许多公司和组织都有自己的文档规范，清楚地规定写作要求，比如[微软](https://www.microsoftpressstore.com/store/microsoft-manual-of-style-9780735648715)、[MailChimp](http://styleguide.mailchimp.com/)、[Apple](https://help.apple.com/asg/mac/2013/ASG_2013.pdf)、[Yahoo](https://www.amazon.com/dp/B003P8QDFU/ref=dp-kindle-redirect?_encoding=UTF8&btkr=1)、[docker](https://docs.docker.com/opensource/doc-style/)、[Struts](https://struts.apache.org/docs/documentation-style-guide.html) 等等（维基百科有一份完整的[清单](https://en.wikipedia.org/wiki/List_of_style_guides)）。[中文的](https://github.com/ruanyf/document-style-guide/blob/master/docs/reference.md)也有不少，但都不令人满意，要么太简单，要么不太适用。
 
 对于开发者来说，在工作中也需要适当地产出一些技术文档，但是很多人都不知道怎么写文档，都是凭着感觉写。
 
@@ -11,7 +11,7 @@
 
 参考上面的规范，于是有了下面一份中文技术文档的写作规范。
 
-&lt;!--more--&gt;
+<!--more-->
 
 ## 标题
 
@@ -36,7 +36,7 @@
 #### 四级标题
 ```
 
-&gt; 注：最多支持六级，但是同论文写作一样，层级太深，会使得整体显得杂乱无章，当确实需要更深层级时，应另起新篇单独论述。
+> 注：最多支持六级，但是同论文写作一样，层级太深，会使得整体显得杂乱无章，当确实需要更深层级时，应另起新篇单独论述。
 
 ### 原则
 
@@ -265,7 +265,7 @@ Apple, Inc.
 （4）英文书名或电影名改用中文表达时，双引号应改为书名号。
 
 ```
-英文：He published an article entitled &#34;The Future of the Aviation&#34;.
+英文：He published an article entitled "The Future of the Aviation".
 
 中文：他发表了一篇名为《航空业的未来》的文章。
 ```
@@ -470,7 +470,7 @@ $1,000
 | ----- | :-------------------------: | :----: |
 | `{ }` | braces 或 curly brackets   | 大括号 |
 | `[ ]` | square brackets 或 brackets | 方括号 |
-| `&lt; &gt;` |       angled brackets       | 尖括号 |
+| `< >` |       angled brackets       | 尖括号 |
 | `( )` |         parentheses         | 圆括号 |
 
 ### 冒号

@@ -3,7 +3,7 @@
 
 在数字化时代，数据是企业最宝贵的资产之一。如何安全、高效地存储和访问这些数据，成为了许多企业面临的挑战。亚马逊云服务作为全球领先的云服务提供商，提供了一系列的解决方案来满足不同客户的需求。今天，我们将重点介绍亚马逊云科技的 Amazon S3（Simple Storage Service），一种简单、可扩展且持久的对象存储服务。
 
-&lt;!--more--&gt;
+<!--more-->
 
 ## 了解 Amazon S3
 
@@ -41,11 +41,11 @@ Amazon Simple Storage Service (Amazon S3) 是一种对象存储服务，由亚�
    ![plan](../aws-ec2/images/23_1693045029.png)
 8. 完成注册\
    ![complete](../aws-ec2/images/23_1693045100.png)
-9. 登录亚马逊云科技控制台，[登录地址](https://console.aws.amazon.com/console/home?trk=56af0bad-f604-4f80-8f1a-f8a8b0d20118&amp;sc_channel=sm&amp;campaign=blog1352)，选择根用户输入电子邮件地址，点击下一步会让输入密码，输入密码后就可以完成登录了。
+9. 登录亚马逊云科技控制台，[登录地址](https://console.aws.amazon.com/console/home?trk=56af0bad-f604-4f80-8f1a-f8a8b0d20118&sc_channel=sm&campaign=blog1352)，选择根用户输入电子邮件地址，点击下一步会让输入密码，输入密码后就可以完成登录了。
 
 ### 访问 Amazon S3 控制台
 
-登录亚马逊云科技管理控制台，然后打开 [Amazon S3 控制台](https://console.aws.amazon.com/s3/?trk=56af0bad-f604-4f80-8f1a-f8a8b0d20118&amp;sc_channel=sm&amp;campaign=blog1352)。
+登录亚马逊云科技管理控制台，然后打开 [Amazon S3 控制台](https://console.aws.amazon.com/s3/?trk=56af0bad-f604-4f80-8f1a-f8a8b0d20118&sc_channel=sm&campaign=blog1352)。
 
 ### 创建存储桶
 
@@ -79,8 +79,8 @@ Amazon S3 中的每个对象都存储在存储桶中。你必须先创建一个 
 
 Amazon S3 的灵活性和可靠性使其成为存储解决方案的理想选择。无论你是开发者、企业还是个人用户，都可以利用 S3 来满足你的存储需求。立即访问[免费试用页面][trial-url]，开始你的亚马逊云科技云服务之旅吧！
 
-&lt;!-- link reference definition --&gt;
-[trial-url]: https://aws.amazon.com/cn/free/?trk=56af0bad-f604-4f80-8f1a-f8a8b0d20118&amp;sc_channel=sm&amp;campaign=blog1352
+<!-- link reference definition -->
+[trial-url]: https://aws.amazon.com/cn/free/?trk=56af0bad-f604-4f80-8f1a-f8a8b0d20118&sc_channel=sm&campaign=blog1352
 
 
 ---

@@ -1,7 +1,7 @@
 # 友情链接
 
 
-{{&lt; busuanzi_embed false &#34;本页共 &#34; &gt;}}
+{{< busuanzi_embed false "本页共 " >}}
 {.text-center}
 
 ## 基本信息
@@ -13,7 +13,7 @@
 
 ## 友链要求
 
-&gt; 友情提醒：那些不尊重他人劳动成果，转载不加出处的，或恶意行为的网站，还请你不要来进行交换了。
+> 友情提醒：那些不尊重他人劳动成果，转载不加出处的，或恶意行为的网站，还请你不要来进行交换了。
 
 1. 原创博客文章至少 10 篇以上，内容健康，无违法违规内容。
 2. 网站创建时间至少 3 个月以上，且长期保持更新。（频率至少一年 1 篇）
@@ -23,10 +23,10 @@
 
 ````markdown
 ```yaml
-- nickname: &lt;your nickname&gt;
-  avatar: &lt;your avatar&gt;
-  url: &lt;your site link&gt;
-  description: &lt;description of your site&gt;
+- nickname: <your nickname>
+  avatar: <your avatar>
+  url: <your site link>
+  description: <description of your site>
 ```
 ````
 
@@ -34,11 +34,11 @@
 
 公示一个月后删除，如更换域名请及时联系！
 
-&lt;!-- markdownlint-disable-next-line no-bare-urls --&gt;
+<!-- markdownlint-disable-next-line no-bare-urls -->
 
 
 ---
 
-> 作者:   
+> 作者: <no value>  
 > URL: https://lruihao.cn/friends/  
 

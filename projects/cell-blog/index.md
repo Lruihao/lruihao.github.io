@@ -1,9 +1,9 @@
 # Cell-Blog 功能介绍与安装
 
 
-&gt; 基于 Laravel7 开发，Markdown 语法的个人独立博客。[Cell Blog](https://github.com/Lruihao/cell-blog), 也是我的毕业设计作品，目前已開源。
+> 基于 Laravel7 开发，Markdown 语法的个人独立博客。[Cell Blog](https://github.com/Lruihao/cell-blog), 也是我的毕业设计作品，目前已開源。
 
-&lt;!--more--&gt;
+<!--more-->
 
 ## 功能
 
@@ -35,7 +35,7 @@
 
 ## 安装
 
-&gt; 注意事项：PHP 取消禁用函数`putenv()`和`symlink()`，安装`fileinfo`扩展。
+> 注意事项：PHP 取消禁用函数`putenv()`和`symlink()`，安装`fileinfo`扩展。
 
 下载
 
@@ -91,8 +91,8 @@ php artisan key:generate
 
 运行数据迁移和后台数据填充
 
-&gt; `php artisan admin:install`已包含数据迁移命令`php artisan migrate`
-&gt; `G:\cell-blog\app\Admin directory already exists !`无需理会，继续执行剩下命令即可。
+> `php artisan admin:install`已包含数据迁移命令`php artisan migrate`
+> `G:\cell-blog\app\Admin directory already exists !`无需理会，继续执行剩下命令即可。
 
 ```bash
 php artisan admin:install

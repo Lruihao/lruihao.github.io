@@ -1,14 +1,14 @@
 # Amazon 如何让服务器享受着持续集群安全？
 
 
-&gt; [!question]&#43; 在这个网络信息化时代，你真的注重安全性吗？
-&gt; 常常担心服务器遭受黑客攻击，服务器集群防御措施难以统一化管理？
-&gt;
-&gt; 难以确定修复的优先级？不知道该先修复哪个漏洞？
+> [!question]+ 在这个网络信息化时代，你真的注重安全性吗？
+> 常常担心服务器遭受黑客攻击，服务器集群防御措施难以统一化管理？
+>
+> 难以确定修复的优先级？不知道该先修复哪个漏洞？
 
 你是否也有过诸如此类的困扰？不要慌，同学们，在亚马逊云科技中，有一个契合的服务工具能帮助到你，它就是 Amazon Inspector。
 
-&lt;!--more--&gt;
+<!--more-->
 
 ## 了解 Amazon Inspector
 
@@ -63,7 +63,7 @@ Amazon Inspector 可以自动发现工作负载，例如 Amazon EC2 实例、容
    ![plan](https://lruihao.cn/posts/aws-ec2/images/23_1693045029.png)
 8. 完成注册\
    ![complete](https://lruihao.cn/posts/aws-ec2/images/23_1693045100.png)
-9. 登录亚马逊云科技控制台，[登录地址](https://console.aws.amazon.com/console/home?trk=56af0bad-f604-4f80-8f1a-f8a8b0d20118&amp;sc_channel=sm&amp;campaign=blog1352)，选择根用户输入电子邮件地址，点击下一步会让输入密码，输入密码后就可以完成登录了。
+9. 登录亚马逊云科技控制台，[登录地址](https://console.aws.amazon.com/console/home?trk=56af0bad-f604-4f80-8f1a-f8a8b0d20118&sc_channel=sm&campaign=blog1352)，选择根用户输入电子邮件地址，点击下一步会让输入密码，输入密码后就可以完成登录了。
 
 ### 激活 Amazon Inspector
 
@@ -107,7 +107,7 @@ Amazon Inspector 可以自动发现工作负载，例如 Amazon EC2 实例、容
 
 ![image-20241121192436605](images/image-20241121192436605.webp)
 
-&gt; **注意**：每个帐户可一次性免费使用 **25** 次映像评测。
+> **注意**：每个帐户可一次性免费使用 **25** 次映像评测。
 
 ## 使用心得
 
@@ -121,8 +121,8 @@ Amazon Inspector 可以自动发现工作负载，例如 Amazon EC2 实例、容
 
 立即访问[免费试用页面][trial-url]，开始你的亚马逊云科技云服务安全之旅吧！
 
-&lt;!-- link reference definition --&gt;
-[trial-url]: https://aws.amazon.com/cn/free/?trk=997abc29-fa8e-41bf-afa1-da66c3de023b&amp;sc_channel=sm&amp;campaign=blog1432
+<!-- link reference definition -->
+[trial-url]: https://aws.amazon.com/cn/free/?trk=997abc29-fa8e-41bf-afa1-da66c3de023b&sc_channel=sm&campaign=blog1432
 
 
 ---

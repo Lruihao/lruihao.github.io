@@ -12,7 +12,7 @@
 
 ## 系统依赖
 
-- [Node.js](https://nodejs.org/) (&gt;= 18)
+- [Node.js](https://nodejs.org/) (>= 18)
 - [Git](https://git-scm.com/)
 - [Hugo](https://gohugo.io/) 扩展版
 
@@ -35,7 +35,7 @@ pnpx fixit-cli -h
 ```
 
 ```plain
-Usage: fixit &lt;command&gt; [options]
+Usage: fixit <command> [options]
 
 =============================================
 
@@ -110,7 +110,7 @@ pnpm remove -g fixit-cli
 
 ## 作者
 
-[Lruihao](https://github.com/Lruihao &#34;在 GitHub 上关注我&#34;)
+[Lruihao](https://github.com/Lruihao "在 GitHub 上关注我")
 
 
 ---

@@ -1,7 +1,7 @@
 # 英语语法--完全倒装
 
 
-&gt; 完全倒装：把整个谓语动词放到主语前。
+> 完全倒装：把整个谓语动词放到主语前。
 
 ### 表方位或时间的副词 (adv)、表地点的介词短语位于句首时
 
@@ -12,13 +12,13 @@
 3. Out rushed the children.
 4. Now comes your turn.
 5. Up jumped the cat and caught the mouse.
-6. &lt;u&gt;Down&lt;/u&gt; came the rain and &lt;u&gt;up&lt;/u&gt; went the umbrellas.
+6. <u>Down</u> came the rain and <u>up</u> went the umbrellas.
 7. Among the people stood his friend,Jim.
 8. (To be) South of the river lies a small factory.
 
 但主语为表示人称的代词时无需倒装
 
-9. Here are you.&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;Away it flew.
+9. Here are you.&emsp;&emsp;&emsp;&emsp;Away it flew.
 
 ### 表语（词/短语）位于句首时，adj/doing/done
 
@@ -30,7 +30,7 @@
 4. Present(adj) at the conference were all leaders of this city.
 5. Lying on the grassland is the boy who was injured in the fire.
 
-### 存在句 there be 中，其中 be \-&gt;exist/arise/follow/enter/appear/live 等表状态 vi
+### 存在句 there be 中，其中 be \->exist/arise/follow/enter/appear/live 等表状态 vi
 
 **例句**
 

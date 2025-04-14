@@ -1,9 +1,9 @@
 # RESTful
 
 
-&gt; RESTful 是一种系统开发设计风格、原则。可视情况调整，以下参考来源 [RFC5789](https://www.rfc-editor.org/rfc/rfc5789)
+> RESTful 是一种系统开发设计风格、原则。可视情况调整，以下参考来源 [RFC5789](https://www.rfc-editor.org/rfc/rfc5789)
 
-&lt;!--more--&gt;
+<!--more-->
 
 ## Noun
 
@@ -16,27 +16,27 @@
 
 ## Http Method
 
-&lt;!-- markdownlint-disable MD033 --&gt;
+<!-- markdownlint-disable MD033 -->
 
-&lt;table&gt;&lt;tbody&gt;&lt;tr&gt;&lt;th&gt;Method&lt;/th&gt;&lt;th&gt;Idempotent&lt;/th&gt;&lt;th&gt;Safe&lt;/th&gt;&lt;th&gt;CRUD&lt;/th&gt;&lt;th&gt;OO&lt;/th&gt;&lt;th&gt;生活动词&lt;/th&gt;&lt;th&gt;用途&lt;/th&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td rowspan=&#34;2&#34;&gt;GET&lt;/td&gt;&lt;td rowspan=&#34;2&#34; style=&#34;text-align: center;&#34;&gt;Y&lt;/td&gt;&lt;td rowspan=&#34;2&#34; style=&#34;text-align: center;&#34;&gt;Y&lt;/td&gt;&lt;td rowspan=&#34;2&#34;&gt;&lt;b&gt;R&lt;/b&gt;ead&lt;/td&gt;&lt;td rowspan=&#34;2&#34;&gt;get&lt;/td&gt;&lt;td&gt;get&lt;/td&gt;&lt;td&gt;取得资料&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;list&lt;/td&gt;&lt;td&gt;列出资料&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td rowspan=&#34;2&#34;&gt;POST&lt;/td&gt;&lt;td rowspan=&#34;2&#34;&gt;&lt;/td&gt;&lt;td rowspan=&#34;2&#34;&gt;&lt;/td&gt;&lt;td rowspan=&#34;2&#34;&gt;&lt;b&gt;C&lt;/b&gt;reate&lt;/td&gt;&lt;td rowspan=&#34;2&#34;&gt;add&lt;/td&gt;&lt;td&gt;create&lt;/td&gt;&lt;td&gt;建立一个可以完全独立存在的实体&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;add&lt;/td&gt;&lt;td&gt;增加一个必须依赖于某个实体的实体&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td rowspan=&#34;2&#34;&gt;PUT&lt;/td&gt;&lt;td rowspan=&#34;2&#34; style=&#34;text-align: center;&#34;&gt;Y&lt;/td&gt;&lt;td rowspan=&#34;2&#34;&gt;&lt;/td&gt;&lt;td rowspan=&#34;3&#34;&gt;&lt;b&gt;U&lt;/b&gt;pdate&lt;/td&gt;&lt;td rowspan=&#34;3&#34;&gt;set&lt;/td&gt;&lt;td&gt;replace&lt;/td&gt;&lt;td&gt;取代一个关系，已存在时先删除后建立，不存在时直接建立&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;add&lt;/td&gt;&lt;td&gt;附加唯一关系，两个关系实体可以互相独立存在，且已经存在&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;PATCH&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;edit&lt;/td&gt;&lt;td&gt;编辑某个实体&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;DELETE&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;b&gt;D&lt;/b&gt;elete&lt;/td&gt;&lt;td&gt;remove&lt;/td&gt;&lt;td&gt;remove&lt;br&gt;delete&lt;/td&gt;&lt;td&gt;删除某个实体&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
+<table><tbody><tr><th>Method</th><th>Idempotent</th><th>Safe</th><th>CRUD</th><th>OO</th><th>生活动词</th><th>用途</th></tr><tr><td rowspan="2">GET</td><td rowspan="2" style="text-align: center;">Y</td><td rowspan="2" style="text-align: center;">Y</td><td rowspan="2"><b>R</b>ead</td><td rowspan="2">get</td><td>get</td><td>取得资料</td></tr><tr><td>list</td><td>列出资料</td></tr><tr><td rowspan="2">POST</td><td rowspan="2"></td><td rowspan="2"></td><td rowspan="2"><b>C</b>reate</td><td rowspan="2">add</td><td>create</td><td>建立一个可以完全独立存在的实体</td></tr><tr><td>add</td><td>增加一个必须依赖于某个实体的实体</td></tr><tr><td rowspan="2">PUT</td><td rowspan="2" style="text-align: center;">Y</td><td rowspan="2"></td><td rowspan="3"><b>U</b>pdate</td><td rowspan="3">set</td><td>replace</td><td>取代一个关系，已存在时先删除后建立，不存在时直接建立</td></tr><tr><td>add</td><td>附加唯一关系，两个关系实体可以互相独立存在，且已经存在</td></tr><tr><td>PATCH</td><td></td><td></td><td>edit</td><td>编辑某个实体</td></tr><tr><td>DELETE</td><td></td><td></td><td><b>D</b>elete</td><td>remove</td><td>remove<br>delete</td><td>删除某个实体</td></tr></tbody></table>
 
 - Safe：该操作不会改变伺服器端的资源状态（而且结果可以被 cache），属于 Safe 的操作必定属于 Idempotent
 - Idempotent (幂等性)：该操作不管做 1 遍或做 n 遍，都会得到同样的资源状态结果（但不一定得到同样的返回值，例如第 2 次 DELETE 请求可能回传 404），因此 client 端可以放心 retry
 
 ### GET
 
-&gt; Safe：每次执行操作时，GET 只有读取 Resource，不会改变到任何的 Resource（资源，资料）  
-&gt; Idempotent：每次执行操作时，GET 只有读取 Resource，不会改变到任何的 Resource（资源，资料），所以任何资源的任何状态都是一样的
+> Safe：每次执行操作时，GET 只有读取 Resource，不会改变到任何的 Resource（资源，资料）  
+> Idempotent：每次执行操作时，GET 只有读取 Resource，不会改变到任何的 Resource（资源，资料），所以任何资源的任何状态都是一样的
 
 ### POST
 
-&gt; 每次执行操作时，POST 都会建立一个 Resource（资源，资料）
+> 每次执行操作时，POST 都会建立一个 Resource（资源，资料）
 
 - Create：建立一个可以完全独立存在的实体
 
   范例：建立使用者
 
-  执行第一次时：建立一个 name = &#34;李四&#34; 的 user，但其 id = 1，执行第二次时：建立一个 name = &#34;李四&#34; 的 user，但其 id = 2，发送同样的请求，可每次都是不同的 Resource
+  执行第一次时：建立一个 name = "李四" 的 user，但其 id = 1，执行第二次时：建立一个 name = "李四" 的 user，但其 id = 2，发送同样的请求，可每次都是不同的 Resource
 
   建立使用者前不需要建立任何的东西，就可以建立使用者了，使用者是可以完全独立的存在
 
@@ -45,7 +45,7 @@
   Host: 127.0.0.1
 
   {
-   &#34;name&#34;: &#34;李四&#34;
+   "name": "李四"
   }
   ```
 
@@ -62,20 +62,20 @@
   Host: gitea.com
 
   {
-    &#34;key&#34;: &#34;string&#34;,
-    &#34;read_only&#34;: true,
-    &#34;title&#34;: &#34;string&#34;
+    "key": "string",
+    "read_only": true,
+    "title": "string"
   }
   ```
 
 ### PUT
 
-&gt; Idempotent：每次执行操作时，PUT 都会取代 Resource，不管操作几次，使用者获取得 Resource 结果都是一样的
-&gt;
-&gt; Replace：不论资源如何，最终的资源状态都是一样的，Resource 已存在时，或许不理会、或许先删除后建立（取代）Resource 不存在时，直接建立
-&gt;
-&gt; Add：添加唯一关系，建立这个唯一关系前，两个关连实体都必须存在。在没有建立关系前，两个关连实体都可以互相独立存在
-&gt; 资料结构：多对多，且两个关连实体的 PK，同时也是关系实体的 PK、FK
+> Idempotent：每次执行操作时，PUT 都会取代 Resource，不管操作几次，使用者获取得 Resource 结果都是一样的
+>
+> Replace：不论资源如何，最终的资源状态都是一样的，Resource 已存在时，或许不理会、或许先删除后建立（取代）Resource 不存在时，直接建立
+>
+> Add：添加唯一关系，建立这个唯一关系前，两个关连实体都必须存在。在没有建立关系前，两个关连实体都可以互相独立存在
+> 资料结构：多对多，且两个关连实体的 PK，同时也是关系实体的 PK、FK
 
 - 范例：增加使用者与角色的关系
 
@@ -87,7 +87,7 @@
   Host: 127.0.0.1
 
   {
-    &#34;role_id&#34;: &#34;2&#34;
+    "role_id": "2"
   }
   ```
 
@@ -102,7 +102,7 @@
 
 ### PATCH
 
-&gt; Edit：编辑可独立存在、且已经存在的实体，也就是产生新版本的实体，可能会影响其他 Resource
+> Edit：编辑可独立存在、且已经存在的实体，也就是产生新版本的实体，可能会影响其他 Resource
 
 - 范例：编辑使用者
 
@@ -114,15 +114,15 @@
   Host: 127.0.0.1
 
   {
-    &#34;username&#34;: &#34;李四&#34;,
-    &#34;age&#34;: &#34;18&#34;,
-    &#34;gender&#34;: &#34;male&#34;
+    "username": "李四",
+    "age": "18",
+    "gender": "male"
   }
   ```
 
 ### DELETE
 
-&gt; Idempotent：每次执行操作时，DELETE 都会删除相同的东西
+> Idempotent：每次执行操作时，DELETE 都会删除相同的东西
 
 - 范例：删除使用者
 
@@ -144,7 +144,7 @@ HTTP 状态码（HTTP Status Code）是用以表示网页服务器 HTTP 响应�
 
 在实际应用中，应据具体情景及需要进行选择与调整。
 
-&lt;table&gt;&lt;tbody&gt;&lt;tr&gt;&lt;th&gt;方案&lt;/th&gt;&lt;th colspan=&#34;2&#34;&gt;优劣比较&lt;/th&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td rowspan=&#34;2&#34;&gt;方案一&lt;/td&gt;&lt;td&gt;优点&lt;/td&gt;&lt;td&gt;对服务端来说较为简单方便&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;缺点&lt;/td&gt;&lt;td&gt;客户端难以根据状态码处理复杂问题&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td rowspan=&#34;2&#34;&gt;方案二&lt;/td&gt;&lt;td&gt;优点&lt;/td&gt;&lt;td&gt;方便对返回资料进行统一处理和细微性的控制&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;缺点&lt;/td&gt;&lt;td&gt;相当于放弃了 HTTP 状态码的语义&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
+<table><tbody><tr><th>方案</th><th colspan="2">优劣比较</th></tr><tr><td rowspan="2">方案一</td><td>优点</td><td>对服务端来说较为简单方便</td></tr><tr><td>缺点</td><td>客户端难以根据状态码处理复杂问题</td></tr><tr><td rowspan="2">方案二</td><td>优点</td><td>方便对返回资料进行统一处理和细微性的控制</td></tr><tr><td>缺点</td><td>相当于放弃了 HTTP 状态码的语义</td></tr></tbody></table>
 
 ### 常用 HTTP 状态码
 
@@ -180,8 +180,8 @@ HTTP 状态码（HTTP Status Code）是用以表示网页服务器 HTTP 响应�
 | 504  | Gatewy Timeout             | 表示作为网关或代理的服务段在执行请求时，未能及时从上游服务器获得响应。             |
 | 505  | HTTP Version Not Supported | 表示服务端不支持请求的 HTTP 协议版本，导致无法完成请求。                           |
 
-&gt; 以上内容参考自&lt;https://zh.wikipedia.org/zh-cn/HTTP 状态码&gt;，
-&gt; 需要查看完整 HTTP 状态码请点击 &lt;https://www.rfc-editor.org/rfc/rfc9110.html#name-status-codes&gt;
+> 以上内容参考自<https://zh.wikipedia.org/zh-cn/HTTP 状态码>，
+> 需要查看完整 HTTP 状态码请点击 <https://www.rfc-editor.org/rfc/rfc9110.html#name-status-codes>
 
 
 ---

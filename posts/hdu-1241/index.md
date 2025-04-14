@@ -13,7 +13,7 @@ The GeoSurvComp geologic survey company is responsible for detecting underground
 
 ### Input
 
-The input file contains one or more grids. Each grid begins with a line containing m and n, the number of rows and columns in the grid, separated by a single space. If m = 0 it signals the end of the input; otherwise 1 &lt;= m &lt;= 100 and 1 &lt;= n &lt;= 100. Following this are m lines of n characters each (not counting the end-of-line characters). Each character corresponds to one plot, and is either &#39; \* &#39;, representing the absence of oil, or &#39;@&#39;, representing an oil pocket.
+The input file contains one or more grids. Each grid begins with a line containing m and n, the number of rows and columns in the grid, separated by a single space. If m = 0 it signals the end of the input; otherwise 1 <= m <= 100 and 1 <= n <= 100. Following this are m lines of n characters each (not counting the end-of-line characters). Each character corresponds to one plot, and is either ' \* ', representing the absence of oil, or '@', representing an oil pocket.
 
 ### Output
 
@@ -55,10 +55,10 @@ Eddy | We have carefully selected several similar problems for you: 1016 1010 13
 
 dfs 模板题吧，八个方向搜索；（像 i，j 这样的计数器还是写在局部比较好，我尽然被定义域的问题搞了一晚上醉了醉了。）
 
-&lt;!-- markdownlint-disable MD046 --&gt;
+<!-- markdownlint-disable MD046 -->
 
 ```cpp
-#include&lt;bits/stdc&#43;&#43;.h&gt;
+#include<bits/stdc++.h>
 using namespace std;
 
 int n,m,s;
@@ -67,30 +67,30 @@ int vx[8]={-1,1,0,0,-1,-1,1,1};
 int vy[8]={0,0,-1,1,-1,1,1,-1};
 
 void dfs(int x,int y){
-    maze[x][y]=&#39;*&#39;;
-    for(int i=0;i&lt;8;i&#43;&#43;){
-        int tx=x&#43;vx[i];
-        int ty=y&#43;vy[i];
-        if(tx&gt;=0&amp;&amp;tx&lt;m&amp;&amp;ty&gt;=0&amp;&amp;ty&lt;n&amp;&amp;maze[tx][ty]==&#39;@&#39;)
+    maze[x][y]='*';
+    for(int i=0;i<8;i++){
+        int tx=x+vx[i];
+        int ty=y+vy[i];
+        if(tx>=0&&tx<m&&ty>=0&&ty<n&&maze[tx][ty]=='@')
             dfs(tx,ty);
     }
 }
 
 int main(){
     int i,j;
-    while(cin&gt;&gt;m&gt;&gt;n&amp;&amp;m){
+    while(cin>>m>>n&&m){
         s=0;
-        for(i=0;i&lt;m;i&#43;&#43;)
-            cin&gt;&gt;maze[i];
-        for(i=0;i&lt;m;i&#43;&#43;){//相当于不连通的情况
-            for(j=0;j&lt;n;j&#43;&#43;){
-                if(maze[i][j]==&#39;@&#39;){
+        for(i=0;i<m;i++)
+            cin>>maze[i];
+        for(i=0;i<m;i++){//相当于不连通的情况
+            for(j=0;j<n;j++){
+                if(maze[i][j]=='@'){
                     dfs(i,j);
-                    s&#43;&#43;;
+                    s++;
                 }
             }
         }
-        cout&lt;&lt;s&lt;&lt;endl;
+        cout<<s<<endl;
     }
     return 0;
 }

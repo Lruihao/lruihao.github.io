@@ -2,15 +2,15 @@
 
 # Vercel Gravatar
 
-&gt; [!NOTE]
-&gt; Superseded by [Lruihao/vercel-proxy](https://github.com/Lruihao/vercel-proxy).
+> [!NOTE]
+> Superseded by [Lruihao/vercel-proxy](https://github.com/Lruihao/vercel-proxy).
 
 Gravatar Proxy powered by Vercel.
 
 Go to test Gravatar:
 
-- &lt;https://gravatar.lruihao.cn/avatar/&gt;
-- &lt;https://gravatar-x.vercel.app/avatar/&gt;
+- <https://gravatar.lruihao.cn/avatar/>
+- <https://gravatar-x.vercel.app/avatar/>
 
 
 ---

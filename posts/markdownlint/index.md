@@ -3,7 +3,7 @@
 
 会写 Markdown 的人很多，但写得好 Markdown 的人却很少。有没有什么工具能充当「秘书」，检查文件中的 Markdown 语法和风格，并且提出解决方案、自动修复问题，甚至自动补齐中英文之间的「盘古之白」呢？本文介绍的 Markdown 语法检查器就能做到。
 
-&lt;!--more--&gt;
+<!--more-->
 
 ## 引言
 
@@ -19,7 +19,7 @@
 
 本博客源码已引入 markdownlint 规范，可下载本博客源码查看配置。
 
-{{&lt; link href=&#34;http://github.com/Lruihao/hugo-blog&#34; content=&#34;Lruihao/hugo-blog&#34; card=true &gt;}}
+{{< link href="http://github.com/Lruihao/hugo-blog" content="Lruihao/hugo-blog" card=true >}}
 
 ## 引入 markdownlint
 
@@ -53,9 +53,9 @@ npm install markdownlint-cli2 --save-dev
 
 ```json
 {
-  &#34;scripts&#34;: {
-    &#34;lint:md&#34;: &#34;markdownlint-cli2 \&#34;content/**/*.md\&#34;&#34;,
-    &#34;fix:md&#34;: &#34;npm run lint:md -- --fix&#34;
+  "scripts": {
+    "lint:md": "markdownlint-cli2 \"content/**/*.md\"",
+    "fix:md": "npm run lint:md -- --fix"
   }
 }
 ```
@@ -73,133 +73,133 @@ npm install markdownlint-rule-search-replace --save-dev
 // https://github.com/DavidAnson/markdownlint/blob/main/doc/Rules.md
 // for more details on each rule.
 {
-  &#34;default&#34;: true,
-  &#34;ul-style&#34;: {
-    &#34;style&#34;: &#34;dash&#34;
+  "default": true,
+  "ul-style": {
+    "style": "dash"
   },
-  &#34;ul-indent&#34;: {
-    &#34;indent&#34;: 2
+  "ul-indent": {
+    "indent": 2
   },
-  &#34;no-hard-tabs&#34;: {
-    &#34;spaces_per_tab&#34;: 2
+  "no-hard-tabs": {
+    "spaces_per_tab": 2
   },
-  &#34;line-length&#34;: false,
-  &#34;no-duplicate-header&#34;: {
-    &#34;allow_different_nesting&#34;: true
+  "line-length": false,
+  "no-duplicate-header": {
+    "allow_different_nesting": true
   },
-  &#34;single-title&#34;: {
-    &#34;front_matter_title&#34;: &#34;^\\s*title\\s*[:=]&#34;
+  "single-title": {
+    "front_matter_title": "^\\s*title\\s*[:=]"
   },
-  &#34;no-trailing-punctuation&#34;: {
-    &#34;punctuation&#34;: &#34;.,;:&#34;
+  "no-trailing-punctuation": {
+    "punctuation": ".,;:"
   },
-  // Consecutive Notes/Callouts currently don&#39;t conform with this rule
-  &#34;no-blanks-blockquote&#34;: false,
+  // Consecutive Notes/Callouts currently don't conform with this rule
+  "no-blanks-blockquote": false,
   // Force ordered numbering to catch accidental list ending from indenting
-  &#34;ol-prefix&#34;: {
-    &#34;style&#34;: &#34;ordered&#34;
+  "ol-prefix": {
+    "style": "ordered"
   },
-  &#34;no-inline-html&#34;: {
-    &#34;allowed_elements&#34;: [
-      &#34;br&#34;,
-      &#34;code&#34;,
-      &#34;details&#34;,
-      &#34;div&#34;,
-      &#34;img&#34;,
-      &#34;kbd&#34;,
-      &#34;p&#34;,
-      &#34;pre&#34;,
-      &#34;sub&#34;,
-      &#34;summary&#34;,
-      &#34;sup&#34;,
-      &#34;table&#34;,
-      &#34;tbody&#34;,
-      &#34;td&#34;,
-      &#34;tfoot&#34;,
-      &#34;th&#34;,
-      &#34;thead&#34;,
-      &#34;tr&#34;,
-      &#34;ul&#34;,
-      &#34;ol&#34;,
-      &#34;var&#34;,
-      &#34;ruby&#34;,
-      &#34;rp&#34;,
-      &#34;rt&#34;,
-      &#34;i&#34;
+  "no-inline-html": {
+    "allowed_elements": [
+      "br",
+      "code",
+      "details",
+      "div",
+      "img",
+      "kbd",
+      "p",
+      "pre",
+      "sub",
+      "summary",
+      "sup",
+      "table",
+      "tbody",
+      "td",
+      "tfoot",
+      "th",
+      "thead",
+      "tr",
+      "ul",
+      "ol",
+      "var",
+      "ruby",
+      "rp",
+      "rt",
+      "i"
     ]
   },
-  &#34;no-bare-urls&#34;: false,
+  "no-bare-urls": false,
   // Produces too many false positives
-  &#34;fenced-code-language&#34;: false,
-  &#34;code-block-style&#34;: {
-    &#34;style&#34;: &#34;fenced&#34;
+  "fenced-code-language": false,
+  "code-block-style": {
+    "style": "fenced"
   },
-  &#34;no-space-in-code&#34;: false,
-  &#34;emphasis-style&#34;: {
-    &#34;style&#34;: &#34;underscore&#34;
+  "no-space-in-code": false,
+  "emphasis-style": {
+    "style": "underscore"
   },
-  &#34;strong-style&#34;: {
-    &#34;style&#34;: &#34;asterisk&#34;
+  "strong-style": {
+    "style": "asterisk"
   },
   // https://github.com/OnkarRuikar/markdownlint-rule-search-replace
-  &#34;search-replace&#34;: {
-    &#34;rules&#34;: [
+  "search-replace": {
+    "rules": [
       {
-        &#34;name&#34;: &#34;nbsp&#34;,
-        &#34;message&#34;: &#34;Don&#39;t use no-break spaces&#34;,
-        &#34;searchPattern&#34;: &#34;/ /g&#34;,
-        &#34;replace&#34;: &#34; &#34;,
-        &#34;searchScope&#34;: &#34;all&#34;
+        "name": "nbsp",
+        "message": "Don't use no-break spaces",
+        "searchPattern": "/ /g",
+        "replace": " ",
+        "searchScope": "all"
       },
       {
         // zh-cn/zh-tw prefers double em-dash instead
-        &#34;name&#34;: &#34;em-dash&#34;,
-        &#34;message&#34;: &#34;Don&#39;t use &#39;--&#39;. Use em-dash (—) instead&#34;,
-        &#34;search&#34;: &#34; -- &#34;,
-        &#34;replace&#34;: &#34; — &#34;,
-        &#34;searchScope&#34;: &#34;text&#34;
+        "name": "em-dash",
+        "message": "Don't use '--'. Use em-dash (—) instead",
+        "search": " -- ",
+        "replace": " — ",
+        "searchScope": "text"
       },
       {
-        &#34;name&#34;: &#34;trailing-spaces&#34;,
-        &#34;message&#34;: &#34;Avoid trailing spaces&#34;,
-        &#34;searchPattern&#34;: &#34;/  &#43;$/gm&#34;,
-        &#34;replace&#34;: &#34;&#34;,
-        &#34;searchScope&#34;: &#34;all&#34;
+        "name": "trailing-spaces",
+        "message": "Avoid trailing spaces",
+        "searchPattern": "/  +$/gm",
+        "replace": "",
+        "searchScope": "all"
       },
       {
-        &#34;name&#34;: &#34;double-spaces&#34;,
-        &#34;message&#34;: &#34;Avoid double spaces&#34;,
-        &#34;searchPattern&#34;: &#34;/([^\\s&gt;])  ([^\\s|])/g&#34;,
-        &#34;replace&#34;: &#34;$1 $2&#34;,
-        &#34;searchScope&#34;: &#34;text&#34;
+        "name": "double-spaces",
+        "message": "Avoid double spaces",
+        "searchPattern": "/([^\\s>])  ([^\\s|])/g",
+        "replace": "$1 $2",
+        "searchScope": "text"
       },
       {
-        &#34;name&#34;: &#34;stuck-definition&#34;,
-        &#34;message&#34;: &#34;Character is stuck to definition description marker&#34;,
-        &#34;searchPattern&#34;: &#34;/- :(\\w)/g&#34;,
-        &#34;replace&#34;: &#34;- : $1&#34;,
-        &#34;searchScope&#34;: &#34;text&#34;
+        "name": "stuck-definition",
+        "message": "Character is stuck to definition description marker",
+        "searchPattern": "/- :(\\w)/g",
+        "replace": "- : $1",
+        "searchScope": "text"
       },
       {
-        &#34;name&#34;: &#34;localhost-links&#34;,
-        &#34;message&#34;: &#34;Don&#39;t use localhost for links&#34;,
-        &#34;searchPattern&#34;: &#34;/\\]\\(https?:\\/\\/localhost:\\d&#43;\\//g&#34;,
-        &#34;replace&#34;: &#34;](/&#34;,
-        &#34;searchScope&#34;: &#34;text&#34;
+        "name": "localhost-links",
+        "message": "Don't use localhost for links",
+        "searchPattern": "/\\]\\(https?:\\/\\/localhost:\\d+\\//g",
+        "replace": "](/",
+        "searchScope": "text"
       },
       // zh-cn prefers rules
       {
-        &#34;name&#34;: &#34;double-em-dash&#34;,
-        &#34;message&#34;: &#34;Don&#39;t use &#39;--&#39;. Use double em-dash (——) instead&#34;,
-        &#34;search&#34;: &#34; -- &#34;,
-        &#34;replace&#34;: &#34;——&#34;,
-        &#34;searchScope&#34;: &#34;text&#34;
+        "name": "double-em-dash",
+        "message": "Don't use '--'. Use double em-dash (——) instead",
+        "search": " -- ",
+        "replace": "——",
+        "searchScope": "text"
       },
       {
-        &#34;name&#34;: &#34;force-pronoun&#34;,
-        &#34;message&#34;: &#34;Consider using &#39;你&#39; instead of &#39;您&#39;&#34;,
-        &#34;searchPattern&#34;: &#34;/您/g&#34;,
-        &#34;searchScope&#34;: &#34;text&#34;
+        "name": "force-pronoun",
+        "message": "Consider using '你' instead of '您'",
+        "searchPattern": "/您/g",
+        "searchScope": "text"
       }
     ]
   }
@@ -210,16 +210,16 @@ npm install markdownlint-rule-search-replace --save-dev
 
 ```json
 {
-  &#34;config&#34;: {
-    &#34;extends&#34;: &#34;./.markdownlint.jsonc&#34;
+  "config": {
+    "extends": "./.markdownlint.jsonc"
   },
-  &#34;customRules&#34;: [&#34;markdownlint-rule-search-replace&#34;],
-  &#34;ignores&#34;: [
-    &#34;node_modules&#34;,
-    &#34;.git&#34;,
-    &#34;.github&#34;,
-    &#34;**/conflicting/**&#34;,
-    &#34;**/orphaned/**&#34;
+  "customRules": ["markdownlint-rule-search-replace"],
+  "ignores": [
+    "node_modules",
+    ".git",
+    ".github",
+    "**/conflicting/**",
+    "**/orphaned/**"
   ]
 }
 ```
@@ -234,23 +234,23 @@ npm install lint-staged --save-dev
 
 ```json
 {
-  &#34;content/**/*.md&#34;: &#34;markdownlint-cli2 --fix&#34;
+  "content/**/*.md": "markdownlint-cli2 --fix"
 }
 ```
 
 ### 安装 husky
 
-&gt; 本教程基于 husky 8 版本，最新版本方式以 husky 官网教程为准。
+> 本教程基于 husky 8 版本，最新版本方式以 husky 官网教程为准。
 
 ```bash
-npx husky-init &amp;&amp; npm install
+npx husky-init && npm install
 ```
 
 配置 `.husky/pre-commit`
 
 ```bash
 #!/usr/bin/env sh
-. &#34;$(dirname -- &#34;$0&#34;)/_/husky.sh&#34;
+. "$(dirname -- "$0")/_/husky.sh"
 
 npx lint-staged
 ```
@@ -284,9 +284,9 @@ pangu.js 和 AutoCorrect 的对比：
 | pangu.js    | ❌                                       | ❌                                | ✅         |
 | AutoCorrect | [AutoCorrect Editor][autocorrect-editor] | [AutoCorrect][autocorrect-vscode] | ✅         |
 
-&lt;!-- link reference definition --&gt;
-[autocorrect-editor]: &lt;https://huacnlee.github.io/autocorrect/editor&gt;
-[autocorrect-vscode]: &lt;https://marketplace.visualstudio.com/items?itemName=huacnlee.autocorrect&gt;
+<!-- link reference definition -->
+[autocorrect-editor]: <https://huacnlee.github.io/autocorrect/editor>
+[autocorrect-vscode]: <https://marketplace.visualstudio.com/items?itemName=huacnlee.autocorrect>
 
 - pangu.js 没有官方 VSCode 插件，使用较多的是 xlthu 开发的 [Pangu-Markdown](https://marketplace.visualstudio.com/items?itemName=xlthu.Pangu-Markdown) 第三方移植版
 - pangu.js 的命令行工具受限于 Node.js，需要通过 npm 安装：`npm i pangu`
@@ -306,9 +306,9 @@ npm install autocorrect-node --save-dev
 
 ```json
 {
-  &#34;scripts&#34;: {
-    &#34;fix:md&#34;: &#34;autocorrect content --fix &amp;&amp; markdownlint-cli2 \&#34;content/**/*.md\&#34; --fix&#34;,
-    &#34;lint:md&#34;: &#34;autocorrect content --lint &amp;&amp; markdownlint-cli2 \&#34;content/**/*.md\&#34;&#34;
+  "scripts": {
+    "fix:md": "autocorrect content --fix && markdownlint-cli2 \"content/**/*.md\" --fix",
+    "lint:md": "autocorrect content --lint && markdownlint-cli2 \"content/**/*.md\""
   }
 }
 ```
@@ -317,9 +317,9 @@ npm install autocorrect-node --save-dev
 
 ```json
 {
-  &#34;content/**/*.md&#34;: [
-    &#34;autocorrect --fix&#34;,
-    &#34;markdownlint-cli2 --fix&#34;
+  "content/**/*.md": [
+    "autocorrect --fix",
+    "markdownlint-cli2 --fix"
   ]
 }
 ```
@@ -349,7 +349,7 @@ textRules:
 
 本文主要介绍了 markdownlint-cli2 和 AutoCorrect 两个工具，前者用于检查 Markdown 语法和风格，后者用于自动补齐中英文之间的「盘古之白」。这两个工具都可以在项目中集成，方便统一规范、团队协作。
 
-&lt;!-- footnote reference definition --&gt;
+<!-- footnote reference definition -->
 [^1]: [If one is good, two must be better [markdownlint-cli2 is a new kind of command-line interface for markdownlint]](https://dlaa.me/blog/post/markdownlintcli2)
 [^2]: [markdownlint-rule-search-replace](https://github.com/OnkarRuikar/markdownlint-rule-search-replace) 用于搜索和替换模式的自定义 markdownlint 规则
 [^3]: 如果有进一步兴趣，请阅读知乎讨论「[中英文混排时中文与英文之间是否要有空格？](https://www.zhihu.com/question/19587406)」，W3C 标准草案《中文排版需求》[§3.2.2](https://www.w3.org/TR/clreq/#mixed_text_composition_in_horizontal_writing_mode)，以及收听《字谈字畅》播客 [第 14 期](https://www.thetype.com/typechat/ep-014/)。

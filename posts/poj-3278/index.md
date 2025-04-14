@@ -3,7 +3,7 @@
 
 Farmer John has been informed of the location of a fugitive cow and wants to catch her immediately. He starts at a point N (0 ≤ N ≤ 100,000) on a number line and the cow is at a point K (0 ≤ K ≤ 100,000) on the same number line. Farmer John has two modes of transportation: walking and teleporting.
 
-- Walking: FJ can move from any point X to the points X&#34;,&#34;1 or X &#43; 1 in a single minute
+- Walking: FJ can move from any point X to the points X","1 or X + 1 in a single minute
 - Teleporting: FJ can move from any point X to the point 2 × X in a single minute.
 
 If the cow, unaware of its pursuit, does not move at all, how long does it take for Farmer John to retrieve it?
@@ -30,14 +30,14 @@ The fastest way for Farmer John to reach the fugitive cow is to move along the f
 
 ## 题意
 
-农场主的牛不见了，主人和牛在一条直线上，且牛没有新的目标，它不会走动，主人的位置是你 n，牛的位置是 k，主人可以有三种走路的方法，右左（距离&#43;-1），闪现（距离&#43;x,x 为当前位置），每走一步，一分钟，问几分钟主人能找到牛。bfs 搜索方向即为三个“方向”。搜索所有走法；
+农场主的牛不见了，主人和牛在一条直线上，且牛没有新的目标，它不会走动，主人的位置是你 n，牛的位置是 k，主人可以有三种走路的方法，右左（距离+-1），闪现（距离+x,x 为当前位置），每走一步，一分钟，问几分钟主人能找到牛。bfs 搜索方向即为三个“方向”。搜索所有走法；
 
-&lt;!-- markdownlint-disable MD046 --&gt;
+<!-- markdownlint-disable MD046 -->
 
 ```cpp
-#include&#34;iostream&#34;
-#include&lt;queue&gt;
-#include&#34;string.h&#34;
+#include"iostream"
+#include<queue>
+#include"string.h"
 using namespace std;
 
 int n,k;
@@ -49,7 +49,7 @@ struct node{
 
 bool check(int a)
 {
-    if(!sign[a]&amp;&amp;a&gt;=0&amp;&amp;a&lt;110000)
+    if(!sign[a]&&a>=0&&a<110000)
         return true;
     return false;
 }
@@ -57,7 +57,7 @@ bool check(int a)
 void bfs()
 {
     node u,v;
-    queue&lt;node&gt; q;
+    queue<node> q;
     v.x=n;//初始化起点
     v.step=0;
     q.push(v);
@@ -66,14 +66,14 @@ void bfs()
         u=q.front();
         q.pop();
         if(u.x==k){
-            cout&lt;&lt;u.step&lt;&lt;endl;
+            cout<<u.step<<endl;
             return ;
         }
 
         //三种前进方向，左右和闪现
         v=u;
-        v.x&#43;&#43;;
-        v.step&#43;&#43;;
+        v.x++;
+        v.step++;
         if(check(v.x)){
             sign[v.x]=true;
             q.push(v);
@@ -81,7 +81,7 @@ void bfs()
 
         v=u;
         v.x--;
-        v.step&#43;&#43;;
+        v.step++;
         if(check(v.x)){
             sign[v.x]=true;
             q.push(v);
@@ -89,7 +89,7 @@ void bfs()
 
         v=u;
         v.x=2*v.x;
-        v.step&#43;&#43;;
+        v.step++;
         if(check(v.x)){
             sign[v.x]=true;
             q.push(v);
@@ -99,7 +99,7 @@ void bfs()
 
 int main()
 {
-    cin&gt;&gt;n&gt;&gt;k;
+    cin>>n>>k;
     memset(sign,0,sizeof(sign));
     bfs();
     return 0;

@@ -27,14 +27,14 @@
 
 ```json
 {
-  &#34;scripts&#34;: {
-    &#34;version&#34;: &#34;fixit-releaser version --prod&#34;,
-    &#34;release&#34;: &#34;fixit-releaser changelog&#34;
+  "scripts": {
+    "version": "fixit-releaser version --prod",
+    "release": "fixit-releaser changelog"
   }
 }
 ```
 
-&gt; `fixit-releaser changelog` 配置与 auto-changelog 兼容。
+> `fixit-releaser changelog` 配置与 auto-changelog 兼容。
 
 ## 使用方法
 

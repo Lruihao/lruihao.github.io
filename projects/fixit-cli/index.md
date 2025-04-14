@@ -3,7 +3,7 @@
 
 本文将介绍如何用 Node.js 开发一个轻量脚手架，以 [fixit-cli](https://github.com/hugo-fixit/fixit-cli) 为例。
 
-&lt;!--more--&gt;
+<!--more-->
 
 ## 前言
 
@@ -59,8 +59,8 @@ npm install commander inquirer chalk simple-git ora --save
 
 ```json
 {
-  &#34;bin&#34;: {
-    &#34;fixit&#34;: &#34;bin/cli.js&#34;
+  "bin": {
+    "fixit": "bin/cli.js"
   }
 }
 ```
@@ -70,7 +70,7 @@ npm install commander inquirer chalk simple-git ora --save
 ```js
 #!/usr/bin/env node
 
-console.log(&#39;Hello, FixIt!&#39;)
+console.log('Hello, FixIt!')
 ```
 
 代码顶部的 `#!/usr/bin/env node` 是告诉终端，这个文件要使用 `node` 去执行，等同于 `node bin/cli.js`。
@@ -93,39 +93,39 @@ npm install -g fixit-cli /Users/cell/workspace/fixit-cli/
 
 先把要实现的命令和选项列出来：
 
-```js {title=&#34;bin/cli.js&#34;}
+```js {title="bin/cli.js"}
 #!/usr/bin/env node
-import { Command } from &#39;commander&#39;
+import { Command } from 'commander'
 
 // ...
 
 // define commands
 program
-  .command(&#39;create &lt;project-name&gt;&#39;)
-  .description(&#39;create a new FixIt project from a template&#39;)
+  .command('create <project-name>')
+  .description('create a new FixIt project from a template')
   .action(createAction)
 program
-  .command(&#39;check&#39;)
-  .description(&#39;check the latest version of FixIt theme&#39;)
+  .command('check')
+  .description('check the latest version of FixIt theme')
   .action(checkAction)
 program
-  .command(&#39;help &lt;command&gt;&#39;)
-  .description(&#39;display help for a specific command&#39;)
+  .command('help <command>')
+  .description('display help for a specific command')
   .action(helpAction)
 
 // define cli
 program
-  .usage(&#39;&lt;command&gt; [options]&#39;)
+  .usage('<command> [options]')
   .description(description)
-  .version(`${pkg.name} v${pkg.version}`, &#39;-v, --version&#39;)
+  .version(`${pkg.name} v${pkg.version}`, '-v, --version')
   .showHelpAfterError()
   .parse(process.argv)
 ```
 
 然后再去实现这些命令所执行的动作：`createAction`、`checkAction`、`helpAction` 和完善一下 logo 和 description 等细节。
 
-```plain {title=&#34;fixit --help&#34;}
-Usage: fixit &lt;command&gt; [options]
+```plain {title="fixit --help"}
+Usage: fixit <command> [options]
 
 =============================================
 
@@ -150,9 +150,9 @@ Options:
   -h, --help             display help for command
 
 Commands:
-  create &lt;project-name&gt;  create a new FixIt project from a template
+  create <project-name>  create a new FixIt project from a template
   check                  check the latest version of FixIt theme
-  help &lt;command&gt;         display help for a specific command
+  help <command>         display help for a specific command
 ```
 
 最后发布到 npm 上就完活了。
@@ -174,9 +174,9 @@ fixit create my-blog
 
 命令动作的具体实现详见 FixIt CLI 源码。
 
-{{&lt; gh-repo-card-container &gt;}}
-  {{&lt; gh-repo-card repo=&#34;hugo-fixit/fixit-cli&#34; &gt;}}
-{{&lt; /gh-repo-card-container &gt;}}
+{{< gh-repo-card-container >}}
+  {{< gh-repo-card repo="hugo-fixit/fixit-cli" >}}
+{{< /gh-repo-card-container >}}
 
 
 ---

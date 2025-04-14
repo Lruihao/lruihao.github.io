@@ -3,7 +3,7 @@
 
 本文介绍将如何开发一个仪表盘组件，以及组件开发的灵感来源。
 
-&lt;!--more--&gt;
+<!--more-->
 
 ## 第一个组件
 
@@ -11,44 +11,44 @@
 
 Talk is cheap. Show you the code.
 
-```vue {title=&#34;便利贴组件（dashboard 示例组件）&#34;}
-&lt;template&gt;
-  &lt;el-card&gt;
-    &lt;span class=&#34;note-content&#34;&gt;{{ params.content }}&lt;/span&gt;
-    &lt;el-popover
-      v-model=&#34;formVisible&#34;
-      trigger=&#34;manual&#34;
-      popper-class=&#34;form-popover&#34;
-    &gt;
-      &lt;el-form
-        ref=&#34;form&#34;
-        label-width=&#34;80px&#34;
-        label-position=&#34;top&#34;
-        :model=&#34;form&#34;
-        :rules=&#34;rules&#34;
-      &gt;
-        &lt;el-form-item label=&#34;便利贴&#34; prop=&#34;content&#34;&gt;
-          &lt;el-input v-model=&#34;form.content&#34; type=&#34;textarea&#34; :autosize=&#34;{ minRows: 2, maxRows: 4 }&#34; /&gt;
-        &lt;/el-form-item&gt;
-      &lt;/el-form&gt;
-      &lt;div class=&#34;text-right&#34;&gt;
-        &lt;el-button type=&#34;text&#34; size=&#34;mini&#34; @click=&#34;formVisible = false&#34;&gt;取消&lt;/el-button&gt;
-        &lt;el-button type=&#34;primary&#34; size=&#34;mini&#34; @click=&#34;save&#34;&gt;保存&lt;/el-button&gt;
-      &lt;/div&gt;
-    &lt;/el-popover&gt;
-  &lt;/el-card&gt;
-&lt;/template&gt;
+```vue {title="便利贴组件（dashboard 示例组件）"}
+<template>
+  <el-card>
+    <span class="note-content">{{ params.content }}</span>
+    <el-popover
+      v-model="formVisible"
+      trigger="manual"
+      popper-class="form-popover"
+    >
+      <el-form
+        ref="form"
+        label-width="80px"
+        label-position="top"
+        :model="form"
+        :rules="rules"
+      >
+        <el-form-item label="便利贴" prop="content">
+          <el-input v-model="form.content" type="textarea" :autosize="{ minRows: 2, maxRows: 4 }" />
+        </el-form-item>
+      </el-form>
+      <div class="text-right">
+        <el-button type="text" size="mini" @click="formVisible = false">取消</el-button>
+        <el-button type="primary" size="mini" @click="save">保存</el-button>
+      </div>
+    </el-popover>
+  </el-card>
+</template>
 
-&lt;script&gt;
+<script>
 export default {
   /**
    * 组件名称，必须且唯一
    */
-  name: &#39;ExampleWidget&#39;,
+  name: 'ExampleWidget',
   /**
    * 组件配置对象
    * @property {String} name 组件名称，用于在组件列表中显示组件名称
-   * @property {String} [icon=&#39;el-icon-postcard&#39;] 组件图标，用于在组件列表中显示组件图标，支持 el-icon、iconfont 和 svg-icon
+   * @property {String} [icon='el-icon-postcard'] 组件图标，用于在组件列表中显示组件图标，支持 el-icon、iconfont 和 svg-icon
    * @property {Object} [params] 组件参数，一般搭配 setting 钩子函数使用
    * @property {Boolean} [disabled] 是否禁用组件，设置为 true 则不会被注册（组件弃用时可设置为 true）
    * @property {Boolean} [hidden] 是否隐藏组件，设置为 true 则不会在组件列表中显示（组件即将弃用时可设置为 true）
@@ -62,10 +62,10 @@ export default {
    * @property {Boolean} [isResizable=false] 是否可调整大小
    */
   widget: {
-    name: &#39;便利贴&#39;,
-    icon: &#39;el-icon-postcard&#39;,
+    name: '便利贴',
+    icon: 'el-icon-postcard',
     params: {
-      content: &#39;&#39;,
+      content: '',
     },
     disabled: false,
     hidden: false,
@@ -77,42 +77,42 @@ export default {
     maxH: 6,
     isResizable: true,
   },
-  inject: [&#39;$dashboard&#39;],
+  inject: ['$dashboard'],
   props: {
     /**
      * 组件实例数据
      */
     item: {
       type: Object,
-      default: () =&gt; ({}),
+      default: () => ({}),
     },
     /**
      * 组件参数，用于接收用户已配置的参数，支持 `.sync` 修饰符
      */
     params: {
       type: Object,
-      default: () =&gt; ({}),
+      default: () => ({}),
     },
   },
   data() {
     return {
       formVisible: false,
       form: {
-        content: &#39;&#39;,
+        content: '',
       },
       rules: {
-        content: [{ required: true, message: &#39;请输入便利贴内容&#39;, trigger: &#39;change&#39; }],
+        content: [{ required: true, message: '请输入便利贴内容', trigger: 'change' }],
       },
     }
   },
   watch: {
-    &#39;$dashboard.isCollapse&#39;(val) {
+    '$dashboard.isCollapse'(val) {
       // 当侧栏组件列表折叠时，关闭配置弹窗
       if (val) {
         this.formVisible = false
       }
     },
-    &#39;params.content&#39;(val) {
+    'params.content'(val) {
       // 当用户修改了参数，更新表单中对应的参数
       this.form.content = val
     },
@@ -198,19 +198,19 @@ export default {
      * 通过 update:params 事件将配置传递给父组件
      */
     save() {
-      this.$refs.form.validate(valid =&gt; {
+      this.$refs.form.validate(valid => {
         if (valid) {
           this.formVisible = false
-          this.$emit(&#39;update:params&#39;, { ...this.form })
-          this.$dashboard.notify(&#39;便利贴保存成功！&#39;)
+          this.$emit('update:params', { ...this.form })
+          this.$dashboard.notify('便利贴保存成功！')
         }
       })
     }
   }
 }
-&lt;/script&gt;
+</script>
 
-&lt;style lang=&#34;scss&#34; scoped&gt;
+<style lang="scss" scoped>
 .note-content {
   white-space: pre-wrap;
   color: #606266;
@@ -222,7 +222,7 @@ export default {
   left: 50%;
   transform: translate(-50%, -50%);
 }
-&lt;/style&gt;
+</style>
 ```
 
 可以看出仪表盘组件和一个普通的 Vue 组件并没有太大区别，只是多了一个 `widget` 配置对象和一些钩子函数。
@@ -257,7 +257,7 @@ export default {
 
 效果如下：
 
-![hitokoto widget](images/hitokoto.gif &#34;一言组件局部动画&#34;)
+![hitokoto widget](images/hitokoto.gif "一言组件局部动画")
 
 
 ---

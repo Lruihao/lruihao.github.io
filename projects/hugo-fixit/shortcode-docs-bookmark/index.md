@@ -17,9 +17,9 @@ The installation method is the same as [installing a theme](https://fixit.lruiha
 ```diff
 [module]
   [[module.imports]]
-    path = &#34;github.com/hugo-fixit/FixIt&#34;
-&#43; [[module.imports]]
-&#43;   path = &#34;github.com/hugo-fixit/shortcode-docs-bookmark&#34;
+    path = "github.com/hugo-fixit/FixIt"
++ [[module.imports]]
++   path = "github.com/hugo-fixit/shortcode-docs-bookmark"
 ```
 
 ## Inject Partial
@@ -27,8 +27,8 @@ The installation method is the same as [installing a theme](https://fixit.lruiha
 Inject the `fixit-docs-bookmark.html` into the `custom-head` through the custom block opened by the FixIt theme in the `layouts/partials/custom.html` file:
 
 ```go-html-template
-{{- define &#34;custom-head&#34; -}}
-  {{- partial &#34;inject/fixit-docs-bookmark.html&#34; . -}}
+{{- define "custom-head" -}}
+  {{- partial "inject/fixit-docs-bookmark.html" . -}}
 {{- end -}}
 ```
 
@@ -37,7 +37,7 @@ Inject the `fixit-docs-bookmark.html` into the `custom-head` through the custom 
 Here is an example of usage:
 
 ```markdown
-{{?{}&lt; fixit-docs-bookmark &gt;}}
+{{?{}< fixit-docs-bookmark >}}
 ```
 
 

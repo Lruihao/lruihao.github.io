@@ -1,37 +1,37 @@
 # Script 的三种加载方式 (Async, Defer)
 
 
-{{&lt; admonition note &gt;}}
+{{< admonition note >}}
 JS 的加载分为两个部分：下载和执行。  
-浏览器在执行 HTML 的时候如果遇到`&lt;script&gt;`时会停止页面的渲染，去下载和执行 js 的文件直接遇见`&lt;/scirpt&gt;`会继续渲染页面。故浏览器在执行 js 文件的时候浏览器表现为一片空白，为了解决这个问题 ECMAScript 定义了 defer 和 async 两个属性用于控制 JS 的下载和执行。
-{{&lt; /admonition &gt;}}
+浏览器在执行 HTML 的时候如果遇到`<script>`时会停止页面的渲染，去下载和执行 js 的文件直接遇见`</scirpt>`会继续渲染页面。故浏览器在执行 js 文件的时候浏览器表现为一片空白，为了解决这个问题 ECMAScript 定义了 defer 和 async 两个属性用于控制 JS 的下载和执行。
+{{< /admonition >}}
 
-&lt;!--more--&gt;
+<!--more-->
 
 ## 不带任何属性
 
-&gt; 同步模式，又称阻塞模式，我们平时使用的最多的一种方式。当浏览器解析到`&lt;script&gt;`标签时，浏览器会停止解析其后的内容，而优先下载脚本文件，并执行其中的代码，是个同步阻塞的过程。  
-&gt; 一般建议把`&lt;script&gt;`标签放在`&lt;body&gt;`结尾处，这样尽可能减少页面阻塞。  
-&gt; 而如果想要异步执行 script，则可以给其加上 async 或 defer 属性。
+> 同步模式，又称阻塞模式，我们平时使用的最多的一种方式。当浏览器解析到`<script>`标签时，浏览器会停止解析其后的内容，而优先下载脚本文件，并执行其中的代码，是个同步阻塞的过程。  
+> 一般建议把`<script>`标签放在`<body>`结尾处，这样尽可能减少页面阻塞。  
+> 而如果想要异步执行 script，则可以给其加上 async 或 defer 属性。
 
 ```html
-&lt;script&gt;
+<script>
 ```
 
 ## defer
 
-&gt; defer 属性在 HTML 解析期间异步下载文件，并且只在 HTML 解析完成后才执行它。对于 defer，我们可以理解是将外链的 js 放在了页面底部。js 的加载不会阻塞页面的渲染和资源的加载。不过 defer 会按照原本的 js 的顺序执行，**所以如果前后有依赖关系的 js 可以放心使用。**
+> defer 属性在 HTML 解析期间异步下载文件，并且只在 HTML 解析完成后才执行它。对于 defer，我们可以理解是将外链的 js 放在了页面底部。js 的加载不会阻塞页面的渲染和资源的加载。不过 defer 会按照原本的 js 的顺序执行，**所以如果前后有依赖关系的 js 可以放心使用。**
 
 ```html
-&lt;script defer&gt;
+<script defer>
 ```
 
 ## async
 
-&gt; async 属性会在 HTML 解析期间异步下载文件，并在完成下载后立即暂停 HTML 解析器去执行 script 中的代码。在执行过程中浏览器处于阻塞状态，响应不了任何需求。**如果 js 前后有依赖性，用 async，就很有可能出错。**
+> async 属性会在 HTML 解析期间异步下载文件，并在完成下载后立即暂停 HTML 解析器去执行 script 中的代码。在执行过程中浏览器处于阻塞状态，响应不了任何需求。**如果 js 前后有依赖性，用 async，就很有可能出错。**
 
 ```html
-&lt;script async&gt;
+<script async>
 ```
 
 ## 区别
@@ -65,8 +65,8 @@ JS 的加载分为两个部分：下载和执行。
 
 ## 参考
 
-- &lt;https://www.growingwiththeweb.com/2014/02/async-vs-defer-attributes.html&gt;
-- &lt;https://www.jianshu.com/p/17dc82bf08f1&gt;
+- <https://www.growingwiththeweb.com/2014/02/async-vs-defer-attributes.html>
+- <https://www.jianshu.com/p/17dc82bf08f1>
 
 
 ---

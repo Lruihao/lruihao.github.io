@@ -7,7 +7,7 @@
 
 经过一番查阅，以下部分内容引用北京师范大学 - 出版科学研究院的一篇文章，[“出版物中，英文什么时候要大写？ ”](https://pub.bnu.edu.cn/jzyg1/72203.html)。
 
-&lt;!--more--&gt;
+<!--more-->
 
 ## 标题中的大写规则
 
@@ -17,7 +17,7 @@
 
 例如：China Daily《中国日报》的文章标题均第一个单词首字母大写。
 
-China&#39;s panda protection bears fruit amid 150th anniversary of discovery.
+China's panda protection bears fruit amid 150th anniversary of discovery.
 
 ### 美式英语（比较常见）
 
@@ -44,7 +44,7 @@ The Visual Arts and the Catholic Reformation
 
 2. 直接引语中，句首字母要大写。
 
-    例如：&#34;Then,&#34; I said, &#34;You have been making a mistake, and the letter is not in the apartment.&#34;
+    例如："Then," I said, "You have been making a mistake, and the letter is not in the apartment."
 
 3. 诗歌每一行的第一个单词的首字母要大写。
 
@@ -70,7 +70,7 @@ The Visual Arts and the Catholic Reformation
 
 5. 一些大型节日名称的第一个实词的首字母大写。
 
-    例如：Children&#39;s Day 儿童节，National Day 国庆节，Teachers&#39; Day 教师节
+    例如：Children's Day 儿童节，National Day 国庆节，Teachers' Day 教师节
 
 6. 大型会议、文件、条约、组织机关、学校等名称中的每个实词的首字母都要大写，这些名称的缩略词也大写。
 

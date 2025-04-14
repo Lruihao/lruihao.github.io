@@ -15,26 +15,26 @@ npm install vue-minder-editor-extended --save
 注册组件：
 
 ```javascript
-import vueMinderEditor from &#39;vue-minder-editor-extended&#39;
-import Vue from &#39;vue&#39;
+import vueMinderEditor from 'vue-minder-editor-extended'
+import Vue from 'vue'
 Vue.use(vueMinderEditor)
 ```
 
 使用组件：
 
 ```html
-&lt;template&gt;
-  &lt;div&gt;
-    &lt;minder-editor :progress-enable=&#34;false&#34; :import-json=&#34;importJson&#34;/&gt;
-  &lt;/div&gt;
-&lt;/template&gt;
+<template>
+  <div>
+    <minder-editor :progress-enable="false" :import-json="importJson"/>
+  </div>
+</template>
 
-&lt;script&gt;
-import minderEditor from &#39;../../dist/static/vue-minder-editor-extended&#39;
-import vue from &#39;vue&#39;
+<script>
+import minderEditor from '../../dist/static/vue-minder-editor-extended'
+import vue from 'vue'
 vue.use(minderEditor);
 export default {
-  name: &#39;test-plugin&#39;,
+  name: 'test-plugin',
   data() {
     return {
       importJson: {
@@ -42,13 +42,13 @@ export default {
         root: {
           data: {
             // 文本内容
-            text: &#39;vue-minder-editor-extended&#39;,
+            text: 'vue-minder-editor-extended',
             // 标签
-            resource: [&#39;模块1&#39;],
+            resource: ['模块1'],
             // 是否禁止修改
             disable: true,
             // 默认展开或折叠，默认是展开的，collapse 可设为折叠
-            // expandState: &#39;collapse&#39;,
+            // expandState: 'collapse',
             // 在 disable 为 true 的情况下，允许添加标签
             tagEnable: true,
             // 在 disable 为 true 的情况下，允许删除节点
@@ -60,70 +60,70 @@ export default {
           children: [
             {
               data: {
-                text: &#39;child1&#39;,
+                text: 'child1',
                 disable: true,
-                expandState: &#39;collapse&#39;,
-                resource: [&#39;模块2&#39;]
+                expandState: 'collapse',
+                resource: ['模块2']
               },
               children: [
                 {
                   data: {
-                    text: &#39;child11&#39;,
+                    text: 'child11',
                     disable: true,
-                    resource: [&#39;模块2&#39;]
+                    resource: ['模块2']
                   },
                 },
                 {
                   data: {
-                    text: &#39;child12&#39;,
+                    text: 'child12',
                   }
                 }
               ]
             },
             {
               data: {
-                text: &#39;child2&#39;,
+                text: 'child2',
               }
             }
           ]
         },
       },
-      tags:  [&#39;模块1&#39;,&#39;模块2&#39;]
+      tags:  ['模块1','模块2']
     }
   }
 }
-&lt;/script&gt;
+</script>
 ```
 
 ## 国际化
 
 ```vue
 // 方式一
-import locale from &#39;/src/locale/lang/en-US&#39;
+import locale from '/src/locale/lang/en-US'
 Vue.use(vueMinderEditorExtended, {
   locale
 });
 
 // 方式二
-import lang from &#39;/src/locale/lang/en-US&#39;
-import locale from &#39;/src/locale&#39;
+import lang from '/src/locale/lang/en-US'
+import locale from '/src/locale'
 locale.use(lang)
 Vue.use(vueMinderEditorExtended);
 
 // 方式三
-import Vue from &#39;vue&#39;;
-import VueI18n from &#39;vue-i18n&#39;;
-import enLocale from &#39;vue-minder-editor-extended/src/locale/lang/en-US&#39;;
-import zhLocale from &#39;vue-minder-editor-extended/src/locale/lang/zh-CN&#39;;
-import vueMinderEditor from &#39;vue-minder-editor-extended&#39;;
+import Vue from 'vue';
+import VueI18n from 'vue-i18n';
+import enLocale from 'vue-minder-editor-extended/src/locale/lang/en-US';
+import zhLocale from 'vue-minder-editor-extended/src/locale/lang/zh-CN';
+import vueMinderEditor from 'vue-minder-editor-extended';
 
 const messages = {
   en: {
-    message: &#39;hello&#39;,
+    message: 'hello',
     ...enLocale
   },
   zh: {
-    message: &#39;你好&#39;,
+    message: '你好',
     ...zhLocale
   }
 }
@@ -131,33 +131,33 @@ const messages = {
 Vue.use(VueI18n);
 
 const i18n = new VueI18n({
-  locale: &#39;en&#39;, // set locale
+  locale: 'en', // set locale
   messages, // set locale messages
 })
 
 Vue.use(vueMinderEditor, {
-  i18n: (key, value) =&gt; i18n.t(key, value)
+  i18n: (key, value) => i18n.t(key, value)
 });
 ```
 
 ## 主题
 
-&gt; Vue Minder Editor 组件已支持初始化时设置主题及注册主题，默认主题为 fresh-blue。
+> Vue Minder Editor 组件已支持初始化时设置主题及注册主题，默认主题为 fresh-blue。
 
 如需手动注册设置主题，允许使用的主题及其配置项可以使用 `window.kityminder.Minder.getThemeList()` 查询。
 
 ```js
 // 注册主题
-window.kityminder.Theme.register(&#39;my-minder-theme&#39;, minderThemeItems)
+window.kityminder.Theme.register('my-minder-theme', minderThemeItems)
 // 设置主题
-window.minder.useTheme(&#39;my-minder-theme&#39;)
+window.minder.useTheme('my-minder-theme')
 // 或者
-window.minder.execCommand(&#39;theme&#39;, &#39;my-minder-theme&#39;)
+window.minder.execCommand('theme', 'my-minder-theme')
 ```
 
 ## Props
 
-&gt; 以下配置部分为 kityminder-core 扩展的功能，kityminder-core 本身的 minder 对象提供了丰富的功能，使用该组件时可通过 `window.minder` 对象获取 minder 对象具体的使用方法，可以参考它的文档扩展 [kityminder-core wiki](https://github.com/fex-team/kityminder-core/wiki) 以及 [#API](#api) 章节补充。
+> 以下配置部分为 kityminder-core 扩展的功能，kityminder-core 本身的 minder 对象提供了丰富的功能，使用该组件时可通过 `window.minder` 对象获取 minder 对象具体的使用方法，可以参考它的文档扩展 [kityminder-core wiki](https://github.com/fex-team/kityminder-core/wiki) 以及 [#API](#api) 章节补充。
 
 ### 基础配置
 
@@ -186,7 +186,7 @@ window.minder.execCommand(&#39;theme&#39;, &#39;my-minder-theme&#39;)
 | priorities            | 优先级选项，当该参数不为空时 `priorityCount`, `priorityStartWithZero`, `priorityPrefix` 不生效 | Array    | []      |
 | priorityCount         | 优先级最大显示数量，最多支持显示 9 个级别                                                      | Number   | 4       |
 | priorityStartWithZero | 优先级是否从 0 开始                                                                            | Boolean  | true    |
-| priorityPrefix        | 优先级显示的前缀                                                                               | String   | &#39;P&#39;     |
+| priorityPrefix        | 优先级显示的前缀                                                                               | String   | 'P'     |
 | priorityDisableCheck  | 优先级设置的回调函数，如果返回 `true` 则无法设置优先级                                         | Function | null    |
 
 ### 标签配置
@@ -194,7 +194,7 @@ window.minder.execCommand(&#39;theme&#39;, &#39;my-minder-theme&#39;)
 | Name            | Description                                                               | Type     | Default |
 | --------------- | ------------------------------------------------------------------------- | -------- | ------- |
 | tags            | 标签选项                                                                  | Array    | []      |
-| distinctTags    | 定义排他标签，比如 [&#39;tag1&#39;,&#39;tag2&#39;], 则 `tag1` 不能和 `tag2` 共存          | Array    | []      |
+| distinctTags    | 定义排他标签，比如 ['tag1','tag2'], 则 `tag1` 不能和 `tag2` 共存          | Array    | []      |
 | tagDisableCheck | 菜单栏是否允许打标签的回调函数，返回 `true` 则不允许打标签                | Function | null    |
 | tagEditCheck    | 打标签时的回调函数，返回 `false` 则打标签不成功，参数为当前节点的标签数组 | Function | null    |
 

@@ -1,23 +1,23 @@
 # 🌐 A component for site automatic translation.
 
-&lt;!-- markdownlint-disable-file MD033 MD041 --&gt;
-&lt;h1 align=&#34;center&#34;&gt;Auto Translate | FixIt&lt;/h1&gt;
+<!-- markdownlint-disable-file MD033 MD041 -->
+<h1 align="center">Auto Translate | FixIt</h1>
 
 ![auto-translate](https://github.com/user-attachments/assets/10ab49bb-973f-4630-9a79-9639783bab06)
 
-&lt;div align=&#34;center&#34; class=&#34;ignore&#34;&gt;
-  &lt;p&gt;一个基于 &lt;a href=&#34;https://github.com/xnx3/translate&#34;&gt;translate.js&lt;/a&gt; 实现网站自动翻译的组件。&lt;/p&gt;
+<div align="center" class="ignore">
+  <p>一个基于 <a href="https://github.com/xnx3/translate">translate.js</a> 实现网站自动翻译的组件。</p>
   简体中文 |
-  &lt;a href=&#34;https://fixit.lruihao.cn/zh-cn/ecosystem/hugo-fixit/cmpt-translate/?lang=chinese_traditional&#34;&gt;繁體中文&lt;/a&gt; |
-  &lt;a href=&#34;https://raw.githubusercontent.com/hugo-fixit/cmpt-translate/refs/heads/main/README.en.md&#34;&gt;English&lt;/a&gt; |
-  &lt;a href=&#34;https://fixit.lruihao.cn/ecosystem/hugo-fixit/cmpt-translate/?lang=french&#34;&gt;Français&lt;/a&gt; |
-  &lt;a href=&#34;https://fixit.lruihao.cn/ecosystem/hugo-fixit/cmpt-translate/?lang=russian&#34;&gt;Русский язык&lt;/a&gt; |
-  &lt;a href=&#34;https://fixit.lruihao.cn/ecosystem/hugo-fixit/cmpt-translate/?lang=spanish&#34;&gt;Español&lt;/a&gt; |
-  &lt;a href=&#34;https://fixit.lruihao.cn/ecosystem/hugo-fixit/cmpt-translate/?lang=hindi&#34;&gt;हिन्दी&lt;/a&gt; |
-  &lt;a href=&#34;https://fixit.lruihao.cn/ecosystem/hugo-fixit/cmpt-translate/?lang=german&#34;&gt;deutsch&lt;/a&gt; |
-  &lt;a href=&#34;https://fixit.lruihao.cn/ecosystem/hugo-fixit/cmpt-translate/?lang=korean&#34;&gt;한국어&lt;/a&gt; |
-  &lt;a href=&#34;https://fixit.lruihao.cn/ecosystem/hugo-fixit/cmpt-translate/?lang=japanese&#34;&gt;しろうと&lt;/a&gt;
-&lt;/div&gt;
+  <a href="https://fixit.lruihao.cn/zh-cn/ecosystem/hugo-fixit/cmpt-translate/?lang=chinese_traditional">繁體中文</a> |
+  <a href="https://raw.githubusercontent.com/hugo-fixit/cmpt-translate/refs/heads/main/README.en.md">English</a> |
+  <a href="https://fixit.lruihao.cn/ecosystem/hugo-fixit/cmpt-translate/?lang=french">Français</a> |
+  <a href="https://fixit.lruihao.cn/ecosystem/hugo-fixit/cmpt-translate/?lang=russian">Русский язык</a> |
+  <a href="https://fixit.lruihao.cn/ecosystem/hugo-fixit/cmpt-translate/?lang=spanish">Español</a> |
+  <a href="https://fixit.lruihao.cn/ecosystem/hugo-fixit/cmpt-translate/?lang=hindi">हिन्दी</a> |
+  <a href="https://fixit.lruihao.cn/ecosystem/hugo-fixit/cmpt-translate/?lang=german">deutsch</a> |
+  <a href="https://fixit.lruihao.cn/ecosystem/hugo-fixit/cmpt-translate/?lang=korean">한국어</a> |
+  <a href="https://fixit.lruihao.cn/ecosystem/hugo-fixit/cmpt-translate/?lang=japanese">しろうと</a>
+</div>
 
 ## Demo
 
@@ -30,8 +30,8 @@
 
 ## 特性
 
-&gt; 每日翻译字符 **200 万**！\
-&gt; _无语言配置文件、无 API Key、对 SEO 友好！_
+> 每日翻译字符 **200 万**！\
+> _无语言配置文件、无 API Key、对 SEO 友好！_
 
 - [x] 支持整页自动翻译
 - [x] 支持指定翻译语言
@@ -63,10 +63,10 @@
 [module]
 
 [[module.imports]]
-path = &#34;github.com/hugo-fixit/FixIt&#34;
+path = "github.com/hugo-fixit/FixIt"
 
 [[module.imports]]
-path = &#34;github.com/hugo-fixit/cmpt-translate&#34;
+path = "github.com/hugo-fixit/cmpt-translate"
 ```
 
 在 Hugo 的第一次启动时，它将下载所需的文件。
@@ -91,8 +91,8 @@ git submodule add https://github.com/hugo-fixit/cmpt-translate.git themes/cmpt-t
 
 ```toml
 theme = [
-  &#34;FixIt&#34;,
-  &#34;cmpt-translate&#34;
+  "FixIt",
+  "cmpt-translate"
 ]
 ```
 
@@ -105,14 +105,14 @@ theme = [
 
 [params.customPartials]
 head = []
-menuDesktop = [ &#34;inject/translate-menu-desktop.html&#34;, ]
-menuMobile = [ &#34;inject/translate-menu-mobile.html&#34;, ]
+menuDesktop = [ "inject/translate-menu-desktop.html", ]
+menuMobile = [ "inject/translate-menu-mobile.html", ]
 profile = []
 aside = []
 comment = []
 footer = []
 widgets = []
-assets = [ &#34;inject/cmpt-translate.html&#34;, ]
+assets = [ "inject/cmpt-translate.html", ]
 postFooterBefore = []
 postFooterAfter = []
 ```
@@ -123,50 +123,50 @@ postFooterAfter = []
 [languages]
 
 [languages.zh-cn]
-languageCode = &#34;zh-CN&#34;
-languageName = &#34;简体中文&#34;
+languageCode = "zh-CN"
+languageName = "简体中文"
 
 [params]
 
 [params.autoTranslate]
 enable = true
-service = &#39;client.edge&#39;
+service = 'client.edge'
 languages = []
 ignoreID = []
 ignoreClass = []
 ignoreTag = []
 detectLocalLanguage = false
-cdn = &#34;&#34;
+cdn = ""
 enterprise = false
 ```
 
 - `enable`：是否启用自动翻译。
 - `service`：翻译服务提供商，可选值为 `client.edge` 和 `translate.service`，详见：[翻译服务提供商](https://translate.zvo.cn/43086.html)。
-- `languages`：要翻译到的语言 ID 列表，例如 `[&#34;english&#34;, &#34;chinese_simplified&#34;, &#34;chinese_traditional&#34;, ...]`，详见：[完整语言列表](https://api.translate.zvo.cn/language.json)。
-- `ignoreID`：需要忽略翻译的元素 ID，例如 `[&#34;comment&#34;, ...]`。
-- `ignoreClass`：需要忽略翻译的类名，例如 `[&#34;post-category&#34;, ...]`。
-- `ignoreTag`：需要忽略翻译的标签，例如 `[&#34;title&#34;, ...]`。
-- `ignoreText`：需要忽略翻译的文本，例如 `[&#34;FixIt&#34;, &#34;Lruihao&#34;, ...]`。
+- `languages`：要翻译到的语言 ID 列表，例如 `["english", "chinese_simplified", "chinese_traditional", ...]`，详见：[完整语言列表](https://api.translate.zvo.cn/language.json)。
+- `ignoreID`：需要忽略翻译的元素 ID，例如 `["comment", ...]`。
+- `ignoreClass`：需要忽略翻译的类名，例如 `["post-category", ...]`。
+- `ignoreTag`：需要忽略翻译的标签，例如 `["title", ...]`。
+- `ignoreText`：需要忽略翻译的文本，例如 `["FixIt", "Lruihao", ...]`。
 - `detectLocalLanguage`：是否检测本地语言。
 - `cdn`：translate.js 的 CDN，例如 `https://cdn.jsdelivr.net/npm/i18n-jsautotranslate@latest`。
 - `enterprise`：是否启用[企业级翻译通道](#enterprise)。
 
-&gt; [!NOTE]
-&gt; 为了避免翻译语言获取失败，即使你的站点本身是单语言的，也需要配置 `languageCode` 和 `languageName`，例如：
-&gt;
-&gt; ```toml
-&gt; [languages]
-&gt;
-&gt; [languages.zh-cn]
-&gt; languageCode = &#34;zh-CN&#34;
-&gt; languageName = &#34;简体中文&#34;
-&gt; ```
+> [!NOTE]
+> 为了避免翻译语言获取失败，即使你的站点本身是单语言的，也需要配置 `languageCode` 和 `languageName`，例如：
+>
+> ```toml
+> [languages]
+>
+> [languages.zh-cn]
+> languageCode = "zh-CN"
+> languageName = "简体中文"
+> ```
 
 ## Front Matter
 
 ```yaml
 autoTranslate:
-  local: &#39;&#39;
+  local: ''
   fromLanguages: []
   onlyLocalLang: false
 ```
@@ -206,20 +206,20 @@ autoTranslate:
     World: Monde
 ```
 
-&lt;!-- markdownlint-disable-next-line MD033 --&gt;
-## 企业级翻译通道 &lt;a id=&#34;enterprise&#34;&gt;&lt;/a&gt;
+<!-- markdownlint-disable-next-line MD033 -->
+## 企业级翻译通道 <a id="enterprise"></a>
 
-&gt; 企业级稳定翻译通道，仅针对**付费用户**开放。\
-&gt; **体验额度**：每天有 5 万字符的体验额度，超出部分将不再翻译！
+> 企业级稳定翻译通道，仅针对**付费用户**开放。\
+> **体验额度**：每天有 5 万字符的体验额度，超出部分将不再翻译！
 
 在 FixIt 里启用企业级翻译通道，设置 `params.autoTranslate.enterprise` 为 `true` 即可，[企业级翻译通道](https://translate.zvo.cn/4087.html)相对于普通翻译通道有以下优势：
 
 | 服务           | 开源翻译通道      | 企业级翻译通道           |
 | :------------- | :---------------- | :----------------------- |
-| 服务端缓存层数 | 1 层 (文件式缓存) | 1 层 (内存 &#43; 文件式缓存) |
+| 服务端缓存层数 | 1 层 (文件式缓存) | 1 层 (内存 + 文件式缓存) |
 | 翻译响应速度   | 1.5~5 秒          | 0.8~1.5 秒               |
-| 翻译服务器     | 1 台              | &gt;=3 台                   |
-| 网络节点       | 2 个              | &gt;=4 个                   |
+| 翻译服务器     | 1 台              | >=3 台                   |
+| 网络节点       | 2 个              | >=4 个                   |
 | 翻译通道       | 手动设置          | 自动匹配最优             |
 | 国内缓存节点   | 无                | 有                       |
 | 每日翻译字符   | 200 万            | 5000 万                  |
@@ -228,16 +228,16 @@ autoTranslate:
 
 考虑到 FixIt 生态受众群体大多为个人用户，因此我（[@Lruihao](https://github.com/Lruihao)）以**个人名义**拿出赞助收入进行补贴。
 
-&gt; [!TIP]
-&gt; **FixIt 项目补贴价**：**¥10** ~~_¥50_~~ / 域名 / 月\
-&gt; _到期自动禁用，需要重新赞助续费！_
+> [!TIP]
+> **FixIt 项目补贴价**：**¥10** ~~_¥50_~~ / 域名 / 月\
+> _到期自动禁用，需要重新赞助续费！_
 
 符合以下性质的可以免费联系我开通企业级翻译通道：
 
 - [translate.js](https://github.com/xnx3/translate) 及相关生态产品的开发者
 - [FixIt](https://github.com/hugo-fixit/FixIt) 及相关生态产品的开发者
 
-另外，[Hugo FixIt 星球](https://wx.zsxq.com/group/88888281181442?group_id=88888281181442&amp;coupon_code=ks2qf5zd&amp;inviter_id=15442515242512&amp;inviter_sid=e15da0zzz4&amp;keyword=BQcpe&amp;type=group) 成员每人补贴赠送 **6 个月服务 / 年**。
+另外，[Hugo FixIt 星球](https://wx.zsxq.com/group/88888281181442?group_id=88888281181442&coupon_code=ks2qf5zd&inviter_id=15442515242512&inviter_sid=e15da0zzz4&keyword=BQcpe&type=group) 成员每人补贴赠送 **6 个月服务 / 年**。
 
 ### 赞助方式
 

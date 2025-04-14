@@ -2,7 +2,7 @@
 
 # el-table-sticky
 
-&gt; 一个用于实现 Element UI (Vue 2) 表格的表头吸顶、表尾吸底、滚动条吸底以及高度自适应功能的指令集插件。
+> 一个用于实现 Element UI (Vue 2) 表格的表头吸顶、表尾吸底、滚动条吸底以及高度自适应功能的指令集插件。
 
 ## 背景
 
@@ -34,7 +34,7 @@ npm install @cell-x/el-table-sticky
 全局注册指令：
 
 ```js
-import elTableSticky from &#39;@cell-x/el-table-sticky&#39;
+import elTableSticky from '@cell-x/el-table-sticky'
 
 Vue.use(elTableSticky)
 
@@ -70,7 +70,7 @@ import {
   StickyFooter,
   StickyScroller,
   HeightAdaptive,
-} from &#39;@cell-x/el-table-sticky&#39;
+} from '@cell-x/el-table-sticky'
 
 export default {
   directives: {
@@ -85,10 +85,10 @@ export default {
 ## 使用
 
 ```html
-&lt;el-table v-sticky-header&gt;...&lt;/el-table&gt;
-&lt;el-table v-sticky-footer&gt;...&lt;/el-table&gt;
-&lt;el-table v-sticky-scroller&gt;...&lt;/el-table&gt;
-&lt;el-table v-height-adaptive&gt;...&lt;/el-table&gt;
+<el-table v-sticky-header>...</el-table>
+<el-table v-sticky-footer>...</el-table>
+<el-table v-sticky-scroller>...</el-table>
+<el-table v-height-adaptive>...</el-table>
 ```
 
 ## 指令参数

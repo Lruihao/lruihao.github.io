@@ -1,7 +1,7 @@
 # Wannafly 挑战赛 20-染色
 
 
-链接：&lt;https://www.nowcoder.com/acm/contest/133/A&gt;  
+链接：<https://www.nowcoder.com/acm/contest/133/A>  
 来源：牛客网
 
 ## 题目描述
@@ -34,20 +34,20 @@
 
 蒟蒻暴力枚举`-_-!`
 
-&lt;!-- markdownlint-disable MD046 --&gt;
+<!-- markdownlint-disable MD046 -->
 
 ```cpp
-#include &lt;bits/stdc&#43;&#43;.h&gt;
+#include <bits/stdc++.h>
 
 using namespace std;
 
-const int MAXN=1e5&#43;10;
+const int MAXN=1e5+10;
 
 int a[MAXN];
 
-map&lt;int, int &gt;ma;
+map<int, int >ma;
 
-set&lt;int&gt;se;
+set<int>se;
 
 int x[MAXN],y[MAXN];
 
@@ -57,33 +57,33 @@ int main()
 
     int n;
 
-    scanf(&#34;%d&#34;,&amp;n);
+    scanf("%d",&n);
 
-    for (int i = 1; i &lt;=n ; &#43;&#43;i) {
+    for (int i = 1; i <=n ; ++i) {
 
-        scanf(&#34;%d&#34;,&amp;a[i]);
+        scanf("%d",&a[i]);
 
         se.insert(a[i]);
 
     }
 
-    for (int i = 1; i &lt;n ; &#43;&#43;i) {
+    for (int i = 1; i <n ; ++i) {
 
-        scanf(&#34;%d%d&#34;,&amp;x[i],&amp;y[i]);
+        scanf("%d%d",&x[i],&y[i]);
 
     }
 
     long long ans=1e14,sum=0;
 
-    set&lt;int&gt;::iterator it;
+    set<int>::iterator it;
 
-    for (it=se.begin(); it !=se.end() ; &#43;&#43;it) {
+    for (it=se.begin(); it !=se.end() ; ++it) {
 
         sum=0;
 
-        for (int j = 1; j &lt;=n ; &#43;&#43;j) {
+        for (int j = 1; j <=n ; ++j) {
 
-            if((*it)!=a[j]) sum&#43;=((*it)&#43;a[j]);
+            if((*it)!=a[j]) sum+=((*it)+a[j]);
 
         }
 
@@ -91,7 +91,7 @@ int main()
 
     }
 
-    printf(&#34;%lld\n&#34;,ans);
+    printf("%lld\n",ans);
 
     return 0;
 
@@ -101,19 +101,19 @@ int main()
 最后想说这都过了什么鬼，不会数据这么弱吧？？！? 我只枚举了最小的价值颜色的情况，唉，不管了不管了。
 
 ```cpp
-#include&lt;bits/stdc&#43;&#43;.h&gt;
+#include<bits/stdc++.h>
 using namespace std;
 int a[1000000],n,m,k=1,t,ans=0;
 int main()
 {
-    scanf(&#34;%d&#34;,&amp;n);
-    for(int i=1;i&lt;=n;&#43;&#43;i)
-    scanf(&#34;%d&#34;,&amp;a[i]);
-    sort(a&#43;1,a&#43;n&#43;1);
-    for(int i=2;i&lt;=n;&#43;&#43;i)
+    scanf("%d",&n);
+    for(int i=1;i<=n;++i)
+    scanf("%d",&a[i]);
+    sort(a+1,a+n+1);
+    for(int i=2;i<=n;++i)
         if(a[i]!=a[1])
-            ans&#43;=a[i]&#43;a[1];
-    printf(&#34;%d&#34;,ans);
+            ans+=a[i]+a[1];
+    printf("%d",ans);
     return 0;
 }
 ```

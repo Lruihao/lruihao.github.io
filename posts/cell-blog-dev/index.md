@@ -1,9 +1,9 @@
 # Cell-Blog 开发记录
 
 
-&gt; Cell Blog 开发记录，[项目地址](https://github.com/Lruihao/cell-blog)
+> Cell Blog 开发记录，[项目地址](https://github.com/Lruihao/cell-blog)
 
-&lt;!--more--&gt;
+<!--more-->
 
 ## 搭建 php 环境
 
@@ -18,7 +18,7 @@ composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/
 ## 新建 laravel 项目
 
 ```
-composer create-project --prefer-dist laravel/laravel cell-blog &#34;7.*&#34;
+composer create-project --prefer-dist laravel/laravel cell-blog "7.*"
 ```
 
 或者
@@ -40,9 +40,9 @@ composer require barryvdh/laravel-debugbar --dev
 
 ```
 ## 时区
-&#39;timezone&#39; =&gt; &#39;Asia/Shanghai&#39;,
+'timezone' => 'Asia/Shanghai',
 ## 语言
-&#39;locale&#39; =&gt; &#39;zh-CN&#39;,
+'locale' => 'zh-CN',
 ```
 
 ## 配置数据库
@@ -67,12 +67,12 @@ cd cell-blog
 composer require encore/laravel-admin
 ```
 
-&gt; 卸载命令`composer remove xxx`
+> 卸载命令`composer remove xxx`
 
 然后运行下面的命令来发布资源：
 
 ```
-php artisan vendor:publish --provider=&#34;Encore\Admin\AdminServiceProvider&#34;
+php artisan vendor:publish --provider="Encore\Admin\AdminServiceProvider"
 ```
 
 在该命令会生成配置文件`config/admin.php`，可以在里面修改安装的地址、数据库连接、以及表名，建议都是用默认配置不修改。
@@ -83,13 +83,13 @@ php artisan vendor:publish --provider=&#34;Encore\Admin\AdminServiceProvider&#34
 php artisan admin:install
 ```
 
-&gt; 运行这个命令的时候，如果遇到了下面的错误：
-&gt; `SQLSTATE[42000]: Syntax error or access violation: 1071 Specified key was too long; max key length is 1000 bytes (SQL: alter tableusersadd uniqueusers_email_unique(email))`  
-&gt; 参考这个 issue 来解决 &lt;https://github.com/z-song/laravel-admin/issues/1541&gt;  
-&gt; 在`app\Providers\AppServiceProvider.php`添加默认值
+> 运行这个命令的时候，如果遇到了下面的错误：
+> `SQLSTATE[42000]: Syntax error or access violation: 1071 Specified key was too long; max key length is 1000 bytes (SQL: alter tableusersadd uniqueusers_email_unique(email))`  
+> 参考这个 issue 来解决 <https://github.com/z-song/laravel-admin/issues/1541>  
+> 在`app\Providers\AppServiceProvider.php`添加默认值
 
 ```php
-&lt;?php
+<?php
 
 namespace App\Providers;
 
@@ -122,27 +122,27 @@ class AppServiceProvider extends ServiceProvider
 
 启动服务后，在浏览器打开 `http://localhost/admin/` , 使用用户名 `admin` 和密码 `admin` 登录。
 
-&gt; 报错`Disk [admin] not configured, please add a disk config in config/filesystems.php`
+> 报错`Disk [admin] not configured, please add a disk config in config/filesystems.php`
 
 在`config/filesystems.php`中 disks 处添加以下配置后执行`php artisan storage:link`来创建软链接（windows 和 linux 的软链接不一样不能直接复制！）
 
-&gt; 宝塔执行时删除禁用函数 putenv(),symlink()
+> 宝塔执行时删除禁用函数 putenv(),symlink()
 
 ```
-&#39;admin&#39; =&gt; [
-    &#39;driver&#39; =&gt; &#39;local&#39;,
-    &#39;root&#39; =&gt; storage_path(&#39;app/public/system&#39;),
-    &#39;url&#39; =&gt; env(&#39;APP_URL&#39;).&#39;/storage/system&#39;,
-    &#39;visibility&#39; =&gt; &#39;public&#39;,
+'admin' => [
+    'driver' => 'local',
+    'root' => storage_path('app/public/system'),
+    'url' => env('APP_URL').'/storage/system',
+    'visibility' => 'public',
 ],
 
 或
 
-&#39;admin&#39; =&gt; [
-    &#39;driver&#39; =&gt; &#39;local&#39;,
-    &#39;root&#39; =&gt; public_path(&#39;uploads&#39;),
-    &#39;url&#39; =&gt; env(&#39;APP_URL&#39;).&#39;/public/uploads/&#39;,
-    &#39;visibility&#39; =&gt; &#39;public&#39;,
+'admin' => [
+    'driver' => 'local',
+    'root' => public_path('uploads'),
+    'url' => env('APP_URL').'/public/uploads/',
+    'visibility' => 'public',
 ],
 ```
 
@@ -217,14 +217,14 @@ php artisan admin:make MottoController --model=App\Models\Motto
 app/Admin/routes.php
 
 ```
-$router-&gt;resource(&#39;articles&#39;, ArticleController::class);
-$router-&gt;resource(&#39;categories&#39;, CategoryController::class);
-$router-&gt;resource(&#39;tags&#39;, TagController::class);
-$router-&gt;resource(&#39;navigations&#39;, NavigationController::class);
-$router-&gt;resource(&#39;friendship-links&#39;, FriendshipLinkController::class);
-$router-&gt;resource(&#39;pages&#39;, PageController::class);
-$router-&gt;resource(&#39;systems&#39;, SystemController::class);
-$router-&gt;resource(&#39;mottoes&#39;, MottoController::class);
+$router->resource('articles', ArticleController::class);
+$router->resource('categories', CategoryController::class);
+$router->resource('tags', TagController::class);
+$router->resource('navigations', NavigationController::class);
+$router->resource('friendship-links', FriendshipLinkController::class);
+$router->resource('pages', PageController::class);
+$router->resource('systems', SystemController::class);
+$router->resource('mottoes', MottoController::class);
 ```
 
 ## editormd 安装
@@ -243,8 +243,8 @@ public\vendor\laravel-admin-ext\editormd\editormd-1.5.0\images\emojis
 ```
 // Emoji graphics files url path
 editormd.emoji     = {
-    path  : &#34;/iamges/emojis/&#34;,
-    ext   : &#34;.png&#34;
+    path  : "/iamges/emojis/",
+    ext   : ".png"
 };
 ```
 
@@ -260,19 +260,19 @@ editormd.emoji     = {
 ```
 if (settings.crossDomainUpload)
 {
-    action &#43;= &#34;&amp;callback=&#34; &#43; settings.uploadCallbackURL &#43; &#34;&amp;dialog_id=editormd-image-dialog-&#34; &#43; guid;
+    action += "&callback=" + settings.uploadCallbackURL + "&dialog_id=editormd-image-dialog-" + guid;
 }
 //添加 csrf 验证
-var csrfToken = $(&#39;meta[name=&#34;csrf-token&#34;]&#39;).attr(&#39;content&#39;);
-var csrfField = &#34;&#34;;
+var csrfToken = $('meta[name="csrf-token"]').attr('content');
+var csrfField = "";
 if (csrfToken) {
-    csrfField = &#34;&lt;input type=&#39;hidden&#39; name=&#39;_token&#39; value=&#39;&#34; &#43; csrfToken &#43; &#34;&#39; /&gt;&#34;;
+    csrfField = "<input type='hidden' name='_token' value='" + csrfToken + "' />";
 }
 ```
 
 ## markdown 转 HTML
 
-&lt;https://www.zhiqiexing.com/119.html&gt;
+<https://www.zhiqiexing.com/119.html>
 [Laravel Markdown 安装](https://github.com/GrahamCampbell/Laravel-Markdown)
 
 ```
@@ -289,7 +289,7 @@ composer require league/commonmark
 config/markdown.php
 
 ```
-&#39;extensions&#39; =&gt; [
+'extensions' => [
         League\CommonMark\Extension\TaskList\TaskListExtension::class,
     ],
 ```
@@ -312,10 +312,10 @@ composer require laravel-admin-ext/media-manager
 php artisan admin:import media-manager
 ```
 
-&#39;extensions&#39; =&gt; [
-&#39;media-manager&#39; =&gt; [
+'extensions' => [
+'media-manager' => [
 // Select a local disk that you configured in `config/filesystem.php`
-&#39;disk&#39; =&gt; &#39;public&#39;
+'disk' => 'public'
 ],
 ],
 
@@ -327,13 +327,13 @@ php artisan admin:import media-manager
 composer require laravel-admin-ext/lock-screen
 
 ```
-&#39;route&#39; =&gt; [
-    &#39;prefix&#39; =&gt; &#39;demo&#39;,
+'route' => [
+    'prefix' => 'demo',
 
-    &#39;namespace&#39;     =&gt; &#39;App\\Admin\\Controllers&#39;,
+    'namespace'     => 'App\\Admin\\Controllers',
 
-    // 在中间件数组中加上&#39;admin.lock&#39;
-    &#39;middleware&#39;    =&gt; [&#39;web&#39;, &#39;admin&#39;, &#39;admin.lock&#39;],
+    // 在中间件数组中加上'admin.lock'
+    'middleware'    => ['web', 'admin', 'admin.lock'],
 ],
 ```
 
@@ -351,7 +351,7 @@ php artisan make:controller PageController
 
 ## 后台 img 灯箱
 
-&lt;https://github.com/laravel-admin-extensions/grid-lightbox&gt;
+<https://github.com/laravel-admin-extensions/grid-lightbox>
 
 ```
 composer require laravel-admin-ext/grid-lightbox

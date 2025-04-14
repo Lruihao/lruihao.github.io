@@ -1,8 +1,8 @@
 # 基于 Laravel 7 开发，支持 Markdown 语法的博客
 
-&lt;h1 align=&#34;center&#34; &gt;Cell Blog&lt;/h1&gt;
+<h1 align="center" >Cell Blog</h1>
 
-&gt; 基于Laravel7开发，Markdown语法的个人独立博客。
+> 基于Laravel7开发，Markdown语法的个人独立博客。
 
 ## 功能
 - 支持Markdown,文章实时预览效果
@@ -32,7 +32,7 @@
 ![编辑文章.png](https://i.loli.net/2020/05/11/DeOWyJ3zluLKvBn.png)  
 
 ## 安装
-&gt; 注意事项：PHP取消禁用函数`putenv()`和`symlink()`，安装`fileinfo`扩展。
+> 注意事项：PHP取消禁用函数`putenv()`和`symlink()`，安装`fileinfo`扩展。
 
 下载
 ```
@@ -81,7 +81,7 @@ php artisan key:generate
 
 运行数据迁移和后台数据填充
 
-&gt; `php artisan admin:install`已包含数据迁移命令`php artisan migrate`  
+> `php artisan admin:install`已包含数据迁移命令`php artisan migrate`  
 `G:\cell-blog\app\Admin directory already exists !`无需理会，继续执行剩下命令即可。
 
 ```

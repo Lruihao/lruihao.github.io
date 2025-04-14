@@ -8,7 +8,7 @@
 
 ## Demo
 
-&lt;https://lruihao.cn/guestbook/&gt;
+<https://lruihao.cn/guestbook/>
 
 ## 安装
 
@@ -23,9 +23,9 @@
 ```toml
 [module]
   [[module.imports]]
-    path = &#34;github.com/hugo-fixit/FixIt&#34;
+    path = "github.com/hugo-fixit/FixIt"
   [[module.imports]]
-    path = &#34;github.com/hugo-fixit/shortcode-mmt-netease&#34;
+    path = "github.com/hugo-fixit/shortcode-mmt-netease"
 ```
 
 在第一次启动 Hugo 时，它将下载所需的文件。
@@ -49,7 +49,7 @@ git submodule add https://github.com/hugo-fixit/shortcode-mmt-netease.git themes
 接下来编辑项目的 `hugo.toml` 并将此主题组件添加到你的主题中：
 
 ```toml
-theme = [&#34;FixIt&#34;, &#34;shortcode-mmt-netease&#34;]
+theme = ["FixIt", "shortcode-mmt-netease"]
 ```
 
 ## 使用
@@ -65,13 +65,13 @@ theme = [&#34;FixIt&#34;, &#34;shortcode-mmt-netease&#34;]
 这是一个用法示例：
 
 ```markdown
-{{?{}&lt; mmt-netease mid=&#34;2280569152&#34; autoplay=&#34;false&#34; &gt;}}
-&lt;!-- OR --&gt;
-{{?{}&lt; mmt-netease &#34;2280569152&#34; false &gt;}}
+{{?{}< mmt-netease mid="2280569152" autoplay="false" >}}
+<!-- OR -->
+{{?{}< mmt-netease "2280569152" false >}}
 ```
 
-&gt; [!Warning]
-&gt; 同一页面只支持使用一次！
+> [!Warning]
+> 同一页面只支持使用一次！
 
 ## Dependencies
 

@@ -24,19 +24,19 @@ hash.
 2. Go to your repository
 3. Add the following section to your **README.md** file, you can give whatever
    title you want. Just make sure that you use
-   `&lt;!-- HUGO_FIXIT_COMPONENTS:START --&gt;&lt;!-- HUGO_FIXIT_COMPONENTS:END --&gt;` in
+   `<!-- HUGO_FIXIT_COMPONENTS:START --><!-- HUGO_FIXIT_COMPONENTS:END -->` in
    your readme. The workflow will replace this comment with the actual blog post
    list:
 
    ```markdown
    # Hugo FixIt Components
 
-   &lt;!-- HUGO_FIXIT_COMPONENTS:START --&gt;
-   &lt;!-- HUGO_FIXIT_COMPONENTS:END --&gt;
+   <!-- HUGO_FIXIT_COMPONENTS:START -->
+   <!-- HUGO_FIXIT_COMPONENTS:END -->
    ```
 
 4. Create a folder named `.github` and create a `workflows` folder inside it, if
-   it doesn&#39;t exist.
+   it doesn't exist.
 5. Create a new file named `fixit-component-list.yml` with the following
    contents inside the workflows folder:
 
@@ -44,7 +44,7 @@ hash.
    name: Generate hugo-fixit component list
    on:
      schedule: # Run workflow automatically
-       - cron: &#39;0 0 * * *&#39; # Runs every day at 00:00 UTC
+       - cron: '0 0 * * *' # Runs every day at 00:00 UTC
      workflow_dispatch: # Run workflow manually (without waiting for the cron to be called), through the GitHub Actions Workflow page directly
    permissions:
      contents: write # To write the generated contents to the readme
@@ -52,7 +52,7 @@ hash.
    jobs:
      generate-component-list:
        name:
-         Update this repo&#39;s README with the list of hugo-fixit theme components
+         Update this repo's README with the list of hugo-fixit theme components
        runs-on: ubuntu-latest
        steps:
          - name: Checkout
@@ -64,21 +64,21 @@ hash.
              GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
            with:
              comment_tag_name: HUGO_FIXIT_COMPONENTS
-             template: &#39;- [{$repo.name}]({$repo.html_url}): {$repo.description}&#39;
+             template: '- [{$repo.name}]({$repo.html_url}): {$repo.description}'
          - name: Print Output
            id: output
-           run: echo &#34;${{ steps.test-action.outputs.repos }}&#34;
+           run: echo "${{ steps.test-action.outputs.repos }}"
          - name: Commit changes
            uses: stefanzweifel/git-auto-commit-action@v5
            with:
-             commit_message: &#39;Docs: update hugo-fixit component list&#39;
+             commit_message: 'Docs: update hugo-fixit component list'
              commit_author:
-               &#39;github-actions[bot]
-               &lt;github-actions[bot]@users.noreply.github.com&gt;&#39;
+               'github-actions[bot]
+               <github-actions[bot]@users.noreply.github.com>'
    ```
 
-6. Go to repository settings, Click on Actions &gt; General. Update the &#34;Workflow
-   permissions&#34; to &#34;Read and write permissions&#34;. Click on save.
+6. Go to repository settings, Click on Actions > General. Update the "Workflow
+   permissions" to "Read and write permissions". Click on save.
 7. Wait for it to run automatically, or you can also trigger it manually to see
    the result instantly.
 
@@ -105,13 +105,13 @@ hugo-fixit components.
 ```md
 The list of hugo-fixit components will be displayed here.
 
-&lt;!-- HUGO_FIXIT_COMPONENTS:START --&gt;
-&lt;!-- HUGO_FIXIT_COMPONENTS:END --&gt;
+<!-- HUGO_FIXIT_COMPONENTS:START -->
+<!-- HUGO_FIXIT_COMPONENTS:END -->
 ```
 
 The list of hugo-fixit components will be displayed here.
 
-&lt;!-- FIXIT_COMPONENTS:START --&gt;
+<!-- FIXIT_COMPONENTS:START -->
 - [fixit-bundle](https://github.com/hugo-fixit/fixit-bundle)\
   🌲 Bundles the FixIt core theme and all hugo-fixit components into a single component.
 - [cmpt-flyfish](https://github.com/hugo-fixit/cmpt-flyfish)\
@@ -136,7 +136,7 @@ The list of hugo-fixit components will be displayed here.
   🎶 A Hugo theme component with a NetEase Cloud random comment shortcode.
 - [shortcode-rewards](https://github.com/hugo-fixit/shortcode-rewards)\
   A Hugo theme component with reward-log or sponsor-log shortcode.
-&lt;!-- FIXIT_COMPONENTS:END --&gt;
+<!-- FIXIT_COMPONENTS:END -->
 
 
 ---

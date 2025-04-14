@@ -8,7 +8,7 @@
 
 ## Demo
 
-&lt;https://lruihao.cn&gt;
+<https://lruihao.cn>
 
 ## 要求
 
@@ -27,9 +27,9 @@
 ```toml
 [module]
   [[module.imports]]
-    path = &#34;github.com/hugo-fixit/FixIt&#34;
+    path = "github.com/hugo-fixit/FixIt"
   [[module.imports]]
-    path = &#34;github.com/hugo-fixit/cmpt-flyfish&#34;
+    path = "github.com/hugo-fixit/cmpt-flyfish"
 ```
 
 在 Hugo 的第一次启动时，它将下载所需的文件。
@@ -53,7 +53,7 @@ git submodule add https://github.com/hugo-fixit/cmpt-flyfish.git themes/cmpt-fly
 接下来编辑项目的 `hugo.toml` 并将此主题组件添加到你的主题中：
 
 ```toml
-theme = [&#34;FixIt&#34;, &#34;cmpt-flyfish&#34;]
+theme = ["FixIt", "cmpt-flyfish"]
 ```
 
 ## 配置
@@ -70,7 +70,7 @@ theme = [&#34;FixIt&#34;, &#34;cmpt-flyfish&#34;]
     footer = []
     widgets = []
     assets = [
-      &#34;inject/cmpt-flyfish.html&#34;,
+      "inject/cmpt-flyfish.html",
     ]
     postFooterBefore = []
     postFooterAfter = []
@@ -82,8 +82,8 @@ theme = [&#34;FixIt&#34;, &#34;cmpt-flyfish&#34;]
 [params]
   [params.flyfish]
     enable = true
-    light = &#34;rgb(0 119 190 / 10%)&#34;
-    dark = &#34;rgb(255 255 255 / 10%)&#34;
+    light = "rgb(0 119 190 / 10%)"
+    dark = "rgb(255 255 255 / 10%)"
 ```
 
 ## 参考

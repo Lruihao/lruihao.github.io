@@ -12,7 +12,7 @@ StringBuilder 是线程不安全的可变字符串。
 
 - StringBuffer sb = new StringBuffer();
 - StringBuffer sb = new StringBuffer(50);
-- StringBuffer sb = new StringBuffer(&#34;hello&#34;);
+- StringBuffer sb = new StringBuffer("hello");
 
 ### 成员方法：（自己补齐方法和意思）
 
@@ -42,7 +42,7 @@ StringBuilder 是线程不安全的可变字符串。
 ### 排序
 
 - 冒泡排序
-  &gt; 相邻元素，两两比较，大的往后放。
+  > 相邻元素，两两比较，大的往后放。
 
 ![冒泡排序](images/bubble.gif)
 
@@ -50,12 +50,12 @@ StringBuilder 是线程不安全的可变字符串。
 
 ```java
   public static void bubbleSort(int[] arr) {
-    for(int x=0; x&lt;arr.length-1; x&#43;&#43;) {
-      for(int y=0; y&lt;arr.length-1-x; y&#43;&#43;) {
-        if(arr[y]&gt;arr[y&#43;1]) {
+    for(int x=0; x<arr.length-1; x++) {
+      for(int y=0; y<arr.length-1-x; y++) {
+        if(arr[y]>arr[y+1]) {
           int temp = arr[y];
-          arr[y] = arr[y&#43;1];
-          arr[y&#43;1] = temp;
+          arr[y] = arr[y+1];
+          arr[y+1] = temp;
         }
       }
     }
@@ -63,15 +63,15 @@ StringBuilder 是线程不安全的可变字符串。
 ```
 
 - 选择排序
-  &gt; 从 0 开始，依次和后面的比较，小的往前放。
+  > 从 0 开始，依次和后面的比较，小的往前放。
 
 ![选择排序 1](images/2.png)
 
 ```java
   public static void selectSort(int[] arr) {
-    for(int x=0; x&lt;arr.length-1; x&#43;&#43;) {
-      for(int y=x&#43;1; y&lt;arr.length; y&#43;&#43;) {
-        if(arr[y] &lt; arr[x]) {
+    for(int x=0; x<arr.length-1; x++) {
+      for(int y=x+1; y<arr.length; y++) {
+        if(arr[y] < arr[x]) {
           int temp = arr[x];
           arr[x] = arr[y];
           arr[y] = temp;
@@ -90,13 +90,13 @@ public static void selectSort(int[] a)
     int temp=0;
     if((a==null)||(a.length==0))
         return;
-    for(int i=0;i&lt;a.length-1;i&#43;&#43;)
+    for(int i=0;i<a.length-1;i++)
     {
         min=i;//无序区的最小数据数组下标
-        for(int  j=i&#43;1;j&lt;a.length;j&#43;&#43;)
+        for(int  j=i+1;j<a.length;j++)
         {
             //在无序区中找到最小数据并保存其数组下标
-            if(a[j]&lt;a[min])
+            if(a[j]<a[min])
             {
                 min=j;
             }
@@ -120,20 +120,20 @@ public static void selectSort(int[] a)
 public static int getIndex(int[] arr,int value) {
   int max = arr.length-1;
   int min = 0;
-  int mid = (max&#43;min)/2;
+  int mid = (max+min)/2;
 
   while(arr[mid] != value) {
-    if(arr[mid] &gt; value) {
+    if(arr[mid] > value) {
       max = mid - 1;
-    }else if(arr[mid] &lt; value) {
-      min = mid &#43; 1;
+    }else if(arr[mid] < value) {
+      min = mid + 1;
     }
 
-    if(max &lt; min) {
+    if(max < min) {
       return -1;
     }
 
-    mid = (max&#43;min)/2;
+    mid = (max+min)/2;
   }
 
   return mid;
@@ -144,7 +144,7 @@ public static int getIndex(int[] arr,int value) {
 
 ### Arrays 是针对数组进行操作的工具类，提供了排序和查找等功能
 
-&lt;!-- markdownlint-disable MD024 --&gt;
+<!-- markdownlint-disable MD024 -->
 
 ### 成员方法：（自己补齐方法和意思）
 
@@ -181,32 +181,32 @@ public static int getIndex(int[] arr,int value) {
 
 - 构造方法
   - Integer i = new Integer(100);
-  - Integer i = new Integer(&#34;100&#34;);
+  - Integer i = new Integer("100");
 - 成员方法（自己补齐方法和意思）
   - 把字符串转成 int 类型  
-    String-&gt;int: Integer.parseInt()  
-    int-&gt;String: String.valueOf() 或 Integer.toString()
+    String->int: Integer.parseInt()  
+    int->String: String.valueOf() 或 Integer.toString()
 - JDK5 的新特性
 
 ```plain
 自动装箱：
-  int --&gt; Integer    //Integer.valueOf()
+  int --> Integer    //Integer.valueOf()
 自动拆箱：
-  Integer --&gt; int    //Integer.intValue()
+  Integer --> int    //Integer.intValue()
 
 请解释：
   Integer i = 100;
-  i&#43;=200;
+  i+=200;
   System.out.println(i);
 ```
 
 - byte 缓存池面试题  
-  byte,short,char---&gt;小于 127，否则报 -6 的错误（查看 JDK)
+  byte,short,char--->小于 127，否则报 -6 的错误（查看 JDK)
 
 ### Character
 
 - 构造方法  
-  Character ch = new Character(&#39;a&#39;);
+  Character ch = new Character('a');
 - 成员方法（自己补齐方法和意思）
   - 判断字符是否是大写字母
     public boolean isUpperCase(char ch)

@@ -19,17 +19,17 @@ Create watermark for webpage and automatic adjust when windows resize.
 2. Load `Watermark`
 
     ```html
-    &lt;script type=&#34;text/javascript&#34; src=&#34;./src/watermark.js&#34;&gt;&lt;/script&gt;
-    &lt;!-- Or CDN --&gt;
-    &lt;script type=&#34;text/javascript&#34; src=&#34;https://cdn.jsdelivr.net/npm/cell-watermark&#34;&gt;&lt;/script&gt;
+    <script type="text/javascript" src="./src/watermark.js"></script>
+    <!-- Or CDN -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/cell-watermark"></script>
     ```
 
 3. Initialization
 
     ```javascript
-    document.addEventListener(&#39;DOMContentLoaded&#39;, function () {
+    document.addEventListener('DOMContentLoaded', function () {
       new Watermark({
-        content: &#34;cell-watermark&#34;
+        content: "cell-watermark"
       })
     });
     ```
@@ -45,9 +45,9 @@ Create watermark for webpage and automatic adjust when windows resize.
 2. Import
 
     ```javascript
-    import Watermark from &#39;cell-watermark&#39;
+    import Watermark from 'cell-watermark'
     /* Or */
-    var Watermark = require(&#34;cell-watermark&#34;)
+    var Watermark = require("cell-watermark")
     ```
 
 

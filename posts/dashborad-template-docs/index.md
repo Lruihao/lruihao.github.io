@@ -8,63 +8,63 @@
 1. 每个模块的 dashboard 页面可继承 `Dashboard` 组件，如：
 
     ```html
-    &lt;script&gt;
-    import Dashboard from &#39;@/components/Dashboard&#39;
+    <script>
+    import Dashboard from '@/components/Dashboard'
 
     export default {
-      name: &#39;Dashboard&#39;,
+      name: 'Dashboard',
       extends: Dashboard,
     }
-    &lt;/script&gt;
+    </script>
     ```
 
 2. 使用 `registerComponents` 函数注册组件，通用组件模板中默认已导入，模块组件需要自行导入，如：
 
     ```html
-    &lt;script&gt;
-    import Dashboard, { registerComponents } from &#39;@/components/Dashboard&#39;
+    <script>
+    import Dashboard, { registerComponents } from '@/components/Dashboard'
 
     // 加载 widgets 目录下所有组件
-    const requireComponents = require.context(&#39;./widgets&#39;, true, /\.vue$/)
+    const requireComponents = require.context('./widgets', true, /\.vue$/)
     const components = registerComponents(requireComponents)
 
     export default {
-      name: &#39;Dashboard&#39;,
+      name: 'Dashboard',
       extends: Dashboard,
       created() {
         // 加载组件列表
-        this.addComponents(&#39;组件分类&#39;, components)
+        this.addComponents('组件分类', components)
       },
     }
-    &lt;/script&gt;
+    </script>
     ```
 
 3. 设置默认布局
 
     ```html
-    &lt;script&gt;
-    import Dashboard, { registerComponents } from &#39;@/components/Dashboard&#39;
+    <script>
+    import Dashboard, { registerComponents } from '@/components/Dashboard'
 
     // ...
 
     export default {
-      name: &#39;Dashboard&#39;,
+      name: 'Dashboard',
       extends: Dashboard,
       data() {
         return {
           // 设置默认布局
           defaultLayout: [
-            { i: 1, component: &#39;ExampleWidget&#39;, name: &#39;便利贴&#39;, x: 0, y: 0, w: 8, h: 8, params: { content: &#39;hello world!&#39; }},
+            { i: 1, component: 'ExampleWidget', name: '便利贴', x: 0, y: 0, w: 8, h: 8, params: { content: 'hello world!' }},
             // ...
           ],
         }
       },
       // ...
     }
-    &lt;/script&gt;
+    </script>
     ```
 
-&gt; 完整例子详见 [`@/views/dashboard/index.vue`][dashboard-usage] 页面。
+> 完整例子详见 [`@/views/dashboard/index.vue`][dashboard-usage] 页面。
 
 ## Export
 
@@ -80,7 +80,7 @@
 
 ## Data Properties
 
-- `componentsList` (Array): 组件列表 e.g. [{ category: &#39;分类名称&#39;, components: [组件列表] }]
+- `componentsList` (Array): 组件列表 e.g. [{ category: '分类名称', components: [组件列表] }]
 - `isCollapse` (Boolean): 是否折叠侧边栏
 - `colNum` (Number): 栅格列数
 - `rowHeight` (Number): 栅格行高
@@ -111,7 +111,7 @@
 
 ## Methods
 
-### notify(message, type = &#39;success&#39;)
+### notify(message, type = 'success')
 
 dashboard 显示通知
 
@@ -144,7 +144,7 @@ dashboard 显示通知
 
 | 参数 | 类型             | 说明                 |
 | ---- | ---------------- | -------------------- |
-| id   | `Number/String` | 仪表盘 ID 或者 &#39;new’ |
+| id   | `Number/String` | 仪表盘 ID 或者 'new’ |
 
 ### handleCommand(type)
 
@@ -315,32 +315,32 @@ dashboard 显示通知
 | compact         | varchar(5)   | 压缩布局   |
 | name            | varchar(250) | 仪表盘名称 |
 
-```sql {title=&#34;dashboard 表结构&#34;}
+```sql {title="dashboard 表结构"}
 CREATE TABLE `dashboard` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `route` varchar(150) NOT NULL DEFAULT &#39;&#39; COMMENT &#39;dashborad 名称&#39;,
-  `layout` longtext COMMENT &#39;dashborad 布局 JSON&#39;,
-  `organization_id` bigint(11) DEFAULT &#39;0&#39; COMMENT &#39;组织 id&#39;,
-  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT &#39;创建时间&#39;,
-  `update_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT &#39;更新时间&#39;,
-  `aside` varchar(15) DEFAULT NULL COMMENT &#39;侧栏位置&#39;,
-  `compact` varchar(5) NOT NULL DEFAULT &#39;false&#39; COMMENT &#39;压缩布局&#39;,
-  `name` varchar(250) DEFAULT NULL COMMENT &#39;仪表盘名称&#39;,
+  `route` varchar(150) NOT NULL DEFAULT '' COMMENT 'dashborad 名称',
+  `layout` longtext COMMENT 'dashborad 布局 JSON',
+  `organization_id` bigint(11) DEFAULT '0' COMMENT '组织 id',
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
+  `aside` varchar(15) DEFAULT NULL COMMENT '侧栏位置',
+  `compact` varchar(5) NOT NULL DEFAULT 'false' COMMENT '压缩布局',
+  `name` varchar(250) DEFAULT NULL COMMENT '仪表盘名称',
   PRIMARY KEY (`id`),
   KEY `name` (`route`)
-) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8 COMMENT=&#39;Dashboard 组件布局数据&#39;;
+) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8 COMMENT='Dashboard 组件布局数据';
 ```
 
 ## Appendix B: API Reference
 
 详见 [dashboard.js](https://github.com/Lruihao/vue-el-demo/blob/main/src/api/dashboard.js)
 
-&lt;!-- link reference definition --&gt;
-[dashboard-template]: &lt;https://github.com/Lruihao/vue-el-demo/tree/main/src/components/Dashboard&gt;
-[dashboard-usage]: &lt;https://github.com/Lruihao/vue-el-demo/blob/main/src/views/dashboard/index.vue&gt;
-[grid-item-properties]: &lt;https://jbaysolutions.github.io/vue-grid-layout/zh/guide/properties.html#griditem&gt;
+<!-- link reference definition -->
+[dashboard-template]: <https://github.com/Lruihao/vue-el-demo/tree/main/src/components/Dashboard>
+[dashboard-usage]: <https://github.com/Lruihao/vue-el-demo/blob/main/src/views/dashboard/index.vue>
+[grid-item-properties]: <https://jbaysolutions.github.io/vue-grid-layout/zh/guide/properties.html#griditem>
 
-&lt;!-- footnote reference definition --&gt;
+<!-- footnote reference definition -->
 [^1]: 基于 Vue2 和 [vue-grid-layout](https://jbaysolutions.github.io/vue-grid-layout/zh/) 开发的拖拽式 Dashboard 模板，[查看源码][dashboard-template]。
 
 

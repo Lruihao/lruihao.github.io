@@ -3,11 +3,11 @@
 
 本文将介绍另外一个非常实用的 CSS 数学函数 - `round()` 及其实际应用场景。
 
-&lt;!--more--&gt;
+<!--more-->
 
 ## 何为 CSS round 函数
 
-&gt; 这是一个比较新的 CSS 函数，在 [CSS Values and Units Module Level 4](https://drafts.csswg.org/css-values/#funcdef-round) 规范中提出，自 2024 年 5 月起，此功能适用于最新设备和浏览器版本。此功能可能无法在较旧的设备或浏览器中使用。
+> 这是一个比较新的 CSS 函数，在 [CSS Values and Units Module Level 4](https://drafts.csswg.org/css-values/#funcdef-round) 规范中提出，自 2024 年 5 月起，此功能适用于最新设备和浏览器版本。此功能可能无法在较旧的设备或浏览器中使用。
 
 CSS `round()` 函数**根据选定的舍入策略返回舍入数**。
 
@@ -18,18 +18,18 @@ CSS `round()` 函数**根据选定的舍入策略返回舍入数**。
 `round()` 的完整语法规则还是比较复杂的。完整的介绍可以看 [MDN - round()](https://developer.mozilla.org/en-US/docs/Web/CSS/round)。
 
 ```css
-&lt;round()&gt; = round( &lt;rounding-strategy&gt;?, &lt;valueToRound&gt; , &lt;roundingInterval&gt; )
+<round()> = round( <rounding-strategy>?, <valueToRound> , <roundingInterval> )
 ```
 
-`round(&lt;rounding-strategy&gt;, valueToRound, roundingInterval)` 函数指定可选的舍入策略、要舍入的值（或数学表达式）和舍入间隔（或数学表达式）。根据舍入策略，`valueToRound` 四舍五入到 `roundingInterval` 的最接近整数倍。
+`round(<rounding-strategy>, valueToRound, roundingInterval)` 函数指定可选的舍入策略、要舍入的值（或数学表达式）和舍入间隔（或数学表达式）。根据舍入策略，`valueToRound` 四舍五入到 `roundingInterval` 的最接近整数倍。
 
-- `&lt;rounding-strategy&gt;`: 可选参数，表示舍入策略。这可能是以下值之一：
+- `<rounding-strategy>`: 可选参数，表示舍入策略。这可能是以下值之一：
   - `up`: 相当于 JavaScript Math.ceil() 方法，将 valueToRound 向上舍入到 roundingInterval 最接近的整数倍。这相当于 JavaScript Math.ceil() 方法。
   - `down`: 将 valueToRound 向下舍入为 roundingInterval 最接近的整数倍。这相当于 JavaScript Math.floor() 方法。
   - `nearest`: 将 valueToRound 舍入为 roundingInterval 的最接近的整数倍，该倍数可以高于或低于该值。如果 valueToRound 是上方和下方舍入目标之间的一半，则会向上舍入。相当于 JavaScript Math.round()。
   - `to-zero`: 将 valueToRound 舍入为 roundingInterval 接近/接近零的最接近整数倍。这相当于 JavaScript Math.trunc() 方法。
-- `&lt;valueToRound&gt;`: 需要被四舍五入的值。必须是 `&lt;number&gt;`、`&lt;dimension&gt;` 或 `&lt;percentage&gt;`，或者解析为这些值之一的数学表达式。
-- `&lt;roundingInterval&gt;`: 舍入的间隔规则。这是一个 `&lt;number&gt;`、`&lt;dimension&gt;` 或 `&lt;percentage&gt;`，或者解析为这些值之一的数学表达式。
+- `<valueToRound>`: 需要被四舍五入的值。必须是 `<number>`、`<dimension>` 或 `<percentage>`，或者解析为这些值之一的数学表达式。
+- `<roundingInterval>`: 舍入的间隔规则。这是一个 `<number>`、`<dimension>` 或 `<percentage>`，或者解析为这些值之一的数学表达式。
 
 ### 示例
 
@@ -129,7 +129,7 @@ MDN 官方写了一个完整的例子，可以看 [Playground | MDN](https://dev
 
 开头说了这是一个比较新的 CSS 函数，所以兼容性肯定是个问题。尽管**截至 2024 年 7 月 29 日**，`round()` 函数覆盖了 **67.63%** 的浏览器，并且在各类浏览器中的最新几个版本都得到了完全支持（忽略 IE），但是在一些老版本的浏览器中还是不支持的，如下图。
 
-{{&lt; caniuse &#34;mdn-css_types_round&#34; &gt;}}
+{{< caniuse "mdn-css_types_round" >}}
 
 那又怎么搞勒？要崩溃了，最讨厌兼容性了，也讨厌 Polyfill，但是毕竟 FixIt 主题不是我一个人在用，还是加一下 Polyfill 吧。
 

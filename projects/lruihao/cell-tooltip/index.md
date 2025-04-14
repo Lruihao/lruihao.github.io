@@ -1,8 +1,8 @@
-# 基于 Bootstrap 5 &#43; Font Awesome 6 的消息提示插件
+# 基于 Bootstrap 5 + Font Awesome 6 的消息提示插件
 
 # Cell Tooltip
 
-基于 Bootstrap 5 &#43; Font Awesome 6 的消息提示插件 (Base on [Bootstrap#Alerts](https://getbootstrap.com/docs/5.2/components/alerts/))
+基于 Bootstrap 5 + Font Awesome 6 的消息提示插件 (Base on [Bootstrap#Alerts](https://getbootstrap.com/docs/5.2/components/alerts/))
 
 ## [Documentation](https://raw.githubusercontent.com/Lruihao/cell-tooltip/refs/heads/main/docs/README.md)
 
@@ -16,17 +16,17 @@ npm run docs
 
 ```js
 this.tooltip = new CellTooltip({
-  position: &#39;top-center&#39;,
-  offset: document.querySelector(&#39;.container-header&#39;).offsetHeight
+  position: 'top-center',
+  offset: document.querySelector('.container-header').offsetHeight
 });
 
 this.tooltip.show({
-  type: &#39;info&#39;,
-  content: &#39;hello world!&#39;
+  type: 'info',
+  content: 'hello world!'
 });
 /* Or */
 this.tooltip.info({
-  content: &#39;hello world!&#39;
+  content: 'hello world!'
 });
 ```
 

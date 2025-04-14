@@ -1,6 +1,6 @@
 # 沐目之，湘也。— 沐目体
 
-&gt; [关于沐目体](https://lruihao.cn/projects/font-mmt/)
+> [关于沐目体](https://lruihao.cn/projects/font-mmt/)
 
 
 ---

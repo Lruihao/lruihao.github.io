@@ -1,9 +1,9 @@
 # Hexo 添加图片，音乐，链接，视频
 
 
-&gt; **如果实在搞得头晕直接去 [简书](https://www.jianshu.com/) 写文章，再把简书生成的 md 文章复制过来就好了（简书是个不错的 Markdown 在线编辑器），还可以去 [马克飞象，专为印象笔记打造的 Markdown 编辑器](https://maxiang.io/)，[typora 也是不错的](https://www.typora.io/#)，突然发现 [csdn](https://www.csdn.net/) 也支持 Markdown 编译器了**
+> **如果实在搞得头晕直接去 [简书](https://www.jianshu.com/) 写文章，再把简书生成的 md 文章复制过来就好了（简书是个不错的 Markdown 在线编辑器），还可以去 [马克飞象，专为印象笔记打造的 Markdown 编辑器](https://maxiang.io/)，[typora 也是不错的](https://www.typora.io/#)，突然发现 [csdn](https://www.csdn.net/) 也支持 Markdown 编译器了**
 
-&lt;!--more--&gt;
+<!--more-->
 
 ## 1. 首先
 
@@ -22,7 +22,7 @@ post_asset_folder: true
 npm install https://github.com/CodeFalling/hexo-asset-image -- save
 ```
 
-### 1.3 下次再运行 hexo n &#34;xxxx&#34;来生成 md 博文时，下路径
+### 1.3 下次再运行 hexo n "xxxx"来生成 md 博文时，下路径
 
 ```plain
 /source/_posts
@@ -70,19 +70,19 @@ npm install https://github.com/CodeFalling/hexo-asset-image -- save
 ```md
 #iframe 插件
 
-&lt;iframe frameborder=&#34;no&#34; border=&#34;0&#34; marginwidth=&#34;0&#34; marginheight=&#34;0&#34; width=330 height=86 src=&#34;//music.163.com/outchain/player?type=2&amp;id=66651&amp;auto=0&amp;height=66&#34;&gt;
-&lt;/iframe&gt;
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=66651&auto=0&height=66">
+</iframe>
 ```
 
-&lt;!-- markdownlint-disable MD033 --&gt;
+<!-- markdownlint-disable MD033 -->
 
-&lt;iframe frameborder=&#34;no&#34; border=&#34;0&#34; marginwidth=&#34;0&#34; marginheight=&#34;0&#34; width=330 height=86 src=&#34;//music.163.com/outchain/player?type=2&amp;id=66651&amp;auto=0&amp;height=66&#34;&gt;&lt;/iframe&gt;
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=66651&auto=0&height=66"></iframe>
 
 ```html
 #flash 插件
 
-&lt;embed src=&#34;//music.163.com/style/swf/widget.swf?sid=40249713&amp;type=2&amp;auto=0&amp;width=320&amp;height=66&#34; width=&#34;340&#34; height=&#34;86&#34;  allowNetworking=&#34;all&#34;&gt;
-&lt;/embed&gt;
+<embed src="//music.163.com/style/swf/widget.swf?sid=40249713&type=2&auto=0&width=320&height=66" width="340" height="86"  allowNetworking="all">
+</embed>
 ```
 
 ## 4. 添加链接
@@ -94,27 +94,27 @@ npm install https://github.com/CodeFalling/hexo-asset-image -- save
 
 ## 5. 添加视频
 
-&gt; 视频链接最好是打开就是视频的链接（youku，YouTube，抖音等）
-&gt; 可以把视频上传到优酷，抖音等生成外链再拿来用。（优酷上传需要注册和实名认证）
-&gt; [插件参考资料](https://lruihao.cn/posts/nextplugin/)
+> 视频链接最好是打开就是视频的链接（youku，YouTube，抖音等）
+> 可以把视频上传到优酷，抖音等生成外链再拿来用。（优酷上传需要注册和实名认证）
+> [插件参考资料](https://lruihao.cn/posts/nextplugin/)
 
 自拍手写视频（优酷）
 
-&gt; 实验室无聊拍的
+> 实验室无聊拍的
 
 ```html
-&lt;iframe
+<iframe
  height=500 width=100%
- src=&#34;https://player.youku.com/embed/XMzY0MzgxNDMyOA==&#34;
- frameborder=0 allowfullscreen&gt;
-&lt;/iframe&gt;
+ src="https://player.youku.com/embed/XMzY0MzgxNDMyOA=="
+ frameborder=0 allowfullscreen>
+</iframe>
 ```
 
-&lt;iframe
+<iframe
  height=500 width=100%
- src=&#34;https://player.youku.com/embed/XMzY0MzgxNDMyOA==&#34;
- frameborder=0 allowfullscreen&gt;
-&lt;/iframe&gt;
+ src="https://player.youku.com/embed/XMzY0MzgxNDMyOA=="
+ frameborder=0 allowfullscreen>
+</iframe>
 
 ## 工具集合
 

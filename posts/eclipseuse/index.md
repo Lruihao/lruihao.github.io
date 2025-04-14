@@ -54,15 +54,15 @@ F: 控制台找不到了
 
 ```java 快捷键
 A: 内容辅助键
-  Alt&#43;/ 起提示作用
-  main&#43;alt&#43;/,syso&#43;alt&#43;/, 给出其他提示
+  Alt+/ 起提示作用
+  main+alt+/,syso+alt+/, 给出其他提示
 B: 快捷键
-  格式化  ctrl&#43;shift&#43;f
-  导入包  ctrl&#43;shift&#43;o
-  注释  ctrl&#43;/
-    ctrl&#43;shift&#43;/,ctrl&#43;shift&#43;\
-  代码上下移动 选中代码 alt&#43;上/下箭头
-  查看源码  选中类名 (F3 或者 Ctrl&#43;鼠标点击）
+  格式化  ctrl+shift+f
+  导入包  ctrl+shift+o
+  注释  ctrl+/
+    ctrl+shift+/,ctrl+shift+\
+  代码上下移动 选中代码 alt+上/下箭头
+  查看源码  选中类名 (F3 或者 Ctrl+鼠标点击）
 ```
 
 ## Eclipse 中如何提高开发效率

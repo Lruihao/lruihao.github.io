@@ -17,9 +17,9 @@ The installation method is the same as [installing a theme](https://fixit.lruiha
 ```diff
 [module]
   [[module.imports]]
-    path = &#34;github.com/hugo-fixit/FixIt&#34;
-&#43; [[module.imports]]
-&#43;   path = &#34;github.com/hugo-fixit/cmpt-mdevtools&#34;
+    path = "github.com/hugo-fixit/FixIt"
++ [[module.imports]]
++   path = "github.com/hugo-fixit/cmpt-mdevtools"
 ```
 
 ## Configuration
@@ -28,8 +28,8 @@ The installation method is the same as [installing a theme](https://fixit.lruiha
 # Mobile Devtools config
 [params.mDevtools]
   enable = false
-  # &#34;eruda&#34;, &#34;vConsole&#34; supported
-  type = &#34;eruda&#34;
+  # "eruda", "vConsole" supported
+  type = "eruda"
 ```
 
 ## Inject Partial
@@ -37,8 +37,8 @@ The installation method is the same as [installing a theme](https://fixit.lruiha
 Inject the `cmpt-mdevtools.html` into the `custom-assets` through the custom block opened by the FixIt theme in the `layouts/partials/custom.html` file:
 
 ```go-html-template
-{{- define &#34;custom-assets&#34; -}}
-  {{- partial &#34;inject/cmpt-mdevtools.html&#34; . -}}
+{{- define "custom-assets" -}}
+  {{- partial "inject/cmpt-mdevtools.html" . -}}
 {{- end -}}
 ```
 

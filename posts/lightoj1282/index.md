@@ -1,4 +1,4 @@
-# Leading and Trailing-Lightoj1282（快速幂 &#43; 对数运算）
+# Leading and Trailing-Lightoj1282（快速幂 + 对数运算）
 
 
 ## [题目链接](https://vjudge.net/contest/238979#problem/E)
@@ -14,23 +14,23 @@
 分析完，我们再整体看，设 n^k=10^z; 那么`z=k*log10(n)`  
 `fmod(z,1)`可以求出 x 的小数部分。
 
-&lt;!--more--&gt;
+<!--more-->
 
 ```c
-//再一次吐槽 lightoj 的头文件，让我不能用万能头&lt;bits/stdc&#43;&#43;.h&gt;
-#include&lt;stdio.h&gt;
-#include&lt;math.h&gt;
+//再一次吐槽 lightoj 的头文件，让我不能用万能头<bits/stdc++.h>
+#include<stdio.h>
+#include<math.h>
 
 typedef long long LL;
 
 int quickpow (int m, int n, int k)
 {
     int b = 1;
-    while (n &gt; 0)
+    while (n > 0)
     {
-        if (n &amp; 1)
+        if (n & 1)
             b = (b * m) % k;
-        n &gt;&gt;= 1;
+        n >>= 1;
         m = (m * m) % k;
     }
     return b%k;
@@ -39,17 +39,17 @@ int quickpow (int m, int n, int k)
 int main ()
 {
     int t, flag = 1;
-    scanf (&#34;%d&#34;, &amp;t);
+    scanf ("%d", &t);
 
     while (t--)
     {
         LL n, k;
-        scanf (&#34;%lld %lld&#34;, &amp;n, &amp;k);
+        scanf ("%lld %lld", &n, &k);
 
-        int first = pow (10.0, 2.0 &#43; fmod (k*log10(n*1.0), 1));
+        int first = pow (10.0, 2.0 + fmod (k*log10(n*1.0), 1));
         int last = quickpow (n%1000, k, 1000);
 
-        printf (&#34;Case %d: %d %03d\n&#34;, flag&#43;&#43;, first, last);
+        printf ("Case %d: %d %03d\n", flag++, first, last);
     }
     return 0;
 }
@@ -67,8 +67,8 @@ C 库函数 double fmod(double x, double y) 返回 x 除以 y 的余数。
 下面的实例演示了 fmod() 函数的用法。
 
 ```c
-#include &lt;stdio.h&gt;
-#include &lt;math.h&gt;
+#include <stdio.h>
+#include <math.h>
 
 int main ()
 {
@@ -77,8 +77,8 @@ int main ()
    a = 9.2;
    b = 3.7;
    c = 2;
-   printf(&#34;%f / %d 的余数是 %lf\n&#34;, a, c, fmod(a,c));
-   printf(&#34;%f / %f 的余数是 %lf\n&#34;, a, b, fmod(a,b));
+   printf("%f / %d 的余数是 %lf\n", a, c, fmod(a,c));
+   printf("%f / %f 的余数是 %lf\n", a, b, fmod(a,b));
 
    return(0);
 }

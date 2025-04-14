@@ -3,7 +3,7 @@
 
 在开发和部署网站时，经常会遇到加载外部资源较慢的问题。其中之一就是加载 Gravatar 头像图片时可能会受到网络延迟的影响。为了解决这个问题，我们可以利用 Vercel 平台的反向代理功能来实现镜像加速。
 
-&lt;!--more--&gt;
+<!--more-->
 
 ## 思路
 
@@ -17,28 +17,28 @@
 8. 构造最终的响应对象，其中响应体为原始响应的内容，状态码和头部信息为修改后的值。
 9. 返回最终的响应对象。
 
-安装上面的思路，理论上我们可以反代任何一个网站，并且支持设置 CORS 策略。GitHub 上也有类似的项目，比如 &lt;https://github.com/gaowanlu/google&gt;.
+安装上面的思路，理论上我们可以反代任何一个网站，并且支持设置 CORS 策略。GitHub 上也有类似的项目，比如 <https://github.com/gaowanlu/google>.
 
-&gt; 当然，网络不是非法之地，不要滥用这个功能反代一些不合法的网站哦。
+> 当然，网络不是非法之地，不要滥用这个功能反代一些不合法的网站哦。
 
 ## 实现
 
-&lt;img alt=&#34;Lruihao gravatar&#34; src=&#34;https://gravatar.lruihao.cn/avatar/fee47a2f4f2cc71f99a02b0a73ecfee0?s=128&#34; /&gt;
+<img alt="Lruihao gravatar" src="https://gravatar.lruihao.cn/avatar/fee47a2f4f2cc71f99a02b0a73ecfee0?s=128" />
 
 ⬆️ `https://gravatar.lruihao.cn/avatar/fee47a2f4f2cc71f99a02b0a73ecfee0?s=64`
 
 实现 API 代码：
 
-```js {title=&#34;api/gravatar.js&#34;}
+```js {title="api/gravatar.js"}
 const allowedReferrers = [
-  &#34;lruihao.cn&#34;,
-  &#34;gravatar-x.vercel.app&#34;,
-  &#34;-lrh-dev.vercel.app&#34;,
-  &#34;-cell-x.vercel.app&#34;,
-  &#34;localhost&#34;,
+  "lruihao.cn",
+  "gravatar-x.vercel.app",
+  "-lrh-dev.vercel.app",
+  "-cell-x.vercel.app",
+  "localhost",
 ];
 
-const upstream = &#34;www.gravatar.com&#34;;
+const upstream = "www.gravatar.com";
 
 /**
  * whether the hostname is allowed
@@ -46,7 +46,7 @@ const upstream = &#34;www.gravatar.com&#34;;
  * @returns 
  */
 function isAllowedHost(hostname) {
-  const regExp = new RegExp(allowedReferrers.join(&#34;|&#34;), &#34;g&#34;);
+  const regExp = new RegExp(allowedReferrers.join("|"), "g");
   // if hostname matches allowed referrers
   if (!hostname || regExp.test(hostname)) {
     return true
@@ -68,8 +68,8 @@ async function fetchAndApply(request) {
   let method = request.method;
   let request_headers = request.headers;
   let new_request_headers = new Headers(request_headers);
-  new_request_headers.set(&#34;Host&#34;, upstream);
-  new_request_headers.set(&#34;Referer&#34;, url.href);
+  new_request_headers.set("Host", upstream);
+  new_request_headers.set("Referer", url.href);
   let original_response = await fetch(url.href, {
     method: method,
     headers: new_request_headers,
@@ -81,29 +81,29 @@ async function fetchAndApply(request) {
   let new_response_headers = new Headers(response_headers);
   let status = original_response.status;
 
-  const hostname = (() =&gt; {
+  const hostname = (() => {
     try {
-      return new URL(request.headers.get(&#34;Referer&#34;)).hostname;
+      return new URL(request.headers.get("Referer")).hostname;
     } catch (e) {
-      return &#34;&#34;;
+      return "";
     }
   })();
   if (!isAllowedHost(hostname)) {
     return new Response(`403 Forbidden: ${hostname}`, {
-      headers: { &#34;Content-Type&#34;: &#34;text/html&#34; },
+      headers: { "Content-Type": "text/html" },
       status: 403,
-      statusText: &#34;Forbidden&#34;,
+      statusText: "Forbidden",
     });
   }
 
-  // new_response_headers.set(&#34;access-control-allow-origin&#34;, &#34;https://lruihao.cn&#34;);
-  new_response_headers.set(&#34;Access-Control-Allow-Methods&#34;, &#34;GET, POST, OPTIONS&#34;);
-  new_response_headers.set(&#34;Access-Control-Allow-Headers&#34;, &#34;Content-Type&#34;);
+  // new_response_headers.set("access-control-allow-origin", "https://lruihao.cn");
+  new_response_headers.set("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+  new_response_headers.set("Access-Control-Allow-Headers", "Content-Type");
   new_response_headers.set(
-    &#34;Cache-Control&#34;,
-    &#34;max-age=600, s-maxage=2592000, stale-while-revalidate&#34;
+    "Cache-Control",
+    "max-age=600, s-maxage=2592000, stale-while-revalidate"
   );
-  new_response_headers.delete(&#34;link&#34;);
+  new_response_headers.delete("link");
 
   original_text = original_response_clone.body;
 
@@ -116,7 +116,7 @@ async function fetchAndApply(request) {
 }
 
 export const config = {
-  runtime: &#34;experimental-edge&#34;,
+  runtime: "experimental-edge",
 };
 
 export default function (req) {
@@ -126,10 +126,10 @@ export default function (req) {
 
 配置 `vercel.json` 文件：
 
-```json {title=&#34;vercel.json&#34;}
+```json {title="vercel.json"}
 {
-  &#34;rewrites&#34;: [
-    { &#34;source&#34;: &#34;/avatar/(.*)&#34;, &#34;destination&#34;: &#34;api/gravatar&#34; }
+  "rewrites": [
+    { "source": "/avatar/(.*)", "destination": "api/gravatar" }
   ]
 }
 ```
@@ -138,9 +138,9 @@ export default function (req) {
 
 ## 源码
 
-{{&lt; gh-repo-card-container &gt;}}
-  {{&lt; gh-repo-card repo=&#34;Lruihao/vercel-gravatar&#34; &gt;}}
-{{&lt; /gh-repo-card-container &gt;}}
+{{< gh-repo-card-container >}}
+  {{< gh-repo-card repo="Lruihao/vercel-gravatar" >}}
+{{< /gh-repo-card-container >}}
 
 
 ---

@@ -1,14 +1,14 @@
 # 各种 Links 汇总与分享
 
 
-&gt; 2021/10/1 更新  
-&gt; 使用 Chrome 等浏览器管理书签是更好更方便的方式，登陆 google 账号，或者导出 html 书签文件都挺方便。
-&gt;
-&gt; 我们在平时学习生活总会遇到很多很多有用的网站，也许我们收藏在了浏览器书签里，可过久了，不做说明，这些链接的价值就被时间淹没了，我们自己都记不起来了，所以这篇文章因此而生。对自己收藏的链接做些简单的说明（第一次编写用了我一个下午）；也相当于我的链接收藏夹，分享一些有趣的网站，
+> 2021/10/1 更新  
+> 使用 Chrome 等浏览器管理书签是更好更方便的方式，登陆 google 账号，或者导出 html 书签文件都挺方便。
+>
+> 我们在平时学习生活总会遇到很多很多有用的网站，也许我们收藏在了浏览器书签里，可过久了，不做说明，这些链接的价值就被时间淹没了，我们自己都记不起来了，所以这篇文章因此而生。对自己收藏的链接做些简单的说明（第一次编写用了我一个下午）；也相当于我的链接收藏夹，分享一些有趣的网站，
 
-&lt;!--more--&gt;
+<!--more-->
 
-&lt;!-- tab ACM 相关 --&gt;
+<!-- tab ACM 相关 -->
 
 ## ACM 相关
 
@@ -29,16 +29,16 @@
 | [codewar](https://www.codewars.com/kata/)                                                 | 国外                                                      |
 | [更多 OJ，在线刷题网站 ...](https://blog.csdn.net/tigerisland45/article/details/52134189) |                                                           |
 
-&lt;!-- endtab --&gt;
+<!-- endtab -->
 
-&lt;!-- tab 编程，学习 --&gt;
+<!-- tab 编程，学习 -->
 
 ## 编程，学习
 
 | 链接                                                   | 描述                                                                                                                                                                                                                                                                                                                                                                                        |
 | :----------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | [visualgo](https://visualgo.net)                       | 算法学习，数据结构和算法动态可视化                                                                                                                                                                                                                                                                                                                                                          |
-| [c,c&#43;&#43;学习](https://zh.cppreference.com)               | 很详细的知识讲解                                                                                                                                                                                                                                                                                                                                                                            |
+| [c,c++学习](https://zh.cppreference.com)               | 很详细的知识讲解                                                                                                                                                                                                                                                                                                                                                                            |
 | [Tomcat 下载](https://archive.apache.org/dist/tomcat/) | Tomcat 各版本下载，Tomcat 解压即安装；`\bin`下可以启动和关闭服务器；可手动在`\webapps`里创建 web 应用，也可以配合`Eclisp IDE for Java EE Developers`等 Java IDE 工具创建                                                                                                                                                                                                                    |
 | [w3school](http://www.w3school.com.cn)                 | 可在线测试，Web 技术教程，HTML, 浏览器脚本，服务器脚本，xml 教程等                                                                                                                                                                                                                                                                                                                          |
 | [w3cschool](https://www.w3cschool.cn)                  | 和上面不同哦，是不是和上面的很像哈哈哈！我估计是上一个网站的新版，功能更强大，内容更丰富，还有微信小程序教程等                                                                                                                                                                                                                                                                              |
@@ -55,9 +55,9 @@
 | [wxpy](https://wxpy.readthedocs.io)                    | 一个 python 关于微信的库                                                                                                                                                                                                                                                                                                                                                                    |
 | [So1n](http://so1n.me/links/)                          | python 学习                                                                                                                                                                                                                                                                                                                                                                                 |
 
-&lt;!-- endtab --&gt;
+<!-- endtab -->
 
-&lt;!-- tab 云服务及站长工具享 --&gt;
+<!-- tab 云服务及站长工具享 -->
 
 ## 云服务及站长工具
 
@@ -76,9 +76,9 @@
 | [站长工具](http://tool.chinaz.com)                               | 网站信息查询，权重，seo，网站速度查询，ping 等                                                                                                                   |
 | [站长工具大全](http://tool.lusongsong.com)                       | 各种 seo 优化，工具等                                                                                                                                            |
 
-&lt;!-- endtab --&gt;
+<!-- endtab -->
 
-&lt;!-- tab 前端工具 --&gt;
+<!-- tab 前端工具 -->
 
 ## 前端工具
 
@@ -110,14 +110,14 @@
 | [改图宝](http://www.gaitubao.com)                                          | 在线改图压缩，加水印，生成二维码，印章制作等                                                                                      |
 | [GIF 之家](https://tool.gifhome.com/)                                      | 一个压缩效果很好且免费的 gif 压缩工具                                                                                             |
 | [二维码解码器](https://jiema.wwei.cn)                                      |                                                                                                                                   |
-| [草料二维码](https://mh.cli.im)                                            | &lt;https://cli.im&gt;                                                                                                                  |
+| [草料二维码](https://mh.cli.im)                                            | <https://cli.im>                                                                                                                  |
 | [联图二维码](http://www.liantu.com/meihua)                                 |                                                                                                                                   |
 | [第九工厂](https://www.9thws.com)                                          | 死磕艺术二维码                                                                                                                    |
 | [模板码](https://www.mobanma.com)                                          | 动态二维码等                                                                                                                      |
 
-&lt;!-- endtab --&gt;
+<!-- endtab -->
 
-&lt;!-- tab 实用工具 --&gt;
+<!-- tab 实用工具 -->
 
 ## 实用工具
 
@@ -128,11 +128,11 @@
 | [Proxyee Down](https://github.com/proxyee-down-org/proxyee-down)     | 百度云下载解决方案，满速下载，但不限于百度云的下载，感觉比迅雷还好用！                                                        |
 | [PanDownload](https://www.baiduwp.com/)                              | 这是 pandownload 网页版，把需要下载的百度网盘链接`baidu`改成`baiduwp`即可加速，也有桌面版。                                   |
 | [ubuntu pastebin](https://paste.ubuntu.com)                          | 代码展示托管，生成分享网址，防止代码直接分享缩进消失                                                                          |
-| [图片转字符工具](https://picascii.com)                               | Img--&gt;String                                                                                                                  |
+| [图片转字符工具](https://picascii.com)                               | Img-->String                                                                                                                  |
 | [everyfont](http://everyfont.enjoyfe.com)                            | 中文字库在线压缩                                                                                                              |
 | [字蛛](http://font-spider.org)                                       | font-spider 中文字库压缩                                                                                                      |
 | [mdtr2pdf](http://www.mdtr2pdf.com/index.html)                       | markdown 转 pdf                                                                                                               |
-| [AD&#39;s API](https://api.imjad.cn)                                     | 包括动态签名，网易音乐等                                                                                                      |
+| [AD's API](https://api.imjad.cn)                                     | 包括动态签名，网易音乐等                                                                                                      |
 | [在线工具](https://123.w3cschool.cn/webtools)                        | w3cschool 的在线工具集合                                                                                                      |
 | [在线工具](https://tool.oschina.net)                                 | 开源中国社区                                                                                                                  |
 | [菜鸟工具](https://c.runoob.com)                                     | [菜鸟教程](https://www.runoob.com) 在线工具，编译，加密，压缩代码等                                                           |
@@ -143,9 +143,9 @@
 | [配音阁](http://www.peiyinge.com/)                                   | 文字转换语音/语音合成广告_叫卖录音_在线配音网络软件\_促销宣传片配音 - 配音阁 - 配音阁，国内专业的广告配音平台                     |
 | [hacknical](https://hacknical.com)                                   | 在线个性简历，个人 Github 总结分析                                                                                            |
 
-&lt;!-- endtab --&gt;
+<!-- endtab -->
 
-&lt;!-- tab 其他 --&gt;
+<!-- tab 其他 -->
 
 ## 其他
 
@@ -158,7 +158,7 @@
 | [大象代理](http://www.daxiangdaili.com)                     | 收费，口碑不错                                                                    |
 | [蒲公英](https://www.pgyer.com)                             | 应用内测发布平台                                                                  |
 
-&lt;!-- endtab --&gt;
+<!-- endtab -->
 
 ## 博客文章
 

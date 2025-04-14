@@ -15,13 +15,13 @@
 
 既然单连通无回路，则这肯定是一棵树；那么 edge=v-1;
 
-&lt;!--more--&gt;
+<!--more-->
 
 最后注意空树的情况，至于自环我这里 No 也过了，没有去验证自环 Yes 的情况了
 
 ```cpp
 //并查集
-#include&lt;bits/stdc&#43;&#43;.h&gt;
+#include<bits/stdc++.h>
 using namespace std;
 
 int pre[100001];
@@ -50,22 +50,22 @@ int main(){
   while(1)
   {
     flag = 0;
-    while(~scanf(&#34;%d%d&#34;,&amp;a,&amp;b) &amp;&amp; a!=0 &amp;&amp; b!=0){
-      if(a==-1 &amp;&amp; b==-1) return 0;
+    while(~scanf("%d%d",&a,&b) && a!=0 && b!=0){
+      if(a==-1 && b==-1) return 0;
             if(pre[a]==0)pre[a]=a;
       if(pre[b]==0)pre[b]=b;
       if(find(a)==find(b))flag = 1;
       else if(flag!=1)
       join(a,b);
     }
-        for(sum = 0,i=1;i&lt;100001;i&#43;&#43;){
-            if(pre[i]==i)sum&#43;&#43;;
+        for(sum = 0,i=1;i<100001;i++){
+            if(pre[i]==i)sum++;
             pre[i] = 0;
         }
-        if(sum&gt;1 || flag == 1)
-      printf(&#34;No\n&#34;);
+        if(sum>1 || flag == 1)
+      printf("No\n");
         else
-      printf(&#34;Yes\n&#34;);
+      printf("Yes\n");
   }
 }
 //1 2 3 4 0 0 No 没有连通
@@ -75,34 +75,34 @@ int main(){
 
 ```C
 //树性质
-#include &lt;stdio.h&gt;
+#include <stdio.h>
 bool s[100001];
 int main()
 {  int a,b,i,len,num,v;
-  for(i=0;i&lt;100001;&#43;&#43;i)  s[i]=false;
+  for(i=0;i<100001;++i)  s[i]=false;
   len=0,num=0,v=0;
   while(1)
-  {  scanf(&#34;%d%d&#34;,&amp;a,&amp;b);
-    if(a==-1&amp;&amp;b==-1)  break;
-    if(a==0&amp;&amp;b==0)
+  {  scanf("%d%d",&a,&b);
+    if(a==-1&&b==-1)  break;
+    if(a==0&&b==0)
     {  if(v==0)
-      {  printf(&#34;Yes\n&#34;);
+      {  printf("Yes\n");
         continue;
       }
       if(num==len-1)  //划重点！！
-        printf(&#34;Yes\n&#34;);
-      else printf(&#34;No\n&#34;);
+        printf("Yes\n");
+      else printf("No\n");
 
       num=len=v=0;
-      for(i=0;i&lt;100001;&#43;&#43;i)
+      for(i=0;i<100001;++i)
         s[i]=false;
       continue;
     }
     v=1;
-    if(s[a]==false)    len&#43;&#43;;//点数
-    if(s[b]==false)    len&#43;&#43;;
+    if(s[a]==false)    len++;//点数
+    if(s[b]==false)    len++;
     s[a]=s[b]=true;
-    num&#43;&#43;;//边数
+    num++;//边数
   }
   return 0;
 ```

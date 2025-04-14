@@ -1,11 +1,11 @@
 # 用五天时间给自己制作一个封面图生成工具
 
 
-{{&lt; admonition success &#34;Cool! &#34; &gt;}}
+{{< admonition success "Cool! " >}}
 苦封面图久矣，今日终有所成。
-{{&lt; /admonition &gt;}}
+{{< /admonition >}}
 
-&lt;!--more--&gt;
+<!--more-->
 
 ## 心路历程
 
@@ -46,7 +46,7 @@
 
 现在 demo 版本已经上线，Unsplash API 的 `production` 版本还在审核中，最后传承开源精神开源出来，并保留了原作者 commit 记录聊表敬意。
 
-{{&lt; link href=&#34;https://github.com/Lruihao/CoverView&#34; content=&#34;🛠 Create awesome cover images for your blog posts quickly.&#34; card=true &gt;}}
+{{< link href="https://github.com/Lruihao/CoverView" content="🛠 Create awesome cover images for your blog posts quickly." card=true >}}
 
 ## 如何使用
 
@@ -54,8 +54,8 @@
 
 在线使用地址：
 
-- &lt;https://coverview.lruihao.cn&gt;
-- &lt;https://coverview-x.vercel.app&gt;
+- <https://coverview.lruihao.cn>
+- <https://coverview-x.vercel.app>
 
 1. 添加博客文章的标题和作者
 2. 自定义颜色、字体、图标等

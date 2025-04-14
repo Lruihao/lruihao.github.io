@@ -1,9 +1,9 @@
 # 匿名类在可视化界面中的应用
 
 
-&gt; java 中匿名类用的最多的地方就是可视化界面设计中，特别是将`事件监听器`注册到某个组件上的时候。
+> java 中匿名类用的最多的地方就是可视化界面设计中，特别是将`事件监听器`注册到某个组件上的时候。
 
-&lt;!--more--&gt;
+<!--more-->
 
 ## 代码
 
@@ -15,7 +15,7 @@ import javax.swing.*;
 
 public class QFrame extends JFrame {
   public QFrame() {
-    JButton jbtnew=new JButton(&#34;New&#34;);//新建按钮
+    JButton jbtnew=new JButton("New");//新建按钮
     JPanel panel=new JPanel();//面板容器
     panel.add(jbtnew);//添加组件
     add(panel);
@@ -23,8 +23,8 @@ public class QFrame extends JFrame {
       //新建一匿名类，并将该对应的事件监听器注册到“新建”按钮 就 jbtnew 上
       @Override
       public void actionPerformed(ActionEvent e) {
-        JOptionPane.showMessageDialog(null, &#34;单击了新建按钮&#34;);
-        System.out.println(&#34;lruihao.cn&#34;);
+        JOptionPane.showMessageDialog(null, "单击了新建按钮");
+        System.out.println("lruihao.cn");
 
       }
     });
@@ -32,7 +32,7 @@ public class QFrame extends JFrame {
 
   public static void main(String[] args) {
     JFrame frame=new QFrame();
-    frame.setTitle(&#34;QFrame&#34;);
+    frame.setTitle("QFrame");
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     frame.setLocationRelativeTo(null);
     frame.pack();

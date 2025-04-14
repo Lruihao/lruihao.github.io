@@ -1,9 +1,9 @@
 # 在 Android 上搭建 Hexo 博客
 
 
-&gt; 暑假刚开始的时候放假回家没带电脑，只能玩手机，想折腾一下博客都没有条件，在一个发现一个 app, 卧槽 😱，termux 真的强大！（初始化需要科学上网）安卓手机上的 linux 简直了，在手机就可以搭了一个 hexo 博客，只要在 github 上实现分支管理就可以多终端同步更新了。恕我学疏才浅，还只想到这些！一开始想回校后，折腾一下 hexo-admin 实现类似动态博客一样的多终端管理（手动滑稽），现在发现 termux 这样子的操作也不错嘛，挺装哔 hhhhhh**[部署后的效果](https://lruihao.gitee.io)**
+> 暑假刚开始的时候放假回家没带电脑，只能玩手机，想折腾一下博客都没有条件，在一个发现一个 app, 卧槽 😱，termux 真的强大！（初始化需要科学上网）安卓手机上的 linux 简直了，在手机就可以搭了一个 hexo 博客，只要在 github 上实现分支管理就可以多终端同步更新了。恕我学疏才浅，还只想到这些！一开始想回校后，折腾一下 hexo-admin 实现类似动态博客一样的多终端管理（手动滑稽），现在发现 termux 这样子的操作也不错嘛，挺装哔 hhhhhh**[部署后的效果](https://lruihao.gitee.io)**
 
-&lt;!--more--&gt;
+<!--more-->
 
 ## 准备
 
@@ -36,7 +36,7 @@ cd blog
 
 - [termux 高级终端安装使用配置教程](https://www.sqlsec.com/2018/05/termux.html?yyue=a21bo.50862.201879)
 - [使用 Termux 在手机上运行 linux 黑科技](https://www.oyohyee.com/post/Note/Termux)
-- [hexo 搭建过程](https://lruihao.cn/hexo%20&#43;%20github%20%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2.html)
+- [hexo 搭建过程](https://lruihao.cn/hexo%20+%20github%20%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2.html)
 - [超详细教程](https://my.oschina.net/ryaneLee/blog/638440)
 
 ## 效果图（未连接 github，coding 等）

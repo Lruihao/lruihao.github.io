@@ -12,7 +12,7 @@ Given a positive integer n, write a program to find out a nonzero multiple m of 
 
 ### Input
 
-The input file may contain multiple test cases. Each line contains a value of n (1 &lt;= n &lt;= 200). A line containing a zero terminates the input.
+The input file may contain multiple test cases. Each line contains a value of n (1 <= n <= 200). A line containing a zero terminates the input.
 
 ### Output
 
@@ -37,7 +37,7 @@ For each value of n in the input print a line containing the corresponding value
 提示：本题采用 Special Judge，你无需输出所有符合条件的 m，你只需要输出任一符合条件的 m 即可。
 
 ```cpp
-#include&#34;iostream&#34;
+#include"iostream"
 using namespace std;
 typedef unsigned long long ll;
 int n;
@@ -49,18 +49,18 @@ void dfs(ll x,int count)
         return ;
     if(x%n==0){
         sign=true;
-        cout&lt;&lt;x&lt;&lt;endl;
+        cout<<x<<endl;
         return ;
     }
     if(count==19)//m 最多 200 位
         return ;
-    dfs(x*10,count&#43;1);
-    dfs(x*10&#43;1,count&#43;1);
+    dfs(x*10,count+1);
+    dfs(x*10+1,count+1);
     //每两位数后两位有两种情况，10 或 11，深搜所有情况，找到一种就返回，找不到找另外一颗子树
 }
 int main()
 {
-    while(cin&gt;&gt;n&amp;&amp;n)
+    while(cin>>n&&n)
     {
         sign=false;
         dfs(1,0);

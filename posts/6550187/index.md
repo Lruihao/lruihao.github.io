@@ -1,9 +1,9 @@
 # Git Submodule: Already Exists in the Index
 
 
-Git 报错 &#34;git submodule: already exists in the index&#34; 的解决方法。
+Git 报错 "git submodule: already exists in the index" 的解决方法。
 
-&lt;!--more--&gt;
+<!--more-->
 
 ## 问题
 
@@ -18,7 +18,7 @@ git submodule add https://github.com/hugo-fixit/FixIt.git themes/FixIt
 结果报错：
 
 ```bash
-fatal: &#39;themes/FixIt&#39; already exists in the index
+fatal: 'themes/FixIt' already exists in the index
 ```
 
 ## 解决方法

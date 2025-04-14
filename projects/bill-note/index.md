@@ -3,20 +3,20 @@
 
 ## 起因
 
-{{&lt; admonition info &#34;起因&#34; &gt;}}
+{{< admonition info "起因" >}}
 事情是這樣，年前和朋友一起合租了一個房子，然後捏，生活嘛，除了開心，當然是乾飯最大啦！
 
 自然就會有購物，買菜等日常消費，那就要記賬，一開始是各自記在手機的便簽上，最後再算一下；  
 三個人，一共七种組合消費，排除各自消費的三種情況，也有四種 (`AB, AC, BC, ABC`)。好麻煩啊！！！
-{{&lt; /admonition &gt;}}
+{{< /admonition >}}
 
-&lt;!--more--&gt;
+<!--more-->
 
 ## 經過
 
 作為一個程序猿，怎麼能接受這麼麻煩的記賬方式呢，拿起筆就開始畫，於是有了下面這張圖的公式。簡單說明一下就是：  
 設前面說的四種組合為：`X1, X2, X3, X4`，個人實際付款總額為：`Y1, Y2, Y3`，那麼帶入未知數，我們就可以算出每個人最後結算時的錢：`S1, S2, S3`，  
-綜上所述，很好理解，當 `S &gt;= 0` 時，收紅包，當 `S &lt; 0` 時，發紅包。
+綜上所述，很好理解，當 `S >= 0` 時，收紅包，當 `S < 0` 時，發紅包。
 
 ![计算公式](images/gs.jpg)
 
@@ -38,9 +38,9 @@ OK，一個簡單的初中方程式已經到位了，下一步，思考一下，
 主要就是存取數據這點，沒有服務器，數據庫怎麼實現？  
 valine 可以實現無後端，那我是不是也可以，leancloud 文檔走一波，然後“數據表”設計一下，其實是 leancloud-storage Object，於是有了以下東西，源碼放在 Github
 
-&lt;!-- markdownlint-disable MD034 --&gt;
+<!-- markdownlint-disable MD034 -->
 
-{{&lt; link href=&#34;http://github.com/Lruihao/bill-note&#34; content=&#34;bill-note&#34; card=true &gt;}}
+{{< link href="http://github.com/Lruihao/bill-note" content="bill-note" card=true >}}
 
 ### 數據設計
 
@@ -61,9 +61,9 @@ set for yourself.
 
 ```js
 AV.init({
-  appId: &#39;&#39;,
-  appKey: &#39;&#39;,
-  serverURL: &#39;&#39;
+  appId: '',
+  appKey: '',
+  serverURL: ''
 });
 ```
 
@@ -71,21 +71,21 @@ AV.init({
 
 ```js
 //記賬提交按鈕事件監聽
-document.querySelector(&#39;.submit&#39;).addEventListener(&#39;click&#39;, function (event) {
+document.querySelector('.submit').addEventListener('click', function (event) {
   event.preventDefault();
-  let formPay = document.querySelector(&#39;#form-pay&#39;);
-  let bill = new AV.Object(&#39;Bill&#39;);
-  bill.set(&#39;pay&#39;, Number(formPay.pay.value));
-  bill.set(&#39;pay_type&#39;, Number(formPay.pay_type.value));
-  bill.set(&#39;pay_user&#39;, Number(formPay.pay_user.value));
-  bill.set(&#39;pay_description&#39;, formPay.pay_description.value);
+  let formPay = document.querySelector('#form-pay');
+  let bill = new AV.Object('Bill');
+  bill.set('pay', Number(formPay.pay.value));
+  bill.set('pay_type', Number(formPay.pay_type.value));
+  bill.set('pay_user', Number(formPay.pay_user.value));
+  bill.set('pay_description', formPay.pay_description.value);
   bill.save().then(
-    (object) =&gt; {
+    (object) => {
       formPay.reset();
     },
     function (error) {
       console.log(JSON.stringify(error));
-      alert(&#39;保存失敗&#39;);
+      alert('保存失敗');
     }
   );
 });
@@ -101,13 +101,13 @@ document.querySelector(&#39;.submit&#39;).addEventListener(&#39;click&#39;, func
  */
 function getBillData(start = 0, count = 15) {
   queryBill
-    .descending(&#39;createdAt&#39;)
+    .descending('createdAt')
     .skip(start * count)
     .limit(count)
     .find()
     .then(function (response) {
       let billLength = response.length;
-      if (billLength &gt; 0) {
+      if (billLength > 0) {
         billVm.noMore = billLength !== count ? true : false;
         for (bill of response) {
           billVm.bills.push({
@@ -131,11 +131,11 @@ function getBillData(start = 0, count = 15) {
 function getMonthBill(month) {
   let dateTime = `${month} 00:00:00`;
   let startMonth = new Date(dateTime);
-  let nextMonth = new Date(new Date(dateTime).setMonth(startMonth.getMonth() &#43; 1));
-  let startDateQuery = new AV.Query(&#39;Bill&#39;);
-  startDateQuery.greaterThanOrEqualTo(&#39;createdAt&#39;, startMonth);
-  let endDateQuery = new AV.Query(&#39;Bill&#39;);
-  endDateQuery.lessThan(&#39;createdAt&#39;, nextMonth);
+  let nextMonth = new Date(new Date(dateTime).setMonth(startMonth.getMonth() + 1));
+  let startDateQuery = new AV.Query('Bill');
+  startDateQuery.greaterThanOrEqualTo('createdAt', startMonth);
+  let endDateQuery = new AV.Query('Bill');
+  endDateQuery.lessThan('createdAt', nextMonth);
   let MonthBillQuery = AV.Query.and(startDateQuery, endDateQuery);
   MonthBillQuery.find().then(function (response) {
     billVm.monthBill = {
@@ -149,8 +149,8 @@ function getMonthBill(month) {
     };
     for (bill of response) {
       let { pay, pay_type, pay_user } = bill.attributes;
-      billVm.monthBill[`payType${pay_type}`] &#43;= pay;
-      billVm.monthBill[`payUser${pay_user}`] &#43;= pay;
+      billVm.monthBill[`payType${pay_type}`] += pay;
+      billVm.monthBill[`payUser${pay_user}`] += pay;
     }
   });
 }
@@ -169,7 +169,7 @@ function getMonthBill(month) {
 
 over!
 
-![效果](images/demo.jpg &#39;Demo&#39;)
+![效果](images/demo.jpg 'Demo')
 
 
 ---

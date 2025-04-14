@@ -1,7 +1,7 @@
 # Hello World
 
 
-&gt; “每天早晨叫醒你的不是鬧鐘，而是你的夢想。”
+> “每天早晨叫醒你的不是鬧鐘，而是你的夢想。”
 
 我有過靠著這種信念撐下來的日子，我見過自己努力的樣子，至於現在的自己配不配得上當初努力的自己，  
 其實也不重要了，還望披荊斬棘，不改初心。
@@ -16,9 +16,9 @@
 
 直到 21 年下半年，升級 Windows 11, 系統出了 BUG, 整理磁盤不小心把代碼刪掉了，就乾脆換成 hugo 了。
 
-![現在並沒有刀槍入庫，馬放南山，衹是在奔赴另一片山海](images/lunyu.jpg &#39;逝者如斯乎，不舍昼夜&#39;)
+![現在並沒有刀槍入庫，馬放南山，衹是在奔赴另一片山海](images/lunyu.jpg '逝者如斯乎，不舍昼夜')
 
-{{&lt; music url=&#34;https://cdn-1256932288.cos.ap-chengdu.myqcloud.com/files/nanjing.mp3&#34; name=&#34;李志&#34; artist=&#34;你离开了南京，从此没人和我说话&#34; cover=&#34;https://p2.music.126.net/UuSe-Vc6rS7JtRJSQgDU2g==/2323268069553116.jpg?param=300x300&#34; fixed=true &gt;}}
+{{< music url="https://cdn-1256932288.cos.ap-chengdu.myqcloud.com/files/nanjing.mp3" name="李志" artist="你离开了南京，从此没人和我说话" cover="https://p2.music.126.net/UuSe-Vc6rS7JtRJSQgDU2g==/2323268069553116.jpg?param=300x300" fixed=true >}}
 
 
 ---

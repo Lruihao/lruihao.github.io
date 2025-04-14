@@ -9,7 +9,7 @@ Fullscreen API 是一组用于控制全屏显示的方法和属性，它们允�
 
 在本文中，我们将介绍如何判断浏览器是否支持全屏功能，如何实现进入全屏和退出全屏的功能，以及如何获取当前全屏元素和监听全屏模式的变化。
 
-&gt; 注意：Fullscreen API 在不同浏览器之间可能存在差异，请在使用时进行兼容性测试和处理。
+> 注意：Fullscreen API 在不同浏览器之间可能存在差异，请在使用时进行兼容性测试和处理。
 
 ## 全屏是否可用
 
@@ -19,9 +19,9 @@ Fullscreen API 是一组用于控制全屏显示的方法和属性，它们允�
 
 ```javascript
 if (document.fullscreenEnabled || document.mozFullScreenEnabled || document.webkitFullscreenEnabled || document.msFullscreenEnabled) {
-  console.log(&#39;浏览器支持全屏功能&#39;);
+  console.log('浏览器支持全屏功能');
 } else {
-  console.log(&#39;浏览器不支持全屏功能&#39;);
+  console.log('浏览器不支持全屏功能');
 }
 ```
 
@@ -34,7 +34,7 @@ if (document.fullscreenEnabled || document.mozFullScreenEnabled || document.webk
 以下是一个示例：
 
 ```javascript
-const element = document.getElementById(&#39;my-element&#39;);
+const element = document.getElementById('my-element');
 if (element.requestFullscreen) {
   element.requestFullscreen();
 } else if (element.mozRequestFullScreen) { // Firefox
@@ -78,9 +78,9 @@ if (document.exitFullscreen) {
 const fullscreenElement = document.fullscreenElement || document.mozFullScreenElement || document.webkitFullscreenElement || document.msFullscreenElement;
 
 if (fullscreenElement) {
-  console.log(&#39;当前全屏元素：&#39;, fullscreenElement);
+  console.log('当前全屏元素：', fullscreenElement);
 } else {
-  console.log(&#39;没有全屏元素&#39;);
+  console.log('没有全屏元素');
 }
 ```
 
@@ -93,16 +93,16 @@ if (fullscreenElement) {
 以下是一个示例：
 
 ```javascript
-document.addEventListener(&#39;fullscreenchange&#39;, handleFullscreenChange);
-document.addEventListener(&#39;mozfullscreenchange&#39;, handleFullscreenChange); // Firefox
-document.addEventListener(&#39;webkitfullscreenchange&#39;, handleFullscreenChange); // Chrome, Safari and Opera
-document.addEventListener(&#39;MSFullscreenChange&#39;, handleFullscreenChange); // Internet Explorer and Edge
+document.addEventListener('fullscreenchange', handleFullscreenChange);
+document.addEventListener('mozfullscreenchange', handleFullscreenChange); // Firefox
+document.addEventListener('webkitfullscreenchange', handleFullscreenChange); // Chrome, Safari and Opera
+document.addEventListener('MSFullscreenChange', handleFullscreenChange); // Internet Explorer and Edge
 
 function handleFullscreenChange() {
   if (document.fullscreenElement || document.mozFullScreenElement || document.webkitFullscreenElement || document.msFullscreenElement) {
-    console.log(&#39;进入全屏模式&#39;);
+    console.log('进入全屏模式');
   } else {
-    console.log(&#39;退出全屏模式&#39;);
+    console.log('退出全屏模式');
   }
 }
 ```

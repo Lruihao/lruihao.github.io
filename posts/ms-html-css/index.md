@@ -1,22 +1,22 @@
-# 前端面试题 - HTML&#43;CSS
+# 前端面试题 - HTML+CSS
 
 
-&gt; [原文链接](https://github.com/ltadpoles/web-document/tree/master/Other)  
-&gt; “卓越班”到了大三突然掀起一股毕业慌，一部分人投身于考研的热潮中，一部分人选择了培训机构学习技术。而我出于种种原因既不考研也不培训，选择自学 java 和 web 相关的知识，也希望因此能在以后谋得一份心仪的工作。
+> [原文链接](https://github.com/ltadpoles/web-document/tree/master/Other)  
+> “卓越班”到了大三突然掀起一股毕业慌，一部分人投身于考研的热潮中，一部分人选择了培训机构学习技术。而我出于种种原因既不考研也不培训，选择自学 java 和 web 相关的知识，也希望因此能在以后谋得一份心仪的工作。
 
 如果文章中有出现纰漏、错误之处，还请看到的小伙伴多多指教，先行谢过
 
-&lt;!--more--&gt;
+<!--more-->
 
 ## HTML
 
-### 1. Doctype 作用，HTML5 为什么只需要写 &lt;!DOCTYPE HTML&gt;
+### 1. Doctype 作用，HTML5 为什么只需要写 <!DOCTYPE HTML>
 
-&gt; doctype 是一种标准通用标记语言的文档类型声明，目的是告诉标准通用标记语言解析器要使用什么样的文档类型定义（DTD）来解析文档。`&lt;!DOCTYPE&gt;`声明必须是 HTML 文档的第一行，位于 html 标签之前
+> doctype 是一种标准通用标记语言的文档类型声明，目的是告诉标准通用标记语言解析器要使用什么样的文档类型定义（DTD）来解析文档。`<!DOCTYPE>`声明必须是 HTML 文档的第一行，位于 html 标签之前
 
-&gt; HTML5 不基于 SGML，所以不需要引用 DTD。在 HTML5 中&lt;!DOCTYPE&gt;只有一种
+> HTML5 不基于 SGML，所以不需要引用 DTD。在 HTML5 中<!DOCTYPE>只有一种
 
-&gt; SGML: 标准通用标记语言，是现时常用的超文本格式的最高层次标准
+> SGML: 标准通用标记语言，是现时常用的超文本格式的最高层次标准
 
 ### 2. 行内元素有哪些，块级元素有哪些，空 (void) 元素有那些
 
@@ -34,15 +34,15 @@
 - 有利于不同设备的解析
 - 有利于构建清晰的机构，有利于团队的开发、维护
 
-### 4. 常见的浏览器内核有哪些，介绍一下你对浏览器内核的理解&lt;/h5&gt;
+### 4. 常见的浏览器内核有哪些，介绍一下你对浏览器内核的理解</h5>
 
-&gt; Trident 内核：IE
+> Trident 内核：IE
 
-&gt; Gecko 内核：NETSCAPE6 及以上版本，火狐
+> Gecko 内核：NETSCAPE6 及以上版本，火狐
 
-&gt; Presto 内核：Opera7 及以上。[Opera 内核原为：Presto，现为：Blink;]
+> Presto 内核：Opera7 及以上。[Opera 内核原为：Presto，现为：Blink;]
 
-&gt; Webkit 内核：Safari，Chrome 等。[Chrome 的：Blink（WebKit 的分支）]
+> Webkit 内核：Safari，Chrome 等。[Chrome 的：Blink（WebKit 的分支）]
 
 浏览器内核又可以分成两部分：**渲染引擎和 JS 引擎。** 渲染引擎主要负责取得网页的内容、整理讯息、计算网页的显示方式等，JS 引擎则是解析 Javascript 语言，执行 javascript 语言来实现网页的动态效果。
 
@@ -82,9 +82,9 @@
 
 区别：src 用于替代这个元素，而 href 用于建立这个标签与外部资源之间的关系
 
-`&lt;link href=&#34;style.css&#34; rel=&#34;stylesheet&#34; /&gt;`浏览器加载到这里的时候，html 的渲染和解析不会暂停，css 文件的加载是同时进行的
+`<link href="style.css" rel="stylesheet" />`浏览器加载到这里的时候，html 的渲染和解析不会暂停，css 文件的加载是同时进行的
 
-`&lt;script src=&#34;script.js&#34;&gt;&lt;/script&gt;`当浏览器解析到这句代码时，页面的加载和解析都会暂停直到浏览器拿到并执行完这个 js 文件
+`<script src="script.js"></script>`当浏览器解析到这句代码时，页面的加载和解析都会暂停直到浏览器拿到并执行完这个 js 文件
 
 ### 10. 表单提交中 Get 和 Post 方式的区别
 
@@ -98,7 +98,7 @@
 
 ### 1. css 盒子模型，box-sizing 属性的理解
 
-css 的盒模型由 content（内容）、padding（内边距）、border（边框）、margin（外边距）组成。但盒子的大小由 content&#43;padding&#43;border 这几部分决定
+css 的盒模型由 content（内容）、padding（内边距）、border（边框）、margin（外边距）组成。但盒子的大小由 content+padding+border 这几部分决定
 
 box-sizing 是一个 CSS3 属性，与盒子模型有着密切联系。即决定元素的宽高如何计算，box-sizing 有三个属性：
 
@@ -107,7 +107,7 @@ box-sizing: content-box|border-box|inherit:
 ```
 
 - content-box 使得元素的宽高即为内容区的宽高（默认模式）
-- border-box: 计算方式 content &#43; padding &#43; border = 本身元素大小，即缩小了 content 大小
+- border-box: 计算方式 content + padding + border = 本身元素大小，即缩小了 content 大小
 - inherit 指定 box-sizing 属性的值，应该从父元素继承
 
 ### 2. 清除浮动，什么时候需要清除浮动，清除浮动都有哪些方法
@@ -122,7 +122,7 @@ box-sizing: content-box|border-box|inherit:
 
 ```css
 .fix::after {
-  content: &#39;&#39;;
+  content: '';
   display: block;
   clear: both;
 }
@@ -130,11 +130,11 @@ box-sizing: content-box|border-box|inherit:
 
 使用伪元素的好处：不增加冗余的 DOM 节点，符合语义化
 
-&gt; overflow:hidden 可以触发 BFC 机制。BFC：块级格式化上下文，创建了 BFC 的元素就是一个独立的盒子，它规定了内部如何布局，并且与这个独立盒子里的布局不受外部影响，当然它也不会影响到外面的元素，**计算 BFC 的高度时，浮动元素也参与计算**
+> overflow:hidden 可以触发 BFC 机制。BFC：块级格式化上下文，创建了 BFC 的元素就是一个独立的盒子，它规定了内部如何布局，并且与这个独立盒子里的布局不受外部影响，当然它也不会影响到外面的元素，**计算 BFC 的高度时，浮动元素也参与计算**
 
 ### 3. 如何让一个不定宽高的盒子水平垂直居中
 
-&gt; 定位的方式
+> 定位的方式
 
 ```css
 .father {
@@ -150,7 +150,7 @@ box-sizing: content-box|border-box|inherit:
 }
 ```
 
-&gt; css3 属性
+> css3 属性
 
 ```css
 .father {
@@ -164,7 +164,7 @@ box-sizing: content-box|border-box|inherit:
 }
 ```
 
-&gt; flex 布局
+> flex 布局
 
 ```css
 .father {
@@ -176,21 +176,21 @@ box-sizing: content-box|border-box|inherit:
 
 ### 4. px 和 em 和 rem 的区别
 
-&gt; `px`: 像素，相对长度单位。像素`px`是相对于显示器屏幕分辨率而言的
+> `px`: 像素，相对长度单位。像素`px`是相对于显示器屏幕分辨率而言的
 
-&gt; `em`的值并不是固定的，会继承父级元素的字体大小，代表倍数
+> `em`的值并不是固定的，会继承父级元素的字体大小，代表倍数
 
-&gt; `rem`的值并不是固定的，始终是基于根元素 `&lt;html&gt;` 的，也代表倍数
+> `rem`的值并不是固定的，始终是基于根元素 `<html>` 的，也代表倍数
 
 ### 5. position 的值有哪些
 
-&gt; static：默认值。没有定位，元素出现在正常的流中
+> static：默认值。没有定位，元素出现在正常的流中
 
-&gt; relative（相对定位）：生成相对定位的元素，相对于其正常（原先本身）位置进行定位
+> relative（相对定位）：生成相对定位的元素，相对于其正常（原先本身）位置进行定位
 
-&gt; absolute（绝对定位）：生成绝对定位的元素，相对于 static 定位以外的第一个父元素进行定位
+> absolute（绝对定位）：生成绝对定位的元素，相对于 static 定位以外的第一个父元素进行定位
 
-&gt; fixed（固定定位）：生成绝对定位的元素，相对于浏览器窗口进行定位
+> fixed（固定定位）：生成绝对定位的元素，相对于浏览器窗口进行定位
 
 ### 6. display:none 与 visibility：hidden 的区别
 
@@ -202,23 +202,23 @@ box-sizing: content-box|border-box|inherit:
 
 ### 7. CSS 中 link 和@import 的区别
 
-&gt; link 属于 XHTML 标签，@import 完全是 CSS 提供的一种方式，只能加载 CSS
+> link 属于 XHTML 标签，@import 完全是 CSS 提供的一种方式，只能加载 CSS
 
-&gt; 加载顺序的差别，当一个页面被加载的时候，link 引用的 CSS 会同时被加载，而@import 引用的 CSS 会等到页面全部被下载完再被加载
+> 加载顺序的差别，当一个页面被加载的时候，link 引用的 CSS 会同时被加载，而@import 引用的 CSS 会等到页面全部被下载完再被加载
 
-&gt; 兼容性的差别。由于@import 是 CSS2.1 提出的所以老的浏览器不支持，而 link 标签无此问题
+> 兼容性的差别。由于@import 是 CSS2.1 提出的所以老的浏览器不支持，而 link 标签无此问题
 
-&gt; 当使用 javascript 控制 dom 去改变样式的时候，只能使用 link 标签，因为@import 不是 dom 可以控制的
+> 当使用 javascript 控制 dom 去改变样式的时候，只能使用 link 标签，因为@import 不是 dom 可以控制的
 
 ### 8. 什么是响应式设计，响应式设计的基本原理是什么
 
-&gt; 响应式网站设计是一个网站能够兼容多个终端，而不是为每一个终端做一个特定的版本。基本原理是通过媒体查询检测不同的设备屏幕尺寸做处理
+> 响应式网站设计是一个网站能够兼容多个终端，而不是为每一个终端做一个特定的版本。基本原理是通过媒体查询检测不同的设备屏幕尺寸做处理
 
 ### 9. 为什么要初始化 CSS 样式
 
-&gt; 因为浏览器的兼容问题，不同浏览器对有些标签的默认值是不同的，如果没对 CSS 初始化往往会出现浏览器之间的页面显示差异
+> 因为浏览器的兼容问题，不同浏览器对有些标签的默认值是不同的，如果没对 CSS 初始化往往会出现浏览器之间的页面显示差异
 
-&gt; 初始化样式会对 SEO 有一定的影响
+> 初始化样式会对 SEO 有一定的影响
 
 ### 10. CSS3 有哪些新特性
 
@@ -232,7 +232,7 @@ box-sizing: content-box|border-box|inherit:
 
 ### 11. ::before 和 :after 中双冒号和单冒号有什么区别？解释一下这 2 个伪元素的作用
 
-&gt; 单冒号 (:) 用于 CSS3 伪类，双冒号 (::) 用于 CSS3 伪元素。（伪元素由双冒号和伪元素名称组成）, 双冒号是在当前规范中引入的，用于区分伪类和伪元素
+> 单冒号 (:) 用于 CSS3 伪类，双冒号 (::) 用于 CSS3 伪元素。（伪元素由双冒号和伪元素名称组成）, 双冒号是在当前规范中引入的，用于区分伪类和伪元素
 
 ### 12. CSS 优化、提高性能的方法有哪些
 

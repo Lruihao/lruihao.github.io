@@ -1,30 +1,30 @@
 # 留言
 
 
-{{&lt; busuanzi_embed false &gt;}}
-{.text-secondary style=&#34;text-align: right; font-size: 80%;margin-top: -0.5rem;&#34;}
+{{< busuanzi_embed false >}}
+{.text-secondary style="text-align: right; font-size: 80%;margin-top: -0.5rem;"}
 
-{{&lt; admonition tip &#34;Welcome&#34; &gt;}}
-{{&lt; typeit &gt;}}
+{{< admonition tip "Welcome" >}}
+{{< typeit >}}
 互联网的广大朋友们，欢迎光临我的小博客！欢迎留言！
-{{&lt; /typeit &gt;}}
-{{&lt; /admonition &gt;}}
+{{< /typeit >}}
+{{< /admonition >}}
 
 ---
 
 温馨提示，音乐自动播放，请带好耳机～
-{.text-center style=&#34;font-size: 80%;&#34;}
+{.text-center style="font-size: 80%;"}
 
-{{&lt; mmt-netease &#34;2280569152&#34; true &gt;}}
-
----
-
-{{&lt; reward wechatpay=&#34;/images/wechatpay.jpg&#34; alipay=&#34;/images/alipay.jpg&#34; comment=&#34;给博主买杯卡布奇诺～&#34; mode=&#34;fixed&#34; &gt;}}
-{{&lt; busuanzi_embed &gt;}}
-
+{{< mmt-netease "2280569152" true >}}
 
 ---
 
-> 作者:   
+{{< reward wechatpay="/images/wechatpay.jpg" alipay="/images/alipay.jpg" comment="给博主买杯卡布奇诺～" mode="fixed" >}}
+{{< busuanzi_embed >}}
+
+
+---
+
+> 作者: <no value>  
 > URL: https://lruihao.cn/guestbook/  
 

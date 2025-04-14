@@ -6,7 +6,7 @@
 
 [![用爱发电](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)](https://github.com/Lruihao/CoverView)
 
-&gt; 该项目基于原始的 [CoverView](https://github.com/rutikwankhade/CoverView)。
+> 该项目基于原始的 [CoverView](https://github.com/rutikwankhade/CoverView)。
 
 现在为你的博客创建封面图片变得非常简单。
 
@@ -34,8 +34,8 @@
 
 - 🚀 超快速且易于使用
 - 🌈 7 种不同主题，多种字体
-- 🌠 100&#43; 开发图标，并提供上传自定义图标选项
-- ✨ 15&#43; 种不同背景图案
+- 🌠 100+ 开发图标，并提供上传自定义图标选项
+- ✨ 15+ 种不同背景图案
 - 💾 基于博客平台或常用尺寸的封面大小
   - [Hashnode](https://hashnode.com/)
   - [Dev.to](https://dev.to/)
@@ -63,7 +63,7 @@
 
     ```shell
     # https://unsplash.com/ Access Key
-    REACT_APP_UNSPLASH_ACCESS_KEY=&#34;your_access_key_here&#34;
+    REACT_APP_UNSPLASH_ACCESS_KEY="your_access_key_here"
     ```
 
 4. 运行以下命令开始项目：
@@ -76,9 +76,9 @@
 
 欢迎提交拉取请求。对于重大更改，请先打开一个问题来讨论你想要更改的内容。
 
-1. 克隆它 (&lt;https://github.com/Lruihao/CoverView/fork&gt;)
+1. 克隆它 (<https://github.com/Lruihao/CoverView/fork>)
 2. 创建你的功能分支 (`git checkout -b feature/fooBar`)
-3. 提交你的更改 (`git commit -am &#39;Add some fooBar&#39;`)
+3. 提交你的更改 (`git commit -am 'Add some fooBar'`)
 4. 推送到分支 (`git push origin feature/fooBar`)
 5. 创建一个新的拉取请求
 

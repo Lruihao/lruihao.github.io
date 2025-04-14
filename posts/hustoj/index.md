@@ -1,24 +1,24 @@
 # HustOJ 基础搭建教程
 
 
-&gt; 目前 HustOj 在 GitHUb 地址是：&lt;https://github.com/zhblue/hustoj&gt;  
-&gt; **安装时注意 ubuntu 版本**，没条件的可以在自己 ubuntu 上尝试，或者虚拟机上（关注公众号回复`ubuntu16.04`获取 iso 镜像文件），也可以在云实验室的云服务器上做做实验。  
-&gt; 更多说明及 ACM/NOIP 题库下载见官网博客 [代码的那些事 | 程序员回忆录](http://www.hustoj.com/)
+> 目前 HustOj 在 GitHUb 地址是：<https://github.com/zhblue/hustoj>  
+> **安装时注意 ubuntu 版本**，没条件的可以在自己 ubuntu 上尝试，或者虚拟机上（关注公众号回复`ubuntu16.04`获取 iso 镜像文件），也可以在云实验室的云服务器上做做实验。  
+> 更多说明及 ACM/NOIP 题库下载见官网博客 [代码的那些事 | 程序员回忆录](http://www.hustoj.com/)
 
-&lt;!--more--&gt;
+<!--more-->
 
 ## 快速安装 OJ
 
 下载
 
 ```bash
-wget https://raw.githubusercontent.com/zhblue/hustoj/master/trunk/install/install-ubuntu16&#43;.sh
+wget https://raw.githubusercontent.com/zhblue/hustoj/master/trunk/install/install-ubuntu16+.sh
 ```
 
 安装
 
 ```bash
-sudo bash install-ubuntu16&#43;.sh
+sudo bash install-ubuntu16+.sh
 ```
 
 等待中一路回车，当提示 done！则表示安装成功：

@@ -14,12 +14,12 @@
 - 留言，打赏，博主日志等
 - 分享功能，分享到 QQ，微信，浏览器打开等
 - app 内添加书签，自动记录历史记录，刷新等
-- **配合博客的`PWA &#43; quicklink`功能可实现离线浏览**
-&lt;!--more--&gt;
+- **配合博客的`PWA + quicklink`功能可实现离线浏览**
+<!--more-->
 
 ### 下载
 
-&gt; ~~app 内也可以更新，不过就我自己用，懒得更新。~~
+> ~~app 内也可以更新，不过就我自己用，懒得更新。~~
 
 - [百度云，密码：479l](https://pan.baidu.com/s/19jOvnNhssF302Mi1GRa2Sw)
 - [github 下载](https://github.com/Lruihao/Blog_fas_apk)
@@ -34,14 +34,14 @@
 
 ### 部分源码
 
-&gt; 看到这些中文的函数总觉得怪怪的哈哈哈 😂
-&gt; 语言：`lua`
+> 看到这些中文的函数总觉得怪怪的哈哈哈 😂
+> 语言：`lua`
 
 #### 检测更新
 
 ```lua
 --检查测当前是否最新版本
-local dl=ProgressDialog.show(activity,nil,&#39;更新检测中…&#39;)
+local dl=ProgressDialog.show(activity,nil,'更新检测中…')
 dl.show()
 local tt=Ticker()
 tt.start()
@@ -49,50 +49,50 @@ packinfo=this.getPackageManager().getPackageInfo(this.getPackageName(),((3255273
 version=tostring(packinfo.versionName)
 versioncode=tostring(packinfo.versionCode)
 
-url=&#34;https://share.weiyun.com/43fa66d8fc95db27141530ed2d006be2&#34;;
+url="https://share.weiyun.com/43fa66d8fc95db27141530ed2d006be2";
 function 过滤 (content)
-  版本名=content:match(&#34;【版本名】(.-)【版本名】&#34;)
-  版本=content:match(&#34;【版本】(.-)【版本】&#34;)
-  内容=content:match(&#34;【内容】(.-)【内容】&#34;)
-  链接=content:match(&#34;【链接】(.-)【链接】&#34;)
+  版本名=content:match("【版本名】(.-)【版本名】")
+  版本=content:match("【版本】(.-)【版本】")
+  内容=content:match("【内容】(.-)【内容】")
+  链接=content:match("【链接】(.-)【链接】")
 if（版本名==nil) then
-  版本名=&#34;获取失败&#34;
+  版本名="获取失败"
 end
 if（版本==nil) then
-  版本=&#34;0&#34;
+  版本="0"
 end
 if（内容==nil) then
-  内容=&#34;获取失败&#34;
+  内容="获取失败"
 end
 if（链接==nil) then
-  弹出消息 (&#34;服务器参数配置错误，请过段时间再次尝试&#34;)
+  弹出消息 ("服务器参数配置错误，请过段时间再次尝试")
 end
 
-if（版本 &gt; versioncode) then
+if（版本 > versioncode) then
   dl.dismiss()
     tt.stop()
 对话框 ()
-. 设置标题 (&#34;检测到更新&#34;)
-. 设置消息 (&#34;版本：&#34;..version..&#34;→&#34;.. 版本名。.&#34;\n 更新内容：&#34;.. 内容）
-. 设置积极按钮 (&#34;下载更新&#34;,function()
+. 设置标题 ("检测到更新")
+. 设置消息 ("版本："..version.."→".. 版本名。."\n 更新内容：".. 内容）
+. 设置积极按钮 ("下载更新",function()
   下载文件（链接）
-  弹出消息 (&#34;下载更新中…&#34;)
+  弹出消息 ("下载更新中…")
 end)
-. 设置消极按钮 (&#34;取消更新&#34;)
+. 设置消极按钮 ("取消更新")
 . 显示 ()
 else
 dl.dismiss()
     tt.stop()
-弹出消息 (&#34;当前已是最新版本！&#34;)
+弹出消息 ("当前已是最新版本！")
 end
-Http.get(url,nil,&#34;UTF-8&#34;,nil,function(code,content,cookie,header)
+Http.get(url,nil,"UTF-8",nil,function(code,content,cookie,header)
   if(code==200 and content)then
-    content=content:match(&#34;\&#34;html_content\&#34;:(.-),&#34;):gsub(&#34;\\u003C/?.-%&gt;&#34;,&#34;&#34;):gsub(&#34;\\\\&#34;,&#34;&amp;revs;&#34;):gsub(&#34;\\n&#34;,&#34;\n&#34;):gsub(&#34;&amp;nbsp;&#34;,&#34; &#34;):gsub(&#34;&amp;lt;&#34;,&#34;&lt;&#34;):gsub(&#34;&amp;gt;&#34;,&#34;&gt;&#34;):gsub(&#34;&amp;quot;&#34;,&#34;\&#34;&#34;):gsub(&#34;&amp;apos;&#34;,&#34;&#39;&#34;):gsub(&#34;&amp;revs;&#34;,&#34;\\&#34;):gsub(&#34;&amp;amp;&#34;,&#34;&amp;&#34;);
+    content=content:match("\"html_content\":(.-),"):gsub("\\u003C/?.-%>",""):gsub("\\\\","&revs;"):gsub("\\n","\n"):gsub("&nbsp;"," "):gsub("&lt;","<"):gsub("&gt;",">"):gsub("&quot;","\""):gsub("&apos;","'"):gsub("&revs;","\\"):gsub("&amp;","&");
     过滤 (content)
   else
   dl.dismiss()
     tt.stop()
-     弹出消息 (&#34;本地网络或服务器异常 &#34;..code)
+     弹出消息 ("本地网络或服务器异常 "..code)
   end
 end)
 ```
@@ -103,7 +103,7 @@ end)
 --flag 在程序启动事件声明的全局变量
 if flag==1 then
   activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
-  SetHSP=&#34;H&#34;
+  SetHSP="H"
 else
   SetHSP=nil
 end
@@ -120,10 +120,10 @@ end
 #### 程序启动事件
 
 ```lua
-弹出消息 (&#34;©2018 李瑞豪&#34;)
+弹出消息 ("©2018 李瑞豪")
 
 --自动，由物理感应器决定
-import &#34;android.content.pm.ActivityInfo&#34;
+import "android.content.pm.ActivityInfo"
 flag=1
 
 --程序退出时执行对话框
@@ -135,27 +135,27 @@ function onKeyDown(key,event)
       appinfo=this.getPackageManager().getApplicationInfo(this.getPackageName(),0)
       applabel=this.getPackageManager().getApplicationLabel(appinfo)
       退出确认=对话框 ()
-      . 设置消息 (&#34;您确定要退出 &#34;..applabel..&#34; 吗？&#34;)
+      . 设置消息 ("您确定要退出 "..applabel.." 吗？")
       退出按钮={
         [1]=function()
           退出确认
-          . 设置积极按钮 (&#34;确认&#34;,function()
+          . 设置积极按钮 ("确认",function()
             退出程序 ()
             end
              )
-             . 设置中立按钮 (&#34;清除缓存&#34;,function()
+             . 设置中立按钮 ("清除缓存",function()
                对话框 ()
-               . 设置消息 (&#34;清除缓存后再次运行程序将变得缓慢、n 您确定要清除 &#34;..applabel..&#34; 的缓存吗？&#34;)
-               . 设置积极按钮 (&#34;确定&#34;,function()
-                os.execute(&#34;pm clear &#34;..this.packageName)
+               . 设置消息 ("清除缓存后再次运行程序将变得缓慢、n 您确定要清除 "..applabel.." 的缓存吗？")
+               . 设置积极按钮 ("确定",function()
+                os.execute("pm clear "..this.packageName)
                 退出程序 ()
                 end)
-               . 设置消极按钮 (&#34;取消&#34;,function()
+               . 设置消极按钮 ("取消",function()
                 end)
               . 显示 ()
              end
            )
-          . 设置消极按钮 (&#34;取消&#34;)
+          . 设置消极按钮 ("取消")
           end
         }
       math.randomseed(tonumber(tostring(os.time()):reverse():sub(1, 6)))
@@ -167,47 +167,47 @@ function onKeyDown(key,event)
 end
 
 --历史记录
-lstads=&#34;/data/data/&#34;..activity.getPackageName()..&#34;/lst.lua&#34;
-lstwebads=&#34;/data/data/&#34;..activity.getPackageName()..&#34;/lstweb.lua&#34;
+lstads="/data/data/"..activity.getPackageName().."/lst.lua"
+lstwebads="/data/data/"..activity.getPackageName().."/lstweb.lua"
 --2. 序列化
 function slz(obj)
-  local lua = &#34;&#34;
+  local lua = ""
   local t = type(obj)
-  if t == &#34;number&#34; then
+  if t == "number" then
     lua = lua .. obj
-  elseif t == &#34;boolean&#34; then
+  elseif t == "boolean" then
     lua = lua .. tostring(obj)
-  elseif t == &#34;string&#34; then
-    lua = lua .. string.format(&#34;%q&#34;, obj)
-  elseif t == &#34;table&#34; then
-    lua = lua .. &#34;{\n&#34;
+  elseif t == "string" then
+    lua = lua .. string.format("%q", obj)
+  elseif t == "table" then
+    lua = lua .. "{\n"
     for k, v in pairs(obj) do
-      lua = lua .. &#34;[&#34; .. slz(k) .. &#34;]=&#34; .. slz(v) .. &#34;,\n&#34;
+      lua = lua .. "[" .. slz(k) .. "]=" .. slz(v) .. ",\n"
     end
     local metatable = getmetatable(obj)
-    if metatable ~= nil and type(metatable.__index) == &#34;table&#34; then
+    if metatable ~= nil and type(metatable.__index) == "table" then
       for k, v in pairs(metatable.__index) do
-        lua = lua .. &#34;[&#34; .. slz(k) .. &#34;]=&#34; .. slz(v) .. &#34;,\n&#34;
+        lua = lua .. "[" .. slz(k) .. "]=" .. slz(v) .. ",\n"
       end
     end
-    lua = lua .. &#34;}&#34;
-  elseif t == &#34;nil&#34; then
+    lua = lua .. "}"
+  elseif t == "nil" then
     return nil
   else
-    error(&#34;can not serialize a &#34; .. t .. &#34; type.&#34;)
+    error("can not serialize a " .. t .. " type.")
   end
   return lua
 end
 function rslz(lua)
   local t = type(lua)
-  if t == &#34;nil&#34; or lua == &#34;&#34; then
+  if t == "nil" or lua == "" then
     return {}
-  elseif t == &#34;number&#34; or t == &#34;string&#34; or t == &#34;boolean&#34; then
+  elseif t == "number" or t == "string" or t == "boolean" then
     lua = tostring(lua)
   else
-    error(&#34;can not unserialize a &#34; .. t .. &#34; type.&#34;)
+    error("can not unserialize a " .. t .. " type.")
   end
-  lua = &#34;return &#34; .. lua
+  lua = "return " .. lua
   local func = loadstring(lua)
   if func == nil then
     return nil
@@ -219,32 +219,32 @@ end
 function hstshow()
   hstlayout={
     LinearLayout,
-    orientation=&#34;1&#34;,
-    gravity=&#34;center&#34;,
-    layout_width=&#34;wrap_content&#34;,
-    layout_height=&#34;wrap_content&#34;,
+    orientation="1",
+    gravity="center",
+    layout_width="wrap_content",
+    layout_height="wrap_content",
     {
       TextView,
-      text=&#34;&#34;,
-      gravity=&#34;center&#34;,
-      layout_width=&#34;wrap_content&#34;,
-      textSize=&#34;0sp&#34;,
-      background=&#34;#000000&#34;,
-      layout_height=&#34;15dp&#34;,},
+      text="",
+      gravity="center",
+      layout_width="wrap_content",
+      textSize="0sp",
+      background="#000000",
+      layout_height="15dp",},
     {
       TextView,
-      text=&#34;历史记录&#34;,
-      gravity=&#34;center&#34;,
-      layout_width=&#34;wrap_content&#34;,
-      textSize=&#34;30sp&#34;,
-      textStyle=&#34;bold&#34;,
-      layout_height=&#34;50dp&#34;,},
+      text="历史记录",
+      gravity="center",
+      layout_width="wrap_content",
+      textSize="30sp",
+      textStyle="bold",
+      layout_height="50dp",},
     {
       ListView,
-      id=&#34;hlst&#34;,
+      id="hlst",
       items=lst,
-      layout_width=&#34;fill&#34;,
-      layout_height=&#34;wrap_content&#34;,
+      layout_width="fill",
+      layout_height="wrap_content",
     },
   }
 end
@@ -253,11 +253,11 @@ end
 
 --1. 读取历史文件
 function read_hst()
-  import &#34;java.io.File&#34;
+  import "java.io.File"
   File(lstads).createNewFile()
-  slst=io.open(lstads):read(&#34;*a&#34;)
+  slst=io.open(lstads):read("*a")
   File(lstwebads).createNewFile()
-  slstweb=io.open(lstwebads):read(&#34;*a&#34;)
+  slstweb=io.open(lstwebads):read("*a")
   --转换成 table
   lst=rslz(slst)
   lstweb=rslz(slstweb)
@@ -265,7 +265,7 @@ end
 
 --2. 新网页加入历史记录
 function add_hst()
-  if string.len(webView.getTitle())&lt;=300 then--粗略过掉无效标题
+  if string.len(webView.getTitle())<=300 then--粗略过掉无效标题
     newtitle=webView.getTitle()
     newurl=webView.getUrl()
     table.insert(lst,1,newtitle) --标题表添加新标题
@@ -279,12 +279,12 @@ function save_hst()
   slst=slz(lst)
   slstweb=slz(lstweb)
   --保存
-  file=io.open(lstads,&#34;w&#43;&#34;)
+  file=io.open(lstads,"w+")
   io.output(file)
   io.write(slst)
   io.flush()
   io.close(file)
-  file=io.open(lstwebads,&#34;w&#43;&#34;)
+  file=io.open(lstwebads,"w+")
   io.output(file)
   io.write(slstweb)
   io.flush()
@@ -296,7 +296,7 @@ function show_hst()
   hstshow()
   local hl=AlertDialog.Builder(activity)
   .setView(loadlayout(hstlayout))
-  .setNegativeButton(&#34;取消&#34;,DialogInterface.OnClickListener{
+  .setNegativeButton("取消",DialogInterface.OnClickListener{
     onClick=function()
     end
   })
@@ -309,11 +309,11 @@ function show_hst()
   hlst.onItemLongClick=function(l,v,c,b)
     hl.dismiss()
     对话框 ()
-    . 设置消息 (&#34;是否删除记录？&#34;)
-    . 设置消极按钮 (&#34;取消&#34;,function()
+    . 设置消息 ("是否删除记录？")
+    . 设置消极按钮 ("取消",function()
       show_hst()
     end)
-    . 设置积极按钮 (&#34;确定&#34;,function()
+    . 设置积极按钮 ("确定",function()
       table.remove(lst,b)
       table.remove(lstweb,b)
       save_hst()
@@ -326,21 +326,21 @@ end
 --5. 清除缓存
 function clr()
   --导入 File 类
-  import &#34;java.io.File&#34;
+  import "java.io.File"
   --显示多选框
-  items={&#34;浏览记录&#34;,&#34;缓存文件&#34;}
+  items={"浏览记录","缓存文件"}
   多选对话框=AlertDialog.Builder(this)
-  .setTitle(&#34;清除记录&#34;)
+  .setTitle("清除记录")
   --勾选后执行
-  .setPositiveButton(&#34;确定&#34;,function()
+  .setPositiveButton("确定",function()
     if clearhistory==1 and clearall==1 then
       File(lstads).delete()
       File(lstwebads).delete()
       lst={}
       lstweb={}
-      os.execute(&#34;pm clear &#34;..activity.getPackageName())
+      os.execute("pm clear "..activity.getPackageName())
     elseif clearhistory==0 and clearall==1 then
-      os.execute(&#34;pm clear &#34;..activity.getPackageName())
+      os.execute("pm clear "..activity.getPackageName())
     elseif clearhistory==1 and clearall==0 then
       File(lstads).delete()
       File(lstwebads).delete()
@@ -366,9 +366,9 @@ end
 activity.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
 --11. 长按弹窗
 function popwin(od)
-  local win1=&#34;向上移动&#34;
-  local win2=&#34;编辑&#34;
-  local win3=&#34;向下移动&#34;
+  local win1="向上移动"
+  local win2="编辑"
+  local win3="向下移动"
   local wina={win1,win2,win3}
   local winb={win2,win3}
   local winc={win1,win2}
@@ -381,12 +381,12 @@ function popwin(od)
   end
   winlayout={
     LinearLayout,
-    orientation=&#34;vertical&#34;,
+    orientation="vertical",
     {ListView,
-      id=&#34;winlv&#34;,
+      id="winlv",
       items=win,
-      layout_width=&#34;fill_parent&#34;,
-      layout_height=&#34;wrap_content&#34;,},
+      layout_width="fill_parent",
+      layout_height="wrap_content",},
   }
   winl=AlertDialog.Builder(activity)
   .setView(loadlayout(winlayout))
@@ -412,8 +412,8 @@ function downfav(b)
     dfavweb=favweb[b]
     table.remove(fav,b)
     table.remove(favweb,b)
-    table.insert(fav,b&#43;1,dfav)
-    table.insert(favweb,b&#43;1,dfavweb)
+    table.insert(fav,b+1,dfav)
+    table.insert(favweb,b+1,dfavweb)
   end
   save_fav()
   show_fav()
@@ -445,9 +445,9 @@ end
 
 function listKeys(data)
   keys={}
-  emmm=24411107&#43;8236000&#43;236-95463&#43;852
+  emmm=24411107+8236000+236-95463+852
   for k,v in pairs(data) do
-    keys[#keys&#43;1]=k
+    keys[#keys+1]=k
   end
   return keys
 end
@@ -455,9 +455,9 @@ end
 function listValues(data,MzI1NTI3MzI)
   values={}
   for k,v in pairs(data) do
-    values[#values&#43;1]=v
+    values[#values+1]=v
   end
-  q=&#34;325 52732&#34;
+  q="325 52732"
   return values
 end
 
@@ -475,60 +475,60 @@ end
 
 local listlayout={
   LinearLayout,
-  orientation=&#34;1&#34;,
-  layout_width=&#34;fill&#34;,
-  layout_height=&#34;wrap_content&#34;,
+  orientation="1",
+  layout_width="fill",
+  layout_height="wrap_content",
   {
     ListView,
-    id=&#34;list&#34;,
-    layout_marginTop=&#34;10dp&#34;,
-    --items={&#34;3&#34;,&#34;2&#34;,&#34;5&#34;,&#34;5&#34;,&#34;2&#34;,&#34;7&#34;,&#34;3&#34;,&#34;2&#34;},
-    layout_width=&#34;fill&#34;,
-    layout_height=&#34;wrap_content&#34;,
+    id="list",
+    layout_marginTop="10dp",
+    --items={"3","2","5","5","2","7","3","2"},
+    layout_width="fill",
+    layout_height="wrap_content",
   }
 }
 
 local inputlayout={
   LinearLayout,
-  orientation=&#34;vertical&#34;,
+  orientation="vertical",
   Focusable=true,
   FocusableInTouchMode=true,
   {
     EditText,
-    id=&#34;edit&#34;,
-    hint=&#34;Input here&#34;,
-    layout_marginTop=&#34;5dp&#34;,
-    layout_width=&#34;80%w&#34;,
-    --uh=&#34;32552732&#34;,
-    layout_gravity=&#34;center&#34;,
+    id="edit",
+    hint="Input here",
+    layout_marginTop="5dp",
+    layout_width="80%w",
+    --uh="32552732",
+    layout_gravity="center",
   },
 }
 
 local input2layout={
   LinearLayout,
-  orientation=&#34;vertical&#34;,
+  orientation="vertical",
   Focusable=true,
   FocusableInTouchMode=true,
   {
     EditText,
-    id=&#34;edit1&#34;,
-    hint=&#34;Input here&#34;,
-    --numa=&#34;32552&#34;,
-    --aaa=&#34;bbb&#34;
-    layout_marginTop=&#34;5dp&#34;,
-    layout_width=&#34;80%w&#34;,
-    layout_gravity=&#34;center&#34;,
+    id="edit1",
+    hint="Input here",
+    --numa="32552",
+    --aaa="bbb"
+    layout_marginTop="5dp",
+    layout_width="80%w",
+    layout_gravity="center",
   },
   {
     EditText,
-    id=&#34;edit2&#34;,
-    --ccc=&#34;ddd&#34;,
-    --numb=&#34;732&#34;,
-    --eee=&#34;fff&#34;,
-    hint=&#34;Input here&#34;,
-    layout_margiTop=&#34;5dp&#34;,
-    layout_width=&#34;80%w&#34;,
-    layout_gravity=&#34;center&#34;,
+    id="edit2",
+    --ccc="ddd",
+    --numb="732",
+    --eee="fff",
+    hint="Input here",
+    layout_margiTop="5dp",
+    layout_width="80%w",
+    layout_gravity="center",
   },
 }
 
@@ -540,16 +540,16 @@ function showDataDialog(name,title,jdpuk)
 
   item={
     LinearLayout,
-    orientation=&#34;vertical&#34;,
-    layout_width=&#34;fill&#34;,
+    orientation="vertical",
+    layout_width="fill",
     {
       TextView,
-      id=&#34;text&#34;,
-      textSize=&#34;16sp&#34;,
-      layout_margin=&#34;10dp&#34;,
-      layout_width=&#34;fill&#34;,
-      layout_width=&#34;70%w&#34;,
-      layout_gravity=&#34;center&#34;,
+      id="text",
+      textSize="16sp",
+      layout_margin="10dp",
+      layout_width="fill",
+      layout_width="70%w",
+      layout_gravity="center",
     },
   }
 
@@ -559,7 +559,7 @@ function showDataDialog(name,title,jdpuk)
   local dlb=对话框 ()
   dlb. 设置标题 (title)
   local dl
-  if #keys&gt;0 then
+  if #keys>0 then
     dlb.setView(loadlayout(listlayout))
     list.setDividerHeight(0)
     list.Adapter=items
@@ -573,8 +573,8 @@ function showDataDialog(name,title,jdpuk)
       对话框 ()
       . 设置标题 (title)
       .setView(loadlayout(input2layout))
-      . 设置积极按钮 (&#34;保存&#34;,function()--32552732
-        if not(edit1.text==&#34;&#34;) and not(edit2.text==&#34;&#34;) or 3255==2732 then
+      . 设置积极按钮 ("保存",function()--32552732
+        if not(edit1.text=="") and not(edit2.text=="") or 3255==2732 then
           removeData(name,keys[id])
           putData(name,edit2.text,edit1.text)--32552732
           if dl then
@@ -582,16 +582,16 @@ function showDataDialog(name,title,jdpuk)
             showDataDialog(name,title)
           end
         else
-          弹出消息 (&#34;请填写所有字段&#34;)
+          弹出消息 ("请填写所有字段")
         end
       end)
-      . 设置消极按钮 (&#34;取消&#34;)
-      . 设置中立按钮 (&#34;删除&#34;,function()
+      . 设置消极按钮 ("取消")
+      . 设置中立按钮 ("删除",function()
         removeData(name,keys[id])
         items.remove(pos)
         table.remove(keys,id)
         table.remove(values,id)
-        if #adpd&lt;=0 then
+        if #adpd<=0 then
           if dl then
             dl.dismiss()
             showDataDialog(name,title);
@@ -599,16 +599,16 @@ function showDataDialog(name,title,jdpuk)
         end
       end)
       . 显示 ()
-      edit1.setHint(&#34;标题&#34;)
-      edit2.setHint(&#34;链接&#34;)
+      edit1.setHint("标题")
+      edit2.setHint("链接")
       edit1.setText(values[id])
       edit2.setText(keys[id])
       return true
     end
   else
-    dlb. 设置消息 (&#34;没有收藏&#34;)
+    dlb. 设置消息 ("没有收藏")
   end
-  dlb. 设置积极按钮 (&#34;新建收藏&#34;,function()addDataDialog(name,&#34;新建收藏&#34;)end)
+  dlb. 设置积极按钮 ("新建收藏",function()addDataDialog(name,"新建收藏")end)
   dl=dlb.show()
 end
 
@@ -616,23 +616,23 @@ function addDataDialog(name,title,value,key)--32552732
   对话框 ()
   . 设置标题 (title)
   .setView(loadlayout(input2layout))
-  . 设置积极按钮 (&#34;保存&#34;,function()
-    if not(edit1.text==&#34;&#34;) and not(edit2.text==&#34;&#34;) or 325==52732 then
+  . 设置积极按钮 ("保存",function()
+    if not(edit1.text=="") and not(edit2.text=="") or 325==52732 then
       if not getData(name,edit2.text) then
         putData(name,edit2.text,edit1.text)
       else
-        弹出消息 (&#34;该链接已存在&#34;)
+        弹出消息 ("该链接已存在")
         addDataDialog(name,title,edit1.text,edit2.text)
       end
     else
-      弹出消息 (&#34;请填写所有字段&#34;)
+      弹出消息 ("请填写所有字段")
       addDataDialog(name,title,edit1.text,edit2.text)
     end
   end)
-  . 设置消极按钮 (&#34;取消&#34;)
+  . 设置消极按钮 ("取消")
   . 显示 ()
-  edit1.setHint(&#34;标题&#34;)
-  edit2.setHint(&#34;链接&#34;)
+  edit1.setHint("标题")
+  edit2.setHint("链接")
   if(value)then
     edit1.setText(value)
   end

@@ -3,7 +3,7 @@
 
 换行符（通常称为行尾、行尾 (EOL)、下一行 (NEL) 或换行符）是字符编码规范（例如，ASCII、EBCDIC）中的控制字符或控制字符序列，用于表示一行文本的结尾和新文本的开头。
 
-&lt;!--more--&gt;
+<!--more-->
 
 周五下班的时候想在 windows 电脑上跑一下 FixIt 看看有没有什么 bug, 然后就发现了 typyit shortcode 开头多出一行空行，mermaid shortcode 则直接语法报错了。
 
@@ -13,7 +13,7 @@
 
 简单来说，回车换行这些说法是从打字机那个时代开始叫的，然后在不同的标准下换行符有不同的表现符号。
 
-Windows 系统设计遵循了 `CR &#43; LF` 的约定，而 Unix 系统则遵循了 `LF` 的约定，之后的 类 Unix (Linux, macOS) 系统也遵循了 `LF` 的约定。
+Windows 系统设计遵循了 `CR + LF` 的约定，而 Unix 系统则遵循了 `LF` 的约定，之后的 类 Unix (Linux, macOS) 系统也遵循了 `LF` 的约定。
 
 当然也有异类，老版的 mac 系统使用 `CR` 作为换行符。
 

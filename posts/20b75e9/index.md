@@ -3,19 +3,19 @@
 
 foo 和 bar 是在编程中常用的元变量（metasyntactic variables），它们是在教程和示例代码中用来代表任意的函数或者变量的名称。类似的元变量还有 baz，qux，quux，corge，grault，garply，waldo，fred，plugh，xyzzy 和 thud 等。
 
-&lt;!--more--&gt;
+<!--more-->
 
 ## foo 和 bar
 
 这些名称起源于 MIT，然后通过 Hacker 文化传播开来。它们主要的用途是作为示例代码的占位符，这样编程教程或者文档可以更专注于解释语法和逻辑，而不需要花费太多的精力去考虑如何命名这些函数或变量。
 
-这就像是在其他文字中使用&#34;John Doe&#34; 或 &#34;Jane Doe&#34;来代表一个非特定的人一样。在编程的世界中，foo 和 bar 就扮演了类似的角色。
+这就像是在其他文字中使用"John Doe" 或 "Jane Doe"来代表一个非特定的人一样。在编程的世界中，foo 和 bar 就扮演了类似的角色。
 
 例如，如果我们要解释 JavaScript 中函数的使用，我们可能会写出这样的代码：
 
 ```javascript
 function foo(bar) {
-  return bar &#43; 1;
+  return bar + 1;
 }
 foo(1); // 2
 ```
