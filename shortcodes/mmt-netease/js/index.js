@@ -43,7 +43,10 @@ const RNC = new (function () {
         $music.appendChild($player);
         lastMusic = musicURL;
       }
-    })
+    }).catch((error) => {
+      console.error('Error fetching comment:', error);
+      $comment.querySelector('.comment-content').innerHTML = '获取评论失败，请稍后再试';
+    });
   };
 
   /**
