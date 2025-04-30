@@ -2,12 +2,14 @@
 
 # 菠菜眾長
 
-共计 286 篇文章
+共计 288 篇文章
 
 ## 2025
 
-共计 3 篇文章
+共计 5 篇文章
 
+- 04-10 [The webfont package for the MMT typeface.](https://lruihao.cn/projects/lruihao/mmt-webfont/ "2025-04-10 08:35:34")
+- 04-09 [API proxies powered by Vercel.](https://lruihao.cn/projects/lruihao/vercel-proxy/ "2025-04-09 02:13:22")
 - 01-20 [CSS Flexbox 布局指南](https://lruihao.cn/posts/flexbox/ "2025-01-20 15:56:38")
 - 01-14 [Generate a list of all hugo-fixit theme components.](https://lruihao.cn/projects/hugo-fixit/action-component-list/ "2025-01-14 09:10:09")
 - 01-08 [A Hugo theme component with asciinema-embed shortcode.](https://lruihao.cn/projects/hugo-fixit/shortcode-asciinema/ "2025-01-08 09:20:48")
