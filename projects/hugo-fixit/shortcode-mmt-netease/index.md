@@ -61,6 +61,7 @@ theme = ["FixIt", "shortcode-mmt-netease"]
 - **fixed** _[可选]_（第三个位置参数）是否启用固定模式，默认：`false`
 - **mini** _[可选]_（第四个位置参数）是否启用迷你模式，默认：`false`
 - **volume** _[可选]_（第五个位置参数）默认音量，注意播放器会记住用户设置，用户自己设置音量后默认音量将不起作用，默认：`0.7`
+- **current** _[可选]_（第六个位置参数）是否播放当前评论的音乐，默认：`false`
 
 这是一个用法示例：
 
@@ -70,15 +71,12 @@ theme = ["FixIt", "shortcode-mmt-netease"]
 {{?{}< mmt-netease "2280569152" false >}}
 ```
 
-> [!Warning]
-> 同一页面只支持使用一次！
-
 ## Dependencies
 
 - [APlayer](https://github.com/MoePlayer/APlayer)
 - [MetingJS](https://github.com/metowolf/MetingJS)
-- [UomgAPI](https://api.uomg.com/doc-comments.163.html)
 - [MMT](https://github.com/Lruihao/MMT)
+- [vercel-proxy](https://github.com/Lruihao/vercel-proxy?#netease-comment)
 
 
 ---
