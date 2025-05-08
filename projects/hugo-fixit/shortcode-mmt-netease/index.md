@@ -12,6 +12,9 @@
 
 ## 安装
 
+> [!TIP]
+> 本组件适用于所有 Hugo 主题，但你必须有一个主体主题来使用它，以下以 [FixIt](https://github.com/hugo-fixit/FixIt) 主题为例。
+
 安装方法与 [安装主题](https://fixit.lruihao.cn/documentation/installation/) 相同。有几种安装方法，请选择一种。
 
 ### 安装为 Hugo 模块
@@ -39,7 +42,7 @@ hugo mod tidy
 
 ### 安装为 Git 子模块
 
-将 [FixIt](https://github.com/hugo-fixit) 和此 git 存储库克隆到你的主题文件夹中，并将其添加为网站目录的子模块。
+将 [FixIt](https://github.com/hugo-fixit/FixIt) 和此 git 存储库克隆到你的主题文件夹中，并将其添加为网站目录的子模块。
 
 ```bash
 git submodule add https://github.com/hugo-fixit/FixIt.git themes/FixIt

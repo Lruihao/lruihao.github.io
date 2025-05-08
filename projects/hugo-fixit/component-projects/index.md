@@ -62,7 +62,7 @@ hugo mod tidy
 
 ### 安装为 Git 子模块
 
-将 [FixIt](https://github.com/hugo-fixit) 和此 git 存储库克隆到你的主题文件夹中，并将其添加为网站目录的子模块。
+将 [FixIt](https://github.com/hugo-fixit/FixIt) 和此 git 存储库克隆到你的主题文件夹中，并将其添加为网站目录的子模块。
 
 ```bash
 git submodule add https://github.com/hugo-fixit/FixIt.git themes/FixIt
@@ -75,17 +75,19 @@ git submodule add https://github.com/hugo-fixit/component-projects.git themes/co
 theme = ["FixIt", "component-projects"]
 ```
 
-## 注入 Partial
+## 配置
 
-最后，在 `layouts/partials/custom.html` 中的 `custom-head` 或 `custom-assets` 块内注入主题组件的样式：
+最后，为了通过 FixIt 主题在 `layouts/partials/custom.html` 文件中开放的 [自定义块](https://fixit.lruihao.cn/references/blocks/) 将 `component-projects.html` 注入到 `custom-head` 或 `custom-assets` 中，你需要填写以下必要配置：
 
-```go-html-template
-{{- define "custom-assets" -}}
-  {{- partial "inject/component-projects.html" . -}}
-{{- end -}}
+```toml
+[params]
+  [params.customPartials]
+    # ... other partials
+    assets = [ "inject/component-projects.html" ]
+    # ... other partials
 ```
 
-## 配置（可选）
+## 访问令牌（可选）
 
 获取仓库信息依赖 GitHub 官方 API。在开始使用之前，建议在 GitHub 上生成个人访问令牌，以防止 GitHub API 使用限制。
 

@@ -22,14 +22,16 @@ FixIt 主题 `v0.3.9` 及以上版本。
 +   path = "github.com/hugo-fixit/shortcode-caniuse"
 ```
 
-## 注入 Partial
+## 配置
 
-通过 FixIt 主题开放的自定义块，在 `layouts/partials/custom.html` 文件将 `shortcode-caniuse.html` 注入到 `custom-assets` 中：
+为了通过 FixIt 主题在 `layouts/partials/custom.html` 文件中开放的 [自定义块](https://fixit.lruihao.cn/references/blocks/) 将 `shortcode-caniuse.html` 注入到 `custom-assets` 中，你需要填写以下必要配置：
 
-```go-html-template
-{{- define "custom-assets" -}}
-  {{- partial "inject/shortcode-caniuse.html" . -}}
-{{- end -}}
+```toml
+[params]
+  [params.customPartials]
+    # ... other partials
+    assets = [ "inject/shortcode-caniuse.html" ]
+    # ... other partials
 ```
 
 ## 使用 Shortcode

@@ -27,14 +27,16 @@ The installation method is the same as [installing a theme](https://fixit.lruiha
 +   path = "github.com/hugo-fixit/shortcode-rewards"
 ```
 
-## Inject Partial
+## Configuration
 
-Inject the `shortcode-rewards.html` into the `custom-head` through the custom block opened by the FixIt theme in the `layouts/partials/custom.html` file:
+In order to Inject the partial `shortcode-rewards.html` into the `custom-head` through the [custom block](https://fixit.lruihao.cn/references/blocks/) opened by the FixIt theme in the `layouts/partials/custom.html` file, you need to fill in the following necessary configurations:
 
-```go-html-template
-{{- define "custom-head" -}}
-  {{- partial "inject/shortcode-rewards.html" . -}}
-{{- end -}}
+```toml
+[params]
+  [params.customPartials]
+    # ... other partials
+    head = [ "inject/shortcode-rewards.html" ]
+    # ... other partials
 ```
 
 ## Usage
