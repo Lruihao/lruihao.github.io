@@ -8,28 +8,32 @@
 
 > 站名“菠菜眾長”，取“兼收並蓄，博採眾長”之意。
 
-博客基于 [Hugo](https://github.com/gohugoio/hugo) 和 [FixIt](https://github.com/Lruihao/FixIt) 搭建，建站的初衷不是为了炫耀所知，而是记录无知。
-
-博客内容主要以 Web 前端开发方向为主，分享一些有趣程序、技巧、开发教程、心情和学习记录等。
-
-你可以通过我的[微信公众号](https://lruihao.cn/images/qr-wx-mp.webp "关注「菠菜眾長」公众号")、[GitHub](https://github.com/Lruihao/hugo-blog "Watch on GitHub") 或 [RSS](http://lruihao.cn/index.xml) 来订阅本博客。
-
 ![blog-preview](https://raw.githubusercontent.com/Lruihao/hugo-blog/refs/heads/main/assets/images/apple-devices-preview.webp)
 
 ## Content
+
+> 博客内容主要以 Web 前端开发方向为主，分享一些有趣程序、技巧、开发教程、心情和学习记录等。
+
+以内容为中心，搭建了智能笔记知识库，支持 AI 搜索、AI 对话、智能摘要等功能，点击左下角 🤖 图标 [立即体验](https://lruihao.cn/)。
 
 - [归档](https://lruihao.cn/archives/)
 - [分类](https://lruihao.cn/categories/)
 - [合集](https://lruihao.cn/collections/)
 - [标签](https://lruihao.cn/tags/)
-  
+
+> [!TIP]
+> 你可以通过我的[微信公众号](https://lruihao.cn/images/qr-wx-mp.webp "关注「菠菜眾長」公众号")、[GitHub](https://github.com/Lruihao/hugo-blog "Watch on GitHub") 或 [RSS](http://lruihao.cn/index.xml) 来订阅本博客。
+
 ## Source
 
-博客相关源码：
+博客中涉及的相关源码：
 
-- [HTML-CSS-JavaScript 相关](https://github.com/Lruihao/html-demo)
-- [Vue2 相关](https://github.com/Lruihao/vue-el-demo)
-- [Hugo FixIt 相关](https://github.com/hugo-fixit)
+- [HTML/CSS/JS Demo](https://github.com/Lruihao/html-demo)
+- [Vue2 Demo](https://github.com/Lruihao/vue-el-demo)
+- [Hugo FixIt](https://github.com/hugo-fixit)
+- [CoverView](https://github.com/CoverView/)
+- [Vercel API Proxy](https://github.com/Lruihao/vercel-proxy/)
+- [MMT webfont package](https://github.com/Lruihao/mmt-webfont/)
 - [更多](https://github.com/Lruihao?tab=repositories)
 
 ## [Roadmap](https://github.com/users/Lruihao/projects/1)
@@ -151,7 +155,15 @@ Press Ctrl+C to stop
 
 ## Sponsor
 
-[translate.js](https://github.com/xnx3/translate) 赞助企业级翻译通道。
+[赞赏记录](https://lruihao.cn/reward/)，感谢大家的支持！❤️
+
+长期赞助致谢：
+
+- [translate.js](https://github.com/xnx3/translate) 赞助企业级翻译通道。
+
+## Powered
+
+博客基于 [Hugo](https://github.com/gohugoio/hugo) 和 [FixIt](https://github.com/Lruihao/FixIt) 搭建，建站的初衷不是为了炫耀所知，而是记录无知。
 
 ## Author
 
