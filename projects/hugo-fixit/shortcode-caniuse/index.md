@@ -1,4 +1,4 @@
-# 一个含有 caniuse shortcode 的 Hugo 主题组件。
+# A Hugo theme component with caniuse shortcode.
 
 # Hugo shortcode for CanIUse
 

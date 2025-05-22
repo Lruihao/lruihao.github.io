@@ -1,4 +1,4 @@
-# 🐟 一个 canvas 实现的小鱼游动动画效果。
+# 🐟 A canvas implemented animation effect of small fish swimming.
 
 # Fly Fish
 
