@@ -2,12 +2,13 @@
 
 # 菠菜眾長
 
-共计 288 篇文章
+共计 289 篇文章
 
 ## 2025
 
-共计 5 篇文章
+共计 6 篇文章
 
+- 06-11 [Vue.js History 模式下的 NGINX 配置与 API 代理](https://lruihao.cn/posts/vue-build/ "2025-06-11 10:05:36")
 - 04-10 [The webfont package for the MMT typeface.](https://lruihao.cn/projects/lruihao/mmt-webfont/ "2025-04-10 08:35:34")
 - 04-09 [API proxies powered by Vercel.](https://lruihao.cn/projects/lruihao/vercel-proxy/ "2025-04-09 02:13:22")
 - 01-20 [CSS Flexbox 布局指南](https://lruihao.cn/posts/flexbox/ "2025-01-20 15:56:38")
