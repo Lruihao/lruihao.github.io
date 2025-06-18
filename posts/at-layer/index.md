@@ -94,6 +94,9 @@
 
 `<link>` 元素引用 (*)：
 
+> [!WARNING]
+> 该用法有待考证，在 MDN 上尚未找到明确文档。
+
 ```html
 <link rel="stylesheet" href="utilities.css" layer="utilities">
 <!-- 样式引入到一个匿名级联层中 -->
