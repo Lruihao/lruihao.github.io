@@ -34,6 +34,8 @@ const RNC = new (function () {
           $avatar.classList.remove('d-none');
         }
         $comment.querySelector('.comment-nickname').innerHTML = nickname;
+        $comment.querySelector('.comment-time').innerHTML = comment.data.timeStr;
+        $comment.querySelector('.comment-liked').innerHTML = comment.data.likedCount;
         $comment.querySelector('.comment-content').innerHTML = comment.data.content?.replace('\n', '<br/>');
         $comment.querySelector('.music-name').innerHTML = comment.data?.musicName;
         $comment.querySelector('.artists-name').innerHTML = comment.data?.artist;
