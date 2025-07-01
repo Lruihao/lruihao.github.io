@@ -1,10 +1,13 @@
 # 菠菜眾長
 
-共计 290 篇文章
+> Hugo FixIt 作者，喜欢瞎折腾、造轮子、写东西，分享一些前端开发中的所见、所闻、所思。
+
+共计 290 篇文章 by [Lruihao](https://github.com/Lruihao).
 
 ## 2025
 
-共计 7 篇文章
+<details>
+<summary>共计 7 篇文章</summary>
 
 - 06-18 [CSS @layer：构建更高效、更可维护的样式层级](https://lruihao.cn/posts/at-layer/ "2025-06-18 10:35:47")
 - 06-11 [Vue.js History 模式下的 NGINX 配置与 API 代理](https://lruihao.cn/posts/vue-build/ "2025-06-11 10:05:36")
@@ -14,9 +17,12 @@
 - 01-14 [Generate a list of all hugo-fixit theme components.](https://lruihao.cn/projects/hugo-fixit/action-component-list/ "2025-01-14 09:10:09")
 - 01-08 [A Hugo theme component with asciinema-embed shortcode.](https://lruihao.cn/projects/hugo-fixit/shortcode-asciinema/ "2025-01-08 09:20:48")
 
+</details>
+
 ## 2024
 
-共计 38 篇文章
+<details>
+<summary>共计 38 篇文章</summary>
 
 - 12-06 [震惊！CSS 竟然能获取视口尺寸？](https://lruihao.cn/posts/css-viewport/ "2024-12-06 10:32:22")
 - 12-02 [🌐 A component for site automatic translation.](https://lruihao.cn/projects/hugo-fixit/cmpt-translate/ "2024-12-02 07:29:57")
@@ -57,9 +63,12 @@
 - 01-11 [git submodule: already exists in the index](https://lruihao.cn/posts/6550187/ "2024-01-11 10:30:04")
 - 01-10 [给 el-card 添加折叠功能](https://lruihao.cn/posts/el-card-collapse/ "2024-01-10 17:06:54")
 
+</details>
+
 ## 2023
 
-共计 35 篇文章
+<details>
+<summary>共计 35 篇文章</summary>
 
 - 12-22 [尝试在 Python 中使用 Amazon Titan 文本模型](https://lruihao.cn/posts/d8ae205/ "2023-12-22 19:58:47")
 - 11-28 [用 Node.js 开发一个轻量脚手架](https://lruihao.cn/projects/fixit-cli/ "2023-11-28 10:48:07")
@@ -97,9 +106,12 @@
 - 02-04 [中文技术文档的写作规范](https://lruihao.cn/posts/document-style-guide/ "2023-02-04 16:04:42")
 - 01-11 [浏览器原理 - 事件循环](https://lruihao.cn/posts/event-loop/ "2023-01-11 11:16:02")
 
+</details>
+
 ## 2022
 
-共计 21 篇文章
+<details>
+<summary>共计 21 篇文章</summary>
 
 - 12-17 [2022 年度总结](https://lruihao.cn/years/2022/ "2022-12-17 01:01:30")
 - 12-15 [安装 Homebrew 后导致系统中原有的 npm 和 npx 失效](https://lruihao.cn/posts/homebrew-npm/ "2022-12-15 15:33:30")
@@ -123,9 +135,12 @@
 - 05-01 [重新认识 JavaScript](https://lruihao.cn/posts/js-rediscover/ "2022-05-01 10:59:36")
 - 04-30 [关于 CSS 和 Scss 变量运算那些事](https://lruihao.cn/posts/css-scss-var/ "2022-04-30 22:04:29")
 
+</details>
+
 ## 2021
 
-共计 19 篇文章
+<details>
+<summary>共计 19 篇文章</summary>
 
 - 12-22 [Getting Things Done for ios App Reminders and Github issues](https://lruihao.cn/posts/gtd/ "2021-12-22 20:17:42")
 - 12-16 [🔧 A clean, elegant but advanced blog theme for Hugo 一个简洁、优雅且高效的 Hugo 主题](https://lruihao.cn/projects/hugo-fixit/fixit/ "2021-12-16 03:35:27")
@@ -147,9 +162,12 @@
 - 03-01 [你为什么吸烟？](https://lruihao.cn/me/whysmoke/ "2021-03-01 01:27:41")
 - 02-28 [基于 leancloud-storage 实现的无后端记账本](https://lruihao.cn/projects/lruihao/bill-note/ "2021-02-28 03:44:09")
 
+</details>
+
 ## 2020
 
-共计 8 篇文章
+<details>
+<summary>共计 8 篇文章</summary>
 
 - 07-25 [cell-blog 功能介绍与安装](https://lruihao.cn/projects/cell-blog/ "2020-07-25 20:51:11")
 - 07-25 [cell-blog 开发记录](https://lruihao.cn/posts/cell-blog-dev/ "2020-07-25 20:42:42")
@@ -160,9 +178,12 @@
 - 01-16 [2019 年度总结](https://lruihao.cn/years/2019/ "2020-01-16 20:01:22")
 - 01-16 [SQL 总结](https://lruihao.cn/posts/sql/ "2020-01-16 19:28:05")
 
+</details>
+
 ## 2019
 
-共计 71 篇文章
+<details>
+<summary>共计 71 篇文章</summary>
 
 - 11-24 [利用腾讯云为静态页面添加“动态”相册](https://lruihao.cn/projects/cos-album/ "2019-11-24 10:52:34")
 - 11-23 [解析腾讯云 cos 桶 xml 生成相册,同时也是图床的显示页面](https://lruihao.cn/projects/lruihao/cos-album/ "2019-11-23 12:59:05")
@@ -236,9 +257,12 @@
 - 01-12 [英语语法--主谓一致](https://lruihao.cn/posts/subject-verb/ "2019-01-12 13:02:49")
 - 01-12 [2018 年度总结](https://lruihao.cn/years/2018/ "2019-01-12 11:09:52")
 
+</details>
+
 ## 2018
 
-共计 91 篇文章
+<details>
+<summary>共计 91 篇文章</summary>
 
 - 12-10 [英语语法--形式倒装](https://lruihao.cn/posts/inversion-3/ "2018-12-10 21:52:30")
 - 12-10 [英语语法--完全倒装](https://lruihao.cn/posts/inversion-2/ "2018-12-10 21:14:51")
@@ -331,3 +355,5 @@
 - 05-31 [猴子与哪吒](https://lruihao.cn/posts/%E7%8C%B4%E5%AD%90%E4%B8%8E%E5%93%AA%E5%90%92/ "2018-05-31 10:09:15")
 - 05-28 [博客构建档（HTML & Markdown）](https://lruihao.cn/projects/lruihao/lruihao.github.io/ "2018-05-28 12:24:11")
 - 05-28 [Hello World](https://lruihao.cn/posts/hello-world/ "2018-05-28 20:01:01")
+
+</details>

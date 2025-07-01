@@ -27,7 +27,7 @@
 > 它的原型基于 [LoveIt](https://github.com/dillonzq/LoveIt) 主题，[KeepIt](https://github.com/Fastbyte01/KeepIt) 主题和 [LeaveIt](https://github.com/liuzc/LeaveIt) 主题。
 
 [![GitHub release (latest by date)](https://img.shields.io/github/v/release/hugo-fixit/FixIt?style=flat)](https://github.com/hugo-fixit/FixIt/releases)
-[![Hugo](https://img.shields.io/badge/Hugo-%5E0.146.0-ff4088?style=flat&logo=hugo)](https://gohugo.io/)
+[![Hugo](https://img.shields.io/badge/Hugo-%5E0.147.7-ff4088?style=flat&logo=hugo)](https://gohugo.io/)
 [![License](https://img.shields.io/github/license/hugo-fixit/FixIt?style=flat)](https://raw.githubusercontent.com/hugo-fixit/FixIt/refs/heads/main/LICENSE)
 [![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)](https://github.com/hugo-fixit/FixIt)
 
@@ -151,7 +151,7 @@ Gitee 镜像仓库：<https://gitee.com/lruihao/FixIt>
 - 支持 **[Font Awesome](https://fontawesome.com/) 图标**的扩展 Markdown 语法
 - 支持**上标注释**的扩展 Markdown 语法
 - 支持**分数**的扩展 Markdown 语法
-- 支持基于 [KaTeX](https://katex.org/) 的**数学公式**
+- 支持基于 [KaTeX](https://katex.org/) 或 [MathJax](https://www.mathjax.org) 的**数学公式**
 - 支持基于 [mermaid](https://github.com/knsv/mermaid) 的**图表** 代码块扩展语法和 shortcode
 - 支持基于 [ECharts](https://echarts.apache.org/) 的**交互式数据可视化** 代码块扩展语法和 shortcode
 - 支持 **Timeline** 的代码块扩展语法和 shortcode
@@ -279,6 +279,7 @@ FixIt 主题旨在在**简洁性**和**可扩展性**之间取得平衡。为此
 - [Sharer.js](https://github.com/ellisonleao/sharer.js)
 - [TypeIt](https://typeitjs.com/)
 - [KaTeX](https://katex.org/)
+- [MathJax](https://www.mathjax.org)
 - [mermaid](https://github.com/mermaid-js/mermaid)
 - [ECharts](https://echarts.apache.org/)
 - [Mapbox GL JS](https://docs.mapbox.com/mapbox-gl-js)
