@@ -78,7 +78,7 @@ theme = ["FixIt", "shortcode-mmt-netease"]
 
 - [APlayer](https://github.com/MoePlayer/APlayer)
 - [MetingJS](https://github.com/metowolf/MetingJS)
-- [MMT](https://github.com/Lruihao/MMT)
+- [mmt-webfont](https://github.com/Lruihao/mmt-webfont)
 - [vercel-proxy](https://github.com/Lruihao/vercel-proxy?#netease-comment)
 
 
