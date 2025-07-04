@@ -31,7 +31,7 @@
 
 ## 要求
 
-- [FixIt](https://github.com/hugo-fixit) v0.3.7 或更高版本
+- [FixIt](https://github.com/hugo-fixit) v0.4.0 或更高版本
 
 ## 安装
 
@@ -77,7 +77,7 @@ theme = ["FixIt", "component-projects"]
 
 ## 配置
 
-最后，为了通过 FixIt 主题在 `layouts/partials/custom.html` 文件中开放的 [自定义块](https://fixit.lruihao.cn/references/blocks/) 将 `component-projects.html` 注入到 `custom-head` 或 `custom-assets` 中，你需要填写以下必要配置：
+最后，为了通过 FixIt 主题在 `layouts/_partials/custom.html` 文件中开放的 [自定义块](https://fixit.lruihao.cn/references/blocks/) 将 `component-projects.html` 注入到 `custom-head` 或 `custom-assets` 中，你需要填写以下必要配置：
 
 ```toml
 [params]
