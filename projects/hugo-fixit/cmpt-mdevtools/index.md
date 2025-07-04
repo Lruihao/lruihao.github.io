@@ -6,7 +6,7 @@ Mobile devtools component powered by vConsole and eruda.
 
 ## Requirements
 
-- [FixIt](https://github.com/hugo-fixit/FixIt) v0.3.9 or later.
+- [FixIt](https://github.com/hugo-fixit/FixIt) v0.4.0 or later.
 - [eruda](https://github.com/liriliri/eruda)
 - [vConsole](https://github.com/Tencent/vConsole)
 
@@ -34,12 +34,14 @@ The installation method is the same as [installing a theme](https://fixit.lruiha
 
 ## Inject Partial
 
-Inject the `cmpt-mdevtools.html` into the `custom-assets` through the custom block opened by the FixIt theme in the `layouts/partials/custom.html` file:
+In order to Inject the partial `cmpt-mdevtools.html` into the `custom-assets` through the [custom block](https://fixit.lruihao.cn/references/blocks/) opened by the FixIt theme in the `layouts/_partials/custom.html` file, you need to fill in the following necessary configurations:
 
-```go-html-template
-{{- define "custom-assets" -}}
-  {{- partial "inject/cmpt-mdevtools.html" . -}}
-{{- end -}}
+```toml
+[params]
+  [params.customPartials]
+    # ... other partials
+    head = [ "inject/cmpt-mdevtools.html" ]
+    # ... other partials
 ```
 
 ## References

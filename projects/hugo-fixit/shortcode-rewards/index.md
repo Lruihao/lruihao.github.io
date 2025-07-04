@@ -13,7 +13,7 @@ A Hugo theme component with `reward-log` or `sponsor-log` shortcode.
 
 > Developed based on the FixIt Timeline plugin.
 
-- FixIt v0.3.9 or later.
+- FixIt v0.4.0 or later.
 
 ## Install Component
 

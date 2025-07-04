@@ -8,7 +8,7 @@
 
 ## Requirements
 
-- FixIt v0.3.9 or later.
+- FixIt v0.4.0 or later.
 
 ## Install Component
 
@@ -24,7 +24,7 @@ The installation method is the same as [installing a theme](https://fixit.lruiha
 
 ## Configuration
 
-In order to Inject the partial `fixit-docs-bookmark.html` into the `custom-head` through the [custom block](https://fixit.lruihao.cn/references/blocks/) opened by the FixIt theme in the `layouts/partials/custom.html` file, you need to fill in the following necessary configurations:
+In order to Inject the partial `fixit-docs-bookmark.html` into the `custom-head` through the [custom block](https://fixit.lruihao.cn/references/blocks/) opened by the FixIt theme in the `layouts/_partials/custom.html` file, you need to fill in the following necessary configurations:
 
 ```toml
 [params]

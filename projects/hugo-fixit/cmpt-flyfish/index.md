@@ -12,7 +12,7 @@
 
 ## 要求
 
-- FixIt v0.3.12 或更高版本。
+- FixIt v0.4.0 或更高版本。
 
 ## 安装组件
 
@@ -58,7 +58,7 @@ theme = ["FixIt", "cmpt-flyfish"]
 
 ## 配置
 
-为了通过 FixIt 主题在 `layouts/partials/custom.html` 文件中开放的 [自定义块](https://fixit.lruihao.cn/references/blocks/) 将 `cmpt-flyfish.html` 注入到 `custom-assets` 中，你需要填写以下必要配置：
+为了通过 FixIt 主题在 `layouts/_partials/custom.html` 文件中开放的 [自定义块](https://fixit.lruihao.cn/references/blocks/) 将 `cmpt-flyfish.html` 注入到 `custom-assets` 中，你需要填写以下必要配置：
 
 ```toml
 [params]
