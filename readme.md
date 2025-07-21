@@ -1,4 +1,4 @@
-# 菠菜眾長
+# [菠菜眾長](https://lruihao.cn/ "主页")
 
 > Hugo FixIt 作者，喜欢瞎折腾、造轮子、写东西，分享一些前端开发中的所见、所闻、所思。
 
@@ -6,7 +6,7 @@
 
 ## 2025
 
-<details>
+<details open>
 <summary>共计 7 篇文章</summary>
 
 - 06-18 [CSS @layer：构建更高效、更可维护的样式层级](https://lruihao.cn/posts/at-layer/ "2025-06-18 10:35:47")
