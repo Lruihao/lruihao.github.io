@@ -34,6 +34,26 @@ FixIt 主题 `v0.4.0` 及以上版本。
     # ... other partials
 ```
 
+组件配置：
+
+```toml
+[params]
+  # CanIUse Embed Element Configuration
+  # See: https://github.com/Lruihao/caniuse-embed-element
+  [params.caniuse_embed]
+    # show the past N versions that match the feature, range is 0 - 5, default is 2
+    past = 2
+    # show the future N versions that match the feature, range is 0 - 3, default is 1
+    future = 1
+    # the origin of the caniuse embed data source, default is "https://caniuse.lruihao.cn"
+    origin = "https://caniuse.lruihao.cn"
+    # loading strategy for the iframe (eager or lazy), default is lazy
+    loading = "lazy"
+    # only production environment effective
+    # e.g. https://unpkg.com/@cell-x/caniuse-embed-element/dist/caniuse-embed-element.iife.js
+    cdn = ""
+```
+
 ## 使用 Shortcode
 
 `caniuse` shortcode 有以下命名参数：
@@ -42,6 +62,7 @@ FixIt 主题 `v0.4.0` 及以上版本。
 - **past** _[可选]_（第二个位置参数）显示过去 N 个版本，范围是 `0 - 5`，默认为 `2`
 - **future** _[可选]_（第三个位置参数）显示未来 N 个版本，范围是 `0 - 3`，默认为 `1`
 - **origin** _[可选]_（第四个位置参数）caniuse embed 数据源，例如：`https://caniuse-embed-x.vercel.app`
+- **loading** _[可选]_（第五个位置参数）iframe 的加载策略（`eager` 或 `lazy`），默认为 `lazy`
 
 > 点击 `caniuse.com` 网站上功能左边 `#` 号，URL 中的 `pathname` 即为 `feature` 参数。
 
@@ -55,15 +76,15 @@ FixIt 主题 `v0.4.0` 及以上版本。
 
 ## 参考
 
+- [The CanIUse Embed — Add support tables to your site](https://caniuse.lruihao.cn/)
 - [Can I use… Support tables for HTML5, CSS3, etc](https://caniuse.com/)
-- [The CanIUse Embed — Add support tables to your site](https://caniuse-embed.vercel.app/)
-- [贡献指南 / 开发组件](https://fixit.lruihao.cn/zh-cn/contributing/components/)
 
 ## 致谢
 
+- [Lruihao/caniuse-embed-element](https://github.com/Lruihao/caniuse-embed-element)
+- [pengzhanbo/caniuse-embed](https://github.com/pengzhanbo/caniuse-embed)
 - [mdn-browser-compat-data](https://github.com/mdn/browser-compat-data)
 - [Fyrd/caniuse](https://github.com/Fyrd/caniuse)
-- [pengzhanbo/caniuse-embed](https://github.com/pengzhanbo/caniuse-embed)
 
 
 ---
