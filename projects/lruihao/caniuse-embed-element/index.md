@@ -85,12 +85,6 @@ import '@cell-x/caniuse-embed-element'
 </template>
 ```
 
-> [!TIP]
->
-> [Skipping Component Resolution](https://vuejs.org/guide/extras/web-components.html#skipping-component-resolution)
->
-> To let Vue know that certain elements should be treated as custom elements and skip component resolution, we can specify the [`compilerOptions.isCustomElement` option](https://vuejs.org/api/application.html#app-config-compileroptions).
-
 ## ⚙️ API Reference
 
 ### Attributes/Properties
