@@ -2,13 +2,14 @@
 
 > Hugo FixIt 作者，喜欢瞎折腾、造轮子、写东西，分享一些前端开发中的所见、所闻、所思。
 
-共计 291 篇文章 by [Lruihao](https://github.com/Lruihao).
+共计 292 篇文章 by [Lruihao](https://github.com/Lruihao).
 
 ## 2025
 
 <details open>
-<summary>共计 8 篇文章</summary>
+<summary>共计 9 篇文章</summary>
 
+- 08-04 [Code Playground](https://lruihao.cn/posts/code-playground/ "2025-08-04 11:37:24")
 - 07-22 [A custom web component that embeds caniuse.com browser compatibility data for a specific feature.](https://lruihao.cn/projects/lruihao/caniuse-embed-element/ "2025-07-22 03:40:45")
 - 06-18 [CSS @layer：构建更高效、更可维护的样式层级](https://lruihao.cn/posts/at-layer/ "2025-06-18 10:35:47")
 - 06-11 [Vue.js History 模式下的 NGINX 配置与 API 代理](https://lruihao.cn/posts/vue-build/ "2025-06-11 10:05:36")
