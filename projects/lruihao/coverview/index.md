@@ -14,7 +14,7 @@
 
 ## 💥 变更通知
 
-自 2024 年 03 月 28 日起，已将原始的 CoverView 移至我的存储库，并进行了以下更改和增强：
+自 2024 年 03 月 28 日起，已将原始的 CoverView 复刻到我的存储库，并进行了以下更改和增强：
 
 - 修复了具有图案背景的图像无法下载的问题
 - 修复了无法下载和上传 SVG 格式图标的问题
@@ -89,7 +89,7 @@
 - [Hero Patterns](https://www.heropatterns.com/)
 - [Devicons](https://github.com/devicons/devicon)
 - [Font Virgil](https://github.com/excalidraw/virgil)
-- [Font MMT](https://github.com/Lruihao/MMT)
+- [Font MMT](https://github.com/Lruihao/mmt-webfont)
 
 如果你觉得这个项目有用，请别忘了留下一个 ⭐。
 
