@@ -2,6 +2,8 @@
 
 # el-table-sticky
 
+[在线示例](https://lruihao.github.io/el-table-sticky/)
+
 > 一个用于实现 Element UI (Vue 2) 表格的表头吸顶、表尾吸底、滚动条吸底以及高度自适应功能的指令集插件。
 
 ## 背景
@@ -16,7 +18,7 @@ Element UI 的表格组件在使用时，如果表格内容过多，表格会出
 
 ## 特性
 
-部分指令依赖于 `position: sticky` 属性，所以只支持现代浏览器，[在线示例](https://lruihao.github.io/el-table-sticky/)。
+`v-sticky-*` 指令依赖于 `position: sticky` 属性，不支持 IE 浏览器。
 
 - [x] 支持表头吸顶 (v-sticky-header)
 - [x] 支持表尾合计行吸底 (v-sticky-footer)
