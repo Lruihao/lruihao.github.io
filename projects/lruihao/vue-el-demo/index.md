@@ -9,14 +9,12 @@ Vue and element-ui related [demos](https://lruihao.github.io/vue-el-demo/).
 ```bash
 yarn install
 # Compiles and hot-reloads for development
-yarn serve
+yarn dev
 # Compiles and minifies for production
 yarn build
-# Lints and fixes files
-yarn lint
 ```
 
-Customize configuration see [Configuration Reference](https://cli.vuejs.org/config/).
+This project is built with [Rsbuild](https://rsbuild.dev/), a fast build tool powered by Rspack.
 
 
 ---
