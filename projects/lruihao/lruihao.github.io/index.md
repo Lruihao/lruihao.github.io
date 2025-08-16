@@ -4,13 +4,14 @@
 
 > Hugo FixIt 作者，喜欢瞎折腾、造轮子、写东西，分享一些前端开发中的所见、所闻、所思。
 
-共计 293 篇文章 by [Lruihao](https://github.com/Lruihao).
+共计 294 篇文章 by [Lruihao](https://github.com/Lruihao).
 
 ## 2025
 
 <details open>
-<summary>共计 10 篇文章</summary>
+<summary>共计 11 篇文章</summary>
 
+- 08-16 [让 Mermaid 图表自动跟随系统深浅色](https://lruihao.cn/posts/mermaid-theming/ "2025-08-16 12:37:49")
 - 08-05 [黑盒出关・三把钥匙定江湖](https://lruihao.cn/posts/wc-01-prologue/ "2025-08-05 11:31:52")
 - 08-04 [Code Playground](https://lruihao.cn/posts/code-playground/ "2025-08-04 11:37:24")
 - 07-22 [A custom web component that embeds caniuse.com browser compatibility data for a specific feature.](https://lruihao.cn/projects/lruihao/caniuse-embed-element/ "2025-07-22 03:40:45")
