@@ -91,7 +91,7 @@ mermaid.initialize({ theme: 'dark' });
 
 ## 方案 3️⃣ 配置热替换
 
-mermaid.live 站点能在用户切主题时瞬间完成切换，且颜色完全与官方暗黑主题对齐。从源码（未公开）和 DevTools 推测，它大概做了三件事：
+mermaid.live 站点能在用户切主题时瞬间完成切换，且颜色完全与官方暗黑主题对齐。从 [源码](https://github.com/mermaid-js/mermaid-live-editor) 和 DevTools 推测，它大概做了三件事：
 
 1. 自己维护一份 `themeCSS` 字符串（而非仅用名字 `'dark'`）
 2. 在 `prefers-color-scheme` 变化时，直接把新的 CSS 注入到 `<svg>` 里的 `<style>` 节点
