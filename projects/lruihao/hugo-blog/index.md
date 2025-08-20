@@ -48,7 +48,7 @@
 ▸ .github/       # GitHub configuration
 ▸ .scripts/      # custom scripts
 ▸ .shell/        # shell commands for hugo project, entrance: hugo_main.sh
-▸ archetypes/    # page archetypes (like scaffolds of archetypes)
+▸ archetypes/    # page archetypes (like scaffolds for hexo)
 ▸ assets/        # css, js, third-party libraries etc.
 ▸ config/        # configuration files
 ▸ content/       # markdown files for hugo project
