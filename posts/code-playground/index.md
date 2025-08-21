@@ -12,7 +12,6 @@
 | **JSFiddle**    | 轻量级前端代码片段运行环境，适合快速测试和分享小 demo                           | <https://jsfiddle.net>   |
 | **JS Bin**      | 类似 JSFiddle，支持实时协作和分享，适合调试和教学                               | <https://jsbin.com>      |
 | **Playcode.io** | 无需登录即可运行 JS/TS，界面类似本地 IDE，适合快速原型开发                      | <https://playcode.io>    |
-| **Glitch**      | 强调“可 remix”的项目协作，适合初学者和非开发者快速构建 Web 应用                 | <https://glitch.com>     |
 | **Replit**      | 支持多语言（如 Python、Java、C++），适合教育用途和全栈开发                      | <https://replit.com>     |
 | **Gitpod**      | 基于 VS Code 的云端 IDE，适合 GitHub 项目快速启动和协作                         | <https://gitpod.io>      |
 | **码上掘金**    | 国内版轻量 Playground，支持 React、Vue 等框架，适合中文用户                     | <https://code.juejin.cn> |
