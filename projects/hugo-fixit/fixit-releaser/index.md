@@ -1,4 +1,4 @@
-# ⚙️ Versioning, change-log and release.
+# ⚙️ Versioning, change-log and release tool that supports Conventional Commits specification.
 
 # FixIt Releaser
 
@@ -6,12 +6,23 @@
 
 中文 | [English](https://raw.githubusercontent.com/hugo-fixit/fixit-releaser/refs/heads/main/README.en.md)
 
-版本控制、变更日志和发布工具，适用于 Hugo FixIt 的类似提交风格。
+版本控制、变更日志和发布工具，支持 Conventional Commits 规范。
 
 ## 功能
 
 - 更新 FixIt 内部版本号。(**仅适用于 [FixIt](https://github.com/hugo-fixit/FixIt)**)
-- 自动生成变更日志。（由 [auto-changelog](https://github.com/cookpete/auto-changelog) 提供支持）
+- 根据 [Conventional Commits](https://www.conventionalcommits.org/zh-hans/v1.0.0/) 规范自动生成变更日志
+  - `feat:` 新功能
+  - `fix:` 修复问题
+  - `docs:` 文档变更
+  - `style:` 代码格式调整
+  - `refactor:` 代码重构
+  - `perf:` 性能优化
+  - `test:` 测试相关
+  - `chore:` 构建过程或辅助工具的变动
+  - 支持 scope：`feat(api):`, `fix(ui):` 等
+  - 支持 emoji：`:sparkles: feat:`, `✨ feat:` 等
+  - 支持 Breaking Changes：`feat!:`, `feat(scope)!:`, `BREAKING CHANGE:` 等格式
 
 ## 安装
 
@@ -62,6 +73,10 @@ npx fixit-releaser changelog --starting-version v0.3.10
 ```
 
 更多用法请参见 [auto-changelog](https://github.com/cookpete/auto-changelog)。
+
+## 致谢
+
+本项目变更日志生成功能由 [auto-changelog](https://github.com/cookpete/auto-changelog) 提供支持。
 
 
 ---
