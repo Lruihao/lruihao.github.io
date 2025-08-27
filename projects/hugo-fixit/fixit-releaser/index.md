@@ -1,4 +1,4 @@
-# ⚙️ Versioning, change-log and release tool for FixIt.
+# ⚙️ Versioning, change-log and release tool.
 
 # FixIt Releaser
 
@@ -6,27 +6,16 @@
 
 中文 | [English](https://raw.githubusercontent.com/hugo-fixit/fixit-releaser/refs/heads/main/README.en.md)
 
-版本控制、变更日志和发布工具，支持 Conventional Commits 规范。
+版本控制、变更日志和发布工具。
 
-## 功能
+## ✨ 功能
 
-- 更新 FixIt 内部版本号。(**仅适用于 [FixIt](https://github.com/hugo-fixit/FixIt)**)
-- 根据 [Conventional Commits](https://www.conventionalcommits.org/zh-hans/v1.0.0/) 规范自动生成变更日志
-  - `feat:` 新功能
-  - `fix:` 修复问题
-  - `docs:` 文档变更
-  - `style:` 代码格式调整
-  - `refactor:` 代码重构
-  - `perf:` 性能优化
-  - `test:` 测试相关
-  - `chore:` 构建过程或辅助工具的变动
-  - `revert:` 代码回滚
-  - 支持 scope：`feat(api):`, `fix(ui):` 等
-  - 支持 emoji：`:sparkles: feat:`, `✨ feat:` 等
-  - 支持 Breaking Changes：`feat!:`, `feat(scope)!:`, `BREAKING CHANGE:` 等格式
-  - 自动忽略 WIP 提交：`wip:`, `Wip:` 等临时提交不会包含在变更日志中
+- 📝 自动生成变更日志（Conventional Commits 规范）
+- 🔖 更新 FixIt 内部版本号 `*`
 
-## 安装
+> 带 `*` 号的功能仅适用于 [FixIt](https://github.com/hugo-fixit/FixIt)。
+
+## 📦 安装
 
 | 包管理器 | 命令                                      |
 | -------- | ----------------------------------------- |
@@ -34,51 +23,75 @@
 | yarn     | `yarn add -D @hugo-fixit/fixit-releaser`  |
 | npm      | `npm i -D @hugo-fixit/fixit-releaser`     |
 
-## 配置
-
-在 FixIt 项目的 `package.json` 中添加以下内容。
+在 `package.json` 中添加命令：
 
 ```json
 {
   "scripts": {
-    "version": "fixit-releaser version --prod",
     "release": "fixit-releaser changelog"
   }
 }
 ```
 
-> `fixit-releaser changelog` 配置与 auto-changelog 兼容。
-
-## 使用方法
-
-### 版本
-
-将 FixIt 版本从 v0.3.12-1ca9fdb7 更新到 v0.3.12。
-
-```bash
-npx fixit-releaser version --prod
-```
-
-将 FixIt 版本从 v0.3.12-1ca9fdb7 更新到 v0.3.12-2ca9fdb7。
-
-```bash
-npx fixit-releaser version --dev
-```
+## 🚀 用法
 
 ### 变更日志
 
-从 v0.3.10 生成变更日志。
+基于 [Conventional Commits](https://www.conventionalcommits.org/zh-hans/v1.0.0/) 规范，支持以下类型的提交：
+
+- `feat:` 新功能
+- `fix:` 修复问题
+- `perf:` 性能优化
+- `refactor:` 代码重构
+- `docs:` 文档变更
+- `test:` 测试相关
+- `style:` 代码格式调整
+- `chore:` 构建过程或辅助工具的变动
+- `build:` 构建系统变动
+- `ci:` 持续集成配置变动
+- `revert:` 代码回滚
+- 支持 scope：`feat(api):`, `fix(ui):` 等
+- 支持 emoji：`:sparkles: feat:`, `✨ feat:` 等
+- 支持 Breaking Changes：`feat!:`, `feat(scope)!:`, `BREAKING CHANGE:` 等格式
+- 自动忽略 WIP 提交：`wip:`, `Wip:` 等临时提交不会包含在变更日志中
+
+例如：
 
 ```bash
+# 生成全部版本的变更日志
+npx fixit-releaser changelog
+# 从指定版本开始生成变更日志
 npx fixit-releaser changelog --starting-version v0.3.10
-# auto-changelog: 6 kB written to CHANGELOG.md
 ```
 
-更多用法请参见 [auto-changelog](https://github.com/cookpete/auto-changelog)。
+> 命令更多参数请参见 [auto-changelog](https://github.com/cookpete/auto-changelog)。
 
-## 致谢
+### 版本 `*`
 
-本项目变更日志生成功能由 [auto-changelog](https://github.com/cookpete/auto-changelog) 提供支持。
+FixIt 内部开发版本格式如下：
+
+```plaintext
+v{major}.{minor}.{patch+1}-{timestamp}-{shortHash}
+```
+
+例如：
+
+```bash
+# 更新 FixIt 正式版本
+npx fixit-releaser version --prod
+# 更新 FixIt 开发版本
+npx fixit-releaser version --dev
+```
+
+## ⚙️ 配置
+
+[todo]
+
+> `fixit-releaser changelog` 配置与 auto-changelog 兼容。
+
+## 🙏 致谢
+
+- [auto-changelog](https://github.com/cookpete/auto-changelog)
 
 
 ---
