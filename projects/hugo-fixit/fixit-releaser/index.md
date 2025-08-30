@@ -64,7 +64,7 @@ npx fixit-releaser changelog
 npx fixit-releaser changelog --starting-version v0.3.10
 ```
 
-> 命令更多参数请参见 [auto-changelog](https://github.com/cookpete/auto-changelog)。
+> 执行 `fixit-releaser changelog -h` 获取帮助或者参考 [auto-changelog](https://github.com/cookpete/auto-changelog) 文档。
 
 ### 版本 `*`
 
@@ -78,9 +78,9 @@ v{major}.{minor}.{patch+1}-{timestamp}-{shortHash}
 
 ```bash
 # 更新 FixIt 正式版本
-npx fixit-releaser version --prod
+npx fixit-releaser version prod
 # 更新 FixIt 开发版本
-npx fixit-releaser version --dev
+npx fixit-releaser version dev
 ```
 
 ## ⚙️ 配置
