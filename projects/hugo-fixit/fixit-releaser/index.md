@@ -8,12 +8,13 @@
 
 版本控制、变更日志和发布工具。
 
+> [!CAUTION]
+> 该工具已停止维护！建议使用 [auto-changelog](https://github.com/Lruihao/auto-changelog)。
+
 ## ✨ 功能
 
 - 📝 自动生成变更日志（Conventional Commits 规范）
 - 🔖 更新 FixIt 内部版本号 `*`
-
-> 带 `*` 号的功能仅适用于 [FixIt](https://github.com/hugo-fixit/FixIt)。
 
 ## 📦 安装
 
@@ -28,7 +29,7 @@
 ```json
 {
   "scripts": {
-    "release": "fixit-releaser changelog"
+    "version": "fixit-releaser changelog -p && git add CHANGELOG.md"
   }
 }
 ```
@@ -68,6 +69,9 @@ npx fixit-releaser changelog --starting-version v0.3.10
 
 ### 版本 `*`
 
+> [!WARNING]
+> 已经集成到 [FixIt](https://github.com/hugo-fixit/FixIt) monorepo，见 [FixIt#629](https://github.com/hugo-fixit/FixIt/pull/629)
+
 FixIt 内部开发版本格式如下：
 
 ```plaintext
@@ -85,9 +89,7 @@ npx fixit-releaser version dev
 
 ## ⚙️ 配置
 
-[todo]
-
-> `fixit-releaser changelog` 配置与 auto-changelog 兼容。
+`fixit-releaser changelog` 配置与 auto-changelog 兼容。
 
 ## 🙏 致谢
 
