@@ -9,7 +9,7 @@
 版本控制、变更日志和发布工具。
 
 > [!CAUTION]
-> 该工具已停止维护！建议使用 [auto-changelog](https://github.com/Lruihao/auto-changelog)。
+> 该工具已停止维护！建议使用 [auto changelog plus](https://github.com/Lruihao/auto-changelog-plus) 或者 [auto changelog](https://github.com/cookpete/auto-changelog) 生成日志。
 
 ## ✨ 功能
 
