@@ -1,4 +1,4 @@
-# ⚙️ Versioning, change-log and release tool.
+# ⚙️ Versioning, change-log and release tool. (Superseded by https://github.com/Lruihao/auto-changelog-plus)
 
 # FixIt Releaser
 
