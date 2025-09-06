@@ -29,7 +29,7 @@ git clone https://github.com/hugo-fixit/docs.git fixit-docs && cd fixit-docs
 接着，安装开发依赖。
 
 ```bash
-npm install
+pnpm install
 ```
 
 最后，你就可以开始了！
@@ -38,11 +38,11 @@ npm install
 
 ```bash
 # 运行带有监听文件变化的本地调试服务器
-npm run server
+pnpm run server
 # 运行带有监听文件变化的本地调试服务器（生产环境）
-npm run server:production
+pnpm run server:production
 # 查看编辑主题部分
-npm run server:development
+pnpm run server:development
 ```
 
 ## 参与翻译
