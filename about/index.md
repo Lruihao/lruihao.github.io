@@ -46,6 +46,7 @@ const site = new Blog('菠菜眾長', 'Lruihao', 'https://lruihao.cn');
 {{< /style >}}
 
 {{< details "博客历史" >}}
+
 ```timeline {reverse=true, animation=true, height="280px"}
 events:
   - timestamp: 2018-05-28 20:01:01
@@ -63,6 +64,7 @@ events:
   - timestamp: 2023-05-01 17:13:51
     content: 部署从 GitHub Pages 迁移至 Vercel。
 ```
+
 {{< /details >}}
 
 ## 有偿帮助
@@ -77,14 +79,13 @@ _（其他类型开发也可以咨询）_
 
 📮 邮箱：`1024@lruihao.cn`（备注来意）
 
-
 已授权平台：[云 + 社区](https://cloud.tencent.com/developer/column/94521)
 
 ---
 
 {{< busuanzi_embed >}}
 
-<!-- markdownlint-disable-file -->
+<!-- markdownlint-disable-file MD004 MD007 MD032 MD036 -->
 
 
 ---
