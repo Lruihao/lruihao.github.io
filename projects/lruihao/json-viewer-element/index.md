@@ -55,8 +55,7 @@ import 'json-viewer-element'
 <json-viewer value='{"hello":"world","arr":[1,2,3]}' boxed copyable sort expand-depth="2" theme="dark"></json-viewer>
 ```
 
-> [!TIP]
-> 在 Vue 等框架中使用时，value 和 copyable 对象的值需要转成字符串传入。
+在 Vue 框架中使用：
 
 ```vue
 <template>
@@ -76,15 +75,18 @@ export default {
 
 ## 属性
 
-| 属性         | 类型                      | 默认值  | 说明                                       |
-| :----------- | :------------------------ | :------ | :----------------------------------------- |
-| value        | any                       |         | JSON 数据                                  |
-| expand-depth | number                    | 1       | 初始展开层级                               |
-| copyable     | boolean / CopyableOptions | false   | 启用复制按钮或自定义复制按钮配置（见下表） |
-| sort         | boolean                   | false   | 是否对对象键排序                           |
-| boxed        | boolean                   | false   | 是否显示边框和内边距                       |
-| theme        | 'light' / 'dark'          | 'light' | 主题                                       |
-| parse        | boolean                   | true    | 字符串值是否自动解析为 JSON                |
+> [!TIP]
+> 在 Vue 等框架中使用时，value 和 copyable 对象的值需要转成字符串传入。
+
+| 属性         | 类型                                       | 默认值  | 说明                                       |
+| :----------- | :----------------------------------------- | :------ | :----------------------------------------- |
+| value        | object / array / string / number / boolean | null    | JSON 数据                                  |
+| expand-depth | number                                     | 1       | 初始展开层级                               |
+| copyable     | boolean / CopyableOptions                  | false   | 启用复制按钮或自定义复制按钮配置（见下表） |
+| sort         | boolean                                    | false   | 是否对对象键排序                           |
+| boxed        | boolean                                    | false   | 是否显示边框和内边距                       |
+| theme        | 'light' / 'dark'                           | 'light' | 主题                                       |
+| parse        | boolean                                    | true    | 字符串值是否自动解析为 JSON                |
 
 ### CopyableOptions
 
