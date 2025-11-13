@@ -2,6 +2,8 @@
 
 # &lt;json-viewer&gt; Element
 
+简体中文 | [English](https://raw.githubusercontent.com/Lruihao/json-viewer-element/refs/heads/main./README.en.md)
+
 > 🌈 一个轻量、现代的 JSON 可视化与交互 Web 组件
 
 ## 功能特性
@@ -13,7 +15,7 @@
 - 🔑 **排序**：支持键排序
 - 🔍 **展开深度**：可控初始展开层级
 - 🧩 **自定义复制按钮**：slot 插槽支持
-- 🧬 **类型高亮**：丰富多彩的类型高亮
+- 🧬 **类型高亮**：多种类型高亮
 - 🛠️ **自定义事件**：支持 copy/toggle 事件监听
 
 ## 使用方法
@@ -57,6 +59,8 @@ import 'json-viewer-element'
 
 在 Vue 框架中使用：
 
+Vue 2/3 选项式 API：
+
 ```vue
 <template>
   <json-viewer :value="JSON.stringify(json)" boxed copyable sort expand-depth="2" theme="dark"></json-viewer>
@@ -73,10 +77,70 @@ export default {
 </script>
 ```
 
+Vue 3 组合式 API：
+
+```vue
+<script lang="ts" setup>
+import { ref } from 'vue'
+const json = ref({ hello: "world", arr: [1,2,3] })
+</script>
+
+<template>
+  <json-viewer :value="JSON.stringify(json)" boxed copyable sort expand-depth="2" theme="dark"></json-viewer>
+</template>
+```
+
+> [!TIP]
+>
+> [跳过组件解析](https://cn.vuejs.org/guide/extras/web-components.html#skipping-component-resolution)
+>
+> 为了让 Vue 知道某些元素应被视为自定义元素并跳过组件解析，我们可以指定 [`compilerOptions.isCustomElement` 选项](https://cn.vuejs.org/api/application.html#app-config-compileroptions)。
+
+```js
+// vite.config.js
+import vue from '@vitejs/plugin-vue'
+import vueJsx from '@vitejs/plugin-vue-jsx'
+
+export default {
+  plugins: [
+    vue({
+      template: {
+        compilerOptions: {
+          // 将所有带短横线的标签名都视为自定义元素
+          isCustomElement: tag => tag.includes('-')
+        }
+      }
+    }),
+    vueJsx({
+      // 将所有带短横线的标签名都视为自定义元素
+      isCustomElement: tag => tag.includes('-')
+    }),
+  ]
+}
+```
+
+如果你在 Vue 中使用 ESLint，可能需要配置忽略自定义元素：
+
+```js
+// eslint.config.js
+export default {
+  rules: {
+    'vue/component-name-in-template-casing': [
+      'warn',
+      'PascalCase',
+      {
+        registeredComponentsOnly: false,
+        ignores: ['/^icon-/', 'json-viewer'],
+      },
+    ],
+  },
+}
+```
+
 ## 属性
 
 > [!TIP]
-> 在 Vue 等框架中使用时，value 和 copyable 对象的值需要转成字符串传入。
+> 在 Vue 等框架中使用时，value 和 copyable 属性的值需要转成字符串传入。
 
 | 属性         | 类型                                       | 默认值  | 说明                                       |
 | :----------- | :----------------------------------------- | :------ | :----------------------------------------- |
