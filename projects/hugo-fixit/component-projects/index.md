@@ -14,7 +14,7 @@
   <a href="https://fixit.lruihao.cn/ecosystem/hugo-fixit/component-projects/?lang=russian">Русский язык</a> |
   <a href="https://fixit.lruihao.cn/ecosystem/hugo-fixit/component-projects/?lang=spanish">Español</a> |
   <a href="https://fixit.lruihao.cn/ecosystem/hugo-fixit/component-projects/?lang=hindi">हिन्दी</a> |
-  <a href="https://fixit.lruihao.cn/ecosystem/hugo-fixit/component-projects/?lang=german">deutsch</a> |
+  <a href="https://fixit.lruihao.cn/ecosystem/hugo-fixit/component-projects/?lang=deutsch">deutsch</a> |
   <a href="https://fixit.lruihao.cn/ecosystem/hugo-fixit/component-projects/?lang=korean">한국어</a> |
   <a href="https://fixit.lruihao.cn/ecosystem/hugo-fixit/component-projects/?lang=japanese">しろうと</a>
 </div>
