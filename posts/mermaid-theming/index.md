@@ -6,7 +6,7 @@ Mermaid 是目前最流行的「文本即图表」渲染库，但它对「系统
 
 <!--more-->
 
-## 背景：Mermaid 主题机制与痛点痛点痛点痛点 1 痛点 2
+## 背景：Mermaid 主题机制与痛点
 
 ```mermaid
 flowchart LR
