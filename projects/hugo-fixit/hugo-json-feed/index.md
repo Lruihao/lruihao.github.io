@@ -20,10 +20,12 @@
 
 ```diff
 [module]
-  [[module.imports]]
-    path = "github.com/hugo-fixit/FixIt"
+
+[[module.imports]]
+path = "github.com/hugo-fixit/FixIt"
+
 + [[module.imports]]
-+   path = "github.com/hugo-fixit/hugo-json-feed"
++ path = "github.com/hugo-fixit/hugo-json-feed"
 ```
 
 ## 配置
@@ -32,24 +34,24 @@
 
 ```toml
 [outputs]
-  # <baseURL>/feed.json
-  home = ["html", "rss", "jsonfeed"]
-  # <baseURL>/posts/feed.json 等
-  section = ["html", "rss", "jsonfeed"]
-  # <baseURL>/tags/foo/feed.json 等
-  term = ["html", "rss", "jsonfeed"]
+# <baseURL>/feed.json
+home = ["html", "rss", "jsonfeed"]
+# <baseURL>/posts/feed.json 等
+section = ["html", "rss", "jsonfeed"]
+# <baseURL>/tags/foo/feed.json 等
+term = ["html", "rss", "jsonfeed"]
 ```
 
 如果您的站点使用多个主题组件，则需要合并所有主题组件的 `outputs` 配置。例如，如果您的站点同时使用 `FixIt` 和 `hugo-json-feed` 主题组件，则需要合并两个主题组件的 `outputs` 配置：
 
 ```toml
 [outputs]
-  _merge = "shallow"
-  home = ["html", "rss", "jsonfeed", "archives", "offline", "readme", "baidu_urls", "search"]
-  page = ["html", "markdown"]
-  section = ["html", "rss", "jsonfeed"]
-  taxonomy = ["html"]
-  term = ["html", "rss", "jsonfeed"]
+_merge = "shallow"
+home = ["html", "rss", "jsonfeed", "archives", "offline", "readme", "baidu_urls", "search"]
+page = ["html", "markdown"]
+section = ["html", "rss", "jsonfeed"]
+taxonomy = ["html"]
+term = ["html", "rss", "jsonfeed"]
 ```
 
 ### 参数
@@ -58,30 +60,33 @@
 
 ```toml
 [params]
-  # 全局 JSON feed 配置
-  [params.feed]
-    # feed 中包含的文章数量。如果设置为 -1，则包含所有文章。
-    limit = 10
-    # 是否在 feed 中显示全文。
-    fullText = true
 
-  # 分类页面配置（分类中的所有页面）
-  [params.section]
-    # 分类页面的 JSON feed 配置
-    [params.section.feed]
-      # feed 中包含的文章数量。如果设置为 -1，则包含所有文章。
-      limit = -1
-      # 是否在 feed 中显示全文。
-      fullText = false
+# 全局 JSON feed 配置
+[params.feed]
+# feed 中包含的文章数量。如果设置为 -1，则包含所有文章。
+limit = 10
+# 是否在 feed 中显示全文。
+fullText = true
 
-  # 标签列表（分类或标签）页面配置
-  [params.list]
-    # 标签列表的 JSON feed 配置
-    [params.list.feed]
-      # feed 中包含的文章数量。如果设置为 -1，则包含所有文章。
-      limit = -1
-      # 是否在 feed 中显示全文。
-      fullText = false
+# 分类页面配置（分类中的所有页面）
+[params.section]
+
+# 分类页面的 JSON feed 配置
+[params.section.feed]
+# feed 中包含的文章数量。如果设置为 -1，则包含所有文章。
+limit = -1
+# 是否在 feed 中显示全文。
+fullText = false
+
+# 标签列表（分类或标签）页面配置
+[params.list]
+
+# 标签列表的 JSON feed 配置
+[params.list.feed]
+# feed 中包含的文章数量。如果设置为 -1，则包含所有文章。
+limit = -1
+# 是否在 feed 中显示全文。
+fullText = false
 ```
 
 ### Front matter
