@@ -4,13 +4,14 @@
 
 > Hugo FixIt 作者，喜欢瞎折腾、造轮子、写东西，分享一些前端开发中的所见、所闻、所思。
 
-共计 296 篇文章 by [Lruihao](https://github.com/Lruihao).
+共计 297 篇文章 by [Lruihao](https://github.com/Lruihao).
 
 ## 2025
 
 <details open>
-<summary>共计 13 篇文章</summary>
+<summary>共计 14 篇文章</summary>
 
+- 12-24 [A Christmas Easter Egg by JavaScript.](https://lruihao.cn/projects/hugo-fixit/cmpt-santa-hat/ "2025-12-24 03:31:47")
 - 08-30 [Command line tool for generating a changelog from git tags and commit history](https://lruihao.cn/projects/lruihao/auto-changelog-plus/ "2025-08-30 15:40:19")
 - 08-16 [让 Mermaid 图表自动跟随系统深浅色](https://lruihao.cn/posts/mermaid-theming/ "2025-08-16 12:37:49")
 - 08-05 [黑盒出关・三把钥匙定江湖](https://lruihao.cn/posts/wc-01-prologue/ "2025-08-05 11:31:52")
