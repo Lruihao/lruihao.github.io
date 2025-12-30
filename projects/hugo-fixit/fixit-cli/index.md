@@ -4,11 +4,11 @@
 
 [![NPM version](https://img.shields.io/npm/v/fixit-cli.svg)](https://www.npmjs.com/package/fixit-cli)
 
-👉 中文 | [English](README.en.md)
+👉 中文 | [English](https://raw.githubusercontent.com/hugo-fixit/fixit-cli/refs/heads/main/README.en.md)
 
 🛠️ 一个基于 Node.js 开发的用于 [FixIt](https://github.com/hugo-fixit/FixIt) 站点初始化的脚手架工具。
 
-[![asciicast](fixit-cli.gif)](https://asciinema.org/a/697494)
+[![asciicast](https://raw.githubusercontent.com/hugo-fixit/fixit-cli/refs/heads/main/fixit-cli.gif)](https://asciinema.org/a/697494)
 
 ## 系统依赖
 
@@ -16,11 +16,11 @@
 - [Git](https://git-scm.com/)
 - [Hugo](https://gohugo.io/) 扩展版
 
-如果你使用 [Hugo 模块](https://gohugo.io/hugo-modules/) 功能加载主题，你还需要安装 [Go](https://golang.org/dl/)。
+如果你使用 [Hugo 模块](https://gohugo.io/hugo-modules/) 功能加载主题，你还需要安装 [Go](https://go.dev/dl/)。
 
 ## 使用
 
-使用 [`pnpx`](https://pnpm.io/cli/dlx) 或者 [`npx`](https://docs.npmjs.com/cli/v11/commands/npx) 直接运行 `fixit-cli`，创建一个新的 FixIt 项目会非常方便，当然你也可以全局安装 `fixit-cli`，然后使用 `fixit` 命令。
+使用 [`pnpx`](https://pnpm.io/cli/dlx) 或者 [`npx`](https://docs.npmjs.com/cli/v11/commands/npx) 直接运行 `fixit-cli`，创建一个新的 FixIt 项目会非常方便。
 
 例如，创建一个名为 `my-blog` 的站点：
 
@@ -28,7 +28,59 @@
 pnpx fixit-cli create my-blog
 ```
 
-更多用法请参考下面的帮助信息：
+当然你也可以全局安装 `fixit-cli`，然后使用 `fixit` 命令。
+
+```bash
+npm install -g fixit-cli
+# 或者
+pnpm add -g fixit-cli
+# 或者
+yarn global add fixit-cli
+```
+
+### create
+
+创建一个新的 FixIt 项目。
+
+```bash
+fixit create [project-name]
+```
+
+创建一个新的 FixIt 组件。
+
+```bash
+fixit create component [component-name]
+```
+
+### split
+
+将 `hugo.toml` 配置文件分割到 `config/_default` 目录。
+
+分割本地文件：
+
+```bash
+fixit split hugo.toml
+```
+
+分割远程文件：
+
+```bash
+fixit split https://raw.githubusercontent.com/hugo-fixit/FixIt/refs/heads/main/hugo.toml
+# 或者
+fixit split https://gitee.com/lruihao/FixIt/raw/main/hugo.toml
+```
+
+### check
+
+检查 FixIt 主题的最新版本。
+
+```bash
+fixit check
+```
+
+## 更多帮助
+
+获取所有可用命令的帮助信息：
 
 ```bash
 pnpx fixit-cli -h
@@ -45,7 +97,7 @@ Usage: fixit <command> [options]
         █      ▐█  ▄ █   ▐█    █
          █      ▐ █   ▀▄  ▐   ▀
           ▀        ▀
-              fixit-cli v1.2.1
+              fixit-cli v1.3.7
          A cli tool for FixIt theme.
 
 =============================================
@@ -61,6 +113,7 @@ Options:
 
 Commands:
   create|new [project-name]  create a new FixIt project/component from a template
+  split [options] [file]     split hugo.toml into config/_default directory
   check                      check the latest version of FixIt theme
   help [command]             display help for command
 ```
@@ -95,9 +148,7 @@ pnpm remove -g fixit-cli
 
 ### TODO List
 
-- [ ] 检查是否安装 Hugo，没有安装，可通过 Node 包安装 `hugo-bin`/`hugo-extended`
-- [ ] 执行 `fixit check` 命令后，获取到新版本后，提示是否更新
-- [ ] 新增 `fixit add` 命令，用于添加新的 FixIt 主题组件（`fixit create` 命令增加主题组件选项）
+- [ ] `fixit create` 命令在选择模板后增加主题组件选项选择步骤
 
 ## 相关项目
 

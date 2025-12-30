@@ -6,7 +6,9 @@
 
 这是 Hugo 主题 [FixIt](https://github.com/hugo-fixit/FixIt) 的快速启动模板。它使用 [Hugo 模块](https://gohugo.io/hugo-modules/) 功能加载主题。如果你更熟悉 Git，可以 [查看这个模板](https://github.com/hugo-fixit/hugo-fixit-starter1)。
 
-它提供了基本的主题结构和配置。已经设置了 GitHub Actions，可以自动部署博客到 GitHub Pages。此外，还有一个定时任务，每天自动更新主题。
+它提供了基本的主题结构和 [配置目录](https://gohugo.io/configuration/introduction/#configuration-directory)[^1]。已经设置了 GitHub Actions，可以自动部署博客到 GitHub Pages。此外，还有一个定时任务，每天自动更新主题。
+
+[^1]: 与单一站点配置文件不同，配置按环境、根配置键和语言进行拆分。
 
 ## 目录结构
 
