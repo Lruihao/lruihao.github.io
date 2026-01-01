@@ -6,7 +6,7 @@
 
 ## 2025
 
-<details open>
+<details>
 <summary>共计 14 篇文章</summary>
 
 - 12-24 [A Christmas Easter Egg by JavaScript.](https://lruihao.cn/projects/hugo-fixit/cmpt-santa-hat/ "2025-12-24 03:31:47")
