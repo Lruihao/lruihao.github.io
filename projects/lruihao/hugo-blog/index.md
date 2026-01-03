@@ -2,7 +2,7 @@
 
 # 菠菜眾長
 
-[![Hugo](https://img.shields.io/badge/Hugo-%5E0.146.0-ff4088?style=flat&logo=hugo)](https://gohugo.io/)
+[![Hugo](https://img.shields.io/badge/Hugo-%5E0.147.7-ff4088?style=flat&logo=hugo)](https://gohugo.io/)
 [![Hugo build and deploy](https://github.com/Lruihao/hugo-blog/actions/workflows/deploy.yml/badge.svg?branch=main)](https://github.com/Lruihao/hugo-blog/actions/workflows/deploy.yml)
 [![GitHub commit activity (main)](https://img.shields.io/github/commit-activity/m/Lruihao/hugo-blog/main?style=flat)](https://github.com/Lruihao/hugo-blog/commits/main)
 
@@ -63,7 +63,7 @@
 
 - [Node.js](https://nodejs.org/): >= 18.0.0
 - [Go](https://go.dev/dl/)
-- [Hugo](https://gohugo.io/installation/): >= 0.146.0 (extended version)
+- [Hugo](https://gohugo.io/installation/): >= 0.147.7 (extended version)
 
 ### Clone
 
