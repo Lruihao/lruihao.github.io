@@ -98,23 +98,17 @@ theme = [
 
 ## 配置
 
-为了通过 FixIt 主题在 `layouts/_partials/custom.html` 文件中开放的 [自定义块](https://fixit.lruihao.cn/references/blocks/) 将 `cmpt-translate.html` 注入到 `custom-assets` 中，你需要填写以下必要配置：
+为了通过 FixIt 主题开放的 [自定义块](https://fixit.lruihao.cn/references/blocks/) 将 `cmpt-translate.html` 注入到 `custom-assets` 中，你需要填写以下必要配置：
 
 ```toml
 [params]
 
 [params.customPartials]
-head = []
-menuDesktop = [ "inject/translate-menu-desktop.html", ]
-menuMobile = [ "inject/translate-menu-mobile.html", ]
-profile = []
-aside = []
-comment = []
-footer = []
-widgets = []
-assets = [ "inject/cmpt-translate.html", ]
-postFooterBefore = []
-postFooterAfter = []
+# ... other partials
+menuDesktop = [ "inject/translate-menu-desktop.html" ]
+menuMobile = [ "inject/translate-menu-mobile.html" ]
+assets = [ "inject/cmpt-translate.html" ]
+# ... other partials
 ```
 
 另外，你还可以通过以下配置来自定义翻译的语言：
