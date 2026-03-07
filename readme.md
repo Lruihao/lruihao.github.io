@@ -4,6 +4,15 @@
 
 共计 297 篇文章 by [Lruihao](https://github.com/Lruihao).
 
+## 2026
+
+<details open>
+<summary>共计 1 篇文章</summary>
+
+- 03-06 [一个轻量化 Tooltip 组件。](https://lruihao.cn/projects/lruihao/cell-tooltip/ "2026-03-06 06:58:23")
+
+</details>
+
 ## 2025
 
 <details>
@@ -118,11 +127,10 @@
 ## 2022
 
 <details>
-<summary>共计 21 篇文章</summary>
+<summary>共计 20 篇文章</summary>
 
 - 12-17 [2022 年度总结](https://lruihao.cn/years/2022/ "2022-12-17 01:01:30")
 - 12-15 [安装 Homebrew 后导致系统中原有的 npm 和 npx 失效](https://lruihao.cn/posts/homebrew-npm/ "2022-12-15 15:33:30")
-- 12-09 [基于 Bootstrap 5 + Font Awesome 6 的消息提示插件](https://lruihao.cn/projects/lruihao/cell-tooltip/ "2022-12-09 14:54:49")
 - 10-10 [基于 fex-team/kityminder-core 和 Vue2 封装的在线脑图编辑组件](https://lruihao.cn/projects/lruihao/vue-minder-editor-extended/ "2022-10-10 02:50:53")
 - 09-30 [🆕 A quick-start template base on Hugo Modules to create a Hugo FixIt site.](https://lruihao.cn/projects/hugo-fixit/hugo-fixit-starter/ "2022-09-30 09:28:41")
 - 09-27 [🆕 A quick-start template base on Git submodule to create a Hugo FixIt site.](https://lruihao.cn/projects/hugo-fixit/hugo-fixit-starter1/ "2022-09-27 15:23:38")

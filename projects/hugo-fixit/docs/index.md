@@ -3,7 +3,7 @@
 # FixIt 主题文档
 
 [![Production environment](https://img.shields.io/github/deployments/hugo-fixit/docs/Production?style=flat&label=Vercel&logo=vercel)](https://fixit.lruihao.cn/)
-[![Hugo](https://img.shields.io/badge/Hugo-%5E0.147.7-ff4088?style=flat&logo=hugo)](https://gohugo.io/)
+[![Hugo](https://img.shields.io/badge/Hugo-%5E0.156.0-ff4088?style=flat&logo=hugo)](https://gohugo.io/)
 
 👉 中文 | [English](README.en.md)
 
@@ -13,7 +13,7 @@
 
 - [Node.js](https://nodejs.org/): >= 20.0.0
 - [Go](https://go.dev/dl/)
-- [Hugo](https://gohugo.io/installation/): >= 0.147.7 (extended version)
+- [Hugo](https://gohugo.io/installation/): >= 0.156.0 (extended version)
 
 ## 贡献文档
 
