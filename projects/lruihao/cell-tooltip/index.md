@@ -57,16 +57,25 @@ pnpm preview
 ### 2) TS
 
 ```ts
-import { Tooltip } from './src'
+import CellTooltip from 'cell-tooltip'
 
 const element = document.querySelector<HTMLElement>('#btn')
 
 if (element) {
-  Tooltip.getOrCreateInstance(element)
+  CellTooltip.getOrCreateInstance(element)
 }
 
 // 批量初始化
 Tooltip.initAll('[data-ct-title]')
+```
+
+### 3) 浏览器直引（UMD / IIFE）
+
+```html
+<script src="./dist/cell-tooltip.umd.js"></script>
+<script>
+  CellTooltip.initAll('[data-ct-title]')
+</script>
 ```
 
 ## 配置项
@@ -120,6 +129,8 @@ interface TooltipOptions {
 ## 实例方法
 
 ```ts
+import Tooltip from 'cell-tooltip'
+
 const tooltip = Tooltip.getOrCreateInstance(element, {
   title: 'Manual tooltip',
   trigger: 'manual',
