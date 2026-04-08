@@ -68,13 +68,16 @@ hash.
          - name: Print Output
            id: output
            run: echo "${{ steps.test-action.outputs.repos }}"
-         - name: Commit changes
-           uses: stefanzweifel/git-auto-commit-action@v5
+         - name: Create Pull Request
+           uses: peter-evans/create-pull-request@v8
            with:
-             commit_message: 'Docs: update hugo-fixit component list'
-             commit_author:
-               'github-actions[bot]
-               <github-actions[bot]@users.noreply.github.com>'
+             title: Update hugo-fixit component list
+             commit-message: 'docs(readme): update hugo-fixit component list'
+             body: This PR updates the hugo-fixit component list in the README.
+             base: main
+             branch: update-component-list
+             labels: documentation
+             # reviewers: Lruihao
    ```
 
 6. Go to repository settings, Click on Actions > General. Update the "Workflow
