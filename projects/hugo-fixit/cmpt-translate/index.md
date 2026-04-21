@@ -14,9 +14,9 @@
   <a href="https://fixit.lruihao.cn/ecosystem/hugo-fixit/cmpt-translate/?lang=russian">Русский язык</a> |
   <a href="https://fixit.lruihao.cn/ecosystem/hugo-fixit/cmpt-translate/?lang=spanish">Español</a> |
   <a href="https://fixit.lruihao.cn/ecosystem/hugo-fixit/cmpt-translate/?lang=hindi">हिन्दी</a> |
-  <a href="https://fixit.lruihao.cn/ecosystem/hugo-fixit/cmpt-translate/?lang=deutsch">deutsch</a> |
+  <a href="https://fixit.lruihao.cn/ecosystem/hugo-fixit/cmpt-translate/?lang=deutsch">Deutsch</a> |
   <a href="https://fixit.lruihao.cn/ecosystem/hugo-fixit/cmpt-translate/?lang=korean">한국어</a> |
-  <a href="https://fixit.lruihao.cn/ecosystem/hugo-fixit/cmpt-translate/?lang=japanese">しろうと</a>
+  <a href="https://fixit.lruihao.cn/ecosystem/hugo-fixit/cmpt-translate/?lang=japanese">日本語</a>
 </div>
 
 ## Demo
@@ -230,8 +230,6 @@ autoTranslate:
 
 - [translate.js](https://github.com/xnx3/translate) 及相关生态产品的开发者
 - [FixIt](https://github.com/hugo-fixit/FixIt) 及相关生态产品的开发者
-
-另外，[Hugo FixIt 星球](https://wx.zsxq.com/group/88888281181442?group_id=88888281181442&coupon_code=ks2qf5zd&inviter_id=15442515242512&inviter_sid=e15da0zzz4&keyword=BQcpe&type=group) 成员每人补贴赠送 **6 个月服务 / 年**。
 
 ### 赞助方式
 

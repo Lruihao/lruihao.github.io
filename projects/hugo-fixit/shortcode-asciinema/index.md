@@ -12,9 +12,9 @@
   <a href="https://fixit.lruihao.cn/ecosystem/hugo-fixit/shortcode-asciinema/?lang=russian">Русский язык</a> |
   <a href="https://fixit.lruihao.cn/ecosystem/hugo-fixit/shortcode-asciinema/?lang=spanish">Español</a> |
   <a href="https://fixit.lruihao.cn/ecosystem/hugo-fixit/shortcode-asciinema/?lang=hindi">हिन्दी</a> |
-  <a href="https://fixit.lruihao.cn/ecosystem/hugo-fixit/shortcode-asciinema/?lang=deutsch">deutsch</a> |
+  <a href="https://fixit.lruihao.cn/ecosystem/hugo-fixit/shortcode-asciinema/?lang=deutsch">Deutsch</a> |
   <a href="https://fixit.lruihao.cn/ecosystem/hugo-fixit/shortcode-asciinema/?lang=korean">한국어</a> |
-  <a href="https://fixit.lruihao.cn/ecosystem/hugo-fixit/shortcode-asciinema/?lang=japanese">しろうと</a>
+  <a href="https://fixit.lruihao.cn/ecosystem/hugo-fixit/shortcode-asciinema/?lang=japanese">日本語</a>
 </div>
 
 ## Demo
