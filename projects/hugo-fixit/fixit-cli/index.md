@@ -82,6 +82,18 @@ fixit split hugo.toml -o config/development
 fixit split hugo.toml -y
 ```
 
+获取并拆分 FixIt 最新 release 的配置：
+
+```bash
+fixit split latest
+```
+
+获取并拆分最新 release 的配置并转换为 YAML 格式：
+
+```bash
+fixit split latest -y
+```
+
 ### toml2yaml
 
 将 TOML 配置文件转换为 YAML 格式，支持单个文件或整个目录。
