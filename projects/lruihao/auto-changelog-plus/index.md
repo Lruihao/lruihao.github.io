@@ -125,9 +125,7 @@ pnpm add -D auto-changelog-plus
 
 使用 `-p` 或 `--package` 将 `package.json` 中的 `version` 用作最新发布，这样以前发布和现在之间的所有提交都成为该发布的一部分。基本上任何通常被解析为 `Unreleased` 的内容现在都会出现在 `package.json` 的 `version` 下。
 
-现在每次运行 [npm version](https://docs.npmjs.com/cli/version) 时，changelog 将自动更新并成为版本提交的一部分。
-
-在不是 NPM 包的项目中，可以使用 `npx` 或 `pnpx` 来运行 `auto-changelog-plus`，例如：
+现在每次运行 [npm version](https://docs.npmjs.com/cli/version) 时，changelog 将自动更新并成为版本提交的一部分。在不是 NPM 包的项目中，可以使用 `npx` 或 `pnpx` 来运行 `auto-changelog-plus`，例如：
 
 ```bash
 npx auto-changelog-plus
@@ -170,6 +168,23 @@ jobs:
         with:
           draft: true
           body_path: CHANGELOG.md
+```
+
+## 👤 配置作者映射（可选）
+
+在 `package.json` 中的 `auto-changelog-plus` 字段中配置 `authorMap`，可以将 git 提交的作者名称映射到 GitHub 用户名。这在生成包含 GitHub 链接的 Changelog 时非常有用。
+
+```json
+{
+  "name": "my-awesome-package",
+  "version": "1.0.0",
+  "auto-changelog-plus": {
+    "authorMap": {
+      "提交作者名": "GitHub 用户名",
+      "Cell": "Lruihao"
+    }
+  }
+}
 ```
 
 ## 🔄 和 auto-changelog 的区别
