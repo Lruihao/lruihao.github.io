@@ -80,7 +80,7 @@ theme = ["FixIt", "cmpt-santa-hat"]
 ```toml
 [params]
 
-[params.customPartials]
+[params.custom_partials]
 # ... other partials
 assets = [
   "inject/santa-hat.fixit.html",
@@ -93,7 +93,7 @@ assets = [
 - Logo 尺寸推荐：32x32 像素。
 - CSS 变量：
   - `--fi-santa-hat-offset`：控制圣诞帽相对于 Logo 的平移偏移，默认值 `8px 2px`。
-  - `--fi-santa-hat-shadow`：控制帽子阴影的 RGB 值，默认值 `0, 0, 0`，暗色模式下会自动切换为 `255, 255, 255`。
+  - `--fi-santa-hat-shadow`：控制帽子阴影颜色，默认值 `light-dark(rgba(0, 0, 0, 0.6), rgba(255, 255, 255, 0.6))`，自动适配亮/暗色模式。
 
 <!-- 
 ## 参考

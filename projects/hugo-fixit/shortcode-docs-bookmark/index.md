@@ -8,18 +8,19 @@
 
 ## Requirements
 
-- FixIt v0.4.0 or later.
+- v2 requires FixIt v1.x
+- v1 requires FixIt v0.4.x
 
 ## Install Component
 
-The installation method is the same as [installing a theme](https://fixit.lruihao.cn/documentation/installation/). There are several ways to install, choose one, for example, install through Hugo Modules:
+The installation method is the same as [installing a theme](https://fixit.lruihao.cn/docs/installation/). There are several ways to install, choose one, for example, install through Hugo Modules:
 
 ```diff
 [module]
   [[module.imports]]
     path = "github.com/hugo-fixit/FixIt"
 + [[module.imports]]
-+   path = "github.com/hugo-fixit/shortcode-docs-bookmark"
++   path = "github.com/hugo-fixit/shortcode-docs-bookmark/v2"
 ```
 
 ## Configuration
@@ -28,7 +29,7 @@ In order to Inject the partial `fixit-docs-bookmark.html` into the `custom-head`
 
 ```toml
 [params]
-  [params.customPartials]
+  [params.custom_partials]
     # ... other partials
     head = [ "inject/fixit-docs-bookmark.html" ]
     # ... other partials

@@ -13,18 +13,19 @@ A Hugo theme component with `reward-log` or `sponsor-log` shortcode.
 
 > Developed based on the FixIt Timeline plugin.
 
-- FixIt v0.4.0 or later.
+- v2 requires FixIt v1.0.x
+- v1 requires FixIt v0.4.x
 
 ## Install Component
 
-The installation method is the same as [installing a theme](https://fixit.lruihao.cn/documentation/installation/). There are several ways to install, choose one, for example, install through Hugo Modules:
+The installation method is the same as [installing a theme](https://fixit.lruihao.cn/docs/installation/). There are several ways to install, choose one, for example, install through Hugo Modules:
 
 ```diff
 [module]
   [[module.imports]]
     path = "github.com/hugo-fixit/FixIt"
 + [[module.imports]]
-+   path = "github.com/hugo-fixit/shortcode-rewards"
++   path = "github.com/hugo-fixit/shortcode-rewards/v2"
 ```
 
 ## Configuration
@@ -33,7 +34,7 @@ In order to Inject the partial `shortcode-rewards.html` into the `custom-head` t
 
 ```toml
 [params]
-  [params.customPartials]
+  [params.custom_partials]
     # ... other partials
     head = [ "inject/shortcode-rewards.html" ]
     # ... other partials
@@ -44,7 +45,7 @@ In order to Inject the partial `shortcode-rewards.html` into the `custom-head` t
 First, create the `reward-log.yml` file and edit your data:
 
 ```bash
-cp themes/shortcode-sponsor-log/reward_log.yml.example data/reward_log.yml
+cp themes/shortcode-rewards/reward_log.yml.example data/reward_log.yml
 ```
 
 > If your site is multilingual, you can create a `reward_log.en.yml` file for English and `reward_log.zh-cn.yml` for Chinese.
