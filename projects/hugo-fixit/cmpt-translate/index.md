@@ -46,12 +46,14 @@
 
 ## 要求
 
-- Hugo v0.156.0 或更高版本。
-- FixIt v0.4.5 或更高版本。
+- Hugo v0.161.0 或更高版本。
+- FixIt v1.0.0 或更高版本。
+
+> FixIt v0.4.5 请使用本组件 v1 版本。
 
 ## 安装组件
 
-安装方式与 [安装主题](https://fixit.lruihao.cn/zh-cn/documentation/installation/) 相同，有多种安装方式，任选一种即可，这里介绍两种主流方式。
+安装方式与 [安装主题](https://fixit.lruihao.cn/zh-cn/docs/installation/) 相同，有多种安装方式，任选一种即可，这里介绍两种主流方式。
 
 ### 作为 Hugo 模块安装
 
@@ -66,7 +68,7 @@
 path = "github.com/hugo-fixit/FixIt"
 
 [[module.imports]]
-path = "github.com/hugo-fixit/cmpt-translate"
+path = "github.com/hugo-fixit/cmpt-translate/v2"
 ```
 
 在 Hugo 的第一次启动时，它将下载所需的文件。
@@ -103,7 +105,7 @@ theme = [
 ```toml
 [params]
 
-[params.customPartials]
+[params.custom_partials]
 # ... other partials
 menuDesktop = [ "inject/translate-menu-desktop.html" ]
 menuMobile = [ "inject/translate-menu-mobile.html" ]
@@ -117,19 +119,19 @@ assets = [ "inject/cmpt-translate.html" ]
 [languages]
 
 [languages.zh-cn]
-languageCode = "zh-CN"
-languageName = "简体中文"
+locale = "zh-CN"
+label = "简体中文"
 
 [params]
 
-[params.autoTranslate]
+[params.auto_translate]
 enable = true
 service = 'client.edge'
 languages = []
-ignoreID = []
-ignoreClass = []
-ignoreTag = []
-detectLocalLanguage = false
+ignore_id = []
+ignore_class = []
+ignore_tag = []
+detect_local_language = false
 cdn = ""
 enterprise = false
 ```
@@ -137,51 +139,51 @@ enterprise = false
 - `enable`：是否启用自动翻译。
 - `service`：翻译服务提供商，可选值为 `client.edge` 和 `translate.service`，详见：[翻译服务提供商](https://translate.zvo.cn/43086.html)。
 - `languages`：要翻译到的语言 ID 列表，例如 `["english", "chinese_simplified", "chinese_traditional", ...]`，详见：[完整语言列表](https://api.translate.zvo.cn/language.json)。
-- `ignoreID`：需要忽略翻译的元素 ID，例如 `["comment", ...]`。
-- `ignoreClass`：需要忽略翻译的类名，例如 `["post-category", ...]`。
-- `ignoreTag`：需要忽略翻译的标签，例如 `["title", ...]`。
-- `ignoreText`：需要忽略翻译的文本，例如 `["FixIt", "Lruihao", ...]`。
-- `detectLocalLanguage`：是否检测本地语言。
+- `ignore_id`：需要忽略翻译的元素 ID，例如 `["comment", ...]`。
+- `ignore_class`：需要忽略翻译的类名，例如 `["post-category", ...]`。
+- `ignore_tag`：需要忽略翻译的标签，例如 `["title", ...]`。
+- `ignore_text`：需要忽略翻译的文本，例如 `["FixIt", "Lruihao", ...]`。
+- `detect_local_language`：是否检测本地语言。
 - `cdn`：translate.js 的 CDN，例如 `https://cdn.jsdelivr.net/npm/i18n-jsautotranslate@latest`。
 - `enterprise`：是否启用[企业级翻译通道](#enterprise)。
 
 > [!NOTE]
-> 为了避免翻译语言获取失败，即使你的站点本身是单语言的，也需要配置 `languageCode` 和 `languageName`，例如：
+> 为了避免翻译语言获取失败，即使你的站点本身是单语言的，也需要配置 `locale` 和 `label`，例如：
 >
 > ```toml
 > [languages]
 >
 > [languages.zh-cn]
-> languageCode = "zh-CN"
-> languageName = "简体中文"
+> locale = "zh-CN"
+> label = "简体中文"
 > ```
 
 ## Front Matter
 
 ```yaml
-autoTranslate:
+auto_translate:
   local: ''
-  fromLanguages: []
-  onlyLocalLang: false
+  from_languages: []
+  only_local_lang: false
 ```
 
 - `local`: `String` 用于指定当前页面的本地语言，例如 `local: english`。
 
     默认本地语言同 Hugo 站点配置相同，如果某个页面实际语言与站点配置不同，可以通过 `local` 参数指定。
 
-- `fromLanguages`: `Array` 类型，用于指定当前页面内容中出现的语种是否需要翻译。
+- `from_languages`: `Array` 类型，用于指定当前页面内容中出现的语种是否需要翻译。
 
     例如：网页本身是中文，但是内容中还有其他语言，你可以指定需要翻译的语种，例如：
 
     ```yaml
-    fromLanguages:
+    from_languages:
       - chinese_simplified
       - chinese_traditional
     ```
 
-- `onlyLocalLang`: `Boolean` 类型，用于指定是否只翻译当前页面本地语言，默认为 `false`。
+- `only_local_lang`: `Boolean` 类型，用于指定是否只翻译当前页面本地语言，默认为 `false`。
 
-    例如：网页本身是中文，但是内容中其他语言的摘要引用，设置 `onlyLocalLang: true` 可以只翻译中文。
+    例如：网页本身是中文，但是内容中其他语言的摘要引用，设置 `only_local_lang: true` 可以只翻译中文。
 
 ## 自定义翻译术语
 
@@ -206,7 +208,7 @@ autoTranslate:
 > 企业级稳定翻译通道，仅针对**付费用户**开放。\
 > **体验额度**：每天有 5 万字符的体验额度，超出部分将不再翻译！
 
-在 FixIt 里启用企业级翻译通道，设置 `params.autoTranslate.enterprise` 为 `true` 即可，[企业级翻译通道](https://translate.zvo.cn/4087.html)相对于普通翻译通道有以下优势：
+在 FixIt 里启用企业级翻译通道，在配置中设置 `enterprise` 为 `true` 即可，[企业级翻译通道](https://translate.zvo.cn/4087.html)相对于普通翻译通道有以下优势：
 
 | 服务           | 开源翻译通道      | 企业级翻译通道           |
 | :------------- | :---------------- | :----------------------- |

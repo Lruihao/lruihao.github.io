@@ -14,9 +14,9 @@
   <a href="https://fixit.lruihao.cn/ecosystem/hugo-fixit/component-projects/?lang=russian">Русский язык</a> |
   <a href="https://fixit.lruihao.cn/ecosystem/hugo-fixit/component-projects/?lang=spanish">Español</a> |
   <a href="https://fixit.lruihao.cn/ecosystem/hugo-fixit/component-projects/?lang=hindi">हिन्दी</a> |
-  <a href="https://fixit.lruihao.cn/ecosystem/hugo-fixit/component-projects/?lang=deutsch">deutsch</a> |
+  <a href="https://fixit.lruihao.cn/ecosystem/hugo-fixit/component-projects/?lang=deutsch">Deutsch</a> |
   <a href="https://fixit.lruihao.cn/ecosystem/hugo-fixit/component-projects/?lang=korean">한국어</a> |
-  <a href="https://fixit.lruihao.cn/ecosystem/hugo-fixit/component-projects/?lang=japanese">しろうと</a>
+  <a href="https://fixit.lruihao.cn/ecosystem/hugo-fixit/component-projects/?lang=japanese">日本語</a>
 </div>
 
 ## Demo
@@ -31,11 +31,11 @@
 
 ## 要求
 
-- [FixIt](https://github.com/hugo-fixit) v0.4.0 或更高版本
+- [FixIt](https://github.com/hugo-fixit) v1.0.0 或更高版本
 
 ## 安装
 
-安装方法与 [安装主题](https://fixit.lruihao.cn/documentation/installation/) 相同。有几种安装方法，请选择一种。
+安装方法与 [安装主题](https://fixit.lruihao.cn/docs/installation/) 相同。有几种安装方法，请选择一种。
 
 ### 安装为 Hugo 模块
 
@@ -45,10 +45,12 @@
 
 ```toml
 [module]
-  [[module.imports]]
-    path = "github.com/hugo-fixit/FixIt"
-  [[module.imports]]
-    path = "github.com/hugo-fixit/component-projects"
+
+[[module.imports]]
+path = "github.com/hugo-fixit/FixIt"
+
+[[module.imports]]
+path = "github.com/hugo-fixit/component-projects/v2"
 ```
 
 在第一次启动 Hugo 时，它将下载所需的文件。
@@ -81,10 +83,11 @@ theme = ["FixIt", "component-projects"]
 
 ```toml
 [params]
-  [params.customPartials]
-    # ... other partials
-    assets = [ "inject/component-projects.html" ]
-    # ... other partials
+
+[params.custom_partials]
+# ... other partials
+assets = [ "inject/component-projects.html" ]
+# ... other partials
 ```
 
 ## 访问令牌（可选）
@@ -101,7 +104,7 @@ theme = ["FixIt", "component-projects"]
 首先，创建 `projects.yml` 文件并编辑数据：
 
 ```bash
-cp themes/component-projects/projects.yml.example data/projects.yml
+cp themes/component-projects/data/projects.yml data/projects.yml
 ```
 
 > 如果你的网站是多语言的，你可以为英语创建一个 `projects.en.yml` 文件，为中文创建一个 `projects.zh-cn.yml` 文件。
@@ -120,7 +123,7 @@ title: My Projects
 titleIcon: fa-solid fa-laptop-code
 subtitle: <https://github.com/Lruihao>
 sectionSlot: Some text to display in the section slot which is above the related articles list.
-hiddenAdapters: false
+hidden_adapters: false
 layout: projects
 ---
 
@@ -159,19 +162,21 @@ data/
 └── projects.yml         <-- projects data
 ```
 
-然后，打开 `hugo.toml` 文件，配置的 `projectsAdapters` 选项，启用内容适配器：
+然后，打开 `hugo.toml` 文件，配置的 `projects_adapters` 选项，启用内容适配器：
 
 ```toml
 [params]
-  [params.projectsAdapters]
-    enable = true
-    onlyPublic = true
-    categories = []
-    collections = []
-    ignoreList = []
-    [params.projectsAdapters.params]
-      hiddenFromHomePage = true
-      # more font matter here ...
+
+[params.projects_adapters]
+enable = true
+only_public = true
+categories = []
+collections = []
+ignore_list = []
+
+[params.projects_adapters.params]
+hidden_from_home_page = true
+# more font matter here ...
 ```
 
 ### 自定义块
@@ -186,45 +191,19 @@ data/
 
 ## 定时任务
 
-由于采用服务端渲染，所有数据是在构建时获取的，而不会在每次访问时都请求 GitHub API。因此，我们可以使用定时任务来更新数据，从而保持其最新状态。
+由于采用服务端渲染，所有数据是在构建时获取的，而不会在每次访问时都请求 GitHub API。为了保持数据最新，本组件提供了 `cache-projects.yml` GitHub Action 工作流模板，用于定时预缓存项目数据到 `data/caches/projects.json`，Hugo 构建时将优先读取缓存数据，大幅减少构建时间。
 
-### 部署到 GitHub Pages
+### 配置定时缓存
 
-如果你的网站托管在 GitHub Pages 上，你可以使用 GitHub Actions 自动部署。
+将工作流模板复制到你的站点仓库：
 
-```yaml
-name: Hugo build and deploy
-on:
-  schedule:
-    # Rebuid the site every day at 00:00 UTC to update the projects data
-    - cron: '0 0 * * *'
-  push:
-    branches: [ main ]
-  workflow_dispatch:
-jobs:
-  # Your build and deploy jobs here
+```bash
+cp themes/component-projects/.github/workflows/cache-projects.yml .github/workflows/cache-projects.yml
 ```
 
-### 部署到 Vercel
+该工作流默认每天 UTC 00:00 自动运行，也可手动触发。它会从 `data/projects*.yml` 中提取所有仓库，通过 GitHub API 获取仓库信息和 README 内容，然后写入 `data/caches/projects.json`。
 
-如果你的网站托管在 Vercel 上，你可以使用 Vercel 的 [Deploy Hooks](https://vercel.com/docs/deployments/deploy-hooks#creating-&-triggering-deploy-hooks) 功能配合 GitHub Actions 自动部署。
-
-```yaml
-name: Vercel deploy hook
-on:
-  schedule:
-    # Rebuid the site every day at 00:00 UTC to update the projects data
-    - cron: '0 0 * * *'
-jobs:
-  Vercel-Deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Trigger Vercel deploy hook
-        run: |
-          curl -X POST ${{ secrets.VERCEL_DEPLOY_HOOK }}
-```
-
-在 Vercel 的项目设置中，创建一个部署钩子，并在 GitHub 项目的 Secrets 中添加 `VERCEL_DEPLOY_HOOK` 变量。
+> 首次运行后 `data/caches/projects.json` 会被生成并提交到仓库，后续 Hugo 构建将直接读取缓存文件，不再逐个请求 GitHub API。提交缓存文件会自动触发你的站点部署工作流，无需额外配置。
 
 ## 故障排除
 

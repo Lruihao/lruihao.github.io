@@ -3,17 +3,18 @@
 # FixIt 主题文档
 
 [![Production environment](https://img.shields.io/github/deployments/hugo-fixit/docs/Production?style=flat&label=Vercel&logo=vercel)](https://fixit.lruihao.cn/)
-[![Hugo](https://img.shields.io/badge/Hugo-%5E0.156.0-ff4088?style=flat&logo=hugo)](https://gohugo.io/)
+[![Hugo](https://img.shields.io/badge/Hugo-%5E0.161.0-ff4088?style=flat&logo=hugo)](https://gohugo.io/)
 
 👉 中文 | [English](README.en.md)
 
-[FixIt](https://github.com/hugo-fixit/FixIt) 主题文档主要分为：[文档](https://fixit.lruihao.cn/zh-cn/documentation/)、[教程](https://fixit.lruihao.cn/zh-cn/guides/) 两大板块，欢迎大家发起 PR 完善主题文档。
+[FixIt](https://github.com/hugo-fixit/FixIt) 主题文档主要分为：[文档](https://fixit.lruihao.cn/zh-cn/docs/)、[教程](https://fixit.lruihao.cn/zh-cn/guides/) 两大板块，欢迎大家发起 PR 完善主题文档。
 
 ## 系统依赖
 
-- [Node.js](https://nodejs.org/): >= 20.0.0
+- [Hugo](https://gohugo.io/installation/): >= 0.161.0 (extended version)
 - [Go](https://go.dev/dl/)
-- [Hugo](https://gohugo.io/installation/): >= 0.156.0 (extended version)
+- [Dart Sass](https://sass-lang.com/install/)
+- [Node.js](https://nodejs.org/): >= 24.0.0
 
 ## 贡献文档
 
