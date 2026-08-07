@@ -1,0 +1,1 @@
+"use strict";(()=>{var e={defaultTheme:"auto"};function t(){let t=window.localStorage?.getItem("theme-mode")||(e.defaultTheme==="light"||e.defaultTheme==="dark"?e.defaultTheme:"auto");document.documentElement.dataset.themeMode=t}function n(){/mac/i.test(navigator.platform)&&(document.documentElement.dataset.platform="mac")}t(),n()})()

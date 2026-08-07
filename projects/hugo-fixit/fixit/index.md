@@ -5,11 +5,11 @@
 
 <div align="center" class="ignore">
   <p>
-    FixIt 是一个简洁、优雅且高效的 <a href="https://gohugo.io/">Hugo</a> 博客主题。<br>
-    <em><sub>如果你喜欢这个主题，别忘了留下一颗 ⭐️ 哦，谢谢！</sub></em>
+    FixIt is a clean, elegant but advanced blog theme for <a href="https://gohugo.io/">Hugo</a>.<br>
+    <em><sub>Don't forget to leave a ⭐️ if you like this theme, thanks!</sub></em>
   </p>
-  <a href="https://raw.githubusercontent.com/hugo-fixit/FixIt/refs/heads/main/README.md">English</a> |
-  简体中文 |
+  English |
+  <a href="https://raw.githubusercontent.com/hugo-fixit/FixIt/refs/heads/main/README.zh-cn.md">简体中文</a> |
   <a href="https://fixit.lruihao.cn/zh-cn/ecosystem/hugo-fixit/fixit/?lang=chinese_traditional">繁體中文</a> |
   <a href="https://fixit.lruihao.cn/ecosystem/hugo-fixit/fixit/?lang=french">Français</a> |
   <a href="https://fixit.lruihao.cn/ecosystem/hugo-fixit/fixit/?lang=russian">Русский язык</a> |
@@ -20,11 +20,11 @@
   <a href="https://fixit.lruihao.cn/ecosystem/hugo-fixit/fixit/?lang=japanese">日本語</a>
 </div>
 
-<a title="FixIt 官网" href="https://fixit.lruihao.cn/zh-cn/"><img align="right" alt="FixIt logo" width="70" height="70" src="https://avatars.githubusercontent.com/u/110414864?s=200&v=4"></a>
+<a title="FixIt website" href="https://fixit.lruihao.cn"><img align="right" alt="FixIt logo" width="70" height="70" src="https://avatars.githubusercontent.com/u/110414864?s=200&v=4"></a>
 
 # FixIt
 
-> 它的原型基于 [LoveIt](https://github.com/dillonzq/LoveIt) 主题，[KeepIt](https://github.com/Fastbyte01/KeepIt) 主题和 [LeaveIt](https://github.com/liuzc/LeaveIt) 主题。
+> It is based on the original [LoveIt](https://github.com/dillonzq/LoveIt) Theme, [KeepIt](https://github.com/Fastbyte01/KeepIt) Theme and [LeaveIt](https://github.com/liuzc/LeaveIt) Theme.
 
 [![Build](https://img.shields.io/github/deployments/hugo-fixit/FixIt/Production?style=flat&label=Build&logo=vercel)](https://demo.fixit.lruihao.cn/)
 [![GitHub release (latest by date)](https://img.shields.io/github/v/release/hugo-fixit/FixIt?style=flat&label=Release&logo=github&include_prereleases)](https://github.com/hugo-fixit/FixIt/releases)
@@ -34,29 +34,30 @@
 [![Gitee star of FixIt](https://gitee.com/lruihao/FixIt/badge/star.svg)](https://gitee.com/lruihao/FixIt/stargazers)
 
 > [!WARNING]
-> **当前 `main` 分支包含 v1 代码，升级详见 [v1 升级指南](https://fixit.lruihao.cn/guides/upgrade-to-v1/)**。\
-> 1.0 版本计划在 **2027 年上半年** 发布，欢迎加入开发和 [讨论](https://github.com/orgs/hugo-fixit/discussions/723)！
+> **Version v0.x only accepts bug fixes. For new feature submissions, please develop on the [v1](https://github.com/hugo-fixit/FixIt/tree/v1) branch.**
+>
+> Version 1.0 is planned for release in **the first half of 2027**. Welcome to join the development and discussion! See [v1 Milestone](https://github.com/hugo-fixit/FixIt/milestone/8) for details.
 
-## 即时预览
+## Live Preview
 
 <p align="center">
   💟 <a href="https://fixit.lruihao.cn">Docs</a> | ❇️ <a href="https://demo.fixit.lruihao.cn/test/">Test</a> | 🚼 <a href="https://demo.fixit.lruihao.cn">Demo</a> | 🆕 <a href="https://hugo-fixit.github.io/hugo-fixit-starter/">Starter</a>
 <br>
 <br>
-  更多 FixIt 的例子参见 <a href="https://fixit.lruihao.cn/zh-cn/showcase/">这里</a>。
+  More FixIt examples <a href="https://fixit.lruihao.cn/showcase/">here</a>.
 </p>
 
-## 使用指南
+## Usage
 
-### 主题文档
+### Documentation
 
-前往 [快速上手](https://fixit.lruihao.cn/zh-cn/docs/getting-started/quick-start/) 页面，了解如何使用 FixIt 主题创建一个新网站的详细步骤。
+Head to the [Quick Start](https://fixit.lruihao.cn/docs/getting-started/quick-start/) page for a step-by-step guide on how to create a new website with FixIt.
 
-大纲：[安装篇](https://fixit.lruihao.cn/zh-cn/docs/installation/) ➜ [入门篇](https://fixit.lruihao.cn/zh-cn/docs/getting-started/) ➜ [内容管理](https://fixit.lruihao.cn/zh-cn/docs/content-management/) ➜ [进阶篇](https://fixit.lruihao.cn/zh-cn/docs/advanced/)
+Outline: [Installation](https://fixit.lruihao.cn/docs/installation/) ➜ [Getting Started](https://fixit.lruihao.cn/docs/getting-started/) ➜ [Content Management](https://fixit.lruihao.cn/docs/content-management/) ➜ [Advanced Usage](https://fixit.lruihao.cn/docs/advanced/)
 
-### 快速开始
+### Starter Wizard
 
-我们提供了一个 CLI 工具，可以通过一个命令来创建一个新的 FixIt 项目。
+We provided a CLI tool to help you create a new project with FixIt by a single command.
 
 ```bash
 pnpx fixit-cli create my-blog
@@ -64,16 +65,16 @@ pnpx fixit-cli create my-blog
 
 [![asciicast](https://asciinema.org/a/697494.svg)](https://asciinema.org/a/697494)
 
-### 模板
+### Templates
 
-点击以下链接使用模板生成一个新的仓库：
+Click the following links to generate a new repository with template:
 
-| 模板                                | 仓库                              | 生成链接                          |
-| :---------------------------------- | :-------------------------------- | :-------------------------------: |
-| 基于 Hugo Modules 的快速入门模板。  | [hugo-fixit-starter][starter]     | [点击生成][starter:generate]      |
-| 基于 Git submodule 的快速入门模板。 | [hugo-fixit-starter1][starter1]   | [点击生成][starter1:generate]     |
-| 使用 Fixit 主题构建多语言网站。     | [docs][docs]                      | [点击生成][docs:generate]         |
-| 基于 FixIt 主题进行自定义设置。     | [Lruihao/hugo-blog][lruihao-blog] | [点击生成][lruihao-blog:generate] |
+| Template                                      | repository                        | Generate link                  |
+| :-------------------------------------------- | :-------------------------------- | :----------------------------: |
+| A quick-start template base on Hugo Modules.  | [hugo-fixit-starter][starter]     | [Click][starter:generate]      |
+| A quick-start template base on Git submodule. | [hugo-fixit-starter1][starter1]   | [Click][starter1:generate]     |
+| Build multilingual sites using Fixit theme.   | [docs][docs]                      | [Click][docs:generate]         |
+| Customize with FixIt theme.                   | [Lruihao/hugo-blog][lruihao-blog] | [Click][lruihao-blog:generate] |
 
 [starter]: https://github.com/hugo-fixit/hugo-fixit-starter
 [starter:generate]: https://github.com/hugo-fixit/hugo-fixit-starter/generate
@@ -84,132 +85,123 @@ pnpx fixit-cli create my-blog
 [lruihao-blog]: https://github.com/Lruihao/hugo-blog
 [lruihao-blog:generate]: https://github.com/Lruihao/hugo-blog/generate
 
-## 特色
+## Features
 
 <details>
-<summary>点击展开</summary>
+<summary>Click to view.</summary>
 
-### 性能和 SEO
+### Performance and SEO
 
-- **性能优化**：在 [Google PageSpeed Insights](https://developers.google.com/speed/pagespeed/insights) 中，99/100 的移动设备得分和 100/100 的桌面设备得分
-- 使用基于 JSON-LD 格式的 **SEO SCHEMA** 文件进行 SEO 优化
-- 支持 **[Google Analytics](https://analytics.google.com/analytics)**
-- 支持 **[Fathom Analytics](https://usefathom.com/)**
-- 支持 **[百度统计](https://tongji.baidu.com/)**
-- 支持 **[Umami Analytics](https://umami.is/)**
-- 支持 **[Plausible Analytics](https://plausible.io/)**
-- 支持 **[Cloudflare Web Analytics](https://www.cloudflare.com/web-analytics)**
-- 支持 **[Splitbee Analytics](https://splitbee.io)**
-- 支持搜索引擎的 **网站验证** (Google, Bing, Yandex, Pinterest, Baidu, 360 and Sogou)
-- 支持所有第三方库的 **CDN**
+- Optimized for **performance**: 99/100 on mobile and 100/100 on desktop in [Google PageSpeed Insights](https://developers.google.com/speed/pagespeed/insights)
+- Optimized SEO performance with a correct **SEO SCHEMA** based on JSON-LD
+- **[Google Analytics](https://analytics.google.com/analytics)** supported
+- **[Fathom Analytics](https://usefathom.com/)** supported
+- **[Baidu Analytics](https://tongji.baidu.com/)** supported
+- **[Umami Analytics](https://umami.is/)** supported
+- **[Plausible Analytics](https://plausible.io/)** supported
+- **[Cloudflare Web Analytics](https://www.cloudflare.com/web-analytics)** supported
+- **[Splitbee Analytics](https://splitbee.io)** supported
+- Search engine **verification** supported (Google, Bing, Yandex, Pinterest, Baidu, 360 and Sogou)
+- **CDN** for third-party libraries supported
 
-### 外观和布局
+### Appearance and Layout
 
-- **响应式** 布局
-- **浅色/深色** 主题模式
-- 全局一致的 **设计语言**
-- 支持 **分页**
-- 易用和自动展开的 **文章目录**
-- 支持 **多语言** 和国际化
-- 美观的 **CSS 动画**
+- **Responsive** layout
+- **Light/Dark** mode
+- Globally consistent **design language**
+- **Pagination** supported
+- Easy-to-use and self-expanding **table of contents**
+- **Multilanguage** supported and i18n ready
+- Beautiful **CSS animation**
 
-### 社交和评论系统
+### Social and Comment Systems
 
-- 支持 **[Gravatar](https://gravatar.com)** 头像
-- 支持本地 **头像**
-- 支持多达 **87** 种社交链接
-- 支持多达 **28** 种网站分享
-- 支持 **[Disqus](https://disqus.com)** 评论系统
-- 支持 **[Gitalk](https://github.com/gitalk/gitalk)** 评论系统
-- 支持 **[Valine](https://valine.js.org/)** 评论系统
-- 支持 **[Waline](https://waline.js.org/)** 评论系统
-- 支持 **[Facebook](https://developers.facebook.com/docs/plugins/comments/) 评论**系统
-- 支持 **[Telegram comments](https://comments.app/) 评论**系统
-- 支持 **[Commento](https://commento.io/)** 评论系统
-- 支持 **[Utterances](https://utteranc.es/)** 评论系统
-- 支持 **[Artalk](https://artalk.js.org/)** 评论系统
-- 支持 **[Twikoo](https://twikoo.js.org/)** 评论系统
-- 支持 **[giscus](https://giscus.app/zh-CN/)** 评论系统
+- **Gravatar** supported by [Gravatar](https://gravatar.com)
+- Local **Avatar** supported
+- Up to **87** social links supported
+- Up to **28** share sites supported
+- **Disqus** comment system supported by [Disqus](https://disqus.com)
+- **Gitalk** comment system supported by [Gitalk](https://github.com/gitalk/gitalk)
+- **Valine** comment system supported by [Valine](https://valine.js.org/)
+- **Waline** comment system supported by [Waline](https://waline.js.org/)
+- **Facebook comments** system supported by [Facebook](https://developers.facebook.com/docs/plugins/comments/)
+- **Telegram comments** system supported by [Telegram Comments](https://comments.app/)
+- **Commento** comment system supported by [Commento](https://commento.io/)
+- **Utterances** comment system supported by [Utterances](https://utteranc.es/)
+- **Artalk** comment system supported by [Artalk](https://artalk.js.org/)
+- **Twikoo** comment system supported by [Twikoo](https://twikoo.js.org/)
+- **giscus** comment system supported by [giscus](https://giscus.app/)
 
-### 扩展功能
+### Extended Features
 
-- 支持基于 [PostChat](https://ai.zhheo.com/console/login?InviteID=85041330) 的 **AI 摘要**、**AI 搜索** 和 **AI 智能客服**
-- 支持 **渐进式网页应用**
-- 支持 **二级菜单**
-- 支持 **内容加密**（页面、局部）
-- 支持 **友情链接** 的页面模板
-- 支持基于 [algolia](https://www.algolia.com/)、[Fuse.js](https://fusejs.io/)、[Pagefind](https://pagefind.app)、CSE 或 [PostChat](https://ai.zhheo.com/console/login?InviteID=85041330) 的 **搜索**
-- 支持基于 [Google](https://programmablesearchengine.google.com/) 的 **自定义搜索引擎 (CSE)**
-- 支持 **Twemoji**
-- 支持 **代码高亮**
-- 一键 **复制代码** 到剪贴板
-- 支持基于 [lightgallery](https://github.com/sachinchoolur/lightgallery) 的 **图片画廊**
-- 支持 **[Font Awesome](https://fontawesome.com/) 图标** 的 Markdown 扩展语法
-- 支持 **上标注释** 的 Markdown 扩展语法
-- 支持 **分数** 的 Markdown 扩展语法
-- 支持多种 **admonitions** shortcode 或 **alerts** 的 Markdown 扩展语法
-- 支持 **标签页** 的 shortcode，提供多种设计样式
-- 支持基于 [KaTeX](https://katex.org/) 或 [MathJax](https://www.mathjax.org) 的 **数学公式**
-- 支持基于 [mermaid](https://github.com/knsv/mermaid) 的 **图表** 代码块扩展语法和 shortcode
-- 支持基于 [ECharts](https://echarts.apache.org/) 的 **交互式数据可视化** 代码块扩展语法和 shortcode
-- 支持 **Timeline** 的代码块扩展语法和 shortcode
-- 支持 **文件树** 的代码块扩展语法和 shortcode
-- 支持基于 [Mapbox GL JS](https://docs.mapbox.com/mapbox-gl-js) 的 **Mapbox** shortcode
-- 支持基于 [APlayer](https://github.com/MoePlayer/APlayer) 和 [MetingJS](https://github.com/metowolf/MetingJS) 的 **音乐播放器** shortcode
-- 支持 **Bilibili 视频** 和 **抖音视频** shortcode
-- 支持 **自定义样式** 的 shortcode
-- 支持 **自定义脚本** 的 shortcode
-- 支持 **自定义模板块**
-- 支持基于 [TypeIt](https://typeitjs.com/) 的**打字动画** shortcode
-- 支持基于 [cookieconsent](https://github.com/osano/cookieconsent) 的 **Cookie 许可横幅**
-- 支持基于 [cell-watermark](https://github.com/Lruihao/watermark) 的 **网页水印**
-- 支持基于 [pangu.js](https://github.com/vinta/pangu.js) 的 **中文排版**
-- 支持本地 **缓存远程图床图片**
-- ……
+- **AI Summary**, **AI Search** and **AI Chatbot** supported by [PostChat](https://ai.zhheo.com/console/login?InviteID=85041330)
+- **PWA (Progressive Web App)** supported
+- **Sub Menu** supported
+- **Content Encryption** supported (Pages, Partial)
+- **Friends** page embedded template
+- **Search** supported by [algolia](https://www.algolia.com/), [Fuse.js](https://fusejs.io/), [Pagefind](https://pagefind.app), CSE or [PostChat](https://ai.zhheo.com/console/login?InviteID=85041330)
+- **Custom Search Engine (CSE)** supported by [Google](https://programmablesearchengine.google.com/)
+- **Twemoji** supported
+- Automatically **highlighting** code
+- **Copy code** to clipboard with one click
+- **Images gallery** supported by [lightgallery](https://github.com/sachinchoolur/lightgallery)
+- Extended Markdown syntax for **[Font Awesome](https://fontawesome.com/) icons**
+- Extended Markdown syntax for **ruby annotation**
+- Extended Markdown syntax for **fraction**
+- Multiple **admonitions** shortcode or **alerts** extended Markdown syntax
+- **Tabs** and **Tab** shortcode with multiple design styles
+- **Mathematical formula** supported by [KaTeX](https://katex.org/) or [MathJax](https://www.mathjax.org)
+- **Diagrams** code fences extended and shortcode supported by [mermaid](https://github.com/knsv/mermaid)
+- **Interactive data visualization** shortcode and code fences extended supported by [ECharts](https://echarts.apache.org/)
+- **Timeline** code fences extended and shortcode supported
+- **File tree** code fences extended and shortcode supported
+- **Mapbox** shortcode supported by [Mapbox GL JS](https://docs.mapbox.com/mapbox-gl-js)
+- **Music player** shortcode supported by [APlayer](https://github.com/MoePlayer/APlayer) and [MetingJS](https://github.com/metowolf/MetingJS)
+- **Bilibili player** and **Douyin player** shortcode
+- **Custom style** shortcode
+- **Custom script** shortcode
+- Open more **custom blocks**
+- **Animated typing** supported by [TypeIt](https://typeitjs.com/)
+- **Cookie consent banner** supported by [cookieconsent](https://github.com/osano/cookieconsent)
+- **Web Watermark** supported by [cell-watermark](https://github.com/Lruihao/watermark)
+- **Chinese typesetting** supported by [pangu.js](https://github.com/vinta/pangu.js)
+- Options to **cache remote image** locally
+- ...
 
 </details>
 
-## 多语言和国际化
+## Multilingual and i18n
 
-FixIt 主题多语言基本配置及自动翻译等详见 [内容管理](https://fixit.lruihao.cn/zh-cn/docs/content-management/introduction#multilingual) 文档，欢迎 [贡献一种新的语言](https://github.com/hugo-fixit/FixIt/pulls)。
+FixIt supports multilingual and i18n. For more information, see the [Content Management](https://fixit.lruihao.cn/docs/content-management/introduction#multilingual) documentation. You are welcome to [contribute with a new language](https://github.com/hugo-fixit/FixIt/pulls).
 
 <details>
-<summary>FixIt 支持下列语言。</summary>
+<summary>FixIt supports the following languages.</summary>
 
-- 英语
-- 简体中文
-- 繁体中文
-- 法语
-- 波兰语
-- 巴西葡萄牙语
-- 意大利语
-- 西班牙语
-- 德语
-- 塞尔维亚语
-- 俄语
-- 罗马尼亚语
-- 越南语
-- 印地语
-- 日语
-- 韩语
+- English
+- Simplified Chinese
+- Traditional Chinese
+- French
+- Polish
+- Brazilian Portuguese
+- Italian
+- Spanish
+- German
+- Serbian
+- Russian
+- Romanian
+- Vietnamese
+- Hindi
+- Japanese
+- Korean
 
 </details>
 
-## 浏览器支持
+## Theme Components
 
-FixIt 主题支持所有主流浏览器的最近两个版本。
-
-![Chrome](https://img.shields.io/badge/Chrome-last+2-blue?logo=googlechrome)
-![Edge](https://img.shields.io/badge/Edge-last+2-blue?logo=microsoft-edge)
-![Firefox](https://img.shields.io/badge/Firefox-last+2-orange?logo=firefox)
-![Safari](https://img.shields.io/badge/Safari-last+2-blue?logo=safari)
-
-## 主题组件
-
-为了平衡 FixIt 主题的 **简洁性** 和 **可扩展性**，我们额外开发了一系列 [Hugo 主题组件](https://fixit.lruihao.cn/zh-cn/ecosystem/#-组件) 供用户选择。
+To balance **simplicity** and **extensibility**, FixIt theme provides extra [Hugo theme components](https://fixit.lruihao.cn/ecosystem/#-components) for customization.
 
 <details>
-<summary>点击展开</summary>
+<summary>Click to view.</summary>
 
 <!-- HUGO_FIXIT_COMPONENTS:START -->
 - [fixit-bundle](https://github.com/hugo-fixit/fixit-bundle)\
@@ -244,16 +236,16 @@ FixIt 主题支持所有主流浏览器的最近两个版本。
 
 </details>
 
-## 社区支持
+## Community
 
-所有的反馈都是欢迎的！详见 [Discussions][discussions]、[Pull requests][pulls] 和 [Issues][issues]。
+All feedback is welcome! Head over to the [discussions][discussions], [Pull requests][pulls] and [issues][issues] tracker.
 
-| 官方社区                           | 说明                            |
-| :--------------------------------- | :------------------------------ |
-| [Discussions][discussions]         | GitHub 讨论区                   |
-| [FixIt 主题交流群（微信）][wx-mp]  | 关注「菠菜眾長」回复“FixIt”获取 |
-| [FixIt 主题交流群（QQ）][qq-group] | QQ 群：`814031017`              |
-| [FixIt 开发交流群][dev-group]      | QQ 群：`770835493`              |
+| Official Community           | Description                     |
+| :--------------------------- | :------------------------------ |
+| [Discussions][discussions]   | GitHub discussion forum         |
+| [FixIt WeChat group][wx-mp]  | Follow and reply "FixIt" to get |
+| [FixIt QQ group][qq-group]   | QQ group: `814031017`           |
+| [FixIt Dev group][dev-group] | QQ group: `770835493`           |
 
 [discussions]: https://github.com/hugo-fixit/FixIt/discussions
 [pulls]: https://github.com/hugo-fixit/FixIt/pulls
@@ -262,23 +254,23 @@ FixIt 主题支持所有主流浏览器的最近两个版本。
 [qq-group]: https://qm.qq.com/q/Mn1I7ljqsS
 [dev-group]: https://qm.qq.com/q/ky3uru0mbu
 
-## 参与贡献
+## Contributing
 
-我们欢迎你加入 FixIt 的开发，贡献出你的一份力量。请看开源 [贡献指南](https://raw.githubusercontent.com/hugo-fixit/FixIt/refs/heads/main/CONTRIBUTING.md)。 🤗
+We welcome you to join the development of FixIt. Please see [contributing document](https://raw.githubusercontent.com/hugo-fixit/FixIt/refs/heads/main/CONTRIBUTING.md). 🤗
 
-你也可以随时向我们的 [官方插件](https://github.com/hugo-fixit) 提交 Issue 或 Pull Request。
+Also, we welcome Issue or PR to our [official-components](https://github.com/hugo-fixit).
 
 > [!note]
-> 在贡献时，请先通过此存储库上的讨论来讨论你希望进行的更改，然后再进行实际更改。
+> When contributing, please first discuss the change you wish to make via a discussion on this repository before making the actual change.
 
-## 致谢
+## Acknowledgements
 
-感谢 [所有贡献者](https://github.com/hugo-fixit/FixIt/graphs/contributors) 的支持！
+Thanks to the support of [all contributors](https://github.com/hugo-fixit/FixIt/graphs/contributors)!
 
-感谢 [Hugo DoIt](https://github.com/HEIGE-PCloud/DoIt) 主题和 [Hexo NexT](https://github.com/next-theme/hexo-theme-next) 主题给予的灵感和借鉴。
+Thanks to the [Hugo DoIt](https://github.com/HEIGE-PCloud/DoIt) theme and [Hexo NexT](https://github.com/next-theme/hexo-theme-next) theme for inspiration and reference.
 
 <details>
-<summary>感谢 FixIt 主题中使用的所有开源项目。</summary>
+<summary>Thanks to all the open source projects used in the FixIt theme.</summary>
 
 - [UnoCSS](https://github.com/unocss/unocss)
 - [normalize.css](https://github.com/necolas/normalize.css)
@@ -319,25 +311,25 @@ FixIt 主题支持所有主流浏览器的最近两个版本。
 
 </details>
 
-## 许可协议
+## License
 
-FixIt 根据 **MIT** 许可协议授权。更多信息请查看 [LICENSE 文件](https://raw.githubusercontent.com/hugo-fixit/FixIt/refs/heads/main/LICENSE)。
+FixIt is licensed under the **MIT** license. Check the [LICENSE file](https://raw.githubusercontent.com/hugo-fixit/FixIt/refs/heads/main/LICENSE) for details.
 
-## 赞助支持
+## Sponsor Support
 
-如果你喜爱这个主题，请考虑给我买杯咖啡 ☕️，谢谢！
+If you enjoy the theme, please consider buying me a cup of coffee ☕️. Thanks!
 
-- [微信支付](https://raw.githubusercontent.com/hugo-fixit/FixIt/refs/heads/main/images/wechatpay.jpg)
-- [支付宝](https://raw.githubusercontent.com/hugo-fixit/FixIt/refs/heads/main/images/alipay.jpg)
+- [WeChat Pay](https://raw.githubusercontent.com/hugo-fixit/FixIt/refs/heads/main/images/wechatpay.jpg)
+- [Alipay](https://raw.githubusercontent.com/hugo-fixit/FixIt/refs/heads/main/images/alipay.jpg)
 <!-- - [PayPal](https://paypal.me/Lruihao) -->
 
-感谢以下赞助商提供大力支持：
+Thanks to the following sponsors for their great support:
 
-- [translate.js](https://github.com/xnx3/translate) 赞助 [企业级翻译通道](https://translate.zvo.cn/4087.html)。
+- [translate.js](https://github.com/xnx3/translate) sponsored [Enterprise Translation Channel](https://translate.zvo.cn/4087.html).
 
-## 作者
+## Author
 
-[Lruihao](https://github.com/Lruihao "在 GitHub 上关注我")
+[Lruihao](https://github.com/Lruihao "Follow me on GitHub")
 
 
 ---

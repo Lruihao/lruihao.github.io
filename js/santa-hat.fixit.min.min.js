@@ -1,0 +1,1 @@
+"use strict";(()=>{function e(){let e=new Date,n=e.getMonth()+1,t=e.getDate();n===12&&t>=20&&t<=26&&(console.log("Merry Christmas~"),document.querySelectorAll(".header-wrapper .logo").forEach(e=>{let t=document.createElement("img");t.src="/images/santa-hat.svg",t.alt="Santa Hat",t.classList.add("santa-hat"),e.parentNode.insertBefore(t,e)}))}e()})()

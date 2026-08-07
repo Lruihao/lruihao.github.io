@@ -1,0 +1,1 @@
+window.ATConfig={"hugoLangCodes":["zh-CN"],"hugoLangMap":{"zh-CN":"/posts/%E7%AE%80%E5%8D%95%E8%83%8C%E5%8C%85/"}};

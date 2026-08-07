@@ -1,0 +1,1 @@
+window.ATConfig={"hugoLangCodes":["zh-CN"],"hugoLangMap":{"zh-CN":"/about/"}};
