@@ -34,9 +34,8 @@
 [![Gitee star of FixIt](https://gitee.com/lruihao/FixIt/badge/star.svg)](https://gitee.com/lruihao/FixIt/stargazers)
 
 > [!WARNING]
-> **Version v0.x only accepts bug fixes. For new feature submissions, please develop on the [v1](https://github.com/hugo-fixit/FixIt/tree/v1) branch.**
->
-> Version 1.0 is planned for release in **the first half of 2027**. Welcome to join the development and discussion! See [v1 Milestone](https://github.com/hugo-fixit/FixIt/milestone/8) for details.
+> **The `main` branch contains the v1 code. For upgrade instructions, see the [v1 migration guide](https://fixit.lruihao.cn/guides/upgrade-to-v1/).**\
+> Version 1.0.0 is planned for release in **the first half of 2027**. Welcome to join the development and [discussion](https://github.com/orgs/hugo-fixit/discussions/723)!
 
 ## Live Preview
 
@@ -111,7 +110,7 @@ Click the following links to generate a new repository with template:
 - Globally consistent **design language**
 - **Pagination** supported
 - Easy-to-use and self-expanding **table of contents**
-- **Multilanguage** supported and i18n ready
+- **Multilanguage** supported and I18n ready
 - Beautiful **CSS animation**
 
 ### Social and Comment Systems
@@ -170,7 +169,7 @@ Click the following links to generate a new repository with template:
 
 </details>
 
-## Multilingual and i18n
+## Multilingual and I18n
 
 FixIt supports multilingual and i18n. For more information, see the [Content Management](https://fixit.lruihao.cn/docs/content-management/introduction#multilingual) documentation. You are welcome to [contribute with a new language](https://github.com/hugo-fixit/FixIt/pulls).
 
@@ -195,6 +194,15 @@ FixIt supports multilingual and i18n. For more information, see the [Content Man
 - Korean
 
 </details>
+
+## Browsers Support
+
+The FixIt theme supports the last two versions of all major browsers.
+
+![Chrome](https://img.shields.io/badge/Chrome-last+2-blue?logo=googlechrome)
+![Edge](https://img.shields.io/badge/Edge-last+2-blue?logo=microsoft-edge)
+![Firefox](https://img.shields.io/badge/Firefox-last+2-orange?logo=firefox)
+![Safari](https://img.shields.io/badge/Safari-last+2-blue?logo=safari)
 
 ## Theme Components
 

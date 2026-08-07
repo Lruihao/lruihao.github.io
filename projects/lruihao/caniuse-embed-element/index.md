@@ -1,46 +1,46 @@
 # A custom web component that embeds caniuse.com browser compatibility data for a specific feature.
 
-# `<caniuse-embed>` 元素
+# `<caniuse-embed>` Element
 
 [![npm version](https://img.shields.io/npm/v/@cell-x/caniuse-embed-element.svg)](https://www.npmjs.com/package/@cell-x/caniuse-embed-element)
 [![License](https://img.shields.io/npm/l/%40cell-x%2Fcaniuse-embed-element.svg)](https://github.com/Lruihao/caniuse-embed-element/blob/main/LICENSE)
 
-[English](https://raw.githubusercontent.com/Lruihao/caniuse-embed-element/refs/heads/main./README.md) | 简体中文
+English | [简体中文](https://raw.githubusercontent.com/Lruihao/caniuse-embed-element/refs/heads/main./README.zh-cn.md)
 
-一个轻量级、可定制的 Web 组件，用于嵌入 [caniuse.com](https://caniuse.com) 的特定 Web 功能的浏览器兼容性数据。使用 [Lit](https://lit.dev/) 构建，设计为可无缝集成到任何 Web 项目中。
+A lightweight, customizable web component that embeds [caniuse.com](https://caniuse.com) browser compatibility data for specific web features. Built with [Lit](https://lit.dev/) and designed to seamlessly integrate into any web project.
 
-[🌟 **在线演示**](https://caniuse-el.lruihao.cn)
+[🌟 **Live Demo**](https://caniuse-el.lruihao.cn)
 
-![caniuse 示例](https://raw.githubusercontent.com/Lruihao/caniuse-embed-element/refs/heads/main./preview/caniuse.webp)
+![caniuse example](https://raw.githubusercontent.com/Lruihao/caniuse-embed-element/refs/heads/main./preview/caniuse.webp)
 
-![baseline 示例](https://raw.githubusercontent.com/Lruihao/caniuse-embed-element/refs/heads/main./preview/baseline.png)
+![baseline example](https://raw.githubusercontent.com/Lruihao/caniuse-embed-element/refs/heads/main./preview/baseline.png)
 
-## ✨ 特性
+## ✨ Features
 
-- 🎯 **轻松集成**：即插即用的 Web 组件，适用于任何框架或原生 HTML
-- 🎨 **主题支持**：自动、浅色和深色主题，适应您的设计
-- 📱 **响应式**：根据内容自动调整高度
-- ⚡ **轻量级**：使用 Lit 构建，最小化包体积
-- 🛠️ **可定制**：配置数据源、时间范围和外观
-- 🔒 **类型安全**：完整的 TypeScript 支持和全面的类型定义
+- 🎯 **Easy Integration**: Drop-in web component that works with any framework or vanilla HTML
+- 🎨 **Theme Support**: Auto, light, and dark themes that adapt to your design
+- 📱 **Responsive**: Automatically adjusts height based on content
+- ⚡ **Lightweight**: Built with Lit for minimal bundle size
+- 🛠️ **Customizable**: Configure data source, time range, and appearance
+- 🔒 **Type Safe**: Full TypeScript support with comprehensive type definitions
 
-## 🚀 快速开始
+## 🚀 Quick Start
 
-### CDN（推荐）
+### CDN (Recommended)
 
-在您的 HTML 中添加脚本标签：
+Add the script tag to your HTML:
 
 ```html
 <script src="https://unpkg.com/@cell-x/caniuse-embed-element/dist/caniuse-embed-element.iife.js"></script>
 ```
 
-然后使用组件：
+Then use the component:
 
 ```html
 <caniuse-embed feature="css-grid"></caniuse-embed>
 ```
 
-### NPM 安装
+### NPM Installation
 
 ```bash
 npm install @cell-x/caniuse-embed-element
@@ -50,23 +50,23 @@ npm install @cell-x/caniuse-embed-element
 import '@cell-x/caniuse-embed-element'
 ```
 
-## 📖 使用示例
+## 📖 Usage Examples
 
-### 基本用法
+### Basic Usage
 
 ```html
 <caniuse-embed feature="css-grid"></caniuse-embed>
 ```
 
-### 使用 Baseline 支持
+### With Baseline Support
 
-显示功能的浏览器兼容性基线信息：
+Display browser compatibility baseline information for features:
 
 ```html
 <caniuse-embed feature="css-grid" baseline></caniuse-embed>
 ```
 
-### 自定义配置
+### With Custom Configuration
 
 ```html
 <caniuse-embed
@@ -79,11 +79,9 @@ import '@cell-x/caniuse-embed-element'
 ></caniuse-embed>
 ```
 
-FRAMEWORK_INTEGRATION.md
+### Framework Integration
 
-### 框架集成
-
-以下是使用 Vue.js 的示例。更多框架集成示例，请参阅 [FRAMEWORK_INTEGRATION.md](https://raw.githubusercontent.com/Lruihao/caniuse-embed-element/refs/heads/main./FRAMEWORK_INTEGRATION.md)。
+Here's an example using Vue.js. For more framework integration examples, see [FRAMEWORK_INTEGRATION.md](https://raw.githubusercontent.com/Lruihao/caniuse-embed-element/refs/heads/main./FRAMEWORK_INTEGRATION.md).
 
 ```vue
 <script setup>
@@ -102,145 +100,144 @@ import '@cell-x/caniuse-embed-element'
 </template>
 ```
 
-## ⚙️ API 参考
+## ⚙️ API Reference
 
-### 属性
+### Attributes/Properties
 
-| 属性       | 类型                          | 默认值                         | 描述                                                       |
-| ---------- | ----------------------------- | ------------------------------ | ---------------------------------------------------------- |
-| `feature`  | `string`                      | `''`                           | **必需**。caniuse 功能标识符（例如 'css-grid', 'flexbox'） |
-| `past`     | `0 - 5`                       | `2`                            | 显示过去浏览器版本的数量                                   |
-| `future`   | `0 - 3`                       | `1`                            | 显示未来浏览器版本的数量                                   |
-| `baseline` | `boolean`                     | `false`                        | 显示基线浏览器兼容性状态（如果可用）                       |
-| `origin`   | `string`                      | `'https://caniuse.lruihao.cn'` | caniuse 嵌入服务的基础 URL                                 |
-| `theme`    | `'auto' \| 'light' \| 'dark'` | `'auto'`                       | 嵌入内容的颜色主题                                         |
-| `loading`  | `'eager' \| 'lazy'`           | `'lazy'`                       | iframe 的加载策略（立即加载或延迟加载）                    |
-| `meta`     | `string`                      | `自动生成`                     | 嵌入实例的唯一标识符                                       |
+| Attribute  | Type                          | Default                        | Description                                                                |
+| ---------- | ----------------------------- | ------------------------------ | -------------------------------------------------------------------------- |
+| `feature`  | `string`                      | `''`                           | **Required**. The caniuse feature identifier (e.g., 'css-grid', 'flexbox') |
+| `past`     | `0 - 5`                       | `2`                            | Number of past browser versions to display                                 |
+| `future`   | `0 - 3`                       | `1`                            | Number of future browser versions to display                               |
+| `baseline` | `boolean`                     | `false`                        | Show baseline browser compatibility status (when available)                |
+| `origin`   | `string`                      | `'https://caniuse.lruihao.cn'` | Base URL of the caniuse embed service                                      |
+| `theme`    | `'auto' \| 'light' \| 'dark'` | `'auto'`                       | Color theme for the embedded content                                       |
+| `loading`  | `'eager' \| 'lazy'`           | `'lazy'`                       | Loading strategy for the iframe (eager or lazy)                            |
+| `meta`     | `string`                      | `auto-generated`               | Unique identifier for the embed instance                                   |
 
-### 关于 Baseline
+### About Baseline
 
-`baseline` 属性显示 Web 功能的 [Baseline](https://web.dev/baseline) 浏览器兼容性状态。启用后，它会显示功能是否：
+The `baseline` attribute displays the [Baseline](https://web.dev/baseline) browser compatibility status for web features. When enabled, it shows whether a feature is:
 
-- **广泛可用** - 所有主流浏览器都支持
-- **新近可用** - 最近在主流浏览器中可用
-- **有限可用** - 尚未在所有主流浏览器中可用
+- **Widely Available** - Supported across all major browsers
+- **Newly Available** - Recently became available in major browsers
+- **Limited Availability** - Not yet available in all major browsers
 
-这提供了功能采用情况的快速视觉指示器，帮助开发者在使用 Web 平台功能时做出明智的决策。
+This provides a quick visual indicator of feature adoption and helps developers make informed decisions about using web platform features.
 
-### 查找功能名称
+### Finding Feature Names
 
-功能名称对应于 [caniuse.com](https://caniuse.com) 上使用的标识符。您可以在以下位置找到它们：
+Feature names correspond to the identifiers used on [caniuse.com](https://caniuse.com). You can find them in:
 
-- URL 路径：`https://caniuse.com/css-grid` → 功能名称是 `css-grid`
-- [caniuse.lruihao.cn](https://caniuse.lruihao.cn/) 上的搜索结果
-- [caniuse-db](https://github.com/Fyrd/caniuse/tree/master/features-json) 仓库
+- The URL path: `https://caniuse.com/css-grid` → feature name is `css-grid`
+- The search results on [caniuse.lruihao.cn](https://caniuse.lruihao.cn/)
+- The [caniuse-db](https://github.com/Fyrd/caniuse/tree/master/features-json) repository
 
-### 常见功能示例
+### Common Feature Examples
 
-- `css-grid` - CSS 网格布局
-- `flexbox` - 弹性盒子布局
-- `arrow-functions` - 箭头函数
-- `webp` - WebP 图片格式
-- `css-variables` - CSS 自定义属性
-- `async-functions` - Async/Await 函数
+- `css-grid` - CSS Grid Layout
+- `flexbox` - Flexible Box Layout
+- `arrow-functions` - Arrow Functions
+- `webp` - WebP Image Format
+- `css-variables` - CSS Custom Properties
+- `async-functions` - Async/Await Functions
 - ...
 
-### CSS 类
+### CSS Classes
 
-- `.ciu-embed-iframe` - 嵌入的 iframe 元素
-- `.ciu-embed-empty` - 未指定功能时的空状态
+- `.ciu-embed-iframe` - The embedded iframe element
+- `.ciu-embed-empty` - Empty state when no feature is specified
 
-## 🌐 浏览器支持
+## 🌐 Browser Support
 
-此 Web 组件适用于支持以下特性的所有现代浏览器：
+This web component works in all modern browsers that support:
 
 - Custom Elements v1
 - Shadow DOM v1
-- ES2015+ 特性
+- ES2015+ features
 
 <!--
-对于较旧的浏览器，请考虑使用 polyfills：
+For older browsers, consider using polyfills:
 
 ```html
 <script src="https://unpkg.com/@webcomponents/webcomponentsjs@^2/webcomponents-loader.js"></script>
 ```
 -->
 
-## 🔧 开发
+## 🔧 Development
 
-### 前置要求
+### Prerequisites
 
 - Node.js 20+
 - pnpm 10+
 
-### 设置
+### Setup
 
 ```bash
-# 克隆仓库
+# Clone the repository
 git clone https://github.com/Lruihao/caniuse-embed-element.git
 cd caniuse-embed-element
 
-# 安装依赖
+# Install dependencies
 pnpm install
 
-# 启动开发服务器
+# Start development server
 pnpm dev
 ```
 
-### 构建
+### Build
 
 ```bash
-# 构建所有格式
+# Build all formats
 pnpm build:all
 
-# 构建特定格式
-pnpm build:lib    # ES 模块和类型
-pnpm build:iife   # 用于 CDN 的 IIFE 格式
-pnpm build        # 演示构建
+# Build specific formats
+pnpm build:lib    # ES modules and types
+pnpm build:iife   # IIFE for CDN usage
+pnpm build        # Demo build
 ```
 
-### 脚本
+### Scripts
 
-- `pnpm dev` - 启动开发服务器
-- `pnpm build` - 构建演示
-- `pnpm build:lib` - 构建库（ES 模块 + 类型）
-- `pnpm build:iife` - 构建 CDN 的 IIFE 包
-- `pnpm build:all` - 构建所有格式
-- `pnpm lint` - 运行 ESLint
-- `pnpm preview` - 预览构建的演示
+- `pnpm dev` - Start development server
+- `pnpm build` - Build demo
+- `pnpm build:lib` - Build library (ES modules + types)
+- `pnpm build:iife` - Build IIFE bundle for CDN
+- `pnpm build:all` - Build all formats
+- `pnpm lint` - Run ESLint
+- `pnpm preview` - Preview built demo
 
-## 📦 发行版
+## 📦 Distribution
 
-该包提供多种构建格式：
+The package provides multiple build formats:
 
-- **ES 模块**（`dist/`）- 用于现代打包工具
-- **IIFE 包**（`dist/caniuse-embed-element.iife.js`）- 用于 CDN
-- **TypeScript 定义**（`dist/types/`）- 用于 TypeScript 项目
+- **ES Modules** (`dist/`) - For modern bundlers
+- **IIFE Bundle** (`dist/caniuse-embed-element.iife.js`) - For CDN usage
+- **TypeScript Definitions** (`dist/types/`) - For TypeScript projects
 
-## 🤝 贡献
+## 🤝 Contributing
 
-欢迎贡献！请随时提交 Pull Request。对于重大更改，请先开 issue 讨论您想要更改的内容。
+Contributions are welcome! Please feel free to submit a Pull Request. For major changes, please open an issue first to discuss what you would like to change.
 
-1. Fork 仓库
-2. 创建您的功能分支（`git checkout -b feature/amazing-feature`）
-3. 提交您的更改（`git commit -m 'Add some amazing feature'`）
-4. 推送到分支（`git push origin feature/amazing-feature`）
-5. 打开 Pull Request
-LICENSE
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
-## 📄 许可证
+## 📄 License
 
-本项目采用 MIT 许可证。详情请参阅 [LICENSE](https://raw.githubusercontent.com/Lruihao/caniuse-embed-element/refs/heads/main./LICENSE) 文件。
+This project is licensed under the MIT License. See the [LICENSE](https://raw.githubusercontent.com/Lruihao/caniuse-embed-element/refs/heads/main./LICENSE) file for details.
 
-## 🙏 致谢
+## 🙏 Acknowledgements
 
 - [pengzhanbo/caniuse-embed](https://github.com/pengzhanbo/caniuse-embed)
-- [mdn-browser-compat-data](https://github.com/mdn/browser-compat-data) - 来自 MDN 的全面浏览器兼容性数据
-- [Fyrd/caniuse](https://github.com/Fyrd/caniuse) - 原始浏览器支持数据
+- [mdn-browser-compat-data](https://github.com/mdn/browser-compat-data) - Comprehensive browser compatibility data from MDN
+- [Fyrd/caniuse](https://github.com/Fyrd/caniuse) - The raw browser support data
 
 ---
 
-由 [Lruihao](https://github.com/Lruihao) 用 ❤️ 制作
+Made with ❤️ by [Lruihao](https://github.com/Lruihao)
 
 
 ---
