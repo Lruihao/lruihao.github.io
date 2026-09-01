@@ -104,7 +104,7 @@ assets = [ "inject/component-projects.html" ]
 首先，创建 `projects.yml` 文件并编辑数据：
 
 ```bash
-cp themes/component-projects/data/projects.yml data/projects.yml
+cp themes/component-projects/data/projects.example.yml data/projects.yml
 ```
 
 > 如果你的网站是多语言的，你可以为英语创建一个 `projects.en.yml` 文件，为中文创建一个 `projects.zh-cn.yml` 文件。
