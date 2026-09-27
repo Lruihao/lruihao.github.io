@@ -17,8 +17,8 @@ const RNC = new (function () {
    * @name RNC#getRandomComment
    */
   this.getRandomComment = (autoplay = false, current = false) => {
-    $comment.classList.toggle('d-none');
-    $loading.classList.toggle('d-none');
+    $comment.classList.add('is-loading');
+    $loading.classList.remove('d-none');
     fetch(`https://api.lruihao.cn/netease/comment?mid=${$music.dataset.mid}`)
       .then(response => response.json())
       .then((comment) => {
@@ -55,8 +55,10 @@ const RNC = new (function () {
         console.error('Error fetching comment:', error);
         $comment.querySelector('.comment-content').innerHTML = '获取评论失败，请稍后再试...';
       }).finally(() => {
-        $comment.classList.toggle('d-none');
-        $loading.classList.toggle('d-none');
+        $loading.classList.add('d-none');
+        requestAnimationFrame(() => {
+          $comment.classList.remove('is-loading');
+        });
       });
   };
 
@@ -114,9 +116,6 @@ const RNC = new (function () {
   };
 })();
 
-(() => {
-  // It will be executed when the DOM tree is built.
-  document.addEventListener('DOMContentLoaded', () => {
-    RNC.initMMTNetease();
-  });
-})();
+document.addEventListener('DOMContentLoaded', () => {
+  RNC.initMMTNetease();
+});
