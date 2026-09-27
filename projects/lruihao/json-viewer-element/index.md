@@ -154,12 +154,12 @@ export default {
 
 ### CopyableOptions
 
-| 属性       | 类型             | 默认值 | 说明                        |
-| :--------- | :--------------- | :----- | :-------------------------- |
-| copyText   | string           | Copy   | 复制按钮显示的文本          |
-| copiedText | string           | Copied | 复制成功后显示的文本        |
-| timeout    | number           | 2000   | 显示 copiedText 的时长 (ms) |
-| align      | 'left' / 'right' | right  | 复制按钮对齐方式            |
+| 属性        | 类型              | 默认值    | 说明                       |
+| :---------- | :---------------- | :-------- | :------------------------- |
+| copyText    | string            | Copy      | 复制按钮显示的文本         |
+| copiedText  | string            | Copied    | 复制成功后显示的文本       |
+| timeout     | number            | 2000      | 显示 copiedText 的时长 (ms) |
+| align       | 'left' / 'right'  | right     | 复制按钮对齐方式           |
 
 ## 事件
 

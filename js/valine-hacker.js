@@ -1,7 +1,5 @@
 // 是否默认折叠 Valine 评论
 const collapseList = false;
-// Valine 是否插在系统评论前面
-const insertBefore = false;
 // Valine 评论最大高度，例如：500px、50vh、auto
 const listMaxHeight = "auto";
 
@@ -56,15 +54,8 @@ class ValineHacker {
     }
     const comment = document.createElement('div');
     comment.id = 'valine';
-    comment.classList.add('comment');
     comment.style.maxHeight = listMaxHeight;
-    if (insertBefore) {
-      // 插在系统评论前面
-      comments.insertBefore(comment, comments.firstChild);
-    } else {
-      // 插在系统评论后面
-      comments.appendChild(comment);
-    }
+    comments.firstChild.appendChild(comment);
     new Valine({
       el: '#valine',
       appId: '7HwTRT0Q0Tfrat6ugrT6P67c-gzGzoHsz',

@@ -25,12 +25,10 @@
 
 ```toml
 [module]
-
-[[module.imports]]
-path = "github.com/hugo-fixit/FixIt"
-
-[[module.imports]]
-path = "github.com/hugo-fixit/shortcode-mmt-netease"
+  [[module.imports]]
+    path = "github.com/hugo-fixit/FixIt"
+  [[module.imports]]
+    path = "github.com/hugo-fixit/shortcode-mmt-netease"
 ```
 
 在第一次启动 Hugo 时，它将下载所需的文件。

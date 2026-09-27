@@ -1,0 +1,1 @@
+let tianliGPT_postSelector='#content';let tianliGPT_injectDom='.ai-summary';let tianliGPT_wordLimit=5000;let tianliGPT_key='P-HJ9FXI41JLU1WBK1';let tianliGPT_podcast=true;

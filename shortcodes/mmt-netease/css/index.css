@@ -1,0 +1,193 @@
+@layer mmt-netease {
+  .netease-music:not([data-fixed]) {
+    min-height: 90px;
+  }
+  .netease-music[data-mini] {
+    min-height: 66px;
+  }
+  .netease-music .aplayer-narrow {
+    margin: 0 auto;
+  }
+  .section-comment {
+    margin-top: 1rem;
+    position: relative;
+    min-height: 150px;
+  }
+  .comment-163 {
+    font-family: 'MMT', '沐目体';
+    position: relative;
+    border: 1px solid #f5f5f5;
+    padding: 0.75em;
+    border-radius: 0.75rem;
+    color: var(--color-comment, #272626);
+    cursor: pointer;
+  }
+  [data-theme='dark'] .comment-163 {
+    --color-comment: #f5f5f5;
+  }
+  .pic-backdrop {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-repeat: no-repeat;
+    filter: blur(10px);
+    background-size: cover;
+    background-position: center;
+    border-radius: 0.75rem;
+    z-index: -1;
+    opacity: 0.75;
+  }
+  .commentator {
+    display: flex;
+    align-items: center;
+  }
+  .comment-avatar {
+    width: 3.125em !important;
+    height: 3.125em !important;
+    border-radius: 50% !important;
+    border: 1px solid #f5f5f5 !important;
+    margin-right: 0.75em;
+    padding: 0.125em;
+  }
+  .comment-user {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    line-height: 1.2;
+  }
+  .comment-user .comment-nickname {
+    position: relative;
+    font-weight: 600;
+    font-size: 1.2rem;
+    text-decoration: none;
+    display: inline-block;
+  }
+  .comment-user .comment-nickname:not(:empty)::after {
+    content: '：';
+    margin-right: 0.25em;
+  }
+  .comment-user .comment-time {
+    font-size: 0.8rem;
+    mix-blend-mode: difference;
+  }
+
+  .comment-liked {
+    font-weight: 600;
+    font-size: 0.8rem;
+    margin-left: auto;
+    mix-blend-mode: difference;
+  }
+  .comment-liked:not(:empty)::after {
+    content: '👍';
+    margin-left: 0.25em;
+  }
+
+  .comment-content {
+    word-wrap: break-word;
+    word-break: break-all;
+    font-size: 1.5rem;
+    line-height: 2rem;
+    position: relative;
+    margin-left: 2.8em;
+  }
+  .music-info {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    font-size: 1.2rem;
+    margin-top: 0.75em;
+    text-shadow: 0 0 4px var(--color-text-shadow, rgba(0, 0, 0, .4));  
+  }
+  [data-theme='dark'] .music-info {
+    --color-text-shadow: rgba(255, 255, 255, .8);
+  }
+  .music-name:not(:empty)::before {
+    content: '《';
+  }
+  .artists-name:not(:empty)::after {
+    content: '》';
+  }
+  .music-name:not(:empty)::after {
+    content: '·';
+    margin-inline: 0.25rem;
+  }
+  .mmt-netease-powered {
+    display: block;
+    text-align: right;
+    font-family: 'MMT', '沐目体';
+    font-style: italic;
+    font-weight: 600;
+    color: var(--fi-secondary, #919191);
+    margin-block: 0.5rem;
+    text-shadow: var(--color-powered-shadow, #ebb8b8) 1px 2px 2px;
+  }
+  [data-theme='dark'] .mmt-netease-powered {
+    --color-powered-shadow: #000;
+  }
+
+  .d-none {
+    display: none !important;
+  }
+
+  /* Loading Indicator */
+  .loading-indicator-wrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 20px;
+
+    .aether-spinner {
+      display: flex;
+      justify-content: space-between;
+      width: var(--as-size, 16px);
+      height: var(--as-size, 16px);
+      text-align: center;
+      font-size: var(--as-font-size, 10px);
+
+      > div {
+        height: 100%;
+        width: 4px;
+        background-color: var(--as-content-color-tertiary, #a6a6a6);
+        opacity: 0.2;
+        border-radius: var(--as-border-radius-default, 4px);
+        animation: spinner-bounce 0.6s infinite ease-in-out;
+        transform-origin: center;
+      }
+      .rect-two {
+        animation-delay: 0.15s;
+      }
+      .rect-three {
+        animation-delay: 0.3s;
+      }
+    }
+  }
+
+  @keyframes spinner-bounce {
+    0%,
+    100% {
+      transform: scaleY(0.4);
+      opacity: 0.8;
+    }
+    50% {
+      transform: scaleY(1);
+      opacity: 1;
+    }
+  }
+
+  /* 兼容 prefers-color-scheme 切换的主题 */
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --color-comment: #f5f5f5;
+      --color-text-shadow: rgba(255, 255, 255, .8);
+      --color-powered-shadow: #000;
+    }
+    [data-theme='light'] {
+      --color-comment: #272626;
+      --color-text-shadow: rgba(0, 0, 0, .4);
+      --color-powered-shadow: #ebb8b8;
+    }
+  }
+}
