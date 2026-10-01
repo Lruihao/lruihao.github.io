@@ -2,7 +2,7 @@
 
 > Hugo FixIt 作者，喜欢瞎折腾、造轮子、写东西，分享一些前端开发中的所见、所闻、所思。
 
-共计 296 篇文章 by [Lruihao](https://github.com/Lruihao).
+共计 295 篇文章 by [Lruihao](https://github.com/Lruihao).
 
 ## 2026
 
@@ -127,7 +127,7 @@
 ## 2022
 
 <details>
-<summary>共计 20 篇文章</summary>
+<summary>共计 19 篇文章</summary>
 
 - 12-17 [2022 年度总结](https://lruihao.cn/years/2022/ "2022-12-17 01:01:30")
 - 12-15 [安装 Homebrew 后导致系统中原有的 npm 和 npx 失效](https://lruihao.cn/posts/homebrew-npm/ "2022-12-15 15:33:30")
@@ -145,7 +145,6 @@
 - 07-31 [自定义 ohmyzsh 主题](https://lruihao.cn/posts/ohmyzsh-custom/ "2022-07-31 13:54:14")
 - 07-30 [linux 文件权限](https://lruihao.cn/posts/linux-permission/ "2022-07-30 17:15:44")
 - 07-29 [Mac 上的开发配置总结](https://lruihao.cn/posts/config4mac/ "2022-07-29 20:22:44")
-- 07-23 [📄 The open-source repo for fixit.lruihao.cn](https://lruihao.cn/projects/hugo-fixit/docs/ "2022-07-23 12:17:06")
 - 07-05 [Mac 配置 ADB](https://lruihao.cn/posts/adb-for-mac/ "2022-07-05 15:39:34")
 - 05-01 [重新认识 JavaScript](https://lruihao.cn/posts/js-rediscover/ "2022-05-01 10:59:36")
 - 04-30 [关于 CSS 和 Scss 变量运算那些事](https://lruihao.cn/posts/css-scss-var/ "2022-04-30 22:04:29")

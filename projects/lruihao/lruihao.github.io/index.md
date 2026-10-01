@@ -4,7 +4,7 @@
 
 > Hugo FixIt 作者，喜欢瞎折腾、造轮子、写东西，分享一些前端开发中的所见、所闻、所思。
 
-共计 297 篇文章 by [Lruihao](https://github.com/Lruihao).
+共计 296 篇文章 by [Lruihao](https://github.com/Lruihao).
 
 ## 2026
 
@@ -157,7 +157,7 @@
 ## 2021
 
 <details>
-<summary>共计 19 篇文章</summary>
+<summary>共计 18 篇文章</summary>
 
 - 12-22 [Getting Things Done for ios App Reminders and Github issues](https://lruihao.cn/posts/gtd/ "2021-12-22 20:17:42")
 - 12-16 [🔧 A clean, elegant but advanced blog theme for Hugo 一个简洁、优雅且高效的 Hugo 主题](https://lruihao.cn/projects/hugo-fixit/fixit/ "2021-12-16 03:35:27")
@@ -168,7 +168,6 @@
 - 10-04 [Hugo 本地管理 Shell 腳本](https://lruihao.cn/posts/hugo-admin/ "2021-10-04 23:49:00")
 - 10-04 [Hugo 使用 GitHub Actions 部署到 GithHb Pages 和 腾讯云 cos 桶](https://lruihao.cn/posts/github-actions/ "2021-10-04 23:46:49")
 - 10-03 [个人博客从 Hexo 迁移至 Hugo](https://lruihao.cn/posts/hexo-to-hugo/ "2021-10-03 15:27:58")
-- 09-08 [Lruihao's Note](https://lruihao.cn/projects/lruihao/hugo-blog/ "2021-09-08 12:52:53")
 - 06-22 [less&sass&scss](https://lruihao.cn/posts/less-sass-scss/ "2021-06-22 16:39:47")
 - 06-21 [Lightbox](https://lruihao.cn/posts/lightbox/ "2021-06-21 16:18:04")
 - 06-21 [2020&2021 總結](https://lruihao.cn/years/2020-2021/ "2021-06-21 10:17:38")

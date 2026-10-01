@@ -28,7 +28,7 @@
 
 [![Build](https://img.shields.io/github/deployments/hugo-fixit/FixIt/Production?style=flat&label=Build&logo=vercel)](https://demo.fixit.lruihao.cn/)
 [![GitHub release (latest by date)](https://img.shields.io/github/v/release/hugo-fixit/FixIt?style=flat&label=Release&logo=github&include_prereleases)](https://github.com/hugo-fixit/FixIt/releases)
-[![Hugo](https://img.shields.io/badge/Hugo-%5E0.161.0-ff4088?style=flat&logo=hugo)](https://gohugo.io/)
+[![Hugo](https://img.shields.io/badge/Hugo-%5E0.166.0-ff4088?style=flat&logo=hugo)](https://gohugo.io/)
 [![License](https://img.shields.io/github/license/hugo-fixit/FixIt?style=flat&label=License)](https://raw.githubusercontent.com/hugo-fixit/FixIt/refs/heads/main/LICENSE)
 [![GitHub stars](https://img.shields.io/github/stars/hugo-fixit/FixIt?style=social)](https://github.com/hugo-fixit/FixIt)
 [![Gitee star of FixIt](https://gitee.com/lruihao/FixIt/badge/star.svg)](https://gitee.com/lruihao/FixIt/stargazers)
@@ -99,7 +99,6 @@ Click the following links to generate a new repository with template:
 - **[Umami Analytics](https://umami.is/)** supported
 - **[Plausible Analytics](https://plausible.io/)** supported
 - **[Cloudflare Web Analytics](https://www.cloudflare.com/web-analytics)** supported
-- **[Splitbee Analytics](https://splitbee.io)** supported
 - Search engine **verification** supported (Google, Bing, Yandex, Pinterest, Baidu, 360 and Sogou)
 - **CDN** for third-party libraries supported
 
@@ -107,6 +106,7 @@ Click the following links to generate a new repository with template:
 
 - **Responsive** layout
 - **Light/Dark** mode
+- **RTL (Right-to-Left)** layout supported
 - Globally consistent **design language**
 - **Pagination** supported
 - Easy-to-use and self-expanding **table of contents**
@@ -117,29 +117,29 @@ Click the following links to generate a new repository with template:
 
 - **Gravatar** supported by [Gravatar](https://gravatar.com)
 - Local **Avatar** supported
-- Up to **87** social links supported
-- Up to **28** share sites supported
+- Up to **86** social links supported
+- Up to **25** share sites supported
 - **Disqus** comment system supported by [Disqus](https://disqus.com)
 - **Gitalk** comment system supported by [Gitalk](https://github.com/gitalk/gitalk)
 - **Valine** comment system supported by [Valine](https://valine.js.org/)
 - **Waline** comment system supported by [Waline](https://waline.js.org/)
 - **Facebook comments** system supported by [Facebook](https://developers.facebook.com/docs/plugins/comments/)
 - **Telegram comments** system supported by [Telegram Comments](https://comments.app/)
-- **Commento** comment system supported by [Commento](https://commento.io/)
 - **Utterances** comment system supported by [Utterances](https://utteranc.es/)
 - **Artalk** comment system supported by [Artalk](https://artalk.js.org/)
 - **Twikoo** comment system supported by [Twikoo](https://twikoo.js.org/)
 - **giscus** comment system supported by [giscus](https://giscus.app/)
+- **Custom** comment system supported via template block override
 
 ### Extended Features
 
-- **AI Summary**, **AI Search** and **AI Chatbot** supported by [PostChat](https://ai.zhheo.com/console/login?InviteID=85041330)
 - **PWA (Progressive Web App)** supported
 - **Sub Menu** supported
 - **Content Encryption** supported (Pages, Partial)
 - **Friends** page embedded template
-- **Search** supported by [algolia](https://www.algolia.com/), [Fuse.js](https://fusejs.io/), [Pagefind](https://pagefind.app), CSE or [PostChat](https://ai.zhheo.com/console/login?InviteID=85041330)
-- **Custom Search Engine (CSE)** supported by [Google](https://programmablesearchengine.google.com/)
+- **Search** supported by [algolia](https://www.algolia.com/), [Fuse.js](https://fusejs.io/), [Pagefind](https://pagefind.app) or CSE
+- **Custom Search Engine (CSE)** supported by [Google](https://programmablesearchengine.google.com/) or [Bing](https://www.customsearch.ai/)
+- **AI Summary**, **AI Search** and **AI Chatbot** supported by [PostChat](https://ai.zhheo.com/console/login?InviteID=85041330)
 - **Twemoji** supported
 - Automatically **highlighting** code
 - **Copy code** to clipboard with one click
@@ -165,6 +165,9 @@ Click the following links to generate a new repository with template:
 - **Web Watermark** supported by [cell-watermark](https://github.com/Lruihao/watermark)
 - **Chinese typesetting** supported by [pangu.js](https://github.com/vinta/pangu.js)
 - Options to **cache remote image** locally
+- **Mobile nav-dialog** with tab switching for table of contents and collections
+- **Reading progress bar** supported
+- **Tooltip** supported by [cell-tooltip](https://github.com/Lruihao/cell-tooltip)
 - ...
 
 </details>
@@ -192,6 +195,9 @@ FixIt supports multilingual and i18n. For more information, see the [Content Man
 - Hindi
 - Japanese
 - Korean
+- Arabic
+- Persian
+- Urdu
 
 </details>
 
@@ -262,6 +268,10 @@ All feedback is welcome! Head over to the [discussions][discussions], [Pull requ
 [qq-group]: https://qm.qq.com/q/Mn1I7ljqsS
 [dev-group]: https://qm.qq.com/q/ky3uru0mbu
 
+## China Mirror
+
+A mirror is available on Gitee for users in mainland China: [gitee.com/lruihao/FixIt](https://gitee.com/lruihao/FixIt)
+
 ## Contributing
 
 We welcome you to join the development of FixIt. Please see [contributing document](https://raw.githubusercontent.com/hugo-fixit/FixIt/refs/heads/main/CONTRIBUTING.md). 🤗
@@ -316,6 +326,9 @@ Thanks to the [Hugo DoIt](https://github.com/HEIGE-PCloud/DoIt) theme and [Hexo 
 - [pace](https://github.com/CodeByZach/pace)
 - [`<tab-container>` element](https://github.com/github/tab-container-element)
 - [`<json-viewer>` element](https://github.com/Lruihao/json-viewer-element)
+- [Pagefind](https://pagefind.app)
+- [instant.page](https://instant.page)
+- [panzoom](https://github.com/timmywil/panzoom)
 
 </details>
 
