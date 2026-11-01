@@ -1,1 +1,1 @@
-window.ATConfig={"hugoLangCodes":["zh-CN"],"hugoLangMap":{"zh-CN":"/_authors/author-taxonomy-seed/"}};
+window.ATConfig={"hugoLangCodes":["zh-CN"],"hugoLangMap":{"zh-CN":"/authors/%E6%9D%A8%E7%81%BF/"}};
