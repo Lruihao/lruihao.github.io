@@ -1,1 +1,1 @@
-window.ATConfig={"hugoLangCodes":["zh-CN"],"hugoLangMap":{"zh-CN":"/projects/lruihao/vue-minder-editor-extended/"}};
+window.ATConfig={"hugoLangCodes":["zh-CN"],"hugoLangMap":{"zh-CN":"/projects/lruihao/watermark/"}};
